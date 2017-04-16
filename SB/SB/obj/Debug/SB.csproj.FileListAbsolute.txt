@@ -1,0 +1,12 @@
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\SB.exe.config
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\SB.exe
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\SB.pdb
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\EntityFramework.dll
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\EntityFramework.SqlServer.dll
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\Oracle.ManagedDataAccess.EntityFramework.dll
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\Oracle.ManagedDataAccess.dll
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\EntityFramework.xml
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\EntityFramework.SqlServer.xml
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\obj\Debug\SB.exe
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\obj\Debug\SB.pdb
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\obj\Debug\SB.csprojResolveAssemblyReference.cache

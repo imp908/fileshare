@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="COUNTRIES">
+    <Key>
+      <PropertyRef Name="COUNTRY_ID" />
+    </Key>
+    <Property Name="COUNTRY_ID" Type="char" MaxLength="2" Nullable="false" />
+    <Property Name="COUNTRY_NAME" Type="varchar2" MaxLength="40" />
+    <Property Name="REGION_ID" Type="number" Precision="38" Scale="0" />
+  </EntityType>
+  <EntityType Name="DEPARTMENTS">
+    <Key>
+      <PropertyRef Name="DEPARTMENT_ID" />
+    </Key>
+    <Property Name="DEPARTMENT_ID" Type="number" Precision="4" Scale="0" Nullable="false" />
+    <Property Name="DEPARTMENT_NAME" Type="varchar2" MaxLength="30" Nullable="false" />
+    <Property Name="MANAGER_ID" Type="number" Precision="6" Scale="0" />
+    <Property Name="LOCATION_ID" Type="number" Precision="4" Scale="0" />
+  </EntityType>
+  <EntityType Name="EMPLOYEES">
+    <Key>
+      <PropertyRef Name="EMPLOYEE_ID" />
+    </Key>
+    <Property Name="EMPLOYEE_ID" Type="number" Precision="6" Scale="0" Nullable="false" />
+    <Property Name="FIRST_NAME" Type="varchar2" MaxLength="20" />
+    <Property Name="LAST_NAME" Type="varchar2" MaxLength="25" Nullable="false" />
+    <Property Name="EMAIL" Type="varchar2" MaxLength="25" Nullable="false" />
+    <Property Name="PHONE_NUMBER" Type="varchar2" MaxLength="20" />
+    <Property Name="HIRE_DATE" Type="date" Nullable="false" />
+    <Property Name="JOB_ID" Type="varchar2" MaxLength="10" Nullable="false" />
+    <Property Name="SALARY" Type="number" Precision="8" Scale="2" />
+    <Property Name="COMMISSION_PCT" Type="number" Precision="2" Scale="2" />
+    <Property Name="MANAGER_ID" Type="number" Precision="6" Scale="0" />
+    <Property Name="DEPARTMENT_ID" Type="number" Precision="4" Scale="0" />
+  </EntityType>
+  <EntityType Name="JOB_HISTORY">
+    <Key>
+      <PropertyRef Name="EMPLOYEE_ID" />
+      <PropertyRef Name="START_DATE" />
+    </Key>
+    <Property Name="EMPLOYEE_ID" Type="number" Precision="6" Scale="0" Nullable="false" />
+    <Property Name="START_DATE" Type="date" Nullable="false" />
+    <Property Name="END_DATE" Type="date" Nullable="false" />
+    <Property Name="JOB_ID" Type="varchar2" MaxLength="10" Nullable="false" />
+    <Property Name="DEPARTMENT_ID" Type="number" Precision="4" Scale="0" />
+  </EntityType>
+  <EntityType Name="JOBS">
+    <Key>
+      <PropertyRef Name="JOB_ID" />
+    </Key>
+    <Property Name="JOB_ID" Type="varchar2" MaxLength="10" Nullable="false" />
+    <Property Name="JOB_TITLE" Type="varchar2" MaxLength="35" Nullable="false" />
+    <Property Name="MIN_SALARY" Type="number" Precision="6" Scale="0" />
+    <Property Name="MAX_SALARY" Type="number" Precision="6" Scale="0" />
+  </EntityType>
+  <EntityType Name="LOCATIONS">
+    <Key>
+      <PropertyRef Name="LOCATION_ID" />
+    </Key>
+    <Property Name="LOCATION_ID" Type="number" Precision="4" Scale="0" Nullable="false" />
+    <Property Name="STREET_ADDRESS" Type="varchar2" MaxLength="40" />
+    <Property Name="POSTAL_CODE" Type="varchar2" MaxLength="12" />
+    <Property Name="CITY" Type="varchar2" MaxLength="30" Nullable="false" />
+    <Property Name="STATE_PROVINCE" Type="varchar2" MaxLength="25" />
+    <Property Name="COUNTRY_ID" Type="char" MaxLength="2" />
+  </EntityType>
+  <EntityType Name="REGIONS">
+    <Key>
+      <PropertyRef Name="REGION_ID" />
+    </Key>
+    <Property Name="REGION_ID" Type="number" Precision="38" Scale="0" Nullable="false" />
+    <Property Name="REGION_NAME" Type="varchar2" MaxLength="25" />
+  </EntityType>
+  <Association Name="COUNTR_REG_FK">
+    <End Role="REGIONS" Type="Self.REGIONS" Multiplicity="0..1" />
+    <End Role="COUNTRIES" Type="Self.COUNTRIES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="REGIONS">
+        <PropertyRef Name="REGION_ID" />
+      </Principal>
+      <Dependent Role="COUNTRIES">
+        <PropertyRef Name="REGION_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DEPT_LOC_FK">
+    <End Role="LOCATIONS" Type="Self.LOCATIONS" Multiplicity="0..1" />
+    <End Role="DEPARTMENTS" Type="Self.DEPARTMENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LOCATIONS">
+        <PropertyRef Name="LOCATION_ID" />
+      </Principal>
+      <Dependent Role="DEPARTMENTS">
+        <PropertyRef Name="LOCATION_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="DEPT_MGR_FK">
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="0..1" />
+    <End Role="DEPARTMENTS" Type="Self.DEPARTMENTS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEES">
+        <PropertyRef Name="EMPLOYEE_ID" />
+      </Principal>
+      <Dependent Role="DEPARTMENTS">
+        <PropertyRef Name="MANAGER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EMP_DEPT_FK">
+    <End Role="DEPARTMENTS" Type="Self.DEPARTMENTS" Multiplicity="0..1" />
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DEPARTMENTS">
+        <PropertyRef Name="DEPARTMENT_ID" />
+      </Principal>
+      <Dependent Role="EMPLOYEES">
+        <PropertyRef Name="DEPARTMENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EMP_JOB_FK">
+    <End Role="JOBS" Type="Self.JOBS" Multiplicity="1" />
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JOBS">
+        <PropertyRef Name="JOB_ID" />
+      </Principal>
+      <Dependent Role="EMPLOYEES">
+        <PropertyRef Name="JOB_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="EMP_MANAGER_FK">
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="0..1" />
+    <End Role="EMPLOYEES1" Type="Self.EMPLOYEES" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEES">
+        <PropertyRef Name="EMPLOYEE_ID" />
+      </Principal>
+      <Dependent Role="EMPLOYEES1">
+        <PropertyRef Name="MANAGER_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JHIST_DEPT_FK">
+    <End Role="DEPARTMENTS" Type="Self.DEPARTMENTS" Multiplicity="0..1" />
+    <End Role="JOB_HISTORY" Type="Self.JOB_HISTORY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DEPARTMENTS">
+        <PropertyRef Name="DEPARTMENT_ID" />
+      </Principal>
+      <Dependent Role="JOB_HISTORY">
+        <PropertyRef Name="DEPARTMENT_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JHIST_EMP_FK">
+    <End Role="EMPLOYEES" Type="Self.EMPLOYEES" Multiplicity="1" />
+    <End Role="JOB_HISTORY" Type="Self.JOB_HISTORY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EMPLOYEES">
+        <PropertyRef Name="EMPLOYEE_ID" />
+      </Principal>
+      <Dependent Role="JOB_HISTORY">
+        <PropertyRef Name="EMPLOYEE_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="JHIST_JOB_FK">
+    <End Role="JOBS" Type="Self.JOBS" Multiplicity="1" />
+    <End Role="JOB_HISTORY" Type="Self.JOB_HISTORY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="JOBS">
+        <PropertyRef Name="JOB_ID" />
+      </Principal>
+      <Dependent Role="JOB_HISTORY">
+        <PropertyRef Name="JOB_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="LOC_C_ID_FK">
+    <End Role="COUNTRIES" Type="Self.COUNTRIES" Multiplicity="0..1" />
+    <End Role="LOCATIONS" Type="Self.LOCATIONS" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="COUNTRIES">
+        <PropertyRef Name="COUNTRY_ID" />
+      </Principal>
+      <Dependent Role="LOCATIONS">
+        <PropertyRef Name="COUNTRY_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="COUNTRIES" EntityType="Self.COUNTRIES" Schema="HR" store:Type="Tables" />
+    <EntitySet Name="DEPARTMENTS" EntityType="Self.DEPARTMENTS" Schema="HR" store:Type="Tables" />
+    <EntitySet Name="EMPLOYEES" EntityType="Self.EMPLOYEES" Schema="HR" store:Type="Tables" />
+    <EntitySet Name="JOB_HISTORY" EntityType="Self.JOB_HISTORY" Schema="HR" store:Type="Tables" />
+    <EntitySet Name="JOBS" EntityType="Self.JOBS" Schema="HR" store:Type="Tables" />
+    <EntitySet Name="LOCATIONS" EntityType="Self.LOCATIONS" Schema="HR" store:Type="Tables" />
+    <EntitySet Name="REGIONS" EntityType="Self.REGIONS" Schema="HR" store:Type="Tables" />
+    <AssociationSet Name="COUNTR_REG_FK" Association="Self.COUNTR_REG_FK">
+      <End Role="REGIONS" EntitySet="REGIONS" />
+      <End Role="COUNTRIES" EntitySet="COUNTRIES" />
+    </AssociationSet>
+    <AssociationSet Name="DEPT_LOC_FK" Association="Self.DEPT_LOC_FK">
+      <End Role="LOCATIONS" EntitySet="LOCATIONS" />
+      <End Role="DEPARTMENTS" EntitySet="DEPARTMENTS" />
+    </AssociationSet>
+    <AssociationSet Name="DEPT_MGR_FK" Association="Self.DEPT_MGR_FK">
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+      <End Role="DEPARTMENTS" EntitySet="DEPARTMENTS" />
+    </AssociationSet>
+    <AssociationSet Name="EMP_DEPT_FK" Association="Self.EMP_DEPT_FK">
+      <End Role="DEPARTMENTS" EntitySet="DEPARTMENTS" />
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+    </AssociationSet>
+    <AssociationSet Name="EMP_JOB_FK" Association="Self.EMP_JOB_FK">
+      <End Role="JOBS" EntitySet="JOBS" />
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+    </AssociationSet>
+    <AssociationSet Name="EMP_MANAGER_FK" Association="Self.EMP_MANAGER_FK">
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+      <End Role="EMPLOYEES1" EntitySet="EMPLOYEES" />
+    </AssociationSet>
+    <AssociationSet Name="JHIST_DEPT_FK" Association="Self.JHIST_DEPT_FK">
+      <End Role="DEPARTMENTS" EntitySet="DEPARTMENTS" />
+      <End Role="JOB_HISTORY" EntitySet="JOB_HISTORY" />
+    </AssociationSet>
+    <AssociationSet Name="JHIST_EMP_FK" Association="Self.JHIST_EMP_FK">
+      <End Role="EMPLOYEES" EntitySet="EMPLOYEES" />
+      <End Role="JOB_HISTORY" EntitySet="JOB_HISTORY" />
+    </AssociationSet>
+    <AssociationSet Name="JHIST_JOB_FK" Association="Self.JHIST_JOB_FK">
+      <End Role="JOBS" EntitySet="JOBS" />
+      <End Role="JOB_HISTORY" EntitySet="JOB_HISTORY" />
+    </AssociationSet>
+    <AssociationSet Name="LOC_C_ID_FK" Association="Self.LOC_C_ID_FK">
+      <End Role="COUNTRIES" EntitySet="COUNTRIES" />
+      <End Role="LOCATIONS" EntitySet="LOCATIONS" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

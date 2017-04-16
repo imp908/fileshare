@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="55ed7542b80846f986aa7dc67d1375d9" Name="Diagram1">
+        <EntityTypeShape EntityType="HR_copyModel.C__MigrationHistory" Width="1.5" PointX="5.25" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HR_copyModel.COUNTRIES" Width="1.5" PointX="0.75" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HR_copyModel.DEPARTMENTS" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HR_copyModel.EMPLOYEES" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HR_copyModel.JOB_HISTORY" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HR_copyModel.JOBS" Width="1.5" PointX="0.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="HR_copyModel.LOCATIONS" Width="1.5" PointX="3" PointY="7.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="HR_copyModel.REGIONS" Width="1.5" PointX="0.75" PointY="10.875" IsExpanded="true" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_COUNTRIES_dbo_REGIONS_REGION_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_LOCATIONS_dbo_COUNTRIES_COUNTRY_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_DEPARTMENTS_dbo_EMPLOYEES_EMPLOYEES_EMPLOYEE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_DEPARTMENTS_dbo_EMPLOYEES_EMPLOYEES_EMPLOYEE_ID1" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_DEPARTMENTS_dbo_LOCATIONS_LOCATION_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_EMPLOYEES_dbo_DEPARTMENTS_DEPARTMENTS_DEPARTMENT_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_EMPLOYEES_dbo_DEPARTMENTS_DEPARTMENTS1_DEPARTMENT_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_JOB_HISTORY_dbo_DEPARTMENTS_DEPARTMENT_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_EMPLOYEES_dbo_EMPLOYEES_EMPLOYEES2_EMPLOYEE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_EMPLOYEES_dbo_JOBS_JOB_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_JOB_HISTORY_dbo_EMPLOYEES_EMPLOYEES_EMPLOYEE_ID" ManuallyRouted="false" />
+        <AssociationConnector Association="HR_copyModel.FK_dbo_JOB_HISTORY_dbo_JOBS_JOB_ID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
