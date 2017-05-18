@@ -88,10 +88,20 @@ namespace SB
             //Reflections
             //Reflections_.Check();
 
-            PoliParseCheck pp = new PoliParseCheck();
-            pp.Check();
+            //StreamCheck sr = new StreamCheck();
+            //sr.Check();
+
+            //PoliParseCheck pp = new PoliParseCheck();
+            //pp.Check();
+
+            StreamTesting.Check();
+
+            PoliParse.Check();
+
+            //StreamCheck sr = new StreamCheck();
+            //sr.Check();
         }
-  
+
     }
 
 

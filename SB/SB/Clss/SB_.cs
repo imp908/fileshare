@@ -8,8 +8,13 @@ using System.Threading;
 using System.Reflection;
 using System.Diagnostics;
 
+using System.IO;
+
+using Newtonsoft.Json;
+
 namespace SB_
 {
+
     public static class DW
     {
         public static void cout(string str_)
@@ -18,6 +23,99 @@ namespace SB_
         }
     }
 
+
+    #region Overriding
+    //sample override
+    public static class OverridingCheck
+    {
+        public static void Check()
+        {
+            //BaseCheck()
+            CarCheck();
+        }
+
+        internal static void BaseCheck()
+        {
+            BaseClass bc = new BaseClass();
+            DereivedClass dc = new DereivedClass();
+            BaseClass bcdc = new DereivedClass();
+
+            bc.Method1();
+            bc.Method2();
+            dc.Method1();
+            dc.Method2();
+            bcdc.Method1();
+            bcdc.Method2();
+        }
+
+        internal static void CarCheck()
+        {
+            Car car = new Car();
+            Car convcar = new ConvCar();
+            Car extcar = new ExtCar();
+
+            car.Info();
+            convcar.Info();
+            extcar.Info();
+
+            ConvCar vc = new ConvCar();
+            ExtCar ec = new ExtCar();
+            vc.Info();
+            ec.Info();
+        }
+    }
+
+    public class BaseClass
+    {
+        public virtual void Method1()
+        {
+            System.Diagnostics.Trace.WriteLine(@"Base Method 1");
+        }
+        public virtual void Method2()
+        {
+            System.Diagnostics.Trace.WriteLine(@"Base Method 2");
+        }
+    }
+    public class DereivedClass : BaseClass
+    {
+        public override void Method1()
+        {
+            System.Diagnostics.Trace.WriteLine(@"Dereived Method 1");
+        }
+        public new void Method2()
+        {
+            System.Diagnostics.Trace.WriteLine(@"Dereived Method 2");
+        }
+    }
+
+
+    public class Car
+    {
+        public void Info()
+        {
+            System.Diagnostics.Trace.WriteLine(@"Car info:");
+            Details();
+        }
+        public virtual void Details()
+        {
+            System.Diagnostics.Trace.WriteLine(@"Standart car:");
+        }
+    }
+    public class ConvCar : Car
+    {
+        public new void Details()
+        {
+            System.Diagnostics.Trace.WriteLine(@"Conv car:");
+        }
+    }
+    public class ExtCar : Car
+    {
+        public override void Details()
+        {
+            System.Diagnostics.Trace.WriteLine(@"Ext car:");
+        }
+    }
+    #endregion
 
     #region genericMethod
 
@@ -176,6 +274,60 @@ namespace SB_
         }
     }
 
+    #endregion
+
+    #region Interfaces
+    //Explicit Initialization
+    interface IPrintInt
+    {
+        void Print(int i);
+    }
+    interface IPrintDouble
+    {
+        void Print(Double i);
+    }
+
+    public class PrintIntDouble : IPrintInt, IPrintDouble
+    {
+        void IPrintInt.Print(int i) { Console.WriteLine(i); }
+        void IPrintDouble.Print(double i) { Console.WriteLine(i); }
+    }
+    static class ExplicitInterfacesCheck
+    {
+        public static void Check()
+        {
+            IPrintDouble pri = (IPrintDouble)new PrintIntDouble();
+            IPrintInt prd = (IPrintInt)new PrintIntDouble();
+
+            pri.Print(0.321);
+            prd.Print(123);
+        }
+    }
+
+    //Indexer
+    interface IIndexer_
+    {
+        int this[int index] { get; set; }
+    }
+    class Indexer_ : IIndexer_
+    {
+        int[] arr = new int[100];
+
+        public int this[int index]
+        {
+            get { return arr[index]; }
+            set { this.arr[index] = value; }
+        }
+    }
+    public static class IndexerInterfaceCheck
+    {
+        public static void Check()
+        {
+            Indexer_ ind = new Indexer_();
+            ind[0] = 1;
+            Console.WriteLine(ind[0]);
+        }
+    }
     #endregion
 
     #region delegates
@@ -412,6 +564,62 @@ namespace SB_
         }
 
     }
+    #endregion
+
+    #region Event
+    public class CreateEvent : EventArgs
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+    }
+    public class Emitter
+    {
+        int ID { get; set; }
+        string Name { get; set; }
+
+        public event EventHandler<CreateEvent> _handler;
+        public Emitter()
+        {
+
+        }
+        public void Add(int id_, string name_)
+        {
+            CreateEvent event_ = new CreateEvent();
+            this.ID = id_;
+            this.Name = name_;
+            event_.ID = id_;
+            event_.Name = Name;
+            OnCreateEvent(event_);
+        }
+
+        protected virtual void OnCreateEvent(CreateEvent e)
+        {
+            EventHandler<CreateEvent> handler_ = _handler;
+            if (handler_ != null)
+            {
+                handler_(this, e);
+            }
+        }
+
+    }
+    public class Receiver
+    {
+        public void ReceiveEvent(object sender, CreateEvent e)
+        {
+            Console.WriteLine(@"Event raised for sender: " + sender + @"; e: " + e.ID + @" " + e.Name);
+        }
+    }
+    public static class EventsCheck_2
+    {
+        public static void Check()
+        {
+            Receiver rc = new Receiver();
+            Emitter em = new Emitter();
+            em._handler += rc.ReceiveEvent;
+            em.Add(1, @"Added");
+        }
+    }
+
     #endregion
 
     #region bubblesort
@@ -1303,8 +1511,85 @@ namespace SB_
     }
     #endregion
 
+    #region IoC
+
+    //Factory Method
+    public interface IStringGiver
+    {
+        string Name { get; }
+    }
+
+    public class NameHaver : IStringGiver
+    {
+        public string Name { get; set; }
+        public NameHaver(string Name_)
+        {
+            Name = Name_;
+        }
+    }
+    public class NameContainer
+    {
+        public IStringGiver IntContVar;
+
+        public NameContainer()
+        {
+            InterfaceInit();
+        }
+        protected virtual void InterfaceInit()
+        {
+            IntContVar = IinterfaceForIocCreate();
+        }
+        protected virtual IStringGiver IinterfaceForIocCreate()
+        {
+            string Name_ = @"1";
+            IStringGiver _result = new NameHaver(Name_);
+            return _result;
+        }
+    }
+    public class SernameContainer : NameContainer
+    {
+        new public IStringGiver IntContVar;
+
+        public SernameContainer()
+        {
+            InterfaceInit();
+        }
+        protected override void InterfaceInit()
+        {
+            this.IntContVar = IinterfaceForIocCreate();
+        }
+        protected override IStringGiver IinterfaceForIocCreate()
+        {
+            string Name_ = @"2";
+            IStringGiver _result = new NameHaver(Name_);
+            return _result;
+        }
+    }
+
+    public class DIcheck
+    {
+        public DIcheck()
+        {
+            NameContainer nc = new NameContainer();
+            SernameContainer snc = new SernameContainer();
+            Console.WriteLine(@"Name Container value :" + nc.IntContVar.Name
+            + @"; SernameContainer value = :" + snc.IntContVar.Name);
+            System.Diagnostics.Trace.WriteLine(@"Name Container value :" + nc.IntContVar.Name
+            + @"; SernameContainer value = :" + snc.IntContVar.Name);
+        }
+    }
+    public static class IoC_check
+    {
+        public static void Check()
+        {
+            DIcheck di = new DIcheck();
+        }
+    }
+
+    #endregion
+
     #region PoliParse
-  
+
     public class PoliParseCheck
     {
         SignDictionary SignDictionary = new SignDictionary();
@@ -1672,11 +1957,1024 @@ namespace SB_
             return _result;
         }
     }
+    
+    #endregion
+  
+    #region PoliParseType
+    
+    public static class PoliParse
+    {
+        public static void Check()
+        {
+
+            Container container_ = new Container();
+
+            //container_.items.Where(s=>s.)
+
+            try
+            {
+
+                StringBuilder sb = new StringBuilder();                             
+                List<ItemsStatus> ds = new List<ItemsStatus>();
+
+                container_.ParsedInit();
+                container_.StringToItemParse(@"0.123*345-1=3*b");
+                int _actual = (from s in container_.parsed select s).Count();
+
+                ds.Add(new ItemsStatus() { Equation = @"1+1", Items = 3 });
+                ds.Add(new ItemsStatus() { Equation = @"1+1=2", Items = 5 });
+
+                foreach (ItemsStatus ds_ in ds)
+                {
+                    container_.ParsedInit();
+                    container_.StringToItemParse(ds_.Equation);
+                    try
+                    {
+                        ds_.Compare(container_.parsed.Count());
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Trace.WriteLine(e.Message);
+                    }
+                }
+
+                var res = (from s in ds where s.Status == false select s).Any();
+
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+
+        }
+    }
+
+    /// <summary>
+    /// Interfaces for syntactic level primitives
+    /// IToken - char container, IItem - for digits, several chars, IExp - expression level from single token for variables and to several 
+    /// </summary>
+    public interface IToken_
+    {
+        char value_ { get; set; }
+    }
+    public interface IItem_
+    {
+        IToken_[] tokens_ { get; set; }
+        bool CheckValue(char[] arr_);
+        bool CheckValue(char arr_);
+    }
+    public interface IExp_
+    {
+        IItem_[] body { get; set; }
+    }
+
+    /// <summary>
+    /// Interfaces for operations, equation and brakets signs
+    /// need to be initialized with IItem of IToken chars collection
+    /// </summary>
+    public interface IOpeartion_ : IItem_
+    {
+
+    }
+    public interface ISign_ : IOpeartion_
+    {
+
+    }
+
+    /// <summary>
+    /// Interfaces for operands - digits and virables
+    /// Vriables is letter, single char only -->>!! change detection for words
+    /// </summary>
+    public interface IOperand_ : IItem_
+    {
+
+    }
+    public interface IDigit_ : IOperand_
+    {
+
+    }
+    public interface IVariable_ : IOperand_
+    {
+
+    }
+
+    /// <summary>
+    /// Interface for collection of left and right parts of Expressions with operations and priorities for operations
+    /// </summary>
+    public interface IPriority
+    {
+        int ID { get; set; }
+        IExp_ leftItem { get; set; }
+        IExp_ rightItem { get; set; }
+        IOperation operation { get; set; }
+
+        IExp_ result { get; set; }
+        int resultID { get; set; }
+
+        int priority { get; set; }
+    }
+
+    /// <summary>
+    /// Custom errors
+    /// </summary>
+    public class DoubleDotsException : System.Exception
+    {
+        public DoubleDotsException() : base()
+        {
+
+        }
+
+        public DoubleDotsException(string input_) : base(input_)
+        {
+
+        }
+
+    }
+    public class NotRecognizedTokenException : System.Exception
+    {
+        public NotRecognizedTokenException() : base()
+        {
+
+        }
+
+        public NotRecognizedTokenException(string input_) : base(input_)
+        {
+
+        }
+
+    }
+
+    /// <summary>
+    /// Classes implementing syntactic interfaces
+    /// </summary>
+    public class Token_ : IToken_
+    {
+        public char value_ { get; set; }
+    }
+    public class Item_ : IItem_
+    {
+        public Item_()
+        {
+
+        }
+        public Item_(char[] char_)
+        {
+            this.tokens_ = new Token_[char_.Count()];
+            for (int i = 0; i < char_.Count(); i++)
+            {
+                this.tokens_[i] = new Token_ { value_ = char_[i] };
+            }
+
+        }
+        public Item_(char char_)
+        {
+            this.tokens_ = new Token_[1];
+            this.tokens_[0] = new Token_ { value_ = char_ };
+        }
+        public IToken_[] tokens_ { get; set; }
+        public bool CheckValue(char[] arr_)
+        {
+            bool _result = false;
+            if (tokens_ != null)
+            {
+                if (tokens_.Count() == arr_.Count())
+                {
+                    _result = true;
+                    for (int i = 0; i < tokens_.Count(); i++)
+                    {
+                        if (tokens_[i].value_ != arr_[i])
+                        {
+                            _result = false;
+                        }
+                    }
+                }
+            }
+            return _result;
+        }
+        public bool CheckValue(char ch_)
+        {
+            char[] arr = new char[1] { ch_ };
+            return CheckValue(arr);
+        }
+    }
+    public class Exp_ : IExp_
+    {
+        public IItem_[] body { get; set; }
+    }
+
+    /// <summary>
+    /// Classes implementing interfaces for operations and signs
+    /// </summary>
+    public class Operation_ : Item_, IOpeartion_
+    {
+        public Operation_()
+        {
+
+        }
+        public Operation_(char[] char_) : base(char_)
+        {
+
+        }
+        public Operation_(char char_) : base(char_)
+        {
+
+        }
+    }
+    public class Sign_ : Item_, ISign_
+    {
+
+    }
+
+    /// <summary>
+    /// Classes implementing variable and digit interfaces
+    /// </summary>
+    public class Variable_ : Item_, IVariable_
+    {
+        public Variable_()
+        {
+
+        }
+        public Variable_(char[] char_) : base(char_)
+        {
+
+        }
+        public Variable_(char char_) : base(char_)
+        {
+
+        }
+    }
+    public class Digit_ : Item_, IDigit_
+    {
+        public Digit_()
+        {
+
+        }
+        public Digit_(char[] char_) : base(char_)
+        {
+
+        }
+        public Digit_(char char_) : base(char_)
+        {
+
+        }
+    }
+
+    /// <summary>
+    /// Priority class
+    /// </summary>
+    public class Priority : IPriority
+    {
+        public int ID { get; set; }
+        public IExp_ leftItem { get; set; }
+        public IExp_ rightItem { get; set; }
+        public IOperation operation { get; set; }
+
+        public IExp_ result { get; set; }
+        public int resultID { get; set; }
+
+        public int priority { get; set; }
+    }
+
+    /// <summary>
+    /// Class responsible for:
+    /// initializing operators primitives -->>!! separate
+    /// parsing equatation using Token and interfaces 
+    /// priority logic
+    /// </summary>
+    public class Container
+    {
+
+        /// <summary>
+        /// Main operation logic
+        /// 
+        /// (a+b+c)(a+c+e) -> foreach item in multiple division united sum with every item from another
+        /// 
+        /// Priority list:
+        /// 0 a b + 0  0
+        /// 1 0 c + 1  1
+        /// 2 1 4 + 2  4
+        /// 3 a c + 3  2
+        /// 4 3 e + 4  3        
+        /// 
+        /// Item operations:
+        /// ch +(-) ch(dg) -> 
+        /// if(ch!=ch ) { concat }
+        /// if(ch==ch) { ch * 2 } increase multiple +1
+        /// ch * ch -> 
+        /// if(ch==ch){ ch ^ 2 } increase exp +1
+        /// if(ch!=ch){ concat }
+        /// 
+        /// ch / ch ->
+        /// if(ch == ch){ 1 }
+        /// if(ch!=ch){ concat }
+        /// 
+        /// Expression operations:
+        /// 
+        /// dg + -> add to PL
+        /// dg * wait for next
+        /// dg * ch -> item with mult
+        /// x(dg *) ch -> item with mult * ch
+        /// dg * ch ^ ch -> item with mult and exp
+        /// ch * ch -> char mult char
+        /// ch ^ ch -> char exp char
+        /// nx^y*zx^w -> ch*ch^ch*ch*ch^ch -> Expr * Expr
+        /// if (ch == ch){ mult + mult; exp + exp }
+        /// if (ch != ch){ mult + mult; } -> (nz)*x^y*m^w
+        /// a*b*c*a -> a^2 * b *c -> ch1 * ch2 * ch3 *ch1 -> ch1 mult+1
+        /// (ch *) -> exp
+        /// (dg * ch ^ dg) -> item
+        /// 
+        /// </summary>
+
+        public List<IPriority> _priority = new List<IPriority>();
+        public List<IItem_> operations = new List<IItem_>();
+        public List<IItem_> items = new List<IItem_>();
+
+        public List<IItem_> parsed;
+
+        IItem_ SUMMATION;
+        IItem_ SUBSTRACTION;
+        IItem_ MULTIPLICATION;
+        IItem_ EXPONENTIATION;
+
+        IItem_ DIGIT;
+        IItem_ VARIABLE;
+
+        IItem_ EQUATION;
+
+        public Container()
+        {
+            OperationsInit();
+            ItemInit();
+            SignsInit();
+        }
+
+        protected void OperationsInit()
+        {
+            SUMMATION = new Operation_() { tokens_ = new Token_[] { new Token_() { value_ = '+' } } };
+            SUBSTRACTION = new Operation_() { tokens_ = new Token_[] { new Token_() { value_ = '-' } } };
+            MULTIPLICATION = new Operation_() { tokens_ = new Token_[] { new Token_() { value_ = '*' } } };
+            EXPONENTIATION = new Operation_() { tokens_ = new Token_[] { new Token_() { value_ = '^' } } };
+
+            operations.Add(SUMMATION);
+            operations.Add(SUBSTRACTION);
+            operations.Add(MULTIPLICATION);
+            operations.Add(EXPONENTIATION);
+        }
+        protected void ItemInit()
+        {
+            DIGIT = new Digit_();
+            VARIABLE = new Variable_();
+
+            items.Add(DIGIT);
+            items.Add(VARIABLE);
+        }
+        protected void SignsInit()
+        {
+            EQUATION = new Sign_() { tokens_ = new Token_[] { new Token_() { value_ = '=' } } };
+            items.Add(EQUATION);
+        }
+
+
+        
+        public void StringToItemParse(string input_)
+        {            
+            IItem_ actReadItem = null;
+
+            for (int i = 0; i < input_.Length; i++)
+            {
+                char ch_ = input_[i];
+
+                //operation met
+                if ((from s in operations where s.CheckValue(ch_) == true select s).Any())
+                {
+                    
+                    actReadItem = (from s in operations where s.CheckValue(ch_) == true select s).FirstOrDefault();
+                }
+                if ((from s in items where s.CheckValue(ch_) == true select s).Any())
+                {
+                    //signs met
+                    actReadItem = (from s in items where s.CheckValue(ch_) == true select s).FirstOrDefault();
+                }
+                //variable met
+                if (Char.IsLetter(ch_))
+                {                    
+                    actReadItem = new Variable_(ch_);
+                }
+                //double digit met
+                if (Char.IsDigit(ch_) || ch_ == '.')
+                {                  
+                    List<char> item_read = new List<char>();
+
+                    //digit met
+                    int i2 = i;
+                    while (i2 < input_.Length && (Char.IsDigit(input_[i2]) || input_[i2] == '.'))
+                    {
+                        if (input_[i2] == '.' && input_[i2 + 1] == '.') { throw new DoubleDotsException(); }
+                        ch_ = input_[i2];
+
+                        item_read.Add(ch_);
+                        i2 += 1;
+                    }
+                    i = i2 - 1;
+                    actReadItem = new Variable_(item_read.ToArray());
+                    item_read.Clear();
+                }
+
+
+                if (actReadItem == null)
+                {
+                    throw new NotRecognizedTokenException();
+                }
+             
+                parsed.Add(actReadItem);
+               
+            }
+
+        }
+
+        public void ItemsParse()
+        {
+        
+            IItem_ prevReadItem = null;
+            IItem_ actReadItem = null;
+
+            foreach (IItem_ item_ in parsed)
+            {
+                actReadItem = item_;
+
+                //decide Item Expression
+                if (prevReadItem == null)
+                {
+                    //first encounter or after bracket
+                    prevReadItem = actReadItem;
+                }
+                else
+                {
+                    //previous digit
+                    if (actReadItem.GetType() is IDigit_)
+                    {
+
+                    }
+                    //previous variable
+                    if (actReadItem.GetType() is IVariable_)
+                    {
+
+                    }
+                }
+              
+            }
+
+            IItem_[] arr = new IItem_[1] { actReadItem };
+            _priority.Add(new Priority() { leftItem = new Exp_() { body = arr } });
+        }
+
+        public void ParsedInit()
+        {
+            this.parsed = new List<IItem_>();
+        }
+    }
+
+
+    //Classes for test
+    public class DotsStatus
+    {
+        public string Equation { get; set; }
+        public bool Status { get; set; }
+    }
+    public class ItemsStatus : DotsStatus
+    {
+        public int Items { get; set; }
+        public void Compare(int a_)
+        {
+            if (a_ == Items)
+            {
+                Status = true;
+            }
+            else
+            {
+                Status = false;
+            }
+        }
+    }
+
+    #endregion
+
+    #region StreamReadWrite
+    /// <summary>
+    /// CopyPast class
+    /// Parses class to txt with JSON
+    /// Reads result JSON file to class and creates files from content
+    /// Detects minimal single directory and recreates folder structure in new folder
+    /// </summary>
+    public class StreamCheck
+    {
+        public void Check()
+        {
+            //ReadFilesCheck();
+            ReadCheck();
+        }
+
+        public void ReadFilesCheck()
+        {
+            StreamIO sio3 = new StreamIO();
+            string pathResult_ = @"C:\FILES\SHARE\debug\moove\new\result.txt";
+            string pathFolders_ = @"C:\FILES\SHARE\debug\moove\1";
+
+            sio3.pathResult_ = pathResult_;
+            sio3.pathFolders_ = pathFolders_;
+
+            sio3.DeleteFileChecked(sio3.pathResult_);
+            sio3.PathsToLIstAddRecursive(sio3.pathFolders_, 0);
+
+            foreach (string str_ in sio3.fileList)
+            {
+                PathDict pd = new PathDict();
+                sio3.DictionaryInit(pd);
+                sio3.FileToDcitionary(str_);
+                sio3.DictionaryListAdd();
+            }
+
+            //File.WriteAllText(sio3.pathResult_, JsonConvert.SerializeObject(sio3.pathDictList, Formatting.Indented));
+            sio3.AddBytesToFile(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(sio3.pathDictList, Formatting.Indented)), sio3.pathResult_);
+
+        }
+        public void ReadCheck()
+        {
+            StreamIO sio3 = new StreamIO();
+            //string pathResult_ = @"C:\FILES\SHARE\debug\moove\new\result.txt";
+            string pathResult_ = @"C:\111\moove\result.txt";
+
+            sio3.pathResult_ = pathResult_;
+
+            List<PathDict> pd = JsonConvert.DeserializeObject<List<PathDict>>(File.ReadAllText(sio3.pathResult_));
+
+            foreach (IPathDictSaearch pd_ in pd)
+            {
+                sio3.pathDictList.Add(pd_);
+            }
+
+            sio3.PathSimplify(sio3.PathRemoveFileName(sio3.pathResult_));
+
+            foreach (IPathDictSaearch pd_ in sio3.pathDictList)
+            {
+                sio3.CreateFoldersExplicitly(sio3.PathRemoveFileName(pd_.Path));
+                File.WriteAllText(pd_.Path, Encoding.UTF8.GetString(Encoding.UTF8.GetBytes((pd_.Text))));
+            }
+
+        }
+    }
+
+    public class StreamIO
+    {
+        internal IPathDictSaearch pathDict;
+        public List<IPathDictSaearch> pathDictList = new List<IPathDictSaearch>();
+        internal List<string> fileList = new List<string>();
+
+        public string pathResult_ = null;
+        public string pathFolders_ = null;
+
+        public string path = @"";
+
+        internal void DictionaryInit(IPathDictSaearch dict_)
+        {
+            this.pathDict = dict_;
+        }
+        internal void DictionaryListAdd()
+        {
+            this.pathDictList.Add(pathDict);
+        }
+        private void DictionaryVal(string path_ = null, string text_ = null)
+        {
+            if (path_ != null)
+            {
+                pathDict.Path = path_;
+            }
+            if (text_ != null)
+            {
+                pathDict.Text = text_;
+            }
+        }
+
+        internal void DeleteFileChecked(string input_)
+        {
+            if (File.Exists(input_))
+            {
+                File.Delete(input_);
+            }
+        }
+        internal byte[] FileToBytesChecked(string input_)
+        {
+            if (input_ == null)
+            {
+                throw new NullReferenceException();
+            }
+            if (input_.Length == 0)
+            {
+                throw new InvalidOperationException(@"Empty file");
+            }
+            if (!File.Exists(input_))
+            {
+                throw new FileNotFoundException();
+            }
+
+            //FileInfo fi = new FileInfo(input_);
+            //BinaryReader br = new BinaryReader(fi.OpenRead(),Encoding.UTF8);
+            //byte[] _result = new byte[br.BaseStream.Length];
+            //br.Read(_result, 0, _result.Length);
+
+            FileStream fs = File.OpenRead(input_);
+            byte[] _result = new byte[fs.Length];
+            fs.Read(_result, 0, _result.Length);
+
+            return _result;
+        }
+        internal void AddBytesToFile(byte[] input_, string output_)
+        {
+            if (!File.Exists(output_))
+            {
+                using (FileStream fs = new FileStream(output_, FileMode.Create))    //Path.GetExtension(input_)))
+                {
+
+                    fs.Seek(0, SeekOrigin.End);
+                    fs.Write(input_, 0, input_.Length);
+                }
+            }
+            else
+            {
+                using (FileStream fs = new FileStream(output_, FileMode.Append))    //Path.GetExtension(input_)))
+                {
+                    fs.Seek(0, SeekOrigin.End);
+                    fs.Write(input_, 0, input_.Length);
+                }
+            }
+
+        }
+
+        internal void PathSimplify(string NewPath_)
+        {
+            if (pathDictList.Count != 0)
+            {
+
+                while (pathDictList.Where(s => !s.Searched).Any())
+                {
+                    string oldMInimal = null;
+
+                    if (pathDictList.Count != 1)
+                    {
+                        for (int i = 0; i < pathDictList.Count; i++)
+                        {
+                            for (int i2 = i; i2 < pathDictList.Count; i2++)
+                            {
+                                if (i2 != i && !pathDictList[i2].Searched)
+                                {
+                                    string newMinimal = CompareMinimal(PathRemoveFileName(pathDictList[i].Path), PathRemoveFileName(pathDictList[i2].Path));
+                                    if (oldMInimal == null || oldMInimal.Length > newMinimal.Length)
+                                    {
+                                        oldMInimal = newMinimal;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        oldMInimal = PathRemoveFileName(pathDictList[0].Path);
+                    }
+
+                    if (oldMInimal != null)
+                    {
+                        PathReplace(oldMInimal, NewPath_);
+                        FilePathDictionaryPrint();
+                    }
+                }
+
+            }
+
+            //search shortest path
+
+            //remember
+            //remember lowest level
+            //mark as searched
+
+            //remove path from all others
+
+            //repeat for all
+        }
+        private string CompareMinimal(string a_, string b_)
+        {
+            string _minimalString = null;
+
+            string[] arr_a = a_.Split('\\');
+            string[] arr_b = b_.Split('\\');
+
+            if (arr_a.Length < arr_b.Length)
+            {
+                for (int i = 0; i < arr_a.Length; i++)
+                {
+                    if (arr_b[i] != arr_a[i]) { break; }
+
+                    if (_minimalString == null)
+                    {
+                        _minimalString += arr_a[i];
+                    }
+                    else
+                    {
+                        _minimalString += @"\" + arr_a[i];
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < arr_a.Length; i++)
+                {
+                    if (arr_b[i] != arr_a[i]) { break; }
+
+                    if (_minimalString == null)
+                    {
+                        _minimalString += arr_b[i];
+                    }
+                    else
+                    {
+                        _minimalString += @"\" + arr_b[i];
+                    }
+                }
+            }
+
+            return _minimalString;
+        }
+        internal string PathRemoveFileName(string input_)
+        {
+            string _result = null;
+            if (Path.GetExtension(input_) != "")
+            {
+                _result = Path.GetDirectoryName(input_);
+            }
+            else
+            {
+                _result = input_;
+            }
+            return _result;
+        }
+        private void PathReplace(string old_, string new_)
+        {
+            foreach (IPathDictSaearch pd in pathDictList)
+            {
+                if (pd.Path.Contains(old_))
+                {
+                    pd.Path = pd.Path.Replace(old_, new_);
+                    pd.Searched = true;
+                }
+            }
+        }
+
+        internal void CreateFoldersExplicitly(string _input)
+        {
+            string[] arr = _input.Split('\\');
+            StringBuilder sb = new StringBuilder();
+
+            foreach (string str in arr)
+            {
+                if (sb.Length == 0)
+                {
+                    sb.Append(str);
+                }
+                else
+                {
+                    sb.Append(@"\" + str);
+                }
+
+                if (!Directory.Exists(sb.ToString()))
+                {
+                    try
+                    {
+                        Directory.CreateDirectory(sb.ToString());
+                    }
+                    catch (Exception e)
+                    {
+                        System.Diagnostics.Trace.WriteLine(e.Message);
+                    }
+                }
+            }
+        }
+
+        internal void PathsToLIstAddRecursive(string input_, int level_)
+        {
+            level_ += 1;
+
+            string[] directories = Directory.GetDirectories(input_);
+            string[] files = Directory.GetFiles(input_);
+            if (files.Length != 0)
+            {
+                foreach (string str_ in files)
+                {
+                    fileList.Add(str_);
+                }
+            }
+
+            if (directories.Length != 0)
+            {
+                foreach (string str_ in directories)
+                {
+                    PathsToLIstAddRecursive(str_, level_);
+                }
+            }
+
+            level_ -= 1;
+        }
+
+        private void FilePathDictionaryPrint()
+        {
+            System.Diagnostics.Trace.WriteLine(@"---------------------------");
+            foreach (IPathDictSaearch pd in pathDictList)
+            {
+                System.Diagnostics.Trace.WriteLine(pd.Searched + @" " + pd.Path);
+            }
+        }
+
+        internal void FileToDcitionary(string str)
+        {
+            pathDict.Path = str;
+            pathDict.Text = Encoding.UTF8.GetString(FileToBytesChecked(str));
+        }
+    }
+
+    public class PathDict : IPathDict, IPathDictSaearch
+    {
+        public void Init(string path_ = null, string text_ = null)
+        {
+            if (path_ != null)
+            {
+                this.Path = path_;
+            }
+            if (text_ != null)
+            {
+                this.Text = text_;
+            }
+        }
+        public string Path { get; set; }
+        public string Text { get; set; }
+        public bool Searched { get; set; }
+    }
+    public interface IPathDict
+    {
+        void Init(string path_ = null, string text_ = null);
+        string Path { get; set; }
+        string Text { get; set; }
+    }
+    public interface IPathDictSaearch : IPathDict
+    {
+        bool Searched { get; set; }
+    }
+    #endregion
+
+    #region StreamsTesting
+
+    public static class StreamTesting
+    {
+        static string FilePathIn { get; set; }
+        static string DirectoryIn { get; set; }
+        static string FilePathOut { get; set; }
+        static string FileNameOut { get; set; }
+        static string DirectoryOut { get; set; }
+        static FileStream fs { get; set; }
+        static FileStream fsOut { get; set; }
+        static byte[] arr { get; set; }
+        static int length { get; set; }
+        static int pos { get; set; }
+
+        static StreamReader sr;
+        static int cnt;
+        static int b = 0;
+        static string a = null;
+        static string Newpath = null;
+
+        static List<PathText> pathTextList = new List<PathText>();
+        public static void Check()
+        {
+            DirectoryIn = @"C:\111\moove\";
+            DirectoryOut = @"C:\111\moove\output";
+            FilePathIn = @"C:\111\moove\result.txt";
+            FileNameOut = @"out.txt";
+            FilePathOut = Path.Combine(DirectoryOut, FileNameOut);
+            Serialize_();
+            Deserialize_();
+        }
+        public static void StreamWrite()
+        {
+            arr = new byte[length];
+            fs.Read(arr, 0, length);           
+            fsOut.Write(arr, 0, length);            
+
+        }
+        public static void ArrWrite(byte[] arr_)
+        {
+            fsOut.Write(arr_, 0, arr_.Length);
+        }
+        public static void WriteNewLine()
+        {
+            fsOut.WriteByte(13);
+        }
+        public static void Write_(byte[] arr_)
+        {
+            ArrWrite(arr);
+            WriteNewLine();
+        }
+
+
+        public static void Serialize_()
+        {            
+            fsOut = new FileStream(FilePathOut, FileMode.OpenOrCreate);
+            foreach (string filename in Directory.GetFiles(DirectoryIn))
+            {
+                FilePathIn = filename;
+                fs = new FileStream(FilePathIn, FileMode.Open);                
+                FileNameOut = Path.GetFileNameWithoutExtension(FilePathIn) + @"_copy" + Path.GetExtension(FilePathIn);
+                length = filename.Length;
+                
+                arr = Encoding.UTF8.GetBytes(length.ToString());
+                Write_(arr);
+
+                arr = Encoding.UTF8.GetBytes(filename);
+                Write_(arr);
+
+                length = (int)fs.Length;
+                arr = Encoding.UTF8.GetBytes(length.ToString());
+                Write_(arr);
+
+                StreamWrite();
+                WriteNewLine();
+
+                fs.Close();               
+            }
+            fsOut.Close();
+        }
+        public static void Deserialize_()
+        {
+            PathTextFill();
+            PathtextRead();
+
+        }
+
+        public static void PathTextFill()
+        {
+            fs = new FileStream(FilePathOut, FileMode.Open);
+            sr = new StreamReader(fs);
+
+            while (fs.Position + 1 < fs.Length)
+            {
+                string path = GetString();
+                string text = GetString();
+                pathTextList.Add(new PathText(Path.Combine(DirectoryOut ,Path.GetFileName(path)) , Encoding.UTF8.GetBytes(text)));
+            }
+        }
+        public static void PathtextRead()
+        {
+            
+            foreach(PathText pt_ in pathTextList)
+            {
+                FileStream fss = new FileStream(pt_.path, FileMode.OpenOrCreate);             
+                fss.Write(pt_.text, 0, pt_.text.Length);
+                fss.Close();
+            }
+        }
+        public static string GetString()
+        {
+            string _Newpath = null;
+            cnt = 0;
+            while (fs.ReadByte() != 13)
+            {
+                if (fs.Position >= fs.Length) break;
+                cnt += 1;
+            }
+            fs.Position -= cnt + 1;
+            arr = new byte[cnt];
+            fs.Read(arr, 0, cnt);
+            a = Encoding.UTF8.GetString(arr);
+            Int32.TryParse(a, out b);
+            arr = new byte[b];
+            fs.Position += 1;
+            fs.Read(arr, 0, b);
+            _Newpath = Encoding.UTF8.GetString(arr);
+            fs.Position += 1;
+
+            return _Newpath;
+        }
+    }
+
+    public class PathText
+    {
+        public string path { get; set; }
+        public byte[] text { get; set; }
+        public PathText(string path_, byte[] text_)
+        {
+            this.path = path_;
+            this.text = text_;
+        }
+    }
     #endregion
 
 }
-
-
 
 namespace SB_
 {

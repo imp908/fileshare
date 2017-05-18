@@ -31,3 +31,5 @@ I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\MVC_SB\bin\System.Web.Mv
 I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\MVC_SB\obj\Debug\MVC_SB.dll
 I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\MVC_SB\obj\Debug\MVC_SB.pdb
 I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\MVC_SB\obj\Debug\MVC_SB.csprojResolveAssemblyReference.cache
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\MVC_SB\bin\Newtonsoft.Json.dll
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\MVC_SB\bin\Newtonsoft.Json.xml

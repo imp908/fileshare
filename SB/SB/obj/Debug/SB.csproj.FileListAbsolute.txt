@@ -10,3 +10,5 @@ I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\EntityFrame
 I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\obj\Debug\SB.exe
 I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\obj\Debug\SB.pdb
 I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\obj\Debug\SB.csprojResolveAssemblyReference.cache
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\Newtonsoft.Json.dll
+I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\Newtonsoft.Json.xml
