@@ -1,0 +1,38 @@
+﻿@using Presentation_.Models
+@model rValues
+
+<h1>Acquiring Queries</h1>
+
+<section>
+    @using (Html.BeginForm("ExcelExport", "Repo", FormMethod.Get))
+    {
+        <div class="container">
+            <div class="row">
+                @Html.Label("Date from:");
+                @Html.TextBoxFor(s => s.parameters.dateFrom, new { @class = "datepicker", ID = "DateFrom", Name = "dateFrom_" })
+                Date to: @Html.TextBoxFor(s => s.parameters.dateTo, new { @class = "datepicker", ID = "DateTo", Name = "dateTo_" })
+            </div>
+            <div class="row">
+                @Html.DropDownListFor(s => s.tableNames, Model.tableNamesToSelect, new { @class = "selectpicker", ID = "entityselect", Name = "tableName_" })
+            </div>
+        </div>
+        <div class="row">
+            <button type="button" class="btn" id="merchantCheck">List check</button>
+            <input type="button" value="List Check input" onclick="location.href='@Url.Action("ListCheck", "Repo")'" />
+            List include: @Html.CheckBoxFor(s => s.parameters.merchantsFilter, new { ID = "listInclude", Name = "listInclude_" })
+            @Html.LabelForModel(Model.merchantFilterCount)
+            @Html.DisplayFor(s => s.merchantFilterCount)
+        </div>
+        
+        <button type="submit" class="btn btn-default" id="Export">Export</button>
+    }
+    
+    <div class="row">
+        @using (Html.BeginForm("ExcelImport", "Repo", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+            @Html.TextBox("files_", "", new { type = "file", multiple = "multiple" })
+            <input type="submit" value="Upload" />
+        }
+    </div>
+
+</section>
