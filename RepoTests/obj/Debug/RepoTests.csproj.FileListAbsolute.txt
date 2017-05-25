@@ -1,0 +1,12 @@
+C:\DEBUG\TransactionSite_\RepoTests\bin\Debug\RepoTests.dll
+C:\DEBUG\TransactionSite_\RepoTests\bin\Debug\RepoTests.pdb
+C:\DEBUG\TransactionSite_\RepoTests\bin\Debug\EntityFramework.dll
+C:\DEBUG\TransactionSite_\RepoTests\bin\Debug\EntityFramework.SqlServer.dll
+C:\DEBUG\TransactionSite_\RepoTests\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+C:\DEBUG\TransactionSite_\RepoTests\bin\Debug\Repo.exe
+C:\DEBUG\TransactionSite_\RepoTests\bin\Debug\Repo.pdb
+C:\DEBUG\TransactionSite_\RepoTests\bin\Debug\EntityFramework.xml
+C:\DEBUG\TransactionSite_\RepoTests\bin\Debug\EntityFramework.SqlServer.xml
+C:\DEBUG\TransactionSite_\RepoTests\obj\Debug\RepoTests.csprojResolveAssemblyReference.cache
+C:\DEBUG\TransactionSite_\RepoTests\obj\Debug\RepoTests.dll
+C:\DEBUG\TransactionSite_\RepoTests\obj\Debug\RepoTests.pdb
