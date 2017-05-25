@@ -1,0 +1,72 @@
+[{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "INDUSTRY_FILE",
+	"Mask": "((industry(.*)file)|(file(.*)industry))"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "RESPONSIBILITY_GROUP",
+	"Mask": "((responsibility(.*)group)|(group(.*)responsibility))"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "RESPONSIBILITY_MANAGER",
+	"Mask": "((responsibility(.*)manager)|(manager(.*)responsibility))"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "GROUP_NAME",
+	"Mask": "((group(.*)name)|(name(.*)group))"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "INDUSTRY",
+	"Mask": "\\b(INDUSTRY)\\b"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "INDUSTRY_SECONDARY",
+	"Mask": "((INDUSTRY(.*)lv.2)|(lv.2(.*)secondary))"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "SE_NAME",
+	"Mask": "((se(.*)name)|(name(.*)se))"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "PHYSICAL_ADDRESS",
+	"Mask": "((physical(.*)address)|(address(.*)physical))"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "CITY",
+	"Mask": "\\b(CITY)\\b"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "MERCHANT",
+	"Mask": "((se(.*)number)|(number(.*)se))"
+},
+{
+	"namesMaskList": [],
+	"Entity": "KEY_CLIENTS",
+	"Name": "LEGAL_ENTITY",
+	"Mask": "((legal(.*)entity)|(entity(.*)legal))"
+},
+{
+	"namesMaskList": [],
+	"Entity": "REFMERCHANTS",
+	"Name": "MERCHANT",
+	"Mask": "(((.*)MERCHANT(.*)))"
+}]
