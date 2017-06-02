@@ -12,14 +12,66 @@ using System.IO;
 
 using Newtonsoft.Json;
 
+using System.ServiceProcess;
+
+using System.ServiceModel;
+using System.ServiceModel.Activities;
+using System.ServiceModel.Description;
+
+using System.ComponentModel;
+using System.Configuration.Install;
+
+using System.Windows.Forms;
+
 namespace SB_
 {
 
-    public static class DW
+
+    public static class DriveRead
     {
-        public static void cout(string str_)
+        private static DriveInfo[] drives_;
+        private static DirectoryInfo[] directories_;
+        private static FileInfo[] fileInfo_;
+
+        public static void Disk()
+        {      
+            BindDrives();
+            ReadDrives(drives_);
+            ReadDirectories(directories_);
+        }
+
+        private static void BindDrives()
         {
-            System.Diagnostics.Debug.WriteLine(str_);
+            drives_ = DriveInfo.GetDrives();
+        }
+        private static void ReadDrives(DriveInfo[] drives_)
+        {
+            foreach (DriveInfo di in drives_)
+            {
+                DirectoryInfo rootDir_ = di.RootDirectory;
+                directories_ = rootDir_.GetDirectories();
+            }
+        }
+        private static void ReadDirectories(DirectoryInfo[] dirs_)
+        {
+            foreach(DirectoryInfo dirInf_ in dirs_)
+            {
+                if (dirInf_.GetDirectories().Count() != 0)
+                {
+                    ReadDirectories(dirInf_.GetDirectories());
+                }
+                else
+                {
+                    fileInfo_ = dirInf_.GetFiles();
+                }
+            }
+        }
+        private static void ReadFiles(FileInfo[] files_)
+        {
+            foreach(FileInfo fi_ in files_)
+            {
+
+            }
         }
     }
 
@@ -1588,8 +1640,133 @@ namespace SB_
 
     #endregion
 
+    #region WCF
+
+    public class WCF_
+    {
+
+        public WCF_()
+        {
+            Check();
+        }
+
+        public void Check()
+        {
+            try
+            {
+                //StoreLog.InterfaceBind(new LogParams());
+                //StoreLog.Log(@"TestService started");
+                TestService.Run(new TestService());
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+        }
+
+        public void WCFcheck()
+        {
+            //using (ServiceHost serviceHost = new ServiceHost();           
+            WorkflowService service = new WorkflowService();
+            Uri address = new Uri(@"http://localhost:8080/Sample");
+            ServiceHost host = new ServiceHost(typeof(WCFTarget), address);
+            //WorkflowServiceHost host = new WorkflowServiceHost(service, address);
+            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+
+            smb.HttpGetEnabled = true;
+            smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+            host.Description.Behaviors.Add(smb);
+            host.AddServiceEndpoint(typeof(IWCFService), new WSHttpBinding(), "");
+
+            try
+            {
+                host.Open();
+                System.Diagnostics.Trace.WriteLine(address);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                host.Close();
+            }
+        }
+    }
+    [ServiceContract]
+    public interface IWCFService
+    {
+        [OperationBehavior(Impersonation = ImpersonationOption.Required)]
+        string GetInfo(int i);
+    }
+    public class WCFTarget : IWCFService
+    {
+        public string GetInfo(int input_)
+        {
+            string result_ = null;
+            result_ = @"Value recieved " + input_ + @" ;";
+            return result_;
+        }
+    }
+    
+    #endregion
+
+    #region WindowsService
+
+    [RunInstaller(true)]
+    public class TestServiceInstaller : Installer
+    {
+        private ServiceProcessInstaller
+            processInstaller;
+        private ServiceInstaller
+           serviceInstaller;
+
+        public TestServiceInstaller()
+        {
+            processInstaller = new ServiceProcessInstaller();
+            serviceInstaller = new ServiceInstaller();
+
+            processInstaller.Account = ServiceAccount.LocalSystem;
+            serviceInstaller.StartType = ServiceStartMode.Manual;
+            serviceInstaller.ServiceName = "TestService";
+            Installers.Add(serviceInstaller);
+            Installers.Add(processInstaller);
+        }
+    }
+    public class TestService : ServiceBase
+    {
+        public TestService()
+        {
+            StoreLog.InterfaceBind(new LogParams());
+            StoreLog.Log(@"TestService initialized");
+            this.ServiceName = "TestService";
+            this.CanStop = true;
+            this.CanPauseAndContinue = false;
+            this.AutoLog = true;
+        }
+        protected override void OnStart(string[] args)
+        {
+            StoreLog.Log(@"TestService started");
+            MessageBox.Show("TestServiceStarted st", "TestServiceStarted", 
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information,
+            MessageBoxDefaultButton.Button1,
+            MessageBoxOptions.ServiceNotification);
+        }
+        protected override void OnStop()
+        {
+            StoreLog.Log(@"TestService stopped");
+            base.OnStop();
+        }
+    }
+    
+    #endregion
 
 
+
+    /// <summary>
+    /// Old polinom parsing
+    /// </summary>
     #region PoliParse
 
     public class PoliParseCheck
@@ -1962,6 +2139,9 @@ namespace SB_
     
     #endregion
   
+    /// <summary>
+    /// Polinom parsing project
+    /// </summary>
     #region PoliParseType
     
     public static class PoliParse
@@ -2408,7 +2588,7 @@ namespace SB_
                 }
                 //double digit met
                 if (Char.IsDigit(ch_) || ch_ == '.')
-                {                  
+                {
                     List<char> item_read = new List<char>();
 
                     //digit met
@@ -2528,6 +2708,9 @@ namespace SB_
 
     #endregion
 
+    /// <summary>
+    /// Files to txt parse
+    /// </summary>
     #region StreamReadWrite
     /// <summary>
     /// CopyPast class
@@ -2899,6 +3082,9 @@ namespace SB_
     }
     #endregion
 
+    /// <summary>
+    /// Reading parameters passed to application
+    /// </summary>
     #region ConsoleParameters
 
     public static class ConsoleParametersCheck
@@ -2962,9 +3148,13 @@ namespace SB_
 
     #endregion
 
+    /// <summary>
+    /// >>||| REWRITE
+    /// Gets files from folder parses them with Encoding to txt file with pathes and Encoding name.
+    /// </summary>
     #region StreamsTesting
 
-    public delegate string encodeStringDel(byte[] arr);
+    public delegate string encodeStringDel(byte[] arr );
     public delegate byte[] encodeArrDel(string input_);
 
     public delegate string encodeStringCodePageDel(byte[] arr, int codepage_);
@@ -3014,7 +3204,7 @@ namespace SB_
         {
             string FileToParse = @"C:\FILES\SHARE\debug\moove\1\send.7z";
             string FileToExportBytesStr = @"C:\FILES\SHARE\debug\moove\new\send_bytes_str.txt";
-            string FileToExportBytes = @"C:\FILES\SHARE\debug\moove\new\send_bytes.txt";
+            //string FileToExportBytes = @"C:\FILES\SHARE\debug\moove\new\send_bytes.txt";
             string FileToExport = @"C:\FILES\SHARE\debug\moove\new\out.txt";
             byte[] arr;
             string name;
@@ -3049,14 +3239,9 @@ namespace SB_
         public static void DeserializeOne()
         {
             string FileToParse = @"C:\FILES\SHARE\debug\moove\new\out.txt";
-            string FileToExportBytesStr = @"C:\FILES\SHARE\debug\moove\new\send_bytes_str.txt";
-            string FileToExportBytes = @"C:\FILES\SHARE\debug\moove\new\send_bytes.txt";
+           
             string FileToExport = @"C:\FILES\SHARE\debug\moove\new\out_de.txt";
-            byte[] arr;
-            string name;
-            string res_;
-            StreamReader sr_;
-            StringBuilder sb;
+            byte[] arr;           
 
             FileStream fs = new FileStream(FileToParse, FileMode.Open);
             arr = new byte[fs.Length];
@@ -3354,6 +3539,11 @@ namespace SB_
     {
         internal static Random rnd = new Random();
         internal static long LoadCnt=0;
+     
+        public static void Log(string input_)
+        {
+
+        }
         public static void WriteLn(string str_ = @"NO_STRING")
         {
             System.Diagnostics.Trace.WriteLine(str_);
@@ -3421,5 +3611,54 @@ namespace SB_
             watch.Stop();
             TraceLog.WriteLn("Elapsed :" + watch.Elapsed + " for " + x + " " + y + " With result:"+ result_);
         }       
+    }
+
+    public interface IlogParams
+    {       
+        DateTime LogTime { get; set; }
+        string Messsage { get; set; }
+    }
+    public class LogParams : IlogParams
+    {
+        public static int ID { get; set; }
+        public DateTime LogTime { get; set; }
+        public string Messsage { get; set; }       
+    }
+    public static class StoreLog
+    {
+        internal static string LogFileName = @"Log.txt";
+        internal static string LogFilePath = null;    
+        internal static IlogParams logParams = null;
+        
+        static StoreLog()
+        {
+            LogFilePath = Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location), LogFileName);
+            if(!File.Exists(LogFilePath))
+            {
+                File.Create(LogFilePath);
+            }
+                 
+        }
+        public static void InterfaceBind(IlogParams input_)
+        {
+            logParams = input_;
+        }
+        public static void Log(string message_)
+        {
+            if (logParams != null)
+            {                               
+                logParams.LogTime = DateTime.Now;
+                logParams.Messsage = message_;              
+                File.AppendAllText(LogFilePath, logParams.LogTime.ToString() + @" " + logParams.Messsage + Environment.NewLine);
+            }
+        }
+    }
+
+    public static class DW
+    {
+        public static void cout(string input_)
+        {
+            System.Diagnostics.Trace.WriteLine(input_);
+        }
     }
 }
