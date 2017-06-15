@@ -12,3 +12,17 @@ I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\obj\Debug\SB.pdb
 I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\obj\Debug\SB.csprojResolveAssemblyReference.cache
 I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\Newtonsoft.Json.dll
 I:\disk\Files\Progects\VS_Files\VS_solutions\SandBox\SB\SB\bin\Debug\Newtonsoft.Json.xml
+C:\111\git\SB\SB\bin\Debug\SB.exe.config
+C:\111\git\SB\SB\obj\Debug\SB.exe
+C:\111\git\SB\SB\obj\Debug\SB.pdb
+C:\111\git\SB\SB\bin\Debug\SB.exe
+C:\111\git\SB\SB\bin\Debug\SB.pdb
+C:\111\git\SB\SB\bin\Debug\EntityFramework.dll
+C:\111\git\SB\SB\bin\Debug\EntityFramework.SqlServer.dll
+C:\111\git\SB\SB\bin\Debug\Newtonsoft.Json.dll
+C:\111\git\SB\SB\bin\Debug\Oracle.ManagedDataAccess.EntityFramework.dll
+C:\111\git\SB\SB\bin\Debug\Oracle.ManagedDataAccess.dll
+C:\111\git\SB\SB\bin\Debug\EntityFramework.xml
+C:\111\git\SB\SB\bin\Debug\EntityFramework.SqlServer.xml
+C:\111\git\SB\SB\bin\Debug\Newtonsoft.Json.xml
+C:\111\git\SB\SB\obj\Debug\SB.csprojResolveAssemblyReference.cache

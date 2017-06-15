@@ -12,14 +12,66 @@ using System.IO;
 
 using Newtonsoft.Json;
 
+using System.ServiceProcess;
+
+using System.ServiceModel;
+using System.ServiceModel.Activities;
+using System.ServiceModel.Description;
+
+using System.ComponentModel;
+using System.Configuration.Install;
+
+using System.Windows.Forms;
+
 namespace SB_
 {
 
-    public static class DW
+
+    public static class DriveRead
     {
-        public static void cout(string str_)
+        private static DriveInfo[] drives_;
+        private static DirectoryInfo[] directories_;
+        private static FileInfo[] fileInfo_;
+
+        public static void Disk()
+        {      
+            BindDrives();
+            ReadDrives(drives_);
+            ReadDirectories(directories_);
+        }
+
+        private static void BindDrives()
         {
-            System.Diagnostics.Debug.WriteLine(str_);
+            drives_ = DriveInfo.GetDrives();
+        }
+        private static void ReadDrives(DriveInfo[] drives_)
+        {
+            foreach (DriveInfo di in drives_)
+            {
+                DirectoryInfo rootDir_ = di.RootDirectory;
+                directories_ = rootDir_.GetDirectories();
+            }
+        }
+        private static void ReadDirectories(DirectoryInfo[] dirs_)
+        {
+            foreach(DirectoryInfo dirInf_ in dirs_)
+            {
+                if (dirInf_.GetDirectories().Count() != 0)
+                {
+                    ReadDirectories(dirInf_.GetDirectories());
+                }
+                else
+                {
+                    fileInfo_ = dirInf_.GetFiles();
+                }
+            }
+        }
+        private static void ReadFiles(FileInfo[] files_)
+        {
+            foreach(FileInfo fi_ in files_)
+            {
+
+            }
         }
     }
 
@@ -1588,6 +1640,133 @@ namespace SB_
 
     #endregion
 
+    #region WCF
+
+    public class WCF_
+    {
+
+        public WCF_()
+        {
+            Check();
+        }
+
+        public void Check()
+        {
+            try
+            {
+                //StoreLog.InterfaceBind(new LogParams());
+                //StoreLog.Log(@"TestService started");
+                TestService.Run(new TestService());
+            }
+            catch(Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+        }
+
+        public void WCFcheck()
+        {
+            //using (ServiceHost serviceHost = new ServiceHost();           
+            WorkflowService service = new WorkflowService();
+            Uri address = new Uri(@"http://localhost:8080/Sample");
+            ServiceHost host = new ServiceHost(typeof(WCFTarget), address);
+            //WorkflowServiceHost host = new WorkflowServiceHost(service, address);
+            ServiceMetadataBehavior smb = new ServiceMetadataBehavior();
+
+            smb.HttpGetEnabled = true;
+            smb.MetadataExporter.PolicyVersion = PolicyVersion.Policy15;
+            host.Description.Behaviors.Add(smb);
+            host.AddServiceEndpoint(typeof(IWCFService), new WSHttpBinding(), "");
+
+            try
+            {
+                host.Open();
+                System.Diagnostics.Trace.WriteLine(address);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine(ex.ToString());
+            }
+            finally
+            {
+                host.Close();
+            }
+        }
+    }
+    [ServiceContract]
+    public interface IWCFService
+    {
+        [OperationBehavior(Impersonation = ImpersonationOption.Required)]
+        string GetInfo(int i);
+    }
+    public class WCFTarget : IWCFService
+    {
+        public string GetInfo(int input_)
+        {
+            string result_ = null;
+            result_ = @"Value recieved " + input_ + @" ;";
+            return result_;
+        }
+    }
+    
+    #endregion
+
+    #region WindowsService
+
+    [RunInstaller(true)]
+    public class TestServiceInstaller : Installer
+    {
+        private ServiceProcessInstaller
+            processInstaller;
+        private ServiceInstaller
+           serviceInstaller;
+
+        public TestServiceInstaller()
+        {
+            processInstaller = new ServiceProcessInstaller();
+            serviceInstaller = new ServiceInstaller();
+
+            processInstaller.Account = ServiceAccount.LocalSystem;
+            serviceInstaller.StartType = ServiceStartMode.Manual;
+            serviceInstaller.ServiceName = "TestService";
+            Installers.Add(serviceInstaller);
+            Installers.Add(processInstaller);
+        }
+    }
+    public class TestService : ServiceBase
+    {
+        public TestService()
+        {
+            StoreLog.InterfaceBind(new LogParams());
+            StoreLog.Log(@"TestService initialized");
+            this.ServiceName = "TestService";
+            this.CanStop = true;
+            this.CanPauseAndContinue = false;
+            this.AutoLog = true;
+        }
+        protected override void OnStart(string[] args)
+        {
+            StoreLog.Log(@"TestService started");
+            MessageBox.Show("TestServiceStarted st", "TestServiceStarted", 
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information,
+            MessageBoxDefaultButton.Button1,
+            MessageBoxOptions.ServiceNotification);
+        }
+        protected override void OnStop()
+        {
+            StoreLog.Log(@"TestService stopped");
+            base.OnStop();
+        }
+    }
+    
+    #endregion
+
+
+
+    /// <summary>
+    /// Old polinom parsing
+    /// </summary>
     #region PoliParse
 
     public class PoliParseCheck
@@ -1960,6 +2139,9 @@ namespace SB_
     
     #endregion
   
+    /// <summary>
+    /// Polinom parsing project
+    /// </summary>
     #region PoliParseType
     
     public static class PoliParse
@@ -1978,19 +2160,21 @@ namespace SB_
                 List<ItemsStatus> ds = new List<ItemsStatus>();
 
                 container_.ParsedInit();
-                container_.StringToItemParse(@"0.123*345-1=3*b");
+                container_.StringToItemParse(@"123");
+                container_.ExpressionsParse();
                 int _actual = (from s in container_.parsed select s).Count();
 
-                ds.Add(new ItemsStatus() { Equation = @"1+1", Items = 3 });
-                ds.Add(new ItemsStatus() { Equation = @"1+1=2", Items = 5 });
+                ds.Add(new ItemsStatus() { Equation = @"1", Items = 1 });
+                ds.Add(new ItemsStatus() { Equation = @"1+1=2", Items = 1 });
 
                 foreach (ItemsStatus ds_ in ds)
                 {
                     container_.ParsedInit();
                     container_.StringToItemParse(ds_.Equation);
+                    container_.ExpressionsParse();
                     try
                     {
-                        ds_.Compare(container_.parsed.Count());
+                        ds_.Compare(container_._priority.Count());
                     }
                     catch (Exception e)
                     {
@@ -2098,6 +2282,19 @@ namespace SB_
         }
 
         public NotRecognizedTokenException(string input_) : base(input_)
+        {
+
+        }
+
+    }
+    public class DoubleDigitsException : System.Exception
+    {
+        public DoubleDigitsException() : base()
+        {
+
+        }
+
+        public DoubleDigitsException(string input_) : base(input_)
         {
 
         }
@@ -2245,6 +2442,7 @@ namespace SB_
     {
 
         /// <summary>
+        /// 
         /// Main operation logic
         /// 
         /// (a+b+c)(a+c+e) -> foreach item in multiple division united sum with every item from another
@@ -2284,13 +2482,39 @@ namespace SB_
         /// (ch *) -> exp
         /// (dg * ch ^ dg) -> item
         /// 
+        /// ==============================
+        /// 
+        /// ch* .. *ch n -> ^ exp +1 n
+        /// ch+ .. +ch n -> * mult +1 n
+        /// expr
+        /// item1* item2*item2 - > item1* item2^2
+        /// (2ab^2+3e)*eb^3
+        /// (3a+2b+4c*3d*6e^2)+(4a-1b+3c*2d^3*5e)
+        ///
+        /// exp1{
+        ///a 2 1
+        ///b 1 2
+        ///*
+        ///}
+        ///
+        /// exp2 {
+        ///e 3 1 
+        ///}
+        ///
+        ///Repeat for every not simplified operation until operation = is simplified left right:
+        ///First - > gather expressions by* and / operators containing of
+        ///items with multiples with(* digits) and expression with(^)
+        ///Second -> simplify expressions
+        ///Third -> table of priorities for expressions
+        /// 
         /// </summary>
 
         public List<IPriority> _priority = new List<IPriority>();
         public List<IItem_> operations = new List<IItem_>();
         public List<IItem_> items = new List<IItem_>();
 
-        public List<IItem_> parsed;
+        public List<ParsedItems> parsed;
+        public List<IExp_> expressions;
 
         IItem_ SUMMATION;
         IItem_ SUBSTRACTION;
@@ -2334,9 +2558,11 @@ namespace SB_
             EQUATION = new Sign_() { tokens_ = new Token_[] { new Token_() { value_ = '=' } } };
             items.Add(EQUATION);
         }
+        public void ParsedInit()
+        {
+            this.parsed = new List<ParsedItems>();
+        }
 
-
-        
         public void StringToItemParse(string input_)
         {            
             IItem_ actReadItem = null;
@@ -2347,8 +2573,7 @@ namespace SB_
 
                 //operation met
                 if ((from s in operations where s.CheckValue(ch_) == true select s).Any())
-                {
-                    
+                {                    
                     actReadItem = (from s in operations where s.CheckValue(ch_) == true select s).FirstOrDefault();
                 }
                 if ((from s in items where s.CheckValue(ch_) == true select s).Any())
@@ -2363,7 +2588,7 @@ namespace SB_
                 }
                 //double digit met
                 if (Char.IsDigit(ch_) || ch_ == '.')
-                {                  
+                {
                     List<char> item_read = new List<char>();
 
                     //digit met
@@ -2387,56 +2612,78 @@ namespace SB_
                     throw new NotRecognizedTokenException();
                 }
              
-                parsed.Add(actReadItem);
+                parsed.Add( new ParsedItems(actReadItem, actReadItem.GetType()) );
                
             }
 
         }
 
-        public void ItemsParse()
+        public void ExpressionsParse()
         {
         
             IItem_ prevReadItem = null;
             IItem_ actReadItem = null;
-
-            foreach (IItem_ item_ in parsed)
+            IItem_[] arr;
+          
+            foreach (ParsedItems pi_ in parsed )
             {
+
+                IItem_ item_ = pi_.Item;
                 actReadItem = item_;
 
                 //decide Item Expression
                 if (prevReadItem == null)
                 {
                     //first encounter or after bracket
-                    prevReadItem = actReadItem;
+                    arr = new IItem_[1] { actReadItem };
+                    _priority.Add(new Priority() { leftItem = new Exp_() { body = arr } });
                 }
                 else
                 {
                     //previous digit
-                    if (actReadItem.GetType() is IDigit_)
+                    if (prevReadItem.GetType() is IDigit_)
                     {
+                        //actual digit
+                        if(actReadItem.GetType() is IDigit_)
+                        {
+                            throw new DoubleDigitsException();
+                        }
+                        //multiplication 
+                        if(actReadItem.GetType() is IVariable_)
+                        {
 
+                        }
+                        if (actReadItem.GetType() is IOpeartion_)
+                        {
+
+                        }
                     }
                     //previous variable
-                    if (actReadItem.GetType() is IVariable_)
+                    if (prevReadItem.GetType() is IVariable_)
                     {
 
                     }
                 }
-              
-            }
 
-            IItem_[] arr = new IItem_[1] { actReadItem };
-            _priority.Add(new Priority() { leftItem = new Exp_() { body = arr } });
+            prevReadItem = actReadItem;
+            }           
+           
         }
-
-        public void ParsedInit()
-        {
-            this.parsed = new List<IItem_>();
-        }
+        
     }
 
+    public class ParsedItems
+    {
+        public ParsedItems(IItem_ item_,Type type_)
+        {
+            this.Item = item_;
+            this.Type = type_;
+        }
+        public IItem_ Item { get; set; }
+        public Type Type { get; set; }
+    }
 
-    //Classes for test
+    //Classes for test 
     public class DotsStatus
     {
         public string Equation { get; set; }
@@ -2456,10 +2703,14 @@ namespace SB_
                 Status = false;
             }
         }
+        
     }
 
     #endregion
 
+    /// <summary>
+    /// Files to txt parse
+    /// </summary>
     #region StreamReadWrite
     /// <summary>
     /// CopyPast class
@@ -2471,7 +2722,7 @@ namespace SB_
     {
         public void Check()
         {
-            //ReadFilesCheck();
+            ReadFilesCheck();
             ReadCheck();
         }
 
@@ -2502,8 +2753,8 @@ namespace SB_
         public void ReadCheck()
         {
             StreamIO sio3 = new StreamIO();
-            //string pathResult_ = @"C:\FILES\SHARE\debug\moove\new\result.txt";
-            string pathResult_ = @"C:\111\moove\result.txt";
+            string pathResult_ = @"C:\FILES\SHARE\debug\moove\new\result.txt";
+            //string pathResult_ = @"C:\111\moove\result.txt";
 
             sio3.pathResult_ = pathResult_;
 
@@ -2519,7 +2770,10 @@ namespace SB_
             foreach (IPathDictSaearch pd_ in sio3.pathDictList)
             {
                 sio3.CreateFoldersExplicitly(sio3.PathRemoveFileName(pd_.Path));
-                File.WriteAllText(pd_.Path, Encoding.UTF8.GetString(Encoding.UTF8.GetBytes((pd_.Text))));
+                if (!pd_.Path.Contains(@"Thumbs"))
+                {
+                    File.WriteAllText(pd_.Path, Encoding.UTF8.GetString(Encoding.UTF8.GetBytes((pd_.Text))));
+                }
             }
 
         }
@@ -2828,7 +3082,83 @@ namespace SB_
     }
     #endregion
 
+    /// <summary>
+    /// Reading parameters passed to application
+    /// </summary>
+    #region ConsoleParameters
+
+    public static class ConsoleParametersCheck
+    {
+        public static void Check(string[] args)
+        {
+            ConsoleParameters.Check(args);
+        }
+    }
+
+    public static class ConsoleParameters
+    {
+        public static List<ParametersForConsole> parameters_;
+
+        static ConsoleParameters()
+        {
+            Initialize();
+        }
+
+        public static void Check(string[] args)
+        {
+            foreach (string str_ in args)
+            {
+                Console.WriteLine(str_);
+            }
+            Console.ReadLine();
+        }
+        public static void Initialize()
+        {
+            parameters_ = new List<ParametersForConsole>();
+            parameters_.Add(new ParametersForConsole()
+            {
+                ID = 0,
+                ParameterName = @"-m",
+                Description = @"months"
+            });
+        }
+        public static void ExportJson()
+        {
+            
+        }
+        public static void ImportJson()
+        {
+
+        }
+        private static string[] StringToArgs(string input_)
+        {
+            string[] args = null;
+            args = input_.Replace(@"""", @"").Split(' ');
+            return args;
+        }
+    }
+
+    public class ParametersForConsole
+    {
+        public int ID { get; set; }
+        public string ParameterName { get; set; }
+        public string ParameterValue { get; set; }
+        public string Description { get; set; }
+    }
+
+    #endregion
+
+    /// <summary>
+    /// >>||| REWRITE
+    /// Gets files from folder parses them with Encoding to txt file with pathes and Encoding name.
+    /// </summary>
     #region StreamsTesting
+
+    public delegate string encodeStringDel(byte[] arr );
+    public delegate byte[] encodeArrDel(string input_);
+
+    public delegate string encodeStringCodePageDel(byte[] arr, int codepage_);
+    public delegate byte[] encodeArrCodePageDel(string input_, int codepage_);
 
     public static class StreamTesting
     {
@@ -2837,7 +3167,7 @@ namespace SB_
         static string FilePathOut { get; set; }
         static string FileNameOut { get; set; }
         static string DirectoryOut { get; set; }
-        static FileStream fs { get; set; }
+        static FileStream fsIn { get; set; }
         static FileStream fsOut { get; set; }
         static byte[] arr { get; set; }
         static int length { get; set; }
@@ -2847,25 +3177,109 @@ namespace SB_
         static int cnt;
         static int b = 0;
         static string a = null;
-        static string Newpath = null;
+
+        static encodeStringDel encodingStr { get; set; }
+        static encodeArrDel encodingArr { get; set; }
+
+        static encodeStringCodePageDel encodingStrCP { get; set; }
+        static encodeArrCodePageDel encodingArrCP { get; set; }
+
+        static Encoding encoding { get; set; }
+        static int codepage { get; set; }
+
+        static Encoding localEncoding_ = null;
 
         static List<PathText> pathTextList = new List<PathText>();
         public static void Check()
         {
-            DirectoryIn = @"C:\111\moove\";
-            DirectoryOut = @"C:\111\moove\output";
-            FilePathIn = @"C:\111\moove\result.txt";
-            FileNameOut = @"out.txt";
-            FilePathOut = Path.Combine(DirectoryOut, FileNameOut);
+
+            StartDefault();
+
+            //SerializeOne();
+            //DeserializeOne();
+
+        }
+
+        public static void SerializeOne()
+        {
+            string FileToParse = @"C:\FILES\SHARE\debug\moove\1\send.7z";
+            string FileToExportBytesStr = @"C:\FILES\SHARE\debug\moove\new\send_bytes_str.txt";
+            //string FileToExportBytes = @"C:\FILES\SHARE\debug\moove\new\send_bytes.txt";
+            string FileToExport = @"C:\FILES\SHARE\debug\moove\new\out.txt";
+            byte[] arr;
+            string name;
+            string res_;
+            StreamReader sr_;
+            StringBuilder sb;
+
+            using (FileStream fs_ = new FileStream(FileToParse, FileMode.Open))
+            {
+                sr_ = new StreamReader(fs_, true);
+                name = sr_.CurrentEncoding.BodyName;
+                arr = new byte[fs_.Length];
+                fs_.Read(arr, 0, arr.Length);
+            }
+
+            sb = new StringBuilder();
+
+            foreach (byte bt_ in arr)
+            {
+                sb.Append(bt_);
+                sb.Append(@",");
+            }
+            res_ = sb.ToString();
+
+            File.WriteAllText(FileToExportBytesStr, res_);
+
+            using (FileStream fsWrite_ = new FileStream(FileToExport, FileMode.OpenOrCreate))
+            {
+                fsWrite_.Write(arr, 0, arr.Length);
+            }
+        }
+        public static void DeserializeOne()
+        {
+            string FileToParse = @"C:\FILES\SHARE\debug\moove\new\out.txt";
+           
+            string FileToExport = @"C:\FILES\SHARE\debug\moove\new\out_de.txt";
+            byte[] arr;           
+
+            FileStream fs = new FileStream(FileToParse, FileMode.Open);
+            arr = new byte[fs.Length];
+            fs.Read(arr, 0, arr.Length);
+
+            using (FileStream fsWrite_ = new FileStream(FileToExport, FileMode.OpenOrCreate))
+            {
+                fsWrite_.Write(arr, 0, arr.Length);
+            }           
+
+        }
+
+        public static void StartDefault()
+        {
+            StringEncoder();
+            InitFromCode();
+            SetDefaultEncoding();
             Serialize_();
             Deserialize_();
+        }
+        public static void InitFromCode()
+        {
+            DirectoryIn = @"C:\FILES\SHARE\debug\moove\1";
+            DirectoryOut = @"C:\FILES\SHARE\debug\moove\new";
+            FileNameOut = @"out.txt";
+            FilePathOut = Path.Combine(DirectoryOut, FileNameOut);
         }
         public static void StreamWrite()
         {
             arr = new byte[length];
-            fs.Read(arr, 0, length);           
+            fsIn.Read(arr, 0, length);
+            ByteArrayAsIs(arr, FilePathOut + @"_bytesASIS.txt");
             fsOut.Write(arr, 0, length);            
-
+            BytesExport();
+        }
+        public static void BytesExport()
+        {
+            File.WriteAllBytes(DirectoryOut + @"\_bytes.txt", arr);
         }
         public static void ArrWrite(byte[] arr_)
         {
@@ -2881,97 +3295,240 @@ namespace SB_
             WriteNewLine();
         }
 
+        public static void ByteArrayAsIs(byte[] arr_, string path_)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            foreach (byte bt_ in arr_)
+            {
+                sb.Append(bt_);
+                sb.Append(@",");
+            }
+            string res_ = sb.ToString();
+
+            File.WriteAllText(path_, res_);
+        }
 
         public static void Serialize_()
-        {            
+        {
             fsOut = new FileStream(FilePathOut, FileMode.OpenOrCreate);
             foreach (string filename in Directory.GetFiles(DirectoryIn))
             {
-                FilePathIn = filename;
-                fs = new FileStream(FilePathIn, FileMode.Open);                
-                FileNameOut = Path.GetFileNameWithoutExtension(FilePathIn) + @"_copy" + Path.GetExtension(FilePathIn);
-                length = filename.Length;
-                
-                arr = Encoding.UTF8.GetBytes(length.ToString());
-                Write_(arr);
+                if (!filename.Contains(@"Thumbs"))
+                {
 
-                arr = Encoding.UTF8.GetBytes(filename);
-                Write_(arr);
+                    FilePathIn = filename;
+                    fsIn = new FileStream(FilePathIn, FileMode.Open);
 
-                length = (int)fs.Length;
-                arr = Encoding.UTF8.GetBytes(length.ToString());
-                Write_(arr);
+                    //new filename in output directory
+                    FileNameOut = Path.GetFileNameWithoutExtension(FilePathIn) + @"_copy" + Path.GetExtension(FilePathIn);
+                    length = filename.Length;
 
-                StreamWrite();
-                WriteNewLine();
 
-                fs.Close();               
+                    //write length of next array and array
+                    arr = encodingArr(length.ToString());
+                    Write_(arr);
+
+                    arr = encodingArr(filename);
+                    Write_(arr);
+
+                    //set default string encoding UTF-8
+                    StringEncoder();
+
+                    //write encoding length and name                
+                    arr = encodingArr(EncodingGetFS(fsIn).CodePage.ToString().Length.ToString());
+                    Write_(arr);
+
+                    arr = encodingArr(EncodingGetFS(fsIn).CodePage.ToString());
+                    Write_(arr);
+
+                    //write length of array and array
+                    length = (int)fsIn.Length;
+                    arr = encodingArr(length.ToString());
+                    Write_(arr);
+
+                    //get encoding
+                    EncodingGet(fsIn);
+                    //change encoding for file text
+                    codepage = encoding.CodePage;
+
+                    //write file text
+                    StreamWrite();
+                    WriteNewLine();
+
+                    fsIn.Close();
+                    fsIn.Dispose();
+                }
             }
             fsOut.Close();
+            fsOut.Dispose();
         }
         public static void Deserialize_()
         {
             PathTextFill();
             PathtextRead();
-
         }
 
         public static void PathTextFill()
         {
-            fs = new FileStream(FilePathOut, FileMode.Open);
-            sr = new StreamReader(fs);
-
-            while (fs.Position + 1 < fs.Length)
+            fsIn = new FileStream(FilePathOut, FileMode.Open);
+            sr = new StreamReader(fsIn);
+            int encode = 0;           
+            while (fsIn.Position + 1 < fsIn.Length)
             {
-                string path = GetString();
-                string text = GetString();
-                pathTextList.Add(new PathText(Path.Combine(DirectoryOut ,Path.GetFileName(path)) , Encoding.UTF8.GetBytes(text)));
+                string path = ParsePathText();
+                Int32.TryParse(ParsePathText(), out encode);
+                localEncoding_ = Encoding.UTF8; //Encoding.GetEncoding(encode);
+                string text = ParsePathText();              
+                if(path!="" && encode != 0 && text != "")
+                {
+                    pathTextList.Add(new PathText(Path.Combine(DirectoryOut, Path.GetFileName(path)), arr, codepage));
+                }                
             }
         }
         public static void PathtextRead()
         {
-            
-            foreach(PathText pt_ in pathTextList)
+            foreach (PathText pt_ in pathTextList)
             {
-                FileStream fss = new FileStream(pt_.path, FileMode.OpenOrCreate);             
-                fss.Write(pt_.text, 0, pt_.text.Length);
-                fss.Close();
+                if (true == true)
+                {
+                    using (FileStream fss = new FileStream(pt_.path, FileMode.OpenOrCreate))
+                    {                        
+                        try
+                        {
+                            fss.Write(pt_.text, 0, pt_.text.Length);
+                        }
+                        catch (Exception e)
+                        {
+                            System.Diagnostics.Trace.WriteLine(e.Message);
+                        }
+                        fss.Close();
+                    }
+                }
             }
         }
-        public static string GetString()
+
+        public static string ParsePathText()
         {
             string _Newpath = null;
             cnt = 0;
-            while (fs.ReadByte() != 13)
+            while (fsIn.ReadByte() != 13)
             {
-                if (fs.Position >= fs.Length) break;
+                if (fsIn.Position >= fsIn.Length) break;
                 cnt += 1;
             }
-            fs.Position -= cnt + 1;
+            fsIn.Position -= cnt + 1;
             arr = new byte[cnt];
-            fs.Read(arr, 0, cnt);
-            a = Encoding.UTF8.GetString(arr);
+            fsIn.Read(arr, 0, cnt);
+            a = encodingStrCP(arr, codepage);           
             Int32.TryParse(a, out b);
             arr = new byte[b];
-            fs.Position += 1;
-            fs.Read(arr, 0, b);
-            _Newpath = Encoding.UTF8.GetString(arr);
-            fs.Position += 1;
+            fsIn.Position += 1;
+            fsIn.Read(arr, 0, b);
+            if (localEncoding_ != null)
+            {
+                _Newpath = encodingStrCP(arr, localEncoding_.CodePage);
+                localEncoding_ = null;
+            }
+            else
+            {
+                _Newpath = encodingStrCP(arr, codepage);
+            }
+            fsIn.Position += 1;
 
             return _Newpath;
         }
+
+        public static void EncodingGet(FileStream fs_)
+        {
+            StreamReader sr = new StreamReader(fs_, true);
+            encoding = sr.CurrentEncoding;
+            if(Path.GetExtension(fs_.Name) == ".7z")
+            {
+                encoding = Encoding.BigEndianUnicode;
+            }
+            codepage = encoding.CodePage;
+        }
+        public static Encoding EncodingGetFS(FileStream fs_)
+        {
+            StreamReader sr = new StreamReader(fs_, true);
+            Encoding result_= sr.CurrentEncoding;
+            if (Path.GetExtension(fs_.Name) == ".")
+            {
+                result_ = Encoding.BigEndianUnicode;
+            }
+            return result_;
+        }
+
+        public static void StringEncoder()
+        {
+            BEenc();
+            CPenc();
+        }
+        public static void SetDefaultEncoding()
+        {
+            encoding = Encoding.UTF8;
+        }
+               
+        static void UTFenc()
+        {
+            encodingStr = EncodeStringUTF8;
+            encodingArr = EncodeArrUTF8;
+        }
+        static void BEenc()
+        {
+            encodingStr = EncodeStringBE;
+            encodingArr = EncodeArrBE;
+        }
+        static void CPenc()
+        {
+            encodingStrCP = EncodeStringCodepage;
+            encodingArrCP = EncodeArrCodepage;
+        }
+
+        public static string EncodeStringUTF8(byte[] arr)
+        {
+            return Encoding.UTF8.GetString(arr);
+        }
+        public static string EncodeStringBE(byte[] arr)
+        {
+            return Encoding.ASCII.GetString(arr);
+        }
+
+        public static byte[] EncodeArrUTF8(string input_)
+        {
+            return Encoding.UTF8.GetBytes(input_);
+        }
+        public static byte[] EncodeArrBE(string input_)
+        {
+            return Encoding.ASCII.GetBytes(input_);
+        }
+
+        public static string EncodeStringCodepage(byte[] arr, int codepage_)
+        {
+            return Encoding.GetEncoding(codepage_).GetString(arr);
+        }
+        public static byte[] EncodeArrCodepage(string input_, int codepage_)
+        {
+            return Encoding.GetEncoding(codepage_).GetBytes(input_);
+        }
+
     }
 
     public class PathText
     {
         public string path { get; set; }
         public byte[] text { get; set; }
-        public PathText(string path_, byte[] text_)
+        public int? codepage { get; set; }
+    
+        public PathText(string path_, byte[] text_, int? codepage_ = null)
         {
             this.path = path_;
-            this.text = text_;
+            this.text = text_;            
+            this.codepage = codepage_;
         }
     }
+    
     #endregion
 
 }
@@ -2982,6 +3539,11 @@ namespace SB_
     {
         internal static Random rnd = new Random();
         internal static long LoadCnt=0;
+     
+        public static void Log(string input_)
+        {
+
+        }
         public static void WriteLn(string str_ = @"NO_STRING")
         {
             System.Diagnostics.Trace.WriteLine(str_);
@@ -3049,5 +3611,54 @@ namespace SB_
             watch.Stop();
             TraceLog.WriteLn("Elapsed :" + watch.Elapsed + " for " + x + " " + y + " With result:"+ result_);
         }       
+    }
+
+    public interface IlogParams
+    {       
+        DateTime LogTime { get; set; }
+        string Messsage { get; set; }
+    }
+    public class LogParams : IlogParams
+    {
+        public static int ID { get; set; }
+        public DateTime LogTime { get; set; }
+        public string Messsage { get; set; }       
+    }
+    public static class StoreLog
+    {
+        internal static string LogFileName = @"Log.txt";
+        internal static string LogFilePath = null;    
+        internal static IlogParams logParams = null;
+        
+        static StoreLog()
+        {
+            LogFilePath = Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location), LogFileName);
+            if(!File.Exists(LogFilePath))
+            {
+                File.Create(LogFilePath);
+            }
+                 
+        }
+        public static void InterfaceBind(IlogParams input_)
+        {
+            logParams = input_;
+        }
+        public static void Log(string message_)
+        {
+            if (logParams != null)
+            {                               
+                logParams.LogTime = DateTime.Now;
+                logParams.Messsage = message_;              
+                File.AppendAllText(LogFilePath, logParams.LogTime.ToString() + @" " + logParams.Messsage + Environment.NewLine);
+            }
+        }
+    }
+
+    public static class DW
+    {
+        public static void cout(string input_)
+        {
+            System.Diagnostics.Trace.WriteLine(input_);
+        }
     }
 }
