@@ -905,7 +905,7 @@ namespace Repo
 
     //>>!!! every method can be used on separate entity, check DbSet initialize composition
     /// <summary>
-    /// Truly generic repository
+    /// Trully generic repositories interfaces
     /// </summary>
     #region TGR
     public interface IEntity { int ID { get; set; } }
@@ -1414,6 +1414,7 @@ namespace Repo
     
     public class EntityInitialization
     {
+		
         public IEntity entityItem { get; set; }
 
         public void KEY_CLIENTS_init(IEntity ent_)
@@ -1433,14 +1434,8 @@ namespace Repo
         {
 
         }
+		
     }
+
 }
 
-//>>!!! move to repo DAL objects
-/// <summary>
-/// Trully generic repositories interfaces partial inheritance
-/// </summary>
-namespace Repo.DAL
-{
-   
-}
