@@ -17,7 +17,7 @@ namespace Parts{
 ///
 
 namespace CodeExamples {
-	
+
 //Usefull links
 public void mostUsefullLinks()
 {
@@ -149,7 +149,7 @@ http://scottlilly.com/learn-c-by-building-a-simple-rpg-index/
 //Loading type MSDN + (Loading types, lazy loading turning off)
 https://msdn.microsoft.com/en-us/library/jj574232(v=vs.113).aspx
 
-//C# Delegates, Actions, Funcs, Lambdas‚ÄìKeeping it super simple
+//C# Delegates, Actions, Funcs, Lambdas–Keeping it super simple
 https://blogs.msdn.microsoft.com/brunoterkaly/2012/03/02/c-delegates-actions-funcs-lambdaskeeping-it-super-simple/
 
 //Unit test
@@ -312,67 +312,121 @@ public class IssuesErrors(){
 	public void .NET()
 	{
 
-	public CannotFindObject()
-	{
-	WHEN:
-	incorrect connection string in : DbContext initialization parameters
-
-	WHAT:
-	Cannot find the object because it does not exist or you do not have permissions
-
-	HOW:
-	correct DbContext initialization
-	}
-
-	public ReferencePermissionWasDenied()
-	{
-	WHEN:
-	migrating with code first model, with navigation properties and collection.
-	Creating foreign key, constraint.
-
-	WHAT:
-	error:
-	the reference permission was denied on the object '' database '', schema ''
-	Cannot find the object '' because it does not exist or you do not have permissions
-	could not create constraint.
-
-	HOW:
-	simle:
-	(trying to migrate one after another commenting out not works - migrates both simultaneosly )
-	create table with primary key. In sql manager give to users pemission rights
-	Create table with collection.
-
-	correct:
-	change model to correct collection - navigation property. Collection in parent,
-	foreign key with patent item property in child
-	grant privilages
-	use DWH_REPLICA;
-	grant references To guest;
-	go
-	}
-
-	public MethodFunctionNotFound()
-	{
-	WHEN:
-	no EF in project referencing repository project
-
-	WHAT: update EF
-	}
-
-	public System.Security.SecurityException()
-	{
+		public CannotFindObject()
+		{
 		WHEN:
-		while windows service with InstallUtil.exe installation
-		
-		WHAT:
-		Syste.Security.SecurityException
-		
-		WHOW:
-		start console with administrative
-	}
-			
-}
+		incorrect connection string in : DbContext initialization parameters
 
+		WHAT:
+		Cannot find the object because it does not exist or you do not have permissions
+
+		HOW:
+		correct DbContext initialization
+		}
+
+		public ReferencePermissionWasDenied()
+		{
+		WHEN:
+		migrating with code first model, with navigation properties and collection.
+		Creating foreign key, constraint.
+
+		WHAT:
+		error:
+		the reference permission was denied on the object '' database '', schema ''
+		Cannot find the object '' because it does not exist or you do not have permissions
+		could not create constraint.
+
+		HOW:
+		simle:
+		(trying to migrate one after another commenting out not works - migrates both simultaneosly )
+		create table with primary key. In sql manager give to users pemission rights
+		Create table with collection.
+
+		correct:
+		change model to correct collection - navigation property. Collection in parent,
+		foreign key with patent item property in child
+		grant privilages
+		use DWH_REPLICA;
+		grant references To guest;
+		go
+		}
+
+		public MethodFunctionNotFound()
+		{
+		WHEN:
+		no EF in project referencing repository project
+
+		WHAT: update EF
+		}
+
+		public System.Security.SecurityException()
+		{
+			WHEN:
+			while windows service with InstallUtil.exe installation
+			
+			WHAT:
+			Syste.Security.SecurityException
+			
+			WHOW:
+			start console with administrative
+		}
+				
+	}
+
+	public void SSAS()
+	{
+		
+		///Installation
+		///Donload instal SSDT from MS VS
+		///Create Analysis services projects from VS templates
+	
+		public void Impersonation()
+		{
+			
+			WHEN:
+			While trying to proccess any item of olap cube from VS to create new database
+			
+			WHAT:
+			Severity	Code	Description	Project	File	Line	Suppression State
+			Error		ëËÌÚ‡ÍÒË˜ÂÒÍËÈ ‡Ì‡ÎËÁ‡ÚÓ: çÂ‚ÂÌ˚È ÒËÌÚ‡ÍÒËÒ ‰Îﬂ Ó·˙ÂÍÚ‡ ImpersonationInfo. ÖÒÎË ÁÌ‡˜ÂÌËÂ ImpersonateAccount ËÒÔÓÎ¸ÁÛÂÚÒﬂ ‚ÏÂÒÚÓ ImpersonationInfo, Ò‚ÓÈÒÚ‚Ó Account ÌÂ ÏÓÊÂÚ ·˚Ú¸ ÔÛÒÚ˚Ï.			0	
+			
+			HOW:
+			in datasourses name rightclick ViewDesigner, in Impersonation Information input credentials
+						
+		}
+	
+		public void Database NameChange()
+		{
+			
+			WHEN:
+			
+			WHAT:
+			change olap database name
+			
+			WHOW:
+			rtclck project properties - > deployment
+			
+		}
+		
+		public void DimensionProcessError()
+		{
+			
+			WHEN:
+			connecting via wrong login (Datasource base login instead of OLAP base)
+			
+			WHAT:
+			cannot connect to database while login 
+			
+			WHOW:
+			change credentials
+			
+		}
+		
+		
+		
+	}
+	
+	
 }
 
 
@@ -437,9 +491,8 @@ public class Examples
 		//------------------------------------
 
 
-}
-
-
+	}
+	
 
 }
 
@@ -479,7 +532,7 @@ public class Unsorted {
 	}
 
 	//oracle service query texts
-	public class servi—Åe_queries(){
+	public class serviÒe_queries(){
 	//used for parametrized insert from import datagridview to oracle table
 	//occurs in dataGridView_Import_DoubleClick throught OracleQueryExecutor class
 	sampleInsert = "insert into merchant_list (ID_MERCHANT) values ('test_val')";
@@ -1043,7 +1096,7 @@ public class Unsorted {
 	public void readExceloledb()
 	{
 
-	public string oledbRequest = "SELECT F2,sum(F3) FROM [–ã–∏—Å—Ç1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
+	public string oledbRequest = "SELECT F2,sum(F3) FROM [ÀËÒÚ1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
 
 	string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
 
@@ -1192,7 +1245,7 @@ public class Unsorted {
 	{
 
 	string fileToParse = @"C:\test\daily\output\01022015report + fee2.xlsx";
-	string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [–ã–∏—Å—Ç1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
+	string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [ÀËÒÚ1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
 	string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
 
 	string connString = @"Data Source=dwh.rs.ru;User ID=neprintsev_ia;Password=awsedrRDESWA;";
@@ -1911,15 +1964,17 @@ public void PL_SQL()
 		public internal class Selection()
 		{
 			
-			public   datetime()
+			public datetime()
 			{
-				select dateadd (yy,DATEDIFF(yy, 0,GETDATE()),0)
-				select CONVERT(date,GETDATE(),103) where CONVERT(date,GETDATE(),103) = '01/09/2016'
-				CONVERT(datetime,"DATE",104)
-				select @@ROWCOUNT from DWH_replica.dbo.FD_ACQ_D
+				
+				define ReqFnDate=to_date('30.06.2017 23:59:59','dd.mm.yyyy hh24:mi:ss');
+				define ReqStDate=add_months(trunc(&ReqFnDate,'mm'),0);
+				define TrStDate=add_months(&ReqStDate,-5);
+				define TrFnDate=add_months(&ReqFnDate,+1);
+				
 			}
 
-			public   tableCreate()
+			public tableCreate()
 			{
 				
 				//table with prim,sec keys
@@ -1947,7 +2002,7 @@ public void PL_SQL()
 
 			}
 						
-			public  join_update()
+			public join_update()
 			{
 				
 				/*update from join*/
@@ -1997,7 +2052,7 @@ public void PL_SQL()
 
 			}
 
-			public  LEVEL()
+			public LEVEL()
 			{
 				
 			--//level1
@@ -2045,7 +2100,22 @@ public void PL_SQL()
 
 			}
 
+			public CURSOR()
+			{
+				/*SAMPLE CURSOR*/
+				set serveroutput on;
+				begin
+				for cr in ( select merchant,reg_nr from ref_merchants )
+				loop 
+				  dbms_output.put_line('drop table ' || cr.merchant || ';');
+				end loop;
+				end ;
+
+			}
+			
+			
 		}
+
 		
 		public internal class MAINTANANCE()
 		{
@@ -2114,6 +2184,7 @@ public void PL_SQL()
 				select * from role_tab_privs
 				--//granted privileges
 				select * from table_privileges 
+				revoke  select on acquiring_month from kokorina_jv
 				--//all  user objects
 				select * from user_objects
 				
@@ -2159,7 +2230,7 @@ public void PL_SQL()
 			BEGIN
 			  DBMS_JOB.SUBMIT( l_job,what=>'insert into temp (merchant) values (''1'');commit;', 
 			   next_date=>sysdate, -- start next hour 
-			   interval=>'NEXT_DAY(TRUNC(SYSDATE), ''–ø–Ω'')+6/24');
+			   interval=>'NEXT_DAY(TRUNC(SYSDATE), ''ÔÌ'')+6/24');
 			   commit;
 			END;
 
@@ -2285,50 +2356,259 @@ public void PL_SQL()
 			-------------------------
 			}
 			
-			public CURSOR()
+		
+			
+		}
+		
+		public internal class PLsql()
+		{
+			
+			public P_TEMPLATE()
 			{
-				/*SAMPLE CURSOR*/
+				
+				create or replace
+				PROCEDURE P_EWALLET_D (ReqStIn date, ReqFnIn date, comment_ varchar )
+				AUTHID CURRENT_USER
+				IS
+				jobStarted date; --sysdate of currentprocedure started
+				jobFinished date; --sysdate of currentprocedure finished
+
+				ReqStDate date;
+				ReqFnDate date;
+
+				rows_processed number;
+				commentary varchar(200);
+
+				BEGIN
+				DBMS_OUTPUT.PUT_LINE('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\');
+				DBMS_OUTPUT.PUT_LINE('P_EWALLET_D STARTED');
+				jobStarted := sysdate;
+				rows_processed := 0;
+
+
+
+				if(comment_ is null or comment_ = '' ) then 
+				commentary := 'UNKNOWN' ;
+				else
+				commentary := comment_;
+				end if;
+
+				if(ReqStIn is not null and ReqFnIn is not null ) then
+				ReqStDate := trunc(ReqStIn,'mm') ;
+				ReqFnDate := trunc(ReqFnIn,'mm') ;
+				else
+				if(ReqStIn is null and ReqFnIn is null ) then
+				ReqStDate := add_months(trunc(sysdate,'mm'),-1);
+				ReqFnDate := add_months(ReqStDate,1)-1/24/60/60;
+				else
+
+				if(ReqStIn is null) then
+				ReqStDate := trunc(ReqFnIn,'mm');
+				ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
+				end if;
+
+				if(ReqFnIn is null) then 
+				ReqStDate := trunc(ReqStIn,'mm');
+				ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
+				end if;
+				end if;
+
+				end if;
+
+
+
+
+
+
+
+
+
+				--printing all date values to log
+
+				DBMS_OUTPUT.PUT_LINE('Actual sysdate - ' || to_char(sysdate,'dd.mm.yyyy hh24:mi:ss') || ';');
+				DBMS_OUTPUT.PUT_LINE('Received sysdate - ' || to_char(jobStarted,'dd.mm.yyyy hh24:mi:ss') || ';');
+				DBMS_OUTPUT.PUT_LINE('Data period start date  - ' || to_char(ReqStDate,'dd.mm.yyyy hh24:mi:ss') || ';');
+				DBMS_OUTPUT.PUT_LINE('Data period finish date  - ' || to_char(ReqFnDate,'dd.mm.yyyy hh24:mi:ss') || ';');
+
+
+				--all procedure specific code goes here
+				-->>>HERE<<<
+
+				/*
+				delete from T_EWALLETS_D where DATE_D between ReqStDate  and ReqFnDate;
+
+				insert into T_EWALLETS_D
+
+
+				select 
+				trunc(m.request_date,'dd') "DATE_D",
+				cast(fld_042 as varchar(10)) "MERCHANT",
+				CASE
+				WHEN fld_119 LIKE '%061150139059239%'
+				THEN 'APP'
+				WHEN fld_119 LIKE '%061150110030273%'
+				THEN 'SMP'
+				WHEN fld_119 LIKE '%061150120834693%'
+				THEN 'ARP'
+				ELSE '0'
+				END "EWALLET",
+
+				sum(m.FLD_004/100) "AMT",
+				count(m.FLD_004) "CNT"
+
+				FROM tms.RTPS_MESSAGES_LOG m
+				where 1=1
+				and m.request_date between ReqStDate  and ReqFnDate
+				and cast(fld_042 as varchar(10)) in (
+				select merchant from ref_merchants --where reg_nr = '7743543761'
+				)
+				and FLD_039 = '000'
+
+				group by trunc(m.request_date,'dd') , cast(m.fld_042 as varchar(10)) ,
+				CASE
+				WHEN fld_119 LIKE '%061150139059239%'
+				THEN 'APP'
+				WHEN fld_119 LIKE '%061150110030273%'
+				THEN 'SMP'
+				WHEN fld_119 LIKE '%061150120834693%'
+				THEN 'ARP'
+				ELSE '0'
+				END
+				;
+
+				commit;
+				*/
+
+				--ref_report_table
+				--select max(rownum) into rows_processed from neprintsev_ia.T_ACQ_D where "DATE" between startRefresh and endRefresh;
+				jobFinished:=sysdate;
+				insert into neprintsev_ia.ref_report_table ("NAME",job_started,job_finished,data_start,data_finish,rows_processed, commentary) 
+				values ('P_EWALLET_D', jobStarted,jobFinished,ReqStDate,ReqFnDate,rows_processed,commentary);
+				DBMS_OUTPUT.PUT_LINE('P_EWALLET_D EXECUTED');
+				DBMS_OUTPUT.PUT_LINE('//////////////////////////////////////////////////////////');
+
+				--current procedure execution example
+				/*
 				set serveroutput on;
-				begin
-				for cr in ( select merchant,reg_nr from ref_merchants )
-				loop 
-				  dbms_output.put_line('drop table ' || cr.merchant || ';');
+				execute P_TEMPLATE(sysdate);
+				*/
+				END P_EWALLET_D;
+			}
+			
+			public P_TEMPLATE_DATE()
+			{
+				
+				create or replace
+				PROCEDURE P_TEMPLATE_DATE (ReqStIn date, ReqFnIn date, comment_ varchar )
+				AUTHID CURRENT_USER
+				IS
+				jobStarted date; --sysdate of currentprocedure started
+				jobFinished date; --sysdate of currentprocedure finished
+
+				dataDate date;  --date wich is default for data quering (sysdate-2 for acquiring queries)
+				dataStart date; --data period start date
+				dataFinish date; --data period finish date
+
+				rows_processed number;
+				commentary varchar(200);
+
+				ReqStDate date;
+				ReqFnDate date;
+
+
+				BEGIN
+				DBMS_OUTPUT.PUT_LINE('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\');
+				DBMS_OUTPUT.PUT_LINE('P_TEMPLATE_DATE STARTED');
+				jobStarted := sysdate;
+				rows_processed := 0;
+
+
+				if(comment_ is null or comment_ = '' ) then 
+				commentary := 'UNKNOWN' ;
+				else
+				commentary := comment_;
+				end if;
+
+				if(ReqStIn is not null and ReqFnIn is not null ) then
+				ReqStDate := trunc(ReqStIn,'mm') ;
+				ReqFnDate := trunc(ReqFnIn,'mm') ;
+				else
+				if(ReqStIn is null and ReqFnIn is null ) then
+				ReqStDate := add_months(trunc(sysdate,'mm'),-1);
+				ReqFnDate := add_months(ReqStDate,1)-1/24/60/60;
+				else
+
+				if(ReqStIn is null) then
+				ReqStDate := trunc(ReqFnIn,'mm');
+				ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
+				end if;
+
+				if(ReqFnIn is null) then 
+				ReqStDate := trunc(ReqStIn,'mm');
+				ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
+				end if;
+				end if;
+
+				end if;
+
+				dataDate:=sysdate-2; --data default for most reports sysdate - 2
+				dataStart:=trunc(dataDate,'mm'); --defining data date range start of month 
+				dataFinish:=trunc(dataStart,'dd')-1/24/60/60; --defining data date range finish of month
+
+				--printing all date values to log
+
+				DBMS_OUTPUT.PUT_LINE('Actual sysdate - ' || to_char(sysdate,'dd.mm.yyyy hh24:mi:ss') || ';');
+				DBMS_OUTPUT.PUT_LINE('Received sysdate - ' || to_char(jobStarted,'dd.mm.yyyy hh24:mi:ss') || ';');
+				DBMS_OUTPUT.PUT_LINE('Data sysdate defined - ' || to_char(dataDate,'dd.mm.yyyy hh24:mi:ss') || ';');
+				DBMS_OUTPUT.PUT_LINE('Data period start date  - ' || to_char(dataStart,'dd.mm.yyyy hh24:mi:ss') || ';');
+				DBMS_OUTPUT.PUT_LINE('Data period finish date  - ' || to_char(dataFinish,'dd.mm.yyyy hh24:mi:ss') || ';');
+
+
+				--all procedure specific code goes here
+				-->>>HERE<<<
+
+
+				--ref_report_table
+				--select max(rownum) into rows_processed from neprintsev_ia.T_ACQ_D where "DATE" between startRefresh and endRefresh;
+				jobFinished:=sysdate;
+				insert into neprintsev_ia.ref_report_table ("NAME",job_started,job_finished,data_start,data_finish,rows_processed, commentary) 
+				values ('P_TEMPLATE_DATE', jobStarted,jobFinished,dataStart,dataFinish,rows_processed,comment_);
+				DBMS_OUTPUT.PUT_LINE('P_TEMPLATE_DATE EXECUTED');
+				DBMS_OUTPUT.PUT_LINE('//////////////////////////////////////////////////////////');
+
+				--current procedure execution example
+				/*
+				set serveroutput on;
+				execute P_TEMPLATE(sysdate);
+				*/
+				END P_TEMPLATE_DATE;
+				
+			}
+			
+			public LoopByNumWithLevel()
+			{
+				
+				set serveroutput on
+				begin 
+				for c1 in ( SELECT LEVEL R0 FROM dual CONNECT BY LEVEL <3 ) loop
+
+				/*
+				define dt = add_months(trunc(sysdate,'dd'),0) ;
+				set serveroutput on
+				execute P_ECOM_M_REFRESH(&dt);
+				commit;
+				*/
+				DBMS_OUTPUT.put_line('Print ' || c1.R0 );
+
 				end loop;
 				end ;
 
 			}
-			
-			
 		}
 		
 		public internal class UNSORTED()
 		{
-			
-select 
-card,-- –Ω–æ–º–µ—Ä –∫–∞—Ä—Ç—ã
-trn_DATE,-- –¥–∞—Ç–∞ –æ–ø–µ—Ä–∞—Ü–∏–∏
-local_amnt as RUR,-- —Å—É–º–º–∞ –≤ —Ä—É–±–ª—è—Ö
-merchant, abrv_name, mcc,
-case when substr(POINT_CODE,1,1)='2' then '–Ω–µ—á–∏–ø–æ–≤—ã–π' 
-	 when substr(POINT_CODE,1,1)='5' then '—á–∏–ø–æ–≤—ã–π' 
-	  else substr(POINT_CODE,1,1) end as Device,
-case when substr(POINT_CODE,7,1)='2' then '–º–ø —á–∞—Å—Ç–∏—á–Ω–æ' 
-	 when substr(POINT_CODE,7,1)='5' then '—á–∏–ø' 
-	 when substr(POINT_CODE,7,1)='6' then '—Ä—É—á–Ω–æ–π –≤–≤–æ–¥'
-	 when substr(POINT_CODE,7,1)='8' then 'fallback/–º–ø'
-	 when substr(POINT_CODE,7,1)='9' then '—á—Ç–µ–Ω–∏–µ –º–ø'
-	 when substr(POINT_CODE,7,1) in ('S', 'T', 'U', 'V') then 'e-comm'
-	  else substr(POINT_CODE,7,1) end as Input_mode,
-case when substr(POINT_CODE,8,1)='1' then '–ü–ò–ù'
-	 when substr(POINT_CODE,8,1)='5' then '–ü–æ–¥–ø–∏—Å—å'
-	  else substr(POINT_CODE,8,1) end as Identification,
-pay_sys as MPS,
-fraud_type, rep_date AS Report_date
-from PRIV_KD_MART.nv_brs_fraud
-order by merchant, card, trn_date;
-
-
-
+		
 
 with t1 as
 (
@@ -2626,7 +2906,7 @@ to_char(s.dt_reg,'yyyy') || '_' || to_char(s.dt_reg,'mm') ,
 	   nvl(MC.main_industry,'Lodging') MAIN_INDUSTRY,
 	   m.merchant,
 	   s.issuer_type,
-	   decode(rc.center,'–û–º—Å–∫–∏–π','–ù–æ–≤–æ—Å–∏–±–∏—Ä—Å–∫–∏–π',rc.center) RC, 
+	   decode(rc.center,'éÏÒÍËÈ','çÓ‚ÓÒË·ËÒÍËÈ',rc.center) RC, 
 	   SUM (-s.vl_rub) dbv_rub,
 	   SUM (s.fee_merchant) merchant_fee,
 	   SUM(s.cnt) cnt_trans 
@@ -2638,9 +2918,9 @@ where (s.type_transaction in ('Goods and service','Returns'))
 and s.merchant not in (9900000003, 9900000005, 9292121431, 9292296399, 9292434867, 9292886660, 9293471306) 
 AND nvl (s.acquire_bank, 'RS_RUS') != 'RS_UKR'      
 AND m.abrv_name NOT LIKE 'IB %'                                                     
-AND M.FULL_NAME NOT LIKE '%–ö–ò–ë–ï–†–ü–õ–ê–¢%'
-AND M.FULL_NAME  != '–û–û–û –ö–ë –ü–õ–ê–¢–ò–ù–ê'
-AND m.full_name  != '–û–û–û –ù–ö–û –ü–õ–ê–¢–ï–ñ–ù–ê–Ø –°–ò–°–¢–ï–ú–ê –†–ê–ü–ò–î–ê'  
+AND M.FULL_NAME NOT LIKE '%äàÅÖêèãÄí%'
+AND M.FULL_NAME  != 'ééé äÅ èãÄíàçÄ'
+AND m.full_name  != 'ééé çäé èãÄíÖÜçÄü ëàëíÖåÄ êÄèàÑÄ'  
 AND s.is_linked = 'N'
 AND s.dt_reg BETWEEN 
 TO_DATE('01.08.2013'||' 00:00:00','dd.mm.yyyy hh24:mi:ss') 
@@ -2656,7 +2936,7 @@ m.abrv_name,
 nvl(MC.main_industry,'Lodging'),
 m.merchant,
 s.issuer_type,
-decode(rc.center,'–û–º—Å–∫–∏–π','–ù–æ–≤–æ—Å–∏–±–∏—Ä—Å–∫–∏–π',rc.center) 
+decode(rc.center,'éÏÒÍËÈ','çÓ‚ÓÒË·ËÒÍËÈ',rc.center) 
   "
 "create table temp (c1 varchar(50),c2 varchar(50))
 
@@ -2790,8 +3070,8 @@ BEGIN
 									 T.TERM_ID,
 									 T.BATCH_NR,
 									 T.SLIP,
-									 T.TR_DATE AS TR_DATETIME, -- –î–∞—Ç–∞ –∏ –≤—Ä–µ–º—è —Ç—Ä–∞–Ω–∑–∞–∫—Ü–∏–∏
-									 T.REG_DATE AS REG_DATETIME, -- –î–∞—Ç–∞ –∏ –≤—Ä–µ–º—è —Ä–µ–≥–∏—Å—Ç—Ä–∞—Ü–∏–∏
+									 T.TR_DATE AS TR_DATETIME, -- Ñ‡Ú‡ Ë ‚ÂÏﬂ Ú‡ÌÁ‡ÍˆËË
+									 T.REG_DATE AS REG_DATETIME, -- Ñ‡Ú‡ Ë ‚ÂÏﬂ Â„ËÒÚ‡ˆËË
 									 T.CARD,
 									 T.BIN,
 									 CASE WHEN T.PROC_CODE='20'
@@ -2814,7 +3094,7 @@ BEGIN
 									   ELSE 'OTHER'
 								  END AS PAY_SYSTEM,
 								  RC.DIVISION,
-								  DECODE(RC.CENTER,'–û–º—Å–∫–∏–π','–ù–æ–≤–æ—Å–∏–±–∏—Ä—Å–∫–∏–π',RC.CENTER) RC 
+								  DECODE(RC.CENTER,'éÏÒÍËÈ','çÓ‚ÓÒË·ËÒÍËÈ',RC.CENTER) RC 
 								FROM MART.STG_MPCS_SLIPS_FACT T
 								 LEFT JOIN TMS.MERCHANTS M ON TO_CHAR(T.IDMERCHANT)=M.MERCHANT
 								 LEFT JOIN PRIV_DRR.ACQUIRING_REGION RC ON RC.REG_ID=M.REGION
@@ -2893,7 +3173,7 @@ SELECT * FROM V$VERSION
    m.city,m.p_street,fld_043, --15-17 for columns
    
    case
-	  when  cast(bg.bank_name as varchar2 (30 byte)) = '–†–£–°–°–ö–ò–ô –°–¢–ê–ù–î–ê–†–¢' then 47
+	  when  cast(bg.bank_name as varchar2 (30 byte)) = 'êìëëäàâ ëíÄçÑÄêí' then 47
 	  else 0
 	  end 
    as "16_NWINDICATOR",
@@ -3071,7 +3351,7 @@ select
 t3.c1,t2.c3 from t3 
 left join t2 on t2.c1=t3.c1;"
 "/*IB*/
-select * from ORAWH.IB_CLIENT_MV where client_name like '%–ù–ï–ü–†–ò–ù–¶–ï–í%'
+select * from ORAWH.IB_CLIENT_MV where client_name like '%çÖèêàçñÖÇ%'
 select * from ORAWH.IB_REQ_MV where client_id ='3595559'
 select * from ORAWH.IB_QNA_MV where user_id = '3576169'
 select * from ORAWH.IB_USERS_MV where user_id = '3576169'
@@ -3370,6 +3650,7 @@ where (t."RWN",t3."ROWN" ) not in (SELECT "ID_T",seq FROM test_number)
 --//\\\\\\\\\\\\\\\\\\\\\\\
 		}
 	}
+		
 
 	}
 
@@ -3482,7 +3763,7 @@ namespace OS
 		{
 			public void AsAdmin(){
 			//add current user as admin
-			runas /user:–ê–¥–º–∏–Ω–∏—Å—Ç—Ä–∞—Ç–æ—Ä "net localgroup "–ê–¥–º–∏–Ω–∏—Å—Ç—Ä–∞—Ç–æ—Ä—ã" "neprintsevia" /ADD"
+			runas /user:Ä‰ÏËÌËÒÚ‡ÚÓ "net localgroup "Ä‰ÏËÌËÒÚ‡ÚÓ˚" "neprintsevia" /ADD"
 		
 			}
 			
@@ -3490,8 +3771,8 @@ namespace OS
 		
 		public void Execute()
 		{
-			mstsc -> –ø–æ–¥–∫–ª—é—á–µ–Ω–∏–µ –∫ —É–¥–∞–ª–µ–Ω–Ω–æ–º—É —Ä–∞–±–æ—á–µ–º—É —Å—Ç–æ–ª—É
-			cmd -> –∫–æ–Ω—Å–æ–ª—å
+			mstsc -> ÔÓ‰ÍÎ˛˜ÂÌËÂ Í Û‰‡ÎÂÌÌÓÏÛ ‡·Ó˜ÂÏÛ ÒÚÓÎÛ
+			cmd -> ÍÓÌÒÓÎ¸
 		}
 	}
 	
@@ -3548,7 +3829,7 @@ namespace OS
 				sudo ls -> display content-map
 					-a -> with hidden
 				sudo systemctl restart network-manager -> restarn netweork				
-				sudo ufw enable/disablemail- –í–∫–ª—é—á–µ–Ω–∏–µ –∏ –æ—Ç–∫–ª—é—á–µ–Ω–∏–µ –º–µ–∂—Å–µ—Ç–µ–≤–æ–≥–æ —ç–∫—Ä–∞–Ω–∞
+				sudo ufw enable/disablemail- ÇÍÎ˛˜ÂÌËÂ Ë ÓÚÍÎ˛˜ÂÌËÂ ÏÂÊÒÂÚÂ‚Ó„Ó ˝Í‡Ì‡
 				sudo poweroff/reboot -> poweroff/reboot
 				dpkg --get-selections -> installed pkgs
 				dpkg --get-selections | grep -v deinstall > ~/Desktop/packages -> save to file				
