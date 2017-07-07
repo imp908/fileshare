@@ -1468,7 +1468,7 @@ public class Unsorted {
 
 #endregion
 
-#region C++
+#region C++ 
 
 public Code theory
 {
@@ -1961,6 +1961,7 @@ public void PL_SQL()
 	
 	public protected class ScriptExmaples()
 	{
+		
 		public internal class Selection()
 		{
 			
@@ -2115,78 +2116,23 @@ public void PL_SQL()
 			
 			
 		}
-
 		
 		public internal class MAINTANANCE()
 		{
 			
-			public  Priviledges
-			{
-				revoke  select on acquiring_month from kokorina_jv
-			}
-			
-			public  TABLES_ALTER()
-			{
-				//change column type
-				alter table ref_mc_ird_rates modify mcc varchar (50) 
-			}
-			
-			public  EXPLAIN_PLAN()
-			{
-
-			--//eplain table
-			delete from PLAN_TABLE;
-			EXPLAIN PLAN for
-			select * from dual;
-			select operation,options,object_name,cost , t.* from PLAN_TABLE t;
-			--//
-
-
-			--//display cursor
-			select * from table (DBMS_XPLAN.DISPLAY_CURSOR(null,null,'basic'))
-			--// privilege needed: SELECT privilege on V$SQL_PLAN, V$SQL_PLAN_DETAIL,SELECT_CATALOG_ROLE
-			--//
-
-			--//Gather statistic
-			Execute DBMS_STATS.GATHER_TABLE_STATS('neprintsev_ia','AMS_MC_BINS_',method_opt=>'FOR COLUMNS SIZE 254 columnName')
-			--//
-
-			}
-			
-			public  DB_LINK()
-			{
-				
-				
-			drop  DATABASE LINK "DB_LINK.US.ORACLE.COM";
-
-			CREATE DATABASE LINK "DB_LINK.US.ORACLE.COM"
-			CONNECT TO DACQ_NEPRINTSEV
-			IDENTIFIED BY  x2y4uecbbo
-			USING '  (DESCRIPTION=
-				(ADDRESS=
-				  (PROTOCOL=TCP)
-				  (HOST=exdt01-scan.rs.ru)
-				  (PORT=1521)
-				)
-				(CONNECT_DATA=
-				  (SERVER=dedicated)
-				  (SERVICE_NAME=BUS)
-				)
-			  )
-			'
-			;
-			}
-			
-			public  REFERENCES()
+			public REFERENCES()
 			{
 				
 				--//roles
 				select * from role_tab_privs
 				--//granted privileges
-				select * from table_privileges 
+				select * from table_privileges
 				revoke  select on acquiring_month from kokorina_jv
 				--//all  user objects
 				select * from user_objects
+				--// TABLE modifications INSERT,DELETE,UPDATE
+				select * from user_tab_modifications;
+
 				
 				/*Unreferenced table names*/
 				select distinct table_name,'select * from ' || table_name || ';' from all_tables where owner like '%NEPRIN%'
@@ -2213,32 +2159,96 @@ public void PL_SQL()
 				;
 				
 			}			
-			
-			public  JOBS_()
+						
+			public Priviledges
 			{
-			DECLARE
-			  l_job NUMBER := 0;
-			BEGIN
-			  DBMS_JOB.SUBMIT( l_job,what=>'insert into temp4 (column1) values (''1'');commit;', 
-			   next_date=>sysdate, -- start next hour 
-			   interval=>'sysdate+10/86400');
-			   commit;
-			END;
+				revoke  select on acquiring_month from kokorina_jv
+			}
+			
+			public TABLES_ALTER()
+			{
+				//change column type
+				alter table ref_mc_ird_rates modify mcc varchar (50) 
+			}
+			
+			public EXPLAIN_PLAN()
+			{
 
-			DECLARE
-			  l_job NUMBER := 0;
-			BEGIN
-			  DBMS_JOB.SUBMIT( l_job,what=>'insert into temp (merchant) values (''1'');commit;', 
-			   next_date=>sysdate, -- start next hour 
-			   interval=>'NEXT_DAY(TRUNC(SYSDATE), ''пн'')+6/24');
-			   commit;
-			END;
+			--//eplain table
+			delete from PLAN_TABLE;
+			EXPLAIN PLAN for
+			select * from dual;
+			select operation,options,object_name,cost , t.* from PLAN_TABLE t;
+			--//
 
-			--unBroke JOB
-			EXEC DBMS_JOB.BROKEN(206923,FALSE);
 
-			--change next date time
-			EXECUTE dbms_job.change(206923,null,to_date('03.04.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'),'add_months(trunc(sysdate,''mm''),1)+3');
+			--//display cursor
+			select * from table (DBMS_XPLAN.DISPLAY_CURSOR(null,null,'basic'))
+			--// privilege needed: SELECT privilege on V$SQL_PLAN, V$SQL_PLAN_DETAIL,SELECT_CATALOG_ROLE
+			--//
+
+			--//Gather statistic
+			Execute DBMS_STATS.GATHER_TABLE_STATS('neprintsev_ia','AMS_MC_BINS_',method_opt=>'FOR COLUMNS SIZE 254 columnName')
+			--//
+
+			}
+			
+			public DB_LINK()
+			{
+				
+				
+			drop  DATABASE LINK "DB_LINK.US.ORACLE.COM";
+
+			CREATE DATABASE LINK "DB_LINK.US.ORACLE.COM"
+			CONNECT TO DACQ_NEPRINTSEV
+			IDENTIFIED BY  x2y4uecbbo
+			USING '  (DESCRIPTION=
+				(ADDRESS=
+				  (PROTOCOL=TCP)
+				  (HOST=exdt01-scan.rs.ru)
+				  (PORT=1521)
+				)
+				(CONNECT_DATA=
+				  (SERVER=dedicated)
+				  (SERVICE_NAME=BUS)
+				)
+			  )
+			'
+			;
+			}
+					
+			public JOBS()
+			{
+				
+				select job,broken,interval,what,last_date,last_sec,next_date,next_sec from user_jobs order by job desc;
+			
+				DECLARE
+				l_job NUMBER := 0;
+				BEGIN
+				DBMS_JOB.SUBMIT( l_job,what=>'P_TEMPLATE_DATE(sysdate,null,null);', 
+				next_date=>trunc(sysdate,'dd')+1+2.5/24/60/60, -- start next hour 
+				interval => 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+3+2.5/24');
+				commit;
+				END;
+
+
+
+				exec dbms_job.run(163038);commit;
+
+				BEGIN
+				DBMS_JOB.REMOVE(131572);
+				COMMIT;
+				END;
+
+				begin 
+				dbms_job.change(158018, null,to_date('12.09.2014 18:00:00','dd.mm.yyyy hh24:mi:ss'), 'trunc(sysdate+2,' || '''' ||  'dd' || '''' ||  ')+18/24');
+				end;
+
+				--unBroke JOB
+				EXEC DBMS_JOB.BROKEN(206923,FALSE);
+
+				--change next date time
+				EXECUTE dbms_job.change(206923,null,to_date('03.04.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'),'add_months(trunc(sysdate,''mm''),1)+3');
 
 		
 
@@ -2279,6 +2289,9 @@ public void PL_SQL()
 					  DBMS_JOB.BROKEN(job_rec.job,FALSE);
 				   END LOOP;
 				END job_fixer;
+				
+													
+
 			}
 			
 			public alter_session_lang()
@@ -2355,8 +2368,7 @@ public void PL_SQL()
 			end ;
 			-------------------------
 			}
-			
-		
+					
 			
 		}
 		
@@ -3651,7 +3663,6 @@ where (t."RWN",t3."ROWN" ) not in (SELECT "ID_T",seq FROM test_number)
 		}
 	}
 		
-
 	}
 
 	public protected class ORACLE()
@@ -3700,16 +3711,65 @@ public void T_SQL()
 	
 	public protected class ScriptExamples()
 	{
-				
+			
+		public interface class Insertion()
+		{
+				public Shitty_Callendar()
+				{
+					
+					drop table  master.dbo.calendar ;
+					create table master.dbo.calendar (id int ,"DATE" date
+					, primary key (ID)
+					);
+
+					delete from master.dbo.calendar;
+
+					declare @cnt int ;
+					declare @max int;
+					select @cnt = 0;
+					set @max = 12*10;
+
+					while @cnt < @max
+					begin
+					set @cnt = @cnt+1;
+					print(dateadd(month,-(@max-@cnt),dateadd(MONTH,DATEDIFF(MONTH,0,getdate()),0)));
+
+					insert into master.dbo.calendar (ID,DATE)
+					values (
+					@cnt,
+					dateadd(month,-(@max-@cnt),dateadd(MONTH,DATEDIFF(MONTH,0,getdate()),0))
+					);
+					--print(- @cnt);
+					end ;
+
+
+					select * from master.dbo.calendar
+
+
+
+				}
+		}
+		
 		public internal class Selection()
 		{
 			
 			public datetime()
 			{
-			select dateadd (yy,DATEDIFF(yy, 0,GETDATE()),0)
-			select CONVERT(date,GETDATE(),103) where CONVERT(date,GETDATE(),103) = '01/09/2016'
-			CONVERT(datetime,"DATE",104)
-			select @@ROWCOUNT from DWH_replica.dbo.FD_ACQ_D
+				
+				--trunc by month
+				select dateadd (yy,DATEDIFF(yy, 0,GETDATE()),0)
+				select CONVERT(date,GETDATE(),103) where CONVERT(date,GETDATE(),103) = '01/09/2016'
+				CONVERT(datetime,"DATE",104)
+				select @@ROWCOUNT from DWH_replica.dbo.FD_ACQ_D
+				
+				select  
+				format(
+				getdate()
+				,'dd.MM.yyyy hh:mm:ss');
+				
+				select convert(varchar,getdate(),120);
+				select convert(date,getdate(),113);
+				
 			}
 
 		}
@@ -3720,30 +3780,30 @@ public void T_SQL()
 			public tableCreate()
 			{
 								
-//table with prim,sec keys
-create table teble(
-ID int not null identity(0,1), --not nullable id increasing from 0 by 1 every insert
-SEC_ID int null, --foreign key
-primary key(ID), -- indicates primary key
-foreign key(SEC_ID) references SEC_NAMES(ID), -- indicates secondary key and according key in other table
-)
+				//table with prim,sec keys
+				create table teble(
+				ID int not null identity(0,1), --not nullable id increasing from 0 by 1 every insert
+				SEC_ID int null, --foreign key
+				primary key(ID), -- indicates primary key
+				foreign key(SEC_ID) references SEC_NAMES(ID), -- indicates secondary key and according key in other table
+				)
 
-//create table add key add foreign key
-create table DWH_replica.dbo.table2 (
-ID int not null identity(0,1),
-TXT varchar(50),
-DT Datetime);
+				//create table add key add foreign key
+				create table DWH_replica.dbo.table2 (
+				ID int not null identity(0,1),
+				TXT varchar(50),
+				DT Datetime);
 
-alter table DWH_replica.dbo.table2
-add primary key (ID);
+				alter table DWH_replica.dbo.table2
+				add primary key (ID);
 
-create table DWH_replica.dbo.table1 (
-ID int not null identity(0,1),
-SEC_ID int null,
-primary key (ID),
-foreign key (SEC_ID) references DWH_replica.dbo.table2(ID));
+				create table DWH_replica.dbo.table1 (
+				ID int not null identity(0,1),
+				SEC_ID int null,
+				primary key (ID),
+				foreign key (SEC_ID) references DWH_replica.dbo.table2(ID));
 
-				}
+			}
 
 		}
 	
