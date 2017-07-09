@@ -1,4 +1,5 @@
 I:
+0 SB and Repo to different projects , SB to console Repo to DLL
 0 PresentationSite - parsing excel file to objects method decompose to several
 	///Sector type from filename
 	///Fist file input determines merchant sector
