@@ -21,6 +21,7 @@ namespace CodeExamples {
 //Usefull links
 public void mostUsefullLinks()
 {
+
 //dev guide
 https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
 
@@ -95,26 +96,72 @@ http://www.plupload.com/
 //How to add Dynamic Behavior to Data-Bound Controls
 https://msdn.microsoft.com/en-us/library/cc488562.aspx
 
+//WebForms
+https://msdn.microsoft.com/en-us/library/jj822927(v=vs.110).aspx
+
 //ASP.NET Dynamic Data
 https://msdn.microsoft.com/en-us/library/ee845452.aspx
 
 //LINQ chaining
 https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-predicates/
 
+
+
 //WCF distributed
 https://chsakell.com/2013/04/17/distributed-transactions-in-wcf-services-part-1/
+//WCF sample
+https://www.codeproject.com/Articles/571813/A-Beginners-Tutorial-on-Creating-WCF-REST-Services
+//WCF with entity
+https://www.codeproject.com/Articles/127395/Implementing-a-WCF-Service-with-Entity-Framework
+//WCF generate contracts from POCO
+https://www.codeproject.com/Articles/1081015/Autogenerate-DataContracts-for-WCF-from-POCO-Class
+//WCF transactions
+https://www.codeproject.com/Articles/1160537/WCF-Windows-Communication-Foundation-Transaction-S
+
+
+//WebApi
+//WebApi controller
+https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
+//WCF WebApi
+http://blogs.microsoft.co.il/idof/2012/03/05/wcf-or-aspnet-web-apis-my-two-cents-on-the-subject/
+
+
+//vNext
+https://blogs.msdn.microsoft.com/dotnet/2014/05/12/the-next-generation-of-net-asp-net-vnext/
+
+
+//EF
+//Data acces content map
+https://docs.microsoft.com/en-us/aspnet/whitepapers/aspnet-data-access-content-map
+//Code first to database
+https://msdn.microsoft.com/en-us/data/jj200620
+//EF bulk insert
+https://weblog.west-wind.com/posts/2013/Dec/22/Entity-Framework-and-slow-bulk-INSERTs#ContextBloatandLargeLists
+//Entity Framework initializer methods
+https://blog.oneunicorn.com/2013/05/28/database-initializer-and-migrations-seed-methods/
+// Code First Migrations with an existing database
+https://msdn.microsoft.com/en-us/data/dn579398
+
+
+//REPOSITORY
+//Generic Repository is BAD
+http://rob.conery.io/2014/03/04/repositories-and-unitofwork-are-not-a-good-idea/
+//generic Repository
+http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc
+//Generic repository
+https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+//A trully generic repository
+http://cpratt.co/truly-generic-repository/
+
+
+
+//Single Page Application
+https://docs.microsoft.com/en-us/aspnet/single-page-application/overview/introduction/knockoutjs-template
 
 //JS good practices
 http://james.padolsey.com/javascript/javascript-bad-practices/
-
 //JS no more frameworks
 https://bitworking.org/news/2014/05/zero_framework_manifesto
-
-//Generic Repository is BAD
-http://rob.conery.io/2014/03/04/repositories-and-unitofwork-are-not-a-good-idea/
-
-//generic Repository
-http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc
 
 //ORM vs plain sql strategies
 http://softwareengineering.stackexchange.com/questions/117357/is-entity-framework-suitable-for-high-traffic-websites
@@ -126,22 +173,10 @@ https://blogs.msdn.microsoft.com/ruericlippert/tag/type-inference/
 https://www.upwork.com/hiring/development/common-mistakes-in-c-sharp-programming/
 https://www.toptal.com/c-sharp/top-10-mistakes-that-c-sharp-programmers-make
 
-//EF bulk insert
-https://weblog.west-wind.com/posts/2013/Dec/22/Entity-Framework-and-slow-bulk-INSERTs#ContextBloatandLargeLists
-
-//Entity Framework initializer methods
-https://blog.oneunicorn.com/2013/05/28/database-initializer-and-migrations-seed-methods/
-
 //SOLID
 http://sergeyteplyakov.blogspot.ru/2014/10/solid.html
 http://www.c-sharpcorner.com/uploadfile/damubetha/solid-principles-in-c-sharp/
 https://www.codeproject.com/Articles/703634/SOLID-architecture-principles-using-simple-Csharp
-
-//Generic repository
-https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
-
-//A trully generic repository
-http://cpratt.co/truly-generic-repository/
 
 //Learn C# building-a-simple-rpg-index
 http://scottlilly.com/learn-c-by-building-a-simple-rpg-index/
@@ -149,12 +184,13 @@ http://scottlilly.com/learn-c-by-building-a-simple-rpg-index/
 //Loading type MSDN + (Loading types, lazy loading turning off)
 https://msdn.microsoft.com/en-us/library/jj574232(v=vs.113).aspx
 
-//C# Delegates, Actions, Funcs, Lambdas–Keeping it super simple
+//C# Delegates, Actions, Funcs, Lambdas?Keeping it super simple
 https://blogs.msdn.microsoft.com/brunoterkaly/2012/03/02/c-delegates-actions-funcs-lambdaskeeping-it-super-simple/
 
 //Unit test
-https://msdn.microsoft.com/en-us/library/hh694602.aspx	
+https://msdn.microsoft.com/en-us/library/hh694602.aspx
 https://lostechies.com/derekgreer/2011/03/28/effective-tests-a-test-first-example-part-1/
+https://www.rhyous.com/2012/03/17/unit-test-best-practices-and-guidelines/
 
 /*
 filtering inherited types classes in base class list of classes
@@ -199,6 +235,7 @@ public Bug Trackers
 		git remote rm origin
 				
 	}
+
 }
 
 public Issuer Trackers
@@ -388,7 +425,7 @@ public class IssuesErrors(){
 			
 			WHAT:
 			Severity	Code	Description	Project	File	Line	Suppression State
-			Error		Синтаксический анализатор: Неверный синтаксис для объекта ImpersonationInfo. Если значение ImpersonateAccount используется вместо ImpersonationInfo, свойство Account не может быть пустым.			0	
+			Error		?????????????? ??????????: ???????? ????????? ??? ??????? ImpersonationInfo. ???? ???????? ImpersonateAccount ???????????? ?????? ImpersonationInfo, ???????? Account ?? ????? ???? ??????.			0	
 			
 			HOW:
 			in datasourses name rightclick ViewDesigner, in Impersonation Information input credentials
@@ -532,7 +569,7 @@ public class Unsorted {
 	}
 
 	//oracle service query texts
-	public class serviсe_queries(){
+	public class servi?e_queries(){
 	//used for parametrized insert from import datagridview to oracle table
 	//occurs in dataGridView_Import_DoubleClick throught OracleQueryExecutor class
 	sampleInsert = "insert into merchant_list (ID_MERCHANT) values ('test_val')";
@@ -1096,7 +1133,7 @@ public class Unsorted {
 	public void readExceloledb()
 	{
 
-	public string oledbRequest = "SELECT F2,sum(F3) FROM [Ћист1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
+	public string oledbRequest = "SELECT F2,sum(F3) FROM [????1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
 
 	string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
 
@@ -1245,7 +1282,7 @@ public class Unsorted {
 	{
 
 	string fileToParse = @"C:\test\daily\output\01022015report + fee2.xlsx";
-	string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [Ћист1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
+	string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [????1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
 	string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
 
 	string connString = @"Data Source=dwh.rs.ru;User ID=neprintsev_ia;Password=awsedrRDESWA;";
@@ -2918,7 +2955,7 @@ to_char(s.dt_reg,'yyyy') || '_' || to_char(s.dt_reg,'mm') ,
 	   nvl(MC.main_industry,'Lodging') MAIN_INDUSTRY,
 	   m.merchant,
 	   s.issuer_type,
-	   decode(rc.center,'Омский','Новосибирский',rc.center) RC, 
+	   decode(rc.center,'??????','?????????????',rc.center) RC, 
 	   SUM (-s.vl_rub) dbv_rub,
 	   SUM (s.fee_merchant) merchant_fee,
 	   SUM(s.cnt) cnt_trans 
@@ -2930,9 +2967,9 @@ where (s.type_transaction in ('Goods and service','Returns'))
 and s.merchant not in (9900000003, 9900000005, 9292121431, 9292296399, 9292434867, 9292886660, 9293471306) 
 AND nvl (s.acquire_bank, 'RS_RUS') != 'RS_UKR'      
 AND m.abrv_name NOT LIKE 'IB %'                                                     
-AND M.FULL_NAME NOT LIKE '%КИБЕРПЛАТ%'
-AND M.FULL_NAME  != 'ООО КБ ПЛАТИНА'
-AND m.full_name  != 'ООО НКО ПЛАТЕЖНАЯ СИСТЕМА РАПИДА'  
+AND M.FULL_NAME NOT LIKE '%?????????%'
+AND M.FULL_NAME  != '??? ?? ???????'
+AND m.full_name  != '??? ??? ????????? ??????? ??????'  
 AND s.is_linked = 'N'
 AND s.dt_reg BETWEEN 
 TO_DATE('01.08.2013'||' 00:00:00','dd.mm.yyyy hh24:mi:ss') 
@@ -2948,7 +2985,7 @@ m.abrv_name,
 nvl(MC.main_industry,'Lodging'),
 m.merchant,
 s.issuer_type,
-decode(rc.center,'Омский','Новосибирский',rc.center) 
+decode(rc.center,'??????','?????????????',rc.center) 
   "
 "create table temp (c1 varchar(50),c2 varchar(50))
 
@@ -3082,8 +3119,8 @@ BEGIN
 									 T.TERM_ID,
 									 T.BATCH_NR,
 									 T.SLIP,
-									 T.TR_DATE AS TR_DATETIME, -- Дата и время транзакции
-									 T.REG_DATE AS REG_DATETIME, -- Дата и время регистрации
+									 T.TR_DATE AS TR_DATETIME, -- ???? ? ????? ??????????
+									 T.REG_DATE AS REG_DATETIME, -- ???? ? ????? ???????????
 									 T.CARD,
 									 T.BIN,
 									 CASE WHEN T.PROC_CODE='20'
@@ -3106,7 +3143,7 @@ BEGIN
 									   ELSE 'OTHER'
 								  END AS PAY_SYSTEM,
 								  RC.DIVISION,
-								  DECODE(RC.CENTER,'Омский','Новосибирский',RC.CENTER) RC 
+								  DECODE(RC.CENTER,'??????','?????????????',RC.CENTER) RC 
 								FROM MART.STG_MPCS_SLIPS_FACT T
 								 LEFT JOIN TMS.MERCHANTS M ON TO_CHAR(T.IDMERCHANT)=M.MERCHANT
 								 LEFT JOIN PRIV_DRR.ACQUIRING_REGION RC ON RC.REG_ID=M.REGION
@@ -3185,7 +3222,7 @@ SELECT * FROM V$VERSION
    m.city,m.p_street,fld_043, --15-17 for columns
    
    case
-	  when  cast(bg.bank_name as varchar2 (30 byte)) = 'РУССКИЙ СТАНДАРТ' then 47
+	  when  cast(bg.bank_name as varchar2 (30 byte)) = '??????? ????????' then 47
 	  else 0
 	  end 
    as "16_NWINDICATOR",
@@ -3363,7 +3400,7 @@ select
 t3.c1,t2.c3 from t3 
 left join t2 on t2.c1=t3.c1;"
 "/*IB*/
-select * from ORAWH.IB_CLIENT_MV where client_name like '%НЕПРИНЦЕВ%'
+select * from ORAWH.IB_CLIENT_MV where client_name like '%?????????%'
 select * from ORAWH.IB_REQ_MV where client_id ='3595559'
 select * from ORAWH.IB_QNA_MV where user_id = '3576169'
 select * from ORAWH.IB_USERS_MV where user_id = '3576169'
@@ -3823,7 +3860,7 @@ namespace OS
 		{
 			public void AsAdmin(){
 			//add current user as admin
-			runas /user:Администратор "net localgroup "Администраторы" "neprintsevia" /ADD"
+			runas /user:????????????? "net localgroup "??????????????" "neprintsevia" /ADD"
 		
 			}
 			
@@ -3831,8 +3868,8 @@ namespace OS
 		
 		public void Execute()
 		{
-			mstsc -> подключение к удаленному рабочему столу
-			cmd -> консоль
+			mstsc -> ??????????? ? ?????????? ???????? ?????
+			cmd -> ???????
 		}
 	}
 	
@@ -3889,7 +3926,7 @@ namespace OS
 				sudo ls -> display content-map
 					-a -> with hidden
 				sudo systemctl restart network-manager -> restarn netweork				
-				sudo ufw enable/disablemail- Включение и отключение межсетевого экрана
+				sudo ufw enable/disablemail- ????????? ? ?????????? ??????????? ??????
 				sudo poweroff/reboot -> poweroff/reboot
 				dpkg --get-selections -> installed pkgs
 				dpkg --get-selections | grep -v deinstall > ~/Desktop/packages -> save to file				
