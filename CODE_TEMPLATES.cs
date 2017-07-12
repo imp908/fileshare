@@ -107,6 +107,10 @@ https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-pred
 
 
 
+//MIGRATIONS
+https://msdn.microsoft.com/en-US/data/dn481501
+
+
 //WCF distributed
 https://chsakell.com/2013/04/17/distributed-transactions-in-wcf-services-part-1/
 //WCF sample
@@ -530,6 +534,137 @@ public class Examples
 
 	}
 	
+	public void EntityFramework()
+	{
+		
+		public Migrations()
+		{
+			Enable-Migrations
+			add-migration 0
+			update-database
+			
+			//Update with new connection string
+			//need guest permission to create database 
+			update-database -Verbose -ConnectionStringName "SQLDB_J"
+		}
+		
+		public connectionStrings()
+		{
+			
+			<add name="SQLDB" connectionString="data source=AAAPC\AAASQL; initial catalog=SQLDB; integrated security=SSPI; App=EntityFramework" providerName="System.Data.SqlClient" />
+			<add name="SQLHR" connectionString="data source=AAAPC\AAASQL; initial catalog=SQLHR; integrated security=SSPI; App=EntityFramework" providerName="System.Data.SqlClient" />
+			<add name="SQLDB_J" connectionString="data source=.\SQLDE; initial catalog=SQLDB; integrated security=SSPI; App=EntityFramework" providerName="System.Data.SqlClient" />
+			<add name="OracleDbContext" providerName="Oracle.ManagedDataAccess.Client" connectionString="User Id=oracle_user;Password=oracle_user_password;Data Source=oracle" />  
+			<add name="OracleDbContext" providerName="Oracle.ManagedDataAccess.Client"
+			connectionString="User Id=oracle_user;Password=oracle_useSQr_password;Data Source=oracle"/>
+			<add name="DWH_entities"
+			connectionString="metadata=res://*/DAL.DWH_model.csdl|res://*/DAL.DWH_model.ssdl|res://*/DAL.DWH_model.msl;provider=Oracle.ManagedDataAccess.Client;provider connection string=&quot;DATA SOURCE=DWH.RS.RU;PASSWORD=awsedrDRSEAW;PERSIST SECURITY INFO=True;USER ID=NEPRINTSEV_IA&quot;"
+			providerName="System.Data.EntityClient"/>
+			<add name="SQL_entities" connectionString="Data Source=.\SQLEXPRESS;Initial Catalog=DWH_REPLICA;Integrated Security=SSPI;"
+			providerName="System.Data.SqlClient"/>
+			<add name="SQL_DE" connectionString="Data Source=.\SQLDE;Initial Catalog=DWH_REPLICA;Integrated Security=SSPI;"
+			providerName="System.Data.SqlClient"/>
+		
+		}
+		
+	}
+
+	public void SB()
+	{
+		
+		    #region IoC
+			/// <summary>
+			/// Interface inheritance vs interface + class inheritance IoC
+			/// </summary>
+			public interface IRead
+			{
+				void Read_();
+			}
+			public interface IEdit
+			{
+				void Edit_();
+			}
+			public interface Ire : IEdit, IRead
+			{
+
+			}
+			public class Read : IRead
+			{
+				public void Read_()
+				{
+					System.Diagnostics.Trace.WriteLine("Read_");
+				}
+			}
+			public class Edit : IEdit
+			{
+				public void Edit_()
+				{
+					System.Diagnostics.Trace.WriteLine("Edit_");
+				}
+			}
+			public class ReadEditCl : Read, IEdit
+			{
+				public void Edit_()
+				{
+					System.Diagnostics.Trace.WriteLine("Edit_");
+				}
+			}
+			public class RE : Ire
+			{
+				public void Edit_()
+				{
+					System.Diagnostics.Trace.WriteLine("Edit_");
+				}
+				public void Read_()
+				{
+					System.Diagnostics.Trace.WriteLine("Read_");
+				}
+			}
+			public static class ReadEditCheck
+			{
+				static IEdit edit;
+				static IRead read;
+
+				public static void GO()
+				{
+					Read r = new Read();
+					r.Read_();
+					Edit e = new Edit();
+					e.Edit_();
+					ReadEditCl re = new ReadEditCl();
+					re.Read_();
+					re.Edit_();
+					RE RE = new RE();
+					
+					System.Diagnostics.Trace.WriteLine(@"---");
+					IeditBind(e);
+					IreadBind(r);
+					edit.Edit_();
+					read.Read_();
+
+					System.Diagnostics.Trace.WriteLine(@"---");
+					IeditBind(re);
+					IreadBind(re);
+					edit.Edit_();
+					read.Read_();
+
+					System.Diagnostics.Trace.WriteLine(@"---");
+					RE.Edit_();
+					RE.Read_();
+				}
+				public static void IeditBind(IEdit edit_)
+				{
+					edit = edit_;
+				}
+				public static void IreadBind(IRead read_)
+				{
+					read = read_;
+				}
+			}
+    
+			#endregion
+		
+	}
 
 }
 
