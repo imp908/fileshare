@@ -214,6 +214,8 @@ public Bug Trackers
 {
 	public GIT hub
 	{
+		https://www.atlassian.com/git
+		
 		
 		git push -u origin branchname {!!!<pushing to branch>!!!}
 		
@@ -236,8 +238,105 @@ public Bug Trackers
 		add commit push section 
 		
 		REMOVE REPO
-		git remote rm origin
-				
+		git remote rm origin			
+		
+		CHANGE STATE/FILES
+		git log --oneline -> REVISION ID		
+		git checkout master - > REVERT HEAD TO PROJECT COMMIT STATE		
+		git checkout a1e8fb5 - > CHANGE PROJECT STATE TO COMMIT		
+		git checkout <commit> <file> - > REVERT FILE TO COMMIT
+		git checkout a1e8fb5 hello.py 			
+		git revert <commit> - > REVERTS CHECKOUT with new COMMIT undoing changes
+		
+		git clean -n -> see what untracked files
+		git clean -f -> removes files from directory		
+		git clean -> remove .o and .exe from C before build
+		
+		{
+# Edit some existing files
+# Add some new files
+# Realize you have no idea what you're doing
+# Undo changes in tracked files
+git reset --hard
+# Remove untracked files
+git clean -df
+		}
+
+		GIT RESET - > pemannently unstages all tracked files
+		git reset --hard - > throws out all uncommited changes
+		git reset <commit> - > reset to branch 
+		{		
+# Edit both hello.py and main.py
+# Stage everything in the current directory
+git add .
+# Realize that the changes in hello.py and main.py
+# should be committed in different snapshots
+# Unstage main.py
+git reset main.py
+# Commit only hello.py
+git commit -m "Make some changes to hello.py"
+# Commit main.py in a separate snapshot
+git add main.py
+git commit -m "Edit main.py"
+		
+# Create a new file called `foo.py` and add some code to it
+# Commit it to the project history
+git add foo.py
+git commit -m "Start developing a crazy feature"
+# Edit `foo.py` again and change some other tracked files, too
+# Commit another snapshot
+git commit -a -m "Continue my crazy feature"
+# Decide to scrap the feature and remove the associated commits
+git reset --hard HEAD~2 -> move 2 branchs back and clean history Only LOCAL
+		}
+		
+		
+		https://www.atlassian.com/git/tutorials/rewriting-history
+		CHANGE HISTORY
+		git commit --amend -> rewrite prev commit ; combine staged commit with previous, edit prev commit
+		{
+# Edit hello.py and main.py
+git add hello.py
+git commit
+
+# Realize you forgot to add the changes from main.py
+git add main.py
+git commit --amend --no-edit			
+		}
+		
+		git rebase <base> -> rebase current branch to new ID, commit, tag , branch reference
+		{
+			
+# Start a new feature
+git checkout -b new-feature master
+# Edit files
+git commit -a -m "Start developing a feature"
+
+In the middle of our feature, we realize there’s a security hole in our project
+
+# Create a hotfix branch based off of master
+git checkout -b hotfix master
+# Edit files
+git commit -a -m "Fix security hole"
+# Merge back into master
+git checkout master
+git merge hotfix
+git branch -d hotfix
+
+After merging the hotfix into master, we have a forked project history. Instead of a plain git merge, we’ll integrate the feature branch with a rebase to maintain a linear history:
+
+git checkout new-feature
+git rebase master
+
+This moves new-feature to the tip of master, which lets us do a standard fast-forward merge from master:
+
+git checkout master
+git merge new-feature
+		}
+		
+		git reflog - > track updates
+		
+		
 	}
 
 }
@@ -4110,3 +4209,4 @@ namespace OS
 		}
 	}
 }
+
