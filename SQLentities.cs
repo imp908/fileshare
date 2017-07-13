@@ -15,7 +15,7 @@ namespace Model.SQLmodel
     }   
     
     //SQL HR
-    public partial class REGIONS
+    public partial class REGIONS : Repo_.IEntityInt
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public REGIONS()
@@ -24,14 +24,15 @@ namespace Model.SQLmodel
         }
 
         [Key]
-        public decimal REGION_ID { get; set; }
+        [Column("REGION_ID", TypeName ="decimal")]
+        public int ID  { get; set; }   
         public string REGION_NAME { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<COUNTRIES> COUNTRIES { get; set; }
     }
 
-    public partial class LOCATIONS
+    public partial class LOCATIONS : Repo_.IEntity
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public LOCATIONS()
@@ -40,7 +41,8 @@ namespace Model.SQLmodel
         }
 
         [Key]
-        public short LOCATION_ID { get; set; }
+        [Column("LOCATION_ID",TypeName = "varchar")]
+        public string ID { get; set; }
         public string STREET_ADDRESS { get; set; }
         public string POSTAL_CODE { get; set; }
         public string CITY { get; set; }
@@ -178,8 +180,8 @@ namespace Model.SQLmodel
 
 
     //SQL DWH
-    [Table(@"REFMERCHANTS")]
-    public class REFMERCHANTS_SQL : Repo_.IEntity, Repo_.IUser, Repo_.IMerchant
+    [Table(@"REFMERCHANTS_SQL")]
+    public class REFMERCHANTS_SQL : Repo_.IEntityInt, Repo_.IUser, Repo_.IMerchant
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -189,7 +191,7 @@ namespace Model.SQLmodel
         [Required]
         public long? MERCHANT { get; set; }
     }
-    public partial class KEY_CLIENTS_SQL : Repo_.IEntity
+    public partial class KEY_CLIENTS_SQL : Repo_.IEntityInt
     {
         //[Key, Column(Order = 1)]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -216,7 +218,7 @@ namespace Model.SQLmodel
         //public SECTOR_NAMES SECTOR_NAMES { get; set; }
     }
 
-    [Table("Sectors")]
+    [Table("SECTORS")]
     public partial class SECTOR
     {
         [Key]
@@ -227,7 +229,7 @@ namespace Model.SQLmodel
         public virtual ICollection<SECTOR_MASK> SECTOR_MASKS { get; set; }
     }
 
-    [Table("SectorMasks")]
+    [Table("SECTORMASKS")]
     public partial class SECTOR_MASK
     {
         [Key]
@@ -242,14 +244,14 @@ namespace Model.SQLmodel
         public virtual SECTOR SECTOR { get; set; }
     }
 
-    public partial class KEY_CLIENTS_SQL : Repo_.IEntity, Repo_.IMerchant, Repo_.ISector
+    public partial class KEY_CLIENTS_SQL : Repo_.IEntityInt, Repo_.IMerchant, Repo_.ISector
     {
         [Required]
         public long? MERCHANT { get; set; }
     }
 
 
-    public partial class T_ACQ_M_SQL : Repo_.IEntity
+    public partial class T_ACQ_M_SQL : Repo_.IEntityInt
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -271,8 +273,8 @@ namespace Model.SQLmodel
         public Nullable<decimal> CNT { get; set; }
     }
 
-    [Table("T_ACQ_D")]
-    public partial class T_ACQ_D_SQL : Repo_.IDate, Repo_.IEntity, Repo_.IMerchant, Repo_.IChainable
+    [Table("T_ACQ_D_SQL")]
+    public partial class T_ACQ_D_SQL : Repo_.IDate, Repo_.IEntityInt, Repo_.IMerchant, Repo_.IChainable
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

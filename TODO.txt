@@ -1,5 +1,8 @@
 I:
-0 SB and Repo to different projects , SB to console Repo to DLL
+0 WCF Northwind - > Orders list, change proguct ammount
+0 Repo - > cahnge Sector and User interfaces to generic Edit repo Select by ID delete by ID
+0 WCF - Add WCF between Repo and Site
+
 0 PresentationSite - parsing excel file to objects method decompose to several
 	///Sector type from filename
 	///Fist file input determines merchant sector
@@ -21,15 +24,20 @@ I:
 	}
 
 0 PresentationSite - Export to excel
-0 WCF - Add WCF between Repo and Site
+0 SB to console
+
+SB , Repo and UOF to different projects  Repo to DLL <- done
+
 II:
 0 Polinom Parse - parse *^/ to expressions and add priorities for exprs
 0 Command line app dll
 0 Multithread message ping pong
+
 III:
-0 Tables migration - test with repo
-0 Type converter for migration (
+0 Type converter for migration -> (
 Add SQL to CLR type conversion ; 
 SQLEntity to DWH entity converter; 
 Converter logic to string name or type name;
 )
+
+Tables migration - test with repo <- done

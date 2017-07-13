@@ -638,6 +638,7 @@ public class Examples
 		
 		public Migrations()
 		{
+			
 			Enable-Migrations
 			add-migration 0
 			update-database
@@ -645,6 +646,7 @@ public class Examples
 			//Update with new connection string
 			//need guest permission to create database 
 			update-database -Verbose -ConnectionStringName "SQLDB_J"
+			
 		}
 		
 		public connectionStrings()

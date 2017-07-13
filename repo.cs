@@ -16,15 +16,21 @@ namespace Repo_
     /// Trully generic repositories interfaces
     /// </summary>
     #region TGR
-    public interface IEntity { int ID { get; set; } }
 
-    public interface IEntity<T> : IEntity { }
+    //Interface for default SQL entities
+    public interface IEntity { }
+    //for entities with int ID
+    public interface IEntityInt : IEntity { int ID { get; set; } }
+    //for entities with decimal ID
+    public interface IEntityDec : IEntity { decimal ID { get; set; } }
+
+    public interface IEntity<T> : IEntityInt { }
     //public abstract class Entity<T> : IEntity<T> where T : DbContext { public int ID { get; set; } }
 
-    public interface IDate : IEntity { Nullable<System.DateTime> DATE { get; set; } }
+    public interface IDate : IEntityInt { Nullable<System.DateTime> DATE { get; set; } }
     public interface IByDate { IQueryable<T> GetByDate<T>(DateTime st, DateTime fn) where T : class, IDate; }
 
-    public interface IMerchant : IEntity { long? MERCHANT { get; set; } }
+    public interface IMerchant : IEntityInt { long? MERCHANT { get; set; } }
     public interface IByMerchant { IQueryable<T> GetByMerchantFilter<T>() where T : class, IMerchant; }
 
     public interface IUser : IMerchant { int USER_ID { get; set; } }
@@ -49,7 +55,7 @@ namespace Repo_
         void Dispose();
         IQueryable<T> GetAll();
         IQueryable<T> GetByFilter<T>(Expression<Func<T, bool>> filter = null
-        , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntity;
+        , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntityInt;
 
     }
     public interface IEditRepo<T> where  T : class, IEntity
@@ -61,7 +67,7 @@ namespace Repo_
 
     //Interface for entities with Sector ID
     public interface ISector : IMerchant { int? SECTOR_ID { get; set; } }
-    //Interface for sector repo injection
+    //Interface for sector repo
     public interface IBySector { void DeleteBySector(int id); }   
 
 
@@ -121,7 +127,7 @@ namespace Repo_
             return result;
         }
         public IQueryable<T> GetByFilter<T>(Expression<Func<T, bool>> filter = null
-        , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntity
+        , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntityInt
         {
             IQueryable<T> result = this._context.Set<T>();
             if (filter != null)
@@ -136,7 +142,7 @@ namespace Repo_
     /// Repository inherited from ReadRepo to addEntity,GetByID and Edit (as atach) entity
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class EditRepo<T> : ReadRepo<T> , IEditRepo<T> where T : class, IEntity
+    public class EditRepo<T> : ReadRepo<T> , IEditRepo<T> where T : class, IEntityInt
     {
         public EditRepo(DbContext context_) : base(context_)
         {
@@ -275,7 +281,7 @@ namespace Repo_
                 }
                 catch (Exception e)
                 {
-
+                    System.Diagnostics.Trace.WriteLine(e.Message);
                 }
             }
             return this;
