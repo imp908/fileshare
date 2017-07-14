@@ -1,5 +1,4 @@
 I:
-0 WCF Northwind - > Orders list, change proguct ammount
 0 Repo - > cahnge Sector and User interfaces to generic Edit repo Select by ID delete by ID
 0 WCF - Add WCF between Repo and Site
 
