@@ -15,7 +15,27 @@ namespace Parts{
 }
 
 ///
+ 
+namespace Books
+{
 
+#region Overall
+public void Unsorted()
+{
+По алгоритмам:
+- Роберт Седжвик. Фундаментальные алгоритмы на С++ (две книги, 1-4 часть и 5 часть во втором томе).
+- А.В. Ахо, Д.Э.Хопкрофт, Д.Д.Ульман - Структуры данных и алгоритмы.
+- Кормен, Лейзерсон, Ривест. Алгоритмы - построение и анализ.
+Ну и 4 тома Кнута - хотя бы пролистать. =)
+По шарпу - мне помогли такие книги:
+- Эндрю Троелсен. ЯЗЫК ПРОГРАММИРОВАНИЯ C#5.0 И ПЛАТФОРМА .NET 4.5
+- Герберт Шилдт. Полное руководство C# 4.0
+- Ватсон Б. C# 4.0 на примерах
+}
+#endregion
+	 
+}
+ 
 namespace CodeExamples {
 
 //Usefull links
@@ -208,6 +228,8 @@ http://stackoverflow.com/questions/2074779/identifying-derived-types-from-a-list
 
 }
 
+
+
 #region SourceControl
 
 public Bug Trackers
@@ -224,7 +246,7 @@ public Bug Trackers
 		
 		EXISTING LOCAL PROJECT TO NEW GIT REPO FIRST PUSH
 		create new in git web
-		cd -> moove to directory		
+		cd -> moove to directory	 
 		git remote add origin \\url_to_project
 		git pull origin master
 		git init -> initialize git
@@ -493,10 +515,10 @@ public class IssuesErrors(){
 
 		public MethodFunctionNotFound()
 		{
-		WHEN:
-		no EF in project referencing repository project
+			WHEN:
+			no EF in project referencing repository project
 
-		WHAT: update EF
+			WHAT: update EF
 		}
 
 		public System.Security.SecurityException()
@@ -507,10 +529,29 @@ public class IssuesErrors(){
 			WHAT:
 			Syste.Security.SecurityException
 			
-			WHOW:
+			HOW:
 			start console with administrative
 		}
-				
+		
+		//Adding OWIN authorisation to code first projectthrows
+		//http://articles.runtings.co.uk/2014/12/solved-aspnet-identity-2-throws.html
+		public IdentityUserLogin_has_no_key_defined()
+		{
+			
+			WHEN:
+				Connectin OWIN acoount validation to code first project. 
+				When FluentApi added to OnModelCreating method;
+			WHAT:
+				Throws validation errors for login, claims tables that lack ID keys defined
+					IdentityUserLogin
+					IdentityUserRoles
+					IdentityUserLogins
+					that has no keys defined
+			WHOW:
+				add to end of OnModelCreating method
+				base.OnModelCreating(modelBuilder);
+		
+		}		
 	}
 
 	public void SSAS()
@@ -1745,6 +1786,8 @@ public class Unsorted {
 
 public Code theory
 {
+	
+	
 	
 	Escape characters{
 		\n //new line
@@ -4090,6 +4133,7 @@ public void T_SQL()
 
 namespace OS
 {
+	
 	public Windows
 	{
 		public CMD
@@ -4162,7 +4206,7 @@ namespace OS
 				sudo ls -> display content-map
 					-a -> with hidden
 				sudo systemctl restart network-manager -> restarn netweork				
-				sudo ufw enable/disablemail- ????????? ? ?????????? ??????????? ??????
+				sudo ufw enable/disablemail- 
 				sudo poweroff/reboot -> poweroff/reboot
 				dpkg --get-selections -> installed pkgs
 				dpkg --get-selections | grep -v deinstall > ~/Desktop/packages -> save to file				
@@ -4210,5 +4254,6 @@ namespace OS
 			}
 		}
 	}
+
 }
 
