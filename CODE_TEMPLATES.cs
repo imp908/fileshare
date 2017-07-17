@@ -20,8 +20,10 @@ namespace Books
 {
 
 #region Overall
+
 public void Unsorted()
 {
+	
 По алгоритмам:
 - Роберт Седжвик. Фундаментальные алгоритмы на С++ (две книги, 1-4 часть и 5 часть во втором томе).
 - А.В. Ахо, Д.Э.Хопкрофт, Д.Д.Ульман - Структуры данных и алгоритмы.
@@ -31,12 +33,15 @@ public void Unsorted()
 - Эндрю Троелсен. ЯЗЫК ПРОГРАММИРОВАНИЯ C#5.0 И ПЛАТФОРМА .NET 4.5
 - Герберт Шилдт. Полное руководство C# 4.0
 - Ватсон Б. C# 4.0 на примерах
+
 }
+
 #endregion
 	 
 }
  
-namespace CodeExamples {
+namespace CodeExamples 
+{
 
 //Usefull links
 public void mostUsefullLinks()
@@ -125,6 +130,10 @@ https://msdn.microsoft.com/en-us/library/ee845452.aspx
 //LINQ chaining
 https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-predicates/
 
+
+
+//MVC OWIN Aothentication
+https://blogs.msdn.microsoft.com/webdev/2013/07/03/understanding-owin-forms-authentication-in-mvc-5/
 
 
 //MIGRATIONS
