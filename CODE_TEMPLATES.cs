@@ -134,7 +134,7 @@ https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-pred
 
 //MVC OWIN Aothentication
 https://blogs.msdn.microsoft.com/webdev/2013/07/03/understanding-owin-forms-authentication-in-mvc-5/
-
+https://weblog.west-wind.com/posts/2015/Apr/29/Adding-minimal-OWIN-Identity-Authentication-to-an-Existing-ASPNET-MVC-Application
 
 //MIGRATIONS
 https://msdn.microsoft.com/en-US/data/dn481501
