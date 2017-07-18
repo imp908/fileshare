@@ -429,7 +429,8 @@ http://stackoverflow.com/questions/5400530/validation-failed-for-one-or-more-ent
 http://stackoverflow.com/questions/2652460/how-to-get-the-name-of-the-current-method-from-code
 http://stackoverflow.com/questions/2652460/how-to-get-the-name-of-the-current-method-from-code
 
-
+//link to entities Query style
+https://stackoverflow.com/questions/9720225/how-to-perform-join-between-multiple-tables-in-linq-lambda
 }
 
 //structure
@@ -4129,7 +4130,18 @@ public void T_SQL()
 				foreign key (SEC_ID) references DWH_replica.dbo.table2(ID));
 
 			}
-
+			
+			public DropDatabase()
+			{
+				USE master;
+				ALTER DATABASE NORTHWIND SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+				DROP DATABASE NORTHWIND ;
+			}
+			
+			public LockSessions()
+			{
+				
+			}
 		}
 	
 	}

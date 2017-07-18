@@ -1,5 +1,6 @@
 I:
-0 Northwind -> change login employee get from TempData to model
+done Northwind -> change login employee get from TempData to model
+inorgrs Northwind -> add complex model add
 0 Repo - > cahnge Sector and User interfaces to generic Edit repo Select by ID delete by ID
 0 WCF - Add WCF between Repo and Site
 
