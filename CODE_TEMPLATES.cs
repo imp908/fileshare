@@ -78,8 +78,16 @@ http://www.newtonsoft.com/json/help/html/serializingjson.htm
 //ASP.NET Web Deployment - Recommended Resources
 http://www.asp.net/whitepapers/aspnet-web-deployment-content-map
 
+//Prism MVV XAML
+https://msdn.microsoft.com/en-us/library/ff648465.aspx
+
+
 //Advanced Entity Framework 6 Scenarios for an MVC 5 + usefull links
 http://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application#rawsql
+//EF fluent api
+https://msdn.microsoft.com/en-us/library/jj591620(v=vs.113).aspx
+
+
 
 //ASP.NET Data Access - Recommended Resources
 http://www.asp.net/whitepapers/aspnet-data-access-content-map
@@ -132,12 +140,26 @@ https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-pred
 
 
 
+//ASPnet IDENTITY source
+https://aspnetidentity.codeplex.com/SourceControl/latest#src/Microsoft.AspNet.Identity.EntityFramework/IdentityDbContext.cs
+
+
+
+
 //MVC OWIN Aothentication
 https://blogs.msdn.microsoft.com/webdev/2013/07/03/understanding-owin-forms-authentication-in-mvc-5/
 https://weblog.west-wind.com/posts/2015/Apr/29/Adding-minimal-OWIN-Identity-Authentication-to-an-Existing-ASPNET-MVC-Application
+http://benfoster.io/blog/customising-claims-transformation-in-aspnet-core-identity
+//MVC bind model to list 
+http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx/
+//MVC Model state 
+https://www.exceptionnotfound.net/asp-net-mvc-demystified-modelstate/
+
 
 //MIGRATIONS
 https://msdn.microsoft.com/en-US/data/dn481501
+
+
 
 
 //WCF distributed
@@ -152,9 +174,11 @@ https://www.codeproject.com/Articles/1081015/Autogenerate-DataContracts-for-WCF-
 https://www.codeproject.com/Articles/1160537/WCF-Windows-Communication-Foundation-Transaction-S
 
 
+
 //WebApi
 //WebApi controller
 https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
+https://docs.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/
 //WCF WebApi
 http://blogs.microsoft.co.il/idof/2012/03/05/wcf-or-aspnet-web-apis-my-two-cents-on-the-subject/
 

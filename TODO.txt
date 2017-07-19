@@ -1,8 +1,7 @@
 I:
-done Northwind -> change login employee get from TempData to model
-inorgrs Northwind -> add complex model add
 0 Repo - > cahnge Sector and User interfaces to generic Edit repo Select by ID delete by ID
-0 WCF - Add WCF between Repo and Site
+0 WCF -> Add WCF between Repo and Site
+0 WCF -> Add JS multiple model items update at one time
 
 0 PresentationSite - parsing excel file to objects method decompose to several
 	///Sector type from filename
@@ -26,9 +25,11 @@ inorgrs Northwind -> add complex model add
 
 0 PresentationSite - Export to excel
 0 SB to console
+0  Repo to DLL
 
-SB , Repo and UOF to different projects  Repo to DLL <- done
-
+SB , Repo and UOF to different projects  <- done
+done Northwind -> change login employee get from TempData to model  <- done
+done Northwind -> add complex model add  <- done
 II:
 0 Polinom Parse - parse *^/ to expressions and add priorities for exprs
 0 Command line app dll
