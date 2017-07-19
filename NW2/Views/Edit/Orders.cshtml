@@ -1,0 +1,40 @@
+﻿@using Northwind.Models.Validation
+@model Northwind.Models.Validation.OrderView
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>Orders</h2>
+
+@Html.LabelForModel("Logged as" + " " + Model.employee.FirstName + " " + Model.employee.LastName)
+
+<table>
+    <tr>
+        <td>@Html.LabelFor(s => s.orderDetail.ContactName)</td>
+        <td>@Html.LabelFor(s => s.orderDetail.ProductName)</td>
+        <td>@Html.LabelFor(s => s.orderDetail.Quantity)</td>
+        <td>@Html.LabelFor(s => s.orderDetail.UnitPrice)</td>        
+    </tr>
+    @foreach( var b in Model.OrderDetails)
+    {
+    <tr>
+        <td>@b.ContactName</td>
+        <td>@b.ProductName</td>
+        <td>@b.Quantity</td>        
+        <td>@b.UnitPrice</td>        
+        <td>
+            @Html.ActionLink("Edit","Change", new { pid = b.productID , oid = b.orderID})           
+        </td>
+
+        <td><button id="editID">Edit</button></td>   
+        <td>@Html.TextBoxFor(s => b.Quantity)</td>
+        <td>
+            <input type="submit" value="Update" name="action:Increase" />
+        </td>
+        <td>
+            <input type="submit" value="Stop" name="action:Decrease" />
+        </td>
+    </tr>
+    }
+</table>
