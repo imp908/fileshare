@@ -1,0 +1,57 @@
+﻿@using Northwind.Models.Validation
+@model Northwind.Models.Validation.Register
+@{
+    ViewBag.Title = "Register" + Model.Message;
+}
+<h2>Register</h2>
+<tr>
+
+    @Html.LabelForModel(Model.Message)
+</tr>
+
+
+<div class="wrapper">
+    <form class="form-signin">
+        @using (Html.BeginForm("Register", "Validation", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-control">
+                @Html.LabelFor(s => s.Email)
+                @Html.TextBoxFor(s => s.Email)
+                @Html.ValidationMessageFor(s => s.Email)
+            </div>
+
+
+            <div class="form-control">
+                @Html.LabelFor(s => s.Password)
+                @Html.PasswordFor(s => s.Password)
+                @Html.ValidationMessageFor(s => s.Password)
+            </div>
+
+
+            <div class="form-control">
+                @Html.LabelFor(s => s.PasswordConfirm)
+                @Html.PasswordFor(s => s.PasswordConfirm)
+                @Html.ValidationMessageFor(s => s.PasswordConfirm)
+            </div>
+
+
+            <div class="form-control">
+                @Html.LabelFor(s => s.FirstName)
+                @Html.TextBoxFor(s => s.FirstName)
+                @Html.ValidationMessageFor(s => s.FirstName)
+            </div>
+
+            <div class="form-control">
+                @Html.LabelFor(s => s.LastName)
+                @Html.TextBoxFor(s => s.LastName)
+                @Html.ValidationMessageFor(s => s.LastName)
+            </div>
+
+
+            <button type="submit" class="btn btn-sm btn-primary btn-block" id="RegisterID">Register</button>
+        }
+    </form>
+</div>
+
