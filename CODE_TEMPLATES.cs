@@ -82,6 +82,7 @@ http://www.asp.net/whitepapers/aspnet-web-deployment-content-map
 https://msdn.microsoft.com/en-us/library/ff648465.aspx
 
 
+
 //Advanced Entity Framework 6 Scenarios for an MVC 5 + usefull links
 http://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application#rawsql
 //EF fluent api
@@ -138,14 +139,34 @@ https://msdn.microsoft.com/en-us/library/ee845452.aspx
 //LINQ chaining
 https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-predicates/
 
-
-
 //ASPnet IDENTITY source
 https://aspnetidentity.codeplex.com/SourceControl/latest#src/Microsoft.AspNet.Identity.EntityFramework/IdentityDbContext.cs
 
 
 
+//5 Essential Datastructures
+http://programmingwithmosh.com/csharp/csharp-collections/
 
+
+
+//REPOSITORY
+//Generic Repository is BAD
+http://rob.conery.io/2014/03/04/repositories-and-unitofwork-are-not-a-good-idea/
+//generic Repository
+http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc
+//Generic repository
+https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+//A trully generic repository
+http://cpratt.co/truly-generic-repository/
+
+
+
+//MVC Query Commands
+http://programmingwithmosh.com/object-oriented-programming/repositories-or-command-query-objects/
+//MVC Reuse UOW and repo 
+http://www.primaryobjects.com/2010/09/30/using-the-entity-framework-repository-and-unitofwork-pattern-in-c-asp-net/
+//MVC repo lifetime
+https://weblog.west-wind.com/posts/2008/Feb/05/Linq-to-SQL-DataContext-Lifetime-Management
 //MVC OWIN Aothentication
 https://blogs.msdn.microsoft.com/webdev/2013/07/03/understanding-owin-forms-authentication-in-mvc-5/
 https://weblog.west-wind.com/posts/2015/Apr/29/Adding-minimal-OWIN-Identity-Authentication-to-an-Existing-ASPNET-MVC-Application
@@ -198,17 +219,6 @@ https://weblog.west-wind.com/posts/2013/Dec/22/Entity-Framework-and-slow-bulk-IN
 https://blog.oneunicorn.com/2013/05/28/database-initializer-and-migrations-seed-methods/
 // Code First Migrations with an existing database
 https://msdn.microsoft.com/en-us/data/dn579398
-
-
-//REPOSITORY
-//Generic Repository is BAD
-http://rob.conery.io/2014/03/04/repositories-and-unitofwork-are-not-a-good-idea/
-//generic Repository
-http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc
-//Generic repository
-https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
-//A trully generic repository
-http://cpratt.co/truly-generic-repository/
 
 
 
@@ -4165,7 +4175,31 @@ public void T_SQL()
 			public LockSessions()
 			{
 				
+				select * from master.dbo.syslockinfo l
+				left join master.dbo.spt_values v on l.rsc_type=v.number
+				left join master.dbo.spt_values x on l.req_status=x.number
+				left join master.dbo.spt_values u on l.req_mode+1=u.number
+				left join master.dbo.sysdatabases d on l.rsc_dbid = d.dbid
+				where 1=1
+				and v.type='LR'
+				and x.type='LS'
+				and u.type='L'
+				and l.rsc_dbid in (
+				select dbid from master..sysdatabases where name ='NORTHWIND'
+				)
+				;
 			}
+		
+			public QueryHistory()
+			{
+				
+				select * from sys.dm_exec_cached_plans as p
+				cross apply sys.dm_exec_sql_text(p.plan_handle) as t
+				;
+
+			}
+
+			
 		}
 	
 	}

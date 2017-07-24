@@ -1,15 +1,21 @@
 I:
-0 Repo - > cahnge Sector and User interfaces to generic Edit repo Select by ID delete by ID
-0 WCF -> Add WCF between Repo and Site
-0 WCF -> Add JS multiple model items update at one time
-
-0 PresentationSite - parsing excel file to objects method decompose to several
+0 Repo 
+-> cahnge Sector and User interfaces to generic Edit repo Select by ID delete by ID
+-> Simplify Repo calls with ID and CRUD specific, moove all BILogic 
+(sector,user,manager,merchant - (ID), date -(date)) to Manager above UOW. UOW only simple operations
+0 WCF 
+-> Add WCF between Repo and Site
+-> Add JS multiple model items update at one time
+-> to DLL 
+1 PresentationSite
+-> parsing excel file to objects method decompose to several
 	///Sector type from filename
 	///Fist file input determines merchant sector
 	parse file mask;
 	
 	if parsed then
 	{
+	
 		get sector id from filename; --from config
 		get property fields; --from config
 		if(no merchant column then error); --from parser
@@ -23,23 +29,18 @@ I:
 		
 	}
 
-0 PresentationSite - Export to excel
-0 SB to console
-0  Repo to DLL
-
-SB , Repo and UOF to different projects  <- done
-done Northwind -> change login employee get from TempData to model  <- done
-done Northwind -> add complex model add  <- done
-II:
-0 Polinom Parse - parse *^/ to expressions and add priorities for exprs
-0 Command line app dll
-0 Multithread message ping pong
-
-III:
-0 Type converter for migration -> (
+	-> Export to excel
+-> Type converter for migration (
 Add SQL to CLR type conversion ; 
 SQLEntity to DWH entity converter; 
-Converter logic to string name or type name;
-)
+Converter logic to string name or type name;)
 
+SB , Repo and UOF to different projects  <- done
+Northwind -> change login employee get from TempData to model  <- done
+Northwind -> add complex model add  <- done
 Tables migration - test with repo <- done
+II:
+0 Polinom Parse -> parse *^/ to expressions and add priorities for exprs
+0 Command line app dll -> to SB
+0 Multithread message ping pong -> to SB
+0 Console parameters parse -> to SB
