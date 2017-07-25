@@ -21,6 +21,16 @@ namespace Books
 
 #region Overall
 
+public void Patterns() 
+{
+
+// ORM patterns
+http://merle-amber.blogspot.ru/2009/02/orm.html
+//Fauler 
+https://martinfowler.com/books/eaa.html
+	
+}
+
 public void Unsorted()
 {
 	
@@ -83,13 +93,6 @@ https://msdn.microsoft.com/en-us/library/ff648465.aspx
 
 
 
-//Advanced Entity Framework 6 Scenarios for an MVC 5 + usefull links
-http://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application#rawsql
-//EF fluent api
-https://msdn.microsoft.com/en-us/library/jj591620(v=vs.113).aspx
-
-
-
 //ASP.NET Data Access - Recommended Resources
 http://www.asp.net/whitepapers/aspnet-data-access-content-map
 
@@ -149,6 +152,31 @@ http://programmingwithmosh.com/csharp/csharp-collections/
 
 
 
+//SPECIFICATION
+http://enterprisecraftsmanship.com/2016/02/08/specification-pattern-c-implementation/
+//COMMAND
+https://metanit.com/sharp/patterns/3.3.php
+//CQRS
+https://www.future-processing.pl/blog/cqrs-simple-architecture/
+
+
+
+//DECOUPLING QUERIES
+https://cuttingedge.it/blogs/steven/pivot/entry.php?id=92
+//QUERIES + IDataStore
+http://blog.gauffin.org/2012/10/griffin-decoupled-the-queries/
+
+
+
+//S#arp
+https://sharp-architecture.readthedocs.io/en/latest/
+
+
+
+//GENERIC REPOSITORY DDD
+http://codebetter.com/gregyoung/2009/01/16/ddd-the-generic-repository/
+//REPOSITORY <T entity, Tid>
+https://lostechies.com/jimmybogard/2009/09/03/ddd-repository-implementation-patterns/
 //REPOSITORY
 //Generic Repository is BAD
 http://rob.conery.io/2014/03/04/repositories-and-unitofwork-are-not-a-good-idea/
@@ -158,6 +186,10 @@ http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testin
 https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
 //A trully generic repository
 http://cpratt.co/truly-generic-repository/
+//Advanced Entity Framework 6 Scenarios for an MVC 5 + usefull links
+http://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application#rawsql
+//EF fluent api
+https://msdn.microsoft.com/en-us/library/jj591620(v=vs.113).aspx
 
 
 
@@ -177,9 +209,9 @@ http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx/
 https://www.exceptionnotfound.net/asp-net-mvc-demystified-modelstate/
 
 
+
 //MIGRATIONS
 https://msdn.microsoft.com/en-US/data/dn481501
-
 
 
 
@@ -219,6 +251,11 @@ https://weblog.west-wind.com/posts/2013/Dec/22/Entity-Framework-and-slow-bulk-IN
 https://blog.oneunicorn.com/2013/05/28/database-initializer-and-migrations-seed-methods/
 // Code First Migrations with an existing database
 https://msdn.microsoft.com/en-us/data/dn579398
+
+
+
+//C# Parallel
+http://www.albahari.com/threading/part5.aspx
 
 
 
@@ -270,8 +307,6 @@ http://stackoverflow.com/questions/2074779/identifying-derived-types-from-a-list
 
 
 }
-
-
 
 #region SourceControl
 

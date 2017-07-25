@@ -49,7 +49,7 @@ namespace Repo_
 
     public interface IReadRepo<T> where T : class, IEntity
     {
-       
+
         void Save();
         void Dispose(bool disposing_);
         void Dispose();
@@ -58,7 +58,7 @@ namespace Repo_
         , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntityInt;
 
     }
-    public interface IEditRepo<T> where  T : class, IEntity
+    public interface IEditRepo<T> where T : class, IEntity
     {
         void AddEntity(T item_);
         T GetById(int ID_);
@@ -68,7 +68,7 @@ namespace Repo_
     //Interface for entities with Sector ID
     public interface ISector : IMerchant { int? SECTOR_ID { get; set; } }
     //Interface for sector repo
-    public interface IBySector { void DeleteBySector(int id); }   
+    public interface IBySector { void DeleteBySector(int id); }
 
 
     /// <summary>
@@ -121,7 +121,7 @@ namespace Repo_
             GC.SuppressFinalize(this);
         }
 
-        public IQueryable<T> GetAll() 
+        public IQueryable<T> GetAll()
         {
             IQueryable<T> result = this._dbSet;
             return result;
@@ -142,7 +142,7 @@ namespace Repo_
     /// Repository inherited from ReadRepo to addEntity,GetByID and Edit (as atach) entity
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class EditRepo<T> : ReadRepo<T> , IEditRepo<T> where T : class, IEntityInt
+    public class EditRepo<T> : ReadRepo<T>, IEditRepo<T> where T : class, IEntityInt
     {
         public EditRepo(DbContext context_) : base(context_)
         {
@@ -319,5 +319,24 @@ namespace Repo_
         }
     }
     #endregion
+	
+	#region FGR
 
+ 
+    public interface IRepository<T,Tid> where T : class where Tid : class
+    {
+        IQueryable<T> GetALL();
+        T GetByKey(Tid id);
+        T GetByKeys(Tid prim, Tid sec);
+        IQueryable<T> GetByFilter(Expression<Func<T, bool>> filter);
+    };
+    public interface IEditRepository<T,Tid> : IRepository<T, Tid> where T : class where Tid : class
+    {
+        void Add(T entity);
+        void Delete(Tid id);
+    };
+
+
+
+    #endregion
 }

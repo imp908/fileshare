@@ -1,12 +1,16 @@
 I:
-0 Repo 
--> cahnge Sector and User interfaces to generic Edit repo Select by ID delete by ID
--> Simplify Repo calls with ID and CRUD specific, moove all BILogic 
+0 Repo (against SQL base and Northwind base)
+-> Merge Repo with (T , Tid) for key oprations 
+with Interface TGR for several operations on one entity
+-> Generic Repo with (T , Tid), CRUD
+pass implementation specific repo to fully generic
+-> cahnge Sector and User interfaces to generic Edit repo Select by SecondaryID delete by SecondaryID
+-> Simplify Repo calls with ID and CRUD specific, moove all BILogic
 (sector,user,manager,merchant - (ID), date -(date)) to Manager above UOW. UOW only simple operations
-0 WCF 
+0 WCF
 -> Add WCF between Repo and Site
 -> Add JS multiple model items update at one time
--> to DLL 
+-> to DLL
 1 PresentationSite
 -> parsing excel file to objects method decompose to several
 	///Sector type from filename
