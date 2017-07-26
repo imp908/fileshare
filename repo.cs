@@ -319,24 +319,103 @@ namespace Repo_
         }
     }
     #endregion
-	
-	#region FGR
 
- 
-    public interface IRepository<T,Tid> where T : class where Tid : class
-    {
-        IQueryable<T> GetALL();
-        T GetByKey(Tid id);
-        T GetByKeys(Tid prim, Tid sec);
-        IQueryable<T> GetByFilter(Expression<Func<T, bool>> filter);
-    };
-    public interface IEditRepository<T,Tid> : IRepository<T, Tid> where T : class where Tid : class
-    {
-        void Add(T entity);
-        void Delete(Tid id);
-    };
+    #region FGR
 
+
+    public interface IEntity_int
+    {
+        int ID { get; set; }
+    }
+    public interface IEntity_dec
+    {
+        decimal ID { get; set; }
+    }
+    public interface IEntity_str
+    {
+        string ID { get; set; }
+    }
+    public interface IEntity_date
+    {
+        DateTime? DATE { get; set; }
+    }
+   
+
+    public class RepositoryRead<T> where T : class
+    {
+
+        public DbContext context { get; set; }
+        public DbSet<T> dbset { get; set; }
+
+        public RepositoryRead(DbContext context_)
+        {
+            this.context = context_;
+        }
+        public void DbSetBind(DbSet<T> entity_)
+        {
+            this.dbset = context.Set<T>();
+
+        }
+        public IQueryable<T> GetALL()
+        {
+            IQueryable<T> result = null;
+            result = from s in this.context.Set<T>() select s;
+            return result;
+        }
+
+        public T GetByKey<T>(int id) where T : class, IEntity_int
+        {
+            T result = null;
+
+            result = (from s in this.context.Set<T>() where s.ID == id select s).FirstOrDefault();
+
+            return result;
+        }
+        public T GetByKey<T>(decimal id) where T : class, IEntity_dec
+        {
+            T result = null;
+
+            result = (from s in this.context.Set<T>() where s.ID == id select s).FirstOrDefault();
+
+            return result;
+        }
+        public T GetByKey<T>(string id) where T : class, IEntity_str
+        {
+            T result = null;
+
+            result = (from s in this.context.Set<T>() where s.ID == id select s).FirstOrDefault();
+
+            return result;
+        }
+        public IQueryable<T> GetByKeys<T>(DateTime prim, DateTime sec) where T : class, IEntity_date
+        {
+            IQueryable<T> result = null;
+
+            result = from s in this.context.Set<T>() where s.DATE >= prim && s.DATE <= sec select s;
+
+            return result;
+        }
+        IQueryable<T> GetByFilter(Expression<Func<T, bool>> filter)
+        {
+            IQueryable<T> result = null;
+
+            return result;
+        }      
+        
+    }
+
+    public class RepositoryReadColumn<T,K> : RepositoryRead<T>
+        where T : class
+        where K : class
+    {       
+        public RepositoryReadColumn(DbContext context_) : base (context_)
+        {
+
+        }
+
+    }
 
 
     #endregion
+
 }

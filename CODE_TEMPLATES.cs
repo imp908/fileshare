@@ -50,12 +50,23 @@ public void Unsorted()
 	 
 }
  
-namespace CodeExamples 
+namespace CodeExamples
 {
 
 //Usefull links
 public void mostUsefullLinks()
 {
+
+	public internal SECURITY()
+	{
+		
+	//National Vulnerability Database
+	https://nvd.nist.gov/
+
+	//WINDOWS SECURITY
+	http://www.securitylab.ru/blog/personal/aguryanov/29935.php
+
+	}
 
 //dev guide
 https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
@@ -4223,6 +4234,12 @@ public void T_SQL()
 				select dbid from master..sysdatabases where name ='NORTHWIND'
 				)
 				;
+				
+				
+				select * from master..sysdatabases
+				select * from  master.dbo.sysprocesses 
+				select * from master.dbo.syslockinfo 
+
 			}
 		
 			public QueryHistory()
