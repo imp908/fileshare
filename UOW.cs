@@ -12,7 +12,7 @@ using Model.SQLmodel;
 using DAL.DAL;
 
 namespace UOW
-{   
+{
 
     /// <summary>
     /// Unit of Work. Initializes Repositories with concrete entities
@@ -142,12 +142,12 @@ namespace UOW
     /// </summary>
     public class UnitOfWorkGeneric
     {
-        DbContext ent;     
+        DbContext ent;
 
         public UnitOfWorkGeneric(DbContext input_)
         {
             ent = input_;
-        }       
+        }
 
         ~UnitOfWorkGeneric()
         {
@@ -240,7 +240,7 @@ namespace UOW
             GC.SuppressFinalize(this);
         }
     }
-    
+
     /// <summary>
     /// Unit of work generic
     /// Decoupled from repositories with interfaces
@@ -248,7 +248,7 @@ namespace UOW
     /// only GetAll() and Add() methods implemented
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class UnitOfWorkDecoupled<T> where T : class , IEntity
+    public class UnitOfWorkDecoupled<T> where T : class, IEntity
     {
         DbContext context;
         IReadRepo<T> readrepo;
@@ -273,14 +273,17 @@ namespace UOW
         public IQueryable<T> GetAll()
         {
             IQueryable<T> result = null;
-                result= this.readrepo.GetAll();
+            result = this.readrepo.GetAll();
             return result;
         }
         public void Add(T item_)
         {
             editRepo.AddEntity(item_);
         }
-
+        public void Delete(T item_)
+        {
+            editRepo.Delete(item_);
+        }
         public void Save()
         {
             this.context.SaveChanges();
@@ -296,67 +299,68 @@ namespace UOW
 
         public static void GO()
         {
-            CHANGE_HR();
+          
+            string TEST_HR = @"SQLNW_J";
+            string TEST_DB = @"SQLDB_J";         
 
-            UOW_CONTEXT_TEST();
+            CHANGE_HR(TEST_HR);
 
-            CHANGE_HR();
-            CHANGE_DB();
+            UOW_GENERIC_TEST(TEST_DB);
+            UOW_DECOUPLED_HR_TEST(TEST_HR);
 
-            EnvironmentChangeTest();
-            EnvironmentInitTest();            
-            UOW_REFMERCHANTS_CHECK();
-            UOF_DECOUPLED_CHECK();
-            UOF_procedure_test();
+            CHANGE_HR(TEST_HR);
+            CHANGE_DB(TEST_DB);            
+
+            EnvironmentChangeTest(TEST_DB);
+            EnvironmentInitTest(TEST_DB);
+            UOW_REFMERCHANTS_CHECK(TEST_DB);
+            UOF_DECOUPLED_CHECK(TEST_DB);
+            UOF_procedure_test(TEST_DB);
+
         }
         //test database existance
-        public static void EnvironmentInitTest()
+        public static void EnvironmentInitTest(string connectionStringName_)
         {
-            string connectionStringName = @"SQLDB_J";
-            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName);
+
+            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName_);
             bool exists = ent.Database.Exists();
         }
         //test database existance after model change
-        public static void EnvironmentChangeTest()
+        public static void EnvironmentChangeTest(string connectionStringName_)
         {
-            string connectionStringName = @"SQLDB_J";
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(connectionStringName);
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(connectionStringName_);
             bool exists = ent.Database.Exists();
         }
         //test tight coupled Unit of Work 
-        public static void UOW_REFMERCHANTS_CHECK()
+        public static void UOW_REFMERCHANTS_CHECK(string connectionStringName_)
         {
-            string connectionStringName = @"SQLDB_J";
-            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName);
-            UnitOfWorkGeneric uow = new UnitOfWorkGeneric(ent);                   
+            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName_);
+            UnitOfWorkGeneric uow = new UnitOfWorkGeneric(ent);
             int a = uow.GetAll<REFMERCHANTS_SQL>().Count();
         }
         //test decoupled unit of work
-        public static void UOF_DECOUPLED_CHECK()
+        public static void UOF_DECOUPLED_CHECK(string connectionStringName_)
         {
-            string connectionStringName = @"SQLDB_J";
-            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName);
+            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName_);
             UnitOfWorkDecoupled<REFMERCHANTS_SQL> uow = new UnitOfWorkDecoupled<REFMERCHANTS_SQL>(ent);
             ReadRepo<REFMERCHANTS_SQL> readrepo = new ReadRepo<REFMERCHANTS_SQL>(ent);
             uow.RepoBind(readrepo);
             int a = uow.GetAll().Count();
         }
         //test procedure 
-        public static void UOF_procedure_test()
+        public static void UOF_procedure_test(string connectionStringName_)
         {
-            string connectionStringName = @"SQLDB_J";
-            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName);
+            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName_);
             ent.Database.SqlQuery<Model.SQLmodel.FakePOCO>("VALUES_INSERT");
             int a = (from s in ent.REFMERCHANTS_SQL select s).Count();
         }
 
         //test UOW for different contexts with different conn strings
         //Test Change context for DB database
-        public static void CHANGE_HR()
+        public static void CHANGE_HR(string connectionStringName_)
         {
-
-            string connectionStringName = @"TEST_CHG_HR_J";
-            SQLHR_CHANGE ent = new SQLHR_CHANGE(connectionStringName);
+          
+            SQLHR_CHANGE ent = new SQLHR_CHANGE(connectionStringName_);
             /*
             Model.SQLmodel.REGIONS region = new REGIONS { ID = 2, REGION_NAME = @"US" };
             ent.REGIONS_SQL.Add(region);
@@ -369,11 +373,10 @@ namespace UOW
 
         }
         //Test Change context for DB database
-        public static void CHANGE_DB()
+        public static void CHANGE_DB(string connectionStringName_)
         {
-
-            string connectionStringName = @"TEST_CHG_DB_J";
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(connectionStringName);
+    
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(connectionStringName_);
             UnitOfWorkDecoupled<REFMERCHANTS_SQL> UOW = new UnitOfWorkDecoupled<REFMERCHANTS_SQL>(ent);
             ReadRepo<REFMERCHANTS_SQL> repo = new ReadRepo<REFMERCHANTS_SQL>(ent);
             UOW.RepoBind(repo);
@@ -381,25 +384,23 @@ namespace UOW
 
         }
         //TEST GENERIC REPO WITH DIFFERENT CONTEXTS and Entities
-        public static void UOW_CONTEXT_TEST()
+        public static void UOW_GENERIC_TEST(string connectionStringName_)
         {
-
-            string connectionStringName = @"TEST_CHG_DB_J";
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(connectionStringName);
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(connectionStringName_);
             UnitOfWorkGeneric UOW = new UnitOfWorkGeneric(ent);
+
             var a = UOW.GetAll<REFMERCHANTS_SQL>().Count();
-
-
-            string HRconnectionString = @"TEST_CHG_HR_J";
-            SQLHR_CHANGE HRent = new SQLHR_CHANGE(HRconnectionString);
-            UnitOfWorkDecoupled<LOCATIONS> HRUOW = new UnitOfWorkDecoupled<LOCATIONS>(HRent);
-            var b = HRUOW.GetAll().Count();
-
-            HRUOW.ChangeContext(ent);
-            b = HRUOW.GetAll().Count();
         }
 
+        public static void UOW_DECOUPLED_HR_TEST(string connectionStringName_)
+        {
+            SQLHR_CHANGE ent = new SQLHR_CHANGE(connectionStringName_);
+            UnitOfWorkDecoupled<LOCATIONS> UOW = new UnitOfWorkDecoupled<LOCATIONS>(ent);
+            ReadRepo<LOCATIONS> rep = new ReadRepo<LOCATIONS>(ent);
+            UOW.RepoBind(rep);
+            var b = UOW.GetAll().Count();
+        }
+        
     }
-
 
 }

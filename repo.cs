@@ -23,15 +23,17 @@ namespace Repo_
     public interface IEntityInt : IEntity { int ID { get; set; } }
     //for entities with decimal ID
     public interface IEntityDec : IEntity { decimal ID { get; set; } }
+    public interface IEntityStr : IEntity { string ID { get; set; } }
+    public interface IEntityLong : IEntity { long ID { get; set; } }
 
     public interface IEntity<T> : IEntityInt { }
     //public abstract class Entity<T> : IEntity<T> where T : DbContext { public int ID { get; set; } }
 
     public interface IDate : IEntityInt { Nullable<System.DateTime> DATE { get; set; } }
-    public interface IByDate { IQueryable<T> GetByDate<T>(DateTime st, DateTime fn) where T : class, IDate; }
+    //public interface IByDate { IQueryable<T> GetByDate<T>(DateTime st, DateTime fn) where T : class, IDate; }
 
     public interface IMerchant : IEntityInt { long? MERCHANT { get; set; } }
-    public interface IByMerchant { IQueryable<T> GetByMerchantFilter<T>() where T : class, IMerchant; }
+    //public interface IByMerchant { IQueryable<T> GetByMerchantFilter<T>() where T : class, IMerchant; }
 
     public interface IUser : IMerchant { int USER_ID { get; set; } }
     public interface IByUser { void DeleteByUserID(int id); }
@@ -41,11 +43,6 @@ namespace Repo_
     {
 
     }
-    public interface IChain
-    {
-        ChainingRepo<IChainable> FilterByDate(DateTime st, DateTime fn);
-        ChainingRepo<IChainable> FilterByMerchants<K>() where K : class, IMerchant;
-    }
 
     public interface IReadRepo<T> where T : class, IEntity
     {
@@ -54,15 +51,37 @@ namespace Repo_
         void Dispose(bool disposing_);
         void Dispose();
         IQueryable<T> GetAll();
-        IQueryable<T> GetByFilter<T>(Expression<Func<T, bool>> filter = null
-        , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntityInt;
 
+        IQueryable<T0> GetByFilter<T0>(Expression<Func<T0, bool>> filter = null
+        , Func<IQueryable<T0>, IOrderedQueryable<T0>> OrderBy = null) where T0 : class, IEntityInt;
+    }
+        public interface IReadRepoExpl<T> : IReadRepo<T> where T : class, IEntity
+    {
+
+       
+        Tint GetByKey<Tint>(int id_) where Tint : class, IEntityInt;
+        Tdec GetByKey<Tdec>(decimal id_) where Tdec : class, IEntityDec;
+        Tstr GetByKey<Tstr>(string id_) where Tstr : class, IEntityStr;
+
+        IQueryable<Tlng> GetByKeys<Tlng>(List<long> ids_) where Tlng : class, IEntityLong;
+        IQueryable<Tdt> GetByKeys<Tdt>(DateTime st, DateTime fn) where Tdt : class, IDate;
+       
     }
     public interface IEditRepo<T> where T : class, IEntity
     {
         void AddEntity(T item_);
         T GetById(int ID_);
         void Edit(T item_);
+        void Delete(T item_);
+        void DeleteRange(List<T> item_);
+    }
+    public interface IChainingRepo<T> where T : class, IChainable
+    {
+
+        ChainingRepo<T> FilterByExpression(Expression<Func<T, bool>> filter_);
+        ChainingRepo<IChainable> FilterByDate(DateTime st, DateTime fn);
+        ChainingRepo<IChainable> FilterByMerchants<K>() where K : class, IMerchant;
+
     }
 
     //Interface for entities with Sector ID
@@ -72,15 +91,16 @@ namespace Repo_
 
 
     /// <summary>
-    /// Repository to readonly context, get all, get by specific Expression<Func<T, bool>> filter, save and dispose
+    /// Repository to readonly context, get all, get by specific Expression<Func<T, bool>> filter, 
+    /// save and dispose
+    /// implicit methods, type parameter passed at inititialization
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class ReadRepo<T> : IReadRepo<T> where T : class, IEntity
     {
 
         internal DbContext _context { get; set; }
-        internal DbSet<T> _dbSet { get; set; }
-        public IQueryable<T> _result { get; set; }
+        internal DbSet<T> _dbSet { get; set; }      
 
         public ReadRepo(DbContext context_)
         {
@@ -126,6 +146,47 @@ namespace Repo_
             IQueryable<T> result = this._dbSet;
             return result;
         }
+
+        public T GetByKey<T>(int id_)  where T: class, IEntityInt
+        {
+            T result = null;
+            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
+            return result;
+        }
+        public T GetByKey<T>(decimal id_) where T : class, IEntityDec
+        {
+            T result = null;
+            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
+            return result;
+        }
+        public T GetByKey<T>(string id_) where T : class, IEntityStr
+        {
+            T result = null;
+            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
+            return result;
+        }
+
+        public IQueryable<T> GetByKeys<T>(List<long> ids_) where T : class, IEntityLong
+        {
+            IQueryable<T> result = null;
+            result = 
+                from s in this._context.Set<T>()
+                from t in ids_
+                where s.ID==t
+                select s;
+            return result;
+        }
+
+        public IQueryable<T> GetByKeys<T>(DateTime st,DateTime fn) where T: class, IDate
+        {
+            IQueryable<T> result = null;
+            result = 
+                from s in this._context.Set<T>()
+                where s.DATE >= st && s.DATE <= fn
+                select s;
+            return result;
+        }
+
         public IQueryable<T> GetByFilter<T>(Expression<Func<T, bool>> filter = null
         , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntityInt
         {
@@ -140,10 +201,12 @@ namespace Repo_
     }
     /// <summary>
     /// Repository inherited from ReadRepo to addEntity,GetByID and Edit (as atach) entity
+    /// explicit methods
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class EditRepo<T> : ReadRepo<T>, IEditRepo<T> where T : class, IEntityInt
     {
+
         public EditRepo(DbContext context_) : base(context_)
         {
 
@@ -165,103 +228,25 @@ namespace Repo_
         {
             this._dbSet.Attach(item_);
         }
-    }
-    /// <summary>
-    /// Repository for filtering by merchantlist entity inherited from IMerchant interface, 
-    /// with sector_id , which not needed to be chained (no data and merchant simultaneous filter)
-    /// >>!!! used for entities with different properties
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class SectorFilterRepo<T> : EditRepo<T>, IBySector
-        where T : class, ISector
-    {
-        public SectorFilterRepo(DbContext context_) : base(context_)
+        public void Delete(T item_)
         {
+            this._dbSet.Remove(item_);
+        }
+        public void DeleteRange(List<T> item_)
+        {
+            this._dbSet.RemoveRange(item_);
+        }
 
-        }
-        public void DeleteBySector(int id_)
-        {
-            //this._dbSet.RemoveRange(from s in this._dbSet where s.SECTOR_ID == id_ select s );
-            foreach (var item_ in this._dbSet)
-            {
-                if (item_.SECTOR_ID != null)
-                {
-                    if (item_.SECTOR_ID.Value == id_)
-                    {
-                        this._dbSet.Remove(item_);
-                    }
-                }
-            }
-        }
     }
-    public class UserFilterRepo<T> : EditRepo<T>, IByUser
-        where T : class, IUser
-    {
-        public UserFilterRepo(DbContext context_) : base(context_)
-        {
 
-        }
-        public void DeleteByUserID(int id_)
-        {
-            foreach (var item_ in this._dbSet.Where(s => s.USER_ID == id_))
-            {
-                this._dbSet.Remove(item_);
-            }
-        }
-    }
-    /// <summary>
-    /// Repository for entity with merchant, filtering by refmerchants and merchant count
-    /// compares K merchants in T
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class MerchantFilterRepo<T, K> : EditRepo<T>, IByMerchant
-        where T : class, IMerchant
-        where K : class, IMerchant
-    {
-        public MerchantFilterRepo(DbContext context_) : base(context_)
-        {
-
-        }
-        public IQueryable<T> GetByMerchantFilter<T>() where T : class, IMerchant
-        {
-            IQueryable<T> result = null;
-            IDbSet<K> merchant_entity = this._context.Set<K>();
-            var merchs = from s in merchant_entity select s;
-            DbSet<T> filtering_entity = this._context.Set<T>();
-            result = from s in filtering_entity join k in merchs on s.MERCHANT equals k.MERCHANT select s;
-            return result;
-        }
-        public int GetMerchantFilterAmount<T>() where T : class, IMerchant
-        {
-            int result_ = 0;
-            IDbSet<T> merchant_entity = this._context.Set<T>();
-            result_ = (from s in merchant_entity select s).Count();
-            return result_;
-        }
-    }
-    /// <summary>
-    /// 
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    public class DateFilterRepo<T> : EditRepo<T>
-        where T : class, IDate
-    {
-        public DateFilterRepo(DbContext context_) : base(context_)
-        {
-
-        }
-        public IQueryable<T> GetByDate(DateTime st, DateTime fn)
-        {
-            IQueryable<T> result = _context.Set<T>().Where(s => s.DATE >= st && s.DATE <= fn);
-            return result;
-        }
-    }
     /// <summary>
     /// Repository for entities with chaining, entities with date and merchants fields
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class ChainingRepo<T> : EditRepo<T>, IChain where T : class, IChainable
+    public class ChainingRepo<T> : EditRepo<T> where T : class, IChainable
     {
+        public IQueryable<T> _result { get; set; }
+
         public ChainingRepo(DbContext context_) : base(context_)
         {
 
@@ -312,109 +297,252 @@ namespace Repo_
             DbSet<K> filter_mercahnt = this._context.Set<K>();
             if (this._result == null)
             {
-                this._result = from s in this._dbSet where s.MERCHANT == 929 select s;
+                this._result = from s in this._dbSet select s;
             }
             _result._result = from s in this._result join t in filter_mercahnt on s.MERCHANT equals t.MERCHANT select s;
             return _result;
         }
     }
-    #endregion
 
-    #region FGR
-
-
-    public interface IEntity_int
+    /// <summary>
+    /// Repository for filtering by merchantlist entity inherited from IMerchant interface, 
+    /// with sector_id , which not needed to be chained (no data and merchant simultaneous filter)
+    /// >>!!! used for entities with different properties
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class SectorFilterRepo<T> : EditRepo<T>, IBySector
+        where T : class, ISector
     {
-        int ID { get; set; }
-    }
-    public interface IEntity_dec
-    {
-        decimal ID { get; set; }
-    }
-    public interface IEntity_str
-    {
-        string ID { get; set; }
-    }
-    public interface IEntity_date
-    {
-        DateTime? DATE { get; set; }
-    }
-   
-
-    public class RepositoryRead<T> where T : class
-    {
-
-        public DbContext context { get; set; }
-        public DbSet<T> dbset { get; set; }
-
-        public RepositoryRead(DbContext context_)
+        public SectorFilterRepo(DbContext context_) : base(context_)
         {
-            this.context = context_;
-        }
-        public void DbSetBind(DbSet<T> entity_)
-        {
-            this.dbset = context.Set<T>();
 
         }
-        public IQueryable<T> GetALL()
+        public void DeleteBySector(int id_)
+        {
+            //this._dbSet.RemoveRange(from s in this._dbSet where s.SECTOR_ID == id_ select s );
+            foreach (var item_ in this._dbSet)
+            {
+                if (item_.SECTOR_ID != null)
+                {
+                    if (item_.SECTOR_ID.Value == id_)
+                    {
+                        this._dbSet.Remove(item_);
+                    }
+                }
+            }
+        }
+    }
+    public class UserFilterRepo<T> : EditRepo<T>, IByUser
+        where T : class, IUser
+    {
+        public UserFilterRepo(DbContext context_) : base(context_)
+        {
+
+        }
+        public void DeleteByUserID(int id_)
+        {
+            foreach (var item_ in this._dbSet.Where(s => s.USER_ID == id_))
+            {
+                this._dbSet.Remove(item_);
+            }
+        }
+    }
+    /// <summary>
+    /// Repository for entity with merchant, filtering by refmerchants and merchant count
+    /// compares K merchants in T
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class MerchantFilterRepo<T, K> : EditRepo<T>
+        where T : class, IMerchant
+        where K : class, IMerchant
+    {
+        public MerchantFilterRepo(DbContext context_) : base(context_)
+        {
+
+        }
+        public IQueryable<T> GetByMerchantFilter<T>() where T : class, IMerchant
         {
             IQueryable<T> result = null;
-            result = from s in this.context.Set<T>() select s;
+            IDbSet<K> merchant_entity = this._context.Set<K>();
+            var merchs = from s in merchant_entity select s;
+            DbSet<T> filtering_entity = this._context.Set<T>();
+            result = from s in filtering_entity join k in merchs on s.MERCHANT equals k.MERCHANT select s;
             return result;
         }
-
-        public T GetByKey<T>(int id) where T : class, IEntity_int
+        public int GetMerchantFilterAmount<T>() where T : class, IMerchant
         {
-            T result = null;
+            int result_ = 0;
+            IDbSet<T> merchant_entity = this._context.Set<T>();
+            result_ = (from s in merchant_entity select s).Count();
+            return result_;
+        }
+    }
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class DateFilterRepo<T> : EditRepo<T>
+        where T : class, IDate
+    {
+        public DateFilterRepo(DbContext context_) : base(context_)
+        {
 
-            result = (from s in this.context.Set<T>() where s.ID == id select s).FirstOrDefault();
-
+        }
+        public IQueryable<T> GetByDate(DateTime st, DateTime fn)
+        {
+            IQueryable<T> result = _context.Set<T>().Where(s => s.DATE >= st && s.DATE <= fn);
             return result;
         }
-        public T GetByKey<T>(decimal id) where T : class, IEntity_dec
-        {
-            T result = null;
-
-            result = (from s in this.context.Set<T>() where s.ID == id select s).FirstOrDefault();
-
-            return result;
-        }
-        public T GetByKey<T>(string id) where T : class, IEntity_str
-        {
-            T result = null;
-
-            result = (from s in this.context.Set<T>() where s.ID == id select s).FirstOrDefault();
-
-            return result;
-        }
-        public IQueryable<T> GetByKeys<T>(DateTime prim, DateTime sec) where T : class, IEntity_date
-        {
-            IQueryable<T> result = null;
-
-            result = from s in this.context.Set<T>() where s.DATE >= prim && s.DATE <= sec select s;
-
-            return result;
-        }
-        IQueryable<T> GetByFilter(Expression<Func<T, bool>> filter)
-        {
-            IQueryable<T> result = null;
-
-            return result;
-        }      
-        
     }
 
-    public class RepositoryReadColumn<T,K> : RepositoryRead<T>
-        where T : class
-        where K : class
-    {       
-        public RepositoryReadColumn(DbContext context_) : base (context_)
-        {
 
+
+    /// <summary>
+    /// Repository, generic, with explicit methods for different entity fields and types
+    /// Type parameter can differ for every method
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class ReadRepoDstr<T> : IReadRepoExpl<T> where T : class, IEntity
+    {
+
+        internal DbContext _context { get; set; }
+        internal DbSet<T> _dbSet { get; set; }
+
+        public ReadRepoDstr(DbContext context_)
+        {
+            this._context = context_;
+            this._dbSet = this._context.Set<T>();
+        }
+
+        private bool dispose = false;
+
+        public void Save()
+        {
+            try
+            {
+                this._context.SaveChanges();
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var ev in e.EntityValidationErrors)
+                {
+
+                }
+            }
+        }
+        public void Dispose(bool disposing_)
+        {
+            if (!this.dispose)
+            {
+                if (disposing_)
+                {
+                    this._context.Dispose();
+                }
+            }
+            this.dispose = true;
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        public IQueryable<T> GetAll()
+        {
+            IQueryable<T> result = this._dbSet;
+            return result;
+        }
+
+        public Tint GetByKey<Tint>(int id_) where Tint : class, IEntityInt
+        {
+            Tint result = null;
+            result = (from s in this._context.Set<Tint>() where s.ID == id_ select s).FirstOrDefault();
+            return result;
+        }
+        public Tdec GetByKey<Tdec>(decimal id_) where Tdec : class, IEntityDec
+        {
+            Tdec result = null;
+            result = (from s in this._context.Set<Tdec>() where s.ID == id_ select s).FirstOrDefault();
+            return result;
+        }
+        public Tstr GetByKey<Tstr>(string id_) where Tstr : class, IEntityStr
+        {
+            Tstr result = null;
+            result = (from s in this._context.Set<Tstr>() where s.ID == id_ select s).FirstOrDefault();
+            return result;
+        }
+
+        public IQueryable<Tlng> GetByKeys<Tlng>(List<long> ids_) where Tlng : class, IEntityLong
+        {
+            IQueryable<Tlng> result = null;
+            result =
+                from s in this._context.Set<Tlng>()
+                from t in ids_
+                where s.ID == t
+                select s;
+            return result;
+        }
+
+        public IQueryable<Tdt> GetByKeys<Tdt>(DateTime st, DateTime fn) where Tdt : class, IDate
+        {
+            IQueryable<Tdt> result = null;
+            result =
+                from s in this._context.Set<Tdt>()
+                where s.DATE >= st && s.DATE <= fn
+                select s;
+            return result;
+        }
+
+        public IQueryable<T0> GetByFilter<T0>(Expression<Func<T0, bool>> filter = null
+        , Func<IQueryable<T0>, IOrderedQueryable<T0>> OrderBy = null) where T0 : class, IEntityInt
+        {
+            IQueryable<T0> result = this._context.Set<T0>();
+            if (filter != null)
+            {
+                result = result.Where(filter);
+            }
+            return result;
         }
 
     }
+    /// <summary>
+    /// Repository for edit operations, generic
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class EditRepoDstr<T> : ReadRepoDstr<T>, IEditRepo<T> where T : class, IEntityInt
+    {
 
+        public EditRepoDstr(DbContext context_) : base(context_)
+        {
+
+        }
+        public void AddEntity(T item_)
+        {
+            this._dbSet.Add(item_);
+        }
+        public T GetById(int ID_)
+        {
+            T result = null;
+            if ((from s in this._dbSet where s.ID == ID_ select s).Any())
+            {
+                result = (from s in this._dbSet where s.ID == ID_ select s).FirstOrDefault();
+            }
+            return result;
+        }
+        public void Edit(T item_)
+        {
+            this._dbSet.Attach(item_);
+        }
+        public void Delete(T item_)
+        {
+            this._dbSet.Remove(item_);
+        }
+        public void DeleteRange(List<T> item_)
+        {
+            this._dbSet.RemoveRange(item_);
+        }
+
+    }
 
     #endregion
 

@@ -1,7 +1,14 @@
 I:
 0 Repo (against SQL base and Northwind base)
--> Merge Repo with (T , Tid) for key oprations 
+-> Emplicit implicit repos
+Merge Repo with (T , Tid) for key oprations 
 with Interface TGR for several operations on one entity
+1-explicit repo (mostly type by merchant)
+Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}
+2-mplicit repo (mostly one type by repo instance)
+Repo<T>() where T: IOne { GetByOne(); }
+...
+Repo<T>() where T: In { GetByN(); }
 -> Generic Repo with (T , Tid), CRUD
 pass implementation specific repo to fully generic
 -> cahnge Sector and User interfaces to generic Edit repo Select by SecondaryID delete by SecondaryID
