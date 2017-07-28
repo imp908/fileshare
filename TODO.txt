@@ -1,14 +1,5 @@
 I:
 0 Repo (against SQL base and Northwind base)
--> Emplicit implicit repos
-Merge Repo with (T , Tid) for key oprations 
-with Interface TGR for several operations on one entity
-1-explicit repo (mostly type by merchant)
-Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}
-2-mplicit repo (mostly one type by repo instance)
-Repo<T>() where T: IOne { GetByOne(); }
-...
-Repo<T>() where T: In { GetByN(); }
 -> Generic Repo with (T , Tid), CRUD
 pass implementation specific repo to fully generic
 -> cahnge Sector and User interfaces to generic Edit repo Select by SecondaryID delete by SecondaryID
@@ -18,6 +9,8 @@ pass implementation specific repo to fully generic
 -> Add WCF between Repo and Site
 -> Add JS multiple model items update at one time
 -> to DLL
+0 WebAPI
+-> between repo and MVC site
 1 PresentationSite
 -> parsing excel file to objects method decompose to several
 	///Sector type from filename
@@ -50,6 +43,13 @@ SB , Repo and UOF to different projects  <- done
 Northwind -> change login employee get from TempData to model  <- done
 Northwind -> add complex model add  <- done
 Tables migration - test with repo <- done
+-> Emplicit implicit repos
+1-explicit repo (mostly type by merchant)
+Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}
+2-mplicit repo (mostly one type by repo instance)
+Repo<T>() where T: IOne { GetByOne(); }
+...
+Repo<T>() where T: In { GetByN(); } <- done
 II:
 0 Polinom Parse -> parse *^/ to expressions and add priorities for exprs
 0 Command line app dll -> to SB

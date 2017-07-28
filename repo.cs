@@ -15,7 +15,7 @@ namespace Repo_
     /// <summary>
     /// Trully generic repositories interfaces
     /// </summary>
-    #region TGR
+    #region Interfaces
 
     //Interface for default SQL entities
     public interface IEntity { }
@@ -50,7 +50,7 @@ namespace Repo_
         void Save();
         void Dispose(bool disposing_);
         void Dispose();
-        IQueryable<T> GetAll();
+        IQueryable<T0> GetAll<T0>() where T0 : class, IEntity;
 
         IQueryable<T0> GetByFilter<T0>(Expression<Func<T0, bool>> filter = null
         , Func<IQueryable<T0>, IOrderedQueryable<T0>> OrderBy = null) where T0 : class, IEntityInt;
@@ -89,6 +89,12 @@ namespace Repo_
     //Interface for sector repo
     public interface IBySector { void DeleteBySector(int id); }
 
+    #endregion
+
+    ///<summary>
+    ///Repository generic for Dbcontext abstraction
+    /// </summary>
+    #region TGR
 
     /// <summary>
     /// Repository to readonly context, get all, get by specific Expression<Func<T, bool>> filter, 
@@ -106,6 +112,10 @@ namespace Repo_
         {
             this._context = context_;
             this._dbSet = this._context.Set<T>();
+        }
+        public void BindSet(DbSet<T> set_)
+        {
+            this._dbSet = set_;
         }
 
         private bool dispose = false;
@@ -140,57 +150,16 @@ namespace Repo_
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
-        public IQueryable<T> GetAll()
+        
+        public IQueryable<T0> GetAll<T0>()  where T0: class, IEntity
         {
-            IQueryable<T> result = this._dbSet;
+            IQueryable<T0> result = from s in this._context.Set<T0>() select s;
             return result;
-        }
-
-        public T GetByKey<T>(int id_)  where T: class, IEntityInt
+        }       
+        public IQueryable<T0> GetByFilter<T0>(Expression<Func<T0, bool>> filter = null
+        , Func<IQueryable<T0>, IOrderedQueryable<T0>> OrderBy = null) where T0 : class, IEntityInt
         {
-            T result = null;
-            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
-            return result;
-        }
-        public T GetByKey<T>(decimal id_) where T : class, IEntityDec
-        {
-            T result = null;
-            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
-            return result;
-        }
-        public T GetByKey<T>(string id_) where T : class, IEntityStr
-        {
-            T result = null;
-            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
-            return result;
-        }
-
-        public IQueryable<T> GetByKeys<T>(List<long> ids_) where T : class, IEntityLong
-        {
-            IQueryable<T> result = null;
-            result = 
-                from s in this._context.Set<T>()
-                from t in ids_
-                where s.ID==t
-                select s;
-            return result;
-        }
-
-        public IQueryable<T> GetByKeys<T>(DateTime st,DateTime fn) where T: class, IDate
-        {
-            IQueryable<T> result = null;
-            result = 
-                from s in this._context.Set<T>()
-                where s.DATE >= st && s.DATE <= fn
-                select s;
-            return result;
-        }
-
-        public IQueryable<T> GetByFilter<T>(Expression<Func<T, bool>> filter = null
-        , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntityInt
-        {
-            IQueryable<T> result = this._context.Set<T>();
+            IQueryable<T0> result = this._context.Set<T0>();
             if (filter != null)
             {
                 result = result.Where(filter);
@@ -271,7 +240,7 @@ namespace Repo_
             }
             return this;
         }
-        public new ChainingRepo<IChainable> GetAll()
+        public ChainingRepo<IChainable> GetAll()
         {
             ChainingRepo<IChainable> _result = new ChainingRepo<IChainable>(this._context);
             if (this._result == null)
@@ -303,6 +272,13 @@ namespace Repo_
             return _result;
         }
     }
+
+    #endregion
+
+    ///<summary>
+    ///Specific repositories
+    ///</summary>
+    #region ImplicitRepo
 
     /// <summary>
     /// Repository for filtering by merchantlist entity inherited from IMerchant interface, 
@@ -360,19 +336,19 @@ namespace Repo_
         {
 
         }
-        public IQueryable<T> GetByMerchantFilter<T>() where T : class, IMerchant
+        public IQueryable<T0> GetByMerchantFilter<T0>() where T0 : class, IMerchant
         {
-            IQueryable<T> result = null;
+            IQueryable<T0> result = null;
             IDbSet<K> merchant_entity = this._context.Set<K>();
             var merchs = from s in merchant_entity select s;
-            DbSet<T> filtering_entity = this._context.Set<T>();
+            DbSet<T0> filtering_entity = this._context.Set<T0>();
             result = from s in filtering_entity join k in merchs on s.MERCHANT equals k.MERCHANT select s;
             return result;
         }
-        public int GetMerchantFilterAmount<T>() where T : class, IMerchant
+        public int GetMerchantFilterAmount<T1>() where T1 : class, IMerchant
         {
             int result_ = 0;
-            IDbSet<T> merchant_entity = this._context.Set<T>();
+            IDbSet<T1> merchant_entity = this._context.Set<T1>();
             result_ = (from s in merchant_entity select s).Count();
             return result_;
         }
@@ -395,8 +371,12 @@ namespace Repo_
         }
     }
 
+    #endregion
 
-
+    ///<summary>
+    ///Explicit repo with all operation cases
+    ///</summary>
+    #region ExplicitRepo
     /// <summary>
     /// Repository, generic, with explicit methods for different entity fields and types
     /// Type parameter can differ for every method
@@ -447,9 +427,9 @@ namespace Repo_
             GC.SuppressFinalize(this);
         }
 
-        public IQueryable<T> GetAll()
+        public IQueryable<T0> GetAll<T0>() where T0 : class, IEntity
         {
-            IQueryable<T> result = this._dbSet;
+            IQueryable<T0> result = from s in this._context.Set<T0>() select s;
             return result;
         }
 

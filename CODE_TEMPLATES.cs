@@ -15,58 +15,12 @@ namespace Parts{
 }
 
 ///
- 
-namespace Books
-{
 
-#region Overall
-
-public void Patterns() 
-{
-
-// ORM patterns
-http://merle-amber.blogspot.ru/2009/02/orm.html
-//Fauler 
-https://martinfowler.com/books/eaa.html
-	
-}
-
-public void Unsorted()
-{
-	
-По алгоритмам:
-- Роберт Седжвик. Фундаментальные алгоритмы на С++ (две книги, 1-4 часть и 5 часть во втором томе).
-- А.В. Ахо, Д.Э.Хопкрофт, Д.Д.Ульман - Структуры данных и алгоритмы.
-- Кормен, Лейзерсон, Ривест. Алгоритмы - построение и анализ.
-Ну и 4 тома Кнута - хотя бы пролистать. =)
-По шарпу - мне помогли такие книги:
-- Эндрю Троелсен. ЯЗЫК ПРОГРАММИРОВАНИЯ C#5.0 И ПЛАТФОРМА .NET 4.5
-- Герберт Шилдт. Полное руководство C# 4.0
-- Ватсон Б. C# 4.0 на примерах
-
-}
-
-#endregion
-	 
-}
- 
-namespace CodeExamples
-{
+namespace CodeExamples {
 
 //Usefull links
 public void mostUsefullLinks()
 {
-
-	public internal SECURITY()
-	{
-		
-	//National Vulnerability Database
-	https://nvd.nist.gov/
-
-	//WINDOWS SECURITY
-	http://www.securitylab.ru/blog/personal/aguryanov/29935.php
-
-	}
 
 //dev guide
 https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
@@ -99,10 +53,8 @@ http://www.newtonsoft.com/json/help/html/serializingjson.htm
 //ASP.NET Web Deployment - Recommended Resources
 http://www.asp.net/whitepapers/aspnet-web-deployment-content-map
 
-//Prism MVV XAML
-https://msdn.microsoft.com/en-us/library/ff648465.aspx
-
-
+//Advanced Entity Framework 6 Scenarios for an MVC 5 + usefull links
+http://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application#rawsql
 
 //ASP.NET Data Access - Recommended Resources
 http://www.asp.net/whitepapers/aspnet-data-access-content-map
@@ -153,77 +105,6 @@ https://msdn.microsoft.com/en-us/library/ee845452.aspx
 //LINQ chaining
 https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-predicates/
 
-//ASPnet IDENTITY source
-https://aspnetidentity.codeplex.com/SourceControl/latest#src/Microsoft.AspNet.Identity.EntityFramework/IdentityDbContext.cs
-
-
-
-//5 Essential Datastructures
-http://programmingwithmosh.com/csharp/csharp-collections/
-
-
-
-//SPECIFICATION
-http://enterprisecraftsmanship.com/2016/02/08/specification-pattern-c-implementation/
-//COMMAND
-https://metanit.com/sharp/patterns/3.3.php
-//CQRS
-https://www.future-processing.pl/blog/cqrs-simple-architecture/
-
-
-
-//DECOUPLING QUERIES
-https://cuttingedge.it/blogs/steven/pivot/entry.php?id=92
-//QUERIES + IDataStore
-http://blog.gauffin.org/2012/10/griffin-decoupled-the-queries/
-
-
-
-//S#arp
-https://sharp-architecture.readthedocs.io/en/latest/
-
-
-
-//GENERIC REPOSITORY DDD
-http://codebetter.com/gregyoung/2009/01/16/ddd-the-generic-repository/
-//REPOSITORY <T entity, Tid>
-https://lostechies.com/jimmybogard/2009/09/03/ddd-repository-implementation-patterns/
-//REPOSITORY
-//Generic Repository is BAD
-http://rob.conery.io/2014/03/04/repositories-and-unitofwork-are-not-a-good-idea/
-//generic Repository
-http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc
-//Generic repository
-https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
-//A trully generic repository
-http://cpratt.co/truly-generic-repository/
-//Advanced Entity Framework 6 Scenarios for an MVC 5 + usefull links
-http://www.asp.net/mvc/overview/getting-started/getting-started-with-ef-using-mvc/advanced-entity-framework-scenarios-for-an-mvc-web-application#rawsql
-//EF fluent api
-https://msdn.microsoft.com/en-us/library/jj591620(v=vs.113).aspx
-
-
-
-//MVC Query Commands
-http://programmingwithmosh.com/object-oriented-programming/repositories-or-command-query-objects/
-//MVC Reuse UOW and repo 
-http://www.primaryobjects.com/2010/09/30/using-the-entity-framework-repository-and-unitofwork-pattern-in-c-asp-net/
-//MVC repo lifetime
-https://weblog.west-wind.com/posts/2008/Feb/05/Linq-to-SQL-DataContext-Lifetime-Management
-//MVC OWIN Aothentication
-https://blogs.msdn.microsoft.com/webdev/2013/07/03/understanding-owin-forms-authentication-in-mvc-5/
-https://weblog.west-wind.com/posts/2015/Apr/29/Adding-minimal-OWIN-Identity-Authentication-to-an-Existing-ASPNET-MVC-Application
-http://benfoster.io/blog/customising-claims-transformation-in-aspnet-core-identity
-//MVC bind model to list 
-http://haacked.com/archive/2008/10/23/model-binding-to-a-list.aspx/
-//MVC Model state 
-https://www.exceptionnotfound.net/asp-net-mvc-demystified-modelstate/
-
-
-
-//MIGRATIONS
-https://msdn.microsoft.com/en-US/data/dn481501
-
 
 
 //WCF distributed
@@ -238,11 +119,9 @@ https://www.codeproject.com/Articles/1081015/Autogenerate-DataContracts-for-WCF-
 https://www.codeproject.com/Articles/1160537/WCF-Windows-Communication-Foundation-Transaction-S
 
 
-
 //WebApi
 //WebApi controller
 https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
-https://docs.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/
 //WCF WebApi
 http://blogs.microsoft.co.il/idof/2012/03/05/wcf-or-aspnet-web-apis-my-two-cents-on-the-subject/
 
@@ -264,9 +143,15 @@ https://blog.oneunicorn.com/2013/05/28/database-initializer-and-migrations-seed-
 https://msdn.microsoft.com/en-us/data/dn579398
 
 
-
-//C# Parallel
-http://www.albahari.com/threading/part5.aspx
+//REPOSITORY
+//Generic Repository is BAD
+http://rob.conery.io/2014/03/04/repositories-and-unitofwork-are-not-a-good-idea/
+//generic Repository
+http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc
+//Generic repository
+https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
+//A trully generic repository
+http://cpratt.co/truly-generic-repository/
 
 
 
@@ -325,8 +210,6 @@ public Bug Trackers
 {
 	public GIT hub
 	{
-		https://www.atlassian.com/git
-		
 		
 		git push -u origin branchname {!!!<pushing to branch>!!!}
 		
@@ -335,7 +218,7 @@ public Bug Trackers
 		
 		EXISTING LOCAL PROJECT TO NEW GIT REPO FIRST PUSH
 		create new in git web
-		cd -> moove to directory	 
+		cd -> moove to directory		
 		git remote add origin \\url_to_project
 		git pull origin master
 		git init -> initialize git
@@ -349,105 +232,8 @@ public Bug Trackers
 		add commit push section 
 		
 		REMOVE REPO
-		git remote rm origin			
-		
-		CHANGE STATE/FILES
-		git log --oneline -> REVISION ID		
-		git checkout master - > REVERT HEAD TO PROJECT COMMIT STATE		
-		git checkout a1e8fb5 - > CHANGE PROJECT STATE TO COMMIT		
-		git checkout <commit> <file> - > REVERT FILE TO COMMIT
-		git checkout a1e8fb5 hello.py 			
-		git revert <commit> - > REVERTS CHECKOUT with new COMMIT undoing changes
-		
-		git clean -n -> see what untracked files
-		git clean -f -> removes files from directory		
-		git clean -> remove .o and .exe from C before build
-		
-		{
-# Edit some existing files
-# Add some new files
-# Realize you have no idea what you're doing
-# Undo changes in tracked files
-git reset --hard
-# Remove untracked files
-git clean -df
-		}
-
-		GIT RESET - > pemannently unstages all tracked files
-		git reset --hard - > throws out all uncommited changes
-		git reset <commit> - > reset to branch 
-		{		
-# Edit both hello.py and main.py
-# Stage everything in the current directory
-git add .
-# Realize that the changes in hello.py and main.py
-# should be committed in different snapshots
-# Unstage main.py
-git reset main.py
-# Commit only hello.py
-git commit -m "Make some changes to hello.py"
-# Commit main.py in a separate snapshot
-git add main.py
-git commit -m "Edit main.py"
-		
-# Create a new file called `foo.py` and add some code to it
-# Commit it to the project history
-git add foo.py
-git commit -m "Start developing a crazy feature"
-# Edit `foo.py` again and change some other tracked files, too
-# Commit another snapshot
-git commit -a -m "Continue my crazy feature"
-# Decide to scrap the feature and remove the associated commits
-git reset --hard HEAD~2 -> move 2 branchs back and clean history Only LOCAL
-		}
-		
-		
-		https://www.atlassian.com/git/tutorials/rewriting-history
-		CHANGE HISTORY
-		git commit --amend -> rewrite prev commit ; combine staged commit with previous, edit prev commit
-		{
-# Edit hello.py and main.py
-git add hello.py
-git commit
-
-# Realize you forgot to add the changes from main.py
-git add main.py
-git commit --amend --no-edit			
-		}
-		
-		git rebase <base> -> rebase current branch to new ID, commit, tag , branch reference
-		{
-			
-# Start a new feature
-git checkout -b new-feature master
-# Edit files
-git commit -a -m "Start developing a feature"
-
-In the middle of our feature, we realize there’s a security hole in our project
-
-# Create a hotfix branch based off of master
-git checkout -b hotfix master
-# Edit files
-git commit -a -m "Fix security hole"
-# Merge back into master
-git checkout master
-git merge hotfix
-git branch -d hotfix
-
-After merging the hotfix into master, we have a forked project history. Instead of a plain git merge, we’ll integrate the feature branch with a rebase to maintain a linear history:
-
-git checkout new-feature
-git rebase master
-
-This moves new-feature to the tip of master, which lets us do a standard fast-forward merge from master:
-
-git checkout master
-git merge new-feature
-		}
-		
-		git reflog - > track updates
-		
-		
+		git remote rm origin
+				
 	}
 
 }
@@ -509,8 +295,7 @@ http://stackoverflow.com/questions/5400530/validation-failed-for-one-or-more-ent
 http://stackoverflow.com/questions/2652460/how-to-get-the-name-of-the-current-method-from-code
 http://stackoverflow.com/questions/2652460/how-to-get-the-name-of-the-current-method-from-code
 
-//link to entities Query style
-https://stackoverflow.com/questions/9720225/how-to-perform-join-between-multiple-tables-in-linq-lambda
+
 }
 
 //structure
@@ -605,10 +390,10 @@ public class IssuesErrors(){
 
 		public MethodFunctionNotFound()
 		{
-			WHEN:
-			no EF in project referencing repository project
+		WHEN:
+		no EF in project referencing repository project
 
-			WHAT: update EF
+		WHAT: update EF
 		}
 
 		public System.Security.SecurityException()
@@ -619,29 +404,10 @@ public class IssuesErrors(){
 			WHAT:
 			Syste.Security.SecurityException
 			
-			HOW:
+			WHOW:
 			start console with administrative
 		}
-		
-		//Adding OWIN authorisation to code first projectthrows
-		//http://articles.runtings.co.uk/2014/12/solved-aspnet-identity-2-throws.html
-		public IdentityUserLogin_has_no_key_defined()
-		{
-			
-			WHEN:
-				Connectin OWIN acoount validation to code first project. 
-				When FluentApi added to OnModelCreating method;
-			WHAT:
-				Throws validation errors for login, claims tables that lack ID keys defined
-					IdentityUserLogin
-					IdentityUserRoles
-					IdentityUserLogins
-					that has no keys defined
-			WHOW:
-				add to end of OnModelCreating method
-				base.OnModelCreating(modelBuilder);
-		
-		}		
+				
 	}
 
 	public void SSAS()
@@ -764,139 +530,6 @@ public class Examples
 
 	}
 	
-	public void EntityFramework()
-	{
-		
-		public Migrations()
-		{
-			
-			Enable-Migrations
-			add-migration 0
-			update-database
-			
-			//Update with new connection string
-			//need guest permission to create database 
-			update-database -Verbose -ConnectionStringName "SQLDB_J"
-			
-		}
-		
-		public connectionStrings()
-		{
-			
-			<add name="SQLDB" connectionString="data source=AAAPC\AAASQL; initial catalog=SQLDB; integrated security=SSPI; App=EntityFramework" providerName="System.Data.SqlClient" />
-			<add name="SQLHR" connectionString="data source=AAAPC\AAASQL; initial catalog=SQLHR; integrated security=SSPI; App=EntityFramework" providerName="System.Data.SqlClient" />
-			<add name="SQLDB_J" connectionString="data source=.\SQLDE; initial catalog=SQLDB; integrated security=SSPI; App=EntityFramework" providerName="System.Data.SqlClient" />
-			<add name="OracleDbContext" providerName="Oracle.ManagedDataAccess.Client" connectionString="User Id=oracle_user;Password=oracle_user_password;Data Source=oracle" />  
-			<add name="OracleDbContext" providerName="Oracle.ManagedDataAccess.Client"
-			connectionString="User Id=oracle_user;Password=oracle_useSQr_password;Data Source=oracle"/>
-			<add name="DWH_entities"
-			connectionString="metadata=res://*/DAL.DWH_model.csdl|res://*/DAL.DWH_model.ssdl|res://*/DAL.DWH_model.msl;provider=Oracle.ManagedDataAccess.Client;provider connection string=&quot;DATA SOURCE=DWH.RS.RU;PASSWORD=awsedrDRSEAW;PERSIST SECURITY INFO=True;USER ID=NEPRINTSEV_IA&quot;"
-			providerName="System.Data.EntityClient"/>
-			<add name="SQL_entities" connectionString="Data Source=.\SQLEXPRESS;Initial Catalog=DWH_REPLICA;Integrated Security=SSPI;"
-			providerName="System.Data.SqlClient"/>
-			<add name="SQL_DE" connectionString="Data Source=.\SQLDE;Initial Catalog=DWH_REPLICA;Integrated Security=SSPI;"
-			providerName="System.Data.SqlClient"/>
-		
-		}
-		
-	}
-
-	public void SB()
-	{
-		
-		    #region IoC
-			/// <summary>
-			/// Interface inheritance vs interface + class inheritance IoC
-			/// </summary>
-			public interface IRead
-			{
-				void Read_();
-			}
-			public interface IEdit
-			{
-				void Edit_();
-			}
-			public interface Ire : IEdit, IRead
-			{
-
-			}
-			public class Read : IRead
-			{
-				public void Read_()
-				{
-					System.Diagnostics.Trace.WriteLine("Read_");
-				}
-			}
-			public class Edit : IEdit
-			{
-				public void Edit_()
-				{
-					System.Diagnostics.Trace.WriteLine("Edit_");
-				}
-			}
-			public class ReadEditCl : Read, IEdit
-			{
-				public void Edit_()
-				{
-					System.Diagnostics.Trace.WriteLine("Edit_");
-				}
-			}
-			public class RE : Ire
-			{
-				public void Edit_()
-				{
-					System.Diagnostics.Trace.WriteLine("Edit_");
-				}
-				public void Read_()
-				{
-					System.Diagnostics.Trace.WriteLine("Read_");
-				}
-			}
-			public static class ReadEditCheck
-			{
-				static IEdit edit;
-				static IRead read;
-
-				public static void GO()
-				{
-					Read r = new Read();
-					r.Read_();
-					Edit e = new Edit();
-					e.Edit_();
-					ReadEditCl re = new ReadEditCl();
-					re.Read_();
-					re.Edit_();
-					RE RE = new RE();
-					
-					System.Diagnostics.Trace.WriteLine(@"---");
-					IeditBind(e);
-					IreadBind(r);
-					edit.Edit_();
-					read.Read_();
-
-					System.Diagnostics.Trace.WriteLine(@"---");
-					IeditBind(re);
-					IreadBind(re);
-					edit.Edit_();
-					read.Read_();
-
-					System.Diagnostics.Trace.WriteLine(@"---");
-					RE.Edit_();
-					RE.Read_();
-				}
-				public static void IeditBind(IEdit edit_)
-				{
-					edit = edit_;
-				}
-				public static void IreadBind(IRead read_)
-				{
-					read = read_;
-				}
-			}
-    
-			#endregion
-		
-	}
 
 }
 
@@ -1876,8 +1509,6 @@ public class Unsorted {
 
 public Code theory
 {
-	
-	
 	
 	Escape characters{
 		\n //new line
@@ -4210,48 +3841,7 @@ public void T_SQL()
 				foreign key (SEC_ID) references DWH_replica.dbo.table2(ID));
 
 			}
-			
-			public DropDatabase()
-			{
-				USE master;
-				ALTER DATABASE NORTHWIND SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
-				DROP DATABASE NORTHWIND ;
-			}
-			
-			public LockSessions()
-			{
-				
-				select * from master.dbo.syslockinfo l
-				left join master.dbo.spt_values v on l.rsc_type=v.number
-				left join master.dbo.spt_values x on l.req_status=x.number
-				left join master.dbo.spt_values u on l.req_mode+1=u.number
-				left join master.dbo.sysdatabases d on l.rsc_dbid = d.dbid
-				where 1=1
-				and v.type='LR'
-				and x.type='LS'
-				and u.type='L'
-				and l.rsc_dbid in (
-				select dbid from master..sysdatabases where name ='NORTHWIND'
-				)
-				;
-				
-				
-				select * from master..sysdatabases
-				select * from  master.dbo.sysprocesses 
-				select * from master.dbo.syslockinfo 
 
-			}
-		
-			public QueryHistory()
-			{
-				
-				select * from sys.dm_exec_cached_plans as p
-				cross apply sys.dm_exec_sql_text(p.plan_handle) as t
-				;
-
-			}
-
-			
 		}
 	
 	}
@@ -4264,7 +3854,6 @@ public void T_SQL()
 
 namespace OS
 {
-	
 	public Windows
 	{
 		public CMD
@@ -4337,7 +3926,7 @@ namespace OS
 				sudo ls -> display content-map
 					-a -> with hidden
 				sudo systemctl restart network-manager -> restarn netweork				
-				sudo ufw enable/disablemail- 
+				sudo ufw enable/disablemail- ????????? ? ?????????? ??????????? ??????
 				sudo poweroff/reboot -> poweroff/reboot
 				dpkg --get-selections -> installed pkgs
 				dpkg --get-selections | grep -v deinstall > ~/Desktop/packages -> save to file				
@@ -4385,6 +3974,4 @@ namespace OS
 			}
 		}
 	}
-
 }
-
