@@ -89,6 +89,9 @@ namespace Repo_
     //Interface for sector repo
     public interface IBySector { void DeleteBySector(int id); }
 
+    #endregion
+
+    #region ImplicitRepo
 
     /// <summary>
     /// Repository to readonly context, get all, get by specific Expression<Func<T, bool>> filter, 
@@ -102,11 +105,15 @@ namespace Repo_
         internal DbContext _context { get; set; }
         internal DbSet<T> _dbSet { get; set; }      
 
+        public ReadRepo()
+        {
+
+        }
         public ReadRepo(DbContext context_)
         {
             this._context = context_;
             this._dbSet = this._context.Set<T>();
-        }
+        }        
 
         private bool dispose = false;
 
@@ -141,52 +148,16 @@ namespace Repo_
             GC.SuppressFinalize(this);
         }
 
+        public void BindContext(DbContext context_)
+        {
+            this._context = context_;
+        }
         public IQueryable<T> GetAll()
         {
-            IQueryable<T> result = this._dbSet;
-            return result;
-        }
-
-        public T GetByKey<T>(int id_)  where T: class, IEntityInt
-        {
-            T result = null;
-            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
-            return result;
-        }
-        public T GetByKey<T>(decimal id_) where T : class, IEntityDec
-        {
-            T result = null;
-            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
-            return result;
-        }
-        public T GetByKey<T>(string id_) where T : class, IEntityStr
-        {
-            T result = null;
-            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
-            return result;
-        }
-
-        public IQueryable<T> GetByKeys<T>(List<long> ids_) where T : class, IEntityLong
-        {
             IQueryable<T> result = null;
-            result = 
-                from s in this._context.Set<T>()
-                from t in ids_
-                where s.ID==t
-                select s;
+            result = this._context.Set<T>().Select(s=>s);
             return result;
-        }
-
-        public IQueryable<T> GetByKeys<T>(DateTime st,DateTime fn) where T: class, IDate
-        {
-            IQueryable<T> result = null;
-            result = 
-                from s in this._context.Set<T>()
-                where s.DATE >= st && s.DATE <= fn
-                select s;
-            return result;
-        }
-
+        }       
         public IQueryable<T> GetByFilter<T>(Expression<Func<T, bool>> filter = null
         , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntityInt
         {
@@ -207,18 +178,26 @@ namespace Repo_
     public class EditRepo<T> : ReadRepo<T>, IEditRepo<T> where T : class, IEntityInt
     {
 
+        public EditRepo()
+        {
+
+        }
         public EditRepo(DbContext context_) : base(context_)
         {
 
         }
         public void AddEntity(T item_)
         {
-            this._dbSet.Add(item_);
+            this._context.Set<T>().Add(item_);
+        }
+        public void AddEntities(List<T> items)
+        {
+            this._context.Set<T>().AddRange(items);
         }
         public T GetById(int ID_)
         {
             T result = null;
-            if ((from s in this._dbSet where s.ID == ID_ select s).Any())
+            if ((from s in this._context.Set<T>() where s.ID == ID_ select s).Any())
             {
                 result = (from s in this._dbSet where s.ID == ID_ select s).FirstOrDefault();
             }
@@ -226,15 +205,15 @@ namespace Repo_
         }
         public void Edit(T item_)
         {
-            this._dbSet.Attach(item_);
+            this._context.Set<T>().Attach(item_);
         }
         public void Delete(T item_)
         {
-            this._dbSet.Remove(item_);
+            this._context.Set<T>().Remove(item_);
         }
         public void DeleteRange(List<T> item_)
         {
-            this._dbSet.RemoveRange(item_);
+            this._context.Set<T>().RemoveRange(item_);
         }
 
     }
@@ -313,6 +292,10 @@ namespace Repo_
     public class SectorFilterRepo<T> : EditRepo<T>, IBySector
         where T : class, ISector
     {
+        public SectorFilterRepo()
+        {
+
+        }
         public SectorFilterRepo(DbContext context_) : base(context_)
         {
 
@@ -320,13 +303,13 @@ namespace Repo_
         public void DeleteBySector(int id_)
         {
             //this._dbSet.RemoveRange(from s in this._dbSet where s.SECTOR_ID == id_ select s );
-            foreach (var item_ in this._dbSet)
+            foreach (var item_ in this._context.Set<T>())
             {
                 if (item_.SECTOR_ID != null)
                 {
                     if (item_.SECTOR_ID.Value == id_)
                     {
-                        this._dbSet.Remove(item_);
+                        this._context.Set<T>().Remove(item_);
                     }
                 }
             }
@@ -341,9 +324,9 @@ namespace Repo_
         }
         public void DeleteByUserID(int id_)
         {
-            foreach (var item_ in this._dbSet.Where(s => s.USER_ID == id_))
+            foreach (var item_ in this._context.Set<T>().Where(s => s.USER_ID == id_))
             {
-                this._dbSet.Remove(item_);
+                this._context.Set<T>().Remove(item_);
             }
         }
     }
@@ -395,7 +378,9 @@ namespace Repo_
         }
     }
 
+    #endregion
 
+    #region ExplicitRepo
 
     /// <summary>
     /// Repository, generic, with explicit methods for different entity fields and types
