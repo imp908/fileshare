@@ -1,5 +1,4 @@
-﻿using Repo_;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,82 +8,11 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using System.Data.Entity;
 
-using Moq;
-
 using DAL.DAL;
+using Repo_;
 using Model.SQLmodel;
 
-namespace Tests_
-{
-    [TestClass()]
-    public class ReadRepo_TEST
-    {
-        [TestMethod()]
-        public void ReadRepoTest()
-        {
-            int Notexpected = 0;
-            int res = 0;
-            try
-            {
-                var moqSet = new Mock<DbSet<REFMERCHANTS_SQL>>();
-                var moqContext = new Mock<SQLDB_CHANGE>();
-                moqContext.Setup(m => m.REFMERCHANTS_SQL).Returns(moqSet.Object);
-                var service = new ReadRepo<REFMERCHANTS_SQL>(moqContext.Object);
-                moqContext.Object.REFMERCHANTS_SQL.Add(
-                    new REFMERCHANTS_SQL { MERCHANT = 0000000001, USER_ID =0 }
-                    );
-                moqContext.Object.SaveChanges();
-                //res = service.GetAll<REFMERCHANTS_SQL>().Count();
-                res = (from s in moqContext.Object.REFMERCHANTS_SQL select s).Count();
-            }
-            catch(System.ArgumentNullException e)
-            {
-                System.Diagnostics.Trace.WriteLine(e.Message);
-            }
-            catch (System.NotImplementedException e)
-            {
-                System.Diagnostics.Trace.WriteLine(e.Message);
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e.Message);
-            }
-
-            Assert.AreNotEqual(Notexpected, res);
-        }
-
-        [TestMethod()]
-        public void SaveTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void DisposeTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void DisposeTest1()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetAllTest()
-        {
-            Assert.Fail();
-        }
-
-        [TestMethod()]
-        public void GetByFilterTest()
-        {
-            Assert.Fail();
-        }
-    }
-
-}
+using Moq;
 
 namespace Tests_
 {
@@ -101,7 +29,7 @@ namespace Tests_
     {
 
         [TestMethod]
-        public void SQLDB_Presence_test()
+        public void SQLDB_Creation_test()
         {
             bool result = false;
             string connection_ = @"SQLDB_J";
@@ -143,7 +71,7 @@ namespace Tests_
             {
                 cnt = (from s in context.KEY_CLIENTS select s).Count();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Trace.WriteLine(e.Message);
             }
@@ -155,7 +83,7 @@ namespace Tests_
         public void SQLDB_RM_Initialized_test()
         {
             SQLDB_CHANGE context = new SQLDB_CHANGE(@"SQLDB_J");
-          
+
             int cnt = 0;
             try
             {
@@ -169,26 +97,133 @@ namespace Tests_
             Assert.AreNotEqual(0, cnt);
         }
 
-        [TestMethod]
-        public void SQLDB_TA_Initialized_test()
-        {
-            SQLDB_CHANGE context = new SQLDB_CHANGE(@"SQLDB_J");
-
-            int cnt = 0;
-            try
-            {
-                cnt = (from s in context.T_ACQ_D select s).Count();
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e.Message);
-            }
-
-            Assert.AreNotEqual(0, cnt);
-        }
-
-
     }
 
-    
+    [TestClass]
+    public class Repo_FUNCTIONAL_TEST
+    {
+
+        [TestMethod]
+        public void ReadRepo_TEST()
+        {
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            ReadRepo<REFMERCHANTS_SQL> ref_repo = new ReadRepo<REFMERCHANTS_SQL>(ent);
+            int a = ref_repo.GetAll().Count();
+            Assert.AreNotEqual(0,a);
+        }
+        [TestMethod]
+        public void EditRepo_ADD_GET_TEST()
+        {
+            int cntSt = 0;
+            int cntFN = 0;
+
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var mock = new Mock<EditRepo<REFMERCHANTS_SQL>>();
+            //mock.Setup(s => s.GetAll());
+            //ReadRepo<REFMERCHANTS_SQL> ref_repo = new ReadRepo<REFMERCHANTS_SQL>(ent);
+            REFMERCHANTS_SQL rm = new REFMERCHANTS_SQL() { MERCHANT = 9000000001, USER_ID = 1 };
+            mock.Object.BindContext(ent);
+            if (mock.Object.GetAll().Any())
+            {
+                cntSt = mock.Object.GetAll().Count();
+            }
+            mock.Object.AddEntity(rm);
+            mock.Object.Save();
+            if (mock.Object.GetAll().Any())
+            {
+                cntFN = mock.Object.GetAll().Count();
+            }
+            mock.Object.Delete(rm);
+            mock.Object.Save();
+            Assert.AreNotEqual(cntSt, cntFN);
+        }
+        [TestMethod]
+        public void ReadRepo_FILTER_TEST()
+        {
+            int a = 0;
+
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var mock = new Mock<EditRepo<REFMERCHANTS_SQL>>();   
+            mock.Object.BindContext(ent);
+            if (mock.Object.GetAll().Any())
+            {
+                REFMERCHANTS_SQL rm = mock.Object.GetAll().FirstOrDefault();              
+                a = mock.Object.GetByFilter<REFMERCHANTS_SQL>(s => s.ID == rm.ID).Count();
+            }
+            Assert.AreNotEqual(0, a);
+        }
+        [TestMethod]
+        public void SectorRepo_TEST()
+        {
+            int cntSt = 0;
+            int cntFn = 0;
+
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var mock = new Mock<SectorFilterRepo<KEY_CLIENTS_SQL>>();           
+            mock.Object.BindContext(ent);
+            List<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>() {
+
+                new KEY_CLIENTS_SQL() { MERCHANT = 9290000020, SECTOR_ID = 101 },
+                new KEY_CLIENTS_SQL() { MERCHANT = 9290000021, SECTOR_ID = 101 },
+                new KEY_CLIENTS_SQL() { MERCHANT = 9290000022, SECTOR_ID = 101 },         
+
+            };
+            if (mock.Object.GetAll().Any())
+            {
+                cntSt = mock.Object.GetAll().Count();
+            }
+            mock.Object.AddEntities(kk);
+            mock.Object.Save();
+            mock.Object.DeleteBySector(101);           
+            mock.Object.Save();
+            if (mock.Object.GetAll().Any())
+            {
+                cntFn = mock.Object.GetAll().Count();
+            }
+
+            Assert.AreEqual(cntSt,cntFn);
+        }
+        [TestMethod]
+        public void Merchants_TEST()
+        {
+            int cntSt = 0;
+            int cntFn = 0;
+
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var mock = new Mock<MerchantFilterRepo<REFMERCHANTS_SQL,KEY_CLIENTS_SQL>>();
+            mock.Object.BindContext(ent);
+            List<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>() {
+
+                new KEY_CLIENTS_SQL() { MERCHANT = 9290000020, SECTOR_ID = 101 },
+                new KEY_CLIENTS_SQL() { MERCHANT = 9290000021, SECTOR_ID = 101 },
+                new KEY_CLIENTS_SQL() { MERCHANT = 9290000022, SECTOR_ID = 101 },
+                new KEY_CLIENTS_SQL() { MERCHANT = 9290000023, SECTOR_ID = 101 },
+                new KEY_CLIENTS_SQL() { MERCHANT = 9290000024, SECTOR_ID = 101 }
+
+            };
+            List<REFMERCHANTS_SQL> rm = new List<REFMERCHANTS_SQL>() {
+
+                new REFMERCHANTS_SQL() { MERCHANT = 9290000020, USER_ID = 101 },
+                new REFMERCHANTS_SQL() { MERCHANT = 9290000021, USER_ID = 101 },
+                new REFMERCHANTS_SQL() { MERCHANT = 9290000022, USER_ID = 101 },
+                new REFMERCHANTS_SQL() { MERCHANT = 9290000023, USER_ID = 101 },
+                new REFMERCHANTS_SQL() { MERCHANT = 9290000024, USER_ID = 101 }
+
+            };
+            if (mock.Object.GetAll().Any())
+            {
+                cntSt = mock.Object.GetAll().Count();
+            }
+
+            mock.Object.AddEntities(rm);
+
+            if (mock.Object.GetAll().Any())
+            {
+                cntFn = mock.Object.GetAll().Count();
+            }
+
+            Assert.AreEqual(cntSt, cntFn);
+        }
+    }
+
 }
