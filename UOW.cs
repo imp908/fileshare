@@ -15,6 +15,27 @@ using DAL.DAL;
 namespace UOW
 {
 
+    #region UOW_interfaces
+    public interface IUnitOfWorkDecoupled<T> where T : class, IEntity
+    {
+        void BindRepo(IReadRepo<T> input_);
+        void BindRepo(IEditRepo<T> input_);
+        void BindContext(DbContext context_);
+        IQueryable<T> GetAll();
+        void Add(T item_);
+        void DeleteRange(IQueryable<T> items);
+        void Save();
+    }
+    public interface IUOW_sectors<T> : IUnitOfWorkDecoupled<T> where T : class, IEntity
+    {
+        IQueryable<ISector> GetBySector(int id_);
+        IQueryable<IUser> GetByUser(int id_);
+        void DeleteByMerchantList(IQueryable<IMerchant> merchants_);
+        void AddMerchantList(IQueryable<IMerchant> merchants_);
+    }
+    #endregion
+
+
     /// <summary>
     /// Unit of Work. Initializes Repositories with concrete entities
     /// Implements repositories and contains methods to getall, add entity (IEntity) to repo, save and dispose
@@ -45,20 +66,20 @@ namespace UOW
         public IQueryable<T_ACQ_M_SQL> GetAllACQ_D()
         {
             IQueryable<T_ACQ_M_SQL> result_ = null;
-            result_ = ACQ_M.GetAll<T_ACQ_M_SQL>();
+            result_ = ACQ_M.GetAll();
             return result_;
         }
         public IQueryable<KEY_CLIENTS_SQL> GetAllKK()
         {
             IQueryable<KEY_CLIENTS_SQL> result_ = null;
-            result_ = KK.GetAll<KEY_CLIENTS_SQL>();
+            result_ = KK.GetAll();
             return result_;
         }
 
         public IQueryable<IMerchant> GetKeyClientsMerchants()
         {
             IQueryable<IMerchant> result_ = null;
-            result_ = KK.GetAll<KEY_CLIENTS_SQL>();
+            result_ = KK.GetAll();
             return result_;
         }
         public IQueryable<IMerchant> FilterByMerchant<T>() where T : class, IMerchant
@@ -159,7 +180,7 @@ namespace UOW
         {
             IQueryable<T> result = null;
             ReadRepo<T> read = new ReadRepo<T>(ent);
-            result = read.GetAll<T>();
+            result = read.GetAll();
             return result;
         }
 
@@ -249,37 +270,55 @@ namespace UOW
     /// only GetAll() and Add() methods implemented
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class UnitOfWorkDecoupled<T> where T : class, IEntity
+    public class UnitOfWorkDecoupled<T> : IUnitOfWorkDecoupled<T> 
+        where T : class, IEntity
     {
         DbContext context;
-        IReadRepo<T> readrepo;
-        IEditRepo<T> editRepo;
+        internal IReadRepo<T> readrepo;
+        internal IEditRepo<T> editRepo;
 
+        public UnitOfWorkDecoupled()
+        {
+
+        }
         public UnitOfWorkDecoupled(DbContext context_)
         {
             this.context = context_;
         }
-        public void RepoBind(IReadRepo<T> input_)
+        public void BindRepo(IReadRepo<T> input_)
         {
             this.readrepo = input_;
         }
-        public void RepoBind(IEditRepo<T> input_)
+        public void BindRepo(IEditRepo<T> input_)
         {
             this.editRepo = input_;
+            
         }
-        public void ChangeContext(DbContext context_)
+        public void BindContext(DbContext context_)
         {
             this.context = context_;
+            if (this.readrepo != null)
+            {
+                this.readrepo.BindContext(context_);
+            }
+            if (this.editRepo != null)
+            {
+                this.editRepo.BindContext(context_);
+            }
         }
         public IQueryable<T> GetAll()
         {
             IQueryable<T> result = null;
-            result = this.readrepo.GetAll<T>();
+            result = this.readrepo.GetAll();
             return result;
         }
         public void Add(T item_)
         {
             editRepo.AddEntity(item_);
+        }
+        public void DeleteRange(IQueryable<T> items)
+        {
+            editRepo.DeleteRange(items);
         }
 
         public void Save()
@@ -287,16 +326,168 @@ namespace UOW
             this.context.SaveChanges();
         }
     }
+    #endregion
 
-    public class UOWDB<T> : UnitOfWorkDecoupled<T> where T : class, IEntity
+    ///<summary>
+    ///Unit of work for Filtering results by sector, user, and insert delete by merchant list
+    ///uses interfaces for repositories IReadRepo and IEditRepo
+    ///</summary>
+    public class UOW_sectors<T> : UnitOfWorkDecoupled<T> , IUOW_sectors<T> where T : class , ISector
     {
-        public UOWDB(DbContext context_) : base(context_)
+        public UOW_sectors()
         {
-                       
-        }
-        
-    }
 
-    #endregion  
+        }
+       
+        public IQueryable<ISector> GetBySector (int id_)
+        {
+            IQueryable <ISector> result = null;
+           
+            result = base.readrepo.GetAll().Where(s => s.SECTOR_ID == id_);
+
+            return result;
+        }
+        public IQueryable<IUser> GetByUser(int id_)
+        {
+            IQueryable<IUser> result = null;
+            EditRepo<IUser> Tsec = new EditRepo<IUser>();
+            result = Tsec.GetAll().Where(s => s.USER_ID == id_);
+
+            return result;
+        }
+        public void DeleteByMerchantList(IQueryable<IMerchant> merchants_) 
+        {          
+            EditRepo<IMerchant> Tsec = new EditRepo<IMerchant>();
+
+            IQueryable<IMerchant> list = from s in base.readrepo.GetAll()
+            join s2 in merchants_ on s.MERCHANT equals s2.MERCHANT       
+            select new REFMERCHANTS_SQL { MERCHANT = s.ID };
+
+            Tsec.DeleteRange(list);
+
+        }
+        public void AddMerchantList(IQueryable<IMerchant> merchants_)
+        {
+            DeleteByMerchantList(merchants_);
+            EditRepo<IMerchant> Tsec = new EditRepo<IMerchant>();
+            Tsec.AddEntities(merchants_);
+        }
+
+    }
+    /// <summary>
+    /// Move to UnitTEsts
+    /// </summary>
+    public static class TESTs
+    {
+
+        public static void GO()
+        {
+          
+            string TEST_HR = @"SQLHR";
+            string TEST_DB = @"SQLDB";
+
+            //T_FGR_TEST("T_SQLDB");
+           
+            CHANGE_HR(TEST_HR);
+
+            UOW_GENERIC_TEST(TEST_DB);
+            UOW_DECOUPLED_HR_TEST(TEST_HR);
+
+            CHANGE_HR(TEST_HR);
+            CHANGE_DB(TEST_DB);            
+
+            EnvironmentChangeTest(TEST_DB);
+            EnvironmentInitTest(TEST_DB);
+            UOW_REFMERCHANTS_CHECK(TEST_DB);
+            UOF_DECOUPLED_CHECK(TEST_DB);
+            UOF_procedure_test(TEST_DB);
+
+        }
+        //test database existance
+        public static void EnvironmentInitTest(string connectionStringName_)
+        {
+
+            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName_);
+            bool exists = ent.Database.Exists();
+        }
+        //test database existance after model change
+        public static void EnvironmentChangeTest(string connectionStringName_)
+        {
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(connectionStringName_);
+            bool exists = ent.Database.Exists();
+        }
+        //test tight coupled Unit of Work 
+        public static void UOW_REFMERCHANTS_CHECK(string connectionStringName_)
+        {
+            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName_);
+            UnitOfWorkGeneric uow = new UnitOfWorkGeneric(ent);
+            int a = uow.GetAll<REFMERCHANTS_SQL>().Count();
+        }
+        //test decoupled unit of work
+        public static void UOF_DECOUPLED_CHECK(string connectionStringName_)
+        {
+            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName_);
+            UnitOfWorkDecoupled<REFMERCHANTS_SQL> uow = new UnitOfWorkDecoupled<REFMERCHANTS_SQL>(ent);
+            ReadRepo<REFMERCHANTS_SQL> readrepo = new ReadRepo<REFMERCHANTS_SQL>(ent);
+            uow.BindRepo(readrepo);
+            int a = uow.GetAll().Count();
+        }
+        //test procedure 
+        public static void UOF_procedure_test(string connectionStringName_)
+        {
+            SQLDB_INIT ent = new SQLDB_INIT(connectionStringName_);
+            ent.Database.SqlQuery<Model.SQLmodel.FakePOCO>("VALUES_INSERT");
+            int a = (from s in ent.REFMERCHANTS_SQL select s).Count();
+        }
+
+        //test UOW for different contexts with different conn strings
+        //Test Change context for DB database
+        public static void CHANGE_HR(string connectionStringName_)
+        {
+          
+            SQLHR_CHANGE ent = new SQLHR_CHANGE(connectionStringName_);
+            /*
+            Model.SQLmodel.REGIONS region = new REGIONS { ID = 2, REGION_NAME = @"US" };
+            ent.REGIONS_SQL.Add(region);
+            ent.SaveChanges();
+            */
+            UnitOfWorkDecoupled<REGIONS> UOW = new UnitOfWorkDecoupled<REGIONS>(ent);
+            Repo_.ReadRepo<REGIONS> repo = new ReadRepo<REGIONS>(ent);
+            UOW.BindRepo(repo);
+            var a = UOW.GetAll().Count();
+
+        }
+        //Test Change context for DB database
+        public static void CHANGE_DB(string connectionStringName_)
+        {
+    
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(connectionStringName_);
+            UnitOfWorkDecoupled<REFMERCHANTS_SQL> UOW = new UnitOfWorkDecoupled<REFMERCHANTS_SQL>(ent);
+            ReadRepo<REFMERCHANTS_SQL> repo = new ReadRepo<REFMERCHANTS_SQL>(ent);
+            UOW.BindRepo(repo);
+            int a = UOW.GetAll().Count();
+
+        }
+        //TEST GENERIC REPO WITH DIFFERENT CONTEXTS and Entities
+        public static void UOW_GENERIC_TEST(string connectionStringName_)
+        {
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(connectionStringName_);
+            UnitOfWorkGeneric UOW = new UnitOfWorkGeneric(ent);
+
+            var a = UOW.GetAll<REFMERCHANTS_SQL>().Count();
+        }
+
+        public static void UOW_DECOUPLED_HR_TEST(string connectionStringName_)
+        {
+            SQLHR_CHANGE ent = new SQLHR_CHANGE(connectionStringName_);
+            UnitOfWorkDecoupled<LOCATIONS> UOW = new UnitOfWorkDecoupled<LOCATIONS>(ent);
+            ReadRepo<LOCATIONS> rep = new ReadRepo<LOCATIONS>(ent);
+            UOW.BindRepo(rep);
+            var b = UOW.GetAll().Count();
+        }
+     
+     
+
+    }
 
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UOW;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,18 +15,117 @@ using Model.SQLmodel;
 
 using Moq;
 
-namespace Tests_
+namespace UOW.Tests
 {
-    class Program
+    [TestClass()]
+    public class UOW_tests
     {
-        static void Main(string[] args)
+        [TestMethod()]
+        public void UOW_merchantsTest()
         {
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
+            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
+            mock.Object.BindContext(ent);
+            mock.Verify(s => s.BindContext(It.IsAny<SQLDB_CHANGE>()), Times.Once());
+                                
+            Assert.IsTrue(true);
+        }
 
+        [TestMethod()]
+        public void UOW_BindRepo_TEST()
+        {
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
+            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();           
+            mock.Object.BindRepo(readrepo.Object);
+            mock.Verify(s => s.BindRepo(It.IsAny<IReadRepo<KEY_CLIENTS_SQL>>()), Times.Once());
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod()]
+        public void GetBySectorTest()
+        {
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
+            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
+            mock.Object.BindContext(ent);
+            mock.Object.BindRepo(readrepo.Object);
+            mock.Object.GetBySector(1);
+            mock.Verify(s => s.GetBySector(It.IsAny<int>()), Times.Once());
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod()]
+        public void GetByUserTest()
+        {
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
+            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
+            mock.Object.BindContext(ent);
+            mock.Object.BindRepo(readrepo.Object);
+            mock.Object.GetByUser(1);
+            mock.Verify(s => s.GetByUser(It.IsAny<int>()), Times.Once());
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod()]
+        public void DeleteByMerchantListTest()
+        {
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
+            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
+            mock.Object.BindContext(ent);
+            mock.Object.BindRepo(readrepo.Object);
+
+            IQueryable<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>() {
+                new KEY_CLIENTS_SQL() {MERCHANT = 900000010, SECTOR_ID = 1 },
+                new KEY_CLIENTS_SQL() {MERCHANT = 900000011, SECTOR_ID = 1 },
+                new KEY_CLIENTS_SQL() {MERCHANT = 900000012, SECTOR_ID = 1 }
+            }.AsQueryable();
+
+            //mock.Object.AddMerchantList(kk);
+            //mock.Verify(s => s.AddMerchantList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
+
+            mock.Object.DeleteByMerchantList(kk);
+            mock.Verify(s => s.DeleteByMerchantList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
+
+            Assert.IsTrue(true);
+        }
+
+        [TestMethod()]
+        public void AddMerchantListTest()
+        {
+            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
+            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
+            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
+            mock.Object.BindContext(ent);
+            mock.Object.BindRepo(readrepo.Object);
+
+            IQueryable<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>() {
+                new KEY_CLIENTS_SQL() {MERCHANT = 900000010, SECTOR_ID = 1 },
+                new KEY_CLIENTS_SQL() {MERCHANT = 900000011, SECTOR_ID = 1 },
+                new KEY_CLIENTS_SQL() {MERCHANT = 900000012, SECTOR_ID = 1 }
+            }.AsQueryable();
+
+            //mock.Object.AddMerchantList(kk);
+            //mock.Verify(s => s.AddMerchantList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
+
+            mock.Object.AddMerchantList(kk);
+            mock.Verify(s => s.AddMerchantList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
+
+            Assert.IsTrue(true);
         }
     }
+}
 
+namespace DAL.Tests
+{
     [TestClass]
-    public class DB_TESTS
+    public class DB_INTEGRATION_TESTS
     {
 
         [TestMethod]
@@ -98,13 +198,16 @@ namespace Tests_
         }
 
     }
+}
 
+namespace Repo_.Tests
+{
     [TestClass]
     public class Repo_FUNCTIONAL_TEST
     {
 
         [TestMethod]
-        public void ReadRepo_TEST()
+        public void ReadRepo_GetAll_TEST()
         {
             SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
             ReadRepo<REFMERCHANTS_SQL> ref_repo = new ReadRepo<REFMERCHANTS_SQL>(ent);
@@ -112,30 +215,19 @@ namespace Tests_
             Assert.AreNotEqual(0,a);
         }
         [TestMethod]
-        public void EditRepo_ADD_GET_TEST()
+        public void EditRepo_ADD_TEST()
         {
-            int cntSt = 0;
-            int cntFN = 0;
-
+        
             SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var mock = new Mock<EditRepo<REFMERCHANTS_SQL>>();
+            var mock = new Mock<IEditRepo<REFMERCHANTS_SQL>>();
             //mock.Setup(s => s.GetAll());
             //ReadRepo<REFMERCHANTS_SQL> ref_repo = new ReadRepo<REFMERCHANTS_SQL>(ent);
             REFMERCHANTS_SQL rm = new REFMERCHANTS_SQL() { MERCHANT = 9000000001, USER_ID = 1 };
-            mock.Object.BindContext(ent);
-            if (mock.Object.GetAll().Any())
-            {
-                cntSt = mock.Object.GetAll().Count();
-            }
+            mock.Object.BindContext(ent);          
             mock.Object.AddEntity(rm);
-            mock.Object.Save();
-            if (mock.Object.GetAll().Any())
-            {
-                cntFN = mock.Object.GetAll().Count();
-            }
-            mock.Object.Delete(rm);
-            mock.Object.Save();
-            Assert.AreNotEqual(cntSt, cntFN);
+            mock.Verify(s => s.AddEntity(It.IsAny<REFMERCHANTS_SQL>()), Times.Once());            
+
+            Assert.IsTrue(true);
         }
         [TestMethod]
         public void ReadRepo_FILTER_TEST()
@@ -145,63 +237,49 @@ namespace Tests_
             SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
             var mock = new Mock<EditRepo<REFMERCHANTS_SQL>>();   
             mock.Object.BindContext(ent);
+            
             if (mock.Object.GetAll().Any())
             {
                 REFMERCHANTS_SQL rm = mock.Object.GetAll().FirstOrDefault();              
-                a = mock.Object.GetByFilter<REFMERCHANTS_SQL>(s => s.ID == rm.ID).Count();
+                a = mock.Object.GetByFilter<REFMERCHANTS_SQL>(s => s.ID == rm.ID).Count();                                         
             }
-            Assert.AreNotEqual(0, a);
+
+            Assert.AreNotEqual(0,a);
         }
         [TestMethod]
-        public void SectorRepo_TEST()
+        public void SectorRepo_DeleteBySector_TEST()
         {
             int cntSt = 0;
             int cntFn = 0;
 
             SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var mock = new Mock<SectorFilterRepo<KEY_CLIENTS_SQL>>();           
+            var mock = new Mock<ISectorFilterRepo<KEY_CLIENTS_SQL>>();           
             mock.Object.BindContext(ent);
-            List<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>() {
+            IQueryable<KEY_CLIENTS_SQL> kk = (from s in (new List<KEY_CLIENTS_SQL>() {
 
                 new KEY_CLIENTS_SQL() { MERCHANT = 9290000020, SECTOR_ID = 101 },
                 new KEY_CLIENTS_SQL() { MERCHANT = 9290000021, SECTOR_ID = 101 },
                 new KEY_CLIENTS_SQL() { MERCHANT = 9290000022, SECTOR_ID = 101 },         
 
-            };
+            }) select s).AsQueryable();
+          
+
             if (mock.Object.GetAll().Any())
             {
                 cntSt = mock.Object.GetAll().Count();
             }
             mock.Object.AddEntities(kk);
-            mock.Object.Save();
-            mock.Object.DeleteBySector(101);           
-            mock.Object.Save();
-            if (mock.Object.GetAll().Any())
-            {
-                cntFn = mock.Object.GetAll().Count();
-            }
-
-            Assert.AreEqual(cntSt,cntFn);
+            mock.Verify(s => s.AddEntities(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
+                       
         }
         [TestMethod]
         public void Merchants_TEST()
         {
-            int cntSt = 0;
-            int cntFn = 0;
-
+       
             SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var mock = new Mock<MerchantFilterRepo<REFMERCHANTS_SQL,KEY_CLIENTS_SQL>>();
-            mock.Object.BindContext(ent);
-            List<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>() {
-
-                new KEY_CLIENTS_SQL() { MERCHANT = 9290000020, SECTOR_ID = 101 },
-                new KEY_CLIENTS_SQL() { MERCHANT = 9290000021, SECTOR_ID = 101 },
-                new KEY_CLIENTS_SQL() { MERCHANT = 9290000022, SECTOR_ID = 101 },
-                new KEY_CLIENTS_SQL() { MERCHANT = 9290000023, SECTOR_ID = 101 },
-                new KEY_CLIENTS_SQL() { MERCHANT = 9290000024, SECTOR_ID = 101 }
-
-            };
-            List<REFMERCHANTS_SQL> rm = new List<REFMERCHANTS_SQL>() {
+            var mock = new Mock<IMerchantFilterRepo<REFMERCHANTS_SQL,KEY_CLIENTS_SQL>>();
+            mock.Object.BindContext(ent);     
+            IQueryable<REFMERCHANTS_SQL> rm = new List<REFMERCHANTS_SQL>() {
 
                 new REFMERCHANTS_SQL() { MERCHANT = 9290000020, USER_ID = 101 },
                 new REFMERCHANTS_SQL() { MERCHANT = 9290000021, USER_ID = 101 },
@@ -209,21 +287,23 @@ namespace Tests_
                 new REFMERCHANTS_SQL() { MERCHANT = 9290000023, USER_ID = 101 },
                 new REFMERCHANTS_SQL() { MERCHANT = 9290000024, USER_ID = 101 }
 
-            };
-            if (mock.Object.GetAll().Any())
-            {
-                cntSt = mock.Object.GetAll().Count();
-            }
+            }.AsQueryable();
 
             mock.Object.AddEntities(rm);
+            mock.Verify(s => s.AddEntities(It.IsAny<IQueryable<REFMERCHANTS_SQL>>()),Times.Once());
 
-            if (mock.Object.GetAll().Any())
-            {
-                cntFn = mock.Object.GetAll().Count();
-            }
-
-            Assert.AreEqual(cntSt, cntFn);
+            Assert.IsTrue(true);
         }
     }
+}
 
+namespace Tests_
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+        }
+    }
 }

@@ -51,7 +51,8 @@ namespace Repo_
         void Dispose(bool disposing_);
         void Dispose();
         IQueryable<T> GetAll();
-
+        void BindContext(DbContext context_);
+       
         IQueryable<T0> GetByFilter<T0>(Expression<Func<T0, bool>> filter = null
         , Func<IQueryable<T0>, IOrderedQueryable<T0>> OrderBy = null) where T0 : class, IEntityInt;
     }
@@ -67,13 +68,14 @@ namespace Repo_
         IQueryable<Tdt> GetByKeys<Tdt>(DateTime st, DateTime fn) where Tdt : class, IDate;
        
     }
-    public interface IEditRepo<T> where T : class, IEntity
+    public interface IEditRepo<T> : IReadRepo<T> where T : class, IEntity
     {
         void AddEntity(T item_);
+        void AddEntities(IQueryable<T> items);
         T GetById(int ID_);
         void Edit(T item_);
         void Delete(T item_);
-        void DeleteRange(List<T> item_);
+        void DeleteRange(IQueryable<T> item_);
     }
     public interface IChainingRepo<T> where T : class, IChainable
     {
@@ -84,6 +86,19 @@ namespace Repo_
 
     }
 
+    public interface ISectorFilterRepo<T> : IEditRepo<T> where T : class , ISector
+    {
+        void DeleteBySector(int id_);
+        
+    }
+    public interface IMerchantFilterRepo<T,K> : IEditRepo<T>
+        where T : class, IMerchant
+        where K : class, IMerchant
+    {
+        IQueryable<T> GetByMerchantFilter<K>();
+        int GetMerchantFilterAmount<K>();
+
+    }
     //Interface for entities with Sector ID
     public interface ISector : IMerchant { int? SECTOR_ID { get; set; } }
     //Interface for sector repo
@@ -155,7 +170,10 @@ namespace Repo_
         public IQueryable<T> GetAll()
         {
             IQueryable<T> result = null;
-            result = this._context.Set<T>().Select(s=>s);
+            if (this._context != null)
+            {
+                result = this._context.Set<T>().Select(s => s);
+            }
             return result;
         }       
         public IQueryable<T> GetByFilter<T>(Expression<Func<T, bool>> filter = null
@@ -190,7 +208,7 @@ namespace Repo_
         {
             this._context.Set<T>().Add(item_);
         }
-        public void AddEntities(List<T> items)
+        public void AddEntities(IQueryable<T> items)
         {
             this._context.Set<T>().AddRange(items);
         }
@@ -211,7 +229,7 @@ namespace Repo_
         {
             this._context.Set<T>().Remove(item_);
         }
-        public void DeleteRange(List<T> item_)
+        public void DeleteRange(IQueryable<T> item_)
         {
             this._context.Set<T>().RemoveRange(item_);
         }
@@ -339,11 +357,15 @@ namespace Repo_
         where T : class, IMerchant
         where K : class, IMerchant
     {
+        public MerchantFilterRepo() 
+        {
+
+        }
         public MerchantFilterRepo(DbContext context_) : base(context_)
         {
 
         }
-        public IQueryable<T> GetByMerchantFilter<T>() where T : class, IMerchant
+        public IQueryable<T> GetByMerchantFilter<K>() where K : class, IMerchant
         {
             IQueryable<T> result = null;
             IDbSet<K> merchant_entity = this._context.Set<K>();
@@ -352,7 +374,7 @@ namespace Repo_
             result = from s in filtering_entity join k in merchs on s.MERCHANT equals k.MERCHANT select s;
             return result;
         }
-        public int GetMerchantFilterAmount<T>() where T : class, IMerchant
+        public int GetMerchantFilterAmount<K>() where K : class, IMerchant
         {
             int result_ = 0;
             IDbSet<T> merchant_entity = this._context.Set<T>();
@@ -431,7 +453,10 @@ namespace Repo_
             Dispose(true);
             GC.SuppressFinalize(this);
         }
-
+        public void BindContext(DbContext context_)
+        {
+            this._context = context_;
+        }
         public IQueryable<T> GetAll()
         {
             IQueryable<T> result = this._dbSet;
@@ -503,7 +528,21 @@ namespace Repo_
         }
         public void AddEntity(T item_)
         {
-            this._dbSet.Add(item_);
+            this._context.Set<T>().Add(item_);
+        }
+        public void AddEntities (IQueryable<T> items)
+        {
+            foreach(T item in items)
+            {
+                AddEntity(item);
+            }
+        }
+        public void AddList(IQueryable<T> items)
+        {
+            foreach(T item in items)
+            {
+                AddEntity(item);
+            }
         }
         public T GetById(int ID_)
         {
@@ -522,7 +561,7 @@ namespace Repo_
         {
             this._dbSet.Remove(item_);
         }
-        public void DeleteRange(List<T> item_)
+        public void DeleteRange(IQueryable<T> item_)
         {
             this._dbSet.RemoveRange(item_);
         }
