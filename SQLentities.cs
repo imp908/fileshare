@@ -9,12 +9,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Model.SQLmodel
 {
 
-    class SQLentities
-    {
-
-    }   
-    
-    //SQL HR
+    #region HR
     public partial class REGIONS : Repo_.IEntityInt
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,8 +19,8 @@ namespace Model.SQLmodel
         }
 
         [Key]
-        [Column("REGION_ID", TypeName ="decimal")]
-        public int ID  { get; set; }   
+        [Column("REGION_ID", TypeName = "decimal")]
+        public int ID { get; set; }
         public string REGION_NAME { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -41,7 +36,7 @@ namespace Model.SQLmodel
         }
 
         [Key]
-        [Column("LOCATION_ID",TypeName = "varchar")]
+        [Column("LOCATION_ID", TypeName = "varchar")]
         public string ID { get; set; }
         public string STREET_ADDRESS { get; set; }
         public string POSTAL_CODE { get; set; }
@@ -177,9 +172,9 @@ namespace Model.SQLmodel
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<JOB_HISTORY> JOB_HISTORY { get; set; }
     }
+    #endregion
 
-
-    //SQL DWH
+    #region DWH
     [Table(@"REFMERCHANTS_SQL")]
     public class REFMERCHANTS_SQL : Repo_.IEntityInt, Repo_.IUser, Repo_.IMerchant
     {
@@ -191,7 +186,7 @@ namespace Model.SQLmodel
         [Required]
         public long? MERCHANT { get; set; }
     }
-    public partial class KEY_CLIENTS_SQL : Repo_.IEntityInt
+    public partial class KEY_CLIENTS_SQL : Repo_.IEntityInt, Repo_.IMerchant, Repo_.ISector
     {
         //[Key, Column(Order = 1)]
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -207,9 +202,10 @@ namespace Model.SQLmodel
         public string PHYSICAL_ADDRESS { get; set; }
         public string CITY { get; set; }
         [Required]
-        public long? SE_NUMBER { get; set; }
+        public long? MERCHANT { get; set; }
         public string LEGAL_ENTITY { get; set; }
         public string PROVIDER_NAME { get; set; }
+        [Required]
         public int? SECTOR_ID { get; set; }
         //[Required]
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
@@ -217,6 +213,35 @@ namespace Model.SQLmodel
         //[ForeignKey("SECTOR_ID")]
         //public SECTOR_NAMES SECTOR_NAMES { get; set; }
     }
+
+    [Table("MERCHANT_LIST")]
+    public partial class MERCHANT_LIST_SQL : Repo_.IEntityInt
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int ID { get; set; }
+        [Required]
+        public long MERCHANT { get; set; }
+        [Required]
+        public int USER_ID { get; set; }
+        [Required]
+        public DateTime UPDATE_DATE { get; set; }
+    }
+
+    [Table("USERS")]
+    public partial class USERS_SQL : Repo_.IEntityInt
+    {
+        [Key]
+        public int ID { get; set; }
+        [Required]
+        public string Name { get; set; }
+        [Required]
+        public string Sername { get; set; }
+        [Required]
+        public string mail { get; set; }
+
+    }
+
 
     [Table("SECTORS")]
     public partial class SECTOR
@@ -244,22 +269,12 @@ namespace Model.SQLmodel
         public virtual SECTOR SECTOR { get; set; }
     }
 
-    public partial class KEY_CLIENTS_SQL : Repo_.IEntityInt, Repo_.IMerchant, Repo_.ISector
-    {
-        [Required]
-        public long? MERCHANT { get; set; }
-    }
-
-
+    [Table("T_ACQ_M_SQL")]
     public partial class T_ACQ_M_SQL : Repo_.IEntityInt
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ID { get; set; }
-    }
-
-    public partial class T_ACQ_M_SQL
-    {
+        public int ID { get; set; }    
         public Nullable<System.DateTime> DATE { get; set; }
         public string PAY_SYS { get; set; }
         public string ISS_TYPE { get; set; }
@@ -298,5 +313,6 @@ namespace Model.SQLmodel
     {
 
     }
-
+    #endregion
+  
 }

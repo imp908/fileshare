@@ -15,7 +15,7 @@ namespace Repo_
     /// <summary>
     /// Trully generic repositories interfaces
     /// </summary>
-    #region TGR
+    #region RepositoryInterfaces
 
     //Interface for default SQL entities
     public interface IEntity { }
@@ -52,21 +52,21 @@ namespace Repo_
         void Dispose();
         IQueryable<T> GetAll();
         void BindContext(DbContext context_);
-       
+
         IQueryable<T0> GetByFilter<T0>(Expression<Func<T0, bool>> filter = null
         , Func<IQueryable<T0>, IOrderedQueryable<T0>> OrderBy = null) where T0 : class, IEntityInt;
     }
-        public interface IReadRepoExpl<T> : IReadRepo<T> where T : class, IEntity
+    public interface IReadRepoExpl<T> : IReadRepo<T> where T : class, IEntity
     {
 
-       
+
         Tint GetByKey<Tint>(int id_) where Tint : class, IEntityInt;
         Tdec GetByKey<Tdec>(decimal id_) where Tdec : class, IEntityDec;
         Tstr GetByKey<Tstr>(string id_) where Tstr : class, IEntityStr;
 
         IQueryable<Tlng> GetByKeys<Tlng>(List<long> ids_) where Tlng : class, IEntityLong;
         IQueryable<Tdt> GetByKeys<Tdt>(DateTime st, DateTime fn) where Tdt : class, IDate;
-       
+
     }
     public interface IEditRepo<T> : IReadRepo<T> where T : class, IEntity
     {
@@ -86,12 +86,12 @@ namespace Repo_
 
     }
 
-    public interface ISectorFilterRepo<T> : IEditRepo<T> where T : class , ISector
+    public interface ISectorFilterRepo<T> : IEditRepo<T> where T : class, ISector
     {
         void DeleteBySector(int id_);
-        
+
     }
-    public interface IMerchantFilterRepo<T,K> : IEditRepo<T>
+    public interface IMerchantFilterRepo<T, K> : IEditRepo<T>
         where T : class, IMerchant
         where K : class, IMerchant
     {
@@ -118,7 +118,7 @@ namespace Repo_
     {
 
         internal DbContext _context { get; set; }
-        internal DbSet<T> _dbSet { get; set; }      
+        internal DbSet<T> _dbSet { get; set; }
 
         public ReadRepo()
         {
@@ -128,7 +128,7 @@ namespace Repo_
         {
             this._context = context_;
             this._dbSet = this._context.Set<T>();
-        }        
+        }
 
         private bool dispose = false;
 
@@ -175,7 +175,7 @@ namespace Repo_
                 result = this._context.Set<T>().Select(s => s);
             }
             return result;
-        }       
+        }
         public IQueryable<T> GetByFilter<T>(Expression<Func<T, bool>> filter = null
         , Func<IQueryable<T>, IOrderedQueryable<T>> OrderBy = null) where T : class, IEntityInt
         {
@@ -236,6 +236,9 @@ namespace Repo_
 
     }
 
+    #endregion
+
+    #region SpecificGenerciRepos
     /// <summary>
     /// Repository for entities with chaining, entities with date and merchants fields
     /// </summary>
@@ -318,6 +321,12 @@ namespace Repo_
         {
 
         }
+        public IQueryable<T> GetBySector(int id_)
+        {
+            IQueryable<T> result = null;
+            result = from s in this._context.Set<T>() where s.SECTOR_ID == id_ select s;
+            return result;
+        }
         public void DeleteBySector(int id_)
         {
             //this._dbSet.RemoveRange(from s in this._dbSet where s.SECTOR_ID == id_ select s );
@@ -357,7 +366,7 @@ namespace Repo_
         where T : class, IMerchant
         where K : class, IMerchant
     {
-        public MerchantFilterRepo() 
+        public MerchantFilterRepo()
         {
 
         }
@@ -530,16 +539,16 @@ namespace Repo_
         {
             this._context.Set<T>().Add(item_);
         }
-        public void AddEntities (IQueryable<T> items)
+        public void AddEntities(IQueryable<T> items)
         {
-            foreach(T item in items)
+            foreach (T item in items)
             {
                 AddEntity(item);
             }
         }
         public void AddList(IQueryable<T> items)
         {
-            foreach(T item in items)
+            foreach (T item in items)
             {
                 AddEntity(item);
             }
@@ -569,5 +578,74 @@ namespace Repo_
     }
 
     #endregion
+
+
+    public interface IRepository<T> where T : class, IEntityInt
+    {
+        void BindContext(DbContext context);
+
+        IQueryable<T> GetTOP10();
+        T GetByID(int id_);
+        IQueryable<T> GetByList(IQueryable<T> items);
+        void DeleteByID(int id_);
+        void DeleteByList(IQueryable<T> items);
+
+        IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession);
+
+        void Dispose();
+    }
+    public class Repository<T> : IRepository<T> where T : class, IEntityInt
+    {
+        public DbContext _context;
+
+        public void BindContext(DbContext context)
+        {
+            this._context = context;
+        }
+
+        public IQueryable<T> GetTOP10()
+        {
+            IQueryable<T> result = null;
+            result = ( from s in this._context.Set<T>() select  s).Take(10) ;
+            return result;
+        }
+        public T GetByID(int id_)
+        {
+            T result = null;
+            result = (from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault();
+            return result;
+        }
+
+        public IQueryable<T> GetByList(IQueryable<T> items)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void DeleteByID(int id_)
+        {
+            this._context.Set<T>().Remove((from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault());
+        }
+
+        public void DeleteByList(IQueryable<T> items)
+        {
+            foreach (T item in items)
+            {
+                this._context.Set<T>().RemoveRange(items);
+            }
+        }
+
+        public IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession)
+        {
+            IQueryable<T> result = null;
+            result = from s in this._context.Set<T>().Where(expession) select s;
+            return result;
+        }
+
+        public void Dispose()
+        {
+            this._context.Dispose();
+            throw new NotImplementedException();
+        }
+    }   
 
 }

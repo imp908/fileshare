@@ -26,10 +26,10 @@ namespace UOW
         void DeleteRange(IQueryable<T> items);
         void Save();
     }
+
     public interface IUOW_sectors<T> : IUnitOfWorkDecoupled<T> where T : class, IEntity
     {
-        IQueryable<ISector> GetBySector(int id_);
-        IQueryable<IUser> GetByUser(int id_);
+        IQueryable<ISector> GetBySector(int id_);   
         void DeleteByMerchantList(IQueryable<IMerchant> merchants_);
         void AddMerchantList(IQueryable<IMerchant> merchants_);
     }
@@ -306,6 +306,7 @@ namespace UOW
                 this.editRepo.BindContext(context_);
             }
         }
+
         public IQueryable<T> GetAll()
         {
             IQueryable<T> result = null;
@@ -324,6 +325,12 @@ namespace UOW
         public void Save()
         {
             this.context.SaveChanges();
+        }
+        public void Dispose()
+        {
+            this.readrepo.Dispose();
+            this.editRepo.Dispose();
+            this.Dispose();
         }
     }
     #endregion
@@ -346,15 +353,7 @@ namespace UOW
             result = base.readrepo.GetAll().Where(s => s.SECTOR_ID == id_);
 
             return result;
-        }
-        public IQueryable<IUser> GetByUser(int id_)
-        {
-            IQueryable<IUser> result = null;
-            EditRepo<IUser> Tsec = new EditRepo<IUser>();
-            result = Tsec.GetAll().Where(s => s.USER_ID == id_);
-
-            return result;
-        }
+        }    
         public void DeleteByMerchantList(IQueryable<IMerchant> merchants_) 
         {          
             EditRepo<IMerchant> Tsec = new EditRepo<IMerchant>();
@@ -374,6 +373,49 @@ namespace UOW
         }
 
     }
+    
+    public class UOW_Users
+    {
+
+        Repository<USERS_SQL> users_repository = new Repository<USERS_SQL>();
+        Repository<KEY_CLIENTS_SQL> clients_repository = new Repository<KEY_CLIENTS_SQL>();
+
+        int currentUserId;
+
+        public void BindContext(DbContext context)
+        {
+            this.users_repository.BindContext(context);
+        }
+        public int GetIDByCredentials(string name_,string sername_)
+        {
+            int result = 0;
+            try
+            {
+                result = (from s in this.users_repository._context.Set<USERS_SQL>()
+                          where s.Name == name_ && s.Sername == sername_
+                          select s.ID).FirstOrDefault();
+                this.currentUserId = result;
+            }catch (Exception e )
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+            return result;
+        }
+
+        public void SetCurrentUser(int id_)
+        {
+            this.currentUserId = id_;
+        }
+        
+        public void GetMerchantsByUserId(int id_)
+        {
+            //from s in clients_repository._context.Set<KEY_CLIENTS_SQL>() where s. select s.
+        }
+
+    }
+
+    
+
     /// <summary>
     /// Move to UnitTEsts
     /// </summary>
@@ -384,18 +426,17 @@ namespace UOW
         {
           
             string TEST_HR = @"SQLHR";
-            string TEST_DB = @"SQLDB";
+            string TEST_DB = @"SQLDB_J";
 
             //T_FGR_TEST("T_SQLDB");
-           
+            CHANGE_DB(TEST_DB);
             CHANGE_HR(TEST_HR);
 
             UOW_GENERIC_TEST(TEST_DB);
             UOW_DECOUPLED_HR_TEST(TEST_HR);
 
             CHANGE_HR(TEST_HR);
-            CHANGE_DB(TEST_DB);            
-
+                      
             EnvironmentChangeTest(TEST_DB);
             EnvironmentInitTest(TEST_DB);
             UOW_REFMERCHANTS_CHECK(TEST_DB);

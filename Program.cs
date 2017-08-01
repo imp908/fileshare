@@ -56,21 +56,7 @@ namespace UOW.Tests
             mock.Verify(s => s.GetBySector(It.IsAny<int>()), Times.Once());
 
             Assert.IsTrue(true);
-        }
-
-        [TestMethod()]
-        public void GetByUserTest()
-        {
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
-            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
-            mock.Object.BindContext(ent);
-            mock.Object.BindRepo(readrepo.Object);
-            mock.Object.GetByUser(1);
-            mock.Verify(s => s.GetByUser(It.IsAny<int>()), Times.Once());
-
-            Assert.IsTrue(true);
-        }
+        }       
 
         [TestMethod()]
         public void DeleteByMerchantListTest()
