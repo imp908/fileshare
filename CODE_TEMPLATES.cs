@@ -107,6 +107,27 @@ https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-pred
 
 
 
+//NuGets
+//Lucene
+https://www.nuget.org/packages/Lucene.Net/4.8.0-beta00004
+//pagelist
+https://www.nuget.org/packages/PagedList
+//Reactive Extensions for JavaScript 
+https://www.nuget.org/packages/RxJS-Main/1.0.10621
+
+
+
+//Security
+http://www.adambarth.com/papers/2008/barth-jackson-mitchell-b.pdf
+//MVC forms authentication providerName
+https://habrahabr.ru/post/176043/
+//Cookies
+https://www.nczonline.net/blog/2009/05/05/http-cookies-explained/
+//Custom antiforgery token
+http://prideparrot.com/blog/archive/2012/7/securing_all_forms_using_antiforgerytoken
+
+
+
 //WCF distributed
 https://chsakell.com/2013/04/17/distributed-transactions-in-wcf-services-part-1/
 //WCF sample
@@ -124,6 +145,9 @@ https://www.codeproject.com/Articles/1160537/WCF-Windows-Communication-Foundatio
 https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
 //WCF WebApi
 http://blogs.microsoft.co.il/idof/2012/03/05/wcf-or-aspnet-web-apis-my-two-cents-on-the-subject/
+//WEB api with packets
+https://habrahabr.ru/post/143024/
+
 
 
 //vNext
@@ -143,6 +167,7 @@ https://blog.oneunicorn.com/2013/05/28/database-initializer-and-migrations-seed-
 https://msdn.microsoft.com/en-us/data/dn579398
 
 
+
 //REPOSITORY
 //Generic Repository is BAD
 http://rob.conery.io/2014/03/04/repositories-and-unitofwork-are-not-a-good-idea/
@@ -152,6 +177,30 @@ http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testin
 https://docs.microsoft.com/en-us/aspnet/mvc/overview/older-versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
 //A trully generic repository
 http://cpratt.co/truly-generic-repository/
+//Repo done right
+http://blog.gauffin.org/2013/01/repository-pattern-done-right/
+//Repo proof of concept
+http://web.archive.org/web/20150404154203/https://www.remondo.net/repository-pattern-example-csharp/
+//Generic repo in simple 2014
+http://www.codeguru.com/csharp/.net/net_asp/mvc/using-the-repository-pattern-with-asp.net-mvc-and-entity-framework.htm
+
+
+
+//Unit test
+https://msdn.microsoft.com/en-us/library/hh694602.aspx
+https://lostechies.com/derekgreer/2011/03/28/effective-tests-a-test-first-example-part-1/
+https://www.rhyous.com/2012/03/17/unit-test-best-practices-and-guidelines/
+//Moq Setup
+https://professorweb.ru/my/ASP_NET/mvc/level2/2_5.php
+//MOQ
+https://metanit.com/sharp/mvc5/18.5.php
+https://github.com/Moq/moq4/wiki/Quickstart
+https://msdn.microsoft.com/en-us/library/dn314429(v=vs.113).aspx
+https://msdn.microsoft.com/en-us/library/dn314431(v=vs.113).aspx
+https://msdn.microsoft.com/en-us/library/ff650441.aspx
+http://www.developerhandbook.com/unit-testing/writing-unit-tests-with-nunit-and-moq/
+//EF integration testing
+https://stackoverflow.com/questions/22690877/how-are-people-unit-testing-with-entity-framework-6-should-you-bother/22691703#22691703
 
 
 
@@ -187,10 +236,7 @@ https://msdn.microsoft.com/en-us/library/jj574232(v=vs.113).aspx
 //C# Delegates, Actions, Funcs, Lambdas?Keeping it super simple
 https://blogs.msdn.microsoft.com/brunoterkaly/2012/03/02/c-delegates-actions-funcs-lambdaskeeping-it-super-simple/
 
-//Unit test
-https://msdn.microsoft.com/en-us/library/hh694602.aspx
-https://lostechies.com/derekgreer/2011/03/28/effective-tests-a-test-first-example-part-1/
-https://www.rhyous.com/2012/03/17/unit-test-best-practices-and-guidelines/
+
 
 /*
 filtering inherited types classes in base class list of classes
@@ -534,8 +580,275 @@ public class Examples
 
 	}
 	
+	public void MVC()
+	{
+		
+			public void DAL()
+			{
+				
+				/// <summary>
+				/// Context with recreate if model changes
+				/// </summary>
+				public class SQLDB_CHANGE : DbContext
+				{
+					
+					public SQLDB_CHANGE()
+						: base("name=SQLDB")
+					{
+						Database.SetInitializer<SQLDB_CHANGE>(new DropCreateDatabaseIfModelChanges<SQLDB_CHANGE>());
+						//CreateDatabaseIfNotExists
+						//DropCreateDatabaseAlways
+					}
 
-}
+					public SQLDB_CHANGE(string ConnectionName)
+						: base(ConnectionName)
+					{
+						
+						//Database.SetInitializer<SQLDB_CHANGE>(new DropCreateDatabaseIfModelChanges<SQLDB_CHANGE>());
+						
+						//set initializer method
+						Database.SetInitializer(new InitializerAtCreation());
+						
+						//force initialization
+						Database.Initialize(true);
+					}
+						
+					protected override void OnModelCreating(DbModelBuilder modelBuilder)
+					{
+						base.OnModelCreating(modelBuilder);
+					}
+					
+					//initializer class with seed method
+					//runs at DB creation
+					public class InitializerAtCreation : DropCreateDatabaseIfModelChanges<SQLDB_CHANGE>
+					{
+
+						protected override void Seed(SQLDB_CHANGE context)
+						{
+							IList<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>()
+							{
+								new KEY_CLIENTS_SQL {SECTOR_ID = 1, MERCHANT = 9290000000 },
+								new KEY_CLIENTS_SQL {SECTOR_ID = 2, MERCHANT = 9290000001 },
+								  new KEY_CLIENTS_SQL {SECTOR_ID = 2, MERCHANT = 9290000003 }
+							};
+
+							context.KEY_CLIENTS.AddRange(kk);
+							context.SaveChanges();
+
+							IList<REFMERCHANTS_SQL> rm = new List<REFMERCHANTS_SQL>()
+							{
+								new REFMERCHANTS_SQL { MERCHANT = 9290000000 },
+								new REFMERCHANTS_SQL { MERCHANT = 9290000001 },
+								new REFMERCHANTS_SQL { MERCHANT = 9290000002 },
+								new REFMERCHANTS_SQL { MERCHANT = 9290000003 },
+								new REFMERCHANTS_SQL { MERCHANT = 9290000004 },
+							};
+
+							context.REFMERCHANTS_SQL.AddRange(rm);
+							context.SaveChanges();
+
+							List<MERCHANT_LIST_SQL> ml = new List<MERCHANT_LIST_SQL>() {
+								new MERCHANT_LIST_SQL() { MERCHANT = 9290000000, USER_ID =0, UPDATE_DATE = DateTime.Now },
+								new MERCHANT_LIST_SQL() { MERCHANT = 9290000001, USER_ID =0, UPDATE_DATE = DateTime.Now },
+								new MERCHANT_LIST_SQL() { MERCHANT = 9290000002, USER_ID =0, UPDATE_DATE = DateTime.Now }
+							};
+
+							context.MERCHANT_LIST.AddRange(ml);
+							context.SaveChanges();
+
+							base.Seed(context);
+						}
+					}
+
+				}
+			
+			}
+			
+			public void Model()
+			{
+				///Model attributes
+				//class table name
+				[Table(@"REFMERCHANTS_SQL")]
+				//column as PK , not null
+				[Key],[Required]
+				//Column ID by database genereated
+				[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+				[DatabaseGenerated(DatabaseGeneratedOption.Identity)]												
+				
+			}
+			
+			public void NorthwindDBModel()
+			{
+				
+				#region HR
+				public partial class REGIONS : Repo_.IEntityInt
+				{
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+					public REGIONS()
+					{
+						this.COUNTRIES = new HashSet<COUNTRIES>();
+					}
+
+					[Key]
+					//Change column name anfd type in DB
+					[Column("REGION_ID", TypeName = "decimal")]
+					public int ID { get; set; }
+					public string REGION_NAME { get; set; }
+
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<COUNTRIES> COUNTRIES { get; set; }
+				}
+
+				public partial class LOCATIONS : Repo_.IEntity
+				{
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+					public LOCATIONS()
+					{
+						this.DEPARTMENTS = new HashSet<DEPARTMENTS>();
+					}
+
+					[Key]
+					[Column("LOCATION_ID", TypeName = "varchar")]
+					public string ID { get; set; }
+					public string STREET_ADDRESS { get; set; }
+					public string POSTAL_CODE { get; set; }
+					public string CITY { get; set; }
+					public string STATE_PROVINCE { get; set; }
+					public string COUNTRY_ID { get; set; }
+
+					public virtual COUNTRIES COUNTRIES { get; set; }
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<DEPARTMENTS> DEPARTMENTS { get; set; }
+				}
+
+				public partial class JOBS
+				{
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+					public JOBS()
+					{
+						this.EMPLOYEES = new HashSet<EMPLOYEES>();
+						this.JOB_HISTORY = new HashSet<JOB_HISTORY>();
+					}
+
+					[Key]
+					public string JOB_ID { get; set; }
+					public string JOB_TITLE { get; set; }
+					public Nullable<int> MIN_SALARY { get; set; }
+					public Nullable<int> MAX_SALARY { get; set; }
+
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<EMPLOYEES> EMPLOYEES { get; set; }
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<JOB_HISTORY> JOB_HISTORY { get; set; }
+				}
+
+				public partial class JOB_HISTORY
+				{
+					[Key]
+					public int EMPLOYEE_ID { get; set; }
+					public System.DateTime START_DATE { get; set; }
+					public System.DateTime END_DATE { get; set; }
+					public string JOB_ID { get; set; }
+					public Nullable<short> DEPARTMENT_ID { get; set; }
+					public Nullable<int> EMPLOYEES_EMPLOYEE_ID { get; set; }
+
+					public virtual DEPARTMENTS DEPARTMENTS { get; set; }
+					public virtual EMPLOYEES EMPLOYEES { get; set; }
+					public virtual JOBS JOBS { get; set; }
+				}
+
+				public partial class COUNTRIES
+				{
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+					public COUNTRIES()
+					{
+						this.LOCATIONS = new HashSet<LOCATIONS>();
+					}
+
+					[Key]
+					public string COUNTRY_ID { get; set; }
+					public string COUNTRY_NAME { get; set; }
+					public Nullable<decimal> REGION_ID { get; set; }
+
+					public virtual REGIONS REGIONS { get; set; }
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<LOCATIONS> LOCATIONS { get; set; }
+				}
+
+				public partial class DEPARTMENTS
+				{
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+					public DEPARTMENTS()
+					{
+						this.EMPLOYEES2 = new HashSet<EMPLOYEES>();
+						this.EMPLOYEES3 = new HashSet<EMPLOYEES>();
+						this.JOB_HISTORY = new HashSet<JOB_HISTORY>();
+					}
+
+					[Key]
+					public short DEPARTMENT_ID { get; set; }
+					public string DEPARTMENT_NAME { get; set; }
+					public Nullable<int> MANAGER_ID { get; set; }
+					public Nullable<short> LOCATION_ID { get; set; }
+					public Nullable<int> EMPLOYEES_EMPLOYEE_ID { get; set; }
+					public Nullable<int> EMPLOYEES_EMPLOYEE_ID1 { get; set; }
+
+					public virtual EMPLOYEES EMPLOYEES { get; set; }
+					public virtual EMPLOYEES EMPLOYEES1 { get; set; }
+					public virtual LOCATIONS LOCATIONS { get; set; }
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<EMPLOYEES> EMPLOYEES2 { get; set; }
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<EMPLOYEES> EMPLOYEES3 { get; set; }
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<JOB_HISTORY> JOB_HISTORY { get; set; }
+				}
+
+				public partial class EMPLOYEES
+				{
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+					public EMPLOYEES()
+					{
+						this.DEPARTMENTS = new HashSet<DEPARTMENTS>();
+						this.DEPARTMENTS1 = new HashSet<DEPARTMENTS>();
+						this.EMPLOYEES1 = new HashSet<EMPLOYEES>();
+						this.JOB_HISTORY = new HashSet<JOB_HISTORY>();
+					}
+
+					[Key]
+					public int EMPLOYEE_ID { get; set; }
+					public string FIRST_NAME { get; set; }
+					public string LAST_NAME { get; set; }
+					public string EMAIL { get; set; }
+					public string PHONE_NUMBER { get; set; }
+					public System.DateTime HIRE_DATE { get; set; }
+					public string JOB_ID { get; set; }
+					public Nullable<decimal> SALARY { get; set; }
+					public Nullable<decimal> COMMISSION_PCT { get; set; }
+					public Nullable<int> MANAGER_ID { get; set; }
+					public Nullable<short> DEPARTMENT_ID { get; set; }
+					public Nullable<short> DEPARTMENTS1_DEPARTMENT_ID { get; set; }
+					public Nullable<int> EMPLOYEES2_EMPLOYEE_ID { get; set; }
+					public Nullable<short> DEPARTMENTS_DEPARTMENT_ID { get; set; }
+
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<DEPARTMENTS> DEPARTMENTS { get; set; }
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<DEPARTMENTS> DEPARTMENTS1 { get; set; }
+					public virtual DEPARTMENTS DEPARTMENTS2 { get; set; }
+					public virtual DEPARTMENTS DEPARTMENTS3 { get; set; }
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<EMPLOYEES> EMPLOYEES1 { get; set; }
+					public virtual EMPLOYEES EMPLOYEES2 { get; set; }
+					public virtual JOBS JOBS { get; set; }
+					[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+					public virtual ICollection<JOB_HISTORY> JOB_HISTORY { get; set; }
+				}
+				#endregion
+	
+			}
+
+	}
 
 
 public class Unsorted {
@@ -2280,9 +2593,13 @@ public void PL_SQL()
 				DBMS_JOB.REMOVE(131572);
 				COMMIT;
 				END;
+			
+				begin
+				dbms_job.change(214169, null,to_date('02.09.2017 12:00:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+1+12/24');
+				end;
 
-				begin 
-				dbms_job.change(158018, null,to_date('12.09.2014 18:00:00','dd.mm.yyyy hh24:mi:ss'), 'trunc(sysdate+2,' || '''' ||  'dd' || '''' ||  ')+18/24');
+				begin
+				dbms_job.change(212730, null,to_date('08.08.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'), 'next_day(trunc(sysdate,' || '''' || 'mm' || '''' ||'),' || '''' || 'ВТОРНИК' || '''' ||  ')+0.3/24');
 				end;
 
 				--unBroke JOB
@@ -3753,7 +4070,7 @@ public void T_SQL()
 	public protected class ScriptExamples()
 	{
 			
-		public interface class Insertion()
+		public internal class Insertion()
 		{
 				public Shitty_Callendar()
 				{
