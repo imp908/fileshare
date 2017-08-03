@@ -19,24 +19,30 @@ namespace Repo_
     {
         void BindContext(DbContext context);
 
+        void Add(T item);
         IQueryable<T> GetALL();
         IQueryable<T> GetTOP10();
         T GetByID(int id_);      
         void DeleteByID(int id_);
         void DeleteByList(IQueryable<T> items);
-
         IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession);
+        void Save();        
 
         void Dispose();
     }
 
     public class Repository<T> : IRepository<T> where T : class, IEntityInt
     {
+
         public DbContext _context;
 
         public void BindContext(DbContext context)
         {
             this._context = context;
+        }
+        public void Add(T item)
+        {
+            this._context.Set<T>().Add(item);
         }
         public IQueryable<T> GetALL()
         {
@@ -77,11 +83,16 @@ namespace Repo_
             result = from s in this._context.Set<T>().Where(expession) select s;
             return result;
         }
+        public void Save()
+        {
+            this._context.SaveChanges();
+        }
         public void Dispose()
         {
             this._context.Dispose();
             throw new NotImplementedException();
         }
-    }   
+
+    }
 
 }
