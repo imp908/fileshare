@@ -24,17 +24,6 @@ namespace Tests_
 }
 
 
-
-namespace UOW.Tests
-{
-    [TestClass()]
-    public class UOW_tests
-    {
-
-    }
-
-}
-
 namespace DAL.Tests
 {
 
@@ -162,7 +151,8 @@ namespace Repo_.Tests
                     clientsL = clientsL.Except(clientsDel.AsEnumerable()).ToList();
                 });
             kkRepo.Setup(m => m.Save()).Verifiable();
-            kkRepo.Setup(m => m.GetByID(It.IsAny<int>())).Returns<int>(id => clientsQ.SingleOrDefault(r => r.ID == id));
+            kkRepo.Setup(m => m.GetByID(It.IsAny<int>()))
+                .Returns<int>(id => clientsQ.SingleOrDefault(r => r.ID == id));
             kkRepo.Setup(m => m.GetALL()).Returns(clientsL.AsQueryable());
 
         }
@@ -231,4 +221,124 @@ namespace Repo_.Tests
 
 }
 
+namespace UOW.Tests
+{
 
+    [nUnit.TestFixture]
+    public class UOW_Integration_tests
+    {
+        DbContext context;
+        UOW uow_CUT;
+        Repository<USERS_SQL> repo;
+
+        [nUnit.OneTimeSetUp]
+        public void UOW_init()
+        {
+            context = new SQLDB_CHANGE(@"SQLDB_J");
+            repo = new Repository<USERS_SQL>(context);
+            uow_CUT = new UOW();
+            uow_CUT.BindRepoUsers(repo);
+        }
+        [nUnit.OneTimeTearDown]
+        public void UOW_cleanUp()
+        {
+            repo.Dispose();
+            uow_CUT.Dispose();
+        }
+        [nUnit.Test]
+        public void UOW_integration_check()
+        {
+            int ID = uow_CUT.GetIDByCredentials("NAME2", "SERNAME2");
+            nUnit.Assert.AreEqual(2, ID);
+        }
+    }
+
+    [nUnit.TestFixture]
+    public class UOW_tests
+    {
+        Mock<IUOW> iuow_CUT;
+        List<USERS_SQL> users;
+        List<MERCHANT_LIST_SQL> merchants;
+        IQueryable<MERCHANT_LIST_SQL> merchantsGetExp, merchantsGetAct;
+        string name, sername, UserSernameRes;
+        int userBinded, userIDToGetSername, userPased;
+
+        [nUnit.OneTimeSetUp]
+        public void UOW_init()
+        {
+          
+            userBinded = -1;
+            name = @"NAME2";
+            sername = @"SERNAME2";
+            userIDToGetSername = 3;
+            userPased = 10;
+
+            users = new List<USERS_SQL>() {
+                new USERS_SQL() { ID=1, Name = @"NAME1", Sername = @"SERNAME1", mail = @"NAME1@rsb.ru"},
+                new USERS_SQL() { ID=2, Name = @"NAME2", Sername = @"SERNAME2", mail = @"NAME2@rsb.ru"},
+                new USERS_SQL() { ID=3, Name = @"NAME3", Sername = @"SERNAME3", mail = @"NAME3@rsb.ru"}
+            };
+
+            merchants = new List<MERCHANT_LIST_SQL>() {
+                    new MERCHANT_LIST_SQL() { MERCHANT = 9290000000, USER_ID =1, UPDATE_DATE = new DateTime(2017,08,03,00,00,01) },
+                    new MERCHANT_LIST_SQL() { MERCHANT = 9290000001, USER_ID =1, UPDATE_DATE = new DateTime(2017,08,03,00,00,02) },
+                    new MERCHANT_LIST_SQL() { MERCHANT = 9290000002, USER_ID =1, UPDATE_DATE = new DateTime(2017,08,03,00,00,03)} ,
+                    new MERCHANT_LIST_SQL() { MERCHANT = 9290000007, USER_ID =3, UPDATE_DATE = new DateTime(2017,08,03,00,00,04)} ,
+                    new MERCHANT_LIST_SQL() { MERCHANT = 9290000008, USER_ID =3, UPDATE_DATE = new DateTime(2017,08,03,00,00,05)} ,
+                    new MERCHANT_LIST_SQL() { MERCHANT = 9290000009, USER_ID =3, UPDATE_DATE = new DateTime(2017,08,03,00,00,06)} 
+                };
+
+            //Arrange
+            iuow_CUT = new Mock<IUOW>();
+            iuow_CUT.Setup(s => s.GetIDByCredentials(It.IsAny<string>(), It.IsAny<string>()))
+                .Returns<string, string>(                          
+                    (T0, T1) => users.Where(R => R.Name == T0 && R.Sername == T1).FirstOrDefault().ID
+                );
+            iuow_CUT.Setup(s => s.SetCurrentUser(It.IsAny<int>()))
+                .Callback((int c) => { userBinded = c; } );
+            iuow_CUT.Setup(s=>s.GetUserSernameByID())
+                .Returns(
+                    users.FirstOrDefault(s => s.ID == userIDToGetSername).Sername                    
+                );
+            iuow_CUT.Setup(s => s.GetMerchantListByUserId())
+                .Returns(
+                merchants.Where(s => s.USER_ID == userIDToGetSername).AsQueryable()
+                );
+           
+        }
+        [nUnit.OneTimeTearDown]
+        public void UOW_cleanUp()
+        {
+            iuow_CUT = null;
+        }
+        [nUnit.Test]
+        public void UOW_check()
+        {
+
+            //Act
+            //Assert           
+            
+            int idExpected = users.SingleOrDefault(s => s.Name == name && s.Sername == sername).ID;
+            int idActual=iuow_CUT.Object.GetIDByCredentials(name, sername);
+            iuow_CUT.Verify(s => s.GetIDByCredentials(name,sername), Times.Exactly(1));
+            Assert.AreEqual(idExpected,idActual);
+            
+            iuow_CUT.Object.SetCurrentUser(userPased);
+            iuow_CUT.Verify(s => s.SetCurrentUser(It.IsAny<int>()));
+            Assert.AreEqual(userPased, userBinded);
+          
+            UserSernameRes = users.FirstOrDefault(s => s.ID == userIDToGetSername).Sername;
+            iuow_CUT.Object.GetUserSernameByID();
+            iuow_CUT.Verify(s => s.GetUserSernameByID(),Times.Once());
+            Assert.AreEqual(UserSernameRes, iuow_CUT.Object.GetUserSernameByID());
+
+
+            merchantsGetExp = iuow_CUT.Object.GetMerchantListByUserId();
+            merchantsGetAct = merchants.Where(s => s.ID == userIDToGetSername).AsQueryable();
+            iuow_CUT.Verify(s => s.GetMerchantListByUserId(), Times.Once());
+            Assert.AreEqual(merchantsGetAct, merchantsGetExp);
+        }
+
+    }
+
+}

@@ -72,6 +72,16 @@ namespace DAL.DAL
                 context.MERCHANT_LIST.AddRange(ml);
                 context.SaveChanges();
 
+                List<USERS_SQL> users = new List<USERS_SQL>()
+                {
+                    new USERS_SQL() { ID=0, Name ="NAME1", Sername = "SERNAME1", mail = "NAME1@rsb.ru" },
+                    new USERS_SQL() { ID=0, Name ="NAME2", Sername = "SERNAME2", mail = "NAME2@rsb.ru" },
+                    new USERS_SQL() { ID=0, Name ="NAME3", Sername = "SERNAME3", mail = "NAME3@rsb.ru" }
+                };
+
+                context.USERS.AddRange(users);
+                context.SaveChanges();
+
                 base.Seed(context);
             }
         }

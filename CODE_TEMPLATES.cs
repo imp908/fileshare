@@ -125,9 +125,11 @@ namespace CodeExamples {
 	https://www.nczonline.net/blog/2009/05/05/http-cookies-explained/
 	//Custom antiforgery token
 	http://prideparrot.com/blog/archive/2012/7/securing_all_forms_using_antiforgerytoken
+	//App Security threats
+	https://msdn.microsoft.com/en-us/library/f13d73y6.aspx
 
 
-
+	
 	//WCF distributed
 	https://chsakell.com/2013/04/17/distributed-transactions-in-wcf-services-part-1/
 	//WCF sample
@@ -185,8 +187,10 @@ namespace CodeExamples {
 	http://web.archive.org/web/20150404154203/https://www.remondo.net/repository-pattern-example-csharp/
 	//Generic repo in simple 2014
 	http://www.codeguru.com/csharp/.net/net_asp/mvc/using-the-repository-pattern-with-asp.net-mvc-and-entity-framework.htm
-
-
+	//Repository overall
+	http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc	
+	
+	
 	
 	//TESTING
 	//Unit test
