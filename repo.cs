@@ -18,11 +18,13 @@ namespace Repo_
     public interface IRepository<T> where T : class, IEntityInt
     {
         void BindContext(DbContext context);
+        DbContext GetContext();
 
         void Add(T item);
         IQueryable<T> GetALL();
         IQueryable<T> GetTOP10();
-        T GetByID(int id_);      
+        T GetByID(int id_);
+        void AddFromList(List<T> items);
         void DeleteByID(int id_);
         void DeleteByList(IQueryable<T> items);
         IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession);
@@ -35,6 +37,25 @@ namespace Repo_
     {
 
         public DbContext _context;
+
+        public Repository ()
+        {
+
+        }
+        public Repository(DbContext context_)
+        {
+            this._context = context_;
+        }
+
+        public DbContext GetContext()
+        {
+            DbContext result = null;
+            if (this._context != null)
+            {
+                result = this._context;
+            }
+            return result;
+        }
 
         public void BindContext(DbContext context)
         {
@@ -65,7 +86,7 @@ namespace Repo_
         public void AddFromList(List<T> items)
         {
             this._context.Set<T>().AddRange(items);
-        }  
+        }
         public void DeleteByID(int id_)
         {
             this._context.Set<T>().Remove((from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault());
@@ -90,7 +111,7 @@ namespace Repo_
         public void Dispose()
         {
             this._context.Dispose();
-            throw new NotImplementedException();
+           
         }
 
     }

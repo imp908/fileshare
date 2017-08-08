@@ -2630,8 +2630,15 @@ namespace CodeExamples {
 					interval => 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+3+2.5/24');
 					commit;
 					END;
-
-
+					
+					DECLARE
+					l_job NUMBER := 0;
+					BEGIN
+					DBMS_JOB.SUBMIT( l_job,what=>'p_gns_date(add_months(trunc(sysdate,''mm''),-1),add_months(trunc(sysdate,''mm''),0)-1/24/60/60,''GNS_JOB'');', 
+					next_date=>trunc(sysdate,'dd')+1+2.5/24/60/60, -- start next hour 
+					interval => 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+2+2.5/24');
+					commit;
+					END;
 
 					exec dbms_job.run(163038);commit;
 
@@ -2653,9 +2660,7 @@ namespace CodeExamples {
 
 					--change next date time
 					EXECUTE dbms_job.change(206923,null,to_date('03.04.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'),'add_months(trunc(sysdate,''mm''),1)+3');
-
 			
-
 			 begin 
 			 DBMS_JOB.CHANGE
 			   (213653
@@ -2672,30 +2677,28 @@ namespace CodeExamples {
 				END;
 				
 				/*JOBS UNBROKE*/
-					/* Filename on companion disk: job5.sql */*
-					CREATE OR REPLACE PROCEDURE job_fixer
-					AS
-					   /*
-					   || calls DBMS_JOB.BROKEN to try and set
-					   || any broken jobs to unbroken
-					   */
-					   
-					   /* cursor selects user's broken jobs */
-					   CURSOR broken_jobs_cur
-					   IS
-					   SELECT job
-						 FROM user_jobs
-						WHERE broken = 'Y';
-						
-					BEGIN
-					   FOR job_rec IN broken_jobs_cur
-					   LOOP
-						  DBMS_JOB.BROKEN(job_rec.job,FALSE);
-					   END LOOP;
-					END job_fixer;
+				/* Filename on companion disk: job5.sql */*
+				CREATE OR REPLACE PROCEDURE job_fixer
+				AS
+			   /*
+			   || calls DBMS_JOB.BROKEN to try and set
+			   || any broken jobs to unbroken
+			   */
+			   
+			   /* cursor selects user's broken jobs */
+			   CURSOR broken_jobs_cur
+			   IS
+			   SELECT job
+				 FROM user_jobs
+				WHERE broken = 'Y';
 					
-														
-
+				BEGIN
+				   FOR job_rec IN broken_jobs_cur
+				   LOOP
+					  DBMS_JOB.BROKEN(job_rec.job,FALSE);
+				   END LOOP;
+				END job_fixer;
+																			
 				}
 				
 				public alter_session_lang()
@@ -2704,7 +2707,7 @@ namespace CodeExamples {
 					select to_char(sysdate,'Month') from dual 
 				}
 				
-				public  DROP_TABLES_BY_LIST()
+				public DROP_TABLES_BY_LIST()
 				{
 			
 				--TEST--

@@ -42,7 +42,7 @@ T_ACQ_D get by INDUSTRY ... filter columns
 		
 	}
 
-	-> Export to excel
+-> Export to excel
 -> Type converter for migration (
 Add SQL to CLR type conversion ; 
 SQLEntity to DWH entity converter; 
@@ -55,12 +55,14 @@ Tables migration - test with repo <- done
 -> Emplicit implicit repos
 1-explicit repo (mostly type by merchant)
 Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}
-2-mplicit repo (mostly one type by repo instance)
+2-implicit repo (mostly one type by repo instance)
 Repo<T>() where T: IOne { GetByOne(); }
 ...
 Repo<T>() where T: In { GetByN(); } <- done
+
 II:
 0 Polinom Parse -> parse *^/ to expressions and add priorities for exprs
 0 Command line app dll -> to SB
-0 Multithread message ping pong -> to SB
+0 Multithread socket message ping pong -> to SB
 0 Console parameters parse -> to SB
+0 CollectionsComparison -> to SB

@@ -29,7 +29,11 @@ namespace UOW
         IQueryable<MERCHANT_LIST_SQL> GetMerchantListByUserId();
         void InsertMerchatList(List<MERCHANT_LIST_SQL> list);
 
+        IQueryable<T_ACQ_M_SQL> GetAcqByDate(DateTime st, DateTime fn);
+        IQueryable<T_ACQ_M_SQL> GetAcqByMerchants(List<MERCHANT_LIST_SQL> list);
 
+        IQueryable<KEY_CLIENTS_SQL> GetKKByUserId();
+        void InsertKKFromList(List<KEY_CLIENTS_SQL> items);
     }
 
     public class UOW
@@ -151,6 +155,7 @@ namespace UOW
     {
         public void GO_()
         {
+          
             DbContext context = new SQLDB_CHANGE(@"SQLDB_J");
             Repository<USERS_SQL> users = new Repository<USERS_SQL>(context);
             int cnt = users.GetALL().Count();
