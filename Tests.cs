@@ -1,4 +1,5 @@
-﻿using System;
+﻿using UOW;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +17,14 @@ using Moq;
 
 using nUnit=NUnit.Framework;
 
+
+
 namespace Tests_
 {
     class Tests
-    {
-   }
+    {	   					
+	}
 }
-
 
 namespace DAL.Tests
 {
@@ -48,8 +50,6 @@ namespace DAL.Tests
             Assert.IsTrue(result);
             
        }
-
-
 
         [TestMethod]
         public void SQLDB_KK_Initialized_test()
@@ -146,7 +146,7 @@ namespace Repo_.Tests
                 (int s) => {
                     clientsL.Remove(clientsL.Where(r => r.ID == s).FirstOrDefault());
                });
-            kkRepo.Setup(m => m.DeleteByList(It.IsAny < IQueryable<KEY_CLIENTS_SQL>>())).Callback(
+            kkRepo.Setup(m => m.DeleteByList(It.IsAny < List<KEY_CLIENTS_SQL>>())).Callback(
                 (IQueryable<KEY_CLIENTS_SQL> s) => {
                     clientsL=clientsL.Except(clientsDel.AsEnumerable()).ToList();
                });
@@ -192,8 +192,8 @@ namespace Repo_.Tests
             Assert.AreEqual(clientsL.Count(), clientsAfterDeleteCount);
 
             //DELETEBYLIST
-            kkRepo.Object.DeleteByList(clientsDel.AsQueryable());
-            kkRepo.Verify(s => s.DeleteByList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()));
+            kkRepo.Object.DeleteByList(clientsDel);
+            kkRepo.Verify(s => s.DeleteByList(It.IsAny<List<KEY_CLIENTS_SQL>>()));
             Assert.AreEqual(clientsL.Count(), clientsAfterListDeleteCount);
 
             //SAVE
@@ -222,36 +222,134 @@ namespace Repo_.Tests
 }
 
 namespace UOW.Tests
-{
+{   
 
     [nUnit.TestFixture]
     public class UOW_Integration_tests
     {
+
         DbContext context;
         UOW uow_CUT;
-        Repository<USERS_SQL> repo;
+        Repository<USERS_SQL> usersRepo;
+        Repository<KEY_CLIENTS_SQL> clientsRepo;
+        Repository<MERCHANT_LIST_SQL> merchantsRepo;
+        List<MERCHANT_LIST_SQL> merchantsToInsert;
+        string UserNameToGet, UserSernameToGet, UserSernameSetted;
+        int SetUserID, GetUSerID, merchantsForUserCnt;
 
         [nUnit.OneTimeSetUp]
         public void UOW_init()
         {
-            context=new SQLDB_CHANGE(@"SQLDB_J");
-            repo=new Repository<USERS_SQL>(context);
-            uow_CUT=new UOW();
-            uow_CUT.BindRepoUsers(repo);
-       }
+
+            context =new SQLDB_CHANGE(@"SQLDB_J");
+
+            usersRepo=new Repository<USERS_SQL>(context);
+            clientsRepo=new Repository<KEY_CLIENTS_SQL>(context);
+            merchantsRepo=new Repository<MERCHANT_LIST_SQL>(context);
+
+            uow_CUT =new UOW();
+
+            uow_CUT.BindRepoUsers(usersRepo);
+            uow_CUT.BindRepoClients(clientsRepo);
+            uow_CUT.BindRepoMerchants(merchantsRepo);
+
+            UserNameToGet = @"NAME2";
+            UserSernameToGet = @"SERNAME2";
+         
+            SetUserID = 3;
+            GetUSerID = -1;
+
+            UserSernameSetted = @"SERNAME3";
+
+            merchantsForUserCnt = 3;
+
+            merchantsToInsert = new List<MERCHANT_LIST_SQL>() {
+new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+,new MERCHANT_LIST_SQL() { MERCHANT = 9290000091, USER_ID = 3, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+,new MERCHANT_LIST_SQL() { MERCHANT = 9290000081, USER_ID = 4, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+,new MERCHANT_LIST_SQL() { MERCHANT = 9290000082, USER_ID = 4, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+,new MERCHANT_LIST_SQL() { MERCHANT = 9290000083, USER_ID = 4, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+            };
+
+        }
         [nUnit.OneTimeTearDown]
         public void UOW_cleanUp()
         {
-            repo.Dispose();
+            clientsRepo.Dispose();            
+            usersRepo.Dispose();
+            context.Dispose();
             uow_CUT.Dispose();
-       }
+        }
+
         [nUnit.Test]
-        public void UOW_integration_check()
+        public void GetIDByCredentialsTest()
+        {            
+            //GetIDByCredentials
+            int IDAct =uow_CUT.GetIDByCredentials(UserNameToGet, UserSernameToGet);
+            int IDExp = (from s in context.Set<USERS_SQL>() where s.Name== UserNameToGet && s.Sername == UserSernameToGet select s).FirstOrDefault().ID;
+            nUnit.Assert.AreEqual(IDExp, IDAct);
+
+        }
+        [nUnit.Test()]
+        public void SetCurrentUserTest()
         {
-            int ID=uow_CUT.GetIDByCredentials("NAME2", "SERNAME2");
-            nUnit.Assert.AreEqual(2, ID);
-       }
-   }
+          
+            int ExpId = SetUserID;
+
+            uow_CUT.SetCurrentUser(SetUserID);
+
+            var a = uow_CUT.GetType()
+                .GetField(@"currentUserId", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(uow_CUT);
+
+            if(a is int)
+            {
+                GetUSerID = (int)a;
+            }            
+        
+            Assert.AreEqual(ExpId, GetUSerID);
+        }
+        [nUnit.Test()]
+        public void GetCurrentUserSernameTest()
+        {
+            uow_CUT.SetCurrentUser(SetUserID);
+            string ActUsername =  uow_CUT.GetCurrentUserSername();
+            Assert.AreEqual(UserSernameSetted, ActUsername);
+        }
+
+        [nUnit.Test()]
+        public void GetMerchantListByUserIdTest()
+        {
+            uow_CUT.SetCurrentUser(SetUserID);
+            int MerchantsAct = uow_CUT.GetMerchantListByUserId().Count();
+            Assert.AreEqual(merchantsForUserCnt,MerchantsAct);
+        }
+        [nUnit.Test()]
+        public void InsertMerchatListTest()
+        {
+
+            var a = uow_CUT.GetType();
+            var b = a.GetField("merchantList_repository",
+                 System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance);
+            var c = b.GetValue(uow_CUT);
+
+            IRepository <MERCHANT_LIST_SQL> mlRepo = (IRepository < MERCHANT_LIST_SQL >)uow_CUT.GetType().GetField("merchantList_repository",
+                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)
+                .GetValue(uow_CUT);
+
+            int merchantsBefore = mlRepo.GetALL().Count();
+            int merchantsExpected = merchantsBefore + merchantsToInsert.Count();
+            uow_CUT.InsertMerchatList(merchantsToInsert);
+            
+            int merchantsAfter = mlRepo.GetALL().Count();
+           
+            Assert.AreEqual(merchantsExpected, merchantsAfter);
+            Assert.AreNotEqual(merchantsBefore, merchantsAfter);
+
+            mlRepo.DeleteByList(merchantsToInsert);
+        }
+
+    }
 
     [nUnit.TestFixture]
     public class UOW_tests

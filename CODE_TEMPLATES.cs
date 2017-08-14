@@ -189,6 +189,8 @@ namespace CodeExamples {
 	http://www.codeguru.com/csharp/.net/net_asp/mvc/using-the-repository-pattern-with-asp.net-mvc-and-entity-framework.htm
 	//Repository overall
 	http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc	
+	//Not Generic REPOSITORY
+	https://softwareengineering.stackexchange.com/questions/180851/why-shouldnt-i-use-the-repository-pattern-with-entity-framework/220126#220126
 	
 	
 	
@@ -2355,7 +2357,6 @@ namespace CodeExamples {
 
 	//ORACLE
 	//PL - sql server script templates
-
 	public void PL_SQL()
 	{
 		

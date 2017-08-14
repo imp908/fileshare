@@ -25,8 +25,9 @@ namespace Repo_
         IQueryable<T> GetTOP10();
         T GetByID(int id_);
         void AddFromList(List<T> items);
+        IQueryable<T> GetByList(List<T> items);
         void DeleteByID(int id_);
-        void DeleteByList(IQueryable<T> items);
+        void DeleteByList(List<T> items);
         IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession);
         void Save();        
 
@@ -87,16 +88,44 @@ namespace Repo_
         {
             this._context.Set<T>().AddRange(items);
         }
+        public IQueryable<T> GetByList(List<T> items)
+        {
+            IQueryable<T> result = null;
+            //result = (from s in this._context.Set<T>() select s).Where(t =>  (from c in items select c.ID).Contains(t.ID) );
+            List<T> lt = (from s in this._context.Set<T>() select s).ToList();
+            var b = (from s in lt select s).Where(t => (from s2 in items select s2.ID).Contains(t.ID)).Count();
+            return result;
+        }
         public void DeleteByID(int id_)
         {
             this._context.Set<T>().Remove((from s in this._context.Set<T>() where s.ID == id_ select s).FirstOrDefault());
         }
-        public void DeleteByList(IQueryable<T> items)
+        public void DeleteByList(List<T> items)
         {
-            foreach (T item in items)
+
+            try
             {
-                this._context.Set<T>().RemoveRange(items);
+                if (GetByList(items).Count() > 0)
+                {
+                    foreach (T item in items)
+                    {
+                        this._context.Set<T>().Remove(item);
+                    }
+                }
             }
+            catch (Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+
+            //try
+            //{
+            //    this._context.Set<T>().RemoveRange(items);
+            //}catch (Exception e)
+            //{
+            //    System.Diagnostics.Trace.WriteLine(e.Message);
+            //}
+           
         }
         public IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession)
         {

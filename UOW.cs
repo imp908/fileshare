@@ -91,10 +91,10 @@ namespace UOW
         {
             this.currentUserId = id_;
         }        
-        public string GetUserSernameByID()
+        public string GetCurrentUserSername()
         {
             string result = string.Empty;
-            var a = (from s in this.users_repository.GetByID(this.currentUserId).Sername select s).FirstOrDefault() ;
+            result = this.users_repository.GetByID(this.currentUserId).Sername;
             return result;
         }
 
@@ -105,9 +105,10 @@ namespace UOW
             return result;
         }
         public void InsertMerchatList(List<MERCHANT_LIST_SQL> list)
-        {
-            merchantList_repository.DeleteByList(list.AsQueryable());
+        {            
+            merchantList_repository.DeleteByList(list);
             merchantList_repository.AddFromList(list);
+            merchantList_repository.Save();
         }
 
         public IQueryable<T_ACQ_M_SQL> GetAcqByDate(DateTime st,DateTime fn)
@@ -127,13 +128,13 @@ namespace UOW
                 select s;
             return result;
         }
-
         public IQueryable<KEY_CLIENTS_SQL> GetKKByUserId()
         {
             IQueryable<KEY_CLIENTS_SQL> result = null;
-            result = from s in clients_repository.GetContext().Set<KEY_CLIENTS_SQL>() where s.RESPONSIBILITY_MANAGER == this.GetUserSernameByID() select s;
+            result = from s in clients_repository.GetContext().Set<KEY_CLIENTS_SQL>() where s.RESPONSIBILITY_MANAGER == this.GetCurrentUserSername() select s;
             return result;
         }
+
         //delete and insert merchants by userid
         public void InsertKKFromList(List<KEY_CLIENTS_SQL> items )
         {
@@ -142,11 +143,22 @@ namespace UOW
 
         public void Dispose()
         {
-            this.acq_repository.Dispose();
-            this.merchantList_repository.Dispose();
-            this.clients_repository.Dispose();
-            this.users_repository.Dispose();
-            this.Dispose();
+            if (this.acq_repository != null)
+            {
+                this.acq_repository.Dispose();
+            }
+            if (this.merchantList_repository != null)
+            {
+                this.merchantList_repository.Dispose();
+            }
+            if (this.clients_repository != null)
+            {
+                this.clients_repository.Dispose();
+            }
+            if (this.users_repository != null)
+            {
+                this.users_repository.Dispose();
+            }                        
         }
         
     }
@@ -155,10 +167,20 @@ namespace UOW
     {
         public void GO_()
         {
-          
+
+            List<MERCHANT_LIST_SQL> merchantsToInsert = new List<MERCHANT_LIST_SQL>() {
+new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+,new MERCHANT_LIST_SQL() { MERCHANT = 9290000091, USER_ID = 3, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+,new MERCHANT_LIST_SQL() { MERCHANT = 9290000081, USER_ID = 4, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+,new MERCHANT_LIST_SQL() { MERCHANT = 9290000082, USER_ID = 4, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+,new MERCHANT_LIST_SQL() { MERCHANT = 9290000083, USER_ID = 4, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
+            };
+
             DbContext context = new SQLDB_CHANGE(@"SQLDB_J");
-            Repository<USERS_SQL> users = new Repository<USERS_SQL>(context);
-            int cnt = users.GetALL().Count();
+            Repository<MERCHANT_LIST_SQL> repo = new Repository<MERCHANT_LIST_SQL>(context);
+
+            repo.GetByList(merchantsToInsert);
+
         }
     }
 }
