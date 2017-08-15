@@ -228,6 +228,7 @@ namespace UOW.Tests
     public class UOW_Integration_tests
     {
 
+        Random random = new Random();
         DbContext context;
         UOW uow_CUT;
         Repository<USERS_SQL> usersRepo;
@@ -236,6 +237,11 @@ namespace UOW.Tests
         List<MERCHANT_LIST_SQL> merchantsToInsert;
         string UserNameToGet, UserSernameToGet, UserSernameSetted;
         int SetUserID, GetUSerID, merchantsForUserCnt;
+
+        List<MERCHANT_LIST_SQL> merchantsGen;
+        List<REFMERCHANTS_SQL> refmerchantsGen;
+        List<USERS_SQL> usersGen;
+        List<T_ACQ_M_SQL> acqGen;
 
         [nUnit.OneTimeSetUp]
         public void UOW_init()
@@ -270,6 +276,28 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
 ,new MERCHANT_LIST_SQL() { MERCHANT = 9290000082, USER_ID = 4, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
 ,new MERCHANT_LIST_SQL() { MERCHANT = 9290000083, USER_ID = 4, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
             };
+
+            //Merchant list generating
+            merchantsGen = new List<MERCHANT_LIST_SQL>();
+            refmerchantsGen = new List<REFMERCHANTS_SQL>();
+            usersGen = new List<USERS_SQL>();
+            acqGen = new List<T_ACQ_M_SQL>();
+
+            for (long i = 9290000100; i < (9290000100 + 100); i++)
+            {
+                int user = random.Next(4, 7);
+                merchantsGen.Add(new MERCHANT_LIST_SQL { MERCHANT = i, USER_ID = user, UPDATE_DATE = DateTime.Now });
+                refmerchantsGen.Add(new REFMERCHANTS_SQL() { MERCHANT = i, USER_ID= user});
+
+                for(short i2 = 0;i2<=50;i2++)
+                {
+                    acqGen.Add(new T_ACQ_M_SQL() { MERCHANT = i, AMT = i2, DATE = DateTime.Now });
+                }
+            }
+            for(short i =7; i<10; i++ )
+            {
+                usersGen.Add(new USERS_SQL() { Name = @"Name" + i, Sername = @"Sername" + i });
+            }
 
         }
         [nUnit.OneTimeTearDown]
@@ -347,6 +375,7 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
             Assert.AreNotEqual(merchantsBefore, merchantsAfter);
 
             mlRepo.DeleteByList(merchantsToInsert);
+            mlRepo.Save();
         }
 
     }

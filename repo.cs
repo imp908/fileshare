@@ -90,10 +90,9 @@ namespace Repo_
         }
         public IQueryable<T> GetByList(List<T> items)
         {
-            IQueryable<T> result = null;
-            //result = (from s in this._context.Set<T>() select s).Where(t =>  (from c in items select c.ID).Contains(t.ID) );
-            List<T> lt = (from s in this._context.Set<T>() select s).ToList();
-            var b = (from s in lt select s).Where(t => (from s2 in items select s2.ID).Contains(t.ID)).Count();
+            IQueryable<T> result = null;            
+            List<T> list = (from s in this._context.Set<T>() select s).ToList();
+            result = (from s in list select s).Where(t => (from s2 in items select s2.ID).Contains(t.ID)).AsQueryable();
             return result;
         }
         public void DeleteByID(int id_)
@@ -104,28 +103,14 @@ namespace Repo_
         {
 
             try
-            {
-                if (GetByList(items).Count() > 0)
-                {
-                    foreach (T item in items)
-                    {
-                        this._context.Set<T>().Remove(item);
-                    }
-                }
+            {   
+                this._context.Set<T>().RemoveRange(items);
             }
             catch (Exception e)
             {
                 System.Diagnostics.Trace.WriteLine(e.Message);
             }
 
-            //try
-            //{
-            //    this._context.Set<T>().RemoveRange(items);
-            //}catch (Exception e)
-            //{
-            //    System.Diagnostics.Trace.WriteLine(e.Message);
-            //}
-           
         }
         public IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession)
         {

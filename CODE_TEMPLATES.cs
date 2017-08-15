@@ -21,7 +21,15 @@ namespace CodeExamples {
 	//Usefull links
 	public void mostUsefullLinks()
 	{
-
+	
+	//SERIAL PROGRAMMING 
+	
+	//RS-232
+	http://cisco.opennet.ru/docs/RUS/serial_guide/index.html#2_2
+	
+	
+	
+	
 	//dev guide
 	https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
 
@@ -140,17 +148,27 @@ namespace CodeExamples {
 	https://www.codeproject.com/Articles/1081015/Autogenerate-DataContracts-for-WCF-from-POCO-Class
 	//WCF transactions
 	https://www.codeproject.com/Articles/1160537/WCF-Windows-Communication-Foundation-Transaction-S
-
-
+	//WCF vs aspx service
+	http://www.csharptutorial.in/33/csharp-net-difference-between-webservice-and-wcf-service
+	//WCF tutorials
+	http://www.csharptutorial.in/wcf-tutorials
+	
+	
+	
+	//SOAP REST diff
+	http://www.csharptutorial.in/296/wcf-tutorials-soap-vs-rest-web-services-or-difference-between-soap-and-rest-web-services
+	
+	
 
 	//WebApi
 	//WebApi controller
 	https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
+	https://docs.microsoft.com/en-us/aspnet/web-api/overview/testing-and-debugging/mocking-entity-framework-when-unit-testing-aspnet-web-api-2
 	//WCF WebApi
 	http://blogs.microsoft.co.il/idof/2012/03/05/wcf-or-aspnet-web-apis-my-two-cents-on-the-subject/
 	//WEB api with packets
 	https://habrahabr.ru/post/143024/
-
+	
 
 
 	//vNext
@@ -199,6 +217,9 @@ namespace CodeExamples {
 	https://msdn.microsoft.com/en-us/library/hh694602.aspx
 	https://lostechies.com/derekgreer/2011/03/28/effective-tests-a-test-first-example-part-1/
 	https://www.rhyous.com/2012/03/17/unit-test-best-practices-and-guidelines/
+	//nUnit
+	http://severe-programmer.com/manual/unit-testing-v-visual-studio-s-ispolzovaniem-nunit-i-nsubstitute-chast-1/
+	https://github.com/nunit/docs/wiki/TestCaseData
 	//Moq Setup
 	https://professorweb.ru/my/ASP_NET/mvc/level2/2_5.php
 	//MOQ
@@ -210,7 +231,8 @@ namespace CodeExamples {
 	http://www.developerhandbook.com/unit-testing/writing-unit-tests-with-nunit-and-moq/
 	//EF integration testing
 	https://stackoverflow.com/questions/22690877/how-are-people-unit-testing-with-entity-framework-6-should-you-bother/22691703#22691703
-	
+	//Integration
+	http://enterprisecraftsmanship.com/2015/07/13/integration-testing-or-how-to-sleep-well-at-nights/
 
 
 	//MOQ
@@ -2363,6 +2385,209 @@ namespace CodeExamples {
 		public protected class ScriptExmaples()
 		{
 			
+			public internal class TestDB()
+			{
+				
+/*
+alter table test3
+add primary key (C3)
+
+alter table test2
+add constraint test_pk 
+foreign key (c3) 
+references test3(c3)
+;
+
+delete from test2;
+
+insert into test2 (c1,c2) values ('TEST1','TEST1');
+insert into test2 (c1,c2) values ('TEST2','TEST2');
+insert into test2 (c1,c2) values ('TEST3','TEST3');
+commit;
+
+select to_char(c3,'dd.mm.yyyy hh24:mi:ss') from test2;
+commit;
+
+drop table purge;
+*/
+
+
+
+create table test_product(
+ID number constraint prod_id_pk primary key,
+INS_DATE date,
+product_name varchar(50)
+);
+
+create table test_types(
+ID number  constraint type_id_pk primary key,
+INS_DATE date,
+product_type varchar(50)
+);
+
+create table test_price(
+ID number ,
+INS_DATE date,
+DATE_FROM date,
+DATE_TO date,
+price number,
+prodcut_id  constraint test_product_price_PK references test_product(ID)
+);
+
+create table test_product_type (
+ID number ,
+INS_DATE date,
+product_id number,
+type_id number
+);
+
+
+/*Product table ID, date trigger on insert*/
+create or replace trigger test_prod_trg_ins
+before insert on test_product
+for each row
+declare 
+var_1 number;
+begin
+select max(ID) into var_1 from test_product;
+if var_1 is null
+then var_1 := 0;
+else
+var_1 := var_1+1;
+end if;
+:new.ID :=var_1;
+select sysdate into :new.INS_DATE from dual;
+end;
+/
+
+
+
+/*Product table date trigger on update*/
+create or replace trigger test_prod_trg_upd
+before update on test_product
+for each row
+begin
+select sysdate into :new.INS_DATE from dual;
+end;
+/
+
+
+
+
+/*Product table ID, date trigger on insert*/
+create or replace trigger test_prod_type_ins
+before insert on test_types
+for each row
+declare 
+var_1 number;
+begin
+select max(ID) into var_1 from test_types;
+if var_1 is null
+then var_1 := 0;
+else
+var_1 := var_1+1;
+end if;
+:new.ID :=var_1;
+select sysdate into :new.INS_DATE from dual;
+end;
+/
+
+/*Product table date trigger on update*/
+create or replace trigger test_prod_type_upd
+before update on test_types
+for each row
+begin
+select sysdate into :new.INS_DATE from dual;
+end;
+/
+
+
+
+/*Product table ID, date trigger on insert*/
+create or replace trigger test_price_ins
+before insert on test_price
+for each row
+declare 
+var_1 number;
+begin
+select max(ID) into var_1 from test_price;
+if var_1 is null
+then var_1 := 0;
+else
+var_1 := var_1+1;
+end if;
+:new.ID :=var_1;
+select sysdate into :new.INS_DATE from dual;
+end;
+/
+
+/*Product table date trigger on update*/
+create or replace trigger test_price_upd
+before update on test_price
+for each row
+begin
+select sysdate into :new.INS_DATE from dual;
+end;
+/
+
+
+alter table test_product_type
+add constraint test_product_type_PK
+foreign key (product_id) 
+references test_product(ID)
+;
+
+alter table test_product_type
+add constraint test_product_types_PK
+foreign key (type_id) 
+references test_types(ID)
+;
+
+
+
+insert into test_product (product_name) values ('Product_3');
+insert into test_product (product_name) values ('Product_5');
+insert into test_product (product_name) values ('Product_6');
+insert into test_product (product_name) values ('Product_7');
+insert into test_product (product_name) values ('Product_8');
+
+update test_product set product_name ='Product_3' where product_name='Product_2';
+update test_product set product_name ='Product_2' where product_name='Product_3';
+
+
+insert into test_types (product_type) values ('Product_type_1');
+insert into test_types (product_type) values ('Product_type_2');
+insert into test_types (product_type) values ('Product_type_3');
+
+
+insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),1,10);
+insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),1,20);
+insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,1,15);
+
+insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),2,25);
+insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),2,30);
+insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,2,45);
+
+
+insert into test_product_type(product_id,type_id) values (1,1);
+insert into test_product_type(product_id,type_id) values (2,1);
+insert into test_product_type(product_id,type_id) values (3,2);
+insert into test_product_type(product_id,type_id) values (4,2);
+insert into test_product_type(product_id,type_id) values (0,3);
+
+select * from test_product;
+select * from test_types; 
+select * from test_product_type;
+select * from test_price;
+
+
+/* !!!DANGER!!!
+execute maintain();
+*/
+
+
+			}
+			
 			public internal class Selection()
 			{
 				
@@ -2533,7 +2758,8 @@ namespace CodeExamples {
 					select * from user_objects
 					--// TABLE modifications INSERT,DELETE,UPDATE
 					select * from user_tab_modifications;
-
+					//Objects source code
+					select * from all_source
 					
 					/*Unreferenced table names*/
 					select distinct table_name,'select * from ' || table_name || ';' from all_tables where owner like '%NEPRIN%'
@@ -2776,8 +3002,7 @@ namespace CodeExamples {
 				end ;
 				-------------------------
 				}
-						
-				
+										
 			}
 			
 			public internal class PLsql()
@@ -4071,6 +4296,43 @@ namespace CodeExamples {
 			}
 		}
 			
+			public class procedures()
+			{
+				
+				public void MAINTAIN()
+				{
+					create or replace
+procedure maintain as
+begin
+
+
+begin
+  for rec in (
+select * from all_objects where owner like '%NEPRIN%' and (object_name like 'TEMP_%' or object_name like '%TEST%') 
+)
+  loop  
+    begin 
+      if rec.object_type= 'TABLE' then 
+       EXECUTE IMMEDIATE 'DROP '
+                              || rec.object_type
+                              || ' "'
+                              || rec.object_name
+                              || '" CASCADE CONSTRAINTS';
+         ELSE
+            EXECUTE IMMEDIATE 'DROP '
+                              || rec.object_type
+                              || ' "'
+                              || rec.object_name
+                              || '"';
+    end if;
+  end;
+  end loop;
+end;
+
+end;
+				}
+			
+			}
 		}
 
 		public protected class ORACLE()

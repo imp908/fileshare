@@ -167,6 +167,12 @@ namespace UOW
     {
         public void GO_()
         {
+            Random rnd = new Random();
+
+
+            List<KEY_CLIENTS_SQL> clients = new List<KEY_CLIENTS_SQL>();
+            IList<REFMERCHANTS_SQL> rm = new List<REFMERCHANTS_SQL>();
+
 
             List<MERCHANT_LIST_SQL> merchantsToInsert = new List<MERCHANT_LIST_SQL>() {
 new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
@@ -176,10 +182,37 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
 ,new MERCHANT_LIST_SQL() { MERCHANT = 9290000083, USER_ID = 4, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
             };
 
+            List<MERCHANT_LIST_SQL> merchantsGen = new List<MERCHANT_LIST_SQL>();
+
+            for (long i = 9290000100; i< (9290000100+1000); i++)
+            {              
+                merchantsGen.Add(new MERCHANT_LIST_SQL { MERCHANT=i, USER_ID=rnd.Next(4, 7) , UPDATE_DATE= DateTime.Now});
+            }
+
             DbContext context = new SQLDB_CHANGE(@"SQLDB_J");
             Repository<MERCHANT_LIST_SQL> repo = new Repository<MERCHANT_LIST_SQL>(context);
 
-            repo.GetByList(merchantsToInsert);
+            int cnt = repo.GetALL().Count();
+
+            repo.DeleteByList((from s in repo.GetALL() where s.UPDATE_DATE > new DateTime(2017, 08, 05, 00, 00, 08) select s).ToList());
+            repo.Save();
+            cnt = repo.GetALL().Count();
+         
+            repo.AddFromList(merchantsGen);
+            repo.Save();
+            cnt = repo.GetALL().Count();
+
+            repo.DeleteByList(merchantsGen);
+            repo.Save();
+            cnt = repo.GetALL().Count();
+
+            repo.AddFromList(merchantsToInsert);
+            repo.Save();
+            cnt = repo.GetALL().Count();
+
+            repo.DeleteByList(merchantsToInsert);
+            repo.Save();
+            cnt = repo.GetALL().Count();
 
         }
     }
