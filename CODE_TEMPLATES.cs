@@ -152,6 +152,9 @@ namespace CodeExamples {
 	http://www.csharptutorial.in/33/csharp-net-difference-between-webservice-and-wcf-service
 	//WCF tutorials
 	http://www.csharptutorial.in/wcf-tutorials
+	//WCF host as a service
+	https://docs.microsoft.com/en-us/dotnet/framework/wcf/how-to-host-and-run-a-basic-wcf-service
+	https://docs.microsoft.com/en-us/dotnet/framework/wcf/getting-started-tutorial
 	
 	
 	
