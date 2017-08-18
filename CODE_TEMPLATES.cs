@@ -2877,9 +2877,14 @@ execute maintain();
 					COMMIT;
 					END;
 				
+				
 					begin
-					dbms_job.change(214169, null,to_date('02.09.2017 12:00:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+1+12/24');
+					dbms_job.change(210250, null,to_date('19.08.2017 08:00:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
 					end;
+					begin
+					dbms_job.change(214250, null,to_date('19.08.2017 08:15:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
+					end;
+          
 
 					begin
 					dbms_job.change(212730, null,to_date('08.08.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'), 'next_day(trunc(sysdate,' || '''' || 'mm' || '''' ||'),' || '''' || 'ВТОРНИК' || '''' ||  ')+0.3/24');
@@ -4501,6 +4506,15 @@ namespace OS
 		
 			}
 			
+			public void NetFolderFilesDelete()
+			{
+				pushd "\\Osrp\files\SHARE\Scripts\arh\Export\PREVIOUS_CNT\aa" 
+				del /F /Q *.*
+				popd
+				pushd "\\Osrp\files\SHARE\Scripts\arh\Export\PREVIOUS_CNT" 
+				del /F /Q  *.*
+				popd
+			}
 		}
 		
 		public void Execute()
