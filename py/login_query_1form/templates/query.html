@@ -1,0 +1,52 @@
+$def with (f,ConnectStr,data,cur)
+
+<html>
+    <head>
+        <title>Gothons Of Planet Percal #26</title>
+    </head>
+<body>
+
+	
+<form action="query">
+<textarea name="message" rows="10" cols="30">
+Insert SQL here
+</textarea>
+<br><br>
+<input type="submit">
+</form>
+
+<form action="query"
+name="main" >
+$:f.render()
+<input type="submit" />
+</form>
+
+
+<!--Publish headers in columns-->
+$def cl(dat):
+	<tr>
+	$for column in cur.description:
+		<td>$:column[0]</td>
+	</tr>
+
+<tr>
+	$:cl(data)
+</tr>
+	
+<!--publish data results in html table-->
+$def tr(values):
+    <tr>
+    $for v in values:
+        <td>$v</td>
+    </tr>
+
+$def table(rows):
+    <table>
+    $for row in rows:
+        $:row
+    </table>
+	
+$:table([tr(d) for d in data])
+
+</body>
+</html>

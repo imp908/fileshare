@@ -1,0 +1,23 @@
+$def with (greeting)
+$def with (form)
+
+<html>
+    <head>
+        <title>Cool html template</title>
+		<p>Templated html</p>
+    </head>
+<body>
+
+$if greeting:
+	I just wanted to say <em style="color: green; font-size: 2em;">$greeting!</em>.
+$else:
+	<em>Hello</em>, you!
+
+<form name="main" method="post"> 
+$if not form.valid: <p class="error">Try again, AmeriCAN:</p>
+$:form.render()
+<input type="submit" />
+</form>
+
+</body>
+</html>

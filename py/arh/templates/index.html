@@ -1,0 +1,85 @@
+$def with (greeting,form,data,cur)
+
+<html>
+    <head>
+	
+	<!--<script src="static\d3.min.js" charset="utf-8" ></script>-->
+	<!--<script src="jquery-1.11.2.min.js"></script>-->
+	<script src="http://d3js.org/topojson.v1.min.js" charset="utf-8"></script>
+	
+	<script src="static\main.js" charset="utf-8"></script>	
+	<script src="static\boobles.js" charset="utf-8"></script>
+	<script src="static\pie.js" charset="utf-8"></script> 
+	
+	<script src="static\map.js" charset="utf-8"></script>
+	<!--<script src="exmpl.json" charset="utf-8"></script>
+		<script src="selTest.js" charset="utf-8"></script>
+	-->
+
+	<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+
+	<link rel="stylesheet" type="text/css" href="static\style.css">      
+	<link rel="stylesheet" type="text/css" href="static\map.css"> 
+	
+        <title>Cool html template</title>
+		<p>Templated html</p>
+    </head>
+<body>
+
+<script type="text/javascript">
+		svgFill();
+</script>
+	
+$if greeting:
+	I just wanted to say <em style="color: green; font-size: 2em;">$greeting!</em>.
+$else:
+	<em>Hello</em>, you!
+	
+<form name="main" method="post"> 
+$if not form.valid: <p class="error">Try again, AmeriCAN:</p>
+$:form.render()
+<input type="submit" />
+</form>
+
+
+<!-- print headers
+<table>
+$for c in ["C1", "C2" ,"C3"] :
+	<tr class = "$loop.parity">
+		<td>$loop.index</td>
+		<td>$c</td>
+	</tr>	
+</table>
+-->
+
+
+<!--Publish headers in columns-->
+$def cl(dat):
+	<tr>
+	$for column in cur.description:
+		<td>$:column[0]</td>
+	</tr>
+
+<tr>
+	$:cl(data)
+</tr>
+	
+<!--publish data results in html table-->
+$def tr(values):
+    <tr>
+    $for v in values:
+        <td>$v</td>
+    </tr>
+
+$def table(rows):
+    <table>
+    $for row in rows:
+        $:row
+    </table>
+	
+$:table([tr(d) for d in data])
+
+
+
+</body>
+</html>
