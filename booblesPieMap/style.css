@@ -1,0 +1,80 @@
+<style>
+
+	.enter{
+	fill: green;
+	}
+	.update
+	{
+	fill:blue;
+	}
+	.exit
+	{
+	fill:red;
+	}
+
+	.arc path {
+	stroke: rgb(235,235,235);
+	}
+
+	.button{
+	color:rgb(50,100,250);
+	font-family:Lucida;
+	}
+
+	circle:hover {
+	//fill: orange;
+	//transition: all 1s;
+	}
+
+	.xaxis path,
+	.xaxis  line {
+	fill: none;
+	stroke: rgb(217,217,217);
+	shape-rendering: crispEdges;
+	}
+
+	.yaxis path,
+	.yaxis  line {
+	fill: none;
+	stroke: rgb(217,217,217);
+	shape-rendering: crispEdges;
+	}
+
+	.xaxis text {
+	font-family: sans-serif;
+	font-size: 10px;
+	font-weight: 100;
+	fill:rgb(217,217,217);
+	}
+
+	.yaxis text {
+	font-family: sans-serif;
+	font-size: 10px;
+	font-weight: 100;
+	fill:rgb(217,217,217);
+	}
+
+	.llabels {
+	font-family: Lucida;
+	font-size: 9px;
+	font-weight: 100;
+	fill:rgb(0,51,204);
+	}
+	
+	div.divTooltip {
+	position: absolute;
+	text-align: center;
+	width: 60px;
+	height: 12px;
+	padding: 8px;
+	font: 10px sans-serif;
+	border: solid 1px #aaa;
+	border-radius: 8px;
+	pointer-events: none;
+	}
+	
+	body{
+		background-color:rgb(146,146,146);
+	}
+  
+</style>
