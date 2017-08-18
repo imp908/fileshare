@@ -1,0 +1,135 @@
+/* Extra markup and styles for table-esque vertical and horizontal centering*/
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 100%; 
+  min-height: 100%;
+  -webkit-box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+          box-shadow: inset 0 0 100px rgba(0,0,0,.5);
+}
+
+html,
+body {
+	z-index=-10;
+	height: 100%;
+	/*background-color: #333; */
+	/*Backroud dash on page bottom*/ 
+}
+body {
+	z-index=-1;
+	color: #fff;
+	/*text-align: center;*/ /*centering text*/
+	text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+.row {
+  margin-bottom: 15px;
+}
+.row .row {
+  margin-top: 15px;
+  margin-bottom: 0;
+}
+
+[class*="col-"] {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  background-color: #5c8a8a;
+  background-color: rgba(61, 92, 92,.15);
+  border: 1px solid #ddd;
+  border: 1px solid rgba(255, 0, 102,.2);
+}
+
+
+
+/*multi tab CSS*/
+/* Style the list */
+ul.tab {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	border: 1px solid #ccc;
+	background-color: #f1f1f1;
+}
+
+/* Float the list items side by side */
+ul.tab li {float: left;}
+
+/* Style the links inside the list items */
+ul.tab li a {
+    display: inline-block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.tab li a:hover {background-color: #ddd;}
+
+/* Create an active/current tablink class */
+ul.tab li a:focus, .active {background-color: #ccc;}
+
+/* Style the tab content */
+.tabcontent {
+    display: none;
+    padding: 6px 12px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tabselem{
+	display: none;
+}
+
+.modals{	
+	z-index: 1;
+	display: none;
+	bottom: 0;
+	right: 0;
+	left: 0;
+	top: 0;
+	margin:0;
+	padding:0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */	
+	overflow: auto;
+	background-color: #56ac56;
+	opacity:0.8;
+	position: fixed;
+	
+	color:rgb(13,249,4);
+	text-decoration: none;
+
+	font-family:Monospace;
+	font-size: 15px;	
+	
+	line-height: 10%;
+	text-align: left;
+	letter-spacing: 0px;
+}
+
+.modal-header {
+	z-index: 3;
+	display: block;
+	width: 100%;
+	height: 10%;
+	top: 25%;
+	position:fixed;	
+	background-color: #464196;
+	opacity:1;
+}
+
+.modal-body{
+	z-index: 2;
+	display: block;
+	width: 100%;
+	height: 20%;
+	top: 35%;
+	position:fixed;
+	background-color: #6c3461;
+	opacity:1;
+}
+
