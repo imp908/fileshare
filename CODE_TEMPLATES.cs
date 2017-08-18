@@ -440,6 +440,7 @@ namespace CodeExamples {
 		public void .NET()
 		{
 
+		
 			public CannotFindObject()
 			{
 			WHEN:
@@ -498,7 +499,24 @@ namespace CodeExamples {
 				WHOW:
 				start console with administrative
 			}
+			
+			public WCFhttpREGerror()
+			{
+				
+				WHAT:
+Протоколу HTTP не удалось зарегистрировать URL-адрес http://+:8000/Service1/. Текущий процесс не имеет прав доступа к этому 
+пространству имен (подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353)
+				
+				WHEN:
+WCF service under console host
 					
+				HOW:
+recommended to register port:
+netsh http add urlacl url=http://+:8000/ServiceModelSamples/Service user=mylocaluser
+				
+			}
+		
+		
 		}
 
 		public void SSAS()
@@ -4500,6 +4518,7 @@ namespace OS
 	{
 		public CMD
 		{
+			
 			public void AsAdmin(){
 			//add current user as admin
 			runas /user:????????????? "net localgroup "??????????????" "neprintsevia" /ADD"
@@ -4514,6 +4533,14 @@ namespace OS
 				pushd "\\Osrp\files\SHARE\Scripts\arh\Export\PREVIOUS_CNT" 
 				del /F /Q  *.*
 				popd
+			}
+		
+			public void Unsortd()
+			{
+				
+				netsat -> ips with ports
+				netsh [http] [add,delete] [iplisten] -> bind http listener
+				
 			}
 		}
 		
