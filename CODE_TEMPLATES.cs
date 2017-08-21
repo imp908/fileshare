@@ -4327,6 +4327,7 @@ execute maintain();
 				
 				public void MAINTAIN()
 				{
+					
 					create or replace
 procedure maintain as
 begin
@@ -4356,6 +4357,48 @@ select * from all_objects where owner like '%NEPRIN%' and (object_name like 'TEM
 end;
 
 end;
+/
+
+create or replace
+procedure P_CHECK as
+  begin
+  
+  
+  begin
+    for rec in (
+  select * from all_objects where owner like '%NEPRIN%' and (object_name = 'MAINTAIN') 
+  )
+    loop  
+      begin 
+        if rec.object_type= 'TABLE' then 
+         EXECUTE IMMEDIATE 'DROP '
+                                || rec.object_type
+                                || ' "'
+                                || rec.object_name
+                                || '" CASCADE CONSTRAINTS';
+           ELSE
+              EXECUTE IMMEDIATE 'DROP '
+                                || rec.object_type
+                                || ' "'
+                                || rec.object_name
+                                || '"';
+      end if;
+    end;
+    end loop;
+  end;
+  
+  end;
+  /
+  
+  begin
+dbms_job.change(210250, null,add_months(trunc(sysdate,'mm'),1)+6+8/24, 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+6+8/24');
+end;
+/
+
+begin
+dbms_job.change(214250, null,add_months(trunc(sysdate,'mm'),1)+6+8.15/24, 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+6+8.15/24');
+end;
+/
 				}
 			
 			}
@@ -4535,7 +4578,7 @@ namespace OS
 				popd
 			}
 		
-			public void Unsortd()
+			public void Unsorted()
 			{
 				
 				netsat -> ips with ports
@@ -4653,3 +4696,4 @@ namespace OS
 		}
 	}
 }
+
