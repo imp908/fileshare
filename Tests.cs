@@ -147,7 +147,7 @@ namespace Repo_.Tests
                     clientsL.Remove(clientsL.Where(r => r.ID == s).FirstOrDefault());
                });
             kkRepo.Setup(m => m.DeleteByList(It.IsAny < List<KEY_CLIENTS_SQL>>())).Callback(
-                (IQueryable<KEY_CLIENTS_SQL> s) => {
+                (List<KEY_CLIENTS_SQL> s) => {
                     clientsL=clientsL.Except(clientsDel.AsEnumerable()).ToList();
                });
             kkRepo.Setup(m => m.Save()).Verifiable();
@@ -243,6 +243,7 @@ namespace UOW.Tests
         List<USERS_SQL> usersGen;
         List<T_ACQ_M_SQL> acqGen;
 
+        IQueryable<KEY_CLIENTS_SQL> clientsListByUserID;
         [nUnit.OneTimeSetUp]
         public void UOW_init()
         {
@@ -267,7 +268,7 @@ namespace UOW.Tests
 
             UserSernameSetted = @"SERNAME3";
 
-            merchantsForUserCnt = 3;
+            merchantsForUserCnt = 5;
 
             merchantsToInsert = new List<MERCHANT_LIST_SQL>() {
 new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
@@ -298,6 +299,8 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
             {
                 usersGen.Add(new USERS_SQL() { Name = @"Name" + i, Sername = @"Sername" + i });
             }
+
+            clientsListByUserID = clientsRepo.GetALL().Where(s => s.RESPONSIBILITY_MANAGER == UserSernameSetted);
 
         }
         [nUnit.OneTimeTearDown]
@@ -378,6 +381,15 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
             mlRepo.Save();
         }
 
+        [nUnit.Test]
+        public void GetKKByUserIDTest()
+        {
+            uow_CUT.SetCurrentUser(SetUserID);
+            string sernameAct = uow_CUT.GetCurrentUserSername();
+            IQueryable<KEY_CLIENTS_SQL> clientsListAct = uow_CUT.GetKKByUserId();
+            Assert.AreEqual(UserSernameSetted, sernameAct);
+            CollectionAssert.AreEqual(clientsListByUserID.ToList(), clientsListAct.ToList());
+        }
     }
 
     [nUnit.TestFixture]
@@ -403,6 +415,8 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
 
         DateTime st=new DateTime(2017, 08, 06, 00, 00, 14);
         DateTime fn=new DateTime(2017, 08, 07, 00, 00, 15);
+
+        string sernameExp = @"SERNAME3";
 
         [nUnit.OneTimeSetUp]
         public void UOW_init()
@@ -489,7 +503,7 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
                 );
             iuow_CUT.Setup(s => s.SetCurrentUser(It.IsAny<int>()))
                 .Callback((int c) =>{userBinded=c;});
-            iuow_CUT.Setup(s=>s.GetUserSernameByID())
+            iuow_CUT.Setup(s=>s.GetCurrentUserSername())
                 .Returns(
                     users.FirstOrDefault(s => s.ID == userIDToGetSername).Sername                    
                 );
@@ -520,6 +534,8 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
             iuow_CUT.Setup(s => s.InsertKKFromList(It.IsAny<List<KEY_CLIENTS_SQL>>()))
                 .Callback((List<KEY_CLIENTS_SQL> s)=>keyClients.AddRange(s));
 
+            //iuow_CUT.Setup(s => s.SetCurrentUser(It.IsAny<int>()));
+
         }
         [nUnit.OneTimeTearDown]
         public void UOW_cleanUp()
@@ -537,16 +553,12 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
             int idExpected=users.SingleOrDefault(s => s.Name == name && s.Sername == sername).ID;
             int idActual=iuow_CUT.Object.GetIDByCredentials(name, sername);
             iuow_CUT.Verify(s => s.GetIDByCredentials(name,sername), Times.Exactly(1));
-            Assert.AreEqual(idExpected,idActual);
-            
-            iuow_CUT.Object.SetCurrentUser(userPased);
-            iuow_CUT.Verify(s => s.SetCurrentUser(It.IsAny<int>()));
-            Assert.AreEqual(userPased, userBinded);
+            Assert.AreEqual(idExpected,idActual);                       
           
             UserSernameRes=users.FirstOrDefault(s => s.ID == userIDToGetSername).Sername;
-            iuow_CUT.Object.GetUserSernameByID();
-            iuow_CUT.Verify(s => s.GetUserSernameByID(),Times.Once());
-            Assert.AreEqual(UserSernameRes, iuow_CUT.Object.GetUserSernameByID());
+            iuow_CUT.Object.GetCurrentUserSername();
+            iuow_CUT.Verify(s => s.GetCurrentUserSername(),Times.Once());
+            Assert.AreEqual(UserSernameRes, iuow_CUT.Object.GetCurrentUserSername());
         
             merchantsGetExp=iuow_CUT.Object.GetMerchantListByUserId().AsQueryable();
             merchantsGetAct=merchants.Where(s => s.USER_ID == userIDToGetSername).AsQueryable();
@@ -602,7 +614,15 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
             Assert.AreEqual(clientsAfterInsertExp, clientsAfterInsert);
         }
 
+        [nUnit.Test]
+        public void  UOW_SetUSerID()
+        {
 
+            iuow_CUT.Object.SetCurrentUser(userPased);
+            iuow_CUT.Verify(s => s.SetCurrentUser(It.IsAny<int>()));
+            Assert.AreEqual(userPased, userBinded);
+
+        }
     }
 
 }

@@ -3,19 +3,12 @@ I:
 -> IRepository<T> with CRUD operations lightweight
 -> Specific repository for every entity
 -> UOW
-KEY_CLIENTS GetbyUserID
-KEY_CLIENTS Delete by merchant_list
-KEY_CLIENTS Add from list
-KEY_CLIENTS get  from merchant list
-REF_MERCHANTS GetbyUserID
-REF_MERCHANTS delete by list
-REF_MERCHANTS Add from list
-T_ACQ_D get by date
-T_ACQ_D get by merchants list
-T_ACQ_D get by INDUSTRY ... filter columns
+	bind repo to generic with as and type conversion
+	bind context to every repo
 0 WCF
 -> Add WCF between Repo and Site
 POCO to DataContract converter
+ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)
 -> Add BLL Business logic layer between POCOs and UOW
 -> Add JS multiple model items update at one time
 -> to DLL

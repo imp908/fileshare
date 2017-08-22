@@ -2904,8 +2904,12 @@ execute maintain();
 					begin
 					dbms_job.change(214250, null,to_date('19.08.2017 08:15:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
 					end;
-          
+					
+					execute DBMS_JOB.BROKEN(212730,FALSE);
+					execute dbms_job.change(212730, null,sysdate+0.15/24, 'next_day(trunc(sysdate,''dd''),''ВТОРНИК'')+0.3/24');
 
+
+	
 					begin
 					dbms_job.change(212730, null,to_date('08.08.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'), 'next_day(trunc(sysdate,' || '''' || 'mm' || '''' ||'),' || '''' || 'ВТОРНИК' || '''' ||  ')+0.3/24');
 					end;
@@ -4643,150 +4647,152 @@ drop table #Account;
 				}
 			
 			}
+	
+		}
+	}
+	
 	#endregion
 
-	
-}
-
-namespace OS
-{
-	public Windows
+	namespace OS
 	{
-		public CMD
+		public Windows
 		{
+			public CMD
+			{
+				
+				public void AsAdmin(){
+				//add current user as admin
+				runas /user:????????????? "net localgroup "??????????????" "neprintsevia" /ADD"
 			
-			public void AsAdmin(){
-			//add current user as admin
-			runas /user:????????????? "net localgroup "??????????????" "neprintsevia" /ADD"
-		
-			}
-			
-			public void NetFolderFilesDelete()
-			{
-				pushd "\\Osrp\files\SHARE\Scripts\arh\Export\PREVIOUS_CNT\aa" 
-				del /F /Q *.*
-				popd
-				pushd "\\Osrp\files\SHARE\Scripts\arh\Export\PREVIOUS_CNT" 
-				del /F /Q  *.*
-				popd
-			}
-		
-			public void Unsorted()
-			{
-				
-				netsat -> ips with ports
-				netsh [http] [add,delete] [iplisten] -> bind http listener
-				
-			}
-		}
-		
-		public void Execute()
-		{
-			mstsc -> ??????????? ? ?????????? ???????? ?????
-			cmd -> ???????
-		}
-	}
-	
-	public UNIX
-	{
-		public Ubuntu
-		{
-			public HotKeys
-			{
-				
-				public OS
-				{
-					super (hold) - help
-					ctrl + alt + T - terminal
-					ctrl + L -> nautilus path browser
 				}
 				
-				public Terminal 
+				public void NetFolderFilesDelete()
 				{
-					TAB - auto complete
-					shift + ins (ctrl + shift + V ) - ctrl + V
-					ctrl + ins (ctrl + shift + C )- ctrl + C
-					ctrl + LeftArr/RightArr -> moove between params
-					ctrl + U -> delete line
-						 + K -> delete line after kursor
-						 + W -> delete line before kursor
-						 + R -< search command history for words
+					pushd "\\Osrp\files\SHARE\Scripts\arh\Export\PREVIOUS_CNT\aa" 
+					del /F /Q *.*
+					popd
+					pushd "\\Osrp\files\SHARE\Scripts\arh\Export\PREVIOUS_CNT" 
+					del /F /Q  *.*
+					popd
 				}
-				
-			}
 			
-			public TerminalCommands
-			{				
-				sudo apt-get update && sudo apt-get upgrade
-				sudo apt-get -f install
-				sudo dpkg --purge --force-depends libpowerdevilcore0 libtaskmanager4b
-				sudo apt-get -f install
-				sudo apt-get install build-essential
-				sudo apt-get autoclean && sudo apt-get clear cache
-				gksu nautilus /etc --open in browser
-				sudo nano  /etc/apt/sources.list				
-				
-				http://help.ubuntu.ru/wiki/%D0%B3%D0%BE%D1%80%D1%8F%D1%87%D0%B8%D0%B5_%D0%BA%D0%BB%D0%B0%D0%B2%D0%B8%D1%88%D0%B8_%D0%B2_unity
-				http://help.ubuntu.ru/manual/%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB
-				http://forum.ubuntu.ru/index.php?topic=14535.15
-				
-				lsb_release -a - current build version
-				(alt + F2) gksu software-properties-gtk -> show ubuntu update center
-				sudo rm -r -f /path -> force remove recursive
-				sudo cd /path -> goto folder
-					cd .. -> up 1 lvl
-				sudo mkdir /path -> create directory
-					-p /path -> create directory recursive
-				sudo ls -> display content-map
-					-a -> with hidden
-				sudo systemctl restart network-manager -> restarn netweork				
-				sudo ufw enable/disablemail- ????????? ? ?????????? ??????????? ??????
-				sudo poweroff/reboot -> poweroff/reboot
-				dpkg --get-selections -> installed pkgs
-				dpkg --get-selections | grep -v deinstall > ~/Desktop/packages -> save to file				
-					-L packageNmae -> find installed pakceg pathes
-				mv /folder /folder -> rename folder
-				command !& -> run command with previous typed parameter
-				^command1^command2 -> run command2 with previous command1 params
-				
-			}
-		
-			public Troubleshooting
-			{
-				//No _apt sandbox user
-				https://askubuntu.com/questions/810202/what-is-the-sandbox-user-apt-on-my-system
-				adduser --force-badname --system --home /nonexistent  \
-				--no-create-home --quiet _apt || true
-				
-				//Windows 7 don't have a permission to brows Ubuntu Fileshare
-				uncomment browseable = yes in etc/samba/smb.conf
-				https://askubuntu.com/questions/569333/windows-7-8-1-ubuntu-14-folder-sharing
-			}
-		
-			public Pakets
-			{
-				public Mercurial
+				public void Unsorted()
 				{
-					sudo add-apt-repository universse
-					sudo apt-get install mercurial
-					sudo apt-get install mercurial meld
 					
-					hg -> main call
-					hg version -> check installation
-						init -> initialize in current directory
-						clone path -> make copy of path in current directory
-						clone path path ->
-						
+					netsat -> ips with ports
+					netsh [http] [add,delete] [iplisten] -> bind http listener
+					
+				}
+			}
+			
+			public void Execute()
+			{
+				mstsc -> ??????????? ? ?????????? ???????? ?????
+				cmd -> ???????
+			}
+		}
+		
+		public UNIX
+		{
+			public Ubuntu
+			{
+				public HotKeys
+				{
+					
+					public OS
+					{
+						super (hold) - help
+						ctrl + alt + T - terminal
+						ctrl + L -> nautilus path browser
+					}
+					
+					public Terminal 
+					{
+						TAB - auto complete
+						shift + ins (ctrl + shift + V ) - ctrl + V
+						ctrl + ins (ctrl + shift + C )- ctrl + C
+						ctrl + LeftArr/RightArr -> moove between params
+						ctrl + U -> delete line
+							 + K -> delete line after kursor
+							 + W -> delete line before kursor
+							 + R -< search command history for words
+					}
+					
 				}
 				
-				public Glances (resource monitor)
+				public TerminalCommands
+				{				
+					sudo apt-get update && sudo apt-get upgrade
+					sudo apt-get -f install
+					sudo dpkg --purge --force-depends libpowerdevilcore0 libtaskmanager4b
+					sudo apt-get -f install
+					sudo apt-get install build-essential
+					sudo apt-get autoclean && sudo apt-get clear cache
+					gksu nautilus /etc --open in browser
+					sudo nano  /etc/apt/sources.list				
+					
+					http://help.ubuntu.ru/wiki/%D0%B3%D0%BE%D1%80%D1%8F%D1%87%D0%B8%D0%B5_%D0%BA%D0%BB%D0%B0%D0%B2%D0%B8%D1%88%D0%B8_%D0%B2_unity
+					http://help.ubuntu.ru/manual/%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB
+					http://forum.ubuntu.ru/index.php?topic=14535.15
+					
+					lsb_release -a - current build version
+					(alt + F2) gksu software-properties-gtk -> show ubuntu update center
+					sudo rm -r -f /path -> force remove recursive
+					sudo cd /path -> goto folder
+						cd .. -> up 1 lvl
+					sudo mkdir /path -> create directory
+						-p /path -> create directory recursive
+					sudo ls -> display content-map
+						-a -> with hidden
+					sudo systemctl restart network-manager -> restarn netweork				
+					sudo ufw enable/disablemail- ????????? ? ?????????? ??????????? ??????
+					sudo poweroff/reboot -> poweroff/reboot
+					dpkg --get-selections -> installed pkgs
+					dpkg --get-selections | grep -v deinstall > ~/Desktop/packages -> save to file				
+						-L packageNmae -> find installed pakceg pathes
+					mv /folder /folder -> rename folder
+					command !& -> run command with previous typed parameter
+					^command1^command2 -> run command2 with previous command1 params
+					
+				}
+			
+				public Troubleshooting
 				{
-					sudo apt-get install python-pip build-essential python-dev lm-sensors
-					sudo pip install psutil logutils bottle batinfo https://bitbucket.org/gleb_zhulik/py3sensors/get/tip.tar.gz zeroconf netifaces pymdstat influxdb elasticsearch potsdb statsd pystache docker-py pysnmp pika py-cpuinfo bernhard
-					sudo pip install glances
+					//No _apt sandbox user
+					https://askubuntu.com/questions/810202/what-is-the-sandbox-user-apt-on-my-system
+					adduser --force-badname --system --home /nonexistent  \
+					--no-create-home --quiet _apt || true
+					
+					//Windows 7 don't have a permission to brows Ubuntu Fileshare
+					uncomment browseable = yes in etc/samba/smb.conf
+					https://askubuntu.com/questions/569333/windows-7-8-1-ubuntu-14-folder-sharing
+				}
+			
+				public Pakets
+				{
+					public Mercurial
+					{
+						sudo add-apt-repository universse
+						sudo apt-get install mercurial
+						sudo apt-get install mercurial meld
+						
+						hg -> main call
+						hg version -> check installation
+							init -> initialize in current directory
+							clone path -> make copy of path in current directory
+							clone path path ->
+							
+					}
+					
+					public Glances (resource monitor)
+					{
+						sudo apt-get install python-pip build-essential python-dev lm-sensors
+						sudo pip install psutil logutils bottle batinfo https://bitbucket.org/gleb_zhulik/py3sensors/get/tip.tar.gz zeroconf netifaces pymdstat influxdb elasticsearch potsdb statsd pystache docker-py pysnmp pika py-cpuinfo bernhard
+						sudo pip install glances
+					}
 				}
 			}
 		}
 	}
-}
 
+}

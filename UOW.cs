@@ -18,13 +18,14 @@ namespace UOW
     {
         void BindRepoUsers(IRepository<USERS_SQL> repository_);
         void BindRepoClients(IRepository<KEY_CLIENTS_SQL> repository_);
-        void BindRepoMerchants(IRepository<KEY_CLIENTS_SQL> repository_);
-        void BindRepoTACQM(IRepository<KEY_CLIENTS_SQL> repository_);
+        void BindRepoMerchants(IRepository<MERCHANT_LIST_SQL> repository_);
+        void BindRepoTACQM(IRepository<T_ACQ_M_SQL> repository_);
 
         void BindContext(DbContext context);
+
         int GetIDByCredentials(string name_, string sername_);
         void SetCurrentUser(int id_);
-        string GetUserSernameByID();
+        string GetCurrentUserSername();
 
         IQueryable<MERCHANT_LIST_SQL> GetMerchantListByUserId();
         void InsertMerchatList(List<MERCHANT_LIST_SQL> list);
@@ -36,7 +37,7 @@ namespace UOW
         void InsertKKFromList(List<KEY_CLIENTS_SQL> items);
     }
 
-    public class UOW
+    public class UOW : IUOW
     {
 
         IRepository<USERS_SQL> users_repository;
@@ -70,6 +71,7 @@ namespace UOW
             this.merchantList_repository.BindContext(context);
             this.acq_repository.BindContext(context);
         }
+
         public int GetIDByCredentials(string name_,string sername_)
         {
             int result = 0;
@@ -101,7 +103,8 @@ namespace UOW
         public IQueryable<MERCHANT_LIST_SQL> GetMerchantListByUserId() 
         {
             IQueryable<MERCHANT_LIST_SQL> result = null;
-            result = from s in clients_repository.GetContext().Set<MERCHANT_LIST_SQL>() where s.USER_ID == this.currentUserId select s;
+            result = from s in clients_repository.GetContext().Set<MERCHANT_LIST_SQL>()
+                     where s.USER_ID == this.currentUserId select s;
             return result;
         }
         public void InsertMerchatList(List<MERCHANT_LIST_SQL> list)
@@ -131,7 +134,11 @@ namespace UOW
         public IQueryable<KEY_CLIENTS_SQL> GetKKByUserId()
         {
             IQueryable<KEY_CLIENTS_SQL> result = null;
-            result = from s in clients_repository.GetContext().Set<KEY_CLIENTS_SQL>() where s.RESPONSIBILITY_MANAGER == this.GetCurrentUserSername() select s;
+            string sername = this.GetCurrentUserSername();
+            if (sername != string.Empty)
+            {
+                result = from s in clients_repository.GetContext().Set<KEY_CLIENTS_SQL>() where s.RESPONSIBILITY_MANAGER == sername select s;
+            }
             return result;
         }
 
@@ -169,10 +176,8 @@ namespace UOW
         {
             Random rnd = new Random();
 
-
             List<KEY_CLIENTS_SQL> clients = new List<KEY_CLIENTS_SQL>();
             IList<REFMERCHANTS_SQL> rm = new List<REFMERCHANTS_SQL>();
-
 
             List<MERCHANT_LIST_SQL> merchantsToInsert = new List<MERCHANT_LIST_SQL>() {
 new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new DateTime(2017, 08, 05, 00, 00, 08) }
@@ -194,7 +199,8 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
 
             int cnt = repo.GetALL().Count();
 
-            repo.DeleteByList((from s in repo.GetALL() where s.UPDATE_DATE > new DateTime(2017, 08, 05, 00, 00, 08) select s).ToList());
+            repo.DeleteByList((from s in repo.GetALL()
+                               where s.UPDATE_DATE > new DateTime(2017, 08, 05, 00, 00, 08) select s).ToList());
             repo.Save();
             cnt = repo.GetALL().Count();
          

@@ -4,8 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+using System.Runtime.Serialization;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
 namespace Model.SQLmodel
 {
 
@@ -21,6 +23,7 @@ namespace Model.SQLmodel
         [Required]
         public long MERCHANT { get; set; }
     }
+    [DataContract]
     public partial class KEY_CLIENTS_SQL : Repo_.IEntityInt
     {
         //[Key, Column(Order = 1)]
@@ -37,10 +40,11 @@ namespace Model.SQLmodel
         public string PHYSICAL_ADDRESS { get; set; }
         public string CITY { get; set; }
         [Required]
+        [DataMember]
         public long MERCHANT { get; set; }
         public string LEGAL_ENTITY { get; set; }
         public string PROVIDER_NAME { get; set; }
-        [Required]
+        [Required]        
         public int? SECTOR_ID { get; set; }
         //[Required]
         //[DatabaseGenerated(DatabaseGeneratedOption.Computed)]
@@ -151,3 +155,4 @@ namespace Model.SQLmodel
     #endregion
   
 }
+
