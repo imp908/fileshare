@@ -155,6 +155,8 @@ namespace CodeExamples {
 	//WCF host as a service
 	https://docs.microsoft.com/en-us/dotnet/framework/wcf/how-to-host-and-run-a-basic-wcf-service
 	https://docs.microsoft.com/en-us/dotnet/framework/wcf/getting-started-tutorial
+	//WCF + Entity
+	https://www.codeproject.com/Articles/127395/Implementing-a-WCF-Service-with-Entity-Framework
 	
 	
 	
@@ -4546,10 +4548,101 @@ end;
 
 			}
 		
-		}
-		
-	}
+			public void Queries()
+			{
+				
+				public void Cases()
+				{
+					
+--Sample get max value for col1 by col2
+create table #Temp(
+	 EmplID int,DepID int ,Sal dec, primary key (EmplID)
+)
 
+declare @counter1 smallint;
+declare @counter2 smallint;
+declare @counter3 smallint;
+declare @sal dec;
+
+set @counter1 = 0;
+set @counter2 = 0;
+set @counter3 = 0;
+
+while @counter1 < 50
+	begin	
+		while @counter2 < 5
+		begin
+			set @sal = rand()*1000;
+			insert into #Temp (EmplID,DepID,Sal) values(@counter1,@counter3,@sal);
+			set @counter1=@counter1+1;
+			set @counter2=@counter2+1;
+		end;
+		set @counter2=0;
+		set @counter3=@counter3+1;
+	end;
+go
+
+select * from #Temp;
+
+select t2.EmplID, t.DepID,t."SAL" from (select DepID, max(Sal) "SAL" from #Temp group by DepID) t
+left join (select EmplID,Sal from #Temp) t2 on t."SAL" = t2.Sal
+
+drop table #Temp;
+
+
+
+--Exists instead of not null
+create table #Colors(Color varchar(10) primary key);
+create table #Clothes(Color varchar(10),Clothes varchar(10));
+
+insert into #Colors (Color) values ('Red');
+insert into #Colors (Color) values ('Blue');
+insert into #Colors (Color) values ('Green');
+insert into #Colors (Color) values ('Cyan');
+insert into #Colors (Color) values ('Yellow');
+
+insert into #Clothes values('Red','Trouses');
+insert into #Clothes values('Blue','Skit');
+insert into #Clothes values(null,'Coat');
+
+select * from #Colors;
+select * from #Clothes;
+
+
+select * from #Colors t
+where not exists (select * from #Clothes c where c.Color=t.Color);
+
+
+drop table #Colors;
+drop table #Clothes;
+
+
+
+
+
+--check cast varchar to int
+create table #Account(Name varchar(20) ,Val varchar(20));
+
+insert into #Account values ('name1','abc');
+insert into #Account values ('name2',1);
+insert into #Account values ('name3',2);
+insert into #Account values ('name4','4');
+insert into #Account values ('name5','as');
+
+select 
+*
+from #Account where 1=1 
+--and  Val not like '%[^0-9]%'
+and 
+case when Val not like '%[^0-9]%' then cast(Val as int) 
+ end > 0;
+
+drop table #Account;
+
+
+				}
+			
+			}
 	#endregion
 
 	

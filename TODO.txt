@@ -15,6 +15,7 @@ T_ACQ_D get by merchants list
 T_ACQ_D get by INDUSTRY ... filter columns
 0 WCF
 -> Add WCF between Repo and Site
+POCO to DataContract converter
 -> Add BLL Business logic layer between POCOs and UOW
 -> Add JS multiple model items update at one time
 -> to DLL
