@@ -118,6 +118,13 @@ namespace CodeExamples {
 	
 	
 	
+	//KATAs	
+	http://osherove.com/tdd-kata-1/
+	https://github.com/garora/TDD-Katas/blob/develop/Src/cs/FizzBuzzKata/TestFizzBuzz.cs
+	https://www.codeproject.com/Articles/886492/Learning-Test-Driven-Development-with-TDD-Katas
+	
+	
+	
 	//BUILD STRATEGIES
 	//The Cathedral and the Bazaar
 	https://en.wikipedia.org/wiki/The_Cathedral_and_the_Bazaar
@@ -314,6 +321,11 @@ namespace CodeExamples {
 		public GIT hub
 		{
 			
+			MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
+			git pull origin branchname --allow-unrelated-histories			
+			//recommended
+			git clone
+			
 			git push -u origin branchname {!!!<pushing to branch>!!!}
 			
 			git remote -v -> check remotes
@@ -444,9 +456,17 @@ namespace CodeExamples {
 	}
 
 
-	public class External_Libraries(){
+	public class External_Libraries()
+	{
+				
 	//reading excel
 	http://epplus.codeplex.com/
+	//Entity Framework extensions
+	http://entityframework-extensions.net/
+	//nUnit
+	https://github.com/nunit/nunit
+	
+	
 	}
 
 
