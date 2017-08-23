@@ -131,6 +131,7 @@ namespace UOW
                 select s;
             return result;
         }
+
         public IQueryable<KEY_CLIENTS_SQL> GetKKByUserId()
         {
             IQueryable<KEY_CLIENTS_SQL> result = null;
@@ -141,7 +142,6 @@ namespace UOW
             }
             return result;
         }
-
         //delete and insert merchants by userid
         public void InsertKKFromList(List<KEY_CLIENTS_SQL> items )
         {
@@ -151,7 +151,7 @@ namespace UOW
         public void Dispose()
         {
             if (this.acq_repository != null)
-            {
+            {                
                 this.acq_repository.Dispose();
             }
             if (this.merchantList_repository != null)
@@ -165,7 +165,9 @@ namespace UOW
             if (this.users_repository != null)
             {
                 this.users_repository.Dispose();
-            }                        
+            }
+
+            GC.SuppressFinalize(this);
         }
         
     }
@@ -203,7 +205,11 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
                                where s.UPDATE_DATE > new DateTime(2017, 08, 05, 00, 00, 08) select s).ToList());
             repo.Save();
             cnt = repo.GetALL().Count();
-         
+
+            repo.DeleteByList(merchantsGen);
+            repo.Save();
+            cnt = repo.GetALL().Count();
+
             repo.AddFromList(merchantsGen);
             repo.Save();
             cnt = repo.GetALL().Count();

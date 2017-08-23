@@ -36,6 +36,7 @@ namespace Repo_
 
     public class Repository<T> : IRepository<T> where T : class, IEntityInt
     {
+        bool disposed = false;
 
         public DbContext _context;
 
@@ -101,15 +102,21 @@ namespace Repo_
         }
         public void DeleteByList(List<T> items)
         {
+            List<int> itemsL = (from s in items select s.ID).ToList();
+            var toDelete = (from c in this._context.Set<T>().Where(c => itemsL.Contains(c.ID)) select c);
 
             try
-            {   
-                this._context.Set<T>().RemoveRange(items);
+            {
+                if (toDelete.Count() > 0)
+                {               
+                    this._context.Set<T>().RemoveRange(toDelete);
+                }
             }
             catch (Exception e)
             {
                 System.Diagnostics.Trace.WriteLine(e.Message);
             }
+            
 
         }
         public IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession)
@@ -122,10 +129,23 @@ namespace Repo_
         {
             this._context.SaveChanges();
         }
+
+        protected virtual void Dispose(bool value)
+        {
+            if (!this.disposed)
+            {
+                if (value)
+                {
+                    this._context.Dispose();
+                  
+                }
+            }
+            this.disposed = true;
+        }
         public void Dispose()
         {
-            this._context.Dispose();
-           
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
     }

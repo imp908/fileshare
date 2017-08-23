@@ -22,8 +22,7 @@ namespace CodeExamples {
 	public void mostUsefullLinks()
 	{
 	
-	//SERIAL PROGRAMMING 
-	
+	//SERIAL PROGRAMMING 	
 	//RS-232
 	http://cisco.opennet.ru/docs/RUS/serial_guide/index.html#2_2
 	
@@ -112,6 +111,16 @@ namespace CodeExamples {
 
 	//LINQ chaining
 	https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-predicates/
+	
+	//BLOGS
+	//Jon Skeet's
+	https://codeblog.jonskeet.uk/
+	
+	
+	
+	//BUILD STRATEGIES
+	//The Cathedral and the Bazaar
+	https://en.wikipedia.org/wiki/The_Cathedral_and_the_Bazaar
 
 
 
@@ -157,6 +166,8 @@ namespace CodeExamples {
 	https://docs.microsoft.com/en-us/dotnet/framework/wcf/getting-started-tutorial
 	//WCF + Entity
 	https://www.codeproject.com/Articles/127395/Implementing-a-WCF-Service-with-Entity-Framework
+	//WCF IoC
+	https://chsakell.com/2015/07/04/dependency-injection-in-wcf/
 	
 	
 	
@@ -238,6 +249,9 @@ namespace CodeExamples {
 	https://stackoverflow.com/questions/22690877/how-are-people-unit-testing-with-entity-framework-6-should-you-bother/22691703#22691703
 	//Integration
 	http://enterprisecraftsmanship.com/2015/07/13/integration-testing-or-how-to-sleep-well-at-nights/
+	//Mocking idea descr
+	https://stackoverflow.com/questions/19674363/when-to-use-a-mocking-framework
+	
 
 
 	//MOQ
@@ -515,9 +529,23 @@ WCF service under console host
 				HOW:
 recommended to register port:
 netsh http add urlacl url=http://+:8000/ServiceModelSamples/Service user=mylocaluser
+				OR 
+				start VS under admin 
+			}
+			
+			public WCFCannot_btain_etadata_rom()
+			{
+				WHAT:
+				Error: Cannot obtain Metadata from http://localhost:57495/WCF2.svc If this is a Windows (R) Communication Foundation service to which you have 
+access, please check that you have enabled metadata publishing at the specified address.
+				WHEN:
+					testing wcf.svc from VS
+				HOW:
+					NOT enough memory free 
+				OR: 
+					
 				
 			}
-		
 		
 		}
 
@@ -2905,9 +2933,28 @@ execute maintain();
 					dbms_job.change(214250, null,to_date('19.08.2017 08:15:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
 					end;
 					
+					
+					
+					select * from user_jobs where job in (210250,214250,213974);
+
+
+					begin
+					dbms_job.change(210250, null,to_date('23.08.2017 13:30:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
+					commit;
+					end;
+					begin
+					dbms_job.change(214250, null,to_date('08.09.2017 08:15:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
+					commit;
+					end;
+					begin
+					dbms_job.change(213974, null,to_date('23.08.2017 14:20:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
+					commit;
+					end;
+
+					
+					
 					execute DBMS_JOB.BROKEN(212730,FALSE);
 					execute dbms_job.change(212730, null,sysdate+0.15/24, 'next_day(trunc(sysdate,''dd''),''ВТОРНИК'')+0.3/24');
-
 
 	
 					begin

@@ -94,14 +94,15 @@ namespace Repo_.Tests
 {
 
     [TestClass]
-    public class RepoTests
+    public class RepoInterfaceTests
     {
 
         KEY_CLIENTS_SQL client1, client2;
         IQueryable<KEY_CLIENTS_SQL> clientsQ;      
         List<KEY_CLIENTS_SQL> clientsL,clientsDel;
+
         Mock<DbSet<KEY_CLIENTS_SQL>> dbSet;
-        Mock<IRepository<KEY_CLIENTS_SQL>> kkRepo;
+        Mock<IRepository<KEY_CLIENTS_SQL>> kkRepo;    
 
         int clientsInitialCount, clientAfterAddCount, clientsAfterDeleteCount, clientsAfterListDeleteCount;
 
@@ -130,7 +131,8 @@ namespace Repo_.Tests
 
             clientsQ=clientsL.AsQueryable();
 
-            kkRepo=new Mock<IRepository<KEY_CLIENTS_SQL>>();
+         
+            kkRepo =new Mock<IRepository<KEY_CLIENTS_SQL>> ();
 
             clientsInitialCount=clientsL.Count();
             clientAfterAddCount=clientsInitialCount + 1;
@@ -175,8 +177,8 @@ namespace Repo_.Tests
 
         //>>!!! Allocate to separate methods 
         [TestMethod]
-        public void Repo_test()
-       {       
+        public void Repo_interface_test()
+        {       
             
             //Act
             //Assert
@@ -214,11 +216,10 @@ namespace Repo_.Tests
             Assert.AreEqual(id1 , item1.ID );
             Assert.AreEqual(id2, item2.ID);            
 
-       }
-                
+       }                
               
    }
-
+    
 }
 
 namespace UOW.Tests
@@ -390,6 +391,7 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
             Assert.AreEqual(UserSernameSetted, sernameAct);
             CollectionAssert.AreEqual(clientsListByUserID.ToList(), clientsListAct.ToList());
         }
+
     }
 
     [nUnit.TestFixture]
