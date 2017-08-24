@@ -29,7 +29,7 @@ namespace Repo_
         void DeleteByID(int id_);
         void DeleteByList(List<T> items);
         IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession);
-        void Save();        
+        void Save();
 
         void Dispose();
     }
@@ -149,5 +149,41 @@ namespace Repo_
         }
 
     }
+
+    #region CustomExceptions
+    public class EmptyRepository : System.Exception
+    {
+        public EmptyRepository() : base()
+        {
+
+        }
+        public EmptyRepository(string input) : base(input)
+        {
+
+        }
+    }
+    public class EmptyContext : System.Exception
+    {
+        public EmptyContext() : base()
+        {
+
+        }
+        public EmptyContext(string input) : base(input)
+        {
+
+        }
+    }
+    public class WrongRepositoryType : System.Exception
+    {
+        public WrongRepositoryType() : base()
+        {
+
+        }
+        public WrongRepositoryType(string input) : base(input)
+        {
+
+        }
+    }
+    #endregion
 
 }

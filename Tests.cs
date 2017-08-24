@@ -21,9 +21,28 @@ using nUnit=NUnit.Framework;
 
 namespace Tests_
 {
-    class Tests
-    {	   					
-	}
+    public static class CustomComparer
+    {
+        public static bool Compare<T>(
+            IEnumerable<T> collectionLeft, 
+            IEnumerable<T> collectionRight, 
+            Func<T,T,bool> compareExpression) where T: class
+        {
+            bool result = false;
+                if(collectionLeft == null) { throw new ArgumentNullException();  }
+                if (collectionRight == null) { throw new ArgumentNullException(); }
+
+                T[] arr1 = collectionLeft.ToArray();
+                T[] arr2 = collectionRight.ToArray();
+                
+            for(int i = 0; i < arr1.Length; i++ )
+            {
+                Assert.IsTrue(compareExpression(arr1[i], arr2[i]));
+            }
+
+            return result;
+        }
+    }
 }
 
 namespace DAL.Tests
@@ -122,12 +141,12 @@ namespace Repo_.Tests
             new KEY_CLIENTS_SQL(){MERCHANT=900000003, RESPONSIBILITY_MANAGER=@"MNG2", ID=3},
             new KEY_CLIENTS_SQL(){MERCHANT=900000004, RESPONSIBILITY_MANAGER=@"MNG3", ID=4},
             new KEY_CLIENTS_SQL(){MERCHANT=900000005, RESPONSIBILITY_MANAGER=@"MNG3", ID=5}
-           };
+            };
             
             clientsDel=new List<KEY_CLIENTS_SQL> {
                 (from s in clientsL where s.ID == 4 select s).FirstOrDefault(),
                (from s in clientsL where s.ID == 5 select s).FirstOrDefault()
-           };
+            };
 
             clientsQ=clientsL.AsQueryable();
 
@@ -244,7 +263,7 @@ namespace UOW.Tests
         List<USERS_SQL> usersGen;
         List<T_ACQ_M_SQL> acqGen;
 
-        IQueryable<KEY_CLIENTS_SQL> clientsListByUserID;
+        IEnumerable<KEY_CLIENTS_SQL> clientsListByUserID;
         [nUnit.OneTimeSetUp]
         public void UOW_init()
         {
@@ -257,10 +276,8 @@ namespace UOW.Tests
 
             uow_CUT =new UOW();
 
-            uow_CUT.BindRepoUsers(usersRepo);
-            uow_CUT.BindRepoClients(clientsRepo);
-            uow_CUT.BindRepoMerchants(merchantsRepo);
-
+            uow_CUT.DefaultInitialize(@"SQLDB_J");
+      
             UserNameToGet = @"NAME2";
             UserSernameToGet = @"SERNAME2";
          
@@ -301,7 +318,7 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
                 usersGen.Add(new USERS_SQL() { Name = @"Name" + i, Sername = @"Sername" + i });
             }
 
-            clientsListByUserID = clientsRepo.GetALL().Where(s => s.RESPONSIBILITY_MANAGER == UserSernameSetted);
+            clientsListByUserID = clientsRepo.GetALL().Where(s => s.RESPONSIBILITY_MANAGER == UserSernameSetted).ToList();
 
         }
         [nUnit.OneTimeTearDown]
@@ -385,11 +402,21 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
         [nUnit.Test]
         public void GetKKByUserIDTest()
         {
+
             uow_CUT.SetCurrentUser(SetUserID);
             string sernameAct = uow_CUT.GetCurrentUserSername();
-            IQueryable<KEY_CLIENTS_SQL> clientsListAct = uow_CUT.GetKKByUserId();
+            IEnumerable<KEY_CLIENTS_SQL> clientsListAct = uow_CUT.GetKKByUserId().ToList();
             Assert.AreEqual(UserSernameSetted, sernameAct);
-            CollectionAssert.AreEqual(clientsListByUserID.ToList(), clientsListAct.ToList());
+
+            Tests_.CustomComparer.Compare<KEY_CLIENTS_SQL>(
+                clientsListByUserID, clientsListAct, 
+                (s,c) => s.MERCHANT==c.MERCHANT &&
+                s.ID == c.ID &&
+                s.RESPONSIBILITY_MANAGER == c.RESPONSIBILITY_MANAGER &&
+                s.SECTOR_ID == c.SECTOR_ID
+            );
+
+
         }
 
     }

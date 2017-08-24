@@ -1,14 +1,15 @@
-I:
-0 Repo (against SQL base and Northwind base)
--> IRepository<T> with CRUD operations lightweight
--> Specific repository for every entity
--> UOW
-	bind repo to generic with as and type conversion
-	bind context to every repo
+I:Utility
+0 Repo
+-> Repo (against SQL base and Northwind base)
+->  Repo (Chaining IRepo implementation for Date + list filter)
+
+0 UOW
+-> Finilize for all
+
 0 WCF
--> Add WCF between Repo and Site
-POCO to DataContract converter
-ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)
+-> POCO to DataContract converter
+
+-> ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)
 -> Add BLL Business logic layer between POCOs and UOW
 -> Add JS multiple model items update at one time
 -> to DLL
@@ -42,6 +43,11 @@ Add SQL to CLR type conversion ;
 SQLEntity to DWH entity converter; 
 Converter logic to string name or type name;)
 
+-> Add WCF between Repo and Site <- done
+->  UOW bind repo to generic with as and type conversion <- done
+->  UOW bind context to every repo  <- done
+-> Specific repository for every entity <- done
+-> IRepository<T> with CRUD operations lightweight  <- done
 SB , Repo and UOF to different projects  <- done
 Northwind -> change login employee get from TempData to model  <- done
 Northwind -> add complex model add  <- done
@@ -54,9 +60,13 @@ Repo<T>() where T: IOne { GetByOne(); }
 ...
 Repo<T>() where T: In { GetByN(); } <- done
 
-II:
+II:Mastery
 0 Polinom Parse -> parse *^/ to expressions and add priorities for exprs
-0 Command line app dll -> to SB
+0 Command line Console parameters parse app dll -> to SB
 0 Multithread socket message ping pong -> to SB
-0 Console parameters parse -> to SB
 0 CollectionsComparison -> to SB
+
+III:Infrastructure
+0 Testng automate
+0 Build automate
+0 Correct decoupling of projects

@@ -16,12 +16,8 @@ namespace UOW
 {        
     public interface IUOW
     {
-        void BindRepoUsers(IRepository<USERS_SQL> repository_);
-        void BindRepoClients(IRepository<KEY_CLIENTS_SQL> repository_);
-        void BindRepoMerchants(IRepository<MERCHANT_LIST_SQL> repository_);
-        void BindRepoTACQM(IRepository<T_ACQ_M_SQL> repository_);
 
-        void BindContext(DbContext context);
+        void DefaultInitialize(string connectionString);        
 
         int GetIDByCredentials(string name_, string sername_);
         void SetCurrentUser(int id_);
@@ -47,29 +43,70 @@ namespace UOW
 
         int currentUserId;
 
-        public void BindRepoUsers(IRepository<USERS_SQL> repository_)
+        public void DefaultInitialize(string connectionString)
         {
-            this.users_repository = repository_;
-        }
-        public void BindRepoClients(IRepository<KEY_CLIENTS_SQL> repository_)
-        {
-            this.clients_repository = repository_;
-        }
-        public void BindRepoMerchants(IRepository<MERCHANT_LIST_SQL> repository_)
-        {
-            this.merchantList_repository = repository_;
-        }
-        public void BindRepoTACQM(IRepository<T_ACQ_M_SQL> repository_)
-        {
-            this.acq_repository = repository_;
-        }
+            DbContext context_ = new SQLDB_CHANGE(connectionString);          
 
-        public void BindContext(DbContext context)
+            Repository<KEY_CLIENTS_SQL> clientsRepo = new Repository<KEY_CLIENTS_SQL>(context_);
+            Repository<MERCHANT_LIST_SQL> mrchantRepo = new Repository<MERCHANT_LIST_SQL>(context_);
+            Repository<T_ACQ_M_SQL> acqRepo = new Repository<T_ACQ_M_SQL>(context_);
+            Repository<USERS_SQL> usersRepo = new Repository<USERS_SQL>(context_);
+
+            this.BindRepository<KEY_CLIENTS_SQL>(clientsRepo);
+            this.BindRepository<MERCHANT_LIST_SQL>(mrchantRepo);
+            this.BindRepository<T_ACQ_M_SQL>(acqRepo);
+            this.BindRepository<USERS_SQL>(usersRepo);
+           
+        }
+       
+        public void BindContext<T>(DbContext context, IRepository<T> repository = null) where T : class, IEntityInt
         {
-            this.users_repository.BindContext(context);
-            this.clients_repository.BindContext(context);
-            this.merchantList_repository.BindContext(context);
-            this.acq_repository.BindContext(context);
+
+            if (context == null)
+            {
+                throw new Repo_.EmptyContext();
+            }
+
+            if (repository == null)
+            {
+                if (this.users_repository != null)
+                {
+                    this.users_repository.BindContext(context);
+                }
+                if (this.clients_repository != null)
+                {
+                    this.clients_repository.BindContext(context);
+                }
+                if (this.merchantList_repository != null)
+                {
+                    this.merchantList_repository.BindContext(context);
+                }
+                if (this.acq_repository != null)
+                {
+                    this.acq_repository.BindContext(context);
+                }
+            }
+
+        }
+        public void BindRepository<T>(IRepository<T> repository_) where T: class,IEntityInt
+        {
+            if (repository_ == null) { throw new Repo_.EmptyRepository(); }
+            if(repository_ is Repository<USERS_SQL>)
+            {
+                this.users_repository = (repository_ as Repository<USERS_SQL>);
+            }
+            if (repository_ is Repository<KEY_CLIENTS_SQL>)
+            {
+                this.clients_repository = (repository_ as Repository<KEY_CLIENTS_SQL>);
+            }
+            if (repository_ is Repository<MERCHANT_LIST_SQL>)
+            {
+                this.merchantList_repository = (repository_ as Repository<MERCHANT_LIST_SQL>);
+            }
+            if (repository_ is Repository<T_ACQ_M_SQL>)
+            {
+                this.acq_repository = (repository_ as Repository<T_ACQ_M_SQL>);
+            }
         }
 
         public int GetIDByCredentials(string name_,string sername_)
@@ -117,7 +154,7 @@ namespace UOW
         public IQueryable<T_ACQ_M_SQL> GetAcqByDate(DateTime st,DateTime fn)
         {
             IQueryable<T_ACQ_M_SQL> result = null;
-            var a = from s in acq_repository.GetContext().Set<T_ACQ_M_SQL>()
+            result = from s in acq_repository.GetContext().Set<T_ACQ_M_SQL>()
                     where s.DATE >= st && s.DATE <= fn
                     select s;
             return result;
@@ -170,8 +207,8 @@ namespace UOW
             GC.SuppressFinalize(this);
         }
         
-    }
-    
+    }    
+
     public class GO
     {
         public void GO_()
@@ -198,6 +235,15 @@ new MERCHANT_LIST_SQL() { MERCHANT = 9290000090, USER_ID = 3, UPDATE_DATE = new 
 
             DbContext context = new SQLDB_CHANGE(@"SQLDB_J");
             Repository<MERCHANT_LIST_SQL> repo = new Repository<MERCHANT_LIST_SQL>(context);
+
+            UOW uow = new UOW();
+            uow.DefaultInitialize(@"SQLDB_J");
+            uow.SetCurrentUser(3);
+            int a = uow.GetKKByUserId().Count();
+            int b = uow.GetMerchantListByUserId().Count();
+            int c = uow.GetAcqByDate(
+                new DateTime(2017, 01, 01, 00, 00, 00),
+                new DateTime(2017, 02, 20, 00, 00, 00)).Count();
 
             int cnt = repo.GetALL().Count();
 
