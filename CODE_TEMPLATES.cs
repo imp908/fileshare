@@ -15,19 +15,24 @@ namespace Parts{
 }
 
 ///
-
 namespace CodeExamples {
 
 	//Usefull links
 	public void mostUsefullLinks()
 	{
 	
+	//Books
+	//The Art of Unit Testing: with Examples in .NET
+	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
+	
 	//SERIAL PROGRAMMING 	
 	//RS-232
 	http://cisco.opennet.ru/docs/RUS/serial_guide/index.html#2_2
 	
+		
 	
-	
+	//Boilerplate code gen
+	http://doc.postsharp.net/
 	
 	//dev guide
 	https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
@@ -112,13 +117,22 @@ namespace CodeExamples {
 	//LINQ chaining
 	https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-predicates/
 	
+	
+	
 	//BLOGS
 	//Jon Skeet's
 	https://codeblog.jonskeet.uk/
+	//CoddingHorror
+	https://blog.codinghorror.com/
 	
 	
 	
-	//KATAs	
+	//CONTINUOUS INTEGRATION
+	http://www.eugeneduvenage.com/2011/11/continuous-integration-basics-part-1/
+	
+	
+	
+	//KATAs
 	http://osherove.com/tdd-kata-1/
 	https://github.com/garora/TDD-Katas/blob/develop/Src/cs/FizzBuzzKata/TestFizzBuzz.cs
 	https://www.codeproject.com/Articles/886492/Learning-Test-Driven-Development-with-TDD-Katas
@@ -136,7 +150,7 @@ namespace CodeExamples {
 	https://www.nuget.org/packages/Lucene.Net/4.8.0-beta00004
 	//pagelist
 	https://www.nuget.org/packages/PagedList
-	//Reactive Extensions for JavaScript 
+	//Reactive Extensions for JavaScript
 	https://www.nuget.org/packages/RxJS-Main/1.0.10621
 
 
@@ -151,8 +165,16 @@ namespace CodeExamples {
 	http://prideparrot.com/blog/archive/2012/7/securing_all_forms_using_antiforgerytoken
 	//App Security threats
 	https://msdn.microsoft.com/en-us/library/f13d73y6.aspx
-
-
+	//Your Password is Too Damn Short
+	https://blog.codinghorror.com/your-password-is-too-damn-short/
+	
+	
+	
+	//MVC
+	//Minimal folders and configs
+	https://stackoverflow.com/questions/19949709/use-of-authconfig-bundleconfig-filterconfig-routeconfig-and-webapiconfig-in
+	
+	
 	
 	//WCF distributed
 	https://chsakell.com/2013/04/17/distributed-transactions-in-wcf-services-part-1/
@@ -236,6 +258,8 @@ namespace CodeExamples {
 	
 	
 	//TESTING
+	//Test Automation most complete answer
+	https://stackoverflow.com/questions/1316101/automated-unit-testing-why-what-which#1316209
 	//Unit test
 	https://msdn.microsoft.com/en-us/library/hh694602.aspx
 	https://lostechies.com/derekgreer/2011/03/28/effective-tests-a-test-first-example-part-1/
@@ -312,7 +336,6 @@ namespace CodeExamples {
 
 
 	}
-
 	
 	#region SourceControl
 
@@ -455,7 +478,6 @@ namespace CodeExamples {
 		
 	}
 
-
 	public class External_Libraries()
 	{
 				
@@ -470,7 +492,8 @@ namespace CodeExamples {
 	}
 
 
-	public class IssuesErrors(){
+	public class IssuesErrors()
+	{
 
 		//Issues\Errors
 		public void .NET()
@@ -631,7 +654,7 @@ access, please check that you have enabled metadata publishing at the specified 
 	{
 		
 		//Override reminder
-		public void OvverrideReminder()
+		public void OverrideReminder()
 		{
 
 
@@ -691,10 +714,118 @@ access, please check that you have enabled metadata publishing at the specified 
 		
 		public void MVC()
 		{
-			
-				public void DAL()
+				
+				public void MVC_Template()
 				{
 					
+					+ references
+					System.Web.Mvc;
+					System.Web.Razor;
+					System.Web.Entity;
+					System.Web.Helpers;
+					System.Web.ApplicationServices;
+					
+					App_Data
+
+					App_Start						
+						RouteConfig.cs
+							using System.Web.Mvc;
+							using System.Web.Routing;
+							public class RouteConfig
+							{
+								public void RegisterRoutes(RouteCollection routes)
+								{
+									
+									routes.IgnoreRoute("{resuource}.axd{*pathInfo}");
+									
+									routes.MapRoute(
+										name: "Default",
+										url: "/{controller/{action}/{id}}",
+										defaults: new {controller = "Default", action = "DefaultView", id = UrlParameter.Optional }
+									);
+								}
+							}
+						BundleConfig.cs						
+							using System.Web.MVC;
+							using System.Web.Optimization;
+							public class BundleConfig()
+							{
+								public static void RegisterBundles(BundleCollection bundles)
+								{
+									bundles.Add(new ScriptBundle("~/bundles/jquery").Include("~/Scripts/jquery-{version}.js"));
+									bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+								}
+							}
+							
+						FilterConfig.cs
+							using System.Web.MVC;
+							public class FilterConfig()
+							{
+								public static void RegisterGlobalFilters(GlobalFilterCollection filters)
+								{
+									filters.Add(new HandleErrorAttribute());
+								}
+							}
+							
+						Startup.cs
+						
+					Models
+
+					Controllers
+						using System.Web;
+						using System.Web.MVC;
+						DefaultController.cs
+							public ActionResult Default : Controllers{
+									return View();
+							}
+							
+					Views
+						Default
+							DefaultView
+							<h2>Header native</h2>
+						Shared
+							_Layout.cshtml
+								<DOCTYPE html>
+								<head><h1>@ViewBag.Title</h1></head>
+								<body>@RenderBody()</body>
+						_ViewStart.cshtml
+							@{Layout=@"~/Views/Shared/_Layout.cshtml"}
+								
+								Global.asax
+									
+									using System.Web.Mvc;
+									
+									using System.Web.Routing;
+									
+									using System.Web.Optimization;
+										
+									using System.Web.Helpers;												
+									using System.Security.Claims;
+									
+									public class App : System.Web.HttpApplication
+									{
+										
+										public void Application_Start()
+										{
+										
+					`						AreaRegistration.RegisterAllAreas();
+											FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
+																	
+											RouteConfig.RegisterRoutes(RouteTable.Routes);						
+										
+											BundleConfig.RegisterBundles(BundleTable.Bundles);
+																
+											AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Authentication;
+											
+										}
+										
+									}
+																		
+				}
+		
+				public void DAL()
+				{
+								
 					/// <summary>
 					/// Context with recreate if model changes
 					/// </summary>
@@ -702,7 +833,7 @@ access, please check that you have enabled metadata publishing at the specified 
 					{
 						
 						public SQLDB_CHANGE()
-							: base("name=SQLDB")
+							: base("name=SQLDB_J")
 						{
 							Database.SetInitializer<SQLDB_CHANGE>(new DropCreateDatabaseIfModelChanges<SQLDB_CHANGE>());
 							//CreateDatabaseIfNotExists
@@ -711,8 +842,7 @@ access, please check that you have enabled metadata publishing at the specified 
 
 						public SQLDB_CHANGE(string ConnectionName)
 							: base(ConnectionName)
-						{
-							
+						{							
 							//Database.SetInitializer<SQLDB_CHANGE>(new DropCreateDatabaseIfModelChanges<SQLDB_CHANGE>());
 							
 							//set initializer method
@@ -731,14 +861,13 @@ access, please check that you have enabled metadata publishing at the specified 
 						//runs at DB creation
 						public class InitializerAtCreation : DropCreateDatabaseIfModelChanges<SQLDB_CHANGE>
 						{
-
 							protected override void Seed(SQLDB_CHANGE context)
 							{
 								IList<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>()
 								{
 									new KEY_CLIENTS_SQL {SECTOR_ID = 1, MERCHANT = 9290000000 },
 									new KEY_CLIENTS_SQL {SECTOR_ID = 2, MERCHANT = 9290000001 },
-									  new KEY_CLIENTS_SQL {SECTOR_ID = 2, MERCHANT = 9290000003 }
+									new KEY_CLIENTS_SQL {SECTOR_ID = 2, MERCHANT = 9290000003 }
 								};
 
 								context.KEY_CLIENTS.AddRange(kk);
@@ -768,9 +897,114 @@ access, please check that you have enabled metadata publishing at the specified 
 								base.Seed(context);
 							}
 						}
-
 					}
-				
+					
+					///<summary>
+					/// Northwind context with OWIN security attached
+					/// </summary>
+					public partial class NorthwindModel : IdentityDbContext<ApplicationUser>
+					{
+						public NorthwindModel()
+							: base("name=NorthwindConn_J")
+						{
+						}
+
+						public static NorthwindModel Create()
+						{
+							return new NorthwindModel();
+						}
+					  
+						public virtual DbSet<Category> Categories { get; set; }
+						public virtual DbSet<CustomerDemographic> CustomerDemographics { get; set; }
+						public virtual DbSet<Customer> Customers { get; set; }
+						public virtual DbSet<Employees> Employees { get; set; }
+						public virtual DbSet<Order_Detail> Order_Details { get; set; }
+						public virtual DbSet<Order> Orders { get; set; }
+						public virtual DbSet<Product> Products { get; set; }
+						public virtual DbSet<Region> Regions { get; set; }
+						public virtual DbSet<Shipper> Shippers { get; set; }
+						public virtual DbSet<Supplier> Suppliers { get; set; }
+						public virtual DbSet<Territory> Territories { get; set; }
+
+						
+						protected override void OnModelCreating(DbModelBuilder modelBuilder)
+						{
+
+							//modelBuilder.Entity<Login>().HasRequired(t => t.employee).WithOptional(t=>t.Account);
+
+							modelBuilder.Entity<Employees>().HasOptional(t => t.Account).WithOptionalPrincipal(t=>t.employee);
+
+							modelBuilder.Entity<CustomerDemographic>()
+								.Property(e => e.CustomerTypeID)
+								.IsFixedLength();
+
+							modelBuilder.Entity<CustomerDemographic>()
+								.HasMany(e => e.Customers)
+								.WithMany(e => e.CustomerDemographics)
+								.Map(m => m.ToTable("CustomerCustomerDemo").MapLeftKey("CustomerTypeID").MapRightKey("CustomerID"));
+
+							modelBuilder.Entity<Customer>()
+								.Property(e => e.CustomerID)
+								.IsFixedLength();
+
+							modelBuilder.Entity<Employees>()
+								.HasMany(e => e.Employees1)
+								.WithOptional(e => e.Employee1)
+								.HasForeignKey(e => e.ReportsTo);
+
+							modelBuilder.Entity<Employees>()
+								.HasMany(e => e.Territories)
+								.WithMany(e => e.Employees)
+								.Map(m => m.ToTable("EmployeeTerritories").MapLeftKey("EmployeeID").MapRightKey("TerritoryID"));
+
+							modelBuilder.Entity<Order_Detail>()
+								.Property(e => e.UnitPrice)
+								.HasPrecision(19, 4);
+
+							modelBuilder.Entity<Order>()
+								.Property(e => e.CustomerID)
+								.IsFixedLength();
+
+							modelBuilder.Entity<Order>()
+								.Property(e => e.Freight)
+								.HasPrecision(19, 4);
+
+							modelBuilder.Entity<Order>()
+								.HasMany(e => e.Order_Details)
+								.WithRequired(e => e.Order)
+								.WillCascadeOnDelete(false);
+
+							modelBuilder.Entity<Product>()
+								.Property(e => e.UnitPrice)
+								.HasPrecision(19, 4);
+
+							modelBuilder.Entity<Product>()
+								.HasMany(e => e.Order_Details)
+								.WithRequired(e => e.Product)
+								.WillCascadeOnDelete(false);
+
+							modelBuilder.Entity<Region>()
+								.Property(e => e.RegionDescription)
+								.IsFixedLength();
+
+							modelBuilder.Entity<Region>()
+								.HasMany(e => e.Territories)
+								.WithRequired(e => e.Region)
+								.WillCascadeOnDelete(false);
+
+							modelBuilder.Entity<Shipper>()
+								.HasMany(e => e.Orders)
+								.WithOptional(e => e.Shipper)
+								.HasForeignKey(e => e.ShipVia);
+
+							modelBuilder.Entity<Territory>()
+								.Property(e => e.TerritoryDescription)
+								.IsFixedLength();
+
+							base.OnModelCreating(modelBuilder);
+						}					
+					}					
+					
 				}
 				
 				public void Model()
@@ -956,7 +1190,26 @@ access, please check that you have enabled metadata publishing at the specified 
 					#endregion
 		
 				}
+								
+				public class CustomAttribute()
+				{
+					
+					public class Quth : AuthorizeAttribute
+					{
 
+						const();
+						
+						public override void OnAuthorization(Syste.Wb.http.HttpActionContext at)
+						{
+						
+							base.()OnAuthorization(at);
+							
+						}
+						
+					}
+					
+				}
+				
 		}
 		
 		public void Testing()
@@ -2853,7 +3106,7 @@ execute maintain();
 					/*TABLE SIZE*/
 					select segment_name "TABLE_NAME",bytes /1024/1024  "SIZE_MB" from 
 					user_segments 
-					order by "SIZE" desc 
+					order by "SIZE_MB" desc 
 					;
 					
 				}			
@@ -4475,7 +4728,8 @@ end;
 				}
 			
 			}
-		}
+		
+}
 
 		public protected class ORACLE()
 		{
@@ -4716,6 +4970,7 @@ drop table #Account;
 			}
 	
 		}
+	
 	}
 	
 	#endregion
