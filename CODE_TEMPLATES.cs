@@ -31,6 +31,8 @@ namespace CodeExamples {
 	
 		
 	
+	//TOPTAL
+	https://www.toptal.com/developers/blog
 	//Boilerplate code gen
 	http://doc.postsharp.net/
 	
@@ -116,6 +118,9 @@ namespace CodeExamples {
 
 	//LINQ chaining
 	https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-predicates/
+	
+	//Sample plugin
+	https://code.msdn.microsoft.com/windowsdesktop/Creating-a-simple-plugin-b6174b62
 	
 	
 	
@@ -491,7 +496,6 @@ namespace CodeExamples {
 	
 	}
 
-
 	public class IssuesErrors()
 	{
 
@@ -648,10 +652,64 @@ access, please check that you have enabled metadata publishing at the specified 
 		
 	}
 
-
 	///Examples
 	public class Examples
 	{
+		
+		public void Theory()
+		{
+			
+			public class Equality(){
+				
+				GetType():
+				a = new b
+				gettype == typeof() -> b
+
+				IS:
+				a = new b
+				a is b -> true => a : b
+				a is b -> false => a !: b || a : Ib
+
+				EQUALS:
+				a.Equals(b) -> true => a =b
+			}
+			
+			public class OperatorOverload()	{
+				...
+				protected static ret operator[+,...,*] (){...};
+				...
+			}
+			
+			public class StringMutability(){
+				
+				STRING MUTABILITY:
+				string a; //a==null
+				string[] arr
+
+
+				method2(string a ){cahnge a;}// unchanged global; cahnged local}
+				method2(string[] arr ){cahnge arrr;}// cahnged global refernce type}
+				method1(){cahnge a;}// cahnged global}
+			}
+			
+			public class SealedMethodChange(){
+					 public sealed class Circle
+					{
+						private double radius;
+						public double Calculate(Func<double, double> op)
+						{
+							return op(radius);
+						}
+					}
+			   
+			   ...
+			   
+			   circle.clculate(r=>Math.PI*dbl);
+			}			
+			
+			
+			
+		}
 		
 		//Override reminder
 		public void OverrideReminder()
@@ -1241,7 +1299,7 @@ access, please check that you have enabled metadata publishing at the specified 
 			
 		
 		}
-
+				
 		public class Unsorted {
 			
 		//delete from oracle table and link parametrized insert command to connection
@@ -3125,22 +3183,23 @@ execute maintain();
 				public EXPLAIN_PLAN()
 				{
 
-				--//eplain table
-				delete from PLAN_TABLE;
-				EXPLAIN PLAN for
-				select * from dual;
-				select operation,options,object_name,cost , t.* from PLAN_TABLE t;
-				--//
+					--//eplain table
+					delete from PLAN_TABLE;
+					EXPLAIN PLAN for
+					select * from dual;
+					select operation,options,object_name,cost , t.* from PLAN_TABLE t;
+					SELECT * FROM TABLE (dbms_xplan.display);
+					--//
 
 
-				--//display cursor
-				select * from table (DBMS_XPLAN.DISPLAY_CURSOR(null,null,'basic'))
-				--// privilege needed: SELECT privilege on V$SQL_PLAN, V$SQL_PLAN_DETAIL,SELECT_CATALOG_ROLE
-				--//
+					--//display cursor
+					select * from table (DBMS_XPLAN.DISPLAY_CURSOR(null,null,'basic'))
+					--// privilege needed: SELECT privilege on V$SQL_PLAN, V$SQL_PLAN_DETAIL,SELECT_CATALOG_ROLE
+					--//
 
-				--//Gather statistic
-				Execute DBMS_STATS.GATHER_TABLE_STATS('neprintsev_ia','AMS_MC_BINS_',method_opt=>'FOR COLUMNS SIZE 254 columnName')
-				--//
+					--//Gather statistic
+					Execute DBMS_STATS.GATHER_TABLE_STATS('neprintsev_ia','AMS_MC_BINS_',method_opt=>'FOR COLUMNS SIZE 254 columnName')
+					--//
 
 				}
 				
@@ -4729,7 +4788,7 @@ end;
 			
 			}
 		
-}
+		}
 
 		public protected class ORACLE()
 		{
@@ -4777,7 +4836,34 @@ end;
 		
 		public protected class ScriptExamples()
 		{
+			public internal classs Theory()
+			{
+				public class Procedures_Functions_difference()
+				{
+					+---------------------------------+----------------------------------------+
+					| Stored Procedure (SP)           | Function (UDF - User Defined           |
+					|                                 | Function)                              |
+					+---------------------------------+----------------------------------------+
+					| SP can return zero , single or  | Function must return a single value    |
+					| multiple values.                | (which may be a scalar or a table).    |
+					+---------------------------------+----------------------------------------+
+					| We can use transaction in SP.   | We can't use transaction in UDF.       |
+					+---------------------------------+----------------------------------------+
+					| SP can have input/output        | Only input parameter.                  |
+					| parameter.                      |                                        |
+					+---------------------------------+----------------------------------------+
+					| We can call function from SP.   | We can't call SP from function.        |
+					+---------------------------------+----------------------------------------+
+					| We can't use SP in SELECT/      | We can use UDF in SELECT/ WHERE/       |
+					| WHERE/ HAVING statement.        | HAVING statement.                      |
+					+---------------------------------+----------------------------------------+
+					| We can use exception handling   | We can't use Try-Catch block in UDF.   |
+					| using Try-Catch block in SP.    |                                        |
+					+---------------------------------+----------------------------------------+
+				}
 				
+			}
+			
 			public internal class Insertion()
 			{
 					public Shitty_Callendar()
