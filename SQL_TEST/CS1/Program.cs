@@ -19,21 +19,23 @@ namespace ConsoleApplication1
 
             byte[] toWrite = Encoding.ASCII.GetBytes(@"Test text 1");
             NotepadSaveAsImitation ns = new NotepadSaveAsImitation();
-            ns.text = toWrite;
-            ns.SaveAs();
-
+            if(ns.CheckDialogResult(ns.GetDialogResult()))
+            {
+                ns.SetPathFromDialog(ns.saveFileDialog);
+                ns.SaveAs(ns.path, toWrite);
+            }
+                      
         }
-      
+    
     }
 
     public interface INotepadSaveAsImitation
     {
         string path { get; set; }
-        byte[] text { get; set; }
-
-        void SaveAs();
-        string GetPlace();
-        void Save(string path_, byte[] text_);
+        System.Windows.Forms.DialogResult GetDialogResult();
+        string SetPathFromDialog(SaveFileDialog fileDialog_);
+        bool CheckDialogResult(DialogResult dr_);       
+        void SaveAs(string path_, byte[] text_);
 
     }
     /// <summary>
@@ -46,38 +48,46 @@ namespace ConsoleApplication1
     {
         
         public string path { get; set; }
-        public byte[] text { get; set; }
-        SaveFileDialog sv = new SaveFileDialog();
-        
-        public void SaveAs()
+
+        public SaveFileDialog saveFileDialog;
+
+        System.Windows.Forms.DialogResult dialogResult;
+
+        public NotepadSaveAsImitation()
         {
-            sv.Filter = @"Image Files(*.BMP; *.JPG; *.GIF)|*.BMP; *.JPG; *.GIF|
+            saveFileDialog = new SaveFileDialog();
+            dialogResult = new DialogResult();
+            saveFileDialog.Filter = @"Image Files(*.BMP; *.JPG; *.GIF)|*.BMP; *.JPG; *.GIF|
 Excel files (*.xlsx)|*.xlsx|All files(*.*)|*.*|Text Files (*.txt)|*.txt";
-            GetPlace();
-            if (!string.IsNullOrEmpty(this.path))
-            {
-                Save(this.path, text);
-            }
+           
         }
-        public string GetPlace()
+
+        public System.Windows.Forms.DialogResult GetDialogResult()
         {
-            string path_ = string.Empty;
-
-            if (sv.ShowDialog() == DialogResult.OK)
-            {
-                if (!string.IsNullOrEmpty(sv.FileName))
-                {
-                    path = sv.FileName;
-                    return path_;
-                }
-            }
-
-            return path_;
+            this.dialogResult = saveFileDialog.ShowDialog();
+            return this.dialogResult;
         }
-        public void Save(string path_,byte[] text_)
+        public string SetPathFromDialog(SaveFileDialog fileDialog_)
+        {
+            if(string.IsNullOrEmpty(fileDialog_.FileName))
+            {
+                throw new EmptyFilepathException();
+            }
+            this.path = fileDialog_.FileName;
+            return fileDialog_.FileName;
+        }
+        public bool CheckDialogResult(DialogResult dr_)
+        {
+            if(dr_ == DialogResult.OK)
+            {
+                return true;
+            }
+            return false;
+        }      
+        public void SaveAs(string path_,byte[] text_)
         {
             if (string.IsNullOrEmpty(path_)) { throw new EmptyFilepathException(); }         
-
+ 
             try
             {
                 File.WriteAllBytes(path_, text_);
@@ -85,14 +95,17 @@ Excel files (*.xlsx)|*.xlsx|All files(*.*)|*.*|Text Files (*.txt)|*.txt";
             catch(PathTooLongException e)
             {
                 System.Diagnostics.Trace.WriteLine(e.Message);
+                throw e;
             }
             catch (IOException e)
             {
                 System.Diagnostics.Trace.WriteLine(e.Message);
+                throw e;
             }
             catch (Exception e)
             {
                 System.Diagnostics.Trace.WriteLine(e.Message);
+                throw e;
             }
         }      
     }
@@ -108,4 +121,5 @@ Excel files (*.xlsx)|*.xlsx|All files(*.*)|*.*|Text Files (*.txt)|*.txt";
 
         }
     }
+   
 }
