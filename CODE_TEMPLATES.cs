@@ -644,11 +644,8 @@ access, please check that you have enabled metadata publishing at the specified 
 				change credentials
 				
 			}
-			
-			
-			
+						
 		}
-		
 		
 	}
 
@@ -657,7 +654,7 @@ access, please check that you have enabled metadata publishing at the specified 
 	{
 		
 		public void Theory()
-		{
+		{			
 			
 			public class Equality(){
 				
@@ -672,6 +669,7 @@ access, please check that you have enabled metadata publishing at the specified 
 
 				EQUALS:
 				a.Equals(b) -> true => a =b
+								
 			}
 			
 			public class OperatorOverload()	{
@@ -705,10 +703,37 @@ access, please check that you have enabled metadata publishing at the specified 
 			   ...
 			   
 			   circle.clculate(r=>Math.PI*dbl);
-			}			
-			
-			
-			
+			}
+
+			public class Disposing(){
+				public void NullOrNotNull()
+				{
+					https://blogs.msdn.microsoft.com/clyon/2004/12/01/to-null-or-not-to-null/
+				}
+				public void GC_SuppressFinilize()
+				{
+					https://msdn.microsoft.com/en-us/library/system.gc.suppressfinalize(v=vs.110).aspx
+				}				
+			}
+		
+			public class UnitTesting(){
+				
+				public void Overall_Recommendations(){
+					
+					https://msdn.microsoft.com/en-us/library/aa730844(v=vs.80).aspx
+					/*
+						Runs fast. fast.
+						Main purpose -> developer concerns about program + selfdocummented code
+						All dependencies : DB,IO & s.o. -> mocked or stubbed.
+						LIC -> Limited,Isolated,Clear;
+						FLIMR - > Fast,Limited,Isolated,Mocked,Revealing;
+					*/
+					
+				}
+				
+			}
+		
+		
 		}
 		
 		//Override reminder
@@ -2769,7 +2794,8 @@ access, please check that you have enabled metadata publishing at the specified 
 			
 			public internal class TestDB()
 			{
-				
+
+				public void WithConstraints() {
 /*
 alter table test3
 add primary key (C3)
@@ -2795,179 +2821,307 @@ drop table purge;
 
 
 
-create table test_product(
-ID number constraint prod_id_pk primary key,
-INS_DATE date,
-product_name varchar(50)
-);
+				create table test_product(
+				ID number constraint prod_id_pk primary key,
+				INS_DATE date,
+				product_name varchar(50)
+				);
 
-create table test_types(
-ID number  constraint type_id_pk primary key,
-INS_DATE date,
-product_type varchar(50)
-);
+				create table test_types(
+				ID number  constraint type_id_pk primary key,
+				INS_DATE date,
+				product_type varchar(50)
+				);
 
-create table test_price(
-ID number ,
-INS_DATE date,
-DATE_FROM date,
-DATE_TO date,
-price number,
-prodcut_id  constraint test_product_price_PK references test_product(ID)
-);
+				create table test_price(
+				ID number ,
+				INS_DATE date,
+				DATE_FROM date,
+				DATE_TO date,
+				price number,
+				prodcut_id  constraint test_product_price_PK references test_product(ID)
+				);
 
-create table test_product_type (
-ID number ,
-INS_DATE date,
-product_id number,
-type_id number
-);
-
-
-/*Product table ID, date trigger on insert*/
-create or replace trigger test_prod_trg_ins
-before insert on test_product
-for each row
-declare 
-var_1 number;
-begin
-select max(ID) into var_1 from test_product;
-if var_1 is null
-then var_1 := 0;
-else
-var_1 := var_1+1;
-end if;
-:new.ID :=var_1;
-select sysdate into :new.INS_DATE from dual;
-end;
-/
+				create table test_product_type (
+				ID number ,
+				INS_DATE date,
+				product_id number,
+				type_id number
+				);
 
 
-
-/*Product table date trigger on update*/
-create or replace trigger test_prod_trg_upd
-before update on test_product
-for each row
-begin
-select sysdate into :new.INS_DATE from dual;
-end;
-/
+				/*Product table ID, date trigger on insert*/
+				create or replace trigger test_prod_trg_ins
+				before insert on test_product
+				for each row
+				declare 
+				var_1 number;
+				begin
+				select max(ID) into var_1 from test_product;
+				if var_1 is null
+				then var_1 := 0;
+				else
+				var_1 := var_1+1;
+				end if;
+				:new.ID :=var_1;
+				select sysdate into :new.INS_DATE from dual;
+				end;
+				/
 
 
 
-
-/*Product table ID, date trigger on insert*/
-create or replace trigger test_prod_type_ins
-before insert on test_types
-for each row
-declare 
-var_1 number;
-begin
-select max(ID) into var_1 from test_types;
-if var_1 is null
-then var_1 := 0;
-else
-var_1 := var_1+1;
-end if;
-:new.ID :=var_1;
-select sysdate into :new.INS_DATE from dual;
-end;
-/
-
-/*Product table date trigger on update*/
-create or replace trigger test_prod_type_upd
-before update on test_types
-for each row
-begin
-select sysdate into :new.INS_DATE from dual;
-end;
-/
+				/*Product table date trigger on update*/
+				create or replace trigger test_prod_trg_upd
+				before update on test_product
+				for each row
+				begin
+				select sysdate into :new.INS_DATE from dual;
+				end;
+				/
 
 
 
-/*Product table ID, date trigger on insert*/
-create or replace trigger test_price_ins
-before insert on test_price
-for each row
-declare 
-var_1 number;
-begin
-select max(ID) into var_1 from test_price;
-if var_1 is null
-then var_1 := 0;
-else
-var_1 := var_1+1;
-end if;
-:new.ID :=var_1;
-select sysdate into :new.INS_DATE from dual;
-end;
-/
 
-/*Product table date trigger on update*/
-create or replace trigger test_price_upd
-before update on test_price
-for each row
-begin
-select sysdate into :new.INS_DATE from dual;
-end;
-/
+				/*Product table ID, date trigger on insert*/
+				create or replace trigger test_prod_type_ins
+				before insert on test_types
+				for each row
+				declare 
+				var_1 number;
+				begin
+				select max(ID) into var_1 from test_types;
+				if var_1 is null
+				then var_1 := 0;
+				else
+				var_1 := var_1+1;
+				end if;
+				:new.ID :=var_1;
+				select sysdate into :new.INS_DATE from dual;
+				end;
+				/
 
-
-alter table test_product_type
-add constraint test_product_type_PK
-foreign key (product_id) 
-references test_product(ID)
-;
-
-alter table test_product_type
-add constraint test_product_types_PK
-foreign key (type_id) 
-references test_types(ID)
-;
+				/*Product table date trigger on update*/
+				create or replace trigger test_prod_type_upd
+				before update on test_types
+				for each row
+				begin
+				select sysdate into :new.INS_DATE from dual;
+				end;
+				/
 
 
 
-insert into test_product (product_name) values ('Product_3');
-insert into test_product (product_name) values ('Product_5');
-insert into test_product (product_name) values ('Product_6');
-insert into test_product (product_name) values ('Product_7');
-insert into test_product (product_name) values ('Product_8');
+				/*Product table ID, date trigger on insert*/
+				create or replace trigger test_price_ins
+				before insert on test_price
+				for each row
+				declare 
+				var_1 number;
+				begin
+				select max(ID) into var_1 from test_price;
+				if var_1 is null
+				then var_1 := 0;
+				else
+				var_1 := var_1+1;
+				end if;
+				:new.ID :=var_1;
+				select sysdate into :new.INS_DATE from dual;
+				end;
+				/
 
-update test_product set product_name ='Product_3' where product_name='Product_2';
-update test_product set product_name ='Product_2' where product_name='Product_3';
-
-
-insert into test_types (product_type) values ('Product_type_1');
-insert into test_types (product_type) values ('Product_type_2');
-insert into test_types (product_type) values ('Product_type_3');
-
-
-insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),1,10);
-insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),1,20);
-insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,1,15);
-
-insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),2,25);
-insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),2,30);
-insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,2,45);
-
-
-insert into test_product_type(product_id,type_id) values (1,1);
-insert into test_product_type(product_id,type_id) values (2,1);
-insert into test_product_type(product_id,type_id) values (3,2);
-insert into test_product_type(product_id,type_id) values (4,2);
-insert into test_product_type(product_id,type_id) values (0,3);
-
-select * from test_product;
-select * from test_types; 
-select * from test_product_type;
-select * from test_price;
+				/*Product table date trigger on update*/
+				create or replace trigger test_price_upd
+				before update on test_price
+				for each row
+				begin
+				select sysdate into :new.INS_DATE from dual;
+				end;
+				/
 
 
-/* !!!DANGER!!!
-execute maintain();
+				alter table test_product_type
+				add constraint test_product_type_PK
+				foreign key (product_id) 
+				references test_product(ID)
+				;
+
+				alter table test_product_type
+				add constraint test_product_types_PK
+				foreign key (type_id) 
+				references test_types(ID)
+				;
+
+
+
+				insert into test_product (product_name) values ('Product_3');
+				insert into test_product (product_name) values ('Product_5');
+				insert into test_product (product_name) values ('Product_6');
+				insert into test_product (product_name) values ('Product_7');
+				insert into test_product (product_name) values ('Product_8');
+
+				update test_product set product_name ='Product_3' where product_name='Product_2';
+				update test_product set product_name ='Product_2' where product_name='Product_3';
+
+
+				insert into test_types (product_type) values ('Product_type_1');
+				insert into test_types (product_type) values ('Product_type_2');
+				insert into test_types (product_type) values ('Product_type_3');
+
+
+				insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),1,10);
+				insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),1,20);
+				insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,1,15);
+
+				insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),2,25);
+				insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),2,30);
+				insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,2,45);
+
+
+				insert into test_product_type(product_id,type_id) values (1,1);
+				insert into test_product_type(product_id,type_id) values (2,1);
+				insert into test_product_type(product_id,type_id) values (3,2);
+				insert into test_product_type(product_id,type_id) values (4,2);
+				insert into test_product_type(product_id,type_id) values (0,3);
+
+				select * from test_product;
+				select * from test_types; 
+				select * from test_product_type;
+				select * from test_price;
+
+
+				/* !!!DANGER!!!
+				execute maintain();
+				*/
+
+			}
+				
+				public void GollandDB()
+				{
+					
+--create 
+-------------------
+drop table employees;
+drop table project;
+drop table emp_pro;
+
+create table employees (
+emp_no int primary key,Name varchar(15), Address varchar(15), Profession varchar(15), dept_no int,
+manager_no int, Salary number );
+
+create table project (pro_name varchar(10), pro_no int , pro_mng int );
+
+create table emp_pro ( p_no int, emp_no int , precent_time number  );
+-------------------
+
+
+--insert
+-------------------
+insert into employees values (1001,'NAME 1001','Address_4','Proffession_7',1,1015,20000);
+insert into employees values (1002,'NAME 1002','Address_3','Proffession_4',4,1015,45000);
+insert into employees values (1003,'NAME 1003','Address_4','Proffession_7',1,1010,15000);
+insert into employees values (1004,'NAME 1004','Address_3','Proffession_2',3,1015,50000);
+insert into employees values (1005,'NAME 1005','Address_1','Proffession_3',4,1015,10000);
+insert into employees values (1006,'NAME 1006','Address_2','Proffession_3',2,1009,40000);
+insert into employees values (1007,'NAME 1007','Address_4','Proffession_5',2,1012,20000);
+insert into employees values (1008,'NAME 1008','Address_2','Proffession_7',1,1014,20000);
+insert into employees values (1009,'NAME 1009','Address_1','Proffession_3',4,1015,35000);
+insert into employees values (1010,'NAME 1010','Address_4','Proffession_7',4,1013,15000);
+insert into employees values (1011,'NAME 1011','Address_2','Proffession_5',2,1012,20000);
+insert into employees values (1012,'NAME 1012','Address_1','Proffession_3',2,1013,20000);
+insert into employees values (1013,'NAME 1013','Address_3','Proffession_3',4,1014,45000);
+insert into employees values (1014,'NAME 1014','Address_5','Proffession_2',4,1016,50000);
+insert into employees values (1015,'NAME 1015','Address_1','Proffession_3',4,1016,55000);
+insert into employees values (1016,'NAME 1016','Address_1','Proffession_7',3,1016,45000);
+
+
+
+insert into project values ('Prog 1',1,1001);
+insert into project values ('Prog 2',2,1003);
+insert into project values ('Prog 3',3,1001);
+insert into project values ('Prog 4',4,1001);
+insert into project values ('Prog 5',5,1003);
+insert into project values ('Prog 6',6,1008);
+insert into project values ('Prog 7',7,1001);
+insert into project values ('Prog 8',8,1001);
+insert into project values ('Prog 9',9,1003);
+insert into project values ('Prog 10',10,1008);
+insert into project values ('Prog 11',11,1002);
+insert into project values ('Prog 12',12,1004);
+insert into project values ('Prog 13',13,1004);
+insert into project values ('Prog 14',14,1003);
+insert into project values ('Prog 15',15,1004);
+insert into project values ('Prog 16',16,1005);
+
+
+
+insert into emp_pro values (1,1001,50);
+insert into emp_pro values (2,1003,21);
+insert into emp_pro values (3,1001,41);
+insert into emp_pro values (4,1001,76);
+insert into emp_pro values (5,1003,63);
+insert into emp_pro values (6,1008,3);
+insert into emp_pro values (7,1001,60);
+insert into emp_pro values (8,1001,98);
+insert into emp_pro values (9,1003,97);
+insert into emp_pro values (10,1008,68);
+insert into emp_pro values (11,1002,91);
+insert into emp_pro values (12,1004,55);
+insert into emp_pro values (13,1004,97);
+insert into emp_pro values (14,1003,5);
+insert into emp_pro values (15,1004,62);
+insert into emp_pro values (16,1005,74);
+-------------------
+
+
+
+
+--Q/A
+-------------------
+
+--1) All employes with the same Profession,dept_no as employee with id 1006
+with t as (
+select Profession,dept_no from employees
+where emp_no = '1006')
+, t2 as (
+select * from employees
+)
+select * from t2 
+join t on t2.Profession = t.Profession and t2.dept_no=t.dept_no;
+
+--2) progect number and progect manager name
+/*
+assuming, that manager of project is employee and we need not his name but
+to populate name of employee who is manager of an employee who is, in his turn,
+manager of a progect 
 */
+select ep.pro_name,em2.Name from project ep
+left join employees em on ep.pro_mng = em.emp_no
+left join employees em2 on em2.emp_no=em.manager_no
+;
 
+--3) select amployees with salary > then their manager
+select em.emp_no,em.Name from employees em
+join employees em2 on em.manager_no=em2.emp_no
+where (em.salary > em2.salary)
+;
 
+--4) all amployees working on > 3 projects
+select * from employees em where em.emp_no in (
+select emp_no from emp_pro group by emp_no having (count (emp_no) >3)
+);
+
+--5) professions and salary of employees from same address as employee with max salary
+with t as(
+select em.profession,em.salary,em.address from employees em
+where em.salary =( select max(salary) from employees)
+)
+select em2.profession,em2.salary 
+from employees em2 join t on em2.address = t.address
+;
+-------------------
+
+				}
+			
 			}
 			
 			public internal class Selection()
@@ -3122,6 +3276,156 @@ execute maintain();
 
 				}
 				
+				public CrossReference()
+				{
+										
+										
+					drop table Customers;
+					drop table Invoices;
+
+					create table customers ("ID" int primary key not null, Name varchar(10), "REF" int,
+					constraint fk_ref foreign key("REF") references customers ("ID"));
+
+					create table Invoices (id int primary key not null, Billing date,CustomerID int,
+					constraint fk_inv foreign key(CustomerID) references customers (ID) );
+
+
+					insert into customers values (0,'A',null);
+					insert into customers values (1,'B',null);
+					insert into customers values (2,'C',0);
+					insert into customers values (3,'D',null);
+					insert into customers values (4,'F',0);
+					insert into customers values (5,'G',2);
+					insert into customers values (6,'H',3);
+					insert into customers values (7,'I',0);
+
+					insert into invoices values (0,sysdate,0);
+					insert into invoices values (1,sysdate,0);
+					insert into invoices values (2,sysdate,2);
+					insert into invoices values (3,sysdate,4);
+					insert into invoices values (4,sysdate,3);
+					insert into invoices values (5,sysdate,6);
+					insert into invoices values (6,sysdate,7);
+					insert into invoices values (7,sysdate,null);
+
+					select * from Customers;
+					select * from invoices t;
+
+					select t.id,t.billing,t2.name,t3.name 
+					from invoices t
+					--left
+					join Customers t2 on t2.id=t.customerId
+					left join Customers t3 on t3.ID = t2.REF
+					order by t.BILLING;
+
+
+
+				}
+				
+				public UpdateCase()
+				{
+					
+					drop table swap;
+					create table swap (id int,c1 varchar(10), c2 varchar(10));
+					insert into swap values (0,'f','m');
+					insert into swap values (1,'m','f');
+					insert into swap values (2,'f','m');
+
+					update swap t
+					set c1 = case when c1 is null then null when c1 = 'f' then 'm' else 'f' end  ;
+
+					select * from swap;
+				}
+				
+				public IntersectMinus()
+				{
+										
+					drop table test_a;
+					drop table test_b;
+
+					create table test_a(id numeric,val varchar(10));
+					create table test_b(id numeric,val varchar(10));
+
+					insert into test_a values (10,'a');
+					insert into test_a values (20,'b');
+					insert into test_a values (30,'c');
+					insert into test_a values (40,'d');
+					insert into test_a values (50,'f');
+
+					insert into test_b values (10,'a');
+					insert into test_b values (30,'d');
+					insert into test_b values (50,'f');
+
+					with t as (select * from test_a t) ,
+					t2 as (select * from test_b t)
+					select * from t
+					intersect
+					select * from t2
+					;
+
+					with t as (select * from test_a t) ,
+					t2 as (select * from test_b t)
+					select * from t
+					minus
+					select * from t2
+					;
+				}
+				
+				public Rank()
+				{
+					
+					--For Golland DbContext
+					--RANK
+select * from (
+select ep.*, row_number() over(order by ep.salary desc) "RN"
+from employees ep
+) where "RN" = 10
+;
+
+with t as (
+select t.*,row_number() over (order by t.SAL desc ) "RN" from (
+select distinct ep.salary "SAL" from employees ep order by "SAL" desc
+) t ) 
+, t2 as (
+select * from employees ep
+)
+select * from t2
+join t on t2.salary = t.sal
+;
+
+select ep.dept_no,ep.name,max(ep.salary) "MAX",
+dense_rank() over (partition by ep.dept_no order by max(ep.salary) desc) "RANK"
+from employees ep
+group by ep.dept_no,ep.name
+order by "MAX" desc;
+
+
+select ep.*,
+max(ep.salary)  over (partition by ep.dept_no) as "MAX_DEP_SAL",
+avg(ep.salary)  over (partition by ep.dept_no) as "AVG_DEP_SAL",
+avg(ep.salary)  over (partition by ep.profession) as "AVG_PROF_SAL"
+from employees ep
+order by "MAX_DEP_SAL" desc;
+
+
+select 
+ep.*, 
+max(ep.salary) over() as "SAL"
+from employees ep
+;
+
+
+select ep.name,ep.dept_no
+--, max(ep.salary) over (partition by ep.dept_no order by ep.salary desc) "RANK"
+, max(ep.salary) keep (dense_rank first order by ep.salary desc) "RANK"
+from employees ep
+group by ep.name,ep.dept_no
+order by"RANK" desc
+
+; 
+
+
+				}
 				
 			}
 			
