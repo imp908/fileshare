@@ -3446,6 +3446,8 @@ order by"RANK" desc
 					select * from user_tab_modifications;
 					//Objects source code
 					select * from all_source
+					//Procedure texts 
+					select * from user_source  
 					
 					/*Unreferenced table names*/
 					select distinct table_name,'select * from ' || table_name || ';' from all_tables where owner like '%NEPRIN%'
@@ -5079,7 +5081,7 @@ procedure P_CHECK as
   end;
   /
   
-  begin
+ begin
 dbms_job.change(210250, null,add_months(trunc(sysdate,'mm'),1)+6+8/24, 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+6+8/24');
 end;
 /
