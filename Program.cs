@@ -1,295 +1,169 @@
-﻿using UOW;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Orient.Client;
 
-using System.Data.Entity;
+using Newtonsoft.Json;
 
-using DAL.DAL;
-using Repo_;
-using Model.SQLmodel;
-
-using Moq;
-
-namespace UOW.Tests
-{
-    [TestClass()]
-    public class UOW_tests
-    {
-        [TestMethod()]
-        public void UOW_merchantsTest()
-        {
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
-            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
-            mock.Object.BindContext(ent);
-            mock.Verify(s => s.BindContext(It.IsAny<SQLDB_CHANGE>()), Times.Once());
-                                
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod()]
-        public void UOW_BindRepo_TEST()
-        {
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
-            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();           
-            mock.Object.BindRepo(readrepo.Object);
-            mock.Verify(s => s.BindRepo(It.IsAny<IReadRepo<KEY_CLIENTS_SQL>>()), Times.Once());
-
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod()]
-        public void GetBySectorTest()
-        {
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
-            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
-            mock.Object.BindContext(ent);
-            mock.Object.BindRepo(readrepo.Object);
-            mock.Object.GetBySector(1);
-            mock.Verify(s => s.GetBySector(It.IsAny<int>()), Times.Once());
-
-            Assert.IsTrue(true);
-        }       
-
-        [TestMethod()]
-        public void DeleteByMerchantListTest()
-        {
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
-            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
-            mock.Object.BindContext(ent);
-            mock.Object.BindRepo(readrepo.Object);
-
-            IQueryable<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>() {
-                new KEY_CLIENTS_SQL() {MERCHANT = 900000010, SECTOR_ID = 1 },
-                new KEY_CLIENTS_SQL() {MERCHANT = 900000011, SECTOR_ID = 1 },
-                new KEY_CLIENTS_SQL() {MERCHANT = 900000012, SECTOR_ID = 1 }
-            }.AsQueryable();
-
-            //mock.Object.AddMerchantList(kk);
-            //mock.Verify(s => s.AddMerchantList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
-
-            mock.Object.DeleteByMerchantList(kk);
-            mock.Verify(s => s.DeleteByMerchantList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
-
-            Assert.IsTrue(true);
-        }
-
-        [TestMethod()]
-        public void AddMerchantListTest()
-        {
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var readrepo = new Mock<IReadRepo<KEY_CLIENTS_SQL>>();
-            var mock = new Mock<IUOW_sectors<KEY_CLIENTS_SQL>>();
-            mock.Object.BindContext(ent);
-            mock.Object.BindRepo(readrepo.Object);
-
-            IQueryable<KEY_CLIENTS_SQL> kk = new List<KEY_CLIENTS_SQL>() {
-                new KEY_CLIENTS_SQL() {MERCHANT = 900000010, SECTOR_ID = 1 },
-                new KEY_CLIENTS_SQL() {MERCHANT = 900000011, SECTOR_ID = 1 },
-                new KEY_CLIENTS_SQL() {MERCHANT = 900000012, SECTOR_ID = 1 }
-            }.AsQueryable();
-
-            //mock.Object.AddMerchantList(kk);
-            //mock.Verify(s => s.AddMerchantList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
-
-            mock.Object.AddMerchantList(kk);
-            mock.Verify(s => s.AddMerchantList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
-
-            Assert.IsTrue(true);
-        }
-    }
-}
-
-namespace DAL.Tests
-{
-    [TestClass]
-    public class DB_INTEGRATION_TESTS
-    {
-
-        [TestMethod]
-        public void SQLDB_Creation_test()
-        {
-            bool result = false;
-            string connection_ = @"SQLDB_J";
-            try
-            {
-                SQLDB_CHANGE ent = new SQLDB_CHANGE(connection_);
-                result = true;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e.Message);
-            }
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        public void SQLHR_Creation_test()
-        {
-            bool result = false;
-            string connection_ = @"SQLHR_J";
-            try
-            {
-                SQLHR_CHANGE ent = new SQLHR_CHANGE(connection_);
-                result = true;
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e.Message);
-            }
-            Assert.IsTrue(result);
-        }
-
-        [TestMethod]
-        public void SQLDB_KK_Initialized_test()
-        {
-            SQLDB_CHANGE context = new SQLDB_CHANGE(@"SQLDB_J");
-            int cnt = 0;
-            try
-            {
-                cnt = (from s in context.KEY_CLIENTS select s).Count();
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e.Message);
-            }
-
-            Assert.AreNotEqual(0, cnt);
-        }
-
-        [TestMethod]
-        public void SQLDB_RM_Initialized_test()
-        {
-            SQLDB_CHANGE context = new SQLDB_CHANGE(@"SQLDB_J");
-
-            int cnt = 0;
-            try
-            {
-                cnt = (from s in context.REFMERCHANTS_SQL select s).Count();
-            }
-            catch (Exception e)
-            {
-                System.Diagnostics.Trace.WriteLine(e.Message);
-            }
-
-            Assert.AreNotEqual(0, cnt);
-        }
-
-    }
-}
-
-namespace Repo_.Tests
-{
-    [TestClass]
-    public class Repo_FUNCTIONAL_TEST
-    {
-
-        [TestMethod]
-        public void ReadRepo_GetAll_TEST()
-        {
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            ReadRepo<REFMERCHANTS_SQL> ref_repo = new ReadRepo<REFMERCHANTS_SQL>(ent);
-            int a = ref_repo.GetAll().Count();
-            Assert.AreNotEqual(0,a);
-        }
-        [TestMethod]
-        public void EditRepo_ADD_TEST()
-        {
-        
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var mock = new Mock<IEditRepo<REFMERCHANTS_SQL>>();
-            //mock.Setup(s => s.GetAll());
-            //ReadRepo<REFMERCHANTS_SQL> ref_repo = new ReadRepo<REFMERCHANTS_SQL>(ent);
-            REFMERCHANTS_SQL rm = new REFMERCHANTS_SQL() { MERCHANT = 9000000001, USER_ID = 1 };
-            mock.Object.BindContext(ent);          
-            mock.Object.AddEntity(rm);
-            mock.Verify(s => s.AddEntity(It.IsAny<REFMERCHANTS_SQL>()), Times.Once());            
-
-            Assert.IsTrue(true);
-        }
-        [TestMethod]
-        public void ReadRepo_FILTER_TEST()
-        {
-            int a = 0;
-
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var mock = new Mock<EditRepo<REFMERCHANTS_SQL>>();   
-            mock.Object.BindContext(ent);
-            
-            if (mock.Object.GetAll().Any())
-            {
-                REFMERCHANTS_SQL rm = mock.Object.GetAll().FirstOrDefault();              
-                a = mock.Object.GetByFilter<REFMERCHANTS_SQL>(s => s.ID == rm.ID).Count();                                         
-            }
-
-            Assert.AreNotEqual(0,a);
-        }
-        [TestMethod]
-        public void SectorRepo_DeleteBySector_TEST()
-        {
-            int cntSt = 0;
-            int cntFn = 0;
-
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var mock = new Mock<ISectorFilterRepo<KEY_CLIENTS_SQL>>();           
-            mock.Object.BindContext(ent);
-            IQueryable<KEY_CLIENTS_SQL> kk = (from s in (new List<KEY_CLIENTS_SQL>() {
-
-                new KEY_CLIENTS_SQL() { MERCHANT = 9290000020, SECTOR_ID = 101 },
-                new KEY_CLIENTS_SQL() { MERCHANT = 9290000021, SECTOR_ID = 101 },
-                new KEY_CLIENTS_SQL() { MERCHANT = 9290000022, SECTOR_ID = 101 },         
-
-            }) select s).AsQueryable();
-          
-
-            if (mock.Object.GetAll().Any())
-            {
-                cntSt = mock.Object.GetAll().Count();
-            }
-            mock.Object.AddEntities(kk);
-            mock.Verify(s => s.AddEntities(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()), Times.Once());
-                       
-        }
-        [TestMethod]
-        public void Merchants_TEST()
-        {
-       
-            SQLDB_CHANGE ent = new SQLDB_CHANGE(@"SQLDB_J");
-            var mock = new Mock<IMerchantFilterRepo<REFMERCHANTS_SQL,KEY_CLIENTS_SQL>>();
-            mock.Object.BindContext(ent);     
-            IQueryable<REFMERCHANTS_SQL> rm = new List<REFMERCHANTS_SQL>() {
-
-                new REFMERCHANTS_SQL() { MERCHANT = 9290000020, USER_ID = 101 },
-                new REFMERCHANTS_SQL() { MERCHANT = 9290000021, USER_ID = 101 },
-                new REFMERCHANTS_SQL() { MERCHANT = 9290000022, USER_ID = 101 },
-                new REFMERCHANTS_SQL() { MERCHANT = 9290000023, USER_ID = 101 },
-                new REFMERCHANTS_SQL() { MERCHANT = 9290000024, USER_ID = 101 }
-
-            }.AsQueryable();
-
-            mock.Object.AddEntities(rm);
-            mock.Verify(s => s.AddEntities(It.IsAny<IQueryable<REFMERCHANTS_SQL>>()),Times.Once());
-
-            Assert.IsTrue(true);
-        }
-    }
-}
-
-namespace Tests_
+namespace OrientDrvr
 {
     class Program
     {
         static void Main(string[] args)
         {
+            OrientConnect oc = new OrientConnect();
+            oc.CallDb();
+        }
 
+      
+    }
+
+    public  class OrientConnect
+    {
+        public ODatabase openDatabase(string _host, int _port,
+        string _dbName, string _user, string _passwd)
+        {
+
+            // CONSOLE LOG
+            Console.WriteLine("Opening Database: {0}", _dbName);
+
+            // OPEN DATABASE
+            ODatabase database = new ODatabase(_host, _port, _dbName,
+                ODatabaseType.Graph, _user, _passwd);
+            
+            // RETURN ODATABASE INSTANCE
+            return database;
+        }
+
+        public ODatabase openDatabase(OrientDB_Net.binary.Innov8tive.API.ConnectionOptions connectionOption_)
+        {
+            ODatabase odb = new ODatabase(connectionOption_);
+            return odb;
+        }
+        public void CallDb()
+        {
+
+            string SQLcommand = "select from V limit 10";
+            
+            //OrientDB_Net.binary.Innov8tive.API.ConnectionOptions
+
+            OrientDB_Net.binary.Innov8tive.API.ConnectionOptions connectionOption = new OrientDB_Net.binary.Innov8tive.API.ConnectionOptions();
+
+            connectionOption.HostName = "localhost";
+            connectionOption.UserName = "root";
+            connectionOption.Password = "root";
+            connectionOption.Port = 2424;
+            connectionOption.DatabaseName = "test_db1";
+            connectionOption.DatabaseType = ODatabaseType.Graph;
+
+            string addVertex = string.Format(@"var d = orient.getGraph(); var vertex = db.addVertex(<record-id>)", connectionOption.DatabaseName, @"Person");
+            string addClassV = string.Format(@"var gdb = orient.getGraph(); var newClass = db.createVertexType({0},{1})","Friend","V");
+
+
+
+            http://orientdb.com/docs/last/NET-Server-CreateDatabase.html
+            OServer os = new OServer(connectionOption.HostName, connectionOption.Port, connectionOption.UserName, connectionOption.Password);
+            if (!os.DatabaseExist(connectionOption.DatabaseName, OStorageType.PLocal))
+            {
+                os.CreateDatabase(connectionOption.DatabaseName, connectionOption.DatabaseType, OStorageType.PLocal);
+            }          
+
+            var a = typeof(OServer);
+            var b = os.GetType();
+
+            Dictionary<string, string> serverConfig = os.ConfigList();
+            var jsonConfig =JsonConvert.SerializeObject(serverConfig);
+            
+            ODatabase db = openDatabase(connectionOption);
+
+            List<OCluster> clusterNamesBefore = db.GetClusters(false);
+
+            // INITIALIZE CLUSTER ID's
+            //out of range not work
+            //short[] clusterIds = new short[] { 30,31,32 };
+            short[] clusterIds = new short[] { 1,2,3 };
+
+           
+
+            //CREATE CLUSTERS
+            //works only if clusters allready exists,
+            //new clsuters, that out of DB range, throws 
+            // Orient.Client.OException
+            //clusters not found
+            Orient.Client.API.Query.OClusterQuery query = db.Clusters(clusterIds);
+            long count = query.Count();
+
+            List<OCluster> clusterNamesAfter = db.GetClusters(false);
+
+            short clusterId0 = db.GetClusterIdFor("V");
+            short clusterId1 = db.GetClusterIdFor("E");
+
+            //Driver Select command
+            var res = db.Select().From("V").ToList( );
+            //Driver update command
+            /*
+            OSqlUpdate ures = db.Update("V").Set("name", "name1");
+            OSqlUpdate uAres = db.Update("V").Add("second_name", "name2");
+            */
+
+            //Error
+            //db.Command(addClassV);
+
+            //Error due to non indeponent
+            //db.Query(createClass);
+
+            //Add class
+            //https://orientdb.com/docs/2.2/SQL-Create-Class.html
+            db.Command(@"create class Person IF NOT EXISTS EXTENDS V");
+            db.Command(@"create class Relation IF NOT EXISTS EXTENDS E");
+            db.Command(@"CREATE PROPERTY Person.name IF NOT EXISTS STRING");
+            db.Command(@"CREATE PROPERTY Relation.type IF NOT EXISTS STRING");
+            db.Command(@"DROP CLASS Friend IF EXISTS");
+
+
+            //Driver Command result
+           Orient.Client.OCommandResult queryCommandResult = db.Command(SQLcommand);
+           
+            //SQL Queries to driver
+            List<ODocument> queryResult = db.Query(SQLcommand);
+
+            //SQL batch query result
+            Orient.Client.API.Query.OCommandQuery batchResult=db.SqlBatch(SQLcommand);
+            
+
+
+            string gremlinCommand = string.Format(
+            @"
+            g = new OrientGraph('plocal:/data/{0}');
+            vertices = g.{1};
+            g.close();
+            return vertices;",
+                connectionOption.DatabaseName, "V");
+
+            //error
+            //OCommandResult result = db.Gremlin(gremlinCommand);
+
+            //
+            /*
+            ODocument test = db.Insert()
+             .Into("V")
+             .Set("name", "name1") .Run();
+            */
+
+
+            db.Close();
+            db.Dispose();
+
+            if (os.DatabaseExist(connectionOption.DatabaseName, OStorageType.PLocal))
+            {
+                os.DropDatabase(connectionOption.DatabaseName, OStorageType.PLocal);
+            }
+
+            os.Close();
+            os.Dispose();
         }
     }
 }
