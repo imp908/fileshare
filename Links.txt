@@ -1,0 +1,220 @@
+
+//tfs
+http://msk1-vm-tfs01.nspk.ru:8080/tfs/DefaultCollection/_versionControl?path=%24%2FNSPK%20DevTeam%2FOVISPO%20MD%2Findex.md&_a=compare
+//Jira
+http://jira.nspk.ru
+//Address book
+http://my.nspk.ru/
+http://my.nspk.ru/chart/
+//Helpdesk
+http://help.nspk.ru/Task
+//orientDB admin
+http://msk1-vm-ovisp02:2480/studio/index.html#/database/news_test2/functions
+//orientDB test
+http://msk1-vm-ovisp02:2480/studio/index.html#/database/news_test1
+//orientDB copy
+http://msk1-vm-ovisp02:2480/studio/index.html#/database/news_test3
+//Orient FUNCTIONS for API
+https://orientdb.com/docs/2.2/Functions-DB-Access.html
+//Orient prod
+10.31.25.155:2424 OrientDB Front2
+//Orient prod
+http://msk1-vm-indb01
+//not prod
+http://msk1-vm-indb02
+
+
+//task
+http://jira.nspk.ru/browse/BPMS-41
+account к какому подразделению принадлежит Сотрудник А.
+{
+	select in().Name[0] from Person WHERE 
+	[Name, sAMAccountName] LUCENE "*eshkova*" and (inE("MainAssignment")[0].Disabled is 
+	null or 
+	inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 
+	'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+}
+
+Определить Управление\Департамент Сотрудника А.
+1{
+
+	select from (traverse in() from (
+	SELECT expand(Path) FROM ( select shortestpath($dep,$b,'both',null,{"masdepth":2}) as Path
+	let $a = (select from Unit where Name = "Управление развития и поддержки программы лояльности"),
+	$b = (select from Unit where GUID = '00000000-0000-0000-0000-000000000000'),
+	$dep = (
+	select expand(in()[0]) from Person WHERE 
+	[Name, sAMAccountName] LUCENE  "gorevaps" and (inE("MainAssignment")[0].Disabled is 
+	null or 
+	inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 
+	'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+	)
+	unwind Path)
+	) while $depth <=1) where $depth>=1
+	
+},
+2{
+	select  from (
+	traverse in("MainAssignment") from (
+	select shortestpath($dep,$b,'both',null,{"masdepth":2}) as Path
+	let $b = (select from Unit where GUID = '00000000-0000-0000-0000-000000000000'),
+	$dep = (
+	select expand(in()[0]) from Person WHERE 
+	[Name, sAMAccountName] LUCENE "tishakovoi" and (inE("MainAssignment")[0].Disabled is 
+	null or 
+	inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 
+	'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+	)
+	)
+	) 
+	where in().Name[0] = 'НСПК'
+},
+3{
+
+	select  @this.Name[0] from (
+	SELECT expand(Path) FROM ( select dijkstra($a,$b,null,'both') as Path
+	let $a = (select from Unit where GUID='00000000-0000-0000-0000-000000000000'),
+	$b = (select from Person where [Name,sAMAccountName] LUCENE "%nesterovayv%" )
+	unwind Path)  
+	) where In().Name[0]='НСПК'
+
+}
+
+Определить непосредственного Руководителя Сотрудника А.
+Определить Сотрудников того же отдела, что и Сотрудник А.
+Определить цепочку руководителей от Сотрудника А до Генерального Директора.
+Определить всех нижестоящих сотрудников относительно Сотрудника А.
+Определить, какой Заместитель ГД «курирует» Управление относительно Сотрудника А.
+
+
+select $a.@rid[0],$a.Name[0],$a.In('MainAssignment').@rid[0],$a.In('MainAssignment').Name[0] let $a = (select from person)
+
+select from person where [Name,sAMAccountName] LUCENE
+
+
+
+http://jira.nspk.ru/browse/IN-17
+GET [TYPE] /
+GET [TYPE] / 10
+GET [TYPE] / 10 / 15
+
+GET ID/ 10
+GET ID/ 10 / 15
+GET ID/ 10 / 10 /15
+
+Разработать веб апи и роутинг конфиг, сами методы. 2,5 чд
+Написать функции для использования в методах, реализовать проксирование перед отправкой ответа пользователю. 1 чд
+Разработать автотесты. 1,5 чд
+Протестировать на iis совместно с существующей функциональностью 1 чд
+
+
+Задание :
+http://jira.nspk.ru/browse/IN-17
+http://jira.nspk.ru/browse/BPMS-41
+Исходнй проект:
+$/NSPK DevTeam/Intranet Development/AddressBook_News
+и общая логика выполнения по классам:
+controller call->OrientNews/OrientHelper(query templates)->
+OrientBatchBuilder (assemble query)->OrientDB_HttpManager(authenticate,call batch request)
+база:
+http://msk1-vm-ovisp02:2480/studio/index.html#/database/news_test2
+новость -> object (orientNews) -> authorship person
+коммент -> object ->  authorship person -> comment -> object
+
+http://jira.nspk.ru/browse/BPMS-41
+
+
+14:00
+
+
+OrientDb exportimport:
+"console.bat"
+"connect remote:127.0.0.1/Intranet root ***********;"
+"import database C:\import\Intranet.gz"
+
+release DB
+https://github.com/orientechnologies/orientdb/issues/4484
+
+connect remote:127.0.0.1/news_test2 root I9grekVmk5g
+connect remote:127.0.0.1/news_test3 root I9grekVmk5g
+
+Q?
+
+1)
+//При прямом select from Person или Unit, есть поля, которых не смог найти ни в Parent Class,
+//ни в System Class.
+//Они не отображаются в студии или добавляются из других сущностей при селекте?
+Пример для
+Person:
+mail
+userAccountControl
+для Unit:
+DepartmentColorRGB
+
+
+2)
+Во многих функицях есть флиьтр получния GUID или parent GUID в зависимости от type Unit\Person
+Хотел понять, есть ли озмодность получать поле PGUID[0] через in().GUID[0] или где то будет ошибка?
+Для Unit\Person реузультаты похожи
+Переписал кусок селекта для проверки в браузере студии для Unit\Person
+
+select 
+ifnull( if( eval("@class = 'Person'"),in("MainAssignment").GUID[0],PGUID[0]) ,'0' ) as parent,
+ifnull( if( eval("@class = 'Person'"),in("MainAssignment").GUID[0],in().GUID[0]) ,'0' ) as parent_GUID
+from (
+traverse out('MainAssignment','SubUnit')
+from (select from Unit where Name = 'НСПК')
+)where (
+
+					@class != 'Person'
+
+and
+(inE()[0].Disabled is null and Disabled is null)
+and (
+(
+(@class = 'Person') or 
+(out("MainAssignment").size() >0) or
+(out("SubUnit").size() >0)) or 
+(Name = 'НСПК')
+) and inE().State != 
+'ОтпускПоУходуЗаРебенком' )
+
+
+3)
+в функциииSearchPerson не понятна суть поля Disabled - 
+предположив : дата с скоторого Person не привязан к Unit -> то, по идее, должно быть <=sysdate()
+или Disabled с даты?
+inE(\"MainAssignment\")[0].Disabled >= sysdate()
+
+
+4)
+//В нескольких функциях есть такой фильтр
+(inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по
+беременности и 
+родам\'))
+//я так понял убираем отпускников, а state 'Уволнение' оставляем, недогнал почему?
+
+
+5) в функциях есть похожие фильтры, но с разным набором - > это исторически добавилось 
+или принципиальная разниа?
+getallstructurelargehty фильт содержит \'Отпуск по уходу за ребенком\'
+GetStructureByUnitGUIDAtCurrentLevel фильт содержит \'Отпуск по уходу за ребенком\' 
+and inE().State != \'Отпуск по беременности и родам\'
+
+
+6)итоговый мегафильтр, по которому валидные Unit отбираются, должен быть следующим?
+взят из GetStructureByUnitGUIDAtCurrentLevel
+Where
+(inE()[0].Disabled is null or inE()[0].Disabled >= sysdate() ) and (Disabled is
+null)  and
+( ((@class = \'Person\') or (out(\"MainAssignment\").size() >0)  or (out(\"SubUnit\").size() >0))
+or (Name = 
+\'НСПК\')) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по
+беременности и 
+родам\')
+
+
+7) Фильтры для начала shortestPath Name = 'НСПК' , GUID = '00000000-0000-0000-0000-000000000000' 
+равнозначны же?
+какой приоритетный?
+
