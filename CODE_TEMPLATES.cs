@@ -24,6 +24,8 @@ namespace CodeExamples {
 	//Books
 	//The Art of Unit Testing: with Examples in .NET
 	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
+	//JS
+	https://eloquentjavascript.net/index.html
 	
 	//SERIAL PROGRAMMING 	
 	//RS-232
@@ -507,7 +509,6 @@ namespace CodeExamples {
 		//Issues\Errors
 		public void .NET()
 		{
-
 		
 			public CannotFindObject()
 			{
@@ -598,7 +599,15 @@ access, please check that you have enabled metadata publishing at the specified 
 					
 				
 			}
-		
+			
+			public sgen_exe()
+			{
+				sgen.exe exited with code 1
+				//xml serialization turn off project options->build->xml 
+			}
+			
+			
+			
 		}
 
 		public void SSAS()
@@ -2699,13 +2708,27 @@ access, please check that you have enabled metadata publishing at the specified 
 
 	#endregion
 
-	#region JS5
+	#region JS
 
 	//js templates
 	public void JS_templates()
 	{
-
-	$(document).ready(function () {
+		
+		public void JSLibs(){
+			
+			//awasomplete
+			http://leaverou.github.io/awesomplete/
+			//promitive.js
+			https://ondras.github.io/primitive.js/
+			//metro js
+			http://www.drewgreenwell.com/projects/metrojs
+			//treant js
+			http://fperucic.github.io/treant-js/
+		
+		}
+		
+		public void Unsorted(){
+			$(document).ready(function () {
 
 	$(function () {
 	var data = [50, 90, 30, 10, 70, 20];
@@ -2797,6 +2820,315 @@ access, please check that you have enabled metadata publishing at the specified 
 
 	return table;
 	}
+	
+		}
+		
+		public void Templates(){
+			
+			public void select2Template(){
+				
+var data_arr={};
+
+function query_cleverence(processF,bindF){
+
+	var restServerURL = "http://10.31.14.76/cleverence_ui/hs/IntraService/location/full"; 
+	
+	$.ajax({
+	  type:"GET",
+	  url: restServerURL ,
+	  accepts: "application/json",
+	  dataType:"json",	 	 	  
+	  success: function(data, xhr, textStatus){
+					 
+		console.log("query_cleverenceSt")
+		data_arr = processF(data);
+		//console.log(data_arr);
+		bindF('#input1');
+		return data_arr;
+		
+	  },
+	  error:function(jqXHR, textStatus, errorThrown){
+					   alert(errorThrown);
+	  }
+	});
+}
+
+function processData(data){
+	console.log('processData');
+	var res = Object.keys(data).map(function(k) { return { id: data[k].GUID, text: data[k]["Адрес"] } });
+	//console.log(res);
+	return res;
+}
+function bindSelect2ToItem(item){
+	var dt =[];	
+	console.log("bindSelect2ToItem");
+	$(item).select2({data: data_arr});	
+}	
+
+function registerSelect2(item,placeholder){
+	$(item).select2({
+		placeholder: placeholder,
+		minimumInputLength: 3
+	});
+}
+function registerSelect2Data(item)
+{
+	console.log("dt2 change");
+	$(item).select2({data:data_arr});
+}
+function registerSelect2_FIO(item,placeholder){
+	$(item).select2({
+		tags: false,
+		minimumInputLength: 3,
+		placeholder: placeholder,
+		language: "ru",
+		ajax: {
+			url: 'http://msk1-vm-inapp01.nspk.ru:81/api/structure/searchperson/',
+			headers: {
+					"authorization": "Basic cm9vdDptUiVtekpVR3ExRQ=="
+				},
+			dataType: "json",
+			type: "GET",
+			data: function (params) {
+
+				var queryParameters = {
+					p2: params.term
+				}
+				return queryParameters;
+			},
+			processResults: function (data) {
+					console.log(data);
+				return {
+				
+					results: $.map(data, function (item) {
+						return {
+							text: item.label ,
+							id: item.login
+						}
+					})
+				};
+			}
+			
+		}
+	});
+}
+
+
+
+function FireAndRegister(){
+	query_cleverence(processData,bindSelect2ToItem);	
+	registerSelect2("#input1",'Поиск GUID по адресу');
+	registerSelect2Data("#input1");
+	registerSelect2_FIO("#input2",'Поиск ФИО из 1С');
+}
+
+$(document).ready(function(){
+	
+	//console.log("Doc ready started")
+	FireAndRegister()	
+	
+	// $("#input1").on("select2:focus", function(e) { console.log ("focus");})
+	// .on("select2:selecting", function(e) { console.log ("selecting");})
+	// .on("select2:highlight", function(e) { console.log ("highlight");})
+	// .on("select2:change", function(e) { console.log ("change");})
+	// .on("change", function(e) { console.log ("change2");})
+	// .on("select2-blur", function(e) { console.log ("blur");})
+	// .on("select2:blur", function(e) { console.log ("blur2");})
+	
+	//$("#input3").mouseenter(function(e){  registerSelect2Data("#input1"); console.log("mouseenter");})
+	//$('.select2-search__field').on('keyup',function(e){  console.log("hover"); })
+	//console.log("Doc ready finished")
+	
+});
+
+
+			}
+			
+			public void CallBackSample1(){
+				
+							
+				function f1(a,b){
+					console.log("F1 " + a);
+					b(a);
+				};
+				function f2(c)
+				{
+					console.log("F2 " + c);
+				};
+
+				function f3(a,b){
+					console.log("F3 " + a);	
+				};
+				function f4()
+				{
+					console.log("F4 cb");
+				};
+
+				
+			}
+			
+			public void CallBackSample2(){
+	function cl(){ return "cl"; }
+
+	function ret(a){ return a; }
+
+	function cla(b){ return ret(b); }
+
+	function call_cl(){
+		return cl();
+	}
+	function call_ret(){
+		return ret("ret");
+	}
+	function call_cla(){
+		return cla("cla");	
+	}
+
+	function call_cl_a(){
+		setTimeout ( function(){return cl();},1000);
+	}
+	function call_ret_a(){ 
+		setTimeout ( function(){return ret("ret");},1000);
+	}
+	function call_cla_a(){
+		setTimeout ( function(){return cla("cla");	},1000);
+	}
+
+	function sync_call() {
+		clog(call_cl());
+		clog(call_ret());
+		clog(call_cla());
+		
+	};
+	function async_call() {
+		
+			
+		clog(call_cl_a());
+		clog(call_ret_a());
+		clog(call_cla_a());
+	};
+
+	function clog(a){ console.log(a); }
+
+	$(document).ready(function(){
+		console.log("Doc ready started")
+		async_call();
+		sync_call();
+		console.log("Doc ready finished")
+		
+	});
+
+			}
+			
+			public void Clousures(){
+				
+var x = "abovec";
+
+function placeElement(e,v){
+	v(e);
+}
+function log(e){
+	console.log(e);
+}
+function mult(i_){
+	for(i=0;i<i_;i++)
+	{
+		console.log(i);
+	}
+}
+
+//self containing clousure
+var z = (function(){return function(){console.log(z)}})();
+//minimal closure
+var a = (function(){
+	return function () {
+		return console.log("a");
+	}
+})();
+//parametrized closure 
+//can be used for function text exposure
+var b = (function(d){
+	return function (d) {
+	return console.log(d);
+	}
+})();
+//clousure exmpl
+var add = (function(){
+    var counter = 0;
+    return function(){ console.log(counter); return counter += 1;}
+})(); 
+
+$(document).ready(function(){
+	console.log("Document ready st");
+	add();
+	a();
+	b(a);
+	b(b);
+	z();
+	console.log("Document ready fn");
+})
+
+			}
+						
+			public void Callbacks(){
+				
+				
+function log(a){console.log(a)}
+
+//callback
+function a(n){return function(b){console.log("A->" + n + " B->" + b)}}
+//function callback
+function L1(l1){return function(L2){ l1(L2); }}
+
+//function reference callback
+function cond1(a,b)
+{
+	if(a){ b() ;}
+}
+function ex(a,b)
+{
+	for(var i=0;i<a;i++)
+	{
+		b(i);
+	}
+}
+
+var a_ = a("A1");
+
+
+$(document).ready(function(){
+	console.log("Document ready st");	
+	a_();
+	a_("B1");
+	a("C1")("D1");
+	
+	L1(log)("L2");
+	
+	//condition callback
+	cond1(5>2,function(){log(5)});
+	
+	//repeat callback
+	ex(3,function(n){log(n);});
+	
+	//repeat from condition callback
+	ex(5,function(n){
+		cond1(n%2,function(){
+			log(n);
+		})
+	});
+	
+	console.log("Document ready fn");
+	
+})
+
+
+				
+			}
+			
+			
+			
+		}
+		
 	}
 
 	//JS vendors
@@ -5423,6 +5755,25 @@ http://msk1-vm-ovisp02:2480/function/news_test1/GetEntity/100
 //call to HW API
 api/Orient/GetByID/1
 			
+//batch 
+
+http://msk1-vm-ovisp02:2480/batch/news_test3/
+
+{ "transaction" : true,
+  "operations" : [
+    {
+      "type" : "script",
+      "language" : "sql",
+      "script" : [ 
+		  "create vertex Object set Content=\"A\""
+		  ,"create vertex Object set Content=\"A\""
+	  ]
+    }
+  ]
+}
+
+delete vertex from  object where Content="A"
+
 		}
 		
 		public void SQL()
@@ -5435,6 +5786,8 @@ api/Orient/GetByID/1
 select expand(classes) from metadata:schema
 //get properties for classes
 select expand(properties) from (select expand(classes) from metadata:schema)
+
+
 			}
 			
 			public void Queries()
@@ -5500,6 +5853,7 @@ select expand(Path) from  ( select shortestpath($a,$b,'both',null,{"maxdepth":1}
 let $a = (select from Unit where Name = "Управление развития и поддержки программы лояльности"),
 $b = (select from Unit where GUID = '00000000-0000-0000-0000-000000000000')
 unwind Path) ) while $depth <=1 ) where $depth >=1
+
 //Select level by case
 	select Name from (
 	select Name , 
@@ -5587,12 +5941,12 @@ unwind Path) ) while $depth <=1 ) where $depth >=1
 				public void PersonsAPI()
 				{
 										
-					//к какому подразделению принадлежит Сотрудник А.								
+					//к какому подразделению принадлежит Сотрудник А.
 					public void GetUnitByAccount()
 					{
 						
 var g=orient.getGraph();
-var b=g.command("sql","select in().Name[0] from Person WHERE[Name, sAMAccountName] LUCENE \"*"+accountName+"*\" and (inE(\"MainAssignment\")[0].Disabled is null or inE(\"MainAssignment\")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )");
+var b=g.command("sql","select in().Name[0] as Name from Person WHERE[Name, sAMAccountName] LUCENE \"*"+accountName+"*\" and (inE(\"MainAssignment\")[0].Disabled is null or inE(\"MainAssignment\")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )");
 return b;
 
 					}
@@ -5600,7 +5954,7 @@ return b;
 					//Определить Управление\Департамент Сотрудника А.
 					public void GetDepartmentByAccount()
 					{
-						
+
 var g=orient.getGraph();
 var b=g.command("sql","select Name from (select expand($d) let $b = (select from Unit where GUID = '00000000-0000-0000-0000-000000000000'),$dep = (select expand(in()[0]) from Person WHERE sAMAccountName like '%"+accountName+"%' and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate()) and (Disabled is null) and (inE().State !='Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам')),$c = (select shortestpath($dep,$b,'both',null,null) as Path),$d=( select if(eval(\'Name like \"%правление%\"\'),2,if(eval(\'Name like \"%партамент%\"\'),1,-1)) as Depth,Name,GUID from (traverse in() from ( select expand($c) as Path) limit 3) ), $e=( select max(Depth) as Depth from (select expand($d)))) where 1=1 and $e.Depth[0] = Depth and GUID != '00000000-0000-0000-0000-000000000000' ");
 return b;
@@ -5608,7 +5962,7 @@ return b;
 						/*testcase
 							
 							#22:321
-							gorevaps -> Управление сертификации
+							gorevaps -> Управление развития и поддержки программы лояльности
 							#21:0
 							meshkovav -> Управление сопровождения технологических процессов
 							
@@ -5637,7 +5991,7 @@ return b;
 							#22:59 #19:89
 							makedonskajaks -> Департамент развития продуктов и бизнеса
 							#21:227 #19:20
-							>	mitichkinaea -> Управление по работе с ТСП
+							>	mitichkinaea -> 500
 							#22:307 #20:82
 							sedovavv -> Руководство
 							#21:242 #20:61
@@ -5670,10 +6024,12 @@ return b;
 					//Определить непосредственного Руководителя Сотрудника А.
 					public void GetManagerByAccount()
 					{
-						
+
+					
 var g=orient.getGraph();
 var b=g.command("sql","select $h.Acc let $c = (select min(Wg) as Wg from ( select value as Wg from ( select expand(inV().inE().Weight) as Wg from ( select expand(in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\")))) , $d = ( select inV().Name as Name,inV().sAMAccountName as Acc,inV().@rid as pId ,inV().inE().Weight[0] as Wg,inV().inE().Name[0] as Name2,inV().inE().outV().@rid[0] as uId from ( select expand(in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\") where $c.Wg[0]=Weight ), $e = (select min(Wg) as Wg from (select value as Wg from (  select expand(inV().inE().Weight) as Wg from (  select expand(in().in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\" )))) , $f = ( select inV().Name as Name,inV().sAMAccountName as Acc,inV().@rid as pId ,inV().inE().Weight[0] as Wg,inV().inE().Name[0] as Name2,inV().inE().outV().@rid[0] as uId from ( select expand(in().in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\") where $e.Wg[0]=Weight), $g = ( select inE().Weight[0] as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\"),$h = (select expand(if(eval(' $g.Wg[0]=$d.Wg[0]'),$f,$d)) )");
 return b;
+
 
 
 						//tests
@@ -5736,6 +6092,21 @@ return b;
 							levitskayaaa -> Управление бюджетирования и управленческого учета
 						*/
 							
+//tests
+	/*
+						
+gorevaps 
+malkhasyanar 
+zhiltsovaa
+anokhinatb
+makedonskajaks -> [\"rsm\"]
+SyulzyakovaVV
+reznichenkoks -> [\"arsenevavv\"]
+Perepechiniv
+gashigullinrr -> [\"anokhinatb\"]
+levitskayaaa 
+								
+	*/
 					}
 					
 					//Определить Сотрудников того же отдела, что и Сотрудник А.
@@ -5746,7 +6117,31 @@ var g=orient.getGraph();
 var b=g.command("sql","select  in().Out('MainAssignment').sAMAccountName from person where [Name,sAMAccountName] LUCENE '%"+accountName+"%'");
 return b;
 
-
+	//tests
+	/*
+						
+gorevaps -> "[\"gorevaps\",\"kapkaev\",\"kokuevol\"]"
+malkhasyanar -> [\"malkhasyanar\",\"Pletnevov\",\"kvv\"]
+zhiltsovaa
+anokhinatb
+makedonskajaks
+SyulzyakovaVV
+reznichenkoks
+Perepechiniv
+gashigullinrr
+levitskayaaa -> [
+                "krasotkinaei",
+                "andreevatv",
+                "Kushelevaib",
+                "Belyakovpn",
+                "kuzminay",
+                "SinitsynaTV",
+                "choi",
+                "koganal",
+                "levitskayaaa"
+            ]
+								
+	*/
 					}
 									
 					//Определить цепочку руководителей от Сотрудника А до Генерального Директора
@@ -5760,7 +6155,16 @@ return b;
 						//tests
 						/*
 						
-							
+gorevaps -> [\"gorevaps\",\"rsm\",\"kvv\"]
+malkhasyanar -> [\"malkhasyanar\",\"Pletnevov\",\"kvv\"]
+zhiltsovaa
+anokhinatb
+makedonskajaks
+SyulzyakovaVV
+reznichenkoks
+Perepechiniv
+gashigullinrr
+levitskayaaa -> [\"choi\",\"koganal\",\"kvv\"]
 							
 						*/
 						
@@ -5776,15 +6180,45 @@ var g=orient.getGraph();
 var b=g.command("sql","select inV().sAMAccountName as Acc from ( select expand(out().inE()) as Mng from ( SELECT expand(Path) FROM ( select shortestpath($a,$b,\'both\',null,{\"masdepth\":2}) as Path let $a = ( select from person where [Name,sAMAccountName] LUCENE \'%"+accountName+"%\' ), $b = (select from person where Name like \'%Комлев Владимир Валерьевич%\') unwind Path)))	where (outV().Name like \'%Департамент%\' and  Name like \'%директор департамента%\')or (not (outV().Name like \'%Департамент%\') and Name like \'%ачальник %\')or (Name like \'%енеральный %\' )");
 return b;
 
+/*
+Perepechiniv -> ["fesenkoev","Averochkinaav", "Perepechiniv","diana.zainullina"]
+*/
 					}
 					
 				}
-								
+					
+				public void NewFunctions()
+				{
+					
+					public void SerachPersonAll()
+					{
+var g=orient.getGraph();
+var b=g.command("sql","select GUID as id, ifnull( if( eval(\"@class = 'Person'\"),in(\"MainAssignment\").Name[0],Name[0]) ,'0' ) as division , ifnull( if( eval(\"@class = 'Person'\"),in(\"MainAssignment\").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\"@class = 'Person'\"),'PersonTemplate','UnitTemplate' ) as templateName , if(eval('inE().ExpDate[0] is not null'), inE().State[0],null)  as state,  if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate, GetPositionBar(InE().Name[0].replace('\\\"',''))['groupTitle'][0] as groupTitle  , Birthday.format('dd.MM') as birthday  ,  GetDepartmentColorClass(GUID)[colorClass][0] as colorClass, GetDepartmentName(GUID)[departmentName][0] as departmentName, sAMAccountName as login from Person WHERE [Name, sAMAccountName] LUCENE \"/.*"+substr+".*/\" ");
+return b;
+					}
+					
+					public void GetPersonActive()
+					{
+var g=orient.getGraph(); 
+var b=g.command("sql",'select GetPersonPhoto(mail) as Photo, FirstName, GUID, PGUID ,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl,objectGUID from Person where GUID = "'+GUID+'"  and ((inE()[0].Disabled is null or inE()[0].Disabled >= sysdate() ) and (Disabled is null)  and ( ((@class = \'Person\') or (out(\"MainAssignment\").size() >0)  or (out(\"SubUnit\").size() >0)) or (Name = \'НСПК\')) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\'))'); 
+return b;
+					}
+
+				}
 		}
 		
 	}
+		
+		public void DriverNotes()
+		{
+			Connection:Connect:IOperation{Request,Response}-
+			Request.MemoryStream.Send;IOperation(Response.Receive(NetworkStream.ReadByte()))->
+			Document
+		}
 	
-	#endregion
+		
+	
+	}
 	
 	public void Neo4J()
 	{
@@ -6348,8 +6782,8 @@ detach delete  a,b
 	
 	}
 	
-	#endregion
-	
+	#endregion	
+		
 	#region OS
 	
 		public Windows
