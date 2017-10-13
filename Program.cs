@@ -28,6 +28,8 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
+            ManagersCheck();
+            BuilderCheck();
             HTTPcheck();
 
         }
@@ -45,78 +47,129 @@ namespace ConsoleApp1
 
         }
 
-        public static void managersCheck()
+        public static void ManagersCheck()
         {
 
-            string url = @"http://10.31.14.76/cleverence_ui/hs/IntraService/location/full";
-            HTTPmanager hm = new HTTPmanager();
+            string url = @"http://10.31.14.76/cleverence_ui/hs/IntraService/location/full";           
+
+            OrientWebManager owm = new OrientWebManager();
             JSONmanager jm = new JSONmanager();
+            WebResponseReader wr = new WebResponseReader();
 
             //sample JSON [{},{}] http get from url
-            string jres = hm.Get(url);
+         
+            string jres = wr.ReadResponse( owm.GetResponse(url,"GET"));
             List<J_Address> addresses = jm.DeseializeSample<J_Address>(jres);
 
             //authenticate Orient
-            hm.HTTPauthProxy(@"http://msk1-vm-ovisp02:2480/connect/news_test3", "root", "I9grekVmk5g");
+            owm.Authenticate(@"http://msk1-vm-ovisp02:2480/connect/news_test3", new NetworkCredential("root", "I9grekVmk5g"));
 
             //authenticated htp response from command
             url = @"http://msk1-vm-ovisp02:2480/command/news_test3/sql/select from Person";
-            jres = hm.GetAuthProx(url);
-            //\{node:[{},{}]\}
+            jres = wr.ReadResponse(owm.GetResponse(url,"GET"));
+            //в коллекцию объектов из модели {node:[{},{}]} -> List<model>({}) для работы в коде
             List<Person> persons = jm.DeserializeFromNode<Person>(jres, @"result");
+            //в JSON строку List<{}> -> [{},{}] для передачи в API
+            string str = jm.CollectionToString<Person>(persons, null);
 
+            //из функции
             url = @"http://msk1-vm-ovisp02:2480/function/news_test3/SearchByLastNameTst/сав";
-            jres = hm.GetAuthProx(url);
-            //\{node:[{},{}]\}
+            jres = wr.ReadResponse(owm.GetResponse(url, "GET"));
+            //{node:[{},{}]} -> List<model>({}) 
             persons = jm.DeserializeFromNode<Person>(jres, @"result");
+            str = jm.CollectionToString<Person>(persons, null);
 
+            //из комманды другой класс
             //authenticated htp response from command
             url = @"http://msk1-vm-ovisp02:2480/command/news_test3/sql/select from Unit";
-            jres = hm.GetAuthProx(url);
-            //\{node:[{},{}]\}
+            jres = wr.ReadResponse(owm.GetResponse(url, "GET"));
+            //{node:[{},{}]} -> List<model>({})
             List<Unit> units = jm.DeserializeFromNode<Unit>(jres, @"result");
+            //в строку [{"name":"a"},..,{"name":"b"}]
+            str = jm.CollectionToString<Unit>(units, null);
+            //в строку ["a",..,"b"]
+            str = jm.CollectionToString<JToken>(jm.ExtractTokens(jres, "result", "Name"), null);
+
 
         }
 
         public static void BuilderCheck()
         {
 
+            string login = "root";
+            string password = "I9grekVmk5g";
+            string authUrl = @"http://msk1-vm-ovisp02:2480/connect/news_test3";
+            string commandUrl = @"http://msk1-vm-ovisp02:2480/command/news_test3/sql/";
+            string functionUrl = @"http://msk1-vm-ovisp02:2480/function/news_test3/";
 
             OrientApiUrlBuilder ob = new OrientApiUrlBuilder();
-            HTTPmanager hm = new HTTPmanager();
-            JSONmanager jm = new JSONmanager();
 
-            //задаем параметры комманды, тело селекта и тело where (можно оставить пустым)
+            //<--Out
+            //HTTPmanager hm = new HTTPmanager();
+
+            //-->In
+            OrientWebManager owm = new OrientWebManager();
+            NetworkCredential nc = new NetworkCredential(login, password);
+            WebResponseReader wrr = new WebResponseReader();
+
+            JSONmanager jm = new JSONmanager();
+            
+
+            owm.Authenticate(authUrl,nc);
+
+            //задаем параметры комманды, тело селекта и тело where. where (можно оставить пустым)
             ob.SelectCommandSet("Person", @"1=1");
             //авторизуемся
-            hm.HTTPauthProxy(@"http://msk1-vm-ovisp02:2480/connect/news_test3", "root", "I9grekVmk5g");
+            //old
+            //hm.HTTPauthProxy(@"http://msk1-vm-ovisp02:2480/connect/news_test3", login, password);
+            //new
+            owm.Authenticate(authUrl, nc);
             //получам ответ форматированный в JSON сторку
-            string jsonStringResponse = hm.GetAuthProx(@"http://msk1-vm-ovisp02:2480/command/news_test3/sql/" + ob.SelectCommandGet());
+            //old
+            //string jsonStringResponse = hm.GetAuthProx(@"http://msk1-vm-ovisp02:2480/command/news_test3/sql/" + ob.SelectCommandGet());
+            //new
+            WebResponse wr = owm.GetResponse(commandUrl + ob.SelectCommandGet(),"GET");
+            string responseRaw = wrr.ReadResponse(wr);
             //десериализуем в модель, проксирование управляется полями POCO класса модели и атрибутами
-            List<Person> persons = jm.DeserializeFromNode<Person>(jsonStringResponse, @"result");
+            List<Person> persons = jm.DeserializeFromNode<Person>(responseRaw, @"result");
+
 
             //Аналогично для Unit
+            //задаем имя класса и фильтр where
             ob.SelectCommandSet("Unit", @"1=1");
-            jsonStringResponse = hm.GetAuthProx(@"http://msk1-vm-ovisp02:2480/command/news_test3/sql/" + ob.SelectCommandGet());
-            List<Unit> units = jm.DeserializeFromNode<Unit>(jsonStringResponse, @"result");
+            responseRaw = wrr.ReadResponse(owm.GetResponse(commandUrl + ob.SelectCommandGet(), "GET"));
+            List<Unit> units = jm.DeserializeFromNode<Unit>(responseRaw, @"result");
+            
 
             //Аналогично для функции
-            //Так как функция возвразает только одно поле, коллекция заполнится объектами только с 1 полем
+            //имя функции и параметр
+            //Так как функция возвразает только одно поле, коллекция заполнится объектами со значением только в 1 поле
+            //остальные null
             ob.FucntionSet("SearchByLastName", @"сав");
-            jsonStringResponse = hm.GetAuthProx(@"http://msk1-vm-ovisp02:2480/function/news_test3/" + ob.FunctionCommandGet());
-            List<Person> persons2 = jm.DeserializeFromNode<Person>(jsonStringResponse, @"result");
+            responseRaw = wrr.ReadResponse(owm.GetResponse(functionUrl + ob.FunctionCommandGet(),"GET"));
+            List<Person> persons2 = jm.DeserializeFromNode<Person>(responseRaw, @"result");
+            //Кручу-верчу для получения "чистых" коллекицй, без полей с null.
+            //(когда возращается только часть полей, null values игнорятся, без изменения модели и залезания в строку ответа)
+            string jSer = jm.CollectionToString<Person>(persons2, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+            //Промежуточная коллекция с экстракцией нужного токена, для понимания типа
+            IJEnumerable<JToken> jt = jm.ExtractTokens(jSer, "LastName");
+            //Формирование "чистой" строки из коллекции токенов
+            string res0 = jm.CollectionToString<IJEnumerable<JToken>>(jt, null);
 
-            //Кручу-верчу для получения "чистых" коллекицй 
-            //(когда возращается только часть полей, null values игнорятся, без изменения модели)
-            string jString = JsonConvert.DeserializeObject(
-                JsonConvert.SerializeObject(persons2, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore })
-                ).ToString();
+
+            //Аналогично, без иключения null, oneline          
+            res0 = jm.CollectionToString<IJEnumerable<JToken>>(
+                jm.ExtractTokens(
+                    jm.CollectionToString<Person>(persons2, null)
+                    , "LastName")
+                    , null);
 
         }
 
         public static void HTTPcheck()
         {
-            ResponseReader reader = new ResponseReader();
+
+            WebResponseReader reader = new WebResponseReader();
 
             //read basic GET response
             string url = @"http://msk1-vm-ovisp01:8083/api/Person/GetCollegesLower/bs";
@@ -125,13 +178,11 @@ namespace ConsoleApp1
             string sampleResult = reader.ReadResponse(response);
 
 
-            //Authentication 
+            //Authentication
             string authUrl = @"http://msk1-vm-ovisp02:2480/connect/news_test3";
-            CredentialPool cd = new CredentialPool();
-            cd.Add(new Uri(authUrl), "Basic", "root", "I9grekVmk5g");
-            NetworkCredential nc = cd.credentials(new Uri(authUrl), "Basic");
+            NetworkCredential nc = new NetworkCredential("root", "I9grekVmk5g");
 
-            //read Orient fucntion GET with authentication            
+            //read Orient fucntion GET with authentication
             url = @"http://msk1-vm-ovisp02:2480/function/news_test3/GetCollegesLowerByAccount/bs";
             OrientWebManager orm = new OrientWebManager();
             orm.Authenticate(authUrl, nc);
@@ -143,6 +194,7 @@ namespace ConsoleApp1
             JSONmanager mng = new JSONmanager();
             List<string> a = mng.DeseializeSample<string>(sampleResult);
             List<string> b = mng.DeserializeFromNode(resultOrient, "result","Name");
+
 
             //change equality check
             //they are equal
@@ -423,13 +475,15 @@ namespace ConsoleApp1
             foreach (ODocument class_ in classes)
             {
                 IEnumerable<ODocument> properties = GetProperties(class_, parentBase_);
-                if (properties != null)
+                if (properties!=null)
                 {
                     foreach (ODocument property in properties)
-                    {
+                    {              
                         AddPropertyToClass(property, class_, childBase_);
                     }
                 }
+
+                
             }
         }
 
@@ -738,13 +792,14 @@ namespace ConsoleApp1
             return result;
         }
     }
-  
 
 
+    //<--Out - deprecated
     //WEB scope
-    //divide to string method initiation (GET,POST -> execute), add parameters addition before call
-    //move web request object to class global
-    //JSON reader to new class, return only web request, then decide how to handle it (JSON,XML,STRING,ACTION)
+    //divide to string method initiation (GET,POST -> execute), add parameters addition before call <- done
+    //move web request object to separate class <- done
+    //JSON reader to new class, return only web request, then decide how to handle it (JSON,XML,STRING,ACTION) <- done
+    /*
     public class HTTPmanager
     {
         public static string OSESSIONID;
@@ -821,19 +876,29 @@ namespace ConsoleApp1
         }
 
     }
+    */
 
+        
+    //-->In new overwritten
     //Base web manager for sending request with type method and reading response to URL
     //WebRequest, Httpwebresponse
     public class WebManager
     {
-        internal WebRequest _request;
+        public WebRequest _request;
         internal string OSESSIONID = String.Empty;
 
         internal WebRequest addRequest(string url, string method)
         {
-            _request = WebRequest.Create(url);
-            _request.Method = method;
-            _request.ContentLength = 0;
+            try
+            {
+                _request = WebRequest.Create(url);
+                _request.Method = method;
+                _request.ContentLength = 0;
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
             return _request;
         }
         internal void addHeader(HttpRequestHeader header, string value)
@@ -861,13 +926,12 @@ namespace ConsoleApp1
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
 
             return resp;
         }
-
-
+       
     }
     //Orient specific WebManager for authentication and authenticated resopnses sending to URL
     //with NetworkCredentials
@@ -885,12 +949,12 @@ namespace ConsoleApp1
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
 
             return resp;
         }
-        public void Authenticate(string url, NetworkCredential nc)
+        public WebResponse Authenticate(string url, NetworkCredential nc)
         {
 
             WebResponse resp;
@@ -898,20 +962,21 @@ namespace ConsoleApp1
             addCredentials(nc);
             try
             {
-                resp = this._request.GetResponse();
+                resp = this._request.GetResponse();                                        
                 OSESSIONID = getHeaderValue("Set-Cookie");
+                return resp;
             }
             catch (Exception e)
             {
-                throw;
+                throw e;
             }
 
         }
 
     }
     
-    //WEB scope
-    //Contains Credentials for uri
+    //WEB scope deprecation posible (Only if several credentials to different hosts needed, several DBs? )
+    //Contains Credentials for URI
     public class CredentialPool
     {
         CredentialCache credentialsCache;
@@ -929,7 +994,7 @@ namespace ConsoleApp1
     
     //DP Scope (data processing)
     //converts Responses to string
-    public class ResponseReader
+    public class WebResponseReader
     {
         public string ReadResponse(HttpWebResponse response)
         {
@@ -950,21 +1015,22 @@ namespace ConsoleApp1
     }
 
     //DP Scope (data processing)
+    //works with JSON stings
     public class JSONmanager
-    {
+    {      
+        
         //For sample JSON structure [{a:1,..,c:1},{a:10,..,c:10}]
         public List<T> DeseializeSample<T>(string resp) where T : class
         {
             List<T> res = JsonConvert.DeserializeObject<List<T>>(resp);
             return res;
         }
-
         //For JSON structure {NodeName:[{a:1,..,c:1},{a:10,..,c:10}]}
         public List<T> DeserializeFromNode<T>(string jInput, string Node) where T : class
         {
             List<T> result = new List<T>();
             List<JToken> res = JObject.Parse(jInput)[Node].Children().ToList();
-            result = (from s in res select s.ToObject<T>()).ToList();
+                result = (from s in res select s.ToObject<T>()).ToList();
             return result;
         }
         //For parsing not to model but to String for JSON structure {NodeName:[{a:1,..,c:1},{a:10,..,c:10}]}
@@ -973,15 +1039,44 @@ namespace ConsoleApp1
         {
             List<string> result = new List<string>();
             List<JToken> res = JObject.Parse(jInput)[Node].Children()[field].ToList();
-            result = (from s in res select s.ToString()).ToList<string>();
+                result = (from s in res select s.ToString()).ToList<string>();
+            return result;
+        }
+
+        //Extracts collection of tokens [{"Tk1":"A"},..,{"Tk31":"Z"}] -> IJEnumerable<JTokens> ["A",..,"Z"]
+        public IJEnumerable<JToken> ExtractTokens(string jInput, string field)
+        {
+            IJEnumerable<JToken> result = null;
+            result = JToken.Parse(jInput).Children()[field];
+            return result;
+        }
+        public IJEnumerable<JToken> ExtractTokens(string jInput, string Node, string field)
+        {
+            IJEnumerable<JToken> result = null;
+                result = JObject.Parse(jInput)[Node].Children()[field];
+            return result;
+        }
+
+        public string CollectionToString<T>(IEnumerable<T> list_,JsonSerializerSettings jss = null) where T : class
+        {
+            string result = null;                  
+                result = JsonConvert.SerializeObject(list_, jss);
+            return result;
+        }
+        public string CollectionToStringFormat<T>(List<T> list_, JsonSerializerSettings jss = null) where T : class
+        {
+            string result = null;
+            result = JsonConvert.DeserializeObject(
+                JsonConvert.SerializeObject(list_, jss)
+                ).ToString();
             return result;
         }
 
     }
 
-    //DB scope 
+    //DB Scope
     //no any Buisiness logic
-    //divide to query class with inheritance to commandtpyes (command/query,batch,function)
+    //divide to query class with inheritance|generic to commandtpyes (command|query,batch,function)
     public class OrientApiUrlBuilder
     {
         string selectCommand = String.Empty;
@@ -1021,5 +1116,6 @@ namespace ConsoleApp1
         }
 
     }
+
 
 }

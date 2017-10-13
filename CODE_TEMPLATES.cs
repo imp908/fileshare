@@ -487,182 +487,7 @@ namespace CodeExamples {
 			Highly Generic code could be used from many places
 			
 		}
-
 		
-	}
-
-	public class External_Libraries()
-	{
-				
-	//reading excel
-	http://epplus.codeplex.com/
-	//Entity Framework extensions
-	http://entityframework-extensions.net/
-	//nUnit
-	https://github.com/nunit/nunit
-	
-	
-	
-	}
-
-	public class IssuesErrors()
-	{
-
-		//Issues\Errors
-		public void .NET()
-		{
-
-		
-			public CannotFindObject()
-			{
-			WHEN:
-			incorrect connection string in : DbContext initialization parameters
-
-			WHAT:
-			Cannot find the object because it does not exist or you do not have permissions
-
-			HOW:
-			correct DbContext initialization
-			}
-
-			public ReferencePermissionWasDenied()
-			{
-			WHEN:
-			migrating with code first model, with navigation properties and collection.
-			Creating foreign key, constraint.
-
-			WHAT:
-			error:
-			the reference permission was denied on the object '' database '', schema ''
-			Cannot find the object '' because it does not exist or you do not have permissions
-			could not create constraint.
-
-			HOW:
-			simle:
-			(trying to migrate one after another commenting out not works - migrates both simultaneosly )
-			create table with primary key. In sql manager give to users pemission rights
-			Create table with collection.
-
-			correct:
-			change model to correct collection - navigation property. Collection in parent,
-			foreign key with patent item property in child
-			grant privilages
-			use DWH_REPLICA;
-			grant references To guest;
-			go
-			}
-
-			public MethodFunctionNotFound()
-			{
-			WHEN:
-			no EF in project referencing repository project
-
-			WHAT: update EF
-			}
-
-			public System.Security.SecurityException()
-			{
-				WHEN:
-				while windows service with InstallUtil.exe installation
-				
-				WHAT:
-				Syste.Security.SecurityException
-				
-				WHOW:
-				start console with administrative
-			}
-			
-			public WCFhttpREGerror()
-			{
-				
-				WHAT:
-Протоколу HTTP не удалось зарегистрировать URL-адрес http://+:8000/Service1/. Текущий процесс не имеет прав доступа к этому 
-пространству имен (подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353)
-				
-				WHEN:
-WCF service under console host
-					
-				HOW:
-recommended to register port:
-netsh http add urlacl url=http://+:8000/ServiceModelSamples/Service user=mylocaluser
-				OR 
-				start VS under admin 
-			}
-			
-			public WCFCannot_btain_etadata_rom()
-			{
-				WHAT:
-				Error: Cannot obtain Metadata from http://localhost:57495/WCF2.svc If this is a Windows (R) Communication Foundation service to which you have 
-access, please check that you have enabled metadata publishing at the specified address.
-				WHEN:
-					testing wcf.svc from VS
-				HOW:
-					NOT enough memory free 
-				OR: 
-					
-				
-			}
-		
-			public sgen_exe()
-			{
-				sgen.exe exited with code 1
-				//xml serialization turn off project options->build->xml 
-
-				}
-
-		public void SSAS()
-		{
-			
-			///Installation
-			///Donload instal SSDT from MS VS
-			///Create Analysis services projects from VS templates
-		
-			public void Impersonation()
-			{
-				
-				WHEN:
-				While trying to proccess any item of olap cube from VS to create new database
-				
-				WHAT:
-				Severity	Code	Description	Project	File	Line	Suppression State
-				Error		?????????????? ??????????: ???????? ????????? ??? ??????? ImpersonationInfo. ???? ???????? ImpersonateAccount ???????????? ?????? ImpersonationInfo, ???????? Account ?? ????? ???? ??????.			0	
-				
-				HOW:
-				in datasourses name rightclick ViewDesigner, in Impersonation Information input credentials
-							
-			}
-		
-			public void Database NameChange()
-			{
-				
-				WHEN:
-				
-				WHAT:
-				change olap database name
-				
-				WHOW:
-				rtclck project properties - > deployment
-				
-			}
-			
-			public void DimensionProcessError()
-			{
-				
-				WHEN:
-				connecting via wrong login (Datasource base login instead of OLAP base)
-				
-				WHAT:
-				cannot connect to database while login 
-				
-				WHOW:
-				change credentials
-				
-			}
-						
-		}
-		
-	}	
-	
 		///Examples
 		public class Examples
 		{
@@ -1307,19 +1132,7 @@ access, please check that you have enabled metadata publishing at the specified 
 					
 				}
 				
-			}
-			
-			public void OrientDB()
-			{
-				public void DriversInstall()
-				{
-					Update-Package Microsoft.AspNet.Mvc -Reinstall
-					Install-Package Microsoft.AspNet.Mvc -Version 3.2
-					Install-Package Microsoft.ApplicationInsights.Web
-					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
-				}
-			}
-				
+			}						
 			
 			public void Testing()
 			{
@@ -2339,7 +2152,200 @@ access, please check that you have enabled metadata publishing at the specified 
 			
 			}
 		
+			public void ConsoleCommands()
+			{
+				
+				public void XunitRunnerVS_install(){
+					Install-Package xunit.runner.visualstudio -Version 2.3.0
+				}
+				
+				public void MVC_and_WEb_inst_upd()
+				{
+					Update-Package Microsoft.AspNet.Mvc -Reinstall
+					Install-Package Microsoft.AspNet.Mvc -Version 3.2
+					Install-Package Microsoft.ApplicationInsights.Web
+					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
+				}
+				
+			}
+		
 		}
+		
+		
+	}
+
+	public class External_Libraries()
+	{
+				
+	//reading excel
+	http://epplus.codeplex.com/
+	//Entity Framework extensions
+	http://entityframework-extensions.net/
+	//nUnit
+	https://github.com/nunit/nunit
+	
+	
+	
+	}
+
+	public class IssuesErrors()
+	{
+
+		//Issues\Errors
+		public void .NET()
+		{
+
+		
+			public CannotFindObject()
+			{
+			WHEN:
+			incorrect connection string in : DbContext initialization parameters
+
+			WHAT:
+			Cannot find the object because it does not exist or you do not have permissions
+
+			HOW:
+			correct DbContext initialization
+			}
+
+			public ReferencePermissionWasDenied()
+			{
+			WHEN:
+			migrating with code first model, with navigation properties and collection.
+			Creating foreign key, constraint.
+
+			WHAT:
+			error:
+			the reference permission was denied on the object '' database '', schema ''
+			Cannot find the object '' because it does not exist or you do not have permissions
+			could not create constraint.
+
+			HOW:
+			simle:
+			(trying to migrate one after another commenting out not works - migrates both simultaneosly )
+			create table with primary key. In sql manager give to users pemission rights
+			Create table with collection.
+
+			correct:
+			change model to correct collection - navigation property. Collection in parent,
+			foreign key with patent item property in child
+			grant privilages
+			use DWH_REPLICA;
+			grant references To guest;
+			go
+			}
+
+			public MethodFunctionNotFound()
+			{
+			WHEN:
+			no EF in project referencing repository project
+
+			WHAT: update EF
+			}
+
+			public System.Security.SecurityException()
+			{
+				WHEN:
+				while windows service with InstallUtil.exe installation
+				
+				WHAT:
+				Syste.Security.SecurityException
+				
+				WHOW:
+				start console with administrative
+			}
+			
+			public WCFhttpREGerror()
+			{
+				
+				WHAT:
+Протоколу HTTP не удалось зарегистрировать URL-адрес http://+:8000/Service1/. Текущий процесс не имеет прав доступа к этому 
+пространству имен (подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353)
+				
+				WHEN:
+WCF service under console host
+					
+				HOW:
+recommended to register port:
+netsh http add urlacl url=http://+:8000/ServiceModelSamples/Service user=mylocaluser
+				OR 
+				start VS under admin 
+			}
+			
+			public WCFCannot_btain_etadata_rom()
+			{
+				WHAT:
+				Error: Cannot obtain Metadata from http://localhost:57495/WCF2.svc If this is a Windows (R) Communication Foundation service to which you have 
+access, please check that you have enabled metadata publishing at the specified address.
+				WHEN:
+					testing wcf.svc from VS
+				HOW:
+					NOT enough memory free 
+				OR: 
+					
+				
+			}
+		
+			public sgen_exe()
+			{
+				sgen.exe exited with code 1
+				//xml serialization turn off project options->build->xml 
+
+				}
+
+		public void SSAS()
+		{
+			
+			///Installation
+			///Donload instal SSDT from MS VS
+			///Create Analysis services projects from VS templates
+		
+			public void Impersonation()
+			{
+				
+				WHEN:
+				While trying to proccess any item of olap cube from VS to create new database
+				
+				WHAT:
+				Severity	Code	Description	Project	File	Line	Suppression State
+				Error		?????????????? ??????????: ???????? ????????? ??? ??????? ImpersonationInfo. ???? ???????? ImpersonateAccount ???????????? ?????? ImpersonationInfo, ???????? Account ?? ????? ???? ??????.			0	
+				
+				HOW:
+				in datasourses name rightclick ViewDesigner, in Impersonation Information input credentials
+							
+			}
+		
+			public void Database NameChange()
+			{
+				
+				WHEN:
+				
+				WHAT:
+				change olap database name
+				
+				WHOW:
+				rtclck project properties - > deployment
+				
+			}
+			
+			public void DimensionProcessError()
+			{
+				
+				WHEN:
+				connecting via wrong login (Datasource base login instead of OLAP base)
+				
+				WHAT:
+				cannot connect to database while login 
+				
+				WHOW:
+				change credentials
+				
+			}
+						
+		}
+		
+	}	
+	
 		
 	}
 	
@@ -6968,4 +6974,4 @@ match(a:v_typea),(b:v_typeb) detach delete a,b
 	
 	#endregion
 
-
+	
