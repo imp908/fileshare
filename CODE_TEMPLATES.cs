@@ -1,5 +1,6 @@
 ///Hierarhy
 namespace Parts{
+	
 	#region Names
 	public Groups
 	{
@@ -12,11 +13,10 @@ namespace Parts{
 		}
 	}
 	#endregion
+	
 }
 
-///
-namespace CodeExamples {
- 
+
 	//Usefull links
 	public void mostUsefullLinks()
 	{
@@ -348,6 +348,120 @@ namespace CodeExamples {
 
 	}
 	
+	
+	#region TODO
+	
+		public class Utility
+		{
+
+0 neo4jAPI 
+	-> CRUD
+	-> boilerplate code sample nodes db with rel creation <- done
+0 JS hacks (ajax to form)
+	-> bind result js to site
+	-> sample hack Select2 to API calls loc + interactive <- done	
+0 HTTP,JSON,Orient Managers
+	-> extend existing managers
+	-> HttpManager, JSON, string managers, queryManager <- done
+0 PersonAPI
+	-> redeploy with new addressbook
+	-> HttpManager <- done
+	-> JSONmanager <- done
+	-> PersonManager <- done
+	-> WebApiConfig <- done
+0 Repo
+-> Repo (against SQL base and Northwind base)
+-> Repo (Chaining IRepo implementation for Date + list filter)
+0 UOW
+-> Finilize for all
+0 WCF - move t oREST API most likely due to unclear configuration while mooving
+-> POCO to DataContract converter
+-> ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)
+-> Add BLL Business logic layer between POCOs and UOW
+-> Add JS multiple model items update at one time
+-> to DLL
+0 WebAPI
+-> between repo and MVC site
+1 PresentationSite
+-> parsing excel file to objects method decompose to several
+	///Sector type from filename
+	///Fist file input determines merchant sector
+	parse file mask;
+	
+	if parsed then
+	{
+	
+		get sector id from filename; --from config
+		get property fields; --from config
+		if(no merchant column then error); --from parser
+
+		foreach row
+		{
+			check merchant doubles for this sector; --from UOF
+			remove doubles; --from UOF
+			insert; --from UOF
+		}
+		
+	}
+
+-> Export to excel
+-> Type converter for migration (
+Add SQL to CLR type conversion ; 
+SQLEntity to DWH entity converter; 
+Converter logic to string name or type name;)
+-> Add WCF between Repo and Site <- done bad idea WCF diff to config. REST API instead
+-> UOW bind repo to generic with as and type conversion <- done
+-> UOW bind context to every repo  <- done
+-> Specific repository for every entity <- done
+-> IRepository<T> with CRUD operations lightweight  <- done
+SB , Repo and UOF to different projects  <- done
+Northwind -> change login employee get from TempData to model  <- done
+Northwind -> add complex model add  <- done
+Tables migration - test with repo <- done
+-> Emplicit implicit repos
+1-explicit repo (mostly type by merchant)
+Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}
+2-implicit repo (mostly one type by repo instance)
+Repo<T>() where T: IOne { GetByOne(); }
+...
+Repo<T>() where T: In { GetByN(); } <- done
+		}
+		
+		public class Mastery
+		{
+II:Mastery
+0 Polinom Parse -> parse *^/ to expressions and add priorities for exprs
+0 Command line Console parameters parse app dll -> to SB
+0 Multithread socket message ping pong -> to SB
+0 CollectionsComparison -> to SB
+		}
+		
+		public class Infrastructure
+		{
+III:Infrastructure
+0 Testng automate
+0 Build automate
+0 Correct decoupling of projects
+		}
+		
+		public class Miscellaneous
+		{
+			
+	
+	IV:Miscellaneous ˌmɪs(ə)'leɪnɪəs
+Actual:
+Theory to SB;
+	Merge CT,TODO, and notepads txt;
+JdeveloperInstall;
+	VS2017 install->
+	check .NET Core2;
+Revise:
+	equality, string, default null init, inheritance, events
+		}
+			
+
+	#endregion
+		
 	#region SourceControl
 
 	public Bug Trackers
@@ -487,8 +601,7 @@ namespace CodeExamples {
 			Highly Generic code could be used from many places
 			
 		}
-		
-		///Examples
+	
 		public class Examples
 		{
 			
@@ -1132,7 +1245,19 @@ namespace CodeExamples {
 					
 				}
 				
-			}						
+			}
+			
+			public void OrientDB()
+			{
+				public void DriversInstall()
+				{
+					Update-Package Microsoft.AspNet.Mvc -Reinstall
+					Install-Package Microsoft.AspNet.Mvc -Version 3.2
+					Install-Package Microsoft.ApplicationInsights.Web
+					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
+				}
+			}
+				
 			
 			public void Testing()
 			{
@@ -2152,26 +2277,8 @@ namespace CodeExamples {
 			
 			}
 		
-			public void ConsoleCommands()
-			{
-				
-				public void XunitRunnerVS_install(){
-					Install-Package xunit.runner.visualstudio -Version 2.3.0
-				}
-				
-				public void MVC_and_WEb_inst_upd()
-				{
-					Update-Package Microsoft.AspNet.Mvc -Reinstall
-					Install-Package Microsoft.AspNet.Mvc -Version 3.2
-					Install-Package Microsoft.ApplicationInsights.Web
-					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
-				}
-				
-			}
-		
 		}
-		
-		
+
 	}
 
 	public class External_Libraries()
@@ -6741,88 +6848,160 @@ return b;
 			
 			public void CustomDBBoilerPlate()
 			{
+					
+				public Queries(){
+			
+	//(Keanu)-[:ACTED_IN {roles:['Neo']}]->(TheMatrix),
 
-		//(Keanu)-[:ACTED_IN {roles:['Neo']}]->(TheMatrix),
-		
-//create vertexes
-create (v_name1:v_typea{prop1:'v_name1', propn:'v_prop1n'})
-create (v_name2:v_typeb{prop1:'v_name2', propn:'v_prop2n'})
+	//create vertexes
+	create (v_name1:v_typea{prop1:'v_name1', propn:'v_prop1n'})
+	create (v_name2:v_typeb{prop1:'v_name2', propn:'v_prop2n'})
 
-//edge create: OK
-create
+	//edge create: OK
+	create
 	(v_name2)-[:rel_to{e_name:'1->2'}]->(v_name1),
 	(v_name2)-[:rel_to2{e_name:'1->2 2'}]->(v_name1)
 
-//edge create: OK
-match(a:v_typea),(b:v_typeb)
-where a.prop1 = 'v_name1' and b.prop1 = 'v_name2'
-create (a)-[r:e_type {e_name: a.prop1 + '-->' + b.prop1 }]->(b)
-return r
+	//edge create: OK
+	match(a:v_typea),(b:v_typeb)
+	where a.prop1 = 'v_name1' and b.prop1 = 'v_name2'
+	create (a)-[r:e_type {e_name: a.prop1 + '-->' + b.prop1 }]->(b)
+	return r
 
 
-//select
-match(a:v_typea {prop1: 'v_name1'})-[:e_type]->(b) return a,b
+	//select
+	match(a:v_typea {prop1: 'v_name1'})-[:e_type]->(b) return a,b
 
-//select with relation
-match(a:v_typea),(b:v_typeb)
-where a.prop1 = 'v_name1' and b.prop1 = 'v_name2'
-return a,b
+	//select with relation
+	match(a:v_typea),(b:v_typeb)
+	where a.prop1 = 'v_name1' and b.prop1 = 'v_name2'
+	return a,b
 
-//
-match (a:v_typea)
-match (b:v_typeb)
-return a,b
+	//
+	match (a:v_typea)
+	match (b:v_typeb)
+	return a,b
+
+	//bulk delete vertex
+	match (a:v_typea) 
+	match (b:v_typeb)
+	detach delete  a,b
+
+
+
+
+	//3n 2e one line
+	v1-[e]->v2<-[e]-v3
+	v4-[e]->v5<-[e]-v6
 	
-//bulk delete vertex
-match (a:v_typea) 
-match (b:v_typeb)
-detach delete  a,b
+	v2-[e]->v5
+	v2-[e2]->v5
+	v5-[e3]->v2
+	
+	match(a:v_typea),(b:v_typeb) detach delete a,b
+
+	v1-[e]->v2<-[e]-v3
+	v4-[e]->v5<-[e]-v6
+	
+	create (v_name1:v_typeb{prop1:'v_name1', propn:'v_prop1n'})-
+	[n1:e_type{e_name:'v_name1' + '-->' + 'v_name2'}]->
+	(v_name2:v_typea{prop1:'v_name2', propn:'v_prop2n'})
+	<-[n2:e_type{e_name:'v_name3' + '-->' + 'v_name2'}]
+	-(v_name3:v_typeb{prop1:'v_name3', propn:'v_prop3n'})
+	
+	create (v_name4:v_typeb{prop1:'v_name4', propn:'v_prop4n'})-
+	[n3:e_type{e_name:'v_name4' + '-->' + 'v_name5'}]->
+	(v_name5:v_typea{prop1:'v_name5', propn:'v_prop5n'})
+	<-[n4:e_type{e_name:'v_name6' + '-->' + 'v_name5'}]
+	-(v_name6:v_typeb{prop1:'v_name6', propn:'v_prop6n'})
+
+	//(Keanu)-[:ACTED_IN {roles:['Neo']}]->(TheMatrix)
+
+	//realtions at initial creation
+	v2-[e]->v5
+	v2-[e2]->v5
+	v5-[e3]->v2
+	
+	create 
+	(v_name2)-[n5:e_type{e_name:'v2->v5'}]->(v_name5),
+	(v_name2)-[n6:e_type2{e_name:'v2->v5 type 2'}]->(v_name5),
+	(v_name5)-[n7:e_type3{e_name:'v5->v2'}]->(v_name2)
+
+	//realtions after initial creation
+	v2-[e1]->v5
+	v2-[e1]->v5
+	v2-[e3]->v5
+	v2-[e]->v5
+	v4-[eN]->v3
+	
+	match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (a)-[:e_type1]->(b)
+	match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (a)-[:e_type2{name:'a->b'}]->(b)
+	match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (b)-[:e_type3{name:'b->a'}]->(a)
+	match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (b)-[:e_type{name:'b->a'}]->(a)
+	match(b:v_typeb{prop1:'v_name4'}),(a:v_typeb{prop1:'v_name3'}) merge (a)-[:NEW_REL]->(b)
+
+	//selections
+	match(a:v_typeb)-[:e_type]->(b:v_typea) return a,b
+	match(a:v_typeb)-[:e_type]->(b) return a,b
+	match(a:v_typeb)-[relatedto]->(b) return a,b
+
+	match(a:v_typea)-[:e_type]->(b:v_typea) return a,b
+
+	match(a:v_typea),(b:v_typeb) return a,b
+	match(a:v_typea),(b:v_typeb) detach delete a,b
+
+				}
+				
+				public API(){
+					
+					
+POST http://localhost:7474/db/data/transaction/commit
+Accept: application/json; charset=UTF-8
+Content-Type: application/json
+
+RAW JSON
+<<<<<<<<<<<<<<
+
+{
+  "statements" : [ {
+    "statement" : "CREATE (n) RETURN id(n)"
+  } ]
+}
+
+<<<<<<<<<<<<<<
+
+{
+  "statements" : [
+  {"statement" : "create (v_name1:v_typea{prop1:'v_name1', propn:'v_prop1n'})"}
+  ,{"statement" : "create (v_name2:v_typeb{prop1:'v_name2', propn:'v_prop2n'})"}
+  ,{"statement" : "match(a:v_typea),(b:v_typeb) where a.prop1 = 'v_name1' and b.prop1 = 'v_name2' create (a)-[r:e_type {e_name: a.prop1 + '-->' + b.prop1 }]->(b)"}
+  ,{"statement" : "match (a:v_typea) match (b:v_typeb)detach delete  a,b"}
+  ]
+}
+
+<<<<<<<<<<<<<<
+
+{
+"statements" : [
+{"statement" : "create (v_name1:v_typeb{prop1:'v_name1', propn:'v_prop1n'})-[n1:e_type{e_name:'v_name1' + '-->' + 'v_name2'}]->(v_name2:v_typea{prop1:'v_name2', propn:'v_prop2n'})<-[n2:e_type{e_name:'v_name3' + '-->' + 'v_name2'}]	-(v_name3:v_typeb{prop1:'v_name3', propn:'v_prop3n'})"}
+,{"statement" : "create (v_name4:v_typeb{prop1:'v_name4', propn:'v_prop4n'})-[n3:e_type{e_name:'v_name4' + '-->' + 'v_name5'}]->(v_name5:v_typea{prop1:'v_name5', propn:'v_prop5n'})<-[n4:e_type{e_name:'v_name6' + '-->' + 'v_name5'}]	-(v_name6:v_typeb{prop1:'v_name6', propn:'v_prop6n'})"}
+]
+}
+
+<<<<<<<<<<<<<<
+
+{
+"statements" : [
+{"statement" : "create (v_name1:v_typeb{prop1:'v_name1', propn:'v_prop1n'})-[n1:e_type{e_name:'v_name1' + '-->' + 'v_name2'}]->(v_name2:v_typea{prop1:'v_name2', propn:'v_prop2n'})<-[n2:e_type{e_name:'v_name3' + '-->' + 'v_name2'}]-(v_name3:v_typeb{prop1:'v_name3', propn:'v_prop3n'})"},{"statement" : "create (v_name4:v_typeb{prop1:'v_name4', propn:'v_prop4n'})-[n3:e_type{e_name:'v_name4' + '-->' + 'v_name5'}]->(v_name5:v_typea{prop1:'v_name5', propn:'v_prop5n'})<-[n4:e_type{e_name:'v_name6' + '-->' + 'v_name5'}]-(v_name6:v_typeb{prop1:'v_name6', propn:'v_prop6n'})"},{"statement" : "match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (a)-[:e_type2{name:'a->b'}]->(b)"},{"statement" : "match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (b)-[:e_type3{name:'b->a'}]->(a)"},{"statement" : "match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (b)-[:e_type{name:'b->a'}]->(a)"},{"statement" : "match(b:v_typeb{prop1:'v_name4'}),(a:v_typeb{prop1:'v_name3'}) merge (a)-[:NEW_REL]->(b)"}
+]
+}
 
 
-
-
-//3n 2e one line 
-match(a:v_typea),(b:v_typeb) detach delete a,b
-
-create (v_name1:v_typeb{prop1:'v_name1', propn:'v_prop1n'})-
-[n1:e_type{e_name:'v_name1' + '-->' + 'v_name2'}]->
-(v_name2:v_typea{prop1:'v_name2', propn:'v_prop2n'})
-<-[n2:e_type{e_name:'v_name3' + '-->' + 'v_name2'}]
--(v_name3:v_typeb{prop1:'v_name3', propn:'v_prop3n'})
-
-create (v_name4:v_typeb{prop1:'v_name4', propn:'v_prop4n'})-
-[n3:e_type{e_name:'v_name4' + '-->' + 'v_name5'}]->
-(v_name5:v_typea{prop1:'v_name5', propn:'v_prop5n'})
-<-[n4:e_type{e_name:'v_name6' + '-->' + 'v_name5'}]
--(v_name6:v_typeb{prop1:'v_name6', propn:'v_prop6n'})
-
-//(Keanu)-[:ACTED_IN {roles:['Neo']}]->(TheMatrix)
-
-//realtions at initial creation
-create 
-(v_name2)-[n5:e_type{e_name:'v2->v5'}]->(v_name5),
-(v_name2)-[n6:e_type2{e_name:'v2->v5 type 2'}]->(v_name5),
-(v_name5)-[n7:e_type3{e_name:'v5->v2'}]->(v_name2)
-
-//realtions after initial creation
-match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (a)-[:e_type1]->(b)
-match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (a)-[:e_type2{name:'a->b'}]->(b)
-match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (b)-[:e_type3{name:'b->a'}]->(a)
-match(a:v_typea{prop1:'v_name2'}),(b:v_typea{prop1:'v_name5'}) merge (b)-[:e_type{name:'b->a'}]->(a)
-match(b:v_typeb{prop1:'v_name4'}),(a:v_typeb{prop1:'v_name3'}) merge (a)-[:NEW_REL]->(b)
-
-//selections
-match(a:v_typeb)-[:e_type]->(b:v_typea) return a,b
-match(a:v_typeb)-[:e_type]->(b) return a,b
-match(a:v_typeb)-[relatedto]->(b) return a,b
-
-match(a:v_typea)-[:e_type]->(b:v_typea) return a,b
-
-match(a:v_typea),(b:v_typeb) return a,b
-match(a:v_typea),(b:v_typeb) detach delete a,b
+				}
 			
 		}
-		
+			
+			
 	
 
 		}
@@ -6973,5 +7152,4 @@ match(a:v_typea),(b:v_typeb) detach delete a,b
 		}
 	
 	#endregion
-
 	
