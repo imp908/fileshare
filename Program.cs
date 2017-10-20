@@ -15,7 +15,7 @@ using System.IO;
 
 using System.Net;
 using System.Net.Http;
-using System.Web;
+using System.Web.Http;
 
 
 namespace ConsoleApp1
@@ -28,9 +28,28 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
+            JScheck();
+           
             ManagersCheck();
+            PersonApiCheck();
             BuilderCheck();
             HTTPcheck();
+
+        }
+
+        public static void JScheck()
+        {
+            JSONmanager jm = new JSONmanager();          
+            string input = "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#-2:0\",\"@version\":0,\"Name\":\"kapkaev\"},{\"@type\":\"d\",\"@rid\":\"#-2:1\",\"@version\":0,\"Name\":\"kokuevol\"}]}";
+            string input2 = "[{\"@type\":\"d\",\"@rid\":\"#-2:13\",\"@version\":0,\"Name\":[\"tishakovoi\"]}]";
+            string input3 = "[{\"@type\":\"d\",\"@rid\":\"#-2:0\",\"@version\":0,\"Name\":\"Организационно-правовойдепартамент\"}]";
+
+
+            var a = JsonConvert.DeserializeObject(input2);
+            var b = JsonConvert.SerializeObject(a);
+            
+            var c = JToken.Parse(input2).Children()["Name"];
+
 
         }
 
@@ -50,15 +69,15 @@ namespace ConsoleApp1
         public static void ManagersCheck()
         {
 
-            string url = @"http://10.31.14.76/cleverence_ui/hs/IntraService/location/full";           
+            string url = @"http://10.31.14.76/cleverence_ui/hs/IntraService/location/full";
 
             OrientWebManager owm = new OrientWebManager();
             JSONmanager jm = new JSONmanager();
             WebResponseReader wr = new WebResponseReader();
 
             //sample JSON [{},{}] http get from url
-         
-            string jres = wr.ReadResponse( owm.GetResponse(url,"GET"));
+
+            string jres = wr.ReadResponse(owm.GetResponse(url, "GET"));
             List<J_Address> addresses = jm.DeseializeSample<J_Address>(jres);
 
             //authenticate Orient
@@ -66,7 +85,7 @@ namespace ConsoleApp1
 
             //authenticated htp response from command
             url = @"http://msk1-vm-ovisp02:2480/command/news_test3/sql/select from Person";
-            jres = wr.ReadResponse(owm.GetResponse(url,"GET"));
+            jres = wr.ReadResponse(owm.GetResponse(url, "GET"));
             //в коллекцию объектов из модели {node:[{},{}]} -> List<model>({}) для работы в коде
             List<Person> persons = jm.DeserializeFromNode<Person>(jres, @"result");
             //в JSON строку List<{}> -> [{},{}] для передачи в API
@@ -113,9 +132,9 @@ namespace ConsoleApp1
             WebResponseReader wrr = new WebResponseReader();
 
             JSONmanager jm = new JSONmanager();
-            
 
-            owm.Authenticate(authUrl,nc);
+
+            owm.Authenticate(authUrl, nc);
 
             //задаем параметры комманды, тело селекта и тело where. where (можно оставить пустым)
             ob.SelectCommandSet("Person", @"1=1");
@@ -128,7 +147,7 @@ namespace ConsoleApp1
             //old
             //string jsonStringResponse = hm.GetAuthProx(@"http://msk1-vm-ovisp02:2480/command/news_test3/sql/" + ob.SelectCommandGet());
             //new
-            WebResponse wr = owm.GetResponse(commandUrl + ob.SelectCommandGet(),"GET");
+            WebResponse wr = owm.GetResponse(commandUrl + ob.SelectCommandGet(), "GET");
             string responseRaw = wrr.ReadResponse(wr);
             //десериализуем в модель, проксирование управляется полями POCO класса модели и атрибутами
             List<Person> persons = jm.DeserializeFromNode<Person>(responseRaw, @"result");
@@ -139,14 +158,14 @@ namespace ConsoleApp1
             ob.SelectCommandSet("Unit", @"1=1");
             responseRaw = wrr.ReadResponse(owm.GetResponse(commandUrl + ob.SelectCommandGet(), "GET"));
             List<Unit> units = jm.DeserializeFromNode<Unit>(responseRaw, @"result");
-            
+
 
             //Аналогично для функции
             //имя функции и параметр
             //Так как функция возвразает только одно поле, коллекция заполнится объектами со значением только в 1 поле
             //остальные null
             ob.FucntionSet("SearchByLastName", @"сав");
-            responseRaw = wrr.ReadResponse(owm.GetResponse(functionUrl + ob.FunctionCommandGet(),"GET"));
+            responseRaw = wrr.ReadResponse(owm.GetResponse(functionUrl + ob.FunctionCommandGet(), "GET"));
             List<Person> persons2 = jm.DeserializeFromNode<Person>(responseRaw, @"result");
             //Кручу-верчу для получения "чистых" коллекицй, без полей с null.
             //(когда возращается только часть полей, null values игнорятся, без изменения модели и залезания в строку ответа)
@@ -193,7 +212,7 @@ namespace ConsoleApp1
             //deserializing string request
             JSONmanager mng = new JSONmanager();
             List<string> a = mng.DeseializeSample<string>(sampleResult);
-            List<string> b = mng.DeserializeFromNode(resultOrient, "result","Name");
+            List<string> b = mng.DeserializeFromNode(resultOrient, "result", "Name");
 
 
             //change equality check
@@ -202,8 +221,79 @@ namespace ConsoleApp1
 
         }
 
+        //
+        public static void PersonApiCheck()
+        {
+
+            WebManager wm = new WebManager();
+            APItester_sngltn ut = new APItester_sngltn();
+            WebResponseReader wr = new WebResponseReader();
+            
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json"))
+            {
+                string res = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json");
+                APItester_sngltn.TestCases = JsonConvert.DeserializeObject<List<APItester_sngltn>>(res);
+            }
+            else
+            {
+               
+                APItester_sngltn.TestCases.Add(new APItester_sngltn()
+                {
+                    URI = "http://msk1-vm-ovisp01:8083/api/Person/GetManager/DegterevaSV"
+                    ,
+                    Expected = "[\"filimonovats\",\"kvv\"]"
+                    ,
+                    OK = false
+                });
+                APItester_sngltn.TestCases.Add(new APItester_sngltn()
+                {
+                    URI = "http://msk1-vm-ovisp01:8083/api/Person/GetColleges/lobanovamg"
+                   ,
+                    Expected = "[\"stalmakovsm\",\"Bagirovaev\",\"kotovaen\",\"iku\",\"SergiecIG\",\"a.vagin\",\"lobanovamg\",\"Tikhomirovaa\",\"popovalb\"]"
+                   ,
+                    OK = false
+                });
+            }
+        
+
+            foreach (APItester_sngltn tc in APItester_sngltn.TestCases)
+            {
+                try
+                {
+                    var resp = wm.GetResponse(tc.URI, "GET");
+                    string rR = wr.ReadResponse(resp);
+
+                    if (tc.Expected == rR)
+                    {
+                        tc.OK_(rR);
+                    }
+                    else
+                    {
+                        tc.NotOK_(rR);
+                    }
+                }catch (Exception e)
+                {                   
+
+                    if (tc.Expected == e.GetType().ToString())
+                    {
+                        tc.OK_(e.GetType().ToString(), e.Message);                      
+                    }
+                    else
+                    {
+                        tc.NotOK_(e.GetType().ToString(), e.Message);
+                    }
+                }
+            }
+
+            string jStr = JsonConvert.SerializeObject(APItester_sngltn.TestCases,Formatting.Indented);
+            string dir = AppDomain.CurrentDomain.BaseDirectory;
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json", jStr);
+
+        }
+      
     }
 
+  
 
     //DB CREATE, Objects from existing DB move, AND DROP. no class segregation
     public class OrientSpagettyCheck
@@ -475,15 +565,15 @@ namespace ConsoleApp1
             foreach (ODocument class_ in classes)
             {
                 IEnumerable<ODocument> properties = GetProperties(class_, parentBase_);
-                if (properties!=null)
+                if (properties != null)
                 {
                     foreach (ODocument property in properties)
-                    {              
+                    {
                         AddPropertyToClass(property, class_, childBase_);
                     }
                 }
 
-                
+
             }
         }
 
@@ -793,6 +883,50 @@ namespace ConsoleApp1
         }
     }
 
+    /// <summary>
+    /// Testing APIS
+    /// Manages class for JSON API url,expected,ectual,ok values. Read/create + export JSON file with values.
+    /// For every URL execute webrequest, reads string response, compares with Expected value, 
+    /// changes statusess - OK(true/flase), Exception message - if needed. Exports result.
+    /// </summary>
+    public class APItester_sngltn
+    {
+        public string URI { get; set; }
+        public string Expected { get; set; }
+        public string Actual { get; set; }
+        public bool OK { get; set; }
+        public string ExceptionText { get; set; }
+        public string Comment { get; set; }
+
+        public static List<APItester_sngltn> TestCases = new List<APItester_sngltn>();
+
+        public void OK_(string actual_)
+        {
+            this.Actual = actual_;
+            this.ExceptionText = string.Empty;
+            this.OK = true;
+        }
+        public void OK_(string actual_, string exception_)
+        {
+            this.Actual = actual_;
+            this.ExceptionText = exception_;
+            this.OK = true;
+        }
+
+        public void NotOK_(string actual_)
+        {
+            this.Actual = actual_;
+            this.OK = false;
+        }
+        public void NotOK_(string actual_, string exception_)
+        {
+            this.Actual = actual_;
+            this.ExceptionText = exception_;
+            this.OK = false;
+        }
+
+    }
+
 
     //<--Out - deprecated
     //WEB scope
@@ -878,10 +1012,10 @@ namespace ConsoleApp1
     }
     */
 
-        
-    //-->In new overwritten
-    //Base web manager for sending request with type method and reading response to URL
-    //WebRequest, Httpwebresponse
+ 
+    /// -->In new overwritten
+    ///Base web manager for sending request with type method and reading response to URL
+    ///WebRequest, Httpwebresponse
     public class WebManager
     {
         public WebRequest _request;
@@ -923,6 +1057,7 @@ namespace ConsoleApp1
             try
             {
                 resp = (HttpWebResponse)this._request.GetResponse();
+                
             }
             catch (Exception e)
             {
@@ -931,14 +1066,15 @@ namespace ConsoleApp1
 
             return resp;
         }
-       
     }
-    //Orient specific WebManager for authentication and authenticated resopnses sending to URL
-    //with NetworkCredentials
+    /// <summary>
+    ///     Orient specific WebManager for authentication and authenticated resopnses sending to URL
+    ///     with NetworkCredentials
+    /// </summary>    
     public class OrientWebManager : WebManager
     {
 
-        public override WebResponse GetResponse(string url, string method)
+        public new HttpWebResponse GetResponse(string url, string method)
         {
             HttpWebResponse resp;
             base.addRequest(url, method);
@@ -962,7 +1098,7 @@ namespace ConsoleApp1
             addCredentials(nc);
             try
             {
-                resp = this._request.GetResponse();                                        
+                resp = this._request.GetResponse();
                 OSESSIONID = getHeaderValue("Set-Cookie");
                 return resp;
             }
@@ -974,9 +1110,11 @@ namespace ConsoleApp1
         }
 
     }
-    
-    //WEB scope deprecation posible (Only if several credentials to different hosts needed, several DBs? )
-    //Contains Credentials for URI
+
+    /// <summary>
+    /// WEB scope deprecation posible (Only if several credentials to different hosts needed, several DBs? )
+    /// Contains Credentials for URI
+    /// </summary>    
     public class CredentialPool
     {
         CredentialCache credentialsCache;
@@ -991,17 +1129,19 @@ namespace ConsoleApp1
             return credentialsCache.GetCredential(uri_, type_);
         }
     }
-    
-    //DP Scope (data processing)
-    //converts Responses to string
+
+    /// <summary>
+    /// DP Scope (data processing)    
+    /// converts Responses to string
+    /// </summary>
     public class WebResponseReader
     {
         public string ReadResponse(HttpWebResponse response)
         {
             string result = string.Empty;
-                Stream sm = response.GetResponseStream();
-                StreamReader sr = new StreamReader(sm);
-                result = sr.ReadToEnd();
+            Stream sm = response.GetResponseStream();
+            StreamReader sr = new StreamReader(sm);
+            result = sr.ReadToEnd();
             return result;
         }
         public string ReadResponse(WebResponse response)
@@ -1014,11 +1154,13 @@ namespace ConsoleApp1
         }
     }
 
-    //DP Scope (data processing)
-    //works with JSON stings
+    /// <summary>
+    /// DP Scope (data processing)    
+    /// works with JSON stings
+    /// </summary>
     public class JSONmanager
-    {      
-        
+    {
+
         //For sample JSON structure [{a:1,..,c:1},{a:10,..,c:10}]
         public List<T> DeseializeSample<T>(string resp) where T : class
         {
@@ -1030,16 +1172,16 @@ namespace ConsoleApp1
         {
             List<T> result = new List<T>();
             List<JToken> res = JObject.Parse(jInput)[Node].Children().ToList();
-                result = (from s in res select s.ToObject<T>()).ToList();
+            result = (from s in res select s.ToObject<T>()).ToList();
             return result;
         }
         //For parsing not to model but to String for JSON structure {NodeName:[{a:1,..,c:1},{a:10,..,c:10}]}
         //where one item from collection can be parsed
-        public List<string> DeserializeFromNode(string jInput, string Node,string field) 
+        public List<string> DeserializeFromNode(string jInput, string Node, string field)
         {
             List<string> result = new List<string>();
             List<JToken> res = JObject.Parse(jInput)[Node].Children()[field].ToList();
-                result = (from s in res select s.ToString()).ToList<string>();
+            result = (from s in res select s.ToString()).ToList<string>();
             return result;
         }
 
@@ -1053,14 +1195,14 @@ namespace ConsoleApp1
         public IJEnumerable<JToken> ExtractTokens(string jInput, string Node, string field)
         {
             IJEnumerable<JToken> result = null;
-                result = JObject.Parse(jInput)[Node].Children()[field];
+            result = JObject.Parse(jInput)[Node].Children()[field];
             return result;
         }
 
-        public string CollectionToString<T>(IEnumerable<T> list_,JsonSerializerSettings jss = null) where T : class
+        public string CollectionToString<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null) where T : class
         {
-            string result = null;                  
-                result = JsonConvert.SerializeObject(list_, jss);
+            string result = null;
+            result = JsonConvert.SerializeObject(list_, jss);
             return result;
         }
         public string CollectionToStringFormat<T>(List<T> list_, JsonSerializerSettings jss = null) where T : class
@@ -1074,22 +1216,24 @@ namespace ConsoleApp1
 
     }
 
-    //DB Scope
-    //no any Buisiness logic
-    //divide to query class with inheritance|generic to commandtpyes (command|query,batch,function)
+    /// <summary>
+    /// no any Buisiness logic
+    /// divide to query class with inheritance|generic 
+    /// to commandtpyes (command|query,batch,function)
+    /// </summary>
     public class OrientApiUrlBuilder
     {
         string selectCommand = String.Empty;
         string functionCommand = String.Empty;
 
-        public string SelectCommandSet(string className_,string filter_)
+        public string SelectCommandSet(string className_, string filter_)
         {
             this.selectCommand = SelectClause(className_, WhereClause(filter_));
             return selectCommand;
         }
         public string SelectCommandGet()
         {
-            if(this.selectCommand != String.Empty)
+            if (this.selectCommand != String.Empty)
             {
                 return this.selectCommand;
             }
@@ -1097,17 +1241,17 @@ namespace ConsoleApp1
             return null;
         }
 
-        string SelectClause (string classname_,string whereClause = null)
+        string SelectClause(string classname_, string whereClause = null)
         {
             return String.Format(@"select from {0} {1}", classname_, whereClause);
-        }    
-        string WhereClause (string whereClause_)
+        }
+        string WhereClause(string whereClause_)
         {
             return String.Format(@"where {0}", whereClause_);
         }
         public string FucntionSet(string Fucntion_, string params_)
         {
-            this.functionCommand= String.Format(@"{0}/{1}", Fucntion_, params_);
+            this.functionCommand = String.Format(@"{0}/{1}", Fucntion_, params_);
             return functionCommand;
         }
         public string FunctionCommandGet()
@@ -1118,4 +1262,109 @@ namespace ConsoleApp1
     }
 
 
+    //For token items
+    public interface ITypeToken
+    {
+        string Text { get; }
+    }
+    //For different API type URIs
+    public interface IUrIBuilder
+    {      
+        string GetUrl();
+    }
+    
+    /// <summary>
+    /// Tokens for Orient API URIs 
+    /// Different API types tend to different Http req strategies example: Fucntion/param or: Batch/ + JSON-body    
+    /// </summary>
+    public class Host : ITypeToken
+    {
+        public string Text { get { return "Batch"; } }
+    }
+    public class Db : ITypeToken
+    {
+        public string Text { get { return "Batch"; } }
+    }
+    public class Port : ITypeToken
+    {
+        public string Text { get { return "Batch"; } }
+    }
+
+    public class OrientFuncionToken : ITypeToken
+    {
+        public string Text { get { return "Function"; } }
+    }
+    public class OrientCommandToken : ITypeToken
+    {
+        public string Text { get { return "Command"; } }
+    }
+    public class OrientConnectToken : ITypeToken
+    {
+        public string Text { get { return "Connect"; } }
+    }
+    public class OrientBatchToken : ITypeToken
+    {
+        public string Text { get { return "Batch"; } }
+    }
+
+
+    public abstract class UriBuilder : IUrIBuilder
+    {
+
+        internal ITypeToken _Host;
+        internal ITypeToken _Port;
+        internal ITypeToken _DbName;
+        internal ITypeToken _ApiType;
+
+        internal string ApiUrl { get; set; }
+
+        public UriBuilder(ITypeToken host_, ITypeToken DbName_, ITypeToken ApiType_, ITypeToken port_ = null)
+        {
+            this._Host = host_;
+            this._Port = port_;
+            this._DbName = DbName_;
+            this._ApiType = ApiType_;
+        }
+
+        public virtual void SetUrl()
+        {
+            this.ApiUrl = string.Format("{0}/{1}/{2]", _Host, _Port, _DbName);
+        }
+        public virtual string GetUrl() {
+            return this.ApiUrl;
+        }
+
+    }
+
+    public class AuthUrIBuilder : UriBuilder
+    {
+        ITypeToken authToken;
+
+        public AuthUrIBuilder(ITypeToken ApiType_, ITypeToken host_, ITypeToken DbName_) 
+            : base (host_,DbName_,ApiType_)
+        {
+
+        }
+        public override void SetUrl()
+        {
+            this.ApiUrl = string.Format("{0}/{1}/{2}",this._Host.Text, authToken.Text,this._DbName.Text);
+        }
+    }
+    public class CommandUrIBuilder : UriBuilder
+    {
+        ITypeToken authToken;
+
+        public CommandUrIBuilder(ITypeToken ApiType_,ITypeToken host_, ITypeToken DbName_, ITypeToken Port_)
+            : base(ApiType_, host_, DbName_,  Port_)
+        {
+
+        }
+        public override void SetUrl()
+        {
+            this.ApiUrl = string.Format("{0}/{1}/{2}/{3}", this._Host.Text, this._Port.Text, authToken.Text, this._DbName.Text);
+        }
+    }
+
+
 }
+

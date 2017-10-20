@@ -345,7 +345,14 @@ namespace Parts{
 	http://stackoverflow.com/questions/2074779/identifying-derived-types-from-a-list-of-base-class-objects
 
 
-
+	/*ECM possible FuckUps*/
+	
+	https://www.directum.ru/
+	docsvision
+	intraservise
+	elma
+	
+	
 	}
 	
 	
@@ -620,7 +627,7 @@ Revise:
 					a is b -> false => a !: b || a : Ib
 
 					EQUALS:
-					a.Equals(b) -> true => a =b
+					a.Equals(b) -> true => a=b
 									
 				}
 				
@@ -643,7 +650,7 @@ Revise:
 				}
 				
 				public class SealedMethodChange(){
-						 public sealed class Circle
+						public sealed class Circle
 						{
 							private double radius;
 							public double Calculate(Func<double, double> op)
@@ -683,9 +690,8 @@ Revise:
 						
 					}
 					
-				}
-			
-			
+				}			
+				
 			}
 			
 			//Override reminder
@@ -1257,15 +1263,13 @@ Revise:
 					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
 				}
 			}
-				
-			
+							
 			public void Testing()
 			{
 				
+				//Expected Actual
 				public void Moq()
 				{
-					
-					
 					//Setup phase 
 					//sample type callback
 					 kkRepo.Setup(m => m.Add(It.IsAny<KEY_CLIENTS_SQL>())).Callback<KEY_CLIENTS_SQL>(
@@ -1283,13 +1287,12 @@ Revise:
 					kkRepo.Object.DeleteByList(clientsDel.AsQueryable());
 					kkRepo.Verify(s => s.DeleteByList(It.IsAny<IQueryable<KEY_CLIENTS_SQL>>()));
 					Assert.AreEqual(clientsL.Count(), clientsAfterListDeleteCount);
-				}
-				
-				
-			
+				}				
+							
 			}
 					
-			public class Unsorted {
+			public class Unsorted 
+			{
 				
 			//delete from oracle table and link parametrized insert command to connection
 			public class oracle_queries(){
@@ -5616,242 +5619,244 @@ $(document).ready(function(){
 		//T SQL
 		public void T_SQL()
 		{
-			
-			public protected class ScriptExamples()
+					
+			public internal classs Theory()
 			{
-				public internal classs Theory()
+				public class Procedures_Functions_difference()
 				{
-					public class Procedures_Functions_difference()
-					{
-						+---------------------------------+----------------------------------------+
-						| Stored Procedure (SP)           | Function (UDF - User Defined           |
-						|                                 | Function)                              |
-						+---------------------------------+----------------------------------------+
-						| SP can return zero , single or  | Function must return a single value    |
-						| multiple values.                | (which may be a scalar or a table).    |
-						+---------------------------------+----------------------------------------+
-						| We can use transaction in SP.   | We can't use transaction in UDF.       |
-						+---------------------------------+----------------------------------------+
-						| SP can have input/output        | Only input parameter.                  |
-						| parameter.                      |                                        |
-						+---------------------------------+----------------------------------------+
-						| We can call function from SP.   | We can't call SP from function.        |
-						+---------------------------------+----------------------------------------+
-						| We can't use SP in SELECT/      | We can use UDF in SELECT/ WHERE/       |
-						| WHERE/ HAVING statement.        | HAVING statement.                      |
-						+---------------------------------+----------------------------------------+
-						| We can use exception handling   | We can't use Try-Catch block in UDF.   |
-						| using Try-Catch block in SP.    |                                        |
-						+---------------------------------+----------------------------------------+
-					}
-					
+					+---------------------------------+----------------------------------------+
+					| Stored Procedure (SP)           | Function (UDF - User Defined           |
+					|                                 | Function)                              |
+					+---------------------------------+----------------------------------------+
+					| SP can return zero , single or  | Function must return a single value    |
+					| multiple values.                | (which may be a scalar or a table).    |
+					+---------------------------------+----------------------------------------+
+					| We can use transaction in SP.   | We can't use transaction in UDF.       |
+					+---------------------------------+----------------------------------------+
+					| SP can have input/output        | Only input parameter.                  |
+					| parameter.                      |                                        |
+					+---------------------------------+----------------------------------------+
+					| We can call function from SP.   | We can't call SP from function.        |
+					+---------------------------------+----------------------------------------+
+					| We can't use SP in SELECT/      | We can use UDF in SELECT/ WHERE/       |
+					| WHERE/ HAVING statement.        | HAVING statement.                      |
+					+---------------------------------+----------------------------------------+
+					| We can use exception handling   | We can't use Try-Catch block in UDF.   |
+					| using Try-Catch block in SP.    |                                        |
+					+---------------------------------+----------------------------------------+
 				}
 				
-				public internal class Insertion()
-				{
-						public Shitty_Callendar()
-						{
-							
-							drop table  master.dbo.calendar ;
-							create table master.dbo.calendar (id int ,"DATE" date
-							, primary key (ID)
-							);
-
-							delete from master.dbo.calendar;
-
-							declare @cnt int ;
-							declare @max int;
-							select @cnt = 0;
-							set @max = 12*10;
-
-							while @cnt < @max
-							begin
-							set @cnt = @cnt+1;
-							print(dateadd(month,-(@max-@cnt),dateadd(MONTH,DATEDIFF(MONTH,0,getdate()),0)));
-
-							insert into master.dbo.calendar (ID,DATE)
-							values (
-							@cnt,
-							dateadd(month,-(@max-@cnt),dateadd(MONTH,DATEDIFF(MONTH,0,getdate()),0))
-							);
-							--print(- @cnt);
-							end ;
-
-
-							select * from master.dbo.calendar
-
-
-
-						}
-				}
-				
-				public internal class Selection()
-				{
-					
-					public datetime()
+			}
+			
+			public internal class Insertion()
+			{
+					public Shitty_Callendar()
 					{
 						
-						--trunc by month
-						select dateadd (yy,DATEDIFF(yy, 0,GETDATE()),0)
-						select CONVERT(date,GETDATE(),103) where CONVERT(date,GETDATE(),103) = '01/09/2016'
-						CONVERT(datetime,"DATE",104)
-						select @@ROWCOUNT from DWH_replica.dbo.FD_ACQ_D
-						
-						select  
-						format(
-						getdate()
-						,'dd.MM.yyyy hh:mm:ss');
-						
-						select convert(varchar,getdate(),120);
-						select convert(date,getdate(),113);
-						
-					}
+						drop table  master.dbo.calendar ;
+						create table master.dbo.calendar (id int ,"DATE" date
+						, primary key (ID)
+						);
 
-				}
+						delete from master.dbo.calendar;
+
+						declare @cnt int ;
+						declare @max int;
+						select @cnt = 0;
+						set @max = 12*10;
+
+						while @cnt < @max
+						begin
+						set @cnt = @cnt+1;
+						print(dateadd(month,-(@max-@cnt),dateadd(MONTH,DATEDIFF(MONTH,0,getdate()),0)));
+
+						insert into master.dbo.calendar (ID,DATE)
+						values (
+						@cnt,
+						dateadd(month,-(@max-@cnt),dateadd(MONTH,DATEDIFF(MONTH,0,getdate()),0))
+						);
+						--print(- @cnt);
+						end ;
+
+
+						select * from master.dbo.calendar
+
+
+
+					}
+			}
+			
+			public internal class Selection()
+			{
 				
-				public internal class MAINTANANCE()
+				public datetime()
 				{
 					
-					public tableCreate()
-					{
-										
-						//table with prim,sec keys
-						create table teble(
-						ID int not null identity(0,1), --not nullable id increasing from 0 by 1 every insert
-						SEC_ID int null, --foreign key
-						primary key(ID), -- indicates primary key
-						foreign key(SEC_ID) references SEC_NAMES(ID), -- indicates secondary key and according key in other table
-						)
+					--trunc by month
+					select dateadd (yy,DATEDIFF(yy, 0,GETDATE()),0)
+					select CONVERT(date,GETDATE(),103) where CONVERT(date,GETDATE(),103) = '01/09/2016'
+					CONVERT(datetime,"DATE",104)
+					select @@ROWCOUNT from DWH_replica.dbo.FD_ACQ_D
+					
+					select  
+					format(
+					getdate()
+					,'dd.MM.yyyy hh:mm:ss');
+					
+					select convert(varchar,getdate(),120);
+					select convert(date,getdate(),113);
+					
+				}
 
-						//create table add key add foreign key
-						create table DWH_replica.dbo.table2 (
-						ID int not null identity(0,1),
-						TXT varchar(50),
-						DT Datetime);
+			}
+			
+			public internal class MAINTANANCE()
+			{
+				
+				public tableCreate()
+				{
+									
+					//table with prim,sec keys
+					create table teble(
+					ID int not null identity(0,1), --not nullable id increasing from 0 by 1 every insert
+					SEC_ID int null, --foreign key
+					primary key(ID), -- indicates primary key
+					foreign key(SEC_ID) references SEC_NAMES(ID), -- indicates secondary key and according key in other table
+					)
 
-						alter table DWH_replica.dbo.table2
-						add primary key (ID);
+					//create table add key add foreign key
+					create table DWH_replica.dbo.table2 (
+					ID int not null identity(0,1),
+					TXT varchar(50),
+					DT Datetime);
 
-						create table DWH_replica.dbo.table1 (
-						ID int not null identity(0,1),
-						SEC_ID int null,
-						primary key (ID),
-						foreign key (SEC_ID) references DWH_replica.dbo.table2(ID));
+					alter table DWH_replica.dbo.table2
+					add primary key (ID);
 
-					}
+					create table DWH_replica.dbo.table1 (
+					ID int not null identity(0,1),
+					SEC_ID int null,
+					primary key (ID),
+					foreign key (SEC_ID) references DWH_replica.dbo.table2(ID));
+
+				}
+
+			}
+		
+			public void Queries()
+			{
+				
+				public void Cases()
+				{
+					
+--Sample get max value for col1 by col2
+create table #Temp(
+	 EmplID int,DepID int ,Sal dec, primary key (EmplID)
+)
+
+declare @counter1 smallint;
+declare @counter2 smallint;
+declare @counter3 smallint;
+declare @sal dec;
+
+set @counter1 = 0;
+set @counter2 = 0;
+set @counter3 = 0;
+
+while @counter1 < 50
+	begin	
+		while @counter2 < 5
+		begin
+			set @sal = rand()*1000;
+			insert into #Temp (EmplID,DepID,Sal) values(@counter1,@counter3,@sal);
+			set @counter1=@counter1+1;
+			set @counter2=@counter2+1;
+		end;
+		set @counter2=0;
+		set @counter3=@counter3+1;
+	end;
+go
+
+select * from #Temp;
+
+select t2.EmplID, t.DepID,t."SAL" from (select DepID, max(Sal) "SAL" from #Temp group by DepID) t
+left join (select EmplID,Sal from #Temp) t2 on t."SAL" = t2.Sal
+
+drop table #Temp;
+
+
+
+--Exists instead of not null
+create table #Colors(Color varchar(10) primary key);
+create table #Clothes(Color varchar(10),Clothes varchar(10));
+
+insert into #Colors (Color) values ('Red');
+insert into #Colors (Color) values ('Blue');
+insert into #Colors (Color) values ('Green');
+insert into #Colors (Color) values ('Cyan');
+insert into #Colors (Color) values ('Yellow');
+
+insert into #Clothes values('Red','Trouses');
+insert into #Clothes values('Blue','Skit');
+insert into #Clothes values(null,'Coat');
+
+select * from #Colors;
+select * from #Clothes;
+
+
+select * from #Colors t
+where not exists (select * from #Clothes c where c.Color=t.Color);
+
+
+drop table #Colors;
+drop table #Clothes;
+
+
+
+
+
+--check cast varchar to int
+create table #Account(Name varchar(20) ,Val varchar(20));
+
+insert into #Account values ('name1','abc');
+insert into #Account values ('name2',1);
+insert into #Account values ('name3',2);
+insert into #Account values ('name4','4');
+insert into #Account values ('name5','as');
+
+select 
+*
+from #Account where 1=1 
+--and  Val not like '%[^0-9]%'
+and 
+case when Val not like '%[^0-9]%' then cast(Val as int) 
+ end > 0;
+
+drop table #Account;
+
 
 				}
 			
-				public void Queries()
-				{
-					
-					public void Cases()
-					{
-						
-	--Sample get max value for col1 by col2
-	create table #Temp(
-		 EmplID int,DepID int ,Sal dec, primary key (EmplID)
-	)
-
-	declare @counter1 smallint;
-	declare @counter2 smallint;
-	declare @counter3 smallint;
-	declare @sal dec;
-
-	set @counter1 = 0;
-	set @counter2 = 0;
-	set @counter3 = 0;
-
-	while @counter1 < 50
-		begin	
-			while @counter2 < 5
-			begin
-				set @sal = rand()*1000;
-				insert into #Temp (EmplID,DepID,Sal) values(@counter1,@counter3,@sal);
-				set @counter1=@counter1+1;
-				set @counter2=@counter2+1;
-			end;
-			set @counter2=0;
-			set @counter3=@counter3+1;
-		end;
-	go
-
-	select * from #Temp;
-
-	select t2.EmplID, t.DepID,t."SAL" from (select DepID, max(Sal) "SAL" from #Temp group by DepID) t
-	left join (select EmplID,Sal from #Temp) t2 on t."SAL" = t2.Sal
-
-	drop table #Temp;
-
-
-
-	--Exists instead of not null
-	create table #Colors(Color varchar(10) primary key);
-	create table #Clothes(Color varchar(10),Clothes varchar(10));
-
-	insert into #Colors (Color) values ('Red');
-	insert into #Colors (Color) values ('Blue');
-	insert into #Colors (Color) values ('Green');
-	insert into #Colors (Color) values ('Cyan');
-	insert into #Colors (Color) values ('Yellow');
-
-	insert into #Clothes values('Red','Trouses');
-	insert into #Clothes values('Blue','Skit');
-	insert into #Clothes values(null,'Coat');
-
-	select * from #Colors;
-	select * from #Clothes;
-
-
-	select * from #Colors t
-	where not exists (select * from #Clothes c where c.Color=t.Color);
-
-
-	drop table #Colors;
-	drop table #Clothes;
-
-
-
-
-
-	--check cast varchar to int
-	create table #Account(Name varchar(20) ,Val varchar(20));
-
-	insert into #Account values ('name1','abc');
-	insert into #Account values ('name2',1);
-	insert into #Account values ('name3',2);
-	insert into #Account values ('name4','4');
-	insert into #Account values ('name5','as');
-
-	select 
-	*
-	from #Account where 1=1 
-	--and  Val not like '%[^0-9]%'
-	and 
-	case when Val not like '%[^0-9]%' then cast(Val as int) 
-	 end > 0;
-
-	drop table #Account;
-
-
-					}
-				
-				}
-		
-			}
+			}			
 		
 		}
 	
 	}
 		
-	public void NoSQL(){
+	public void NoSQL()
+	{
 
 		public void OrientDB()
 		{
 				
 			public void REST_API()
 			{
-			
+
+host:port/ApiType/dbName/
+host:port/ApiType/dbName/FunctionName/Params
+host:port/ApiType/dbName/sql/commandText
+
+
 //get database
 http://msk1-vm-ovisp02:2480/database/news_test1
 //geet class
@@ -5861,7 +5866,7 @@ http://msk1-vm-ovisp02:2480/class/news_test1/Authorship
 //execute indeponent function
 http://msk1-vm-ovisp02:2480/function/news_test1/GetEntity/100
 
-//GET sql 
+//GET sql
 http://msk1-vm-ovisp02:2480/query/news_test1/sql/select * from Entity
 //POST sql 
 http://msk1-vm-ovisp02:2480/command/news_test1/sql/select * from Entity
@@ -5869,8 +5874,8 @@ http://msk1-vm-ovisp02:2480/command/news_test1/sql/select * from Entity
 http://msk1-vm-ovisp02:2480/function/news_test1/GetEntity/100
 //call to HW API
 api/Orient/GetByID/1
-			
-//batch 
+
+//batch
 
 http://msk1-vm-ovisp02:2480/batch/news_test3/
 
@@ -5879,7 +5884,7 @@ http://msk1-vm-ovisp02:2480/batch/news_test3/
     {
       "type" : "script",
       "language" : "sql",
-      "script" : [ 
+      "script" : [
 		  "create vertex Object set Content=\"A\""
 		  ,"create vertex Object set Content=\"A\""
 	  ]
@@ -5890,11 +5895,7 @@ http://msk1-vm-ovisp02:2480/batch/news_test3/
 delete vertex from  object where Content="A"
 
 		}
-		
-		
-		public void SQL()
-		{
-   
+
 			public void Maintenance()
 			{
 //Query metadata
@@ -5902,10 +5903,310 @@ delete vertex from  object where Content="A"
 select expand(classes) from metadata:schema
 //get properties for classes
 select expand(properties) from (select expand(classes) from metadata:schema)
+	
+	public CreateFunctQuery()
+	{
+		
+CREATE FUNCTION test "var g=orient.getGraph(); var b=g.command(\"sql\",\"select if(eval(\'1=2\'),2,3) \" ); return b;" 
+PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
+	
+CREATE FUNCTION test "var g=orient.getGraph(); var b=g.command(\"sql\",\"select from Person where sAMAccountName = 'kpa' \" ); return b;" 
+PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
+
+CREATE FUNCTION test "var g=orient.getGraph(); var b=g.command(\"sql\",\"select if(eval(\'1=2\'),2,3) \" ); return b;" 
+PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
+		
+	}
+	
+	public void Initial_NewsApi_Queries()
+	{
+		
+CREATE CLASS VSC extends V;
+
+CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.GUID STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.Created DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.Changed DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.PGUID STRING;
+CREATE PROPERTY VSC.Disabled DATETIME;
+
+ALTER PROPERTY VSC.GUID DEFAULT uuid();
+ALTER PROPERTY VSC.Created DEFAULT "sysdate()";
+ALTER PROPERTY VSC.Changed DEFAULT "sysdate()";
+
+
+CREATE CLASS ESC extends E;
+
+CREATE PROPERTY ESC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.GUID STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.Created DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.Changed DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.PGUID STRING;
+CREATE PROPERTY ESC.Disabled DATETIME;
+
+ALTER PROPERTY ESC.GUID DEFAULT uuid();
+ALTER PROPERTY ESC.Created DEFAULT "sysdate()";
+ALTER PROPERTY ESC.Changed DEFAULT "sysdate()";
+
+create class Unit extends VSC;
+create class Person extends VSC;
+
+create class SubUnit extends E;
+create class MainAssignment extends ESC;
+create class InExtAssignment extends ESC;
+create class OutExtAssignment extends ESC;
+create class OldMainAssignment extends ESC;
+
+delete vertex Unit;
+delete vertex Person;
+delete edge SubUnit;
+delete edge MainAssignment;
+delete edge InExtAssignment;
+delete edge OutExtAssignment;
+delete edge OldMainAssignment;
+
+ALTER PROPERTY ESC.GUID DEFAULT uuid();
+ALTER PROPERTY ESC.Created DEFAULT sysdate();
+ALTER PROPERTY ESC.Changed DEFAULT sysdate();
+ALTER PROPERTY VSC.GUID DEFAULT uuid();
+ALTER PROPERTY VSC.Created DEFAULT sysdate();
+ALTER PROPERTY VSC.Changed DEFAULT sysdate();
+ALTER PROPERTY VSC.Seed DEFAULT "sequence('intranet_seed').next()"
+
+alter database custom standardElementConstraints=false
+
+CREATE PROPERTY MainAssignment.Weight INTEGER;
+
+/*Lowerest level Weight*/
+update MainAssignment set Weight = 1000;
+
+/*Managment hierarhy*/
+update MainAssignment set Weight = 0 where Name = 'Генеральный директор'
+update MainAssignment set Weight = 1 where Name = 'Заместитель Генерального директора'
+update MainAssignment set Weight = 50 where Name = 'Директор Административного департамента - Финансовый директор'
+update MainAssignment set Weight = 50 where Name = 'Директор департамента'
+update MainAssignment set Weight = 50 where Name = 'Директор департамента / Главный архитектор'
+update MainAssignment set Weight = 50 where Name = 'Директор Департамента ИТ'
+update MainAssignment set Weight = 50 where Name = 'Директор Департамента маркетинга и развития бренда'
+update MainAssignment set Weight = 50 where Name = 'Директор Департамента стратегического планирования и проектного управления'
+update MainAssignment set Weight = 50 where Name = 'Директор Организационно-правового департамента'
+update MainAssignment set Weight = 50 where Name = 'Директор по персоналу, руководитель Службы персонала'
+update MainAssignment set Weight = 50 where Name = 'Коммерческий директор - директор департамента'
+update MainAssignment set Weight = 51 where Name = 'Заместитель директора департамента'
+update MainAssignment set Weight = 51 where Name = 'Заместитель директора Департамента архитектуры и разработки ПО'
+update MainAssignment set Weight = 51 where Name = 'Заместитель директора департамента ИТ'
+update MainAssignment set Weight = 51 where Name = 'Заместитель директора департамента-HR директор'
+update MainAssignment set Weight = 100 where Name = 'Начальник управления'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления cпециальных проектов и PR'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления администрации и делопроизводства'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления безопасности'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления бухгалтерского учета и отчетности - Главный бухгалтер'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления бюджетирования и управленческого учета'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления внутреннего аудита (контроля)'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления инноваций'
+update MainAssignment set Weight = 100 where Name = 'Начальник управления инфраструктуры'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления по работе с платежными системами'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления развития продуктов и партнерских программ'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления разработки ПО'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления разработки правил НСПК'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления разработки программного обеспечения'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления регламентации и процедур'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления тарифов и отчетности'
+update MainAssignment set Weight = 100 where Name = 'Начальник Управления технологий'
+update MainAssignment set Weight = 100 where Name = 'Начальник Юридического управления'
+update MainAssignment set Weight = 101 where Name = 'Заместитель начальника отдела'
+update MainAssignment set Weight = 101 where Name = 'Заместитель начальника Отдела взаимоотношений с поставщиками'
+update MainAssignment set Weight = 101 where Name = 'Заместитель начальника управления'
+update MainAssignment set Weight = 101 where Name = 'Заместитель начальника Управления безопасности'
+update MainAssignment set Weight = 101 where Name = 'Заместитель начальника Управления бухгалтерского учета и отчетности'
+update MainAssignment set Weight = 101 where Name = 'Заместитель начальника Управления развития продуктов и партнерских программ'
+update MainAssignment set Weight = 150 where Name = 'Начальник отдела'
+update MainAssignment set Weight = 150 where Name = 'Начальник отдела - заместитель начальника управления'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела администрирования инфраструктурных сервисов'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела взаимоотношений с поставщиками'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела внутренней безопасности'
+update MainAssignment set Weight = 150 where Name = 'Начальник отдела инфраструктурного мониторинга'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела криптографической защиты информации'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела международных проектов'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела мониторинга бизнес-процессов'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела мониторинга и контроля информационной безопасности'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела по договорной работе'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела по корпоративно-правовой работе'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела правового сопровождения НСПК'
+update MainAssignment set Weight = 150 where Name = 'Начальник отдела протокола'
+update MainAssignment set Weight = 150 where Name = 'Начальник отдела разработки программных комплексов'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела сопровождения информационной безопасности и развития систем защиты'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела статистики и отчетности'
+update MainAssignment set Weight = 150 where Name = 'Начальник Отдела тестирования'
+update MainAssignment set Weight = 150 where Name = 'Начальник отдела тестирования онлайн систем'
+update MainAssignment set Weight = 150 where Name = 'Начальник отдела технического администрирования'
+
+	}
+
+	public void Initial_NewsApi_Functions()
+	{
+		//create function 
+		//CREATE FUNCTION test "var g=orient.getGraph();var b=g.command(\"sql\",\"select from Person where sAMAccountName =  '\"+accountName+\"' \");return b;" PARAMETERS [accountName]  IDEMPOTENT true LANGUAGE JAVASCRIPT	
+		
+		/*GetUnitByAccount*/
+
+		CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\"sql\",\" select r.ToLowerCase() as r from (select '\"+input+\"' as r) \"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;
+		CREATE FUNCTION GetUnitByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"select in(\\\"MainAssignment\\\").Name[0] as Name from Person WHERE sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0] and (inE(\\\"MainAssignment\\\")[0].Disabled is null or inE(\\\"MainAssignment\\\")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )\"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetDepartmentByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\" select Name from ( traverse in('MainAssignment','SubUnit') from (select from Person where sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0] ) ) where PGUID='00000000-0000-0000-0000-000000000000'  \" ); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetManagerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"select r.Name as Name from ( select from ( select   /*If person Weight is smallest -> header of Unit => get PUnit header   else Unit Header   */ if(eval('$z.w[0]=$a.w[0]'),$f,$e) as r let   x = (select sAMAccountName as n  from Person where sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]  ) 	/*person Weight*/   ,$z = (       select Weight as w from (select expand(inE('MainAssignment')) from Person where sAMAccountName=$x.n[0])   where (Disabled is null or Disabled >= sysdate() and (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' ))   )   /*Min weigth in Person Unit*/   ,$a = (	   select min(Weight) as w from (select expand(inE('MainAssignment').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName=$x.n[0]  )   where (Disabled is null or Disabled >= sysdate() and  (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' )) ) /*Min weigth in Person PUnit*/   , $b = (     select min(Weight) as w from (       select expand(inE('MainAssignment').outV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')  ) from Person where sAMAccountName=$x.n[0]     ) where (Disabled is null or Disabled >= sysdate() and  (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' ))   )   /*Person Unit person appointment*/   	, $c = (        select Weight as w , inV('Person').sAMAccountName as Name from (select expand(inE('MainAssignment').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName=$x.n[0]  )   where (Disabled is null or Disabled >= sysdate() and  (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' ))     )   /*Person PUnit person appointment*/   ,$d =(      select Weight as w , inV('Person').sAMAccountName as Name from (       select expand(inE('MainAssignment').outV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')  ) from Person where sAMAccountName=$x.n[0]     ) where (Disabled is null or Disabled >= sysdate() and  (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' ))   )   /*Person Unit Header $a->$c */   , $e = ( select from ( select expand($c)) where 1=1 and w = $a.w[0]   )     /*Person PUnit Header $a->$c */ , $f = ( select from ( select expand($d)) where 1=1 and w = $b.w[0] ))) /* where 1=1 and w = $a.w[0] */ \"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetManagerHierarhyByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select Acc as Name from ( select expand($e) let $x = ( select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]    )   ,$a = (      /*From Person by Unit Hierarhy*/     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d,   inE('MainAssignment').Weight[0] as w from (       select expand(inV()) from ( traverse inE('MainAssignment','SubUnit')   ,outE('MainAssignment'),outV('Unit','Person') from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0] )           ) ) where 1=1        and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )   and (Disabled is null) and     (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )      /*If account name not assigned then deputy*/ 	and sAMAccountName is not null       ),   $c = (      /*Select Header by Weight 0 */     select  Name as n, sAMAccountName as Acc,   inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').Weight[0] as w   from (       select from Person where inE('MainAssignment').Weight[0] = 0     )    ) ,   $e = unionall (      /*Union all Unit Headers and Directory (as ddirectory not in linear structure -> not binded to parent node*/     $a,$c    )   , $b = (      /*From United Person by Unit Hierarhy minimal Wights in Unit*/     select d , min(w) as w from (       select expand($e)     ) group by d    )  )  where 1=1      and w in $b.w     and w != $x.inE('MainAssignment').Weight[0] order by Name \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetCollegesByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select in().Out('MainAssignment').sAMAccountName as Name from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]  and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' ) order by Name  \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetCollegesLowerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select sAMAccountName as Name from ( 	traverse out() from ( 	select in() from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]  ) 	) 	where @class = \'Person\' 	and not ( 	(Name like '%директор департамента%') 	or ( Name like '%ачальник %') and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )	) order by Name  \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		
+	}
 			}
-			
+
 			public void Queries()
 			{
+
+https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
+https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
+
+public NestedAggr() {
+	
+select  from (
+select expand($a) 
+
+let
+$b = (
+  
+select  
+ max($depth ) as d  
+  from (
+  traverse inE('MainAssignment','SubUnit'),outV(),outE('MainAssignment'),outE('SubUnit')
+  ,outE(),inE(),outV()
+  from (
+
+	select
+	from person where 1=1
+	and sAMAccountName='kpa'
+	/* and in().Out('MainAssignment').inE() is null */
+	and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate()) and (Disabled is null) and
+	(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+
+  )) where @Class = 'Unit'
+  
+),
+$a = (
+
+select  
+  GUID,Name, $depth as d
+  
+  from (
+  traverse inE('MainAssignment','SubUnit'),outV(),outE('MainAssignment'),outE('SubUnit')
+  ,outE(),inE(),outV()
+  from (
+
+	select
+	from person where 1=1
+	and sAMAccountName='kpa'
+	/* and in().Out('MainAssignment').inE() is null */
+	and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate()) and (Disabled is null) and
+	(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+
+  )) where @Class = 'Unit'
+  
+)
+
+) where 1=1
+and d=$b.d[0]
+
+}
+
+public traversePath(){
+//path 
+traverse inE('MainAssignment','SubUnit'),outV() 
+
+
+traverse inE('MainAssignment','SubUnit'),outV()  from (
+select from person where 1=1 and sAMAccountName='lobanovamg'
+/* and in().Out('MainAssignment').inE() is null */
+and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
+(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+)
+}
+
+public PersonFilter(){
+
+//default person select no Fired or in maternity leave
+select expand(in().Out('MainAssignment').inE()) as p
+from person where 1=1 and sAMAccountName='lobanovamg'
+/* and in().Out('MainAssignment').inE() is null */
+and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
+(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+
+}
+
+public PersonLower(){
+	
+	 select Name,sAMAccountName as Acc,  inE('MainAssignment').Name as nm,inE('MainAssignment').Weight as w, inE('MainAssignment').Disabled as d,
+    inE('MainAssignment').State as s from person where 1=1 and sAMAccountName in ['filimonovats','eliseevavv','kpa']
+    
+	
+}
+
+public LevelParody(){
+	
+//something like MOTHERFUCKING LEVEL
+//unpredictable inE(), outV() and "while $depth" working
+select from (
+traverse both() from (
+select from (
+traverse inE() from (
+
+select
+from person where 1=1
+and sAMAccountName='kpa'
+/* and in().Out('MainAssignment').inE() is null */
+and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate()) and (Disabled is null) and
+(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+
+) while $depth <=2
+) where 1=1
+/* and @class = 'Object' */
+) while $depth <=5
+) where 1=1
+/* and  @class = 'Object' */
+and $depth >=1
+and $depth <=4
+
+}
+
+public ConditionalSelect(){
+
+
+select
+
+if(eval('$a.r[0]=0'),$b.Name,'a') as r
+
+from (
+select $b,$c
+let 
+$b = (select from Person),
+$c = (select from Unit),
+$a =(
+  select min(r) as r from (
+
+	select if( eval('GUID=\'4e28f31a-89b8-11e4-bab2-00c2c66d13b0\''),0,1) as r from Person where GUID in (
+	  select GUID from Person where GUID in
+	  ['4e28f31a-89b8-11e4-bab2-00c2c66d13b0','0963f5ee-cbae-11e4-b849-f80f41d3dd35','f58c67e4-ab78-11e4-b308-f80f41d3dd35'])
+
+  )
+)
+
+)
+
+
+
+}
+
+public Unsorted(){
+
 
 //returns nothing
 select from Person where MainAssignment[GUID] = '4e28f319-89b8-11e4-bab2-00c2c66d13b0'
@@ -5923,6 +6224,12 @@ select Name, if(eval('@class=\"Unit\"'),In("SubUnit").Name,In("MainAssignment").
 traverse out('MainAssignment','SubUnit')
 from (select from Unit where Name = 'НСПК') strategy BREADTH_FIRST
 //strategy DEPTH_FIRST
+
+
+//traverse path
+traverse in('MainAssignment','SubUnit')
+from (select from Person where sAMAccountName ='somovnv')
+
 
 //Shortest path shortestpath/dijkstra
 SELECT expand(Path) FROM ( select shortestpath($a,$b,'both',null,{"masdepth":2}) as Path
@@ -5967,6 +6274,7 @@ select expand(Path) from  ( select shortestpath($a,$b,'both',null,{"maxdepth":1}
 let $a = (select from Unit where Name = "Управление развития и поддержки программы лояльности"),
 $b = (select from Unit where GUID = '00000000-0000-0000-0000-000000000000')
 unwind Path) ) while $depth <=1 ) where $depth >=1
+
 //Select level by case
 	select Name from (
 	select Name , 
@@ -6046,8 +6354,12 @@ unwind Path) ) while $depth <=1 ) where $depth >=1
 		)
 	)
 	
+
+}
+
+
 			}
-										
+
 			public void Functions()
 			{
 				
@@ -6058,19 +6370,68 @@ unwind Path) ) while $depth <=1 ) where $depth >=1
 					public void GetUnitByAccount()
 					{
 						
+						/*
+
+db3 kpa 21:265 	db2 22:187
+
+						*/
+						
+						
 var g=orient.getGraph();
-var b=g.command("sql","select in().Name[0] from Person WHERE[Name, sAMAccountName] LUCENE \"*"+accountName+"*\" and (inE(\"MainAssignment\")[0].Disabled is null or inE(\"MainAssignment\")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )");
+var b=g.command("sql","select in(\"MainAssignment\").Name[0] as Name from Person WHERE sAMAccountName = \""+accountName+"\" and (inE(\"MainAssignment\")[0].Disabled is null or inE(\"MainAssignment\")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )");
 return b;
+
 
 					}
 					
 					//Определить Управление\Департамент Сотрудника А.
 					public void GetDepartmentByAccount()
 					{
-						
+
+					
 var g=orient.getGraph();
 var b=g.command("sql","select Name from (select expand($d) let $b = (select from Unit where GUID = '00000000-0000-0000-0000-000000000000'),$dep = (select expand(in()[0]) from Person WHERE sAMAccountName like '%"+accountName+"%' and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate()) and (Disabled is null) and (inE().State !='Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам')),$c = (select shortestpath($dep,$b,'both',null,null) as Path),$d=( select if(eval(\'Name like \"%правление%\"\'),2,if(eval(\'Name like \"%партамент%\"\'),1,-1)) as Depth,Name,GUID from (traverse in() from ( select expand($c) as Path) limit 3) ), $e=( select max(Depth) as Depth from (select expand($d)))) where 1=1 and $e.Depth[0] = Depth and GUID != '00000000-0000-0000-0000-000000000000' ");
 return b;
+
+//2 департмент после НСПК
+select Name from (
+traverse in('MainAssignment','SubUnit')
+from (select from Person where sAMAccountName ='somovnv')
+) where PGUID='00000000-0000-0000-0000-000000000000' 
+
+var g=orient.getGraph();
+var b=g.command("sql","select Name from (  traverse in('MainAssignment','SubUnit') from (select from Person where sAMAccountName ='"+accountName+"')  ) where PGUID='00000000-0000-0000-0000-000000000000' ");
+return b;
+
+
+
+
+//weighted for General 0, Departmens 50, Managements 100, Units 150, others 1000
+
+select Weight,Name, inV('Person').sAMAccountName, $a.inE()[0].Weight,$a.inE()[0].Name from (
+select
+/* Path.Name,Path.inE().Name, Path.in().Name, Path.in().outE() */
+expand(Path.in().outE())
+from (
+select	shortestpath($a,$c,'both',null,{"maxdepth":2}) as Path
+let $a = ( select from person where sAMAccountName = 'DegterevaSV' )
+, $b = (select from Unit where GUID = '00000000-0000-0000-0000-000000000000')
+, $c = (select from Person where inE().Weight[0]  = 0)
+unwind Path
+)   
+) where 1=1 
+and @class = 'MainAssignment' 
+and ( Disabled is null or Disabled > sysdate()) 
+and (inV().Disabled is null or inV().Disabled > sysdate())
+and (State !='Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам') 
+and Weight <  $a.inE()[0].Weight
+
+
+var g=orient.getGraph();
+var b=g.command("sql","select Name from (  traverse in('MainAssignment','SubUnit') from (select from Person where sAMAccountName ='"+accountName+"')  ) where PGUID='00000000-0000-0000-0000-000000000000' ");
+return b;
+
+
 
 						/*testcase
 							
@@ -6132,15 +6493,154 @@ return b;
 							levitskayaaa -> Управление бюджетирования и управленческого учета
 							
 						*/
+					
 					}
 					
 					//Определить непосредственного Руководителя Сотрудника А.
 					public void GetManagerByAccount()
 					{
-						
+
+/*
 var g=orient.getGraph();
-var b=g.command("sql","select $h.Acc let $c = (select min(Wg) as Wg from ( select value as Wg from ( select expand(inV().inE().Weight) as Wg from ( select expand(in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\")))) , $d = ( select inV().Name as Name,inV().sAMAccountName as Acc,inV().@rid as pId ,inV().inE().Weight[0] as Wg,inV().inE().Name[0] as Name2,inV().inE().outV().@rid[0] as uId from ( select expand(in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\") where $c.Wg[0]=Weight ), $e = (select min(Wg) as Wg from (select value as Wg from (  select expand(inV().inE().Weight) as Wg from (  select expand(in().in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\" )))) , $f = ( select inV().Name as Name,inV().sAMAccountName as Acc,inV().@rid as pId ,inV().inE().Weight[0] as Wg,inV().inE().Name[0] as Name2,inV().inE().outV().@rid[0] as uId from ( select expand(in().in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\") where $e.Wg[0]=Weight), $g = ( select inE().Weight[0] as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\"),$h = (select expand(if(eval(' $g.Wg[0]=$d.Wg[0]'),$f,$d)) )");
+var b=g.command("sql","select $h.Acc[0] as Name let $c = (select min(Wg) as Wg from ( select value as Wg from ( select expand(inV().inE().Weight) as Wg from ( select expand(in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\")))) , $d = ( select inV().Name as Name,inV().sAMAccountName as Acc,inV().@rid as pId ,inV().inE().Weight[0] as Wg,inV().inE().Name[0] as Name2,inV().inE().outV().@rid[0] as uId from ( select expand(in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\") where $c.Wg[0]=Weight ), $e = (select min(Wg) as Wg from (select value as Wg from (  select expand(inV().inE().Weight) as Wg from (  select expand(in().in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\" )))) , $f = ( select inV().Name as Name,inV().sAMAccountName as Acc,inV().@rid as pId ,inV().inE().Weight[0] as Wg,inV().inE().Name[0] as Name2,inV().inE().outV().@rid[0] as uId from ( select expand(in().in().OutE(\"MainAssignment\")) as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\") where $e.Wg[0]=Weight), $g = ( select inE().Weight[0] as Wg from Person where [Name,sAMAccountName] LUCENE \"%"+accountName+"%\"),$h = (select expand(if(eval(' $g.Wg[0]=$d.Wg[0]'),$f,$d)) )");
 return b;
+*/
+
+var g=orient.getGraph();
+var b=g.command("sql","select r.Name as Name from ( select from ( select   /*If person Weight is smallest -> header of Unit => get PUnit header   else Unit Header   */ if(eval('$z.w[0]=$a.w[0]'),$f,$e) as r let   x = (select sAMAccountName as n  from Person where sAMAccountName='"+accountName+"' ) 	/*person Weight*/   ,$z = (       select Weight as w from (select expand(inE('MainAssignment')) from Person where sAMAccountName=$x.n[0])   where (Disabled is null or Disabled >= sysdate() and (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' ))   )   /*Min weigth in Person Unit*/   ,$a = (	   select min(Weight) as w from (select expand(inE('MainAssignment').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName=$x.n[0]  )   where (Disabled is null or Disabled >= sysdate() and  (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' )) ) /*Min weigth in Person PUnit*/   , $b = (     select min(Weight) as w from (       select expand(inE('MainAssignment').outV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')  ) from Person where sAMAccountName=$x.n[0]     ) where (Disabled is null or Disabled >= sysdate() and  (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' ))   )   /*Person Unit person appointment*/   	, $c = (        select Weight as w , inV('Person').sAMAccountName as Name from (select expand(inE('MainAssignment').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName=$x.n[0]  )   where (Disabled is null or Disabled >= sysdate() and  (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' ))     )   /*Person PUnit person appointment*/   ,$d =(      select Weight as w , inV('Person').sAMAccountName as Name from (       select expand(inE('MainAssignment').outV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')  ) from Person where sAMAccountName=$x.n[0]     ) where (Disabled is null or Disabled >= sysdate() and  (State !=\'Отпуск по уходу за ребенком' and State !=\'Отпуск по беременности и родам' ))   )   /*Person Unit Header $a->$c */   , $e = ( select from ( select expand($c)) where 1=1 and w = $a.w[0]   )     /*Person PUnit Header $a->$c */ , $f = ( select from ( select expand($d)) where 1=1 and w = $b.w[0] ))) /* where 1=1 and w = $a.w[0] */");
+return b;
+
+
+//NEW manager query
+//<<<<<<<<<<<<<<<<<
+
+
+select 
+  /*
+  If person Weight is smallest -> header of Unit => get PUnit header
+  else Unit Header
+  */
+if(eval('$z.w[0]=$a.w[0]'),if(eval('$x.inE(\'MainAssignment\').outV(\'Unit\').PGUID =\'00000000-0000-0000-0000-000000000000\''),'kvv',$f),$e) as r
+/* if(eval('1=2'),1,if(eval('1=2'),2,3)) */
+
+
+
+let
+  $x = ( select  from Person where sAMAccountName=GetLowerCase('"+accountName+"').r[0])
+	/*person Weight*/
+  ,$z = (
+      select Weight as w from (select expand(inE('MainAssignment')) from Person where sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase())
+  where (inE('MainAssignment').Disabled is null or inE('MainAssignment').Disabled >= sysdate() and (inE('MainAssignment').State != 'Отпуск по уходу за ребенком' and inE('MainAssignment').State != 'Отпуск по беременности и родам' ))
+  )
+  /*Min weigth in Person Unit*/
+  ,$a = (
+    
+select min(Weight) as w from (
+select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase()
+) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null
+
+)
+/*Min weigth in Person PUnit*/
+  , $b = ( 
+    
+  select min(Weight) as w from (
+select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase()
+) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null
+
+  )
+  /*Person Unit person appointment*/
+  	, $c = (
+   
+   select Name as d ,Weight as w,inV('Person').sAMAccountName as Name from (
+select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase()
+) where    (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null
+
+    )
+  /*Person PUnit person appointment*/
+  ,$d =(
+    
+    select Name as d ,Weight as w,inV('Person').sAMAccountName as Name from (
+select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase()
+) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null
+    
+  )
+  /*Person Unit Header $a->$c */
+  , $e = (
+     select from ( select expand($c)) where 1=1 and w =  $a.w[0]
+  )
+    /*Person PUnit Header $a->$c */
+  , $f = (
+     select from ( select expand($d)) where 1=1 and w = $b.w[0]
+  )
+
+  
+  
+  
+  
+  
+//<<<<<<<<<<<<<<<
+
+select r.Name[0] as Name from (
+
+select 
+  /*If person Weight is smallest -> header of Unit => get PUnit header 
+  else Unit Header
+  */
+if(eval('$z.w[0]=$a.w[0]'),$f,$e) as r
+/* expand($e) */
+  
+let
+  x = ( select  from Person where sAMAccountName='YablokovAE' )
+	/*person Weight*/
+  ,$z = (
+      select Weight as w from (select expand(inE('MainAssignment')) from Person where sAMAccountName=$x.sAMAccountName[0])
+  where (inE('MainAssignment').Disabled is null or inE('MainAssignment').Disabled >= sysdate() and (inE('MainAssignment').State != 'Отпуск по уходу за ребенком' and inE('MainAssignment').State != 'Отпуск по беременности и родам' ))
+  )
+  /*Min weigth in Person Unit*/
+  ,$a = (
+    
+select min(Weight) as w from (
+select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where sAMAccountName=$x.sAMAccountName[0]
+) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null
+
+)
+/*Min weigth in Person PUnit*/
+  , $b = ( 
+    
+  select min(Weight) as w from (
+select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName=$x.sAMAccountName[0]
+) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null
+
+  )
+  /*Person Unit person appointment*/
+  	, $c = (
+   
+   select Name as d ,Weight as w,inV('Person').sAMAccountName as Name from (
+select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where sAMAccountName=$x.sAMAccountName[0]
+) where    (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null
+
+    )
+  /*Person PUnit person appointment*/
+  ,$d =(
+    
+    select Name as d ,Weight as w,inV('Person').sAMAccountName as Name from (
+select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName=$x.sAMAccountName[0]
+) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null
+    
+  )
+  /*Person Unit Header $a->$c */
+  , $e = (
+     select from ( select expand($c)) where 1=1 and w =  $a.w[0]
+  )
+    /*Person PUnit Header $a->$c */
+  , $f = (
+     select from ( select expand($d)) where 1=1 and w = $b.w[0]
+  )
+
+  )
+   
+
+
 
 
 						//tests
@@ -6203,8 +6703,8 @@ return b;
 							levitskayaaa -> Управление бюджетирования и управленческого учета
 						*/
 							
-	//tests
-	/*
+						//tests
+						/*
 						
 gorevaps 
 malkhasyanar 
@@ -6241,26 +6741,27 @@ reznichenkoks
 Perepechiniv
 gashigullinrr
 levitskayaaa -> [
-                "krasotkinaei",
-                "andreevatv",
-                "Kushelevaib",
-                "Belyakovpn",
-                "kuzminay",
-                "SinitsynaTV",
-                "choi",
-                "koganal",
-                "levitskayaaa"
-            ]
+				"krasotkinaei",
+				"andreevatv",
+				"Kushelevaib",
+				"Belyakovpn",
+				"kuzminay",
+				"SinitsynaTV",
+				"choi",
+				"koganal",
+				"levitskayaaa"
+			]
 								
-	*/   
+	*/
+	
 					}
 									
 					//Определить цепочку руководителей от Сотрудника А до Генерального Директора
 					public void GetManagerHierarhyByAccount()
 					{
-						
+
 var g=orient.getGraph();
-var b=g.command("sql","select Name from (select expand(out().inE()) as Mng from ( SELECT expand(Path) FROM (select shortestpath($a,$b,\'both\',null,{\"masdepth\":2}) as Path let $a = ( select from person where [Name,sAMAccountName] LUCENE \'%"+accountName+"%\'     ), $b = (select from person where Name like \'%Комлев Владимир Валерьевич%\') unwind Path )))	where (outV().Name like \'%Департамент%\' and  Name like \'%директор департамента%\') or (not (outV().Name like \'%Департамент%\') and Name like \'%ачальник %\') or (Name like \'%енеральный %\' )");
+var b=g.command("sql","  select Acc as Name from ( select expand($e) let $x = ( select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('"+accountName+"').r[0]    )  ,$a = (      /*From Person by Unit Hierarhy*/     select  Name as n, sAMAccountName as Acc, inE(\'MainAssignment\').outV(\'Unit\').Name[0] as d, inE(\'MainAssignment\').Weight[0] as w from (       select expand(inV()) from (            traverse inE(\'MainAssignment\',\'SubUnit\'),outE(\'MainAssignment\'),outV(\'Unit\',\'Person\') from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0] )           ) ) where 1=1      and (inE(\"MainAssignment\")[0].Disabled is null or inE(\"MainAssignment\")[0].Disabled >= sysdate() ) and (Disabled is null) and     (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\' )         /*If account name not assigned then deputy*/ 	and sAMAccountName is not null       ), $c = (      /*Select Header by Weight 0 */     select  Name as n, sAMAccountName as Acc, inE(\'MainAssignment\').outV(\'Unit\').Name[0] as d, inE(\'MainAssignment\').Weight[0] as w from (       select from Person where inE(\'MainAssignment\').Weight[0] = 0     )    ) , $e = unionall (      /*Union all Unit Headers and Directory (as ddirectory not in linear structure -> not binded to parent node*/     $a,$c    ), $b = (      /*From United Person by Unit Hierarhy minimal Wights in Unit*/     select d , min(w) as w from (       select expand($e)     ) group by d    )  )  where 1=1      and w in $b.w     and w != $x.inE(\'MainAssignment\').Weight[0] order by Name ");
 return b;
 						
 						//tests
@@ -6278,22 +6779,205 @@ gashigullinrr
 levitskayaaa -> [\"choi\",\"koganal\",\"kvv\"]						 
 							
 						*/
+		
+		
+	//<<<<<<<<<<<<<<<<<<<< Hierarhy ready
+
+select Acc as Name from (
+
+  select expand($e)
+
+  let
+  $x = (
+
+    select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('filimonovats').r[0]
+
+  )  ,$a = (
+
+    /*From Person by Unit Hierarhy*/
+    select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').Weight[0] as w from (
+      select expand(inV()) from (    
+        traverse inE('MainAssignment','SubUnit'),outE('MainAssignment'),outV('Unit','Person') from (
+          select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0] )     
+      ) ) where 1=1  
+    and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
+    (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+    
+    /*If account name not assigned then deputy*/
+	and sAMAccountName is not null
+    
+  ), $c = (
+
+    /*Select Header by Weight 0 */
+    select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').Weight[0] as w from (
+      select from Person where inE('MainAssignment').Weight[0] = 0
+    )
+
+  ) , $e = unionall (
+
+    /*Union all Unit Headers and Directory (as ddirectory not in linear structure -> not binded to parent node*/
+    $a,$c
+
+  ), $b = (
+
+    /*From United Person by Unit Hierarhy minimal Wights in Unit*/
+    select d , min(w) as w from (
+      select expand($e)
+    ) group by d
+
+  )
+
+)
+
+where 1=1
+
+    and w in $b.w
+    and w != $x.inE('MainAssignment').Weight[0]
+
+	
+		
+	//<<<<<<<<<<<<<<<<<<<< Hierarhy 1
+
+select from (
+  select expand($f)
+
+  let 
+
+
+  $e= (
+
+    /*min person by unit*/
+    select 
+    d,min(w) as w 
+
+    from (
+      select inE('MainAssignment').outV('SubUnit').Name[0] as d, inE('MainAssignment').Weight[0] as w from (
+        select expand ( outE('MainAssignment').inV('Person')) from (traverse inE('MainAssignment','SubUnit'),outV('Unit')
+                                                                    from ( select from Person where sAMAccountName='somovnv')) where @class='Unit'
+      ) 
+      where 1=1 
+
+      and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate()) and
+      (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+
+    )
+
+    group by d
+
+  ) 
+  , $f = (
+
+    /*Names weight*/
+    select sAMAccountName, Name , inE('MainAssignment').Weight[0] as w from (
+      
+      select expand ( outE('MainAssignment').inV('Person')) from (traverse inE('MainAssignment','SubUnit'),outV('Unit')
+                                                                  from ( select from Person where sAMAccountName='somovnv')                                                                 
+                                                                 ) where @class='Unit'
+    ) 
+    where 1=1 
+
+    and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate()) and
+    (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+
+
+  )
+)
+where w in $e.w
+
+
+//<<<<<<<<<<<<<< hierarhy 2	
+
+
+select 
+ inV('Person').sAMAccountName as Name , Name
+ from (   
+ select    expand(Path)  
+ from (     
+ 
+ select	shortestpath($a,$c,'both',null,{"maxdepth":2}) as Path
+
+ let 
+ 
+ $a = ( select from person where sAMAccountName.toLowerCase() = 'somovnv')    
+ , $b = (select from Unit where GUID = '00000000-0000-0000-0000-000000000000') 	
+ , $c = (select from Person where inE().Weight[0]  = 0)
+ , $e= (
+
+    /*min person by unit*/
+    select 
+    d,min(w) as w 
+
+    from (
+      select inE('MainAssignment').outV('SubUnit').Name[0] as d, inE('MainAssignment').Weight[0] as w from (
+        select expand ( outE('MainAssignment').inV('Person')) from (traverse inE('MainAssignment','SubUnit'),outV('Unit')
+                                                                    from ( select from Person where sAMAccountName='somovnv')) where @class='Unit'
+      ) 
+      where 1=1 
+
+      and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate()) and
+      (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+
+    )
+
+    group by d
+
+  ) 
+  , $f = (
+
+    /*Names weight*/
+    select sAMAccountName, Name , inE('MainAssignment').Weight[0] as w from (
+      
+      select expand ( outE('MainAssignment').inV('Person')) from (traverse inE('MainAssignment','SubUnit'),outV('Unit')
+                                                                  from ( select from Person where sAMAccountName='somovnv')                                                                 
+                                                                 ) where @class='Unit'
+    ) 
+    where 1=1 
+
+    and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate()) and
+    (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+
+
+  )
+   
+ unwind Path
+ )
+ )
+ where 1=1
+ and @class = 'MainAssignment'
+ and ( Disabled is null or Disabled > sysdate()) 
+ and (inV().Disabled is null or inV().Disabled > sysdate()) 
+ and (State !='Отпуск по уходу за ребенком' 
+ and State != 'Отпуск по беременности и родам')
+/*  and Weight <  $a.inE('MainAssignment')[0].Weight */
+and Weight in $e.w
+ 
+ 
+ 
 						
+					}
+					
+					public void GetCollegesByAccount()
+					{
 						
-						
+var g=orient.getGraph();
+var b=g.command("sql","  select in().Out('MainAssignment').sAMAccountName as Name from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('"+accountName+"').r[0]  and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' ) order by Name  "); 
+return b; 
+
 					}
 					
 					//Определить всех нижестоящих сотрудников относительно Сотрудника А.
 					public void GetCollegesLowerByAccount()
 					{
-						
+
 var g=orient.getGraph();
-var b=g.command("sql","select inV().sAMAccountName as Acc from ( select expand(out().inE()) as Mng from ( SELECT expand(Path) FROM ( select shortestpath($a,$b,\'both\',null,{\"masdepth\":2}) as Path let $a = ( select from person where [Name,sAMAccountName] LUCENE \'%"+accountName+"%\' ), $b = (select from person where Name like \'%Комлев Владимир Валерьевич%\') unwind Path)))	where (outV().Name like \'%Департамент%\' and  Name like \'%директор департамента%\')or (not (outV().Name like \'%Департамент%\') and Name like \'%ачальник %\')or (Name like \'%енеральный %\' )");
+var b=g.command("sql","select sAMAccountName as Name from ( 	traverse out() from ( 	select in() from person where 1=1 and sAMAccountName='"+accountName+"' ) 	) 	where @class = \'Person\' 	and not ( 	(Name like \'%директор департамента%\') 	or ( Name like \'%ачальник %\') and (inE(\"MainAssignment\")[0].Disabled is null or inE(\"MainAssignment\")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )	) order by Name");
 return b;
 
-  /*
+
+/*
 Perepechiniv -> ["fesenkoev","Averochkinaav", "Perepechiniv","diana.zainullina"]
 */															
+					
 					}
 					
 				}
@@ -6308,31 +6992,59 @@ var b=g.command("sql","select GUID as id, ifnull( if( eval(\"@class = 'Person'\"
 return b;
 					}
 					
-					public void GetPersonActive()
+					// public void GetPersonActive()
 					{
 var g=orient.getGraph(); 
 var b=g.command("sql",'select GetPersonPhoto(mail) as Photo, FirstName, GUID, PGUID ,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl,objectGUID from Person where GUID = "'+GUID+'"  and ((inE()[0].Disabled is null or inE()[0].Disabled >= sysdate() ) and (Disabled is null)  and ( ((@class = \'Person\') or (out(\"MainAssignment\").size() >0)  or (out(\"SubUnit\").size() >0)) or (Name = \'НСПК\')) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\'))'); 
 return b;
 					}
 
-		
+					public void GetLowerCase()
+					{
+						
+var g=orient.getGraph();
+var b=g.command("sql","select r.ToLowerCase() as r from (select '"+input+"' as r)");
+return b;
+
+					}
+					
 				}
-	
-	
+			
 			}
-	
+
+			public void DriverNotes()
+			{
+				Connection:Connect:IOperation{Request,Response}-
+				Request.MemoryStream.Send;IOperation(Response.Receive(NetworkStream.ReadByte()))->
+				Document
+			}
+
+			public void FU()
+			{
+
+//<< I
+//inverted V E In Out
+(v)-[e]->(v)
+out e in 
+
+[e]->(v)->[e]
+in v out
+
+//<< II
+//Traverse out -> shows nested Nodes but select from (traverse ) =< not
+//need to repeat in(),out syntax
+
+//<< III
+//parent Node 'NSPK' is not Unit -> its company
+
+
+			}
+
 		}
-		public void DriverNotes()
-		{
-			Connection:Connect:IOperation{Request,Response}-
-			Request.MemoryStream.Send;IOperation(Response.Receive(NetworkStream.ReadByte()))->
-			Document
-		}
-		
-	}
-	
+
 		public void Neo4J()
 		{
+			
 			public void PlayMovie()
 			{
 				CREATE (TheMatrix:Movie {title:'The Matrix', released:1999, tagline:'Welcome to the Real World'})
@@ -7000,12 +7712,9 @@ RAW JSON
 				}
 			
 		}
-			
-			
-	
 
 		}
-		
+
 	}
 	
 	#endregion
