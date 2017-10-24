@@ -20,7 +20,10 @@ using System.Web.Http;
 
 namespace ConsoleApp1
 {
-
+    public class Record
+    {
+        List<string> Name { get; set; }
+    }
     class OrientDriverConnnect
     {
 
@@ -28,28 +31,95 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
-            JScheck();
-           
-            ManagersCheck();
             PersonApiCheck();
-            BuilderCheck();
-            HTTPcheck();
 
+            JScheck();
+
+            BuilderCheck();
+            ManagersCheck();
+                      
+            HTTPcheck();
+            
         }
 
         public static void JScheck()
         {
-            JSONmanager jm = new JSONmanager();          
+            JSONmanager jm = new JSONmanager();
+
+            
             string input = "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#-2:0\",\"@version\":0,\"Name\":\"kapkaev\"},{\"@type\":\"d\",\"@rid\":\"#-2:1\",\"@version\":0,\"Name\":\"kokuevol\"}]}";
             string input2 = "[{\"@type\":\"d\",\"@rid\":\"#-2:13\",\"@version\":0,\"Name\":[\"tishakovoi\"]}]";
-            string input3 = "[{\"@type\":\"d\",\"@rid\":\"#-2:0\",\"@version\":0,\"Name\":\"Организационно-правовойдепартамент\"}]";
+            string input3 = "[{\"@type\":\"d\",\"@rid\":\"#-2:13\",\"@version\":0,\"Name\":[\"tishakovoi\"]},{\"@type\":\"d\",\"@rid\":\"#-2:13\",\"@version\":0,\"Name\":[\"kapkaev\"]}]";
 
+            string rk = @"result";
+            string nk = @"Name";
 
-            var a = JsonConvert.DeserializeObject(input2);
-            var b = JsonConvert.SerializeObject(a);
-            
-            var c = JToken.Parse(input2).Children()["Name"];
+            var des1 = JsonConvert.DeserializeObject(input);
+            var des2 = JsonConvert.DeserializeObject(input2);
+            var des3 = JsonConvert.DeserializeObject(input3);
 
+            JToken jt1 = null, jt2 = null;
+            Record jt3 =new Record();
+            JToken r1,r0 = null;
+            IEnumerable<JToken> r2 = null, r3 = null;
+
+            try{
+                jt1 = JsonConvert.DeserializeObject<JToken>(input);
+            }catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try{
+                jt2 = JsonConvert.DeserializeObject<JToken>(input2);
+            }catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try{
+                jt3 = JsonConvert.DeserializeObject<Record>(input3);
+            }catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+
+            //Json has parent node
+            try { JToken e1 = jt1[rk]; } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try { IEnumerable<JToken> e1 = jt1[rk].Children(); } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try { IEnumerable<JToken> e1 = jt1[rk].Children()[nk]; } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+
+            //Json has parent as collection
+                
+            //not OK
+            try { JToken e1 = jt2[rk];} catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try { JToken e1 = jt2[nk];} catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+
+            //OK
+            try { IEnumerable<JToken> e2 = jt2.Children();}catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try { IEnumerable<JToken> e3 = jt2.Children()[nk];}catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+
+            //try { IEnumerable<JToken> e4 = jt3.Children()[nk];}catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+
+            try {
+                r1 = JToken.Parse(input);
+                r0 = JToken.Parse(input)[rk];
+                r2 = JToken.Parse(input2).Children()[nk];
+                r3 = JToken.Parse(input3).Children()[nk];
+            } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+
+            try
+            {
+                IEnumerable<Person> z = jm.DeserializeFromNode<Person>(input, "result");
+                IEnumerable<JToken> a = jm.ExtractTokens(input3, "Name");
+
+                var r_0 = JsonConvert.SerializeObject(a);
+                var r_1 = JsonConvert.SerializeObject(z);
+          
+                string c = jm.CollectionToStringFormat<JToken>(a, null);
+
+                string r5 = jm.CollectionToStringFormat<Person>(z, new JsonSerializerSettings(){NullValueHandling = NullValueHandling.Ignore});
+                string r6 = jm.CollectionToStringFormat<JToken>(a,null);
+                
+                var t2 = JsonConvert.DeserializeObject(c);
+                var t3 = JsonConvert.DeserializeObject(r5);
+                var t4 = JsonConvert.DeserializeObject(r6);
+            }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+
+            try {
+                JSONorient jo = new JSONorient();
+                string x3 = jo.FilterChildren(input3, "Name");
+            } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
 
         }
 
@@ -78,7 +148,7 @@ namespace ConsoleApp1
             //sample JSON [{},{}] http get from url
 
             string jres = wr.ReadResponse(owm.GetResponse(url, "GET"));
-            List<J_Address> addresses = jm.DeseializeSample<J_Address>(jres);
+            IEnumerable<J_Address> addresses = jm.DeseializeSample<J_Address>(jres);
 
             //authenticate Orient
             owm.Authenticate(@"http://msk1-vm-ovisp02:2480/connect/news_test3", new NetworkCredential("root", "I9grekVmk5g"));
@@ -87,28 +157,27 @@ namespace ConsoleApp1
             url = @"http://msk1-vm-ovisp02:2480/command/news_test3/sql/select from Person";
             jres = wr.ReadResponse(owm.GetResponse(url, "GET"));
             //в коллекцию объектов из модели {node:[{},{}]} -> List<model>({}) для работы в коде
-            List<Person> persons = jm.DeserializeFromNode<Person>(jres, @"result");
+            IEnumerable<Person> persons = jm.DeserializeFromNode<Person>(jres, @"result");
             //в JSON строку List<{}> -> [{},{}] для передачи в API
-            string str = jm.CollectionToString<Person>(persons, null);
+            string str = jm.CollectionToStringFormat<Person>(persons, null);
 
             //из функции
             url = @"http://msk1-vm-ovisp02:2480/function/news_test3/SearchByLastNameTst/сав";
             jres = wr.ReadResponse(owm.GetResponse(url, "GET"));
             //{node:[{},{}]} -> List<model>({}) 
             persons = jm.DeserializeFromNode<Person>(jres, @"result");
-            str = jm.CollectionToString<Person>(persons, null);
+            str = jm.CollectionToStringFormat<Person>(persons, null);
 
             //из комманды другой класс
             //authenticated htp response from command
             url = @"http://msk1-vm-ovisp02:2480/command/news_test3/sql/select from Unit";
             jres = wr.ReadResponse(owm.GetResponse(url, "GET"));
             //{node:[{},{}]} -> List<model>({})
-            List<Unit> units = jm.DeserializeFromNode<Unit>(jres, @"result");
+            IEnumerable<Unit> units = jm.DeserializeFromNode<Unit>(jres, @"result");
             //в строку [{"name":"a"},..,{"name":"b"}]
-            str = jm.CollectionToString<Unit>(units, null);
+            str = jm.CollectionToStringFormat<Unit>(units, null);
             //в строку ["a",..,"b"]
-            str = jm.CollectionToString<JToken>(jm.ExtractTokens(jres, "result", "Name"), null);
-
+            str = jm.CollectionToStringFormat<JToken>(jm.ExtractTokens(jres, "result", "Name"), null);
 
         }
 
@@ -150,38 +219,38 @@ namespace ConsoleApp1
             WebResponse wr = owm.GetResponse(commandUrl + ob.SelectCommandGet(), "GET");
             string responseRaw = wrr.ReadResponse(wr);
             //десериализуем в модель, проксирование управляется полями POCO класса модели и атрибутами
-            List<Person> persons = jm.DeserializeFromNode<Person>(responseRaw, @"result");
+            IEnumerable<Person> persons = jm.DeserializeFromNode<Person>(responseRaw, @"result");
 
 
             //Аналогично для Unit
             //задаем имя класса и фильтр where
             ob.SelectCommandSet("Unit", @"1=1");
             responseRaw = wrr.ReadResponse(owm.GetResponse(commandUrl + ob.SelectCommandGet(), "GET"));
-            List<Unit> units = jm.DeserializeFromNode<Unit>(responseRaw, @"result");
+            IEnumerable<Unit> units = jm.DeserializeFromNode<Unit>(responseRaw, @"result");
 
 
             //Аналогично для функции
             //имя функции и параметр
             //Так как функция возвразает только одно поле, коллекция заполнится объектами со значением только в 1 поле
             //остальные null
-            ob.FucntionSet("SearchByLastName", @"сав");
+            ob.FucntionSet("SearchByLastNameTst", @"сав");
             responseRaw = wrr.ReadResponse(owm.GetResponse(functionUrl + ob.FunctionCommandGet(), "GET"));
-            List<Person> persons2 = jm.DeserializeFromNode<Person>(responseRaw, @"result");
+            IEnumerable<Person> persons2 = jm.DeserializeFromNode<Person>(responseRaw, @"result");
             //Кручу-верчу для получения "чистых" коллекицй, без полей с null.
             //(когда возращается только часть полей, null values игнорятся, без изменения модели и залезания в строку ответа)
-            string jSer = jm.CollectionToString<Person>(persons2, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+            string jSer = jm.CollectionToStringFormat<Person>(persons2, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
             //Промежуточная коллекция с экстракцией нужного токена, для понимания типа
             IJEnumerable<JToken> jt = jm.ExtractTokens(jSer, "LastName");
             //Формирование "чистой" строки из коллекции токенов
-            string res0 = jm.CollectionToString<IJEnumerable<JToken>>(jt, null);
+            string res0 = jm.CollectionToStringFormat<IJEnumerable<JToken>>(jt, null);
 
-
+            
             //Аналогично, без иключения null, oneline          
-            res0 = jm.CollectionToString<IJEnumerable<JToken>>(
-                jm.ExtractTokens(
-                    jm.CollectionToString<Person>(persons2, null)
-                    , "LastName")
-                    , null);
+            res0 = jm.CollectionToStringFormat<IJEnumerable<JToken>>(jm.ExtractTokens(
+                jm.CollectionToStringFormat<Person>(
+                    jm.DeserializeFromNode<Person>(responseRaw, @"result")
+                , null)
+                , "LastName"), null);
 
         }
 
@@ -211,8 +280,8 @@ namespace ConsoleApp1
 
             //deserializing string request
             JSONmanager mng = new JSONmanager();
-            List<string> a = mng.DeseializeSample<string>(sampleResult);
-            List<string> b = mng.DeserializeFromNode(resultOrient, "result", "Name");
+            IEnumerable<string> a = mng.DeseializeSample<string>(sampleResult);
+            IEnumerable<string> b = mng.DeserializeFromNode<string>(resultOrient, "result", "Name");
 
 
             //change equality check
@@ -220,8 +289,7 @@ namespace ConsoleApp1
             bool res = a.Equals(b);
 
         }
-
-        //
+        
         public static void PersonApiCheck()
         {
 
@@ -235,8 +303,7 @@ namespace ConsoleApp1
                 APItester_sngltn.TestCases = JsonConvert.DeserializeObject<List<APItester_sngltn>>(res);
             }
             else
-            {
-               
+            {               
                 APItester_sngltn.TestCases.Add(new APItester_sngltn()
                 {
                     URI = "http://msk1-vm-ovisp01:8083/api/Person/GetManager/DegterevaSV"
@@ -272,7 +339,7 @@ namespace ConsoleApp1
                         tc.NotOK_(rR);
                     }
                 }catch (Exception e)
-                {                   
+                {
 
                     if (tc.Expected == e.GetType().ToString())
                     {
@@ -333,26 +400,26 @@ namespace ConsoleApp1
         {
             Authurl = string.Format(@"{0}{1}:{2}/connect/{3}",
             @"http://",
-            ConfigurationSettings.AppSettings["ParentHost"],
+            ConfigurationManager.AppSettings["ParentHost"],
             "2480",
-            ConfigurationSettings.AppSettings["ParentDBname"]
+            ConfigurationManager.AppSettings["ParentDBname"]
             );
 
             childBasePool = new OrientDB_Net.binary.Innov8tive.API.ConnectionOptions();
             parentBasePool = new OrientDB_Net.binary.Innov8tive.API.ConnectionOptions();
 
-            childBasePool.HostName = ConfigurationSettings.AppSettings["ChildHost"];
-            childBasePool.UserName = ConfigurationSettings.AppSettings["ChildLogin"];
-            childBasePool.Password = ConfigurationSettings.AppSettings["ChildPassword"];
+            childBasePool.HostName = ConfigurationManager.AppSettings["ChildHost"];
+            childBasePool.UserName = ConfigurationManager.AppSettings["ChildLogin"];
+            childBasePool.Password = ConfigurationManager.AppSettings["ChildPassword"];
             childBasePool.Port = 2424;
-            childBasePool.DatabaseName = ConfigurationSettings.AppSettings["ChildDBname"];
+            childBasePool.DatabaseName = ConfigurationManager.AppSettings["ChildDBname"];
             childBasePool.DatabaseType = ODatabaseType.Graph;
 
-            parentBasePool.HostName = ConfigurationSettings.AppSettings["ParentHost"];
-            parentBasePool.UserName = ConfigurationSettings.AppSettings["ParentLogin"]; ;
-            parentBasePool.Password = ConfigurationSettings.AppSettings["ParentPassword"];
+            parentBasePool.HostName = ConfigurationManager.AppSettings["ParentHost"];
+            parentBasePool.UserName = ConfigurationManager.AppSettings["ParentLogin"]; ;
+            parentBasePool.Password = ConfigurationManager.AppSettings["ParentPassword"];
             parentBasePool.Port = 2424;
-            parentBasePool.DatabaseName = ConfigurationSettings.AppSettings["ParentDBname"];
+            parentBasePool.DatabaseName = ConfigurationManager.AppSettings["ParentDBname"];
             parentBasePool.DatabaseType = ODatabaseType.Graph;
 
             //Create DB
@@ -374,8 +441,8 @@ namespace ConsoleApp1
             os.CreateDatabase("news_test3", childBasePool.DatabaseType, OStorageType.PLocal);
 
             //Get list of classes
-            childClasses = GetDbClasses(childBase, ConfigurationSettings.AppSettings["GetAllClasses"]);
-            parentClasses = GetDbClasses(parentBase, ConfigurationSettings.AppSettings["GetAllClasses"]);
+            childClasses = GetDbClasses(childBase, ConfigurationManager.AppSettings["GetAllClasses"]);
+            parentClasses = GetDbClasses(parentBase, ConfigurationManager.AppSettings["GetAllClasses"]);
 
             //Exort to JSON txt
             JsonSerialize(childClasses, @"child");
@@ -416,7 +483,7 @@ namespace ConsoleApp1
         public void MigrateEdgeData<T>() where T : class, Edge
         {
             AuthorizeOrientDB(Authurl);
-            string SelectCommand = string.Format(ConfigurationSettings.AppSettings["SelectCommand"], "in,out", typeof(T).Name);
+            string SelectCommand = string.Format(ConfigurationManager.AppSettings["SelectCommand"], "in,out", typeof(T).Name);
             List<T> MainAssignmentCollection = GetEntityCollectionFromParentBase<T>(SelectCommand);
 
             List<MigrateCollection> parentInGUIDs, parentOutGUIDs;
@@ -459,9 +526,9 @@ namespace ConsoleApp1
 
             string Authurl = string.Format(@"{0}{1}:{2}/connect/{3}",
             @"http://",
-            ConfigurationSettings.AppSettings["ParentHost"],
+            ConfigurationManager.AppSettings["ParentHost"],
             "2480",
-            ConfigurationSettings.AppSettings["ParentDBname"]
+            ConfigurationManager.AppSettings["ParentDBname"]
             );
 
             //OrientDB_Net.binary.Innov8tive.API.ConnectionOptions
@@ -469,18 +536,18 @@ namespace ConsoleApp1
             OrientDB_Net.binary.Innov8tive.API.ConnectionOptions childBasePool = new OrientDB_Net.binary.Innov8tive.API.ConnectionOptions();
             OrientDB_Net.binary.Innov8tive.API.ConnectionOptions parentBasePool = new OrientDB_Net.binary.Innov8tive.API.ConnectionOptions();
 
-            childBasePool.HostName = ConfigurationSettings.AppSettings["ChildHost"];
-            childBasePool.UserName = ConfigurationSettings.AppSettings["ChildLogin"];
-            childBasePool.Password = ConfigurationSettings.AppSettings["ChildPassword"];
+            childBasePool.HostName = ConfigurationManager.AppSettings["ChildHost"];
+            childBasePool.UserName = ConfigurationManager.AppSettings["ChildLogin"];
+            childBasePool.Password = ConfigurationManager.AppSettings["ChildPassword"];
             childBasePool.Port = 2424;
-            childBasePool.DatabaseName = ConfigurationSettings.AppSettings["ChildDBname"];
+            childBasePool.DatabaseName = ConfigurationManager.AppSettings["ChildDBname"];
             childBasePool.DatabaseType = ODatabaseType.Document;
 
-            parentBasePool.HostName = ConfigurationSettings.AppSettings["ParentHost"];
-            parentBasePool.UserName = ConfigurationSettings.AppSettings["ParentLogin"]; ;
-            parentBasePool.Password = ConfigurationSettings.AppSettings["ParentPassword"];
+            parentBasePool.HostName = ConfigurationManager.AppSettings["ParentHost"];
+            parentBasePool.UserName = ConfigurationManager.AppSettings["ParentLogin"]; ;
+            parentBasePool.Password = ConfigurationManager.AppSettings["ParentPassword"];
             parentBasePool.Port = 2424;
-            parentBasePool.DatabaseName = ConfigurationSettings.AppSettings["ParentDBname"];
+            parentBasePool.DatabaseName = ConfigurationManager.AppSettings["ParentDBname"];
             parentBasePool.DatabaseType = ODatabaseType.Graph;
 
 
@@ -544,7 +611,7 @@ namespace ConsoleApp1
                 string name = (string)class_["name"];
                 string superclass = (string)class_["superClass"];
                 database_.Command(
-                    string.Format(ConfigurationSettings.AppSettings["CreateClass"], name)
+                    string.Format(ConfigurationManager.AppSettings["CreateClass"], name)
                     );
             }
         }
@@ -556,7 +623,7 @@ namespace ConsoleApp1
                 string name = (string)class_["name"];
                 string superclass = (string)class_["superClass"];
                 database_.Command(
-                    string.Format(ConfigurationSettings.AppSettings["CreateClassNested"], name, superclass)
+                    string.Format(ConfigurationManager.AppSettings["CreateClassNested"], name, superclass)
                     );
             }
         }
@@ -604,7 +671,7 @@ namespace ConsoleApp1
             string name = (string)property_["name"];
             int type = (int)property_["type"];
             string typeStr = OrientNumToCLRType.ValuetoString(type);
-            string comm = string.Format(ConfigurationSettings.AppSettings["CreateProperty"], className, name, typeStr);
+            string comm = string.Format(ConfigurationManager.AppSettings["CreateProperty"], className, name, typeStr);
             childDatabase_.Command(comm);
         }
         public List<ODocument> FilterClasses(List<ODocument> classes_, string type_)
@@ -621,7 +688,7 @@ namespace ConsoleApp1
         public void AuthorizeOrientDB(string url)
         {
             WebRequest AuthRequest = WebRequest.Create(url);
-            AuthRequest.Credentials = new NetworkCredential(ConfigurationSettings.AppSettings["ParentLogin"], ConfigurationSettings.AppSettings["ParentPassword"]);
+            AuthRequest.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["ParentLogin"], ConfigurationManager.AppSettings["ParentPassword"]);
             AuthRequest.Method = "GET";
             AuthRequest.ContentType = "application/json; charset=utf-8";
             WebResponse response = AuthRequest.GetResponse();
@@ -707,9 +774,9 @@ namespace ConsoleApp1
         {
             return string.Format(@"{0}{1}:{2}/command/{3}/sql/{4}",
             @"http://",
-            ConfigurationSettings.AppSettings["ParentHost"],
+            ConfigurationManager.AppSettings["ParentHost"],
             "2480",
-            ConfigurationSettings.AppSettings["ParentDBname"],
+            ConfigurationManager.AppSettings["ParentDBname"],
             //@"select Seed,Created,GUID,Changed,FirstName,LastName,MiddleName,Birthday,mail,telephoneNumber,userAccountControl,objectGUID,sAMAccountName,Name,Hash,OneSHash from person LIMIT 5");         
             command_);
         }
@@ -721,7 +788,7 @@ namespace ConsoleApp1
         }
         public void MigrateEntity<T>(ODatabase childBase_) where T : class
         {
-            string SelectCommand = string.Format(ConfigurationSettings.AppSettings["SelectCommand"], "*", typeof(T).Name);
+            string SelectCommand = string.Format(ConfigurationManager.AppSettings["SelectCommand"], "*", typeof(T).Name);
             List<T> entities = GetEntityCollectionFromParentBase<T>(SelectCommand);
             //Person pers = JsonConvert.DeserializeObject<Person>(ApiGetRes);
             //GetObj(commUrl);
@@ -732,7 +799,7 @@ namespace ConsoleApp1
                 //valid insert command
                 //command = @"{""Seed"":""1005821"",""Created"":""2014-12-15 12:21:24"",""GUID"":""4e28f31a-89b8-11e4-bab2-00c2c66d13b0"",""Changed"":""2017-08-23 10:06:45"",""DeparmentColorRGB"":null,""DeparmentColorClass"":null,""Disabled"":null}";
                 command = string.Format(
-                    ConfigurationSettings.AppSettings["InsertEntityCommand"],
+                    ConfigurationManager.AppSettings["InsertEntityCommand"],
                      item.GetType().Name
                     , command.Replace(@"""0001-01-01 00:00:00""", "null"));
 
@@ -744,21 +811,21 @@ namespace ConsoleApp1
         public string GetGUIDFromIDParentDB(string ID)
         {
             string result = null;
-            string command_ = string.Format(ConfigurationSettings.AppSettings["SelectCommand"], "@rid,@class,GUID", ID);
+            string command_ = string.Format(ConfigurationManager.AppSettings["SelectCommand"], "@rid,@class,GUID", ID);
             result = GetFromParentDB(SelectCommand(command_));
             return result;
         }
         public string GetChildId(string GUID, string class_)
         {
             string result = null;
-            string command_ = string.Format(ConfigurationSettings.AppSettings["SelectWhereCommand"], "@rid", class_, @"GUID = '" + GUID + "'");
+            string command_ = string.Format(ConfigurationManager.AppSettings["SelectWhereCommand"], "@rid", class_, @"GUID = '" + GUID + "'");
             OCommandResult Oresult = childBase.Command(command_);
             result = (from s in Oresult.ToList() select s).FirstOrDefault()["rid"].ToString();
             return result;
         }
         public void CreateEdge<T>(MigrateCollection From, MigrateCollection To) where T : class, Edge
         {
-            string command_ = string.Format(ConfigurationSettings.AppSettings["CreateEdge"], typeof(T).Name, From.rid, To.rid);
+            string command_ = string.Format(ConfigurationManager.AppSettings["CreateEdge"], typeof(T).Name, From.rid, To.rid);
             childBase.Command(command_);
         }
 
@@ -916,6 +983,7 @@ namespace ConsoleApp1
         public void NotOK_(string actual_)
         {
             this.Actual = actual_;
+            this.ExceptionText = string.Empty;
             this.OK = false;
         }
         public void NotOK_(string actual_, string exception_)
@@ -1012,16 +1080,45 @@ namespace ConsoleApp1
     }
     */
 
- 
+
+    public interface IJsonManger
+    {
+        List<T> DesSample<T>(string input) where T : class;
+        List<T> DesParent<T>(string input,string parent) where T : class;
+        List<T> DesChildFromParent<T>(string input, string node, string child) where T : class;
+    }
+    /// <summary>
+    /// Gets response from URL with method
+    /// </summary>
+    public interface IWebManager
+    {
+        WebResponse GetResponse(string url, string method);
+    }
+    /// <summary>
+    /// Reads response and converts it to string
+    /// </summary>
+    public interface IWebResponseReader
+    {
+        string ReadResponse(HttpWebResponse response);
+        string ReadResponse(WebResponse response);
+        string ReadResponse(HttpResponseMessage response);
+    }
+
+
     /// -->In new overwritten
     ///Base web manager for sending request with type method and reading response to URL
     ///WebRequest, Httpwebresponse
-    public class WebManager
+    public class WebManager : IWebManager
     {
         public WebRequest _request;
-        internal string OSESSIONID = String.Empty;
+        internal string OSESSIONID;
 
-        internal WebRequest addRequest(string url, string method)
+        public WebManager()
+        {
+            _request = null;
+            this.OSESSIONID = string.Empty;
+        }
+        public WebRequest addRequest(string url, string method)
         {
             try
             {
@@ -1076,7 +1173,7 @@ namespace ConsoleApp1
 
         public new HttpWebResponse GetResponse(string url, string method)
         {
-            HttpWebResponse resp;
+            HttpWebResponse resp=null;
             base.addRequest(url, method);
             addHeader(HttpRequestHeader.Cookie, this.OSESSIONID);
             try
@@ -1085,7 +1182,7 @@ namespace ConsoleApp1
             }
             catch (Exception e)
             {
-                throw e;
+                System.Diagnostics.Trace.WriteLine(e);
             }
 
             return resp;
@@ -1134,7 +1231,7 @@ namespace ConsoleApp1
     /// DP Scope (data processing)    
     /// converts Responses to string
     /// </summary>
-    public class WebResponseReader
+    public class WebResponseReader : IWebResponseReader
     {
         public string ReadResponse(HttpWebResponse response)
         {
@@ -1152,6 +1249,15 @@ namespace ConsoleApp1
             result = sr.ReadToEnd();
             return result;
         }
+        public string ReadResponse(HttpResponseMessage response)
+        {
+            string result = string.Empty;
+            System.Net.Http.HttpContent sm = response.Content;
+            Task<Stream> sr = sm.ReadAsStreamAsync();
+            Task<string> res = sm.ReadAsStringAsync();
+            result = res.Result;
+            return result;
+        }
     }
 
     /// <summary>
@@ -1162,26 +1268,39 @@ namespace ConsoleApp1
     {
 
         //For sample JSON structure [{a:1,..,c:1},{a:10,..,c:10}]
-        public List<T> DeseializeSample<T>(string resp) where T : class
+        public IEnumerable<T> DeseializeSample<T>(string resp) where T : class
         {
-            List<T> res = JsonConvert.DeserializeObject<List<T>>(resp);
+            IEnumerable<T> res = JsonConvert.DeserializeObject<IEnumerable<T>>(resp);
             return res;
         }
-        //For JSON structure {NodeName:[{a:1,..,c:1},{a:10,..,c:10}]}
-        public List<T> DeserializeFromNode<T>(string jInput, string Node) where T : class
+        public IEnumerable<T> DeserializeNode<T>(string jInput, string Node) where T : class
         {
-            List<T> result = new List<T>();
-            List<JToken> res = JObject.Parse(jInput)[Node].Children().ToList();
-            result = (from s in res select s.ToObject<T>()).ToList();
+            IEnumerable<T> result = null;
+            IEnumerable<JToken> res = JToken.Parse(jInput).Children()[Node].ToList();
+            result = CollectionConvert<T>(res);
+            return result;
+        }
+        //For JSON structure {NodeName:[{a:1,..,c:1},{a:10,..,c:10}]}
+        public IEnumerable<T> DeserializeFromNode<T>(string jInput, string Node) where T : class
+        {
+            IEnumerable<T> result = null;
+            IEnumerable<JToken> res = JToken.Parse(jInput)[Node].Children().ToList();
+            result = CollectionConvert<T>(res);
             return result;
         }
         //For parsing not to model but to String for JSON structure {NodeName:[{a:1,..,c:1},{a:10,..,c:10}]}
         //where one item from collection can be parsed
-        public List<string> DeserializeFromNode(string jInput, string Node, string field)
+        public IEnumerable<T> DeserializeFromNode<T>(string jInput, string Node, string field) where T : class
         {
-            List<string> result = new List<string>();
-            List<JToken> res = JObject.Parse(jInput)[Node].Children()[field].ToList();
-            result = (from s in res select s.ToString()).ToList<string>();
+            IEnumerable<T> result = null;
+            IEnumerable<JToken> res = JObject.Parse(jInput)[Node].Children()[field].ToList();
+            result = CollectionConvert<T>(res);
+            return result;
+        }
+        public IEnumerable<T> CollectionConvert<T>(IEnumerable<JToken> input) where T: class
+        {
+            IEnumerable<T> result = null;
+                result = (from s in input select s.ToObject<T>()).ToList();
             return result;
         }
 
@@ -1192,28 +1311,35 @@ namespace ConsoleApp1
             result = JToken.Parse(jInput).Children()[field];
             return result;
         }
+        public IJEnumerable<JToken> ExtractTokenChildren(string jInput, string field)
+        {
+            IJEnumerable<JToken> result = null;
+            result = JToken.Parse(jInput).Children()[field].Children();
+            return result;
+        }
         public IJEnumerable<JToken> ExtractTokens(string jInput, string Node, string field)
         {
             IJEnumerable<JToken> result = null;
             result = JObject.Parse(jInput)[Node].Children()[field];
             return result;
         }
-
-        public string CollectionToString<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null) where T : class
+    
+        public string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null) where T : class
         {
             string result = null;
             result = JsonConvert.SerializeObject(list_, jss);
             return result;
         }
-        public string CollectionToStringFormat<T>(List<T> list_, JsonSerializerSettings jss = null) where T : class
-        {
-            string result = null;
-            result = JsonConvert.DeserializeObject(
-                JsonConvert.SerializeObject(list_, jss)
-                ).ToString();
-            return result;
-        }
 
+    }
+    public class JSONorient : JSONmanager
+    {
+        public string FilterChildren(string input,string name)
+        {            
+            IEnumerable<JToken> x = this.ExtractTokenChildren(input, "Name");
+            string x2 = this.CollectionToStringFormat<IEnumerable<JToken>>(x, new JsonSerializerSettings() { Formatting = Formatting.None });
+            return x2;
+        }
     }
 
     /// <summary>
