@@ -692,6 +692,15 @@ Revise:
 					
 				}			
 				
+				public class AssmebiesDescription(){
+					System.Web : HttpResponse,HttpRequest.HttpFileResult -> server browser comunication
+					
+					https://stackoverflow.com/questions/31291008/system-net-http-httpclient-vs-windows-web-http-httpclient-what-are-the-main-di
+					System.Web.Http : IhttpActionResult -> System.Web.Http vs System.Net.Http more common, multilanguage, Http otimized
+									
+					System.Net : WebRequest,WebResponse, HttpWebRequest,HttpWebResponse -> web iteration puggable protocols
+				}
+				
 			}
 			
 			//Override reminder

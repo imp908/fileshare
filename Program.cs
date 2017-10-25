@@ -15,8 +15,8 @@ using System.IO;
 
 using System.Net;
 using System.Net.Http;
-using System.Web.Http;
 
+using System.Web.Http;
 
 namespace ConsoleApp1
 {
@@ -31,9 +31,12 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
 
+            JSONManagerIntegrationTests();
+
+            PersonApiCheckAsync();
             PersonApiCheck();
 
-            JScheck();
+            JSONcheck();
 
             BuilderCheck();
             ManagersCheck();
@@ -42,7 +45,231 @@ namespace ConsoleApp1
             
         }
 
-        public static void JScheck()
+        public static void JSONManagerIntegrationTests()
+        {
+            string str1 = "[\"v1\",\"v2\"]";
+            string res1 = string.Concat(JsonConvert.DeserializeObject<IEnumerable<string>>(str1));
+
+            string str2 = "{\"Name\":\"value1\"}";
+            string res2 = string.Concat(JsonConvert.DeserializeObject(str2));
+            string res2_2 = string.Concat(JToken.Parse(str2));
+            Person res3 = JsonConvert.DeserializeObject<Person>(str2);
+
+            string str4 = "[{\"Name\":\"value1\"},{\"Name\":\"value2\"}]";            
+            IEnumerable<Person> res4 = JsonConvert.DeserializeObject<IEnumerable<Person>>(str4);
+            string str4_2 = string.Concat(JToken.Parse(str4).Children()["Name"]);
+
+            string str5 = "{\"result\":[{\"Name\":\"value1\",\"sAMAccountName\":\"acc1\"},{\"Name\":\"value2\",\"sAMAccountName\":\"acc2\"}]}";
+            string res5 = string.Concat(JToken.Parse(str5)["result"].Children()["Name"]);
+            string str6 = "{\"news\":[{\"Title\":\"value1\",\"Article\":\"value3\"},{\"Title\":\"value2\",\"Article\":\"value4\"}]}";
+            string res6 = string.Concat(JToken.Parse(str6)["news"].Children()["Title"]);
+            string res7 = string.Concat(JToken.Parse(str6)["news"].Children()["Article"]);
+
+            string str7 = 
+"{\"news\":[{\"Title\":\"value1\",\"Article\":\"value3\"},{\"Title\":\"value2\",\"Article\":\"value4\",\"tags\":[\"value5\",\"value\"]}]}";
+            string res8 = string.Concat(JToken.Parse(str7)["news"].Children()["tags"]);
+
+            string str8 =
+"{\"news\":[{\"Title\":\"value1\",\"Article\":\"value3\"},{\"Title\":\"value2\",\"Article\":\"value4\",\"tags\":[{\"Name\":\"value7\"},{\"Name\":\"value8\"}]}]}";
+
+            JSONManager2 jm2 = new JSONManager2();            
+
+            //Read from 2lvl array to string
+            IJEnumerable<JToken> personsJT = JToken.Parse(str8)["news"].Children()["tags"];
+            List<string> col = jm2.JTokenToCollection(personsJT);
+            string resp4 = jm2.CollectionToStringFormat<string>(col,
+                new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore,Formatting = Formatting.None }
+            );
+
+            var a = JToken.Parse(str8).SelectToken("news", false).SelectToken("Title", false);
+            
+            /*{"parentNodeName":[{"Name":"value1","Name2":"Value1"},{"Name":"value2","Name2":"value2"}]} - > model {Name {get;set;}, Name2 {get;set;}} */
+            //Extract tokens from JSON response parent Node, convert to collection of model objects
+            IJEnumerable<JToken> jte =  jm2.ExtractFromParentNode(str5, "result");
+            //Extract + convert JSON to collection of model objects
+            IEnumerable<Person> res9 = jm2.DeserializeFromParentNode<Person>(str5,"result" );
+            //to string  Selectable -> ignore nulls, no intending
+            string resp0 = jm2.CollectionToStringFormat<Person>(res9,
+                new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting= Formatting.None });
+
+            //extract from JSON parent node
+            IJEnumerable<JToken> jte2 = jm2.ExtractFromParentChildNode(str8, "news", "Title");
+            //convert to collection of strings
+            IEnumerable<string> res10 = jm2.DeserializeFromParentChildNode<string>(str8, "news", "Title");
+            //to string  Selectable -> ignore nulls, no intending
+            string resp1 = jm2.CollectionToStringFormat<string>(res10
+                , new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Include, Formatting = Formatting.None });
+
+            //extract from child nodes
+            IJEnumerable<JToken> jte3 = jm2.ExtractFromChildNode(str4, "Name");
+            //to collection
+            IEnumerable<string> res11 = jm2.DeserializeFromChildNode<string>(str4, "Name");
+            //to string  Selectable -> ignore nulls, no intending
+            string resp2 = jm2.CollectionToStringFormat<string>(res11
+                , new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Include, Formatting = Formatting.None });
+
+            //Back to object 
+            IEnumerable< Person> persons = JsonConvert.DeserializeObject<IEnumerable<Person>>(resp0);
+        }
+        public static void OrientSpagettyCheck()
+        {
+
+            OrientSpagettyCheck oc = new OrientSpagettyCheck();
+            oc.Initialize();
+            oc.DBmigrate();
+            oc.MigrateEdgeData<MainAssignment>();
+            oc.MigrateEdgeData<OldMainAssignment>();
+            oc.MigrateEdgeData<OutExtAssignment>();
+            oc.MigrateEdgeData<SubUnit>();
+
+        }
+
+        public static void PersonApiCheck()
+        {
+
+            WebManager wm = new WebManager();
+
+            APItester_sngltn ut = new APItester_sngltn();
+            WebResponseReader wr = new WebResponseReader();
+
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json"))
+            {
+                string res = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json");
+                APItester_sngltn.TestCases = JsonConvert.DeserializeObject<List<APItester_sngltn>>(res);
+            }
+            else
+            {
+                APItester_sngltn.TestCases.Add(new APItester_sngltn()
+                {
+                    URI = "http://msk1-vm-ovisp01:8083/api/Person/GetManager/DegterevaSV"
+                    ,
+                    Expected = "[\"filimonovats\",\"kvv\"]"
+                    ,
+                    OK = false
+                });
+                APItester_sngltn.TestCases.Add(new APItester_sngltn()
+                {
+                    URI = "http://msk1-vm-ovisp01:8083/api/Person/GetColleges/lobanovamg"
+                   ,
+                    Expected = "[\"stalmakovsm\",\"Bagirovaev\",\"kotovaen\",\"iku\",\"SergiecIG\",\"a.vagin\",\"lobanovamg\",\"Tikhomirovaa\",\"popovalb\"]"
+                   ,
+                    OK = false
+                });
+            }
+
+
+            foreach (APItester_sngltn tc in APItester_sngltn.TestCases)
+            {
+                try
+                {
+                    var resp = wm.GetResponse(tc.URI, "GET");
+                    string rR = wr.ReadResponse(resp);
+
+                    if (tc.Expected == rR)
+                    {
+                        tc.OK_(rR);
+                    }
+                    else
+                    {
+                        tc.NotOK_(rR);
+                    }
+                }
+                catch (Exception e)
+                {
+                    //Handles error type names if they are expected
+                    //logs exception message
+                    if (tc.Expected == e.GetType().ToString())
+                    {
+                        tc.OK_(e.GetType().ToString(), e.Message);
+                    }
+                    else
+                    {
+                        tc.NotOK_(e.GetType().ToString(), e.Message);
+                    }
+                }
+            }
+
+            string jStr = JsonConvert.SerializeObject(APItester_sngltn.TestCases, Formatting.Indented);
+            string dir = AppDomain.CurrentDomain.BaseDirectory;
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json", jStr);
+
+        }
+        //>>make trully async
+        public static void PersonApiCheckAsync()
+        {
+
+            WebManager wm = new WebManager();
+
+            APItester_sngltn ut = new APItester_sngltn();
+            WebResponseReader wr = new WebResponseReader();
+
+            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json"))
+            {
+                string res = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json");
+                APItester_sngltn.TestCases = JsonConvert.DeserializeObject<List<APItester_sngltn>>(res);
+            }
+            else
+            {
+                APItester_sngltn.TestCases.Add(new APItester_sngltn()
+                {
+                    URI = "http://msk1-vm-ovisp01:8083/api/Person/GetManager/DegterevaSV"
+                    ,
+                    Expected = "[\"filimonovats\",\"kvv\"]"
+                    ,
+                    OK = false
+                });
+                APItester_sngltn.TestCases.Add(new APItester_sngltn()
+                {
+                    URI = "http://msk1-vm-ovisp01:8083/api/Person/GetColleges/lobanovamg"
+                   ,
+                    Expected = "[\"stalmakovsm\",\"Bagirovaev\",\"kotovaen\",\"iku\",\"SergiecIG\",\"a.vagin\",\"lobanovamg\",\"Tikhomirovaa\",\"popovalb\"]"
+                   ,
+                    OK = false
+                });
+            }
+
+
+            foreach (APItester_sngltn tc in APItester_sngltn.TestCases)
+            {
+                try
+                {
+                    Task<HttpWebResponse> resp = wm.GetResponseAsync(tc.URI, "GET");
+
+                    string rR = wr.ReadResponse(resp.Result);
+
+                    if (tc.Expected == rR)
+                    {
+                        tc.OK_(rR);
+                    }
+                    else
+                    {
+                        tc.NotOK_(rR);
+                    }
+                }
+                catch (Exception e)
+                {
+                    //Handles error type names if they are expected
+                    //logs exception message
+                    if (tc.Expected == e.GetType().ToString())
+                    {
+                        tc.OK_(e.GetType().ToString(), e.Message);
+                    }
+                    else
+                    {
+                        tc.NotOK_(e.GetType().ToString(), e.Message);
+                    }
+                }
+            }
+
+            string jStr = JsonConvert.SerializeObject(APItester_sngltn.TestCases, Formatting.Indented);
+            string dir = AppDomain.CurrentDomain.BaseDirectory;
+            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json", jStr);
+
+        }
+
+        //<-- deprecated
+        //mooved to tests
+        public static void JSONcheck()
         {
             JSONmanager jm = new JSONmanager();
 
@@ -115,27 +342,9 @@ namespace ConsoleApp1
                 var t4 = JsonConvert.DeserializeObject(r6);
             }
             catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+           
 
-            try {
-                JSONorient jo = new JSONorient();
-                string x3 = jo.FilterChildren(input3, "Name");
-            } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
-
-        }
-
-        public static void OrientSpagettyCheck()
-        {
-
-            OrientSpagettyCheck oc = new OrientSpagettyCheck();
-            oc.Initialize();
-            oc.DBmigrate();
-            oc.MigrateEdgeData<MainAssignment>();
-            oc.MigrateEdgeData<OldMainAssignment>();
-            oc.MigrateEdgeData<OutExtAssignment>();
-            oc.MigrateEdgeData<SubUnit>();
-
-        }
-
+        }     
         public static void ManagersCheck()
         {
 
@@ -180,7 +389,6 @@ namespace ConsoleApp1
             str = jm.CollectionToStringFormat<JToken>(jm.ExtractTokens(jres, "result", "Name"), null);
 
         }
-
         public static void BuilderCheck()
         {
 
@@ -253,7 +461,6 @@ namespace ConsoleApp1
                 , "LastName"), null);
 
         }
-
         public static void HTTPcheck()
         {
 
@@ -290,74 +497,6 @@ namespace ConsoleApp1
 
         }
         
-        public static void PersonApiCheck()
-        {
-
-            WebManager wm = new WebManager();
-            APItester_sngltn ut = new APItester_sngltn();
-            WebResponseReader wr = new WebResponseReader();
-            
-            if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json"))
-            {
-                string res = File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json");
-                APItester_sngltn.TestCases = JsonConvert.DeserializeObject<List<APItester_sngltn>>(res);
-            }
-            else
-            {               
-                APItester_sngltn.TestCases.Add(new APItester_sngltn()
-                {
-                    URI = "http://msk1-vm-ovisp01:8083/api/Person/GetManager/DegterevaSV"
-                    ,
-                    Expected = "[\"filimonovats\",\"kvv\"]"
-                    ,
-                    OK = false
-                });
-                APItester_sngltn.TestCases.Add(new APItester_sngltn()
-                {
-                    URI = "http://msk1-vm-ovisp01:8083/api/Person/GetColleges/lobanovamg"
-                   ,
-                    Expected = "[\"stalmakovsm\",\"Bagirovaev\",\"kotovaen\",\"iku\",\"SergiecIG\",\"a.vagin\",\"lobanovamg\",\"Tikhomirovaa\",\"popovalb\"]"
-                   ,
-                    OK = false
-                });
-            }
-        
-
-            foreach (APItester_sngltn tc in APItester_sngltn.TestCases)
-            {
-                try
-                {
-                    var resp = wm.GetResponse(tc.URI, "GET");
-                    string rR = wr.ReadResponse(resp);
-
-                    if (tc.Expected == rR)
-                    {
-                        tc.OK_(rR);
-                    }
-                    else
-                    {
-                        tc.NotOK_(rR);
-                    }
-                }catch (Exception e)
-                {
-
-                    if (tc.Expected == e.GetType().ToString())
-                    {
-                        tc.OK_(e.GetType().ToString(), e.Message);                      
-                    }
-                    else
-                    {
-                        tc.NotOK_(e.GetType().ToString(), e.Message);
-                    }
-                }
-            }
-
-            string jStr = JsonConvert.SerializeObject(APItester_sngltn.TestCases,Formatting.Indented);
-            string dir = AppDomain.CurrentDomain.BaseDirectory;
-            File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + "\\Res.json", jStr);
-
-        }
-      
     }
 
   
@@ -1083,9 +1222,20 @@ namespace ConsoleApp1
 
     public interface IJsonManger
     {
-        List<T> DesSample<T>(string input) where T : class;
-        List<T> DesParent<T>(string input,string parent) where T : class;
-        List<T> DesChildFromParent<T>(string input, string node, string child) where T : class;
+
+        IJEnumerable<JToken> ExtractFromParentNode(string input, string parentNodeName);
+        IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName, string childNodeName);
+        IJEnumerable<JToken> ExtractFromChildNode(string input, string childNodeName);
+
+
+        IEnumerable<T> DeserializeFromParentNode<T>(string input, string parentNodeName) where T : class;
+        IEnumerable<T> DeserializeFromParentChildNode<T>(string input, string parentNodeName, string childNodeName) where T : class;
+        IEnumerable<T> DeserializeFromChildNode<T>(string input, string childNodeName) where T : class;
+
+
+        IEnumerable<T> JTokensToCollection<T>(IEnumerable<JToken> input) where T : class;
+        string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null) where T : class;
+
     }
     /// <summary>
     /// Gets response from URL with method
@@ -1097,7 +1247,7 @@ namespace ConsoleApp1
     /// <summary>
     /// Reads response and converts it to string
     /// </summary>
-    public interface IWebResponseReader
+    public interface IResponseReader
     {
         string ReadResponse(HttpWebResponse response);
         string ReadResponse(WebResponse response);
@@ -1110,6 +1260,7 @@ namespace ConsoleApp1
     ///WebRequest, Httpwebresponse
     public class WebManager : IWebManager
     {
+
         public WebRequest _request;
         internal string OSESSIONID;
 
@@ -1153,8 +1304,7 @@ namespace ConsoleApp1
 
             try
             {
-                resp = (HttpWebResponse)this._request.GetResponse();
-                
+                resp = (HttpWebResponse)this._request.GetResponse();               
             }
             catch (Exception e)
             {
@@ -1163,14 +1313,30 @@ namespace ConsoleApp1
 
             return resp;
         }
-    }
+        public virtual async Task<HttpWebResponse> GetResponseAsync(string url, string method)
+        {
+            HttpWebResponse resp;
+            addRequest(url, method);            
+            try
+            {
+                resp = (HttpWebResponse)this._request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+            return await Task.FromResult(resp);
+        }
+
+    }    
     /// <summary>
     ///     Orient specific WebManager for authentication and authenticated resopnses sending to URL
     ///     with NetworkCredentials
     /// </summary>    
     public class OrientWebManager : WebManager
     {
-
+        //>> add async
         public new HttpWebResponse GetResponse(string url, string method)
         {
             HttpWebResponse resp=null;
@@ -1231,9 +1397,9 @@ namespace ConsoleApp1
     /// DP Scope (data processing)    
     /// converts Responses to string
     /// </summary>
-    public class WebResponseReader : IWebResponseReader
+    public class WebResponseReader : IResponseReader
     {
-        public string ReadResponse(HttpWebResponse response)
+        public string ReadResponse(WebResponse response)
         {
             string result = string.Empty;
             Stream sm = response.GetResponseStream();
@@ -1241,7 +1407,7 @@ namespace ConsoleApp1
             result = sr.ReadToEnd();
             return result;
         }
-        public string ReadResponse(WebResponse response)
+        public string ReadResponse(HttpWebResponse response)
         {
             string result = string.Empty;
             Stream sm = response.GetResponseStream();
@@ -1258,33 +1424,42 @@ namespace ConsoleApp1
             result = res.Result;
             return result;
         }
+        public string ReadResponse(Task<HttpResponseMessage> response)
+        {
+            string result = string.Empty;
+            Task<string> st = null;
+            try{
+                st = response.Result.Content.ReadAsStringAsync();
+                result = st.Result;                
+            }
+            catch(Exception e){ System.Diagnostics.Trace.WriteLine(e.Message);  }
+            
+            return result;
+        }
     }
 
     /// <summary>
+    /// out deprecated
     /// DP Scope (data processing)    
     /// works with JSON stings
     /// </summary>
     public class JSONmanager
     {
 
-        //For sample JSON structure [{a:1,..,c:1},{a:10,..,c:10}]
+        //For sample JSON structure [{a:1,..,c:1},{a:10,..,c:10}] or collection of model classes IEnumerable<class>
         public IEnumerable<T> DeseializeSample<T>(string resp) where T : class
         {
-            IEnumerable<T> res = JsonConvert.DeserializeObject<IEnumerable<T>>(resp);
+            IEnumerable<T> res = null;
+            try{
+                res = JsonConvert.DeserializeObject<IEnumerable<T>>(resp);
+            }catch(Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
             return res;
-        }
-        public IEnumerable<T> DeserializeNode<T>(string jInput, string Node) where T : class
-        {
-            IEnumerable<T> result = null;
-            IEnumerable<JToken> res = JToken.Parse(jInput).Children()[Node].ToList();
-            result = CollectionConvert<T>(res);
-            return result;
-        }
+        }       
         //For JSON structure {NodeName:[{a:1,..,c:1},{a:10,..,c:10}]}
         public IEnumerable<T> DeserializeFromNode<T>(string jInput, string Node) where T : class
         {
             IEnumerable<T> result = null;
-            IEnumerable<JToken> res = JToken.Parse(jInput)[Node].Children().ToList();
+            IEnumerable<JToken> res = JToken.Parse(jInput)[Node].Children();
             result = CollectionConvert<T>(res);
             return result;
         }
@@ -1293,17 +1468,11 @@ namespace ConsoleApp1
         public IEnumerable<T> DeserializeFromNode<T>(string jInput, string Node, string field) where T : class
         {
             IEnumerable<T> result = null;
-            IEnumerable<JToken> res = JObject.Parse(jInput)[Node].Children()[field].ToList();
+            IEnumerable<JToken> res = JObject.Parse(jInput)[Node].Children()[field];
             result = CollectionConvert<T>(res);
             return result;
         }
-        public IEnumerable<T> CollectionConvert<T>(IEnumerable<JToken> input) where T: class
-        {
-            IEnumerable<T> result = null;
-                result = (from s in input select s.ToObject<T>()).ToList();
-            return result;
-        }
-
+    
         //Extracts collection of tokens [{"Tk1":"A"},..,{"Tk31":"Z"}] -> IJEnumerable<JTokens> ["A",..,"Z"]
         public IJEnumerable<JToken> ExtractTokens(string jInput, string field)
         {
@@ -1323,8 +1492,14 @@ namespace ConsoleApp1
             result = JObject.Parse(jInput)[Node].Children()[field];
             return result;
         }
-    
-        public string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null) where T : class
+
+        public IEnumerable<T> CollectionConvert<T>(IEnumerable<JToken> input) where T : class
+        {
+            IEnumerable<T> result = null;
+            result = (from s in input select s.ToObject<T>()).ToList();
+            return result;
+        }
+        public string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null ) where T : class
         {
             string result = null;
             result = JsonConvert.SerializeObject(list_, jss);
@@ -1332,13 +1507,73 @@ namespace ConsoleApp1
         }
 
     }
-    public class JSONorient : JSONmanager
+    /// <summary>
+    /// JSON manager revised 
+    /// Newtonsoft JSON wrapper
+    /// extracts IJEnumerable<Jtoken> from string
+    /// deserializess to collection of objects or strings (if convertable)
+    /// converts to string results with options
+    /// </summary>
+    public class JSONManager2 : IJsonManger
     {
-        public string FilterChildren(string input,string name)
-        {            
-            IEnumerable<JToken> x = this.ExtractTokenChildren(input, "Name");
-            string x2 = this.CollectionToStringFormat<IEnumerable<JToken>>(x, new JsonSerializerSettings() { Formatting = Formatting.None });
-            return x2;
+        public IJEnumerable<JToken> ExtractFromParentNode(string input,string parentNodeName)
+        {
+            IJEnumerable<JToken> result = null;
+                result = JToken.Parse(input)[parentNodeName];
+            return result;
+        }
+        public IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName,string childNodeName)
+        {
+            IJEnumerable<JToken> result = null;
+            result = JToken.Parse(input)[parentNodeName].Children()[childNodeName];
+            return result;
+        }
+        public IJEnumerable<JToken> ExtractFromChildNode(string input, string childNodeName)
+        {
+            IJEnumerable<JToken> result = null;
+            result = JToken.Parse(input).Children()[childNodeName];
+            return result;
+        }
+
+        public IEnumerable<T> DeserializeFromParentNode<T>(string input, string parentNodeName) where T:class
+        {
+            IEnumerable<T> result = null;
+            result = JTokensToCollection<T>(ExtractFromParentNode(input,parentNodeName));
+            return result;
+        }
+        public IEnumerable<T> DeserializeFromParentChildNode<T>(string input, string parentNodeName, string childNodeName) where T : class
+        {
+            IEnumerable<T> result = null;
+            result = JTokensToCollection<T>(ExtractFromParentChildNode(input, parentNodeName,childNodeName));
+            return result;
+        }
+        public IEnumerable<T> DeserializeFromChildNode<T>(string input,  string childNodeName) where T : class
+        {
+            IEnumerable<T> result = null;
+            result = JTokensToCollection<T>(ExtractFromChildNode(input, childNodeName));
+            return result;
+        }
+
+        public IEnumerable<T> JTokensToCollection<T>(IEnumerable<JToken> input) where T : class
+        {
+            IEnumerable<T> result = null;
+            result = (from s in input select s.ToObject<T>()).ToList();
+            return result;
+        }
+        public List<string> JTokenToCollection(IEnumerable<JToken> input)
+        {
+            List<string> result = new List<string>();
+            foreach(JToken jt in input.Children())
+            {
+                result.Add(JsonConvert.SerializeObject(jt));
+            }
+            return result;
+        }
+        public string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null) where T : class
+        {
+            string result = null;
+            result = JsonConvert.SerializeObject(list_, jss);
+            return result;
         }
     }
 
