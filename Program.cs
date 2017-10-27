@@ -27,9 +27,13 @@ namespace ConsoleApp1
     class OrientDriverConnnect
     {
 
-
         static void Main(string[] args)
         {
+
+            InsertClausesCheck();
+            DeleteClauseCheck();
+            SelectClusesAndURLBuildCheck();
+            HTTPclauseCheck();
 
             JSONManagerIntegrationTests();
 
@@ -40,9 +44,9 @@ namespace ConsoleApp1
 
             BuilderCheck();
             ManagersCheck();
-                      
+
             HTTPcheck();
-            
+
         }
 
         public static void JSONManagerIntegrationTests()
@@ -55,7 +59,7 @@ namespace ConsoleApp1
             string res2_2 = string.Concat(JToken.Parse(str2));
             Person res3 = JsonConvert.DeserializeObject<Person>(str2);
 
-            string str4 = "[{\"Name\":\"value1\"},{\"Name\":\"value2\"}]";            
+            string str4 = "[{\"Name\":\"value1\"},{\"Name\":\"value2\"}]";
             IEnumerable<Person> res4 = JsonConvert.DeserializeObject<IEnumerable<Person>>(str4);
             string str4_2 = string.Concat(JToken.Parse(str4).Children()["Name"]);
 
@@ -65,32 +69,32 @@ namespace ConsoleApp1
             string res6 = string.Concat(JToken.Parse(str6)["news"].Children()["Title"]);
             string res7 = string.Concat(JToken.Parse(str6)["news"].Children()["Article"]);
 
-            string str7 = 
+            string str7 =
 "{\"news\":[{\"Title\":\"value1\",\"Article\":\"value3\"},{\"Title\":\"value2\",\"Article\":\"value4\",\"tags\":[\"value5\",\"value\"]}]}";
             string res8 = string.Concat(JToken.Parse(str7)["news"].Children()["tags"]);
 
             string str8 =
 "{\"news\":[{\"Title\":\"value1\",\"Article\":\"value3\"},{\"Title\":\"value2\",\"Article\":\"value4\",\"tags\":[{\"Name\":\"value7\"},{\"Name\":\"value8\"}]}]}";
 
-            JSONManager2 jm2 = new JSONManager2();            
+            JSONManager2 jm2 = new JSONManager2();
 
             //Read from 2lvl array to string
             IJEnumerable<JToken> personsJT = JToken.Parse(str8)["news"].Children()["tags"];
             List<string> col = jm2.JTokenToCollection(personsJT);
             string resp4 = jm2.CollectionToStringFormat<string>(col,
-                new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore,Formatting = Formatting.None }
+                new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting = Formatting.None }
             );
 
             var a = JToken.Parse(str8).SelectToken("news", false).SelectToken("Title", false);
-            
+
             /*{"parentNodeName":[{"Name":"value1","Name2":"Value1"},{"Name":"value2","Name2":"value2"}]} - > model {Name {get;set;}, Name2 {get;set;}} */
             //Extract tokens from JSON response parent Node, convert to collection of model objects
-            IJEnumerable<JToken> jte =  jm2.ExtractFromParentNode(str5, "result");
+            IJEnumerable<JToken> jte = jm2.ExtractFromParentNode(str5, "result");
             //Extract + convert JSON to collection of model objects
-            IEnumerable<Person> res9 = jm2.DeserializeFromParentNode<Person>(str5,"result" );
+            IEnumerable<Person> res9 = jm2.DeserializeFromParentNode<Person>(str5, "result");
             //to string  Selectable -> ignore nulls, no intending
             string resp0 = jm2.CollectionToStringFormat<Person>(res9,
-                new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting= Formatting.None });
+                new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting = Formatting.None });
 
             //extract from JSON parent node
             IJEnumerable<JToken> jte2 = jm2.ExtractFromParentChildNode(str8, "news", "Title");
@@ -109,7 +113,7 @@ namespace ConsoleApp1
                 , new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Include, Formatting = Formatting.None });
 
             //Back to object 
-            IEnumerable< Person> persons = JsonConvert.DeserializeObject<IEnumerable<Person>>(resp0);
+            IEnumerable<Person> persons = JsonConvert.DeserializeObject<IEnumerable<Person>>(resp0);
         }
         public static void OrientSpagettyCheck()
         {
@@ -273,7 +277,7 @@ namespace ConsoleApp1
         {
             JSONmanager jm = new JSONmanager();
 
-            
+
             string input = "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#-2:0\",\"@version\":0,\"Name\":\"kapkaev\"},{\"@type\":\"d\",\"@rid\":\"#-2:1\",\"@version\":0,\"Name\":\"kokuevol\"}]}";
             string input2 = "[{\"@type\":\"d\",\"@rid\":\"#-2:13\",\"@version\":0,\"Name\":[\"tishakovoi\"]}]";
             string input3 = "[{\"@type\":\"d\",\"@rid\":\"#-2:13\",\"@version\":0,\"Name\":[\"tishakovoi\"]},{\"@type\":\"d\",\"@rid\":\"#-2:13\",\"@version\":0,\"Name\":[\"kapkaev\"]}]";
@@ -286,19 +290,19 @@ namespace ConsoleApp1
             var des3 = JsonConvert.DeserializeObject(input3);
 
             JToken jt1 = null, jt2 = null;
-            Record jt3 =new Record();
-            JToken r1,r0 = null;
+            Record jt3 = new Record();
+            JToken r1, r0 = null;
             IEnumerable<JToken> r2 = null, r3 = null;
 
-            try{
+            try {
                 jt1 = JsonConvert.DeserializeObject<JToken>(input);
-            }catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
-            try{
+            } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try {
                 jt2 = JsonConvert.DeserializeObject<JToken>(input2);
-            }catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
-            try{
+            } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try {
                 jt3 = JsonConvert.DeserializeObject<Record>(input3);
-            }catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
 
             //Json has parent node
             try { JToken e1 = jt1[rk]; } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
@@ -306,14 +310,14 @@ namespace ConsoleApp1
             try { IEnumerable<JToken> e1 = jt1[rk].Children()[nk]; } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
 
             //Json has parent as collection
-                
+
             //not OK
-            try { JToken e1 = jt2[rk];} catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
-            try { JToken e1 = jt2[nk];} catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try { JToken e1 = jt2[rk]; } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try { JToken e1 = jt2[nk]; } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
 
             //OK
-            try { IEnumerable<JToken> e2 = jt2.Children();}catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
-            try { IEnumerable<JToken> e3 = jt2.Children()[nk];}catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try { IEnumerable<JToken> e2 = jt2.Children(); } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
+            try { IEnumerable<JToken> e3 = jt2.Children()[nk]; } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
 
             //try { IEnumerable<JToken> e4 = jt3.Children()[nk];}catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
 
@@ -331,20 +335,198 @@ namespace ConsoleApp1
 
                 var r_0 = JsonConvert.SerializeObject(a);
                 var r_1 = JsonConvert.SerializeObject(z);
-          
+
                 string c = jm.CollectionToStringFormat<JToken>(a, null);
 
-                string r5 = jm.CollectionToStringFormat<Person>(z, new JsonSerializerSettings(){NullValueHandling = NullValueHandling.Ignore});
-                string r6 = jm.CollectionToStringFormat<JToken>(a,null);
-                
+                string r5 = jm.CollectionToStringFormat<Person>(z, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore });
+                string r6 = jm.CollectionToStringFormat<JToken>(a, null);
+
                 var t2 = JsonConvert.DeserializeObject(c);
                 var t3 = JsonConvert.DeserializeObject(r5);
                 var t4 = JsonConvert.DeserializeObject(r6);
             }
             catch (Exception e) { System.Diagnostics.Trace.WriteLine(e); }
-           
 
-        }     
+
+        }
+
+        //Token managers check
+        //check select cluase
+        public static void SelectClusesAndURLBuildCheck()
+        {
+
+            //Get collection of tokens used for concatenating authentication URL part
+            List<ITypeToken> urlTokens = new List<ITypeToken>()
+            { new OrientHost(), new OrientPort(), new OrientAuthenticateToken(), new OrientDb() };
+            //Initialize Format for auth URL string concat 
+            //- > {0}:{1}/{2}/{3}
+            // <host>:<port>/connect/<dbname>
+            OrientAuthenticationURLFormat ot = new OrientAuthenticationURLFormat();
+            //Build auth url from url tokens with url concat rule
+            OrientAuthenticationURL ur = new OrientAuthenticationURL(urlTokens, ot);
+            //Authentication URL text
+            string authUrl = ur.Text.Text;
+
+
+            //Initialize Format for command URL string concat 
+            //-> {0}:{1}/{2}/{3}
+            // <host>:<port>/command/<dbname>/sql
+            OrientCommandURLFormat cf = new OrientCommandURLFormat();
+            //tokens for command url part
+            List<ITypeToken> urlCommandTokens = new List<ITypeToken>()
+            { new OrientHost(), new OrientPort(), new OrientCommandToken(), new OrientDb(), new OrientCommandSQLTypeToken() };
+            //Command URL text
+            OrientCommandURLBuilder commandUrlPart = new OrientCommandURLBuilder(urlCommandTokens, cf);
+            //command url
+            string commandUrl = commandUrlPart.Text.Text;
+
+            // tokens for query Select part
+            List<ITypeToken> selectCommandTokens = new List<ITypeToken>()
+            { new OrientSelectToken(), new OrientFromToken(), new OrientPersonToken()};
+            //format for Select concat
+            //{0}/{1} {2} {3}
+            //<commandURL>/<select from classname>
+            OrientSelectClauseFormat of = new OrientSelectClauseFormat();
+            //build full command URL with URL and command Parts            
+            OrientSelectClauseBuilder selectUrlPart =
+                new OrientSelectClauseBuilder(
+                    selectCommandTokens
+                    , of
+                );
+            //select query URL text
+            string selectQuery = selectUrlPart.Text.Text;
+
+            //Where command tokens with test hardcoded condition 
+            //<<!!! condition to concatenation builder (infinite where)
+            List<ITypeToken> whereCommandTokens = new List<ITypeToken>()
+            { new OrientWhereToken(), new TextToken(){ Text=@"1=1"} };
+            //format for where concat
+            OrientWhereClauseFormat wf = new OrientWhereClauseFormat();
+            //build where clause
+            OrientWhereClauseBuilder whereUrlPart =
+                new OrientWhereClauseBuilder(
+                    whereCommandTokens, wf
+                );
+            //where query text
+            string whereQuery = whereUrlPart.Text.Text;
+
+
+            //collection of FULL tokens 
+            //@"{0}:{1}/{2}/{3}/{4}/{5} {6} {7} {8} {9}"
+            List<ITextBuilder> CommandTokens = new List<ITextBuilder>(){
+                commandUrlPart,selectUrlPart,whereUrlPart
+            };
+            //Aggregate all query TokenManagers to one Select URL command with where
+            OrientCommandURLBuilder commandSample = new OrientCommandURLBuilder(
+                CommandTokens, new TextToken() { Text = @"{0}/{1} {2}" }, URLbuilder.BuildTypeFormates.NESTED
+                );
+            //full select query command
+            string selectcommandURL = commandSample.Text.Text;
+
+        }
+        //check insert clause
+        public static void InsertClausesCheck()
+        {
+            Person per = new Person() { Name = "0", GUID = "0", Changed = DateTime.Now, Created = DateTime.Now };
+            JSONManager2 jm = new JSONManager2();
+            string contentText = jm.SerializeObject(per, 
+                new JsonSerializerSettings() {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Formatting = Formatting.None,
+                    DateFormatString = @"yyyy-MM-dd HH:mm:ss" });
+            TextToken content = new TextToken() { Text = contentText };
+
+            List<ITypeToken> CreateTokens = new List<ITypeToken>() {
+                new OrientCreateToken(),new OrientVertexToken(),new OrientPersonToken(), new OrientContentToken()
+                , content};
+            OrientCreateVertexCluaseFormat cf = new OrientCreateVertexCluaseFormat();
+            OrientCreateClauseBuilder cb = new OrientCreateClauseBuilder(CreateTokens, cf);
+            string CreateCommand = cb.Text.Text;
+        }
+        //check delete clause
+        public static void DeleteClauseCheck()
+        {
+
+            List<ITypeToken> wT = 
+                new List<ITypeToken>() {new OrientWhereToken(), new TextToken(){Text="\"Name\" = \"0\"" }};
+            OrientWhereClauseFormat cf = 
+                new OrientWhereClauseFormat();
+            OrientWhereClauseBuilder cb = new OrientWhereClauseBuilder(wT, cf);
+
+
+            //<<ad where clause builder
+            List<ITypeToken> dt = 
+                new List<ITypeToken>(){new OrientDeleteToken(), new OrientVertexToken(), new OrientPersonToken()
+                , new TextToken(){Text = "where Name = 0" }};
+            OrientDeleteVertexCluaseFormat df 
+                = new OrientDeleteVertexCluaseFormat();
+            OrientDeleteClauseBuilder dlb = new OrientDeleteClauseBuilder(dt,df);
+
+            string deleteClause = dlb.Text.Text;
+        }
+        //HTTP clause
+        public static void HTTPclauseCheck()
+        {
+
+
+            List<ITypeToken> commandTokents = 
+    new List<ITypeToken>(){ new OrientHost(),new OrientPort(), new OrientCommandToken(), new OrientDb(),new OrientCommandSQLTypeToken()};
+
+            Person per = new Person() { Name = "0", GUID = "0", Changed = DateTime.Now, Created = DateTime.Now };
+            JSONManager2 jm = new JSONManager2();
+            string contentText = jm.SerializeObject(per,
+                new JsonSerializerSettings()
+                {
+                    NullValueHandling = NullValueHandling.Ignore,
+                    Formatting = Formatting.None,
+                    DateFormatString = @"yyyy-MM-dd HH:mm:ss"
+                });
+            TextToken personContent = new TextToken() { Text = contentText };
+
+            List<ITypeToken> CreateTokens =
+    new List<ITypeToken>() { new OrientCreateToken(), new OrientVertexToken(), new OrientPersonToken(), new OrientContentToken() , personContent };
+            List<ITypeToken> selectTokens =
+    new List<ITypeToken>() { new OrientSelectToken(), new OrientFromToken(), new OrientPersonToken() };
+            List<ITypeToken> DeleteToken =
+    new List<ITypeToken>() { new OrientDeleteToken(), new OrientVertexToken(), new OrientPersonToken(), null,null };
+            List<ITypeToken> whereTokens =
+    new List<ITypeToken>() { new OrientWhereToken(), new TextToken() { Text = "Name = 0" } };
+
+            OrientCommandURLFormat uf = new OrientCommandURLFormat();
+            OrientCreateVertexCluaseFormat cf = new OrientCreateVertexCluaseFormat();
+            OrientSelectClauseFormat sf = new OrientSelectClauseFormat();
+            OrientDeleteVertexCluaseFormat df = new OrientDeleteVertexCluaseFormat();
+            OrientWhereClauseFormat wf = new OrientWhereClauseFormat();
+
+            OrientCommandURLBuilder ub = new OrientCommandURLBuilder(commandTokents, uf);
+            OrientCreateClauseBuilder cb = new OrientCreateClauseBuilder(CreateTokens, cf);
+            OrientSelectClauseBuilder sb = new OrientSelectClauseBuilder(selectTokens, sf);
+            OrientDeleteClauseBuilder db = new OrientDeleteClauseBuilder(DeleteToken, df);
+            OrientWhereClauseBuilder wb = new OrientWhereClauseBuilder(whereTokens, wf);
+
+            string url = ub.Text.Text;
+            string create = cb.Text.Text;
+            string select = sb.Text.Text;
+            string delete = db.Text.Text;
+            string where = wb.Text.Text;
+
+            List<ITextBuilder> createTk = new List<ITextBuilder>() {ub,cb};
+            List<ITextBuilder> selectTk = new List<ITextBuilder>() { ub, sb, wb };
+            List<ITextBuilder> deleteTk = new List<ITextBuilder>() { ub, db, wb };
+
+            OrientCommandURLBuilder cU =
+    new OrientCommandURLBuilder(createTk, new TextToken() { Text = @"{0}/{1}" },URLbuilder.BuildTypeFormates.NESTED);
+            OrientCommandURLBuilder sU =
+    new OrientCommandURLBuilder(selectTk, new TextToken() { Text = @"{0}/{1} {2}" }, URLbuilder.BuildTypeFormates.NESTED);
+            OrientCommandURLBuilder dU =
+    new OrientCommandURLBuilder(deleteTk, new TextToken() { Text = @"{0}/{1} {2}" }, URLbuilder.BuildTypeFormates.NESTED);
+
+            string cUt = cU.Text.Text;
+            string sUt = sU.Text.Text;
+            string dUt = dU.Text.Text;
+
+        }
+
         public static void ManagersCheck()
         {
 
@@ -452,7 +634,7 @@ namespace ConsoleApp1
             //Формирование "чистой" строки из коллекции токенов
             string res0 = jm.CollectionToStringFormat<IJEnumerable<JToken>>(jt, null);
 
-            
+
             //Аналогично, без иключения null, oneline          
             res0 = jm.CollectionToStringFormat<IJEnumerable<JToken>>(jm.ExtractTokens(
                 jm.CollectionToStringFormat<Person>(
@@ -496,10 +678,10 @@ namespace ConsoleApp1
             bool res = a.Equals(b);
 
         }
-        
+
     }
 
-  
+
 
     //DB CREATE, Objects from existing DB move, AND DROP. no class segregation
     public class OrientSpagettyCheck
@@ -1227,11 +1409,11 @@ namespace ConsoleApp1
         IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName, string childNodeName);
         IJEnumerable<JToken> ExtractFromChildNode(string input, string childNodeName);
 
+        string SerializeObject(object input_, JsonSerializerSettings settings_);
 
         IEnumerable<T> DeserializeFromParentNode<T>(string input, string parentNodeName) where T : class;
         IEnumerable<T> DeserializeFromParentChildNode<T>(string input, string parentNodeName, string childNodeName) where T : class;
         IEnumerable<T> DeserializeFromChildNode<T>(string input, string childNodeName) where T : class;
-
 
         IEnumerable<T> JTokensToCollection<T>(IEnumerable<JToken> input) where T : class;
         string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null) where T : class;
@@ -1304,7 +1486,7 @@ namespace ConsoleApp1
 
             try
             {
-                resp = (HttpWebResponse)this._request.GetResponse();               
+                resp = (HttpWebResponse)this._request.GetResponse();
             }
             catch (Exception e)
             {
@@ -1316,7 +1498,7 @@ namespace ConsoleApp1
         public virtual async Task<HttpWebResponse> GetResponseAsync(string url, string method)
         {
             HttpWebResponse resp;
-            addRequest(url, method);            
+            addRequest(url, method);
             try
             {
                 resp = (HttpWebResponse)this._request.GetResponse();
@@ -1329,7 +1511,7 @@ namespace ConsoleApp1
             return await Task.FromResult(resp);
         }
 
-    }    
+    }
     /// <summary>
     ///     Orient specific WebManager for authentication and authenticated resopnses sending to URL
     ///     with NetworkCredentials
@@ -1339,7 +1521,7 @@ namespace ConsoleApp1
         //>> add async
         public new HttpWebResponse GetResponse(string url, string method)
         {
-            HttpWebResponse resp=null;
+            HttpWebResponse resp = null;
             base.addRequest(url, method);
             addHeader(HttpRequestHeader.Cookie, this.OSESSIONID);
             try
@@ -1428,12 +1610,12 @@ namespace ConsoleApp1
         {
             string result = string.Empty;
             Task<string> st = null;
-            try{
+            try {
                 st = response.Result.Content.ReadAsStringAsync();
-                result = st.Result;                
+                result = st.Result;
             }
-            catch(Exception e){ System.Diagnostics.Trace.WriteLine(e.Message);  }
-            
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
+
             return result;
         }
     }
@@ -1450,11 +1632,11 @@ namespace ConsoleApp1
         public IEnumerable<T> DeseializeSample<T>(string resp) where T : class
         {
             IEnumerable<T> res = null;
-            try{
+            try {
                 res = JsonConvert.DeserializeObject<IEnumerable<T>>(resp);
-            }catch(Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
+            } catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
             return res;
-        }       
+        }
         //For JSON structure {NodeName:[{a:1,..,c:1},{a:10,..,c:10}]}
         public IEnumerable<T> DeserializeFromNode<T>(string jInput, string Node) where T : class
         {
@@ -1472,7 +1654,7 @@ namespace ConsoleApp1
             result = CollectionConvert<T>(res);
             return result;
         }
-    
+
         //Extracts collection of tokens [{"Tk1":"A"},..,{"Tk31":"Z"}] -> IJEnumerable<JTokens> ["A",..,"Z"]
         public IJEnumerable<JToken> ExtractTokens(string jInput, string field)
         {
@@ -1499,7 +1681,7 @@ namespace ConsoleApp1
             result = (from s in input select s.ToObject<T>()).ToList();
             return result;
         }
-        public string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null ) where T : class
+        public string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null) where T : class
         {
             string result = null;
             result = JsonConvert.SerializeObject(list_, jss);
@@ -1515,14 +1697,15 @@ namespace ConsoleApp1
     /// converts to string results with options
     /// </summary>
     public class JSONManager2 : IJsonManger
-    {
-        public IJEnumerable<JToken> ExtractFromParentNode(string input,string parentNodeName)
+    {        
+
+        public IJEnumerable<JToken> ExtractFromParentNode(string input, string parentNodeName)
         {
             IJEnumerable<JToken> result = null;
-                result = JToken.Parse(input)[parentNodeName];
+            result = JToken.Parse(input)[parentNodeName];
             return result;
         }
-        public IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName,string childNodeName)
+        public IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName, string childNodeName)
         {
             IJEnumerable<JToken> result = null;
             result = JToken.Parse(input)[parentNodeName].Children()[childNodeName];
@@ -1535,22 +1718,29 @@ namespace ConsoleApp1
             return result;
         }
 
-        public IEnumerable<T> DeserializeFromParentNode<T>(string input, string parentNodeName) where T:class
+        public IEnumerable<T> DeserializeFromParentNode<T>(string input, string parentNodeName) where T : class
         {
             IEnumerable<T> result = null;
-            result = JTokensToCollection<T>(ExtractFromParentNode(input,parentNodeName));
+            result = JTokensToCollection<T>(ExtractFromParentNode(input, parentNodeName));
             return result;
         }
         public IEnumerable<T> DeserializeFromParentChildNode<T>(string input, string parentNodeName, string childNodeName) where T : class
         {
             IEnumerable<T> result = null;
-            result = JTokensToCollection<T>(ExtractFromParentChildNode(input, parentNodeName,childNodeName));
+            result = JTokensToCollection<T>(ExtractFromParentChildNode(input, parentNodeName, childNodeName));
             return result;
         }
-        public IEnumerable<T> DeserializeFromChildNode<T>(string input,  string childNodeName) where T : class
+        public IEnumerable<T> DeserializeFromChildNode<T>(string input, string childNodeName) where T : class
         {
             IEnumerable<T> result = null;
             result = JTokensToCollection<T>(ExtractFromChildNode(input, childNodeName));
+            return result;
+        }
+
+        public string SerializeObject(object input_, JsonSerializerSettings settings_)
+        {
+            string result = string.Empty;
+            result = JsonConvert.SerializeObject(input_, settings_);
             return result;
         }
 
@@ -1563,7 +1753,7 @@ namespace ConsoleApp1
         public List<string> JTokenToCollection(IEnumerable<JToken> input)
         {
             List<string> result = new List<string>();
-            foreach(JToken jt in input.Children())
+            foreach (JToken jt in input.Children())
             {
                 result.Add(JsonConvert.SerializeObject(jt));
             }
@@ -1577,6 +1767,8 @@ namespace ConsoleApp1
         }
     }
 
+
+    //<<-- Out deprecated New Builder Above OrientTokens
     /// <summary>
     /// no any Buisiness logic
     /// divide to query class with inheritance|generic 
@@ -1623,108 +1815,324 @@ namespace ConsoleApp1
     }
 
 
+
+    /// <summary>
+    /// URL scope
+    /// </summary>
+
+    /// <summary>
+    /// Tokens for Orient API URIs 
+    /// Different API types tend to different Http req strategies example: Fucntion/param or: Batch/ + JSON-body
+    /// (add types to ItypeToken for plugging-in)
+    /// </summary>
     //For token items
     public interface ITypeToken
     {
-        string Text { get; }
+        string Text { get; set; }
     }
-    //For different API type URIs
-    public interface IUrIBuilder
-    {      
-        string GetUrl();
-    }
-    
-    /// <summary>
-    /// Tokens for Orient API URIs 
-    /// Different API types tend to different Http req strategies example: Fucntion/param or: Batch/ + JSON-body    
-    /// </summary>
-    public class Host : ITypeToken
+    //Building Item from Token types
+    public interface ITextBuilder
     {
-        public string Text { get { return "Batch"; } }
-    }
-    public class Db : ITypeToken
-    {
-        public string Text { get { return "Batch"; } }
-    }
-    public class Port : ITypeToken
-    {
-        public string Text { get { return "Batch"; } }
+        ITypeToken Text { get; }
+        ITypeToken FormatPattern { get; }
+        List<ITypeToken> Tokens { get; }
+
+        string GetText();
+        void SetText(List<ITypeToken> tokens_, ITypeToken FormatPattern_);
     }
 
-    public class OrientFuncionToken : ITypeToken
+
+
+    /// <summary>
+    ///  Tokens realization for different string concatenations
+    /// </summary>
+    //Tokens for Orient Comamnd and Authenticate URLs
+    public class OrientHost : ITypeToken
     {
-        public string Text { get { return "Function"; } }
+        public string Text { get { return "http://msk1-vm-ovisp02"; } set { Text = value; } }
+    }
+    public class OrientDb : ITypeToken
+    {
+        public string Text { get { return "news_test3"; } set { Text = value; } }
+    }
+    public class OrientPort : ITypeToken
+    {
+        public string Text { get { return "2480"; } set { Text = value; } }
+    }
+    public class OrientAuthenticateToken : ITypeToken
+    {
+        public string Text { get { return "connect"; } set { Text = value; } }
     }
     public class OrientCommandToken : ITypeToken
     {
-        public string Text { get { return "Command"; } }
+        public string Text { get { return "command"; } set { Text = value; } }
     }
-    public class OrientConnectToken : ITypeToken
+    public class OrientCommandSQLTypeToken : ITypeToken
     {
-        public string Text { get { return "Connect"; } }
+        public string Text { get { return "sql"; } set { Text = value; } }
+    }
+    public class OrientFuncionToken : ITypeToken
+    {
+        public string Text { get { return "Function"; } set { Text = value; } }
     }
     public class OrientBatchToken : ITypeToken
     {
-        public string Text { get { return "Batch"; } }
+        public string Text { get { return "Batch"; } set { Text = value; } }
     }
-
-
-    public abstract class UriBuilder : IUrIBuilder
+    //Tokens for storing Resulted build strings (URLs, commands e.t.c)
+    public class TextToken : ITypeToken
     {
-
-        internal ITypeToken _Host;
-        internal ITypeToken _Port;
-        internal ITypeToken _DbName;
-        internal ITypeToken _ApiType;
-
-        internal string ApiUrl { get; set; }
-
-        public UriBuilder(ITypeToken host_, ITypeToken DbName_, ITypeToken ApiType_, ITypeToken port_ = null)
-        {
-            this._Host = host_;
-            this._Port = port_;
-            this._DbName = DbName_;
-            this._ApiType = ApiType_;
-        }
-
-        public virtual void SetUrl()
-        {
-            this.ApiUrl = string.Format("{0}/{1}/{2]", _Host, _Port, _DbName);
-        }
-        public virtual string GetUrl() {
-            return this.ApiUrl;
-        }
-
+        public string Text { get; set; }
     }
-
-    public class AuthUrIBuilder : UriBuilder
+    //Auth Orient URL
+    public class OrientAuthenticationURLFormat : ITypeToken
     {
-        ITypeToken authToken;
-
-        public AuthUrIBuilder(ITypeToken ApiType_, ITypeToken host_, ITypeToken DbName_) 
-            : base (host_,DbName_,ApiType_)
-        {
-
-        }
-        public override void SetUrl()
-        {
-            this.ApiUrl = string.Format("{0}/{1}/{2}",this._Host.Text, authToken.Text,this._DbName.Text);
-        }
+        public string Text { get { return @"{0}:{1}/{2}/{3}"; } set { Text = value; } }
     }
-    public class CommandUrIBuilder : UriBuilder
+    //Command URL part format
+    public class OrientCommandURLFormat : ITypeToken
     {
-        ITypeToken authToken;
+        public string Text { get { return @"{0}:{1}/{2}/{3}/{4}"; } set { Text = value; } }
+    }
 
-        public CommandUrIBuilder(ITypeToken ApiType_,ITypeToken host_, ITypeToken DbName_, ITypeToken Port_)
-            : base(ApiType_, host_, DbName_,  Port_)
+
+
+    /// <summary>
+    /// Base class for url tokens concatenation
+    /// </summary>
+    //TextBuilder realization for Format placeholders for URL concatenation
+    public abstract class URLbuilder : ITextBuilder
+    {
+        public ITypeToken Text { get; private set; }
+        public ITypeToken FormatPattern { get; private set; }
+        public List<ITypeToken> Tokens { get; private set; }
+
+        //concatenates Tokens from colection with format pattern
+        public URLbuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
         {
-
+            this.Text = new TextToken();
+            this.FormatPattern = FormatPattern_;
+            this.Tokens = tokens_;
+            SetText(this.Tokens, this.FormatPattern);
         }
-        public override void SetUrl()
+        //cocatenates URLbuilders Token collections from URLbuilders with format pattern
+        public URLbuilder(List<ITextBuilder> texts_, ITypeToken FormatPattern_, BuildTypeFormates type_)
         {
-            this.ApiUrl = string.Format("{0}/{1}/{2}/{3}", this._Host.Text, this._Port.Text, authToken.Text, this._DbName.Text);
+            this.Text = new TextToken();
+            this.FormatPattern = FormatPattern_;
+            this.Tokens = new List<ITypeToken>();
+
+            if (type_ == BuildTypeFormates.FULL)
+            {
+                this.FormatPattern = FormatPattern_;
+                this.Tokens = texts_.SelectMany(s => s.Tokens).ToList();
+                SetText(this.Tokens, this.FormatPattern);
+            }
+            if (type_ == BuildTypeFormates.NESTED)
+            {
+                List<ITypeToken> str = new List<ITypeToken>();
+                foreach (ITextBuilder tb in texts_)
+                {
+                    //build string
+                    tb.SetText(tb.Tokens, tb.FormatPattern);
+                    //add tokens to list
+                    this.Tokens.AddRange(tb.Tokens);
+                    //concatenate formats according to new, nested format
+                    str.Add(tb.FormatPattern);
+                }
+
+                //add format concatenation 
+                //concatenate collection of formats according to format
+                this.FormatPattern.Text = string.Format(this.FormatPattern.Text, (from s in str select s.Text).ToArray())
+                //recount foramt variables from 0 to max
+                this.FormatPattern.Text = FormatStringReArrange(this.FormatPattern.Text);
+                //build new string
+                SetText(this.Tokens, this.FormatPattern);
+            }
+        }
+        public void SetText(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
+        {
+            List<string> str = new List<string>();
+            foreach (ITypeToken tt in this.Tokens)
+            {               
+                if (tt != null){str.Add(tt.Text);}
+                //else { str.Add(null); }
+            }
+            this.Text.Text = string.Format(this.FormatPattern.Text,str.ToArray());
+        }
+        public string GetText()
+        {
+            return this.Text.Text;
+        }
+
+        public enum BuildTypeFormates { FULL, NESTED }
+
+        //recounts format string parameters from 0 for concatenated from several format strings
+        public string FormatStringReArrange(string input_)
+        {
+            string result = string.Empty;
+            List<char> input_chars = input_.ToCharArray().ToList();
+            int i = 0, i2 = 0, ctr = 0;
+            for (i = 0; i < input_chars.Count; i++) {
+                i2 = i;
+                if (char.IsDigit(input_chars[i])) {
+                    while (char.IsDigit(input_chars[i2 + 1])) {
+                        i2 += 1;
+                    }
+                    for (int i3 = i; i3 <= i2; i3++) {
+                        input_chars.RemoveAt(i3);
+                    }
+
+                    char[] chToInsert = ctr.ToString().ToCharArray();
+
+                    if (chToInsert.Count() > 1){
+                  
+                        for (int i4 = 0; i4 < chToInsert.Count(); i4++){
+                            input_chars.Insert(i, chToInsert[i4]);
+                            i += 1;
+                        }
+                        i -= 1;
+                    }
+                    else{
+                        input_chars.Insert(i, chToInsert[0]);
+                    }
+                    ctr += 1;
+                }
+            }
+
+            return result = string.Concat(input_chars);
         }
     }
+    //Authentication URL build
+    public class OrientAuthenticationURL : URLbuilder
+    {
+        public OrientAuthenticationURL(List<ITypeToken> tokens_, OrientAuthenticationURLFormat FormatPattern_)
+             : base(tokens_, FormatPattern_)
+        {
+
+        }
+    }
+    //Command URL build
+    public class OrientCommandURLBuilder : URLbuilder
+    {
+        public OrientCommandURLBuilder(List<ITypeToken> tokens_, OrientCommandURLFormat FormatPattern_)
+            : base(tokens_, FormatPattern_)
+        {
+
+        }
+        public OrientCommandURLBuilder(List<ITextBuilder> texts_, ITypeToken FormatPattern_, URLbuilder.BuildTypeFormates type_)
+          : base(texts_, FormatPattern_, type_)
+        {
+
+        }
+    }
+
+
+
+    /// <summary>
+    /// query command scope
+    /// </summary>
+
+    /// </summary>
+    /// command queries contains prevoius command as first parameter, 
+    /// cause WHERE not intended to be used without select
+    /// </summary>
+    //command query part format
+    public class OrientSelectClauseFormat : ITypeToken
+    {
+        public string Text { get { return @"{0} {1} {2}"; } set { Text = value; } }
+    }
+    //Command for concatenating select command and where clause
+    public class OrientWhereClauseFormat : ITypeToken
+    {
+        public string Text { get { return @"{0} {1}"; } set { Text = value; } }
+    }
+    //create vertex command Format
+    public class OrientCreateVertexCluaseFormat : ITypeToken
+    {
+        public string Text { get { return @"{0} {1} {2} {3} {4}"; } set { Text = value; } }
+    }
+    //delete vertex command Format
+    public class OrientDeleteVertexCluaseFormat : ITypeToken
+    {
+        public string Text { get { return @"{0} {1} {2} {3}"; } set { Text = value; } }
+    }
+
+    public class OrientSelectToken : ITypeToken
+    {
+        public string Text { get { return "Select"; } set { Text = value; } }
+    }
+    public class OrientFromToken : ITypeToken
+    {
+        public string Text { get { return "from"; } set { Text = value; } }
+    }
+    public class OrientWhereToken : ITypeToken
+    {
+        public string Text { get { return "where"; } set { Text = value; } }
+    }
+
+    public class OrientCreateToken : ITypeToken
+    {
+        public string Text { get { return @"Create"; } set { Text = value; } }
+    }
+    public class OrientContentToken : ITypeToken
+    {
+        public string Text{get{ return @"content"; } set{ Text = value; } }
+    }
+    public class OrientDeleteToken : ITypeToken
+    {
+        public string Text { get { return @"Delete"; } set { Text = value; } }
+    }
+
+    public class OrientVertexToken : ITypeToken
+    {
+        public string Text { get { return @"Vertex"; } set { Text = value; } }
+    }
+
+    public class OrientPersonToken : ITypeToken
+    {
+        public string Text { get { return "Person"; } set { Text = value; } }
+    }
+    public class OrientUnitToken : ITypeToken
+    {
+        public string Text { get { return "Unit"; } set { Text = value; } }
+    }
+
+
+    public class OrientSelectClauseBuilder : URLbuilder
+    {
+        public OrientSelectClauseBuilder(List<ITypeToken> tokens_, OrientSelectClauseFormat FormatPattern_)
+            : base(tokens_, FormatPattern_)
+        {
+
+        }
+    }
+    public class OrientWhereClauseBuilder : URLbuilder
+    {
+        public OrientWhereClauseBuilder(List<ITypeToken> tokens_, OrientWhereClauseFormat FormatPattern_)
+            : base(tokens_, FormatPattern_)
+        {
+
+        }
+    }
+   
+    public class OrientCreateClauseBuilder : URLbuilder
+    {
+        public OrientCreateClauseBuilder(List<ITypeToken> tokens_,ITypeToken format_) 
+            : base(tokens_, format_)
+        {
+
+        }
+    }
+    public class OrientDeleteClauseBuilder : URLbuilder
+    {
+        public OrientDeleteClauseBuilder(List<ITypeToken> tokens_,ITypeToken format_)
+            : base(tokens_,format_)
+        {
+
+        }
+    }
+
 
 
 }

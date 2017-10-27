@@ -33,12 +33,46 @@ namespace Parts{
 	
 	//Framework Design Guidelines
 	https://www.amazon.co.uk/Framework-Design-Guidelines-Conventions-Development/dp/0321545613/		
-		
+	
+	//Custom errors
+	https://weblog.west-wind.com/posts/2017/Jun/01/Bypassing-IIS-Error-Messages-in-ASPNET
+	http://benfoster.io/blog/aspnet-mvc-custom-error-pages
+	https://msdn.microsoft.com/ru-ru/library/h0hfz6fc(v=vs.85).aspx
+	
+	
+	
+	//Jupiter notebook
+	http://jupyter.org
+	//CDN
+	https://en.wikipedia.org/wiki/Content_delivery_network
+	//CMS\CMF
+	https://ru.wikipedia.org/wiki/Content_Management_Framework
+	//WebFramework behcnmarks
+	https://www.techempower.com/benchmarks/
+	//WebAnalytics
+	//compare	
+	https://en.wikipedia.org/wiki/List_of_web_analytics_software
+	//PIWIK
+	https://piwik.org/docs/site-search/
+	https://developer.piwik.org/guides/tracking-javascript-guide
+	https://www.innocraft.cloud/
+	
+	
+	
+	//PATTERNS
+	//practiacally apply
+	http://www.amazedsaint.com/2008/01/design-patterns-part-i-and-ii.html
+	//Extensible design
+	http://www.codemag.com/article/0801041
+	
+	
 	
 	//TOPTAL
 	https://www.toptal.com/developers/blog
 	//Boilerplate code gen
 	http://doc.postsharp.net/
+	
+	
 	
 	//dev guide
 	https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
@@ -609,7 +643,7 @@ Revise:
 			
 		}
 	
-		public class Examples
+		public Examples()
 		{
 			
 			public void Theory()
@@ -699,6 +733,24 @@ Revise:
 					System.Web.Http : IhttpActionResult -> System.Web.Http vs System.Net.Http more common, multilanguage, Http otimized
 									
 					System.Net : WebRequest,WebResponse, HttpWebRequest,HttpWebResponse -> web iteration puggable protocols
+				}
+								
+			}
+			
+			public class Collections()
+			{
+				
+				public void ListsConcatenate(){
+					this.Tokens = texts_.SelectMany(s => s.Tokens).ToList(); 
+				}
+				
+				public void JSONformat()
+				{
+					//Datetime format
+					JsonConvert.SerializeObject(Object, new IsoDateTimeConverter() { DateTimeFormat = @"yyyy-MM-dd HH:mm:ss" })
+					
+					//add jsonserializersettings
+					JsonConvert.SerializeObject(input_, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting = Formatting.None});
 				}
 				
 			}
@@ -1296,9 +1348,48 @@ Revise:
 					Assert.AreEqual(clientsL.Count(), clientsAfterListDeleteCount);
 				}				
 							
-			}
+			}					
 					
-			public class Unsorted 
+			public class Deploy()
+			{
+				
+				public void IIS()
+				{
+					
+					public void Mnual()
+					{
+						https://msdn.microsoft.com/en-us/library/1y1404zt.aspx
+						1) Build Web API
+						2) Create folder in IIS visible area
+						3) CopyPast project
+						4) Add site in iis -> set folder -> configure bindings (no name possible)
+					}
+					
+				}
+			
+			}
+			
+			public class VisualStudio()
+			{
+				
+				public void ConsoleManager()
+				{https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
+				
+					Update-Package Microsoft.AspNet.Mvc -Reinstall
+					Install-Package Microsoft.AspNet.Mvc -Version 3.2
+					Install-Package Microsoft.ApplicationInsights.Web
+					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
+					
+					
+					Find-Package microsoft.net.http
+					Install-Package microsoft.net.http
+					Install-Package microsoft.net.http -ProjectName ConsoleApp1
+					
+				}
+				
+			}			
+					
+			public class Unsorted
 			{
 				
 			//delete from oracle table and link parametrized insert command to connection
@@ -2268,45 +2359,7 @@ Revise:
 
 		}
 		
-			public class Deploy()
-			{
-				
-				public void IIS()
-				{
-					
-					public void Mnual()
-					{
-						https://msdn.microsoft.com/en-us/library/1y1404zt.aspx
-						1) Build Web API
-						2) Create folder in IIS visible area
-						3) CopyPast project
-						4) Add site in iis -> set folder -> configure bindings (no name possible)
-					}
-					
-				}
-			
-			}
-			
-			public class VisualStudio()
-			{
-				
-				public void ConsoleManager()
-				{https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
-				
-					Update-Package Microsoft.AspNet.Mvc -Reinstall
-					Install-Package Microsoft.AspNet.Mvc -Version 3.2
-					Install-Package Microsoft.ApplicationInsights.Web
-					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
-					
-					
-					Find-Package microsoft.net.http
-					Install-Package microsoft.net.http
-					Install-Package microsoft.net.http -ProjectName ConsoleApp1
-					
-				}
-				
-			}
-			
+		
 		}
 
 	}
@@ -5885,27 +5938,35 @@ host:port/ApiType/dbName/sql/commandText
 
 
 //get database
-http://msk1-vm-ovisp02:2480/database/news_test1
+http://msk1-vm-ovisp02:2480/database/news_test3
 //geet class
-http://msk1-vm-ovisp02:2480/class/news_test1/Entity
-http://msk1-vm-ovisp02:2480/class/news_test1/Person
-http://msk1-vm-ovisp02:2480/class/news_test1/Authorship
+http://msk1-vm-ovisp02:2480/class/news_test3/Entity
+http://msk1-vm-ovisp02:2480/class/news_test3/Person
+http://msk1-vm-ovisp02:2480/class/news_test3/Authorship
 //execute indeponent function
-http://msk1-vm-ovisp02:2480/function/news_test1/GetEntity/100
+http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
 
 //GET sql
-http://msk1-vm-ovisp02:2480/query/news_test1/sql/select * from Entity
-//POST sql 
-http://msk1-vm-ovisp02:2480/command/news_test1/sql/select * from Entity
+http://msk1-vm-ovisp02:2480/query/news_test3/sql/select * from Entity
+//POST sql
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/select * from Person where Name = '0'
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0')
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0'),( '2017-10-19 18:00:09', '2015-02-02 12:43:56',  '0',  '0')
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/delete vertex Person where Name = '0'
 //Fucntion (indeponent)
-http://msk1-vm-ovisp02:2480/function/news_test1/GetEntity/100
+http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
 //call to HW API
 api/Orient/GetByID/1
+
+
 
 //batch
 
 http://msk1-vm-ovisp02:2480/batch/news_test3/
 
+//body1
 { "transaction" : true,
   "operations" : [
     {
@@ -5918,6 +5979,22 @@ http://msk1-vm-ovisp02:2480/batch/news_test3/
     }
   ]
 }
+
+//body1
+{ "transaction" : true,
+  "operations" : [
+    {
+      "type" : "script",
+      "language" : "sql",
+      "script" : [
+		 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+		 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+	  ]
+    }
+  ]
+}
+
+
 
 delete vertex from  object where Content="A"
 
