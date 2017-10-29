@@ -637,6 +637,7 @@ Revise:
 			Service - one service in use. Large progects with latency and failures understood and managed
 			NuGET - managing layers
 			
+			PluginArchitecture:
 			
 			Interfaces use not only to loose coupling
 			Highly Generic code could be used from many places
@@ -735,6 +736,136 @@ Revise:
 					System.Net : WebRequest,WebResponse, HttpWebRequest,HttpWebResponse -> web iteration puggable protocols
 				}
 								
+			}
+			
+			public void Patterns()
+			{
+				
+				public void Singletones()
+				{http://csharpindepth.com/Articles/General/Singleton.aspx
+					
+	/// <summary>
+    /// Singletones
+    /// </summary>
+    //BAD single tone, concept only THREADINSAFE
+    public sealed class SingleTone
+    {
+        private static SingleTone instance = null;
+
+        public SingleTone()
+        {
+
+        }
+
+        public static SingleTone Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new SingleTone();
+                }
+
+                return Instance;
+            }
+        }
+    }
+
+
+    //threadsafe like singletone
+    public sealed class SingleTone_ThSf
+    {
+        private static SingleTone_ThSf instance;
+        private static readonly object padlock = new object();
+
+        private SingleTone_ThSf()
+        {
+
+        }
+
+        public static SingleTone_ThSf Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (padlock)
+                    {
+                        instance = new SingleTone_ThSf();
+                    }
+                }
+                return instance;
+            }
+        }
+
+    }
+
+    //Threadsafe singletone not lazy
+    //drawbacks
+    //any private members reference at first would instantiate a class
+    //circular stastic constructors 
+    //Laziness if not marked beforefieldinit for lacking static constructors
+    public sealed class SingleTone_ThSf_notLazy
+    {
+        private static SingleTone_ThSf_notLazy instance;
+
+        //Executes once per thread and per Application pool, and always checked at object creation
+        //faster then lock
+        static SingleTone_ThSf_notLazy()
+        {
+
+        }
+        private SingleTone_ThSf_notLazy()
+        {
+
+        }
+        public static SingleTone_ThSf_notLazy Instance
+        {
+            get
+            {
+                return instance;
+            }
+        }
+    }
+
+    //Thread safe Lazy Singletone without lock
+    public sealed class SingleTone_ThSf_Lz
+    {
+        //not to mark class as beforeheadinit
+        private SingleTone_ThSf_Lz() { }
+
+        public static SingleTone_ThSf_Lz Instance
+        {
+            get { return Nested.Instance; }
+        }
+
+        private class Nested
+        {
+            //not to mark class as beforeheadinit
+            private Nested() { }
+
+            internal static readonly SingleTone_ThSf_Lz Instance = new SingleTone_ThSf_Lz();
+
+        }
+
+    }
+
+    //Thread safe lazy by framework .net 4
+    public sealed class SingleTone_ThSf_LzFl
+    {
+        private static readonly Lazy<SingleTone_ThSf_LzFl> Lazy =
+            new Lazy<SingleTone_ThSf_LzFl>(() => new SingleTone_ThSf_LzFl());
+
+        private SingleTone_ThSf_LzFl() { }
+
+        public static SingleTone_ThSf_LzFl Instance { get { return Lazy.Value; } }
+
+
+    }
+					
+				}
+				
+			
 			}
 			
 			public class Collections()
@@ -1387,8 +1518,14 @@ Revise:
 					
 				}
 				
-			}			
+				public void ConfigurationManager()
+				{
+					reference 
+					FRAMEWORKS -> System.Configuration
 					
+				}
+			}			
+			
 			public class Unsorted
 			{
 				
@@ -1425,7 +1562,7 @@ Revise:
 			}
 
 			//oracle service query texts
-			public class servi?e_queries(){
+			public class servise_queries(){
 			//used for parametrized insert from import datagridview to oracle table
 			//occurs in dataGridView_Import_DoubleClick throught OracleQueryExecutor class
 			sampleInsert = "insert into merchant_list (ID_MERCHANT) values ('test_val')";
@@ -2384,7 +2521,6 @@ Revise:
 		//Issues\Errors
 		public void .NET()
 		{
-
 		
 			public CannotFindObject()
 			{
@@ -2483,58 +2619,58 @@ access, please check that you have enabled metadata publishing at the specified 
 
 				}
 
-		public void SSAS()
-		{
-			
-			///Installation
-			///Donload instal SSDT from MS VS
-			///Create Analysis services projects from VS templates
-		
-			public void Impersonation()
+			public void SSAS()
 			{
 				
-				WHEN:
-				While trying to proccess any item of olap cube from VS to create new database
+				///Installation
+				///Donload instal SSDT from MS VS
+				///Create Analysis services projects from VS templates
+			
+				public void Impersonation()
+				{
+					
+					WHEN:
+					While trying to proccess any item of olap cube from VS to create new database
+					
+					WHAT:
+					Severity	Code	Description	Project	File	Line	Suppression State
+					Error		?????????????? ??????????: ???????? ????????? ??? ??????? ImpersonationInfo. ???? ???????? ImpersonateAccount ???????????? ?????? ImpersonationInfo, ???????? Account ?? ????? ???? ??????.			0	
+					
+					HOW:
+					in datasourses name rightclick ViewDesigner, in Impersonation Information input credentials
+								
+				}
+			
+				public void Database NameChange()
+				{
+					
+					WHEN:
+					
+					WHAT:
+					change olap database name
+					
+					WHOW:
+					rtclck project properties - > deployment
+					
+				}
 				
-				WHAT:
-				Severity	Code	Description	Project	File	Line	Suppression State
-				Error		?????????????? ??????????: ???????? ????????? ??? ??????? ImpersonationInfo. ???? ???????? ImpersonateAccount ???????????? ?????? ImpersonationInfo, ???????? Account ?? ????? ???? ??????.			0	
-				
-				HOW:
-				in datasourses name rightclick ViewDesigner, in Impersonation Information input credentials
+				public void DimensionProcessError()
+				{
+					
+					WHEN:
+					connecting via wrong login (Datasource base login instead of OLAP base)
+					
+					WHAT:
+					cannot connect to database while login 
+					
+					WHOW:
+					change credentials
+					
+				}
 							
 			}
-		
-			public void Database NameChange()
-			{
-				
-				WHEN:
-				
-				WHAT:
-				change olap database name
-				
-				WHOW:
-				rtclck project properties - > deployment
-				
-			}
 			
-			public void DimensionProcessError()
-			{
-				
-				WHEN:
-				connecting via wrong login (Datasource base login instead of OLAP base)
-				
-				WHAT:
-				cannot connect to database while login 
-				
-				WHOW:
-				change credentials
-				
-			}
-						
-		}
-		
-	}	
+		}	
 	
 		
 	}
