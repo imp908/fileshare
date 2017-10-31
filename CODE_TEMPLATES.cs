@@ -6131,6 +6131,22 @@ http://msk1-vm-ovisp02:2480/batch/news_test3/
 }
 
 
+//add from batch
+ http://msk1-vm-ovisp02:2480/batch/news_test2/
+ 
+ { "transaction" : true,
+  "operations" : [
+    {
+      "type" : "script",
+      "language" : "sql",
+      "script" : [
+		"let $a = insert into UserSettings content {\"showBirthday\":true};"
+	,"let $b = create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;"
+	  ]
+    }
+  ]
+}
+
 
 delete vertex from  object where Content="A"
 
@@ -6308,6 +6324,14 @@ update MainAssignment set Weight = 150 where Name = 'Начальник отде
 
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
+
+public BatchCreateFromSQL()
+{
+	
+	let $a = insert into UserSettings content {"showBirthday":true}
+create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;
+
+}
 
 public NestedAggr() {
 	
@@ -7324,7 +7348,8 @@ return b;
 			public void FU()
 			{
 
-//<< I
+			
+//<< I (try it out)
 //inverted V E In Out
 (v)-[e]->(v)
 out e in 
@@ -7339,13 +7364,13 @@ in v out
 //<< III
 //parent Node 'NSPK' is not Unit -> its company
 
-//<< IV
+//<< IV (take it bit..h!)
 //returning from if(eval,) returns json aray but not object [[]] -x {[]}
 
 //<< V
 //Начальник управления инфраструктуры_ !!! << empty char
 
-//<< VI 
+//<< VI (ups!)
 // different traverse and select results (solodale Отдел поддержки прикладных систем)
 {
  select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').Weight[0] as w from (
@@ -7355,6 +7380,19 @@ in v out
       ) ) where 1=1  
 	  
 }
+
+//<< VII (fairyland)
+//function can be programmatically created but not Deleted
+			
+//<< VIII  (not so fast)
+//mentioned traverse functions has no any effect
+//SELECT traversedElement(-1, 3) FROM ( TRAVERSE out() FROM #34:3232 WHILE $depth <= 10 )
+
+//<< IX
+//unpredicable commenaries
+
+//<<X (i pee on you)
+//insert create from sql throught let absolutely fucked up syntax
 
 			}
 		
