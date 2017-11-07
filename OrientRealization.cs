@@ -34,7 +34,7 @@ namespace OrientRealization
     ///     with NetworkCredentials
     /// </summary>    
 
-    public class OrientWebManager : WebManager
+    public class WebManagerAuth : WebManager
     {
         //>> add async
         public new HttpWebResponse GetResponse(string url, string method)
@@ -60,6 +60,8 @@ namespace OrientRealization
             WebResponse resp;
             addRequest(url, "GET");
             addCredentials(nc);
+            bindCredentials();
+
             try
             {
                 resp = this._request.GetResponse();
@@ -75,7 +77,7 @@ namespace OrientRealization
 
     }
 
-   
+    
     /// <summary>
     ///  Tokens realization for different string concatenations
     /// </summary>
@@ -305,7 +307,6 @@ namespace OrientRealization
     }
 
 
-
     /// </summary>
     /// command queries contains prevoius command as first parameter, 
     /// cause WHERE not intended to be used without select
@@ -343,7 +344,7 @@ namespace OrientRealization
     /// </summary>
 
     /// <summary>creates collection of tokens
-    //builds add,delete,create commands from token amount
+    ///builds add,delete,create commands from token amount
     /// </summary>
     public class OrientTokenBuilder : ITokenBuilder
     {
@@ -400,7 +401,7 @@ namespace OrientRealization
     /// <summary>
     /// Builder with exlicitly named commands
     /// </summary>
-    public class OrientTokenBuilderDistributed
+    public class OrientTokenBuilderExplicit
     {     
         
         //Create class cluase (type check) with extends class option
@@ -614,14 +615,14 @@ namespace OrientRealization
         }
     }
     //Command URL build
-    public class OrientCommandURIBuilder : Textbuilder
+    public class CommandURIBuilder : Textbuilder
     {
-        public OrientCommandURIBuilder(List<ITypeToken> tokens_, OrientCommandURLFormat FormatPattern_)
+        public CommandURIBuilder(List<ITypeToken> tokens_, OrientCommandURLFormat FormatPattern_)
             : base(tokens_, FormatPattern_)
         {
 
         }
-        public OrientCommandURIBuilder(List<ITextBuilder> texts_, ITypeToken FormatPattern_, Textbuilder.BuildTypeFormates type_)
+        public CommandURIBuilder(List<ITextBuilder> texts_, ITypeToken FormatPattern_, Textbuilder.BuildTypeFormates type_)
           : base(texts_, FormatPattern_, type_)
         {
 
@@ -690,7 +691,7 @@ namespace OrientRealization
         IWebManager wm;
         IResponseReader ir;
 
-        OrientWebManager owm = new OrientWebManager();
+        WebManagerAuth owm = new WebManagerAuth();
 
         string AuthUrl;
         string CommandUrl;
@@ -707,7 +708,7 @@ namespace OrientRealization
             this.txb = textBuilder_;
             this.wm = webManger_;
             this.ir = responseReader_;  
-
+            
             AuthUrl =txb.Build(TokenRepo.authUrl, new OrientAuthenticationURLFormat());
             CommandUrl= txb.Build(TokenRepo.commandUrl, new OrientCommandURLFormat());
             

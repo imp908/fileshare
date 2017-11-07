@@ -20,6 +20,7 @@ namespace WebManagers
 
         public WebRequest _request;
         internal string OSESSIONID;
+        internal NetworkCredential _credentials;
 
         public WebManager()
         {
@@ -50,14 +51,21 @@ namespace WebManagers
             result = this._request.GetResponse().Headers.Get(header);
             return result;
         }
-        internal void addCredentials(NetworkCredential credentials)
+        public void addCredentials(NetworkCredential credentials_)
         {
-            this._request.Credentials = credentials;
+            this._credentials = new NetworkCredential();
+            _credentials = credentials_;          
+        }
+        public void bindCredentials()
+        {
+            if (this._credentials == null) { throw new NullReferenceException();  }       
+            this._request.Credentials = this._credentials;            
         }
         public virtual WebResponse GetResponse(string url, string method)
         {
 
             addRequest(url, method);
+            bindCredentials();
 
             try
             {

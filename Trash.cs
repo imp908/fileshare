@@ -1,7 +1,6 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using Orient.Client;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -96,19 +95,7 @@ namespace Trash
 
             //Back to object 
             IEnumerable<Person> persons = JsonConvert.DeserializeObject<IEnumerable<Person>>(resp0);
-        }
-        public static void OrientSpagettyCheck()
-        {
-
-            OrientSpagettyCheck oc = new OrientSpagettyCheck();
-            oc.Initialize();
-            oc.DBmigrate();
-            oc.MigrateEdgeData<MainAssignment>();
-            oc.MigrateEdgeData<OldMainAssignment>();
-            oc.MigrateEdgeData<OutExtAssignment>();
-            oc.MigrateEdgeData<SubUnit>();
-
-        }
+        }    
 
         public static void PersonApiCheck()
         {
@@ -499,7 +486,7 @@ namespace Trash
             List<ITypeToken> urlCommandTokens = new List<ITypeToken>()
             { new OrientHost(), new OrientPort(), new OrientCommandToken(), new OrientDb(), new OrientCommandSQLTypeToken() };
             //Command URL text
-            OrientCommandURIBuilder commandUrlPart = new OrientCommandURIBuilder(urlCommandTokens, cf);
+            CommandURIBuilder commandUrlPart = new CommandURIBuilder(urlCommandTokens, cf);
             //command url
             string commandUrl = commandUrlPart.Text.Text;
 
@@ -537,7 +524,7 @@ namespace Trash
                 commandUrlPart,selectUrlPart,whereUrlPart
             };
             //Aggregate all query TokenManagers to one Select URL command with where
-            OrientCommandURIBuilder commandSample = new OrientCommandURIBuilder(
+            CommandURIBuilder commandSample = new CommandURIBuilder(
                 CommandTokens, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED
                 );
             //full select query command
@@ -647,7 +634,7 @@ namespace Trash
             OrientWhereClauseFormat wf = new OrientWhereClauseFormat();
 
             //building command and url strings from tokens according to format
-            OrientCommandURIBuilder ub = new OrientCommandURIBuilder(urlTokents, uf);
+            CommandURIBuilder ub = new CommandURIBuilder(urlTokents, uf);
 
             OrientCreateClauseBuilder cpb = new OrientCreateClauseBuilder(createPersonTokens, cf);
             OrientSelectClauseBuilder spb = new OrientSelectClauseBuilder(selectPersonTokens, sf);
@@ -687,19 +674,19 @@ namespace Trash
             //Nested type is for using new format to concatenate token formats
             //EXAMPLE for token formats
             //Token1 -> "{0}\{1}" ; Token2 -> "{0} {1} {2}"; UrlToken -> "{0}:{1}"; Result => UrlToken "{0}\{1}:{2} {3} {4}"
-            OrientCommandURIBuilder cpU =
-    new OrientCommandURIBuilder(createPersonTk, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
-            OrientCommandURIBuilder spU =
-    new OrientCommandURIBuilder(selectTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
-            OrientCommandURIBuilder dpU =
-    new OrientCommandURIBuilder(deleteTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
+            CommandURIBuilder cpU =
+    new CommandURIBuilder(createPersonTk, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
+            CommandURIBuilder spU =
+    new CommandURIBuilder(selectTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
+            CommandURIBuilder dpU =
+    new CommandURIBuilder(deleteTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
 
-            OrientCommandURIBuilder cuU =
-    new OrientCommandURIBuilder(createUnitTk, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
-            OrientCommandURIBuilder suU =
-    new OrientCommandURIBuilder(selectUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
-            OrientCommandURIBuilder duU =
-    new OrientCommandURIBuilder(deleteUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
+            CommandURIBuilder cuU =
+    new CommandURIBuilder(createUnitTk, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
+            CommandURIBuilder suU =
+    new CommandURIBuilder(selectUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
+            CommandURIBuilder duU =
+    new CommandURIBuilder(deleteUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
 
 
             //check
@@ -721,7 +708,7 @@ namespace Trash
             string authUrlText = authBld.Text.Text;
 
             //init 
-            OrientWebManager owm = new OrientWebManager();
+            WebManagerAuth owm = new WebManagerAuth();
             //authenticate
             owm.Authenticate(authUrlText, new NetworkCredential(@"root", @"I9grekVmk5g"));
             //init
@@ -806,10 +793,10 @@ namespace Trash
             List<ITextBuilder> MaTb = new List<ITextBuilder>() { ub, MaB };
 
 
-            OrientCommandURIBuilder SuUB =
-                new OrientCommandURIBuilder(SuTb, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
-            OrientCommandURIBuilder MaUB =
-                new OrientCommandURIBuilder(MaTb, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
+            CommandURIBuilder SuUB =
+                new CommandURIBuilder(SuTb, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
+            CommandURIBuilder MaUB =
+                new CommandURIBuilder(MaTb, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
 
 
             SubUnitsIDs.Add(
@@ -834,7 +821,7 @@ namespace Trash
 
             string url = @"http://10.31.14.76/cleverence_ui/hs/IntraService/location/full";
 
-            OrientWebManager owm = new OrientWebManager();
+            WebManagerAuth owm = new WebManagerAuth();
             JSONmanager jm = new JSONmanager();
             WebResponseReader wr = new WebResponseReader();
 
@@ -887,7 +874,7 @@ namespace Trash
             //HTTPmanager hm = new HTTPmanager();
 
             //-->In
-            OrientWebManager owm = new OrientWebManager();
+            WebManagerAuth owm = new WebManagerAuth();
             NetworkCredential nc = new NetworkCredential(login, password);
             WebResponseReader wrr = new WebResponseReader();
 
@@ -962,7 +949,7 @@ namespace Trash
 
             //read Orient fucntion GET with authentication
             url = @"http://msk1-vm-ovisp02:2480/function/news_test3/GetCollegesLowerByAccount/bs";
-            OrientWebManager orm = new OrientWebManager();
+            WebManagerAuth orm = new WebManagerAuth();
             orm.Authenticate(authUrl, nc);
             response = orm.GetResponse(url, "GET");
             string resultOrient = reader.ReadResponse(response);
@@ -980,475 +967,6 @@ namespace Trash
 
         }       
 
-
-    }
-
-    //DB CREATE, Objects from existing DB move, AND DROP. no class segregation
-    public class OrientSpagettyCheck
-    {
-
-        protected static string OSESSIONID;
-
-        string Authurl;
-
-        OrientDB_Net.binary.Innov8tive.API.ConnectionOptions childBasePool;
-        OrientDB_Net.binary.Innov8tive.API.ConnectionOptions parentBasePool;
-
-        OServer os;
-
-        ODatabase childBase;
-        ODatabase parentBase;
-
-        List<ODocument> childClasses;
-        List<ODocument> parentClasses;
-
-        public ODatabase openDatabase(string _host, int _port,
-        string _dbName, string _user, string _passwd)
-        {
-
-            // CONSOLE LOG
-            Console.WriteLine("Opening Database: {0}", _dbName);
-
-            // OPEN DATABASE
-            ODatabase database = new ODatabase(_host, _port, _dbName,
-                ODatabaseType.Graph, _user, _passwd);
-
-            // RETURN ODATABASE INSTANCE
-            return database;
-        }
-
-        public void Initialize()
-        {
-            Authurl = string.Format(@"{0}{1}:{2}/connect/{3}",
-            @"http://",
-            ConfigurationManager.AppSettings["ParentHost"],
-            "2480",
-            ConfigurationManager.AppSettings["ParentDBname"]
-            );
-
-            childBasePool = new OrientDB_Net.binary.Innov8tive.API.ConnectionOptions();
-            parentBasePool = new OrientDB_Net.binary.Innov8tive.API.ConnectionOptions();
-
-            childBasePool.HostName = ConfigurationManager.AppSettings["ChildHost"];
-            childBasePool.UserName = ConfigurationManager.AppSettings["ChildLogin"];
-            childBasePool.Password = ConfigurationManager.AppSettings["ChildPassword"];
-            childBasePool.Port = 2424;
-            childBasePool.DatabaseName = ConfigurationManager.AppSettings["ChildDBname"];
-            childBasePool.DatabaseType = ODatabaseType.Graph;
-
-            parentBasePool.HostName = ConfigurationManager.AppSettings["ParentHost"];
-            parentBasePool.UserName = ConfigurationManager.AppSettings["ParentLogin"]; ;
-            parentBasePool.Password = ConfigurationManager.AppSettings["ParentPassword"];
-            parentBasePool.Port = 2424;
-            parentBasePool.DatabaseName = ConfigurationManager.AppSettings["ParentDBname"];
-            parentBasePool.DatabaseType = ODatabaseType.Graph;
-
-            //Create DB
-            //http://orientdb.com/docs/last/NET-Server-CreateDatabase.html
-            os = new OServer(childBasePool.HostName, childBasePool.Port, childBasePool.UserName, childBasePool.Password);
-
-            childBase = openDatabase(childBasePool);
-            parentBase = openDatabase(parentBasePool);
-        }
-        public void DBmigrate()
-        {
-
-            //OServer os = new OServer("msk1-vm-ovisp02",2424, "root", "I9grekVmk5g");
-            if (os.DatabaseExist("news_test3", OStorageType.PLocal))
-            {
-                os.DropDatabase("news_test3", OStorageType.PLocal);
-            }
-
-            os.CreateDatabase("news_test3", childBasePool.DatabaseType, OStorageType.PLocal);
-
-            //Get list of classes
-            childClasses = GetDbClasses(childBase, ConfigurationManager.AppSettings["GetAllClasses"]);
-            parentClasses = GetDbClasses(parentBase, ConfigurationManager.AppSettings["GetAllClasses"]);
-
-            //Exort to JSON txt
-            JsonSerialize(childClasses, @"child");
-            JsonSerialize(parentClasses, @"parent");
-
-            List<ODocument> uniqueParentKeys = FilterUniqueKeys(parentClasses, childClasses);
-
-            JsonSerialize(uniqueParentKeys, @"unique");
-
-            //Add properties to Vertix and Edge classes
-            List<ODocument> ParentEdges = FilterClasses(uniqueParentKeys, "E");
-            List<ODocument> NestedEdges = FilterClassesBySuperclass(uniqueParentKeys, ParentEdges);
-
-            AddClassesNested(ParentEdges, childBase);
-            AddProperties(ParentEdges, parentBase, childBase);
-            AddClassesNested(NestedEdges, childBase);
-            AddProperties(NestedEdges, parentBase, childBase);
-
-            List<ODocument> ParentVertices = FilterClasses(uniqueParentKeys, "V");
-            List<ODocument> NestedVertices = FilterClassesBySuperclass(uniqueParentKeys, ParentVertices);
-
-            AddClassesNested(ParentVertices, childBase);
-            AddProperties(ParentVertices, parentBase, childBase);
-            AddClassesNested(NestedVertices, childBase);
-            AddProperties(NestedVertices, parentBase, childBase);
-
-            //Migrate Data from parent db in config with select from class to API
-            AuthorizeOrientDB(Authurl);
-            MigrateEntity<Person>(childBase);
-            MigrateEntity<Unit>(childBase);
-
-            //Drop Db
-            childBase.Close();
-            childBase.Dispose();
-            os.Close();
-            os.Dispose();
-        }
-        public void MigrateEdgeData<T>() where T : class, IEdge
-        {
-            AuthorizeOrientDB(Authurl);
-            string SelectCommand = string.Format(ConfigurationManager.AppSettings["SelectCommand"], "in,out", typeof(T).Name);
-            List<T> MainAssignmentCollection = GetEntityCollectionFromParentBase<T>(SelectCommand);
-
-            List<MigrateCollection> parentInGUIDs, parentOutGUIDs;
-            List<MigrateCollection> childInIDs = new List<MigrateCollection>();
-            List<MigrateCollection> childOutIDs = new List<MigrateCollection>();
-
-            foreach (T mAssign in MainAssignmentCollection)
-            {
-                parentInGUIDs = JSONstringToCollection<MigrateCollection>(GetGUIDFromIDParentDB(mAssign.In.Replace(@"#", "")));
-                parentOutGUIDs = JSONstringToCollection<MigrateCollection>(GetGUIDFromIDParentDB(mAssign.Out.Replace(@"#", "")));
-                childInIDs = new List<MigrateCollection>();
-                childOutIDs = new List<MigrateCollection>();
-
-                foreach (MigrateCollection mA in parentInGUIDs)
-                {
-                    childInIDs.Add(new MigrateCollection() { rid = GetChildId(mA.GUID, mA.@class) });
-                }
-                foreach (MigrateCollection mA in parentOutGUIDs)
-                {
-                    childOutIDs.Add(new MigrateCollection() { rid = GetChildId(mA.GUID, mA.@class) });
-                }
-
-                foreach (MigrateCollection in_ in childInIDs)
-                {
-                    foreach (MigrateCollection out_ in childOutIDs)
-                    {
-                        CreateEdge<T>(out_, in_);
-                    }
-                }
-            }
-        }
-
-        public ODatabase openDatabase(OrientDB_Net.binary.Innov8tive.API.ConnectionOptions connectionOption_)
-        {
-            ODatabase odb = new ODatabase(connectionOption_);
-            return odb;
-        }
-        public void SpagettyCommands()
-        {
-
-            string Authurl = string.Format(@"{0}{1}:{2}/connect/{3}",
-            @"http://",
-            ConfigurationManager.AppSettings["ParentHost"],
-            "2480",
-            ConfigurationManager.AppSettings["ParentDBname"]
-            );
-
-            //OrientDB_Net.binary.Innov8tive.API.ConnectionOptions
-
-            OrientDB_Net.binary.Innov8tive.API.ConnectionOptions childBasePool = new OrientDB_Net.binary.Innov8tive.API.ConnectionOptions();
-            OrientDB_Net.binary.Innov8tive.API.ConnectionOptions parentBasePool = new OrientDB_Net.binary.Innov8tive.API.ConnectionOptions();
-
-            childBasePool.HostName = ConfigurationManager.AppSettings["ChildHost"];
-            childBasePool.UserName = ConfigurationManager.AppSettings["ChildLogin"];
-            childBasePool.Password = ConfigurationManager.AppSettings["ChildPassword"];
-            childBasePool.Port = 2424;
-            childBasePool.DatabaseName = ConfigurationManager.AppSettings["ChildDBname"];
-            childBasePool.DatabaseType = ODatabaseType.Document;
-
-            parentBasePool.HostName = ConfigurationManager.AppSettings["ParentHost"];
-            parentBasePool.UserName = ConfigurationManager.AppSettings["ParentLogin"]; ;
-            parentBasePool.Password = ConfigurationManager.AppSettings["ParentPassword"];
-            parentBasePool.Port = 2424;
-            parentBasePool.DatabaseName = ConfigurationManager.AppSettings["ParentDBname"];
-            parentBasePool.DatabaseType = ODatabaseType.Graph;
-
-
-            string addVertex = string.Format(@"var d = orient.getGraph(); var vertex = db.addVertex({0} EXTENDS V)", @"Test_vertex");
-            string addClassV = string.Format(@"var gdb = orient.getGraph(); var newClass = db.createVertexType({0},{1})", "Friend", "V");
-
-            //http://orientdb.com/docs/last/NET-Server-CreateDatabase.html
-            OServer os = new OServer(childBasePool.HostName, childBasePool.Port, childBasePool.UserName, childBasePool.Password);
-            //OServer os = new OServer("msk1-vm-ovisp02",2424, "root", "I9grekVmk5g");
-            if (!os.DatabaseExist(childBasePool.DatabaseName, OStorageType.PLocal))
-            {
-                os.CreateDatabase(childBasePool.DatabaseName, childBasePool.DatabaseType, OStorageType.PLocal);
-            }
-
-            var a = typeof(OServer);
-            var b = os.GetType();
-
-            Dictionary<string, string> serverConfig = os.ConfigList();
-            var jsonConfig = JsonConvert.SerializeObject(serverConfig);
-
-            ODatabase childBase = openDatabase(childBasePool);
-            ODatabase parentBase = openDatabase(parentBasePool);
-
-
-
-        }
-
-        public void ChilldBaseDrop()
-        {
-            if (os.DatabaseExist(childBasePool.DatabaseName, OStorageType.PLocal))
-            {
-                os.DropDatabase(childBasePool.DatabaseName, OStorageType.PLocal);
-            }
-        }
-        public List<ODocument> GetDbClasses(ODatabase db, string command)
-        {
-            return db.Query(command);
-        }
-
-        public List<ODocument> FilterUniqueKeys(List<ODocument> parent_, List<ODocument> child_)
-        {
-            List<ODocument> uniqueParentKeys =
-                parent_.Except(
-                from z in (from s in child_ where s.Keys.Contains("name") select s)
-                join x in (from s in child_ where s.Keys.Contains("name") select s) on z["name"] equals x["name"]
-                select z).ToList();
-            return uniqueParentKeys;
-        }
-
-        public void JsonSerialize(object object_, string name_)
-        {
-            string object_str = JsonConvert.SerializeObject(object_, Formatting.Indented);
-            File.WriteAllText(string.Format(@"C:\workflow\temp\serialized_{0}.txt", name_), object_str);
-        }
-
-        public void AddClasses(List<ODocument> collection, ODatabase database_)
-        {
-            foreach (ODocument class_ in collection)
-            {
-                var props = class_["properties"];
-                string name = (string)class_["name"];
-                string superclass = (string)class_["superClass"];
-                database_.Command(
-                    string.Format(ConfigurationManager.AppSettings["CreateClass"], name)
-                    );
-            }
-        }
-        public void AddClassesNested(List<ODocument> collection, ODatabase database_)
-        {
-            foreach (ODocument class_ in collection)
-            {
-                var props = class_["properties"];
-                string name = (string)class_["name"];
-                string superclass = (string)class_["superClass"];
-                database_.Command(
-                    string.Format(ConfigurationManager.AppSettings["CreateClassNested"], name, superclass)
-                    );
-            }
-        }
-        public void AddProperties(IEnumerable<ODocument> classes, ODatabase parentBase_, ODatabase childBase_)
-        {
-            foreach (ODocument class_ in classes)
-            {
-                IEnumerable<ODocument> properties = GetProperties(class_, parentBase_);
-                if (properties != null)
-                {
-                    foreach (ODocument property in properties)
-                    {
-                        AddPropertyToClass(property, class_, childBase_);
-                    }
-                }
-
-
-            }
-        }
-
-        public IEnumerable<ODocument> GetProperties(ODocument class_, ODatabase parentBase_)
-        {
-            IEnumerable<ODocument> result = null;
-            Orient.Client.API.Query.OSqlSchema schema_ = parentBase_.Schema;
-            string className = (string)class_["name"];
-            if (className != "Object_SC" && (string)class_["superClass"] != "Object_SC")
-            {
-                if ((string)class_["superClass"] != "V" || (string)class_["superClass"] != "E")
-                {
-                    result = schema_.Properties((string)class_["superClass"]);
-                    IEnumerable<ODocument> result2 = schema_.Properties((string)class_["name"]);
-                    result = result.Concat(result2);
-                }
-                else
-                {
-                    result = schema_.Properties((string)class_["name"]);
-                }
-
-            }
-            return result;
-        }
-        public void AddPropertyToClass(ODocument property_, ODocument class_, ODatabase childDatabase_)
-        {
-            string className = (string)class_["name"];
-            string name = (string)property_["name"];
-            int type = (int)property_["type"];
-            string typeStr = OrientNumToCLRType.ValuetoString(type);
-            string comm = string.Format(ConfigurationManager.AppSettings["CreateProperty"], className, name, typeStr);
-            childDatabase_.Command(comm);
-        }
-        public List<ODocument> FilterClasses(List<ODocument> classes_, string type_)
-        {
-            return (from s in classes_ where (string)s["superClass"] == type_ select s).ToList();
-        }
-        public List<ODocument> FilterClassesBySuperclass(List<ODocument> classes_, List<ODocument> filter_)
-        {
-            return (from s in classes_
-                    join c in filter_ on s["superClass"] equals c["name"]
-                    select s).ToList();
-        }
-
-        public void AuthorizeOrientDB(string url)
-        {
-            WebRequest AuthRequest = WebRequest.Create(url);
-            AuthRequest.Credentials = new NetworkCredential(ConfigurationManager.AppSettings["ParentLogin"], ConfigurationManager.AppSettings["ParentPassword"]);
-            AuthRequest.Method = "GET";
-            AuthRequest.ContentType = "application/json; charset=utf-8";
-            WebResponse response = AuthRequest.GetResponse();
-            OSESSIONID = response.Headers.Get("Set-Cookie");
-            int status = (int)((HttpWebResponse)response).StatusCode;
-            response.Close();
-        }
-        public string GetFromParentDB(string url)
-        {
-            WebRequest wr = WebRequest.Create(url);
-            wr.Headers.Add(HttpRequestHeader.Cookie, OSESSIONID);
-            wr.Method = "GET";
-            wr.ContentType = "application/json; charset=utf-8";
-            var resp = new HttpResponseMessage(HttpStatusCode.OK);
-
-            string res = WebRequestToString(wr);
-            return res;
-        }
-        public object GetObj(string url)
-        {
-            WebRequest wr = WebRequest.Create(url);
-            wr.Headers.Add(HttpRequestHeader.Cookie, OSESSIONID);
-            wr.Method = "GET";
-            wr.ContentType = "application/json; charset=utf-8";
-            var resp = new HttpResponseMessage(HttpStatusCode.OK);
-
-            object res = WebRequestToObj(wr);
-            return res;
-        }
-        public string WebRequestToString(WebRequest wr)
-        {
-            using (var responseApi = (HttpWebResponse)wr.GetResponse())
-            {
-                using (var reader = new StreamReader(responseApi.GetResponseStream()))
-                {
-                    string objText = reader.ReadToEnd();
-                    var objClasses = JsonConvert.DeserializeObject(objText);
-                    string jsonResult = objClasses.ToString();
-                    return jsonResult;
-                }
-            }
-        }
-        public object WebRequestToObj(WebRequest wr)
-        {
-            using (var responseApi = (HttpWebResponse)wr.GetResponse())
-            {
-                using (var reader = new StreamReader(responseApi.GetResponseStream()))
-                {
-                    var objText = reader.ReadToEnd();
-                    var objClasses = JsonConvert.DeserializeObject(objText);
-
-
-                    return objClasses;
-
-                }
-            }
-        }
-
-        public List<T> JSONstringToCollection<T>(string input_) where T : class
-        {
-            JObject jarr = JObject.Parse(input_);
-            List<JToken> results = jarr["result"].Children().ToList();
-            List<T> persList = new List<T>();
-
-            foreach (JToken jt in results)
-            {
-                persList.Add(jt.ToObject<T>());
-            }
-            return persList;
-        }
-        public string ObjectToJSONString<T>(T Object) where T : class
-        {
-            string res = JsonConvert.SerializeObject(Object, new IsoDateTimeConverter() { DateTimeFormat = @"yyyy-MM-dd HH:mm:ss" }).ToString();
-            return res;
-        }
-
-        public string JsonToCommand(string ApiGetRes)
-        {
-            ApiGetRes = ApiGetRes.Replace("[", "").Replace("]", "");
-            return ApiGetRes;
-        }
-        public string SelectCommand(string command_)
-        {
-            return string.Format(@"{0}{1}:{2}/command/{3}/sql/{4}",
-            @"http://",
-            ConfigurationManager.AppSettings["ParentHost"],
-            "2480",
-            ConfigurationManager.AppSettings["ParentDBname"],
-            //@"select Seed,Created,GUID,Changed,FirstName,LastName,MiddleName,Birthday,mail,telephoneNumber,userAccountControl,objectGUID,sAMAccountName,Name,Hash,OneSHash from person LIMIT 5");         
-            command_);
-        }
-
-        public List<T> GetEntityCollectionFromParentBase<T>(string command_) where T : class
-        {
-            List<T> list = JSONstringToCollection<T>(GetFromParentDB(SelectCommand(command_)));
-            return list;
-        }
-        public void MigrateEntity<T>(ODatabase childBase_) where T : class
-        {
-            string SelectCommand = string.Format(ConfigurationManager.AppSettings["SelectCommand"], "*", typeof(T).Name);
-            List<T> entities = GetEntityCollectionFromParentBase<T>(SelectCommand);
-            //Person pers = JsonConvert.DeserializeObject<Person>(ApiGetRes);
-            //GetObj(commUrl);
-            //Get(commUrl);
-            foreach (T item in entities)
-            {
-                string command = JsonToCommand(ObjectToJSONString<T>(item));
-                //valid insert command
-                //command = @"{""Seed"":""1005821"",""Created"":""2014-12-15 12:21:24"",""GUID"":""4e28f31a-89b8-11e4-bab2-00c2c66d13b0"",""Changed"":""2017-08-23 10:06:45"",""DeparmentColorRGB"":null,""DeparmentColorClass"":null,""Disabled"":null}";
-                command = string.Format(
-                    ConfigurationManager.AppSettings["InsertEntityCommand"],
-                     item.GetType().Name
-                    , command.Replace(@"""0001-01-01 00:00:00""", "null"));
-
-                childBase_.Command(command);
-            }
-
-        }
-
-        public string GetGUIDFromIDParentDB(string ID)
-        {
-            string result = null;
-            string command_ = string.Format(ConfigurationManager.AppSettings["SelectCommand"], "@rid,@class,GUID", ID);
-            result = GetFromParentDB(SelectCommand(command_));
-            return result;
-        }
-        public string GetChildId(string GUID, string class_)
-        {
-            string result = null;
-            string command_ = string.Format(ConfigurationManager.AppSettings["SelectWhereCommand"], "@rid", class_, @"GUID = '" + GUID + "'");
-            OCommandResult Oresult = childBase.Command(command_);
-            result = (from s in Oresult.ToList() select s).FirstOrDefault()["rid"].ToString();
-            return result;
-        }
-        public void CreateEdge<T>(MigrateCollection From, MigrateCollection To) where T : class, IEdge
-        {
-            string command_ = string.Format(ConfigurationManager.AppSettings["CreateEdge"], typeof(T).Name, From.rid, To.rid);
-            childBase.Command(command_);
-        }
 
     }
 

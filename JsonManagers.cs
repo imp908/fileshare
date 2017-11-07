@@ -59,6 +59,19 @@ namespace JsonManagers
             return result;
         }
 
+        public IEnumerable<T> DeserializeFromParentNode<T>(string input) where T : class
+        {
+            IEnumerable<T> result = null;
+            result = JTokensToCollection<T>(ExtractFromParentNode(input));
+            return result;
+        }
+        public IJEnumerable<JToken> ExtractFromParentNode(string input)
+        {
+            IJEnumerable<JToken> result = null;
+            result = JToken.Parse(input);
+            return result;
+        }
+
         public string SerializeObject(object input_, JsonSerializerSettings settings_)
         {
             string result = string.Empty;          
@@ -78,7 +91,6 @@ namespace JsonManagers
             result = JsonConvert.SerializeObject(input_, settings_);
             return result;
         }
-
 
 
         public IEnumerable<T> JTokensToCollection<T>(IEnumerable<JToken> input) where T : class

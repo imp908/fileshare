@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using Orient.Client;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -119,7 +119,7 @@ new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 
         {
 
             OrientCommandBuilder cb = new OrientCommandBuilder();
-            OrientTokenBuilderDistributed eb = new OrientTokenBuilderDistributed();
+            OrientTokenBuilderExplicit eb = new OrientTokenBuilderExplicit();
             ITypeConverter tc = new TypeConverter();
 
             List<IQueryManagers.ITypeToken> lt = new List<IQueryManagers.ITypeToken>();
