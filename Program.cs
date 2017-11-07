@@ -20,14 +20,14 @@ using OrientRealization;
 using IOrientObjects;
 
 
-namespace ConsoleApp1
+namespace NSQLManager
 {
 
     class OrientDriverConnnect
     {
 
         static void Main(string[] args)
-        {
+        {            
             RepoCheck rc = new RepoCheck();
             rc.GO();
         }
@@ -36,6 +36,7 @@ namespace ConsoleApp1
 
     public class RepoCheck
     {
+
         JSONManager jm;
         OrientTokenBuilder tb;
         TypeConverter tc;
@@ -73,14 +74,15 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             m =
 new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
 
-           lp = new List<string>();
-           lu = new List<string>();
+            lp = new List<string>();
+            lu = new List<string>();
+            
         }
 
 
-
         public void GO()
-        {         
+        {
+            ExplicitCommandsCheck();
             AddCheck();
             DeleteCheck();
         }
@@ -113,8 +115,53 @@ new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 
             str = repo.Delete(typeof(MainAssignment));
             str = repo.Delete(typeof(SubUnit));
         }
+        public void ExplicitCommandsCheck()
+        {
+
+            OrientCommandBuilder cb = new OrientCommandBuilder();
+            OrientTokenBuilderDistributed eb = new OrientTokenBuilderDistributed();
+            ITypeConverter tc = new TypeConverter();
+
+            List<IQueryManagers.ITypeToken> lt = new List<IQueryManagers.ITypeToken>();
+            List<string> ls = new List<string>();
+
+
+lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientClassToken() { Text = "V" });
+ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+
+lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientPropertyToken() { Text = "Name" }, new OrientSTRINGToken(), true,true);
+ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+
+lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientPropertyToken() { Text = "Created" }, new OrientDATEToken(), true, true);
+ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+
+
+
+lt = eb.Create(new OrientClassToken() { Text = "ESCN" }, new OrientClassToken() { Text = "E" });
+ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+
+lt = eb.Create(new OrientClassToken() { Text = "ESCN" }, new OrientPropertyToken() { Text = "Name" }, new OrientSTRINGToken(), true, true);
+ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+
+lt = eb.Create(new OrientClassToken() { Text = "ESCN" }, new OrientPropertyToken() { Text = "Created" }, new OrientDATEToken(), true, true);
+ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+
+
+
+lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientClassToken() { Text = "VSCN" });
+ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+
+lt = eb.Create(new OrientClassToken() { Text = "Beer" }, new OrientClassToken() { Text = "VSCN" });
+ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+
+lt = eb.Create(new OrientClassToken() { Text = "Produces" }, new OrientClassToken() { Text = "ESCN" });
+ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+
+
+
+        }
+
     }
     
-
 }
 

@@ -39,6 +39,12 @@ namespace Parts{
 	http://benfoster.io/blog/aspnet-mvc-custom-error-pages
 	https://msdn.microsoft.com/ru-ru/library/h0hfz6fc(v=vs.85).aspx
 	
+//quality check
+	https://msdn.microsoft.com/en-us/library/4dtdybt8.aspx
+	//CI/CD HW
+	https://docs.microsoft.com/en-us/vsts/build-release/actions/ci-cd-part-1
+	//PowerShell TFS
+	https://blogs.technet.microsoft.com/heyscriptingguy/2014/04/21/powershell-and-tfs-the-basics-and-beyond/																					 
 	
 	
 	//Jupiter notebook
@@ -1515,6 +1521,10 @@ Revise:
 					Find-Package microsoft.net.http
 					Install-Package microsoft.net.http
 					Install-Package microsoft.net.http -ProjectName ConsoleApp1
+					Install-Package xunit
+					Install-Package xunit.analyzers 
+					Install-Package xunit.runner.console
+					Install-Package xunit.runner.visualstudio						  
 					
 				}
 				
@@ -1526,6 +1536,21 @@ Revise:
 				}
 			}			
 			
+				public void MSbuild()
+			{
+
+/*				
+"10.0" указывает на поднабор инструментов .NET Framework 4;
+"11.0" указывает на поднабор инструментов .NET Framework 4.5;
+"12.0" указывает на поднабор инструментов .NET Framework 4.5.1.
+*/
+
+				//build v14.0
+				C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe "C:\workflow\projects\Dev\Intranet Development\AddressBook_News2\AddressBook_News2-branch1\AddressBook_News.sln" /p:Configuration=Debug  /p:VisualStudioVersion=14.0;BaseOutputPath=bin\res
+				
+				
+			}
+						
 			public class Unsorted
 			{
 				
@@ -6148,8 +6173,11 @@ http://msk1-vm-ovisp02:2480/batch/news_test3/
 }
 
 
+//bad command quotes no intervals
 delete vertex from  object where Content="A"
 
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/
+{"command":"CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\\"sql\\",\\" select r.ToLowerCase() as r from (select '\\"+input+\\"' as r) \\"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;"}
 		}
 
 			public void Maintenance()
@@ -6173,6 +6201,7 @@ PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
 CREATE FUNCTION test "var g=orient.getGraph(); var b=g.command(\"sql\",\"select if(eval(\'1=2\'),2,3) \" ); return b;" 
 PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
 		
+	'\"+input+\"'		   
 	}
 	
 	public void Initial_NewsApi_Queries()
@@ -6232,6 +6261,23 @@ ALTER PROPERTY VSC.Seed DEFAULT "sequence('intranet_seed').next()"
 
 alter database custom standardElementConstraints=false
 
+CREATE CLASS Object_SC extends V;
+
+
+
+CREATE PROPERTY Object_SC.Id INTEGER (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY Object_SC.Content STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY Object_SC.Created DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY Object_SC.Changed DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY Object_SC.Disabled DATETIME;
+
+ALTER PROPERTY Object_SC.Created DEFAULT "sysdate()";
+ALTER PROPERTY Object_SC.Changed DEFAULT "sysdate()";
+
+
+CREATE CLASS Object EXTENDS Object_SC;
+CREATE CLASS Authorship EXTENDS E;
+CREATE CLASS Comment EXTENDS E;
 CREATE PROPERTY MainAssignment.Weight INTEGER;
 
 /*Lowerest level Weight*/
@@ -6305,7 +6351,19 @@ update MainAssignment set Weight = 150 where Name = 'Начальник отде
 		//create function 
 		//CREATE FUNCTION test "var g=orient.getGraph();var b=g.command(\"sql\",\"select from Person where sAMAccountName =  '\"+accountName+\"' \");return b;" PARAMETERS [accountName]  IDEMPOTENT true LANGUAGE JAVASCRIPT
 		
+	/*
+delete from OFUNCTION where name = 'test'
+
+CREATE FUNCTION test " value \"  \\\" ' \' \\' \\\' "  IDEMPOTENT true LANGUAGE JAVASCRIPT
+value "  \" ' ' \' \' 
+
+
+CREATE FUNCTION test " value \"  \\\" ' \' \\' \\\' \\ "  IDEMPOTENT true LANGUAGE JAVASCRIPT
+value "  \" ' ' \' \' \ 
+
+		*/
 		/*GetUnitByAccount*/
+		delete from OFunction 
 
 		CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\"sql\",\" select r.ToLowerCase() as r from (select '\"+input+\"' as r) \"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;
 		CREATE FUNCTION GetUnitByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\" select in('MainAssignment').Name[0] as Name from Person WHERE sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0] and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )\"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
@@ -6317,6 +6375,366 @@ update MainAssignment set Weight = 150 where Name = 'Начальник отде
 		CREATE FUNCTION GetCollegesLowerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"   select  sAMAccountName as Name from (     select expand($a )     let     $x = (         select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]   ),     $a =  (      select from (           select from person     ) where 1=1     /*Exclude person's account from results*/     and sAMAccountName != $x.sAMAccountName[0]       and inE('MainAssignment').Weight[0] < $x.inE('MainAssignment').Weight[0]          /*Standart overall Person filter*/         and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )         and (Disabled is null)         and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам'          )    )  ) order by Name    \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		
 	}
+	public void Initial_NewsApi_Fucntions()
+	{
+		/*works*/
+		CREATE function GetStructure "var g=orient.getGraph(); var b=g.command(\"sql\",\"select @RID,@class,FirstName,GUID,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl ,objectGUID , if( eval('@class = \\\"Person\\\"'),in('MainAssignment').GUID[0],PGUID ) as PGUID ,inE().Name[0] as AssignmentName ,inE().State[0] as AssignmentState ,inE().ExpDate[0] as AssignmentStateExpireDate from ( traverse out('MainAssignment') from (traverse out('SubUnit') from (select from Unit where GUID = '\"+Depth+\"') while $depth <= '\"+Depth+\"' ) ) where Disabled is null\") ; return b;" PARAMETERS [Depth] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetPersonPhoto "var link_s = \'http://msk1-vm-inapp01/AddressBookAPI/api/Photo/?email=\'"+mail+";return link_s;" PARAMETERS [mail] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetPerson "var g=orient.getGraph(); var b=g.command(\"sql\",'select GetPersonPhoto(mail) as Photo, FirstName, GUID, PGUID ,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl,objectGUID from Person where GUID = \"'+GUID+'\"'); return b;" PARAMETERS [GUID] IDEMPOTENT true LANGUAGE JAVASCRIPT;		
+		CREATE FUNCTION GetDepartmentName "var g=orient.getGraph(); var b=g.command(\"sql\",\"select $b.Name[0] as departmentName let $a = (select if(eval('@class = \\\"Unit\\\"'), GUID, in(\'MainAssignment\').GUID[0] ) as GUID from (select from vsc where GUID = \'\"+GUID+\"\') ), $b = ( select Name from ( select expand( shortestPath( (select from Unit where GUID = \'00000000-0000-0000-0000-000000000000\') , (select from VSC where GUID = $a.GUID[0] ) )[1] ) ) )\"); return b;" PARAMETERS [GUID] IDEMPOTENT true LANGUAGE JAVASCRIPT 
+		CREATE FUNCTION GetDepartmentColorClass "var g=orient.getGraph(); var b=g.command(\"sql\",\"select $b.DepartmentColorClass[0] as colorClass let $a = (select if(eval(\'@class = \\\"Unit\\\"\'), GUID, in(\'MainAssignment\').GUID[0] ) as GUID from (select from vsc where GUID = \'\"+GUID+\"\') ), $b = ( select DepartmentColorClass from ( select expand( shortestPath( (select from Unit where GUID = \'00000000-0000-0000-0000-000000000000\') , (select from VSC where GUID = $a.GUID[0] ) )[1] ) ) )\"); return b;" PARAMETERS [GUID] IDEMPOTENT true LANGUAGE JAVASCRIPT
+		CREATE FUNCTION GetDepartmentColor "var g=orient.getGraph(); var b=g.command(\"sql\",\"select $b.DepartmentColorRGB[0] as color let $a = (select if(eval(\'@class = \\\"Unit\\\"\'), GUID, in(\'MainAssignment\').GUID[0] ) as GUID from (select from vsc where GUID = \'\"+GUID+\"\') ), $b = ( select DepartmentColorRGB from ( select expand( shortestPath( (select from Unit where GUID = \'00000000-0000-0000-0000-000000000000\') , (select from VSC where GUID = $a.GUID[0] ) )[1] ) ) )\"); return b;" PARAMETERS [GUID] IDEMPOTENT true LANGUAGE JAVASCRIPT
+
+		
+		/*not works*/
+		CREATE FUNCTION GetAllStructureFAMILY "var g=orient.getGraph(); var b=g.command(\"sql\",\"select expand($c) let $v = (select from Unit where Name = 'НСПК'), $a = (select GUID as id, ifnull(PGUID,'0'.asSet()) as parents, Name as title, Name as label,' ' as phone, Name as description, '&nbsp' as mail, if( eval(\"@class = 'Person'\"),'PersonTemplate','UnitTemplate' ) as templateName , Birthday.format('dd.MM') as birthday from ( traverse in() from (SELECT dijkstra($current, $v, 'SubUnit', 'both') FROM $v) while $depth =0 ) ), $b = ( select GUID as id, ifnull( if( eval(\"@class = 'Person'\"),in().GUID,PGUID.asSet()) ,'0'.asSet() ) as parents, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, ifnull((inE('MainAssignment').Name[0]), Name) as description , if( eval(\"@class = 'Person'\"),'PersonTemplate','UnitTemplate' ) as templateName,inE().State[0] as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate , Birthday.format('dd.MM') as birthday from ( traverse out('MainAssignment','SubUnit') from (select from Unit where Name = 'НСПК') ) where ( inE()[0].Disabled is null and Disabled is null) ), $c = unionall( $a, $b);\"); return b;" IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetAllStructureLARGEHTY "var g=orient.getGraph(); var b=g.command(\"sql\",\"select GUID as id, ifnull( if( eval(\"@class = 'Person'\"),in(\"MainAssignment\").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor, if( eval(\"@class = 'Person'\"),'PersonTemplate','UnitTemplate' ) as templateName,inE().State[0] as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate , Birthday.format('dd.MM') as birthday from ( traverse out('MainAssignment','SubUnit') from (select from Unit where Name = 'НСПК') ) where (( inE()[0].Disabled is null and Disabled is null) and ( ((@class = 'Person') or (out(\"MainAssignment\").size() >0) or (out(\"SubUnit\").size() >0)) or (Name = 'НСПК')) and inE().State != \'ОтпускПоУходуЗаРебенком\' ) \"); return b;" IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetDepartmentName "var g=orient.getGraph(); var b=g.command(\"sql\",\"select $b.Name[0] as departmentName let $a = (select if(eval(\'@class = \"Unit\"\'), GUID, in(\'MainAssignment\').GUID[0] ) as GUID from (select from vsc where GUID = \'\"+GUID+\"\') ), $b = ( select Name from ( select expand( shortestPath( (select from Unit where GUID = \'00000000-0000-0000-0000-000000000000\') , (select from VSC where GUID = $a.GUID[0] ) )[1] ) ) )\"); return b;" PARAMETERS [GUID] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		
+
+		
+	}
+		
+	public void Brewers_Boilerplate()
+	{ /*Drops all created objects at final*/
+		
+
+create class VSCN extends V;
+CREATE PROPERTY VSCN.Name STRING (MANDATORY TRUE, notnull true);
+CREATE PROPERTY VSCN.Created DATETIME (MANDATORY TRUE, notnull true);
+CREATE PROPERTY VSCN.Changed DATETIME (MANDATORY TRUE, notnull true);
+create class ESCN extends E;
+CREATE PROPERTY ESCN.Name STRING (MANDATORY TRUE, notnull true);
+CREATE PROPERTY ESCN.Created DATETIME (MANDATORY TRUE, notnull true);
+CREATE PROPERTY ESCN.Changed DATETIME (MANDATORY TRUE, notnull true);
+create class Brewery extends VSCN;
+create class Beer extends VSCN;
+create class Produces extends ESCN;
+
+create class Human extends VSCN;
+create class Pub extends VSCN;
+
+create class FriendOf extends ESCN;
+create class Drinks extends ESCN;
+create class PassesTimeAt extends ESCN;
+
+
+/*type1 batch type*/
+/*
+let $a = CREATE VERTEX Brewery CONTENT {"Name":"Brewer1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+let $b = CREATE VERTEX Beer CONTENT {"Name":"Beer1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+let $c = CREATE EDGE Produces from $a to $b CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+*/
+
+
+/*Brewery*/
+CREATE VERTEX Brewery CONTENT {"Name":"Brewer1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Brewery CONTENT {"Name":"Brewer2","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Brewery CONTENT {"Name":"Brewer3","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+
+/*beer*/
+CREATE VERTEX Beer CONTENT {"Name":"Beer1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Beer CONTENT {"Name":"Beer2","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Beer CONTENT {"Name":"Beer3","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Beer CONTENT {"Name":"Beer4","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Beer CONTENT {"Name":"Beer5","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Beer CONTENT {"Name":"Beer6","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+
+/*type2*/
+/*Produces beer*/
+CREATE EDGE Produces from (select from Brewery where Name ="Brewer1" ) to (select from Beer where Name ="Beer1" ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE Produces from (select from Brewery where Name ="Brewer1" ) to (select from Beer where Name ="Beer2" ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE Produces from (select from Brewery where Name ="Brewer1" ) to (select from Beer where Name ="Beer3" ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE Produces from (select from Brewery where Name ="Brewer2" ) to (select from Beer where Name ="Beer4" ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE Produces from (select from Brewery where Name ="Brewer2" ) to (select from Beer where Name ="Beer5" ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE Produces from (select from Brewery where Name ="Brewer3" ) to (select from Beer where Name ="Beer6" ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+
+/*Pubs*/
+CREATE VERTEX Pub CONTENT {"Name":"Pub1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Pub CONTENT {"Name":"Pub2","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+
+/*Humans*/
+CREATE VERTEX Human CONTENT {"Name":"Human1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Human CONTENT {"Name":"Human2","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Human CONTENT {"Name":"Human3","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Human CONTENT {"Name":"Human4","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Human CONTENT {"Name":"Human5","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Human CONTENT {"Name":"Human6","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Human CONTENT {"Name":"Human7","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+CREATE VERTEX Human CONTENT {"Name":"Human8","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"};
+
+/*Friends bidirectional*/
+/*1<>3 1<>4*/
+CREATE EDGE FriendOf from (select from Human where Name ="Human1" ) to (select from Human where Name ="Human3"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE FriendOf from (select from Human where Name ="Human3" ) to (select from Human where Name ="Human1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE FriendOf from (select from Human where Name ="Human1" ) to (select from Human where Name ="Human4"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE FriendOf from (select from Human where Name ="Human4" ) to (select from Human where Name ="Human1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+
+/*2<>3 2<>5 2<>6*/
+CREATE EDGE FriendOf from (select from Human where Name ="Human2" ) to (select from Human where Name ="Human3"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE FriendOf from (select from Human where Name ="Human3" ) to (select from Human where Name ="Human2"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE FriendOf from (select from Human where Name ="Human2" ) to (select from Human where Name ="Human5"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE FriendOf from (select from Human where Name ="Human5" ) to (select from Human where Name ="Human2"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE FriendOf from (select from Human where Name ="Human2" ) to (select from Human where Name ="Human6"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE FriendOf from (select from Human where Name ="Human6" ) to (select from Human where Name ="Human2"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+/*3<>7*/
+CREATE EDGE FriendOf from (select from Human where Name ="Human3" ) to (select from Human where Name ="Human7"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE FriendOf from (select from Human where Name ="Human7" ) to (select from Human where Name ="Human3"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+/*4<>8*/
+CREATE EDGE FriendOf from (select from Human where Name ="Human4" ) to (select from Human where Name ="Human8"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE FriendOf from (select from Human where Name ="Human8" ) to (select from Human where Name ="Human4"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+/*5<>7 5<>8*/
+CREATE EDGE FriendOf from (select from Human where Name ="Human5" ) to (select from Human where Name ="Human8"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE FriendOf from (select from Human where Name ="Human8" ) to (select from Human where Name ="Human5"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE FriendOf from (select from Human where Name ="Human5" ) to (select from Human where Name ="Human7"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE FriendOf from (select from Human where Name ="Human7" ) to (select from Human where Name ="Human5"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+
+/*Drinks*/
+CREATE EDGE Drinks from (select from Human where Name ="Human1" ) to (select from Beer where Name ="Beer1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE Drinks from (select from Human where Name ="Human1" ) to (select from Beer where Name ="Beer2"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE Drinks from (select from Human where Name ="Human1" ) to (select from Beer where Name ="Beer3"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE Drinks from (select from Human where Name ="Human2" ) to (select from Beer where Name ="Beer1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE Drinks from (select from Human where Name ="Human2" ) to (select from Beer where Name ="Beer3"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE Drinks from (select from Human where Name ="Human3" ) to (select from Beer where Name ="Beer3"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE Drinks from (select from Human where Name ="Human4" ) to (select from Beer where Name ="Beer1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE Drinks from (select from Human where Name ="Human4" ) to (select from Beer where Name ="Beer6"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE Drinks from (select from Human where Name ="Human5" ) to (select from Beer where Name ="Beer6"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE Drinks from (select from Human where Name ="Human5" ) to (select from Beer where Name ="Beer5"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE Drinks from (select from Human where Name ="Human6" ) to (select from Beer where Name ="Beer1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE Drinks from (select from Human where Name ="Human7" ) to (select from Beer where Name ="Beer2"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+CREATE EDGE Drinks from (select from Human where Name ="Human8" ) to (select from Beer where Name ="Beer3"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+
+
+/*PassesTimeAt*/
+CREATE EDGE PassesTimeAt from (select from Human where Name ="Human1" ) to (select from Pub where Name ="Pub1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE PassesTimeAt from (select from Human where Name ="Human2" ) to (select from Pub where Name ="Pub1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE PassesTimeAt from (select from Human where Name ="Human3" ) to (select from Pub where Name ="Pub1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE PassesTimeAt from (select from Human where Name ="Human4" ) to (select from Pub where Name ="Pub1"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE PassesTimeAt from (select from Human where Name ="Human5" ) to (select from Pub where Name ="Pub2"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE PassesTimeAt from (select from Human where Name ="Human6" ) to (select from Pub where Name ="Pub2"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE PassesTimeAt from (select from Human where Name ="Human7" ) to (select from Pub where Name ="Pub2"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+CREATE EDGE PassesTimeAt from (select from Human where Name ="Human8" ) to (select from Pub where Name ="Pub2"  ) CONTENT {"Name":"Produces","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}
+
+
+
+delete vertex Brewery;
+delete vertex Beer;
+delete vertex Human;
+delete vertex Pub;
+
+delete Edge Produces;
+delete Edge Drinks;
+delete Edge PassesTimeAt;
+delete Edge FriendOf;
+
+drop class FriendOf;
+drop class Drinks;
+drop class PassesTimeAt;
+drop class Produces;
+drop class Beer;
+drop class Human;
+drop class Brewery;
+drop class Pub;
+drop class ESCN;
+drop class VSCN;
+
+
+
+/*
+create class VSCN extends V;
+create class VSCN2 extends VSCN;
+create class VSCN3 extends VSCN2;
+
+drop class vscn3;
+drop class vscn2;
+drop class vscn;
+*/
+
+
+	}
+	
+	public void ExportImport(){//Moove db with export
+	
+		public void InitSequence(){
+			
+CREATE SEQUENCE intranet_seed TYPE ORDERED
+ALTER SEQUENCE intranet_seed START 1000100
+select sequence('intranet_seed').reset()
+
+
+		}
+		
+		public void InitClasses(){			
+			
+CREATE CLASS VSC extends V;
+
+CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.GUID STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.Created DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.Changed DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.PGUID STRING;
+CREATE PROPERTY VSC.Disabled DATETIME;
+
+ALTER PROPERTY VSC.GUID DEFAULT uuid();
+ALTER PROPERTY VSC.Created DEFAULT "sysdate()";
+ALTER PROPERTY VSC.Changed DEFAULT "sysdate()";
+
+
+CREATE CLASS ESC extends E;
+
+CREATE PROPERTY ESC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.GUID STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.Created DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.Changed DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.PGUID STRING;
+CREATE PROPERTY ESC.Disabled DATETIME;
+
+ALTER PROPERTY ESC.GUID DEFAULT uuid();
+ALTER PROPERTY ESC.Created DEFAULT "sysdate()";
+ALTER PROPERTY ESC.Changed DEFAULT "sysdate()";
+
+create class Unit extends VSC;
+create class Person extends VSC;
+
+create class SubUnit extends E;
+create class MainAssignment extends ESC;
+create class InExtAssignment extends ESC;
+create class OutExtAssignment extends ESC;
+create class OldMainAssignment extends ESC;
+
+delete vertex Unit;
+delete vertex Person;
+delete edge SubUnit;
+delete edge MainAssignment;
+delete edge InExtAssignment;
+delete edge OutExtAssignment;
+delete edge OldMainAssignment;
+
+ALTER PROPERTY ESC.GUID DEFAULT uuid();
+ALTER PROPERTY ESC.Created DEFAULT sysdate();
+ALTER PROPERTY ESC.Changed DEFAULT sysdate();
+ALTER PROPERTY VSC.GUID DEFAULT uuid();
+ALTER PROPERTY VSC.Created DEFAULT sysdate();
+ALTER PROPERTY VSC.Changed DEFAULT sysdate();
+
+alter database custom standardElementConstraints=false
+
+
+CREATE SEQUENCE intranet_seed TYPE ORDERED
+	ALTER SEQUENCE intranet_seed START 1000100
+		select sequence('intranet_seed').reset()
+
+CREATE PROPERTY VSC.Seed Integer (MANDATORY TRUE, NOTNULL TRUE);
+ALTER PROPERTY VSC.Seed DEFAULT "sequence('intranet_seed').next()";
+
+CREATE SEQUENCE idseq TYPE ORDERED;
+
+/*
+CREATE PROPERTY VSC.ID  Integer (MANDATORY TRUE, NOTNULL TRUE);
+ALTER PROPERTY VSC.ID DEFAULT 'sequence("idseq").next()';
+ALTER PROPERTY Object.ID DEFAULT 'sequence("idseq").next()';
+ALTER PROPERTY Person.ID DEFAULT 'sequence("idseq").next()';
+ALTER PROPERTY Unit.ID DEFAULT 'sequence("idseq").next()';
+Create PROPERTY Authorship.ID  Integer (MANDATORY TRUE, NOTNULL TRUE);
+ALTER PROPERTY Authorship.ID DEFAULT 'sequence("idseq").next()';
+*/
+
+/*
+create index Person.Name_sAMAccountName_mail on Person(Name,sAMAccountName,mail) fulltext engine lucene
+
+create index Person.Name_sAMAccountName_mail on Person(Name,sAMAccountName,mail) fulltext engine lucene 
+metadata {
+"analyzer": "org.apache.lucene.morphology.russian.RussianAnalyzer",
+  "allowLeadingWildcard": true,
+  "MorphologyAnalyzer" :"org.apache.lucene.morphology.russian.RussianMorphology"
+}
+*/
+			
+		}
+				
+		
+		connect remote:127.0.0.1/news_test3 root 
+		import database C:/import/news_test3.gz
+		
+	}
+	
+	public Functions_NewsTest2(){
+		
+		
+	{
+	GetStructure : var g=orient.getGraph(); var b=g.command(""sql"",""select @RID,@class,FirstName,GUID,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl,objectGUID , if( eval('@class = \""Person\""'),in('MainAssignment').GUID[0],PGUID ) as PGUID ,inE().Name[0] as AssignmentName ,inE().State[0] as AssignmentState ,inE().ExpDate[0] as AssignmentStateExpireDate from ( traverse out('MainAssignment') from (traverse out('SubUnit') from (select from Unit where GUID = '""+GUID+""') while $depth <= '""+Depth+""' ) ) where Disabled is null"") ; return b; 
+	},{ 
+	GetPerson : var g=orient.getGraph(); var b=g.command(""sql"",'select GetPersonPhoto(mail) as Photo, FirstName, GUID, PGUID ,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl,objectGUID from Person where GUID = ""'+GUID+'""'); return b; 
+	} ,{
+	GetPersonPhoto : //var samaaa = mail.split('@')[0]; var link_s = 'http://msk1-vm-inapp01/AddressBookAPI/api/Photo/?email='+mail; return link_s; //var link_s = 'https:\/\/webmail.nspk.ru/ews/exchange.asmx/s/GetUserPhoto?email=' //var link_f = '&size=HR120x120' //return link_s + mail + link_f; 
+	},{ 
+	GetAllStructureFAMILY : var g=orient.getGraph(); var b=g.command(""sql"",""select expand($c) let $v = (select from Unit where Name = 'НСПК'), $a = (select GUID as id, ifnull(PGUID,'0'.asSet()) as parents, Name as title, Name as label,' ' as phone, Name as description, '&nbsp' as mail, if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , Birthday.format('dd.MM') as birthday from ( traverse in() from (SELECT dijkstra($current, $v, 'SubUnit', 'both') FROM $v) while $depth =0 ) ), $b = ( select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in().GUID,PGUID.asSet()) ,'0'.asSet() ) as parents, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, ifnull((inE('MainAssignment').Name[0]), Name) as description , if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName,inE().State[0] as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate , Birthday.format('dd.MM') as birthday from ( traverse out('MainAssignment','SubUnit') from (select from Unit where Name = 'НСПК') ) where ( inE()[0].Disabled is null and Disabled is null) ), $c = unionall( $a, $b);""); return b; 
+	},{ 
+	GetAllStructureLARGEHTY : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor, if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName,inE().State[0] as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate , Birthday.format('dd.MM') as birthday from ( traverse out('MainAssignment','SubUnit') from (select from Unit where Name = 'НСПК') ) where (( inE()[0].Disabled is null and Disabled is null) and ( ((@class = 'Person') or (out(\""MainAssignment\"").size() >0) or (out(\""SubUnit\"").size() >0)) or (Name = 'НСПК')) and inE().State != \'ОтпускПоУходуЗаРебенком\' ) ""); return b; 
+	},{ 
+	GetStructureBysAMAccountName : var g=orient.getGraph(); var b=g.command(""sql"",""select expand($c) let $v = (select expand( in('MainAssignment') ) from Person where sAMAccountName = '""+sAMAccountName+""' ), $a = (select GUID as id, ifnull(PGUID,0) as parent, Name as title, Name as label,'&nbsp' as phone, Name as description, '&nbsp' as mail, GetDepartmentColor(GUID)[color][0] as itemTitleColor, if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass from ( traverse in() from ( SELECT shortestPath( $v, (select from Unit where GUID = '00000000-0000-0000-0000-000000000000') ) ) while $depth =0 ) ), $b = (select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, ifnull((inE('MainAssignment').Name[0]), Name) as description, GetDepartmentColor(GUID)[color][0] as itemTitleColor, if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName ,if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate, GetPositionBar(InE('MainAssignment').Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass from ( traverse out('MainAssignment','SubUnit') from $v ) where (( inE()[0].Disabled is null and Disabled is null) and ((@class = 'Person') or (out(\""MainAssignment\"").size() >0) or (out(\""SubUnit\"").size() >0)) or (Name = 'НСПК') ) and inE().State != 'ОтпускПоУходуЗаРебенком' ), $c = unionall( $a, $b)""); return b; 
+	},{ 
+	GetStructureByPersonGUID : var g=orient.getGraph(); var b=g.command(""sql"",""select expand($c) let $v = (select expand( in('MainAssignment') ) from Person where GUID = '""+personGUID+""'), $a = (select GUID as id, ifnull(PGUID,0) as parent, Name as title, Name as label,'&nbsp' as phone, Name as description, '&nbsp' as mail, GetDepartmentColor(GUID)[color][0] as itemTitleColor, if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass , GetWeight(InE('MainAssignment').Name[0].replace('\\\""',''))['value'][0] as weight , Seed as seed from ( traverse in() from ( SELECT shortestPath( $v[0], (select from Unit where GUID = '00000000-0000-0000-0000-000000000000') ) ) while $depth =0 ) ), $b = (select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, ifnull((inE('MainAssignment').Name[0]), Name) as description, GetDepartmentColor(GUID)[color][0] as itemTitleColor, if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName ,if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate, GetPositionBar(InE('MainAssignment').Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass , GetWeight(InE('MainAssignment').Name[0].replace('\\\""',''))['value'][0] as weight , Seed as seed from ( traverse out('MainAssignment','SubUnit') from $v[0] ) where ((inE(\""MainAssignment\"")[0].Disabled is null or inE(\""MainAssignment\"")[0].Disabled >= sysdate() ) and (Disabled is null) and ((@class = 'Person') or (out(\""MainAssignment\"").size() >0) or (out(\""SubUnit\"").size() >0)) or (Name = 'НСПК') ) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != \'Отпуск по беременности и родам\' ) ), $c = unionall( $a, $b)""); return b; 
+	},{ 
+	GetDepartmentName : var g=orient.getGraph(); var b=g.command(""sql"",""select $b.Name[0] as departmentName let $a = (select if(eval('@class = \""Unit\""'), GUID, in('MainAssignment').GUID[0] ) as GUID from (select from vsc where GUID = '""+GUID+""') ), $b = ( select Name from ( select expand( shortestPath( (select from Unit where GUID = '00000000-0000-0000-0000-000000000000') , (select from VSC where GUID = $a.GUID[0] ) )[1] ) ) )""); return b; 
+	},{ 
+	"SearchPerson : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").Name[0],Name[0]) ,'0' ) as division , ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, LastName.append(' ').append(FirstName.substring( 0, 1 )).append('. ').append(MiddleName.substring( 0, 1 )).append('.') as shortFName, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate, GetPositionBar(InE().Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass, GetDepartmentName(GUID)[departmentName][0] as departmentName, sAMAccountName as login from Person WHERE sAMAccountName = '""+userLogin+""' and (inE(\""MainAssignment\"")[0].Disabled is null or inE(\""MainAssignment\"")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\' )""); return b; 
+	},{ 
+	"SearchByLastName : var g=orient.getGraph(); substr = substr.toUpperCase(); var b=g.command(""sql"",""select distinct(LastName) as lastName from Person WHERE LastName.toUpperCase() like '%""+substr+""%' and inE()[0].Disabled is null and Disabled is null "") return b; 
+	},{ 
+	GetPositionBar : var gr=orient.getGraph(); var br=gr.command(""sql"",""select $isDeputy['position'][0] as groupTitle let $managers = (select distinct(Name) as Name from MainAssignment where ( (Name like '%уководите%' or Name like '%ачальни%' or Name like '%иректор%' or Name like '%аместите%') and (not (Name like '%омощник%') and not (Name like '%екретар%') and not (Name like '%направлени%')) ) ) , $isManager = (select if( eval(\""$managers.Name.indexOf('""+position+""') != -1\""), 'true', 'false' ) as IsManager) , $IsZam = (select count(*) as IsZam from MainAssignment where Name = '""+position+""' and Name like '%Заместитель%') , $isDeputy = (select if( eval(\""$isManager['IsManager'][0] = true\""), if( eval(\""$IsZam[IsZam][0] > 0\"") ,'Заместитель','Руководитель'), null) as position)""); return br; 
+	},{ 
+	GetLarge : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id , ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent , ifnull(telephoneNumber, ' ') as phone , ifnull( mail,'&nbsp')as mail , Name as title, Name as label , ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName ,if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state , if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate , GetPositionBar(InE().Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday from ( traverse out('MainAssignment','SubUnit') from (select from Unit where Name = 'НСПК') ) where (( inE()[0].Disabled is null and Disabled is null) and( ((@class = 'Person') or (out(\""MainAssignment\"").size() >0) or (out(\""SubUnit\"").size() >0)) or (Name = 'НСПК')) and inE().State != \'ОтпускПоУходуЗаРебенком\' ) ""); return b; 
+	},{ 
+	"SearchByFNameLName_old : var g=orient.getGraph(); substr = substr.toUpperCase(); var b=g.command(""sql"",""select expand($c) let $a = (select distinct(LastName) as lastName from Person WHERE LastName.toUpperCase() like '%""+substr+""%' and inE()[0].Disabled is null and Disabled is null ), $b = (select distinct(FirstName) as lastName from Person WHERE FirstName.toUpperCase() like '%""+substr+""%' and inE()[0].Disabled is null and Disabled is null ), $c = unionall($a,$b)""); return b; 
+	},{ 
+	GetStructureByUnitGUID : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if( eval(\""@class = \'Person\'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,\'0\' ) as parent, ifnull(telephoneNumber, \' \') as phone, ifnull( mail,\'&nbsp\')as mail, Name as title, Name as label, ifnull((inE(\'MainAssignment\').Name[0]), Name) as description, GetDepartmentColor(GUID)[color][0] as itemTitleColor, if( eval(\""@class = \'Person\'\""),\'PersonTemplate\',\'UnitTemplate\' ) as templateName , if(eval(\'inE().ExpDate[0] is not null\'), inE().State[0],null) as state, if( eval(\'inE().ExpDate[0] is not null\'),inE().ExpDate[0].format(\'dd.MM.YYYY\'),null) as expDate, GetPositionBar(InE('MainAssignment').Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format(\'dd.MM\') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass , GetWeight(InE('MainAssignment').Name[0].replace('\\\""',''))['value'][0] as weight from ( traverse out(\'MainAssignment\',\'SubUnit\') from (select from Unit where GUID = '""+UnitGUID+""' ) ) where ((inE()[0].Disabled is null or inE()[0].Disabled >= sysdate() ) and (Disabled is null) and ( ((@class = \'Person\') or (out(\""MainAssignment\"").size() >0) or (out(\""SubUnit\"").size() >0)) or (Name = \'НСПК\')) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\') ) ""); return b; 
+	},{ 
+	GetDepartmentColorClass : var g=orient.getGraph(); var b=g.command(""sql"",""select $b.DepartmentColorClass[0] as colorClass let $a = (select if(eval('@class = \""Unit\""'), GUID, in('MainAssignment').GUID[0] ) as GUID from (select from vsc where GUID = '""+GUID+""') ), $b = ( select DepartmentColorClass from ( select expand( shortestPath( (select from Unit where GUID = '00000000-0000-0000-0000-000000000000') , (select from VSC where GUID = $a.GUID[0] ) )[1] ) ) )""); return b; 
+	},{ 
+	colortest : var g=orient.getGraph(); var b=g.command(""sql"",""select DepartmentColorClass from (select expand( shortestPath((select from Unit where GUID = '00000000-0000-0000-0000-000000000000'), (select from VSC where GUID = '""+GUID+""'))[1]))""); return b; 
+	},{ 
+	GetWeight : var gr=orient.getGraph(); if(position){ var br=gr.command(""sql"",""select $isDeputy['position'][0] as value let $managers = (select distinct(Name) as Name from MainAssignment where ( (Name like '%уководите%' or Name like '%ачальни%' or Name like '%иректор%' or Name like '%аместите%') and (not (Name like '%омощник%') and not (Name like '%екретар%') and not (Name like '%направлени%')) ) ) , $isManager = (select if( eval(\""$managers.Name.indexOf('""+position+""') != -1\""), 'true', 'false' ) as IsManager) , $IsZam = (select count(*) as IsZam from MainAssignment where Name = '""+position+""' and Name like '%Заместитель%') , $isDeputy = (select if( eval(\""$isManager['IsManager'][0] = true\""), if( eval(\""$IsZam[IsZam][0] > 0\"") ,1000000,0), 2000000) as position)""); return br; } else { return 3000000; } 
+	},{ 
+	GetFirstLevelUnits : var g=orient.getGraph(); var b=g.command(""sql"","" select from (traverse out(\""SubUnit\"") from ( select from Unit where GUID = '00000000-0000-0000-0000-000000000000') while $depth <= 1) where Disabled is null "") return b; 
+	},{ 
+	GetStructureByUnitGUIDAtCurrentLevel : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if( eval(\""@class = \'Person\'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,\'0\' ) as parent,ifnull(telephoneNumber, \' \') as phone, ifnull( mail,\'&nbsp\')as mail, Name as title, Name as label, ifnull((inE(\'MainAssignment\').Name[0]), Name) as description, GetDepartmentColor(GUID)[color][0] as itemTitleColor, if( eval(\""@class = \'Person\'\""),\'PersonTemplate\',\'UnitTemplate\' ) as templateName , if(eval(\'inE().ExpDate[0] is not null\'), inE().State[0],null) as state, if( eval(\'inE().ExpDate[0] is not null\'),inE().ExpDate[0].format(\'dd.MM.YYYY\'),null) as expDate, GetPositionBar(InE('MainAssignment').Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format(\'dd.MM\') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass , GetWeight(InE('MainAssignment').Name[0].replace('\\\""',''))['value'][0] as weight , Seed as seed from ( traverse out(\'MainAssignment\',\'SubUnit\') from (select from Unit where GUID = '""+UnitGUID+""' ) while $depth <=1 ) where ((inE()[0].Disabled is null or inE()[0].Disabled >= sysdate() ) and (Disabled is null) and ( ((@class = \'Person\') or (out(\""MainAssignment\"").size() >0) or (out(\""SubUnit\"").size() >0)) or (Name = \'НСПК\')) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\') ) ""); return b; 
+	},{ 
+	GetStructureByPersonGUID_ : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id , ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent , ifnull(telephoneNumber, ' ') as phone , ifnull( mail,' ')as mail , Name as title , Name as label , ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state , if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate , GetPositionBar(InE('MainAssignment').Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass , GetWeight(InE('MainAssignment').Name[0].replace('\\\""',''))['value'][0] as weight , Seed as seed from ( select expand( distinct(@this) ) from ( select expand($c) let $v = (select expand( in('MainAssignment') ) from Person where GUID = '53f45ea6-bcc2-11e4-ae8a-f80f41d3dd35'), $a = (select from ( traverse in() from ( SELECT shortestPath( $v, (select from Unit where GUID = '00000000-0000-0000-0000-000000000000') ) ) while $depth =0 ) ), $b = ( select from ( traverse out('MainAssignment','SubUnit') from $v ) where (( inE()[0].Disabled is null and Disabled is null) and ((@class = 'Person') or (out(\""MainAssignment\"").size() >0) or (out(\""SubUnit\"").size() >0)) or (Name = 'НСПК') ) and inE().State != 'ОтпускПоУходуЗаРебенком' ), $c = unionall( $a, $b) ) )""); return b; 
+	},{ 
+	SearchByFNameLName : var g=orient.getGraph(); substr = substr.replace('ё','е').toUpperCase(); var b=g.command(""sql"",""select expand($c) let $a = (select distinct(LastName).replace('ё','е') as suggestion from Person WHERE (LastName.replace('ё','е').toUpperCase() like '%""+substr+""%' ) and (inE()[0].Disabled is null or inE()[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\' ) ), $b = (select distinct(FirstName).replace('ё','е') as suggestion from Person WHERE (FirstName.replace('ё','е').toUpperCase() like '%""+substr+""%' ) and (inE()[0].Disabled is null or inE()[0].Disabled >= sysdate() ) and (Disabled is null) and (inE(\""MainAssignment\"").State != \'Отпуск по уходу за ребенком\' and inE(\""MainAssignment\"").State != \'Отпуск по беременности и родам\' )), $c = unionall($a,$b)""); return b; 
+	},{ 
+	GetDepartmentColor : var g=orient.getGraph(); var b=g.command(""sql"",""select $b.DepartmentColorRGB[0] as color let $a = (select if(eval('@class = \""Unit\""'), GUID, in('MainAssignment').GUID[0] ) as GUID from (select from vsc where GUID = '""+GUID+""') ), $b = ( select DepartmentColorRGB from ( select expand( shortestPath( (select from Unit where GUID = '00000000-0000-0000-0000-000000000000') , (select from VSC where GUID = $a.GUID[0] ) )[1] ) ) )""); return b; 
+	},{ 
+	GetAccountName : var g=orient.getGraph(); var b=g.command(""sql"",""select from Person where sAMAccountName like '%""+login+""%'""); return b; 
+	},{ 
+	GetObjectById : var g=orient.getGraph(); var b=g.command(""sql"",""select from Object where Id = ""+id+""""); return b; 
+	},{ 
+	SearchPersonExactly : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").Name[0],Name[0]) ,'0' ) as division , ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, LastName.append(' ').append(FirstName.substring( 0, 1 )).append('. ').append(MiddleName.substring( 0, 1 )).append('.') as shortFName, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate, GetPositionBar(InE().Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass, GetDepartmentName(GUID)[departmentName][0] as departmentName, sAMAccountName as login from Person WHERE sAMAccountName = '""+userLogin+""' and (inE(\""MainAssignment\"")[0].Disabled is null or inE(\""MainAssignment\"")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\' )""); return b; 
+	}
+		
+	}
+	
 			}
 
 			public void Queries()
@@ -6327,7 +6745,111 @@ https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-o
 
 public BatchCreateFromSQL()
 {
+
+	SELECT FROM (SELECT BOTH('Friend') FROM Person WHERE name
+	'John') WHERE out('LivesIn').name CONTAINS 'Rome'
+
+}
+
+public CreateObjects(){
 	
+	//examples
+	//CREATE PROPERTY User.name STRING (MANDATORY TRUE, MIN 5, MAX 25) 
+	//DELETE EDGE [#22:38482,#23:232,#33:2332]
+	//DELETE EDGE FROM #11:101 TO #11:117 WHERE date >= "2012-01-15"
+	//DELETE VERTEX #10:231
+	//TRUNCATE CLASS Email UNSAFE
+	//INSERT INTO Profile (name, friends) VALUES ('Luca', [#10:3, #10:4])
+	//INSERT INTO Profiles SET name = 'Luca', friends = [#10:3, #10:4]
+	//INSERT INTO Diver SET name = 'Luca', buddy = (SELECT FROM Diver  WHERE name = 'Marko')
+	
+	http://orientdb.com/docs/last/SQL-Create-Property.html
+	//insert 
+	http://orientdb.com/docs/last/SQL-Insert.html
+	//get all classes
+	select name from (select expand(classes) from metadata:schema )
+
+	//CREATE PROPERTY User.name STRING (MANDATORY TRUE, MIN 5, MAX 25) 
+	//DELETE EDGE [#22:38482,#23:232,#33:2332]
+	//DELETE EDGE FROM #11:101 TO #11:117 WHERE date >= "2012-01-15"
+	
+	BOOLEAN	SHORT	DATE	DATETIME	BYTE
+	INTEGER	LONG	STRING	LINK	DECIMAL
+	DOUBLE	FLOAT	BINARY	EMBEDDED	LINKBAG
+
+	EMBEDDEDLIST EMBEDDEDSET EMBEDDEDMAP
+	LINKLIST LINKSET	LINKMAP
+
+	create class VSCN
+	CREATE PROPERTY VSCN.Name STRING (MANDATORY TRUE, notnull true)
+	drop class VSCN
+	create class Brewer EXTENDS VSCN
+	create class Beer
+	
+	ALTER CLASS Beer SUPERCLASS +Brewer
+	ALTER CLASS Beer SUPERCLASS -Brewer
+	
+	CREATE PROPERTY Brewer.name STRING
+	CREATE PROPERTY Beer.name STRING
+	CREATE PROPERTY Beer.tags EMBEDDEDLIST STRING
+	
+	ALTER CLASS Account NAME Seller
+		
+	DROP CLASS VSCN
+	DROP CLASS Brewer
+	
+	CREATE SEQUENCE idseq TYPE ORDERED
+	INSERT INTO Brewer SET id = sequence('idseq').next()
+	INSERT INTO Brewer content {"Name":"Brewer1"}
+	INSERT INTO Brewer (name) values ('br1'),('br2')
+	
+	{ "transaction" : true,
+  "operations" : [
+    {
+      "type" : "script",
+      "language" : "sql",
+      "script" : [ "LET account = CREATE VERTEX Account SET name = 'Luke'",
+                   "LET city = SELECT FROM City WHERE name = 'London'",
+                   "CREATE EDGE Lives FROM $account TO $city RETRY 100" ]
+    }
+  ]
+}
+	
+	MATCH {class: Person, where: (name = 'a')}.out("FriendOf")
+          {as: friend} RETURN friend
+		  
+		  MATCH 
+  {class: Person, as: person}
+  .bothE('Friend'){as: friendship}
+  .bothV(){as: friend, where: ($matched.person != $currentMatch)} 
+RETURN person, friendship, friend
+
+
+	
+}
+
+public Match(){
+	
+	//several columns from different objects
+	match {class:Person, as: p }.in("MainAssignment").out("SubUnit"){as: u, while: ($depth =0),where: ($depth = 0)} return u.Name,p.Name
+	
+}
+
+public GetClassNamesFromSchema(){
+	
+//get all classes
+select name from (select expand(classes) from metadata:schema )
+
+
+//get properties from classes
+select name, notNull as nullable from (
+  select expand(properties) from (
+   select expand(classes) from metadata:schema 
+) where name = 'VSC'
+  )
+	
+}
+public BatchCreateFromSQL(){
 	let $a = insert into UserSettings content {"showBirthday":true}
 create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;
 
@@ -7388,11 +7910,28 @@ in v out
 //mentioned traverse functions has no any effect
 //SELECT traversedElement(-1, 3) FROM ( TRAVERSE out() FROM #34:3232 WHILE $depth <= 10 )
 
-//<< IX
+//<< IX (stink it)
 //unpredicable commenaries
 
 //<<X (i pee on you)
 //insert create from sql throught let absolutely fucked up syntax
+//http://orientdb.com/docs/last/Sequences-and-auto-increment.html
+//and this is described in docs Voila!
+
+
+//XI (surpise motherfuc.er!!)
+//not all properties seen in schema
+//maybe cause script classses creation
+
+//XII (basic maths problems - developer not counter)
+//How the fuck does this even works (..<2..>1..)?
+//match {class:Person }.in("MainAssignment").out("SubUnit"){as: u, while: ($depth < 2),where: ($depth > 1)} return u
+//More fucks with (..=2..<2..)
+//and (=1 <1) or (>1 <1) for desert
+
+//XIII (insert it here)
+//creting fnctions from commands (JSON or HTTP POST param0 incorrect " escape
+// \\" solves " but intrevals disappear
 
 			}
 		
@@ -8112,6 +8651,19 @@ RAW JSON
 				mstsc -> ??????????? ? ?????????? ???????? ?????
 				cmd -> ???????
 			}
+			public void PS()			
+			{
+				
+				//powershell tools
+				https://marketplace.visualstudio.com/items?itemName=TFSPowerToolsTeam.MicrosoftVisualStudioTeamFoundationServer2013Power
+				
+				C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell
+				//ps64
+				C:\Windows\System32\WindowsPowerShell\v1.0\powershell
+				//ps 32
+				
+			}
+			
 		}
 		
 		public UNIX

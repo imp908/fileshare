@@ -13,6 +13,7 @@ namespace POCO
 
     //MODEL scope
     #region POCOs
+
     //@JsonInclude(Include.NON_NULL)
 
 
@@ -126,6 +127,21 @@ namespace POCO
         public string GUID { get; set; }
     }
 
+    #endregion
+
+    #region BreweryPOCOs
+    public class Brewery : OrientVertex
+    {
+        string Name { get; set; }
+        DateTime Created { get; set; }
+        string Changed { get; set; }
+    }
+    public class Beer : OrientVertex
+    {        
+        string Sort { get; set; }
+        DateTime Created { get; set; }
+        string Changed { get; set; }
+    }
     #endregion
 
 }
