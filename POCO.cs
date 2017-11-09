@@ -94,6 +94,10 @@ namespace POCO
         public string Name { get; set; }
 
     }
+    public class UserSettings : OrientVertex
+    {
+        public bool showBirthday { get; set; }
+    }
 
     //Edges
     public class MainAssignment : OrientEdge
@@ -118,6 +122,17 @@ namespace POCO
     {
 
     }
+    public class CommonSettings : OrientEdge
+    {
+
+    }
+
+
+    /*
+    CREATE class UserSettings extends V;
+    CREATE PROPERTY UserSettings.showBirthday BOOLEAN;
+    CREATE CLASS CommonSettings EXTENDS E;
+    */
 
     //for spagetty check
     public class MigrateCollection

@@ -27,6 +27,12 @@ namespace JsonManagers
             result = JToken.Parse(input)[parentNodeName];
             return result;
         }
+        public IJEnumerable<JToken> ExtractFromParentChildred(string input,  string childNodeName)
+        {
+            IJEnumerable<JToken> result = null;
+            result = JToken.Parse(input).Children()[childNodeName];
+            return result;
+        }
         public IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName, string childNodeName)
         {
             IJEnumerable<JToken> result = null;
@@ -39,11 +45,25 @@ namespace JsonManagers
             result = JToken.Parse(input).Children()[childNodeName];
             return result;
         }
+       
+        public IJEnumerable<JToken> ExtractFromParentNode(string input)
+        {
+            IJEnumerable<JToken> result = null;
+            result = JToken.Parse(input);
+            return result;
+        }
+
 
         public IEnumerable<T> DeserializeFromParentNode<T>(string input, string parentNodeName) where T : class
         {
             IEnumerable<T> result = null;
             result = JTokensToCollection<T>(ExtractFromParentNode(input, parentNodeName));
+            return result;
+        }
+        public IEnumerable<T> DeserializeFromParentChildren<T>(string input, string childNodeName) where T : class
+        {
+            IEnumerable<T> result = null;
+            result = JTokensToCollection<T>(ExtractFromParentChildred(input, childNodeName));
             return result;
         }
         public IEnumerable<T> DeserializeFromParentChildNode<T>(string input, string parentNodeName, string childNodeName) where T : class
@@ -63,12 +83,6 @@ namespace JsonManagers
         {
             IEnumerable<T> result = null;
             result = JTokensToCollection<T>(ExtractFromParentNode(input));
-            return result;
-        }
-        public IJEnumerable<JToken> ExtractFromParentNode(string input)
-        {
-            IJEnumerable<JToken> result = null;
-            result = JToken.Parse(input);
             return result;
         }
 
@@ -114,6 +128,7 @@ namespace JsonManagers
             result = JsonConvert.SerializeObject(list_, jss);
             return result;
         }
+
     }
 
 }

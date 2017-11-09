@@ -39,26 +39,26 @@ namespace QueryManagers
 
     // Base class for url tokens concatenation
     //TextBuilder realization for Format placeholders for URL concatenation
-    public class Textbuilder : ITextBuilder
+    public class TextBuilder : ITextBuilder
     {
 
         public ITypeToken Text { get; set; }
         public ITypeToken FormatPattern { get; set; }
         public List<ITypeToken> Tokens { get; set; }
         
-        public Textbuilder()
+        public TextBuilder()
         {
 
         }
         //concatenates Tokens from colection with format pattern
-        public Textbuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
+        public TextBuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
         {        
             this.FormatPattern = FormatPattern_;
             this.Tokens = tokens_;
             SetText(this.Tokens, this.FormatPattern);
         }
         //cocatenates URLbuilders Token collections from URLbuilders with format pattern
-        public Textbuilder(List<ITextBuilder> texts_, ITypeToken FormatPattern_, BuildTypeFormates type_)
+        public TextBuilder(List<ITextBuilder> texts_, ITypeToken FormatPattern_, BuildTypeFormates type_)
         {
       
             this.FormatPattern = FormatPattern_;

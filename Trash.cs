@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
+
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -95,8 +96,8 @@ namespace Trash
 
             //Back to object 
             IEnumerable<Person> persons = JsonConvert.DeserializeObject<IEnumerable<Person>>(resp0);
-        }    
-
+        }
+       
         public static void PersonApiCheck()
         {
 
@@ -486,7 +487,7 @@ namespace Trash
             List<ITypeToken> urlCommandTokens = new List<ITypeToken>()
             { new OrientHost(), new OrientPort(), new OrientCommandToken(), new OrientDb(), new OrientCommandSQLTypeToken() };
             //Command URL text
-            CommandURIBuilder commandUrlPart = new CommandURIBuilder(urlCommandTokens, cf);
+            OrientCommandURIBuilder commandUrlPart = new OrientCommandURIBuilder(urlCommandTokens, cf);
             //command url
             string commandUrl = commandUrlPart.Text.Text;
 
@@ -524,8 +525,8 @@ namespace Trash
                 commandUrlPart,selectUrlPart,whereUrlPart
             };
             //Aggregate all query TokenManagers to one Select URL command with where
-            CommandURIBuilder commandSample = new CommandURIBuilder(
-                CommandTokens, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED
+            OrientCommandURIBuilder commandSample = new OrientCommandURIBuilder(
+                CommandTokens, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED
                 );
             //full select query command
             string selectcommandURL = commandSample.Text.Text;
@@ -634,7 +635,7 @@ namespace Trash
             OrientWhereClauseFormat wf = new OrientWhereClauseFormat();
 
             //building command and url strings from tokens according to format
-            CommandURIBuilder ub = new CommandURIBuilder(urlTokents, uf);
+            OrientCommandURIBuilder ub = new OrientCommandURIBuilder(urlTokents, uf);
 
             OrientCreateClauseBuilder cpb = new OrientCreateClauseBuilder(createPersonTokens, cf);
             OrientSelectClauseBuilder spb = new OrientSelectClauseBuilder(selectPersonTokens, sf);
@@ -674,19 +675,19 @@ namespace Trash
             //Nested type is for using new format to concatenate token formats
             //EXAMPLE for token formats
             //Token1 -> "{0}\{1}" ; Token2 -> "{0} {1} {2}"; UrlToken -> "{0}:{1}"; Result => UrlToken "{0}\{1}:{2} {3} {4}"
-            CommandURIBuilder cpU =
-    new CommandURIBuilder(createPersonTk, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
-            CommandURIBuilder spU =
-    new CommandURIBuilder(selectTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
-            CommandURIBuilder dpU =
-    new CommandURIBuilder(deleteTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
+            OrientCommandURIBuilder cpU =
+    new OrientCommandURIBuilder(createPersonTk, new TextToken() { Text = @"{0}/{1}" }, TextBuilder.BuildTypeFormates.NESTED);
+            OrientCommandURIBuilder spU =
+    new OrientCommandURIBuilder(selectTk, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED);
+            OrientCommandURIBuilder dpU =
+    new OrientCommandURIBuilder(deleteTk, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED);
 
-            CommandURIBuilder cuU =
-    new CommandURIBuilder(createUnitTk, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
-            CommandURIBuilder suU =
-    new CommandURIBuilder(selectUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
-            CommandURIBuilder duU =
-    new CommandURIBuilder(deleteUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, Textbuilder.BuildTypeFormates.NESTED);
+            OrientCommandURIBuilder cuU =
+    new OrientCommandURIBuilder(createUnitTk, new TextToken() { Text = @"{0}/{1}" }, TextBuilder.BuildTypeFormates.NESTED);
+            OrientCommandURIBuilder suU =
+    new OrientCommandURIBuilder(selectUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED);
+            OrientCommandURIBuilder duU =
+    new OrientCommandURIBuilder(deleteUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED);
 
 
             //check
@@ -708,7 +709,7 @@ namespace Trash
             string authUrlText = authBld.Text.Text;
 
             //init 
-            WebManagerAuth owm = new WebManagerAuth();
+            OrientWebManager owm = new OrientWebManager();
             //authenticate
             owm.Authenticate(authUrlText, new NetworkCredential(@"root", @"I9grekVmk5g"));
             //init
@@ -793,10 +794,10 @@ namespace Trash
             List<ITextBuilder> MaTb = new List<ITextBuilder>() { ub, MaB };
 
 
-            CommandURIBuilder SuUB =
-                new CommandURIBuilder(SuTb, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
-            CommandURIBuilder MaUB =
-                new CommandURIBuilder(MaTb, new TextToken() { Text = @"{0}/{1}" }, Textbuilder.BuildTypeFormates.NESTED);
+            OrientCommandURIBuilder SuUB =
+                new OrientCommandURIBuilder(SuTb, new TextToken() { Text = @"{0}/{1}" }, TextBuilder.BuildTypeFormates.NESTED);
+            OrientCommandURIBuilder MaUB =
+                new OrientCommandURIBuilder(MaTb, new TextToken() { Text = @"{0}/{1}" }, TextBuilder.BuildTypeFormates.NESTED);
 
 
             SubUnitsIDs.Add(
@@ -821,7 +822,7 @@ namespace Trash
 
             string url = @"http://10.31.14.76/cleverence_ui/hs/IntraService/location/full";
 
-            WebManagerAuth owm = new WebManagerAuth();
+            OrientWebManager owm = new OrientWebManager();
             JSONmanager jm = new JSONmanager();
             WebResponseReader wr = new WebResponseReader();
 
@@ -874,7 +875,7 @@ namespace Trash
             //HTTPmanager hm = new HTTPmanager();
 
             //-->In
-            WebManagerAuth owm = new WebManagerAuth();
+            OrientWebManager owm = new OrientWebManager();
             NetworkCredential nc = new NetworkCredential(login, password);
             WebResponseReader wrr = new WebResponseReader();
 
@@ -949,7 +950,7 @@ namespace Trash
 
             //read Orient fucntion GET with authentication
             url = @"http://msk1-vm-ovisp02:2480/function/news_test3/GetCollegesLowerByAccount/bs";
-            WebManagerAuth orm = new WebManagerAuth();
+            OrientWebManager orm = new OrientWebManager();
             orm.Authenticate(authUrl, nc);
             response = orm.GetResponse(url, "GET");
             string resultOrient = reader.ReadResponse(response);
@@ -969,7 +970,7 @@ namespace Trash
 
 
     }
-
+  
     //DRIVER scope
     public static class OrientNumToCLRType
     {

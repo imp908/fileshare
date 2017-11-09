@@ -14,8 +14,9 @@ namespace IWebManagers
     /// </summary>
     public interface IWebManager
     {
-        WebResponse GetResponse(string url, string method);
         void addCredentials(NetworkCredential credentials);
+        WebResponse GetResponse(string url, string method);
+        WebRequest addRequest(string url, string method);
     }
     /// <summary>
     /// Reads response and converts it to string
@@ -25,7 +26,6 @@ namespace IWebManagers
         string ReadResponse(HttpWebResponse response);
         string ReadResponse(WebResponse response);
         string ReadResponse(HttpResponseMessage response);
-        
     }
 
 }

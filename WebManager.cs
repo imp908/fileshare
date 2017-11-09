@@ -17,10 +17,9 @@ namespace WebManagers
     ///WebRequest, Httpwebresponse
     public class WebManager : IWebManager
     {
-
+        NetworkCredential _credentials;
         public WebRequest _request;
         internal string OSESSIONID;
-        internal NetworkCredential _credentials;
 
         public WebManager()
         {
@@ -34,6 +33,9 @@ namespace WebManagers
                 _request = WebRequest.Create(url);
                 _request.Method = method;
                 _request.ContentLength = 0;
+              
+                bindCredentials();
+                
             }
             catch (Exception e)
             {
@@ -51,22 +53,26 @@ namespace WebManagers
             result = this._request.GetResponse().Headers.Get(header);
             return result;
         }
-        public void addCredentials(NetworkCredential credentials_)
+        public void addCredentials(NetworkCredential credentials)
         {
-            this._credentials = new NetworkCredential();
-            _credentials = credentials_;          
+            _credentials = credentials;
+            bindCredentials();
         }
         public void bindCredentials()
         {
-            if (this._credentials == null) { throw new NullReferenceException();  }       
-            this._request.Credentials = this._credentials;            
+            if (this._request != null)
+            {
+                if (this._credentials != null)
+                {
+                    this._request.Credentials = _credentials;
+                }
+            }
         }
         public virtual WebResponse GetResponse(string url, string method)
         {
 
             addRequest(url, method);
             bindCredentials();
-
             try
             {
                 return (HttpWebResponse)this._request.GetResponse();
@@ -77,10 +83,23 @@ namespace WebManagers
             }
 
         }
+        public virtual WebResponse GetResponse()
+        {
+            bindCredentials();
+            try
+            {
+                return (HttpWebResponse)this._request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
         public virtual async Task<HttpWebResponse> GetResponseAsync(string url, string method)
         {
             HttpWebResponse resp;
             addRequest(url, method);
+            bindCredentials();
             try
             {
                 resp = (HttpWebResponse)this._request.GetResponse();
