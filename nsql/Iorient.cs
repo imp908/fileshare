@@ -12,7 +12,25 @@ using IQueryManagers;
 namespace IOrientObjects
 {
     
-    //For all OrientDb objects (Vertexes and Edges both)
+	
+    //For all OrientDatabaseToken objects (Vertexes and Edges both)
+	    //For all OrientDatabaseToken objects (Vertexes and Edges both)   
+    public interface IOrientObject
+    {
+
+    }
+    public interface IOrientDatabase : IOrientObject
+    {
+
+    }
+    public interface IOrientClass : IOrientObject
+    {
+
+    }
+    public interface IOrientProperty : IOrientObject
+    {
+
+    }
     public interface IOrientVertex
     {
         [JsonProperty("@type")]
@@ -24,8 +42,8 @@ namespace IOrientObjects
         [JsonProperty("@class")]
         string class_ { get; set; }
     }
-    //Specific for OrientDb (additional for Edges)
-    public interface IEdge : IOrientVertex
+    //Specific for OrientDatabaseToken (additional for Edges)
+    public interface IOrientEdge : IOrientVertex
     {
         string Out { get; set; }
         string In { get; set; }

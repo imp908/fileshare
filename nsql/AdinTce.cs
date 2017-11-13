@@ -57,10 +57,11 @@ namespace NSQLManager
         }
         public string HoliVation(string GUID)
         {
+            
             AdinTcePOCO2 adp = new AdinTcePOCO2();
-            IEnumerable<Holiday> dhl;
-            IEnumerable<Vacation> vhl;
-            IEnumerable<GUIDPOCO> gpl;
+            IEnumerable<Holiday> dhl=null;
+            IEnumerable<Vacation> vhl = null;
+            IEnumerable<GUIDPOCO> gpl = null;
 
             string result = string.Empty;
             string holidayCommand, vacationCommand, holidaysResp, vacationsResp;
@@ -73,16 +74,21 @@ namespace NSQLManager
 
             //Task.Run(() => {
             holidaysResp = _responseReader.ReadResponse(_webManager.addRequest(holidayCommand, "GET").GetResponse());
-            gpl = _jsonManager.DeserializeFromParentNode<GUIDPOCO>(holidaysResp);
-            dhl = _jsonManager.DeserializeFromParentChildren<Holiday>(holidaysResp,"Holidays");           
+            if (holidaysResp != null && holidaysResp != string.Empty)
+            {
+                gpl = _jsonManager.DeserializeFromParentNode<GUIDPOCO>(holidaysResp);
+                dhl = _jsonManager.DeserializeFromParentChildren<Holiday>(holidaysResp, "Holidays");
+                adp.GUID_ = gpl.Select(s => s).FirstOrDefault().GUID_;
+                adp.Position = gpl.Select(s => s).FirstOrDefault().Position;
+                adp.holidays = dhl.ToList();
+            }
 
             vacationsResp = _responseReader.ReadResponse(_webManager.addRequest(vacationCommand, "GET").GetResponse());
-            vhl = _jsonManager.DeserializeFromParentChildren<Vacation>(vacationsResp, "Holidays");
-
-            adp.holidays = dhl.ToList();
-            adp.vacations = vhl.ToList();
-            adp.GUID_ = gpl.Select(s => s).FirstOrDefault().GUID_;
-            adp.Position = gpl.Select(s => s).FirstOrDefault().Position;
+            if (vacationsResp!=null && vacationsResp != string.Empty)
+            {
+                vhl = _jsonManager.DeserializeFromParentChildren<Vacation>(vacationsResp, "Holidays");
+                adp.vacations = vhl.ToList();
+            }
 
             //});
 

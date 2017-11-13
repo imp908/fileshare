@@ -134,9 +134,13 @@ namespace WebManagers
         public string ReadResponse(HttpWebResponse response)
         {
             string result = string.Empty;
-            Stream sm = response.GetResponseStream();
-            StreamReader sr = new StreamReader(sm);
-            result = sr.ReadToEnd();
+			try
+            {
+				Stream sm = response.GetResponseStream();
+				StreamReader sr = new StreamReader(sm);
+				result = sr.ReadToEnd();
+			}
+            catch(Exception e){ System.Diagnostics.Trace.WriteLine(e.Message); }
             return result;
         }
         public string ReadResponse(HttpResponseMessage response)
@@ -163,13 +167,13 @@ namespace WebManagers
         }
         public string ReadResponse(IHttpActionResult response)
         {
-            string result;
+            string result  =null;
             Task<HttpResponseMessage> mes = response.ExecuteAsync(new System.Threading.CancellationToken());
             try
             {
                 result = mes.Result.Content.ReadAsStringAsync().Result;
             }
-            catch (Exception e) { }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
             return result;
         }
 

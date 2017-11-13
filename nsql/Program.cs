@@ -79,7 +79,6 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             m =
 new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
-
             
             lp = new List<string>();
             lu = new List<string>();
@@ -88,10 +87,10 @@ new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 
 
 
         public void GO()
-        {            
-            ExplicitCommandsCheck();
+        {                      
             AddCheck();
             DeleteCheck();
+            ExplicitCommandsCheck();
             BirthdayConditionAdd();
         }
         public void AddCheck()
@@ -188,6 +187,7 @@ ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
             repo.Delete(typeof(CommonSettings), new TextToken() { Text = @"1 =1" });
 
         }
+
     }
     
 }

@@ -18,6 +18,24 @@ namespace POCO
 
 
     //Orient object
+   public class OrientDatabase : IOrientDatabase
+    {
+
+    }
+    public class OrientClass : IOrientClass
+    {
+        public string type { get; set; }
+
+        public string name { get; set; }
+       
+    }
+    public class OrientProperty : IOrientProperty
+    {
+        public string type { get; set; }
+
+        public string name { get; set; }
+
+    }
     public class OrientVertex : IOrientVertex
     {
         public string type { get; set; }
@@ -28,7 +46,7 @@ namespace POCO
 
         public string class_ { get; set; }
     }
-    public class OrientEdge : IEdge
+    public class OrientEdge : IOrientEdge
     {
         public string type { get; set; }
 
@@ -70,6 +88,9 @@ namespace POCO
         public string Name { get; set; }
         public string OneSHash { get; set; }
         public string Hash { get; set; }
+
+        [JsonProperty("id")]
+        public new string id { get; set; }
 
         /*
         public List<string> in_MainAssignment { get; set; }

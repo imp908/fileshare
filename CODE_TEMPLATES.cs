@@ -3134,6 +3134,8 @@ access, please check that you have enabled metadata publishing at the specified 
 			http://www.drewgreenwell.com/projects/metrojs
 			//treant js
 			http://fperucic.github.io/treant-js/
+			//basic primitives
+			https://www.basicprimitives.com/
 
 		}
 		public void Unsorted(){
@@ -6338,7 +6340,8 @@ CREATE CLASS Comment EXTENDS E;
 
 CREATE CLASS CommonSettings EXTENDS E;
 
-CREATE PROPERTY MainAssignment.Weight INTEGER;
+update MainAssignment remove HierarhyWeight;
+CREATE PROPERTY MainAssignment.HierarhyWeight INTEGER;
 
 
 CREATE PROPERTY Person.sAMAccountName string;
@@ -6370,68 +6373,68 @@ select outE("publishBirthdate").inV().BirthDay[0] as BD ,Name from Person where 
 
 
 /*Lowerest level Weight*/
-update MainAssignment set Weight = 1000;
+update MainAssignment set HierarhyWeight = 1000;
 
 /*Managment hierarhy*/
-update MainAssignment set Weight = 0 where Name = 'Генеральный директор'
-update MainAssignment set Weight = 1 where Name = 'Заместитель Генерального директора'
-update MainAssignment set Weight = 50 where Name = 'Директор Административного департамента - Финансовый директор'
-update MainAssignment set Weight = 50 where Name = 'Директор департамента'
-update MainAssignment set Weight = 50 where Name = 'Директор департамента / Главный архитектор'
-update MainAssignment set Weight = 50 where Name = 'Директор Департамента ИТ'
-update MainAssignment set Weight = 50 where Name = 'Директор Департамента маркетинга и развития бренда'
-update MainAssignment set Weight = 50 where Name = 'Директор Департамента стратегического планирования и проектного управления'
-update MainAssignment set Weight = 50 where Name = 'Директор Организационно-правового департамента'
-update MainAssignment set Weight = 50 where Name = 'Директор по персоналу, руководитель Службы персонала'
-update MainAssignment set Weight = 50 where Name = 'Коммерческий директор - директор департамента'
-update MainAssignment set Weight = 51 where Name = 'Заместитель директора департамента'
-update MainAssignment set Weight = 51 where Name = 'Заместитель директора Департамента архитектуры и разработки ПО'
-update MainAssignment set Weight = 51 where Name = 'Заместитель директора департамента ИТ'
-update MainAssignment set Weight = 51 where Name = 'Заместитель директора департамента-HR директор'
-update MainAssignment set Weight = 100 where Name = 'Начальник управления'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления cпециальных проектов и PR'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления администрации и делопроизводства'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления безопасности'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления бухгалтерского учета и отчетности - Главный бухгалтер'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления бюджетирования и управленческого учета'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления внутреннего аудита (контроля)'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления инноваций'
-update MainAssignment set Weight = 100 where Name = 'Начальник управления инфраструктуры'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления по работе с платежными системами'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления развития продуктов и партнерских программ'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления разработки ПО'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления разработки правил НСПК'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления разработки программного обеспечения'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления регламентации и процедур'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления тарифов и отчетности'
-update MainAssignment set Weight = 100 where Name = 'Начальник Управления технологий'
-update MainAssignment set Weight = 100 where Name = 'Начальник Юридического управления'
-update MainAssignment set Weight = 101 where Name = 'Заместитель начальника отдела'
-update MainAssignment set Weight = 101 where Name = 'Заместитель начальника Отдела взаимоотношений с поставщиками'
-update MainAssignment set Weight = 101 where Name = 'Заместитель начальника управления'
-update MainAssignment set Weight = 101 where Name = 'Заместитель начальника Управления безопасности'
-update MainAssignment set Weight = 101 where Name = 'Заместитель начальника Управления бухгалтерского учета и отчетности'
-update MainAssignment set Weight = 101 where Name = 'Заместитель начальника Управления развития продуктов и партнерских программ'
-update MainAssignment set Weight = 150 where Name = 'Начальник отдела'
-update MainAssignment set Weight = 150 where Name = 'Начальник отдела - заместитель начальника управления'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела администрирования инфраструктурных сервисов'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела взаимоотношений с поставщиками'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела внутренней безопасности'
-update MainAssignment set Weight = 150 where Name = 'Начальник отдела инфраструктурного мониторинга'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела криптографической защиты информации'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела международных проектов'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела мониторинга бизнес-процессов'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела мониторинга и контроля информационной безопасности'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела по договорной работе'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела по корпоративно-правовой работе'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела правового сопровождения НСПК'
-update MainAssignment set Weight = 150 where Name = 'Начальник отдела протокола'
-update MainAssignment set Weight = 150 where Name = 'Начальник отдела разработки программных комплексов'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела сопровождения информационной безопасности и развития систем защиты'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела статистики и отчетности'
-update MainAssignment set Weight = 150 where Name = 'Начальник Отдела тестирования'
-update MainAssignment set Weight = 150 where Name = 'Начальник отдела тестирования онлайн систем'
-update MainAssignment set Weight = 150 where Name = 'Начальник отдела технического администрирования'
+update MainAssignment set HierarhyWeight = 0 where Name = 'Генеральный директор'
+update MainAssignment set HierarhyWeight = 1 where Name = 'Заместитель Генерального директора'
+update MainAssignment set HierarhyWeight = 50 where Name = 'Директор Административного департамента - Финансовый директор'
+update MainAssignment set HierarhyWeight = 50 where Name = 'Директор департамента'
+update MainAssignment set HierarhyWeight = 50 where Name = 'Директор департамента / Главный архитектор'
+update MainAssignment set HierarhyWeight = 50 where Name = 'Директор Департамента ИТ'
+update MainAssignment set HierarhyWeight = 50 where Name = 'Директор Департамента маркетинга и развития бренда'
+update MainAssignment set HierarhyWeight = 50 where Name = 'Директор Департамента стратегического планирования и проектного управления'
+update MainAssignment set HierarhyWeight = 50 where Name = 'Директор Организационно-правового департамента'
+update MainAssignment set HierarhyWeight = 50 where Name = 'Директор по персоналу, руководитель Службы персонала'
+update MainAssignment set HierarhyWeight = 50 where Name = 'Коммерческий директор - директор департамента'
+update MainAssignment set HierarhyWeight = 51 where Name = 'Заместитель директора департамента'
+update MainAssignment set HierarhyWeight = 51 where Name = 'Заместитель директора Департамента архитектуры и разработки ПО'
+update MainAssignment set HierarhyWeight = 51 where Name = 'Заместитель директора департамента ИТ'
+update MainAssignment set HierarhyWeight = 51 where Name = 'Заместитель директора департамента-HR директор'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник управления'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления cпециальных проектов и PR'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления администрации и делопроизводства'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления безопасности'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления бухгалтерского учета и отчетности - Главный бухгалтер'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления бюджетирования и управленческого учета'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления внутреннего аудита (контроля)'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления инноваций'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник управления инфраструктуры'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления по работе с платежными системами'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления развития продуктов и партнерских программ'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления разработки ПО'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления разработки правил НСПК'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления разработки программного обеспечения'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления регламентации и процедур'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления тарифов и отчетности'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления технологий'
+update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Юридического управления'
+update MainAssignment set HierarhyWeight = 101 where Name = 'Заместитель начальника управления'
+update MainAssignment set HierarhyWeight = 101 where Name = 'Заместитель начальника Управления безопасности'
+update MainAssignment set HierarhyWeight = 101 where Name = 'Заместитель начальника Управления бухгалтерского учета и отчетности'
+update MainAssignment set HierarhyWeight = 101 where Name = 'Заместитель начальника Управления развития продуктов и партнерских программ'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела - заместитель начальника управления'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела администрирования инфраструктурных сервисов'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела взаимоотношений с поставщиками'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела внутренней безопасности'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела инфраструктурного мониторинга'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела криптографической защиты информации'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела международных проектов'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела мониторинга бизнес-процессов'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела мониторинга и контроля информационной безопасности'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела по договорной работе'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела по корпоративно-правовой работе'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела правового сопровождения НСПК'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела протокола'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела разработки программных комплексов'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела сопровождения информационной безопасности и развития систем защиты'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела статистики и отчетности'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник Отдела тестирования'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела тестирования онлайн систем'
+update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела технического администрирования'
+update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника отдела'
+update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника Отдела взаимоотношений с поставщиками'
 
 	}
 
@@ -6452,19 +6455,21 @@ value "  \" ' ' \' \' \
 
 		*/
 		/*GetUnitByAccount*/
-		delete from OFunction 
+delete from Ofunction  where name in ["GetGUID","GetCollegesLowerByAccount","GetLowerCase","GetUnitByAccount","GetDepartmentByAccount","GetManagerByAccount","GetManagerHierarhyByAccount","GetCollegesByAccount"]
 
 		CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\"sql\",\" select r.ToLowerCase() as r from (select '\"+input+\"' as r) \"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;
 		CREATE FUNCTION GetUnitByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\" select in('MainAssignment').Name[0] as Name from Person WHERE sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0] and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )\"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetDepartmentByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\" select Name from ( traverse in('MainAssignment','SubUnit') from (select from Person where sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0] ) ) where PGUID='00000000-0000-0000-0000-000000000000'  \" ); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
-		CREATE FUNCTION GetManagerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"select r as Name from ( select   /*   If person Weight is smallest -> header of Unit => get PUnit header   else Unit Header   */ if(eval('$z.w[0]=$a.w[0]'),if(eval('$x.inE(\\\"MainAssignment\\\").outV(\\\"Unit\\\").PGUID =\\\"00000000-0000-0000-0000-000000000000\\\"'),'kvv',$f.Name[0]),$e.Name[0]) as r /* if(eval('1=2'),1,if(eval('1=2'),2,3)) */    let   $x = ( select  from Person where sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]) 	/*person Weight*/   ,$z = (       select Weight as w from (select expand(inE('MainAssignment')) from Person where sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase())   where (inE('MainAssignment').Disabled is null or inE('MainAssignment').Disabled >= sysdate() and (inE('MainAssignment').State != 'Отпуск по уходу за ребенком' and inE('MainAssignment').State != 'Отпуск по беременности и родам' ))   )   /*Min weigth in Person Unit*/   ,$a = (     select min(Weight) as w from ( select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null  ) /*Min weigth in Person PUnit*/   , $b = (       select min(Weight) as w from ( select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null    )   /*Person Unit person appointment*/   	, $c = (       select Name as d ,Weight as w,inV('Person').sAMAccountName as Name from ( select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where    (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null      )   /*Person PUnit person appointment*/   ,$d =(         select Name as d ,Weight as w,inV('Person').sAMAccountName as Name from ( select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null       )   /*Person Unit Header $a->$c */   , $e = (      select from ( select expand($c)) where 1=1 and w =  $a.w[0]   )     /*Person PUnit Header $a->$c */   , $f = (      select from ( select expand($d)) where 1=1 and w = $b.w[0]   ) ) order by Name\"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;		
-		CREATE FUNCTION GetManagerHierarhyByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select  Acc as Name from (    select expand($b3)    let   $x = (      select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]    )  ,$a = (      /*From Person by Unit Hierarhy*/     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').Weight[0] as w , 	 inE('MainAssignment').Name[0] as a from (       select expand(inV()) from (            traverse inE('MainAssignment','SubUnit'),outE('MainAssignment'),outV('Unit','Person') from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0] )           ) ) where 1=1      and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() ) and (Disabled is null) and     (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )         /*If account name not assigned then deputy*/ 	and sAMAccountName is not null       ), $c = (      /*Select Header by Weight 0 */     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').Weight[0] as w, 	inE('MainAssignment').Name[0] as a from ( select from Person where inE('MainAssignment').Weight[0] = 0     )    ) , $e = unionall (      /*Union all Unit Headers and Directory (as ddirectory not in linear structure -> not binded to parent node*/     $a,$c    ), $b = (      /*From United Person by Unit Hierarhy minimal Wights in Unit by account*/     select from  (     select Acc,d,a, min(w) as w from (       select expand($e)     ) group by  Acc       ) where 1=1 and w < $x.inE('MainAssignment').Weight[0] order by w    ), $b2 = (      /*Minuimal wight by department*/     select from  (     select d , min(w) as w from (       select expand($e)     ) group by d       ) where 1=1 and w < $x.inE('MainAssignment').Weight[0] order by w    ), $b3 = (   	select from (select expand($b )) where w in $b2.w   )  ) order by Name  \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetManagerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"select r as Name from ( select   /*   If person HierarhyWeight is smallest -> header of Unit => get PUnit header   else Unit Header   */ if(eval('$z.w[0]=$a.w[0]'),if(eval('$x.inE(\\\"MainAssignment\\\").outV(\\\"Unit\\\").PGUID =\\\"00000000-0000-0000-0000-000000000000\\\"'),'kvv',$f.Name[0]),$e.Name[0]) as r /* if(eval('1=2'),1,if(eval('1=2'),2,3)) */    let   $x = ( select  from Person where sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]) 	/*person HierarhyWeight*/   ,$z = (       select HierarhyWeight as w from (select expand(inE('MainAssignment')) from Person where sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase())   where (inE('MainAssignment').Disabled is null or inE('MainAssignment').Disabled >= sysdate() and (inE('MainAssignment').State != 'Отпуск по уходу за ребенком' and inE('MainAssignment').State != 'Отпуск по беременности и родам' ))   )   /*Min weigth in Person Unit*/   ,$a = (     select min(HierarhyWeight) as w from ( select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null  ) /*Min weigth in Person PUnit*/   , $b = (       select min(HierarhyWeight) as w from ( select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null    )   /*Person Unit person appointment*/   	, $c = (       select Name as d ,HierarhyWeight as w,inV('Person').sAMAccountName as Name from ( select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where    (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null      )   /*Person PUnit person appointment*/   ,$d =(         select Name as d ,HierarhyWeight as w,inV('Person').sAMAccountName as Name from ( select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null       )   /*Person Unit Header $a->$c */   , $e = (      select from ( select expand($c)) where 1=1 and w =  $a.w[0]   )     /*Person PUnit Header $a->$c */   , $f = (      select from ( select expand($d)) where 1=1 and w = $b.w[0]   ) ) order by Name\"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;		
+		CREATE FUNCTION GetManagerHierarhyByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select  Acc as Name from (    select expand($b3)    let   $x = (      select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]    )  ,$a = (      /*From Person by Unit Hierarhy*/     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').HierarhyWeight[0] as w , 	 inE('MainAssignment').Name[0] as a from (       select expand(inV()) from (            traverse inE('MainAssignment','SubUnit'),outE('MainAssignment'),outV('Unit','Person') from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0] )           ) ) where 1=1      and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() ) and (Disabled is null) and     (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )         /*If account name not assigned then deputy*/ 	and sAMAccountName is not null       ), $c = (      /*Select Header by HierarhyWeight 0 */     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').HierarhyWeight[0] as w, 	inE('MainAssignment').Name[0] as a from ( select from Person where inE('MainAssignment').HierarhyWeight[0] = 0     )    ) , $e = unionall (      /*Union all Unit Headers and Directory (as ddirectory not in linear structure -> not binded to parent node*/     $a,$c    ), $b = (      /*From United Person by Unit Hierarhy minimal Wights in Unit by account*/     select from  (     select Acc,d,a, min(w) as w from (       select expand($e)     ) group by  Acc       ) where 1=1 and w < $x.inE('MainAssignment').HierarhyWeight[0] order by w    ), $b2 = (      /*Minuimal wight by department*/     select from  (     select d , min(w) as w from (       select expand($e)     ) group by d       ) where 1=1 and w < $x.inE('MainAssignment').HierarhyWeight[0] order by w    ), $b3 = (   	select from (select expand($b )) where w in $b2.w   )  ) order by Name  \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetCollegesByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\" select sAMAccountName as Name from (   select expand($a)    let   $x = (     select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]   ),   $a =  (      select from (       select expand(a) from (         select inE('MainAssignment').outV('SubUnit').outE('MainAssignment').inV('Person') as a from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0])       )     ) where 1=1     /*Exclude person's account from results*/     and sAMAccountName != $x.sAMAccountName[0]      /*Standart overall Person filter*/     and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )     and (Disabled is null)     and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )    )  ) order by Name \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
-		CREATE FUNCTION GetCollegesLowerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"   select  sAMAccountName as Name from (     select expand($a )     let     $x = (         select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]   ),     $a =  (      select from (           select from person     ) where 1=1     /*Exclude person's account from results*/     and sAMAccountName != $x.sAMAccountName[0]       and inE('MainAssignment').Weight[0] < $x.inE('MainAssignment').Weight[0]          /*Standart overall Person filter*/         and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )         and (Disabled is null)         and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам'          )    )  ) order by Name    \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;		
-		CREATE FUNCTION GetGUID "var g=orient.getGraph(); var b=g.command(\"sql\",\" select GUID as Name from Person where sAMAccountName = GetLowerCase('\"+accountName+\"').r[0] \"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT ;
+		CREATE FUNCTION GetCollegesLowerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select from (     select expand($c)     let $a = (select from Person where sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0] ),     $c = (       select sAMAccountName.ToLowerCase() as Name from (         traverse out('MainAssignment','SubUnit') from (           select  from ( traverse in('MainAssignment','SubUnit') from (select from  $a  ) ) where           PGUID='00000000-0000-0000-0000-000000000000'         )       ) where 1=1       and @class = 'Person'       and  inE('MainAssignment').HierarhyWeight[0] > $a.inE('MainAssignment').HierarhyWeight[0]      ),     $b =(       select ine('MainAssignment').HierarhyWeight from (         select expand($a)       )     )    ) order by Name \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetGUID "var g=orient.getGraph(); var b=g.command(\"sql\",\" select GUID as Name from Person where sAMAccountName.tolowercase() = GetLowerCase('\"+accountName+\"').r[0] \"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT ;
+		CREATE FUNCTION SearchByFNameLName "var g=orient.getGraph(); substr = substr.replace('ё','е').toUpperCase(); var b=g.command(\"sql\",\"select expand($c) let $a = (select distinct(LastName).replace('ё','е') as suggestion from Person WHERE (LastName.replace('ё','е').toUpperCase() like '%\"+substr+\"%' ) and (inE()[0].Disabled is null or inE()[0].Disabled >= sysdate() ) and (Disabled is null)  and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' ) ), $b = (select distinct(FirstName).replace('ё','е') as suggestion from Person WHERE (FirstName.replace('ё','е').toUpperCase() like '%\"+substr+\"%' ) and  (inE()[0].Disabled is null or inE()[0].Disabled >= sysdate() ) and  (Disabled is null) and (inE(\\\"MainAssignment\\\").State != 'Отпуск по уходу за ребенком' and inE(\\\"MainAssignment\\\").State != 'Отпуск по беременности и родам' )),  $c = unionall($a,$b)\"); return b;" PARAMETERS [substr] IDEMPOTENT true LANGUAGE JAVASCRIPT ; 
 		
 		
-		v1 CREATE FUNCTION GetManagerHierarhyByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select Acc as Name from ( select expand($e) let $x = ( select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]    )   ,$a = (      /*From Person by Unit Hierarhy*/     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d,   inE('MainAssignment').Weight[0] as w from (       select expand(inV()) from ( traverse inE('MainAssignment','SubUnit')   ,outE('MainAssignment'),outV('Unit','Person') from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0] )           ) ) where 1=1        and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )   and (Disabled is null) and     (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )      /*If account name not assigned then deputy*/ 	and sAMAccountName is not null       ),   $c = (      /*Select Header by Weight 0 */     select  Name as n, sAMAccountName as Acc,   inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').Weight[0] as w   from (       select from Person where inE('MainAssignment').Weight[0] = 0     )    ) ,   $e = unionall (      /*Union all Unit Headers and Directory (as ddirectory not in linear structure -> not binded to parent node*/     $a,$c    )   , $b = (      /*From United Person by Unit Hierarhy minimal Wights in Unit*/     select d , min(w) as w from (       select expand($e)     ) group by d    )  )  where 1=1      and w in $b.w     and w != $x.inE('MainAssignment').Weight[0] order by Name \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		v1 CREATE FUNCTION GetManagerHierarhyByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select Acc as Name from ( select expand($e) let $x = ( select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]    )   ,$a = (      /*From Person by Unit Hierarhy*/     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d,   inE('MainAssignment').HierarhyWeight[0] as w from (       select expand(inV()) from ( traverse inE('MainAssignment','SubUnit')   ,outE('MainAssignment'),outV('Unit','Person') from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0] )           ) ) where 1=1        and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )   and (Disabled is null) and     (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )      /*If account name not assigned then deputy*/ 	and sAMAccountName is not null       ),   $c = (      /*Select Header by HierarhyWeight 0 */     select  Name as n, sAMAccountName as Acc,   inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').HierarhyWeight[0] as w   from (       select from Person where inE('MainAssignment').HierarhyWeight[0] = 0     )    ) ,   $e = unionall (      /*Union all Unit Headers and Directory (as ddirectory not in linear structure -> not binded to parent node*/     $a,$c    )   , $b = (      /*From United Person by Unit Hierarhy minimal Wights in Unit*/     select d , min(w) as w from (       select expand($e)     ) group by d    )  )  where 1=1      and w in $b.w     and w != $x.inE('MainAssignment').HierarhyWeight[0] order by Name \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
+		CREATE FUNCTION GetCollegesLowerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"   select  sAMAccountName as Name from (     select expand($a )     let     $x = (         select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]   ),     $a =  (      select from (           select from person     ) where 1=1     /*Exclude person's account from results*/     and sAMAccountName != $x.sAMAccountName[0]       and inE('MainAssignment').HierarhyWeight[0] < $x.inE('MainAssignment').HierarhyWeight[0]          /*Standart overall Person filter*/         and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )         and (Disabled is null)         and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам'          )    )  ) order by Name    \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;		
 	
 	}
 	
@@ -7308,8 +7313,7 @@ unwind Path) ) while $depth <=1 ) where $depth >=1
 			}
 
 			public void Functions()
-			{
-				
+			{				
 
 				public void PersonsAPI()
 				{
