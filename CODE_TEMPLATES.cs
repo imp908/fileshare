@@ -6806,6 +6806,51 @@ drop class vscn;
 
 	}
 	
+	
+	AdbBoilerplate(){
+
+	create class VSCN extends V;
+	CREATE VERTEX Brewery CONTENT {};
+	CREATE EDGE Produces from ( ) to () CONTENT {};
+	CREATE PROPERTY VSCN.Name STRING (MANDATORY TRUE, notnull true);
+
+	delete vertex/edge Brewery;
+	drop class FriendOf;
+	
+	select from Person;
+	select from Unit;
+	select from Person where 1=1;
+	select from (select from Person where 1=1) where 1=1;
+	select inE().outV() from person;
+	select expand(inE().outV()) from person;
+
+	
+	1) create (class,vertex) 
+	ItypeToken command_, IorientObject class, ItypeToken conten_=null
+
+	class extends
+	vartex content
+
+	2) create (edge)
+	ItypeToken command_, IorientObject class, ItypeToken from, ItypeToken to,ItypeToken conten_=null
+
+	3) create (property)
+	ItypeToken command_, IorientObject class,IorientObject propertyName,ItypeToken type_, MANDATORY bool, notnull bool
+
+	4) delete vertex/edge 
+	ItypeToken command_, IorientObject class
+	delete 
+
+	5)
+	ItypeToken command_, IorientObject class
+	drop 
+
+
+	OrientType -> POCO -> type -> Token
+	POCOtype -> orienttype
+
+}
+	
 	public void ExportImport(){//Moove db with export
 	
 		public void InitSequence(){
