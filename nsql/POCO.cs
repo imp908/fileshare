@@ -146,7 +146,13 @@ namespace POCO
     public class CommonSettings : OrientEdge
     {
 
-    }  
+    }
+
+
+    public class TrackBirthdays : OrientEdge
+    {
+
+    }
 
     /*
     CREATE class UserSettings extends V;

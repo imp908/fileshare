@@ -24,7 +24,7 @@ namespace IQueryManagers
     {
         string Text { get; set; }
     }
-    public interface ITokenBuilder
+    public interface ITokenAggreagtor
     {
 
         List<ITypeToken> Command(ITypeToken command_, ITypeToken orientObject);
@@ -33,7 +33,7 @@ namespace IQueryManagers
         List<ITypeToken> Command(ITypeToken command_, ITypeToken orientObject, ITypeToken orientType, ITypeToken tokenA, ITypeToken tokenB, ITypeToken content );
 
     }
-  public interface ITokenBuilderNoGen
+  public interface ITokenAggreagtorNoGen
     {
 
         List<ITypeToken> Command(ITypeToken command_, IOrientObject orientClass_, ITypeToken orientObjectToken_, ITypeToken content = null);
@@ -41,7 +41,7 @@ namespace IQueryManagers
         List<ITypeToken> Command(ITypeToken command_, IOrientObject orientClass_, ITypeToken orientObject);
 
     }
-    public interface ITokenBuilderTypeGen
+    public interface ITokenAggreagtorTypeGen
     {
         List<ITypeToken> Command(ITypeToken name_, ITypeToken type_);
         List<ITypeToken> Command(ITypeToken command_, Type orientClass_, ITypeToken content = null);
@@ -51,7 +51,7 @@ namespace IQueryManagers
         List<ITypeToken> Command(ITypeToken command_, IOrientObject orientClass_,IOrientObject orientProperty_, ITypeToken orientType_, bool mandatory =false, bool notnull=false);
     }
     //Building Item from Token types
-    public interface ITextBuilder
+    public interface ITextAggreagtor
     {
         ITypeToken Text { get; }
         ITypeToken FormatPattern { get; }

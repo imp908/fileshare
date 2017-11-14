@@ -1,8 +1,14 @@
 ﻿using Autofac.Integration.WebApi;
 using NewsAPI.App_Start;
+
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Web.Http;
+
 using System.Web.Http.Routing;
+
+using System.Web.Http.Cors;
+
 
 namespace NewsAPI
 {
@@ -17,10 +23,35 @@ namespace NewsAPI
 
             config.Routes.MapHttpRoute(
                  "DefaultForAll",
-                 "api/{controller}",
+                 "api/{controller}",                 
                  new { httpmethod = new HttpMethodConstraint(HttpMethod.Get) }
              );
-           
+
+            config.Routes.MapHttpRoute(
+               "PersonAccount",
+               "api/{controller}/{action}",
+               new { controller = "person", Action = "Acc", httpmethod = new HttpMethodConstraint(HttpMethod.Get)
+               , name = @"^[a-zA-z]*$" }
+            );
+
+            config.Routes.MapHttpRoute(
+              "PersonHolidaysByAccount",
+              "api/{controller}/{action}",
+              new { controller = "person", Action = "HoliVationAcc", httpmethod = new HttpMethodConstraint(HttpMethod.Get)
+              ,
+                  name = @"^[a-zA-z]*$"
+              }
+            );
+
+            config.Routes.MapHttpRoute(
+              name: "TrackedBirthdaysPOST",
+              routeTemplate: "api/{controller}/{action}/{fromGUID}/{toGUID}"              
+            );
+            config.Routes.MapHttpRoute(
+             name: "TrackedBirthdaysGet",
+             routeTemplate: "api/{controller}/{action}/{GUID}"
+           );
+
             config.Routes.MapHttpRoute(
               "NewsID",
               "api/{controller}/{type}",
@@ -31,7 +62,7 @@ namespace NewsAPI
               "AccountId",
               "api/{controller}/{count}",
               new { httpmethod = new HttpMethodConstraint(HttpMethod.Get), count = @"\d+" }
-           );
+            );
 
 
             config.Routes.MapHttpRoute(
@@ -61,9 +92,9 @@ namespace NewsAPI
                 new { action = "Get", accountName = RouteParameter.Optional }                
             );
 
-            //var cors = new EnableCorsAttribute("*", "Content-Type, Accept, Vary", "GET, POST, PUT, DELETE, OPTIONS, HEAD") { SupportsCredentials = true };
-            ////  var cors = new EnableCorsAttribute("http://static.nspk.ru/*", "*", "*");
-            //config.EnableCors(cors);
+			var cors = new EnableCorsAttribute("*", "X-Accept-Charset,X-Accept,Content-Type,Credentials", "POST, GET, PUT, OPTIONS, PATCH, DELETE") { SupportsCredentials = true, PreflightMaxAge = 10 };
+            config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/plain"));
+            config.EnableCors(cors);
 
             var autofacResolver = AutofacConfig.ConfigureContainer().Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(autofacResolver);

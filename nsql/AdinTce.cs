@@ -18,7 +18,7 @@ namespace NSQLManager
     public class AdinTceRepo
     {
 
-        IQueryManagers.ITextBuilder _textBuilder;
+        IQueryManagers.ITextAggreagtor _textBuilder;
         IWebManagers.IWebManager _webManager;
         IWebManagers.IResponseReader _responseReader;
         IJsonManagers.IJsonManger _jsonManager;
@@ -28,7 +28,7 @@ namespace NSQLManager
         AdinTceExplicitTokenBuilder tokenBuilder;
 
         public AdinTceRepo(
-            IQueryManagers.ITextBuilder textBuilder_,
+            IQueryManagers.ITextAggreagtor textBuilder_,
             IWebManagers.IWebManager webManager_,
             IWebManagers.IResponseReader responseReader_,
             IJsonManagers.IJsonManger jsonManager_)
@@ -58,7 +58,7 @@ namespace NSQLManager
         public string HoliVation(string GUID)
         {
             
-            AdinTcePOCO2 adp = new AdinTcePOCO2();
+            AdinTcePOCO adp = new AdinTcePOCO();
             IEnumerable<Holiday> dhl=null;
             IEnumerable<Vacation> vhl = null;
             IEnumerable<GUIDPOCO> gpl = null;
@@ -223,7 +223,7 @@ namespace NSQLManager
         public string Position { get; set; }
     }
   
-    public class AdinTcePOCO2
+    public class AdinTcePOCO
     {
         [JsonProperty("GUID")]
         public string GUID_ { get; set; }

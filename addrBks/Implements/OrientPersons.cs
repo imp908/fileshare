@@ -65,14 +65,14 @@ namespace NewsAPI.Implements
         //change JSON parsing
         public string SearchPerson(string AccountName)
         {
-            string name = @"SearchPerson";
-            return _functions.CallFunctionItems(name, AccountName.ToLower());
+            string name = @"SearchByFNameLName";
+            return _functions.CallFunctionParentChildId(name, AccountName.ToLower());
             
         }       
         public string GetGUID(string AccountName)
         {
             string name = @"GetGUID";
-            return _functions.CallFunctionParentChild(name, AccountName.ToLower());
+            return _functions.CallFunctionParentChildName(name, AccountName.ToLower());
         }
 
     }
@@ -131,7 +131,7 @@ namespace NewsAPI.Implements
             return result;
         }
 
-        public string CallFunctionParentChild(string name, string param)
+        public string CallFunctionParentChildName(string name, string param)
         {
             string result = null;
             OrientNewsHelper newsHelper = new OrientNewsHelper();
@@ -146,7 +146,22 @@ namespace NewsAPI.Implements
             catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
             return result;
         }
-        
+        public string CallFunctionParentChildId(string name, string param) 
+        {
+            string result = null;
+            OrientNewsHelper newsHelper = new OrientNewsHelper();
+            IHttpActionResult requestResult = newsHelper.ExecuteFunction(name, param);
+            string cnt = requestResult.ExecuteAsync(new CancellationToken()).Result.Content.ReadAsStringAsync().Result;
+
+            try
+            {
+                result =                   
+                    _jsonManager.DeserializeFromParentChildNode<string>(cnt, "result", "suggestion").FirstOrDefault()
+                    ;
+            }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
+            return result;
+        }
         public IJEnumerable<JToken> ExtractTokens(string jInput, string field)
         {
             IJEnumerable<JToken> result = null;

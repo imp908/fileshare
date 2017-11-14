@@ -16,7 +16,7 @@ using WebManagers;
 using QueryManagers;
 using POCO;
 
-using OrientRealization;
+using NSQLManager;
 using IOrientObjects;
 
 
@@ -38,10 +38,10 @@ namespace NSQLManager
     {
 
         JSONManager jm;
-        OrientTokenBuilder tb;
+        OrientTokenAggregator tb;
         TypeConverter tc;
         TextBuilder ocb;
-        WebManager wm ;
+        OrientWebManager wm ;
         WebResponseReader wr;
 
         Repo repo;
@@ -54,14 +54,15 @@ namespace NSQLManager
 
         UserSettings us;
         CommonSettings cs;
+        string guid_;
 
         public RepoCheck()
         {
             jm = new JSONManager();
-            tb = new OrientTokenBuilder();
+            tb = new OrientTokenAggregator();
             tc = new TypeConverter();
             ocb = new OrientCommandBuilder();
-            wm = new WebManager();
+            wm = new OrientWebManager();
             wr = new WebResponseReader();
 
             us = new UserSettings() { showBirthday = true };
@@ -82,12 +83,17 @@ new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 
             
             lp = new List<string>();
             lu = new List<string>();
-            
+
+            guid_ = "ba124b8e-9857-11e7-8119-005056813668";
+
         }
 
 
         public void GO()
-        {                      
+        {
+            TrackBirthdaysPtP();
+            TrackBirthdaysOneToAll();
+            DbCreateDeleteCheck();
             AddCheck();
             DeleteCheck();
             ExplicitCommandsCheck();
@@ -185,6 +191,62 @@ ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
 
             repo.Delete(typeof(UserSettings), new TextToken() { Text = @"1 =1" });
             repo.Delete(typeof(CommonSettings), new TextToken() { Text = @"1 =1" });
+
+        }
+        public void DbCreateDeleteCheck()
+        {
+
+            repo.Add(new TextToken() { Text = "testdb" }, new DELETE());
+            repo.Add(new TextToken() { Text = "testdb" }, new POST());
+
+        }
+        public void TrackBirthdaysOneToAll()
+        {
+            repo.changeAuthCredentials(
+                ConfigurationManager.AppSettings["ParentLogin"]
+                , ConfigurationManager.AppSettings["ParentPassword"]
+                );
+
+            PersonUOW pUOW = new PersonUOW();
+            TrackBirthdays tb = new TrackBirthdays();
+
+            Person fromPerson = pUOW.GetObjByGUID(guid_).FirstOrDefault();
+            List<Person> personsTo = pUOW.GetAll().ToList();
+            List<string> ids = new List<string>() { };
+            
+            foreach (Person pt in personsTo)
+            {
+                ids.Add(repo.Add(tb, fromPerson, pt));
+            }
+
+            repo.Delete(typeof(TrackBirthdays), new TextToken() { Text= "1=1" } );
+
+        }
+        public void TrackBirthdaysPtP()
+        {
+            repo.changeAuthCredentials(
+                ConfigurationManager.AppSettings["ParentLogin"]
+                , ConfigurationManager.AppSettings["ParentPassword"]
+                );
+
+            PersonUOW pUOW = new PersonUOW();
+            TrackBirthdays tb = new TrackBirthdays();
+            List<Person> personsTo = pUOW.GetAll().Take(3).ToList();
+            string personsfrom = null;
+
+            List<string> ids = new List<string>() { };
+
+            foreach (Person pf in personsTo)
+            {
+                foreach (Person pt in personsTo)
+                {
+                    ids.Add(repo.Add(tb, pf, pt));
+                }               
+            }
+
+            personsfrom = pUOW.GetTrackedBirthday(personsTo.FirstOrDefault().GUID);
+
+            repo.Delete(typeof(TrackBirthdays), new TextToken() { Text = "1=1" });
 
         }
 

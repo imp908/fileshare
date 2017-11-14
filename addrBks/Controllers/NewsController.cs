@@ -28,7 +28,6 @@ namespace NewsAPI.Controllers
             this.userAuthenticator = userAuthenticator;
         }
 
-
         [HttpPost]
         public IHttpActionResult POST([FromBody]JObject json1)
         {
@@ -59,7 +58,6 @@ namespace NewsAPI.Controllers
             }
             else { throw new Exception("invalid json string"); }
         }
-
 
         [HttpPost]
         public IHttpActionResult POST(int id, [FromBody]string json)

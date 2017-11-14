@@ -12,8 +12,12 @@ namespace NewsAPI.Implements
     public class UserAuthenticator : IUserAuthenticator
     {
         public string AuthenticateUser(IPrincipal principal)
-        {           
-            var name = principal.Identity.Name.Split('\\')[1];
+        {
+            string name = string.Empty;
+            try
+            {
+                name = principal.Identity.Name.Split('\\')[1];
+            }catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
             return name;
         }
     }

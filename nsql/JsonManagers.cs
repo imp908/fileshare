@@ -114,6 +114,7 @@ namespace JsonManagers
 
             string result = string.Empty;
             result = JsonConvert.SerializeObject(input_, settings_);
+            if (result == @"{}") { result = null; }
             return result;
         }
 

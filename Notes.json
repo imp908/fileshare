@@ -77,8 +77,10 @@ https://orientdb.com/docs/2.2/Functions-DB-Access.html
 http://msk1-vm-indb01
 root
 mR%mzJUGq1E
+cm9vdDptUiVtekpVR3ExRQ==
 http://msk1-vm-indb01:2480/studio/index.html#/database/Orgchart_prod/functions
 //not prod
+cm9vdDpJOWdyZWtWbWs1Zw==
 http://msk1-vm-indb02
 //news deploy
 http://msk1-vm-ovisp01
@@ -532,7 +534,10 @@ var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if
 			]
 		}
 		
-		,{AddressBook,Account,News,persons,Settings:				
+		,{AddressBook,Account,News,persons,Settings:
+			TokenBuilder -> tokens to collection
+			UOW -> tokens and collections to string with typeconverter
+			Rspo -> string to URL
 				
 			[user settings (check serverside filter) -> done
 				{
@@ -565,7 +570,7 @@ http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/part/215
 
 ZUP
 ЗУП (1c batch) (WS:12345qweQWE!@#)
-
+V1M6MTIzNDVxd2VRV0UhQCM=
 
 http://msk1-vm-onesweb01/nspk_zup/ws/ExportData.1cws?wsdl
 GET

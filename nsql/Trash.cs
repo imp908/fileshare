@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 using JsonManagers;
 using POCO;
 using WebManagers;
-using OrientRealization;
+using NSQLManager;
 using IOrientObjects;
 using IQueryManagers;
 using QueryManagers;
@@ -101,7 +101,7 @@ namespace Trash
         public static void PersonApiCheck()
         {
 
-            WebManager wm = new WebManager();
+            OrientWebManager wm = new OrientWebManager();
 
             APItester_sngltn ut = new APItester_sngltn();
             WebResponseReader wr = new WebResponseReader();
@@ -172,7 +172,7 @@ namespace Trash
         public static void PersonApiCheckAsync()
         {
 
-            WebManager wm = new WebManager();
+            OrientWebManager wm = new OrientWebManager();
 
             APItester_sngltn ut = new APItester_sngltn();
             WebResponseReader wr = new WebResponseReader();
@@ -521,7 +521,7 @@ namespace Trash
 
             //collection of FULL tokens 
             //@"{0}:{1}/{2}/{3}/{4}/{5} {6} {7} {8} {9}"
-            List<ITextBuilder> CommandTokens = new List<ITextBuilder>(){
+            List<ITextAggreagtor> CommandTokens = new List<ITextAggreagtor>(){
                 commandUrlPart,selectUrlPart,whereUrlPart
             };
             //Aggregate all query TokenManagers to one Select URL command with where
@@ -662,13 +662,13 @@ namespace Trash
 
 
             //build commands strings according to string format
-            List<ITextBuilder> createPersonTk = new List<ITextBuilder>() { ub, cpb };
-            List<ITextBuilder> selectTk = new List<ITextBuilder>() { ub, spb, wb };
-            List<ITextBuilder> deleteTk = new List<ITextBuilder>() { ub, dpb, wb };
+            List<ITextAggreagtor> createPersonTk = new List<ITextAggreagtor>() { ub, cpb };
+            List<ITextAggreagtor> selectTk = new List<ITextAggreagtor>() { ub, spb, wb };
+            List<ITextAggreagtor> deleteTk = new List<ITextAggreagtor>() { ub, dpb, wb };
 
-            List<ITextBuilder> createUnitTk = new List<ITextBuilder>() { ub, cub };
-            List<ITextBuilder> selectUnitTk = new List<ITextBuilder>() { ub, sub, wb };
-            List<ITextBuilder> deleteUnitTk = new List<ITextBuilder>() { ub, dub, wb };
+            List<ITextAggreagtor> createUnitTk = new List<ITextAggreagtor>() { ub, cub };
+            List<ITextAggreagtor> selectUnitTk = new List<ITextAggreagtor>() { ub, sub, wb };
+            List<ITextAggreagtor> deleteUnitTk = new List<ITextAggreagtor>() { ub, dub, wb };
 
 
             //building command urls according to string format
@@ -790,8 +790,8 @@ namespace Trash
             OrientCommandBuilder SuB = new OrientCommandBuilder(SubUnitTk, SbUtf);
             OrientCommandBuilder MaB = new OrientCommandBuilder(MainAssignmentTk, MnAsf);
 
-            List<ITextBuilder> SuTb = new List<ITextBuilder>() { ub, SuB };
-            List<ITextBuilder> MaTb = new List<ITextBuilder>() { ub, MaB };
+            List<ITextAggreagtor> SuTb = new List<ITextAggreagtor>() { ub, SuB };
+            List<ITextAggreagtor> MaTb = new List<ITextAggreagtor>() { ub, MaB };
 
 
             OrientCommandURIBuilder SuUB =
@@ -939,7 +939,7 @@ namespace Trash
 
             //read basic GET response
             string url = @"http://msk1-vm-ovisp01:8083/api/Person/GetCollegesLower/bs";
-            WebManager hm = new WebManager();
+            OrientWebManager hm = new OrientWebManager();
             WebResponse response = hm.GetResponse(url, "GET");
             string sampleResult = reader.ReadResponse(response);
 

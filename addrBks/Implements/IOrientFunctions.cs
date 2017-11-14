@@ -11,7 +11,8 @@ namespace NewsAPI.Implements
         string CallFunctionCollection(string name, string param);
         string CallFunctionItems(string name, string param);
 
-        string CallFunctionParentChild(string name, string param);
+        string CallFunctionParentChildName(string name, string param);
+        string CallFunctionParentChildId(string name, string param);
     }
 
     public interface IPersonFunctions

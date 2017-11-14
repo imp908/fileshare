@@ -96,6 +96,9 @@
   <ItemGroup>
     <Compile Include="AdinTce.cs" />
     <Compile Include="ApiTester.cs" />
+    <Compile Include="IPersonUOW.cs" />
+    <Compile Include="IRepo.cs" />
+    <Compile Include="Repo.cs" />
     <Compile Include="Trash.cs" />
     <Compile Include="IJsonManager.cs" />
     <Compile Include="Iorient.cs" />

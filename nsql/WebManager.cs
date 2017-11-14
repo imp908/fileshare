@@ -15,19 +15,18 @@ using System.Threading;
 namespace WebManagers
 {
 
-    /// -->In new overwritten
+    ///-->In new overwritten
     ///Base web manager for sending request with type method and reading response to URL
     ///WebRequest, Httpwebresponse
     public class WebManager : IWebManager
     {
+
         NetworkCredential _credentials;
         public WebRequest _request;
-        internal string OSESSIONID;
-
+     
         public WebManager()
         {
-            _request = null;
-            this.OSESSIONID = string.Empty;
+            _request = null;            
         }
         public WebRequest addRequest(string url, string method)
         {
@@ -49,6 +48,12 @@ namespace WebManagers
         internal void addHeader(HttpRequestHeader header, string value)
         {
             _request.Headers.Add(header, value);
+        }
+        internal void add64Header(HttpRequestHeader header, string value)
+        {
+            _request.Headers.Add(header, "Basic " + System.Convert.ToBase64String(
+            Encoding.ASCII.GetBytes(value)
+            ));
         }
         internal string getHeaderValue(string header)
         {
@@ -93,10 +98,14 @@ namespace WebManagers
             {
                 return (HttpWebResponse)this._request.GetResponse();
             }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            catch (System.Net.WebException e)
+            {                           
+                string msg = new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
+                System.Diagnostics.Trace.WriteLine(e.Message);
+                System.Diagnostics.Trace.WriteLine(msg);
+                throw new Exception(msg);
+            }           
+           
         }
         public virtual async Task<HttpWebResponse> GetResponseAsync(string url, string method)
         {
@@ -123,12 +132,15 @@ namespace WebManagers
     /// </summary>
     public class WebResponseReader : IResponseReader
     {
+             
         public string ReadResponse(WebResponse response)
         {
             string result = string.Empty;
-            Stream sm = response.GetResponseStream();
-            StreamReader sr = new StreamReader(sm);
-            result = sr.ReadToEnd();
+            try
+            {
+                result = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            }
+            catch (Exception e){ System.Diagnostics.Trace.WriteLine(e.Message); }
             return result;
         }
         public string ReadResponse(HttpWebResponse response)
@@ -176,7 +188,6 @@ namespace WebManagers
             catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
             return result;
         }
-
 
     }
 
