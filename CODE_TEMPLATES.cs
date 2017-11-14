@@ -16,7 +16,6 @@ namespace Parts{
 	
 }
 
-
 	//Usefull links
 	public void mostUsefullLinks()
 	{
@@ -396,7 +395,6 @@ namespace Parts{
 	
 	}
 	
-	
 	#region TODO
 	
 		public class Utility
@@ -515,14 +513,31 @@ Revise:
 	public Bug Trackers
 	{
 		public GIT hub
-		{
+		{https://git-scm.com/book/en/v2
+			
+			public InitializeNewRepo()
+			{
+				
+echo "# NSQLmanager" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/imp908/NSQLmanager.git
+git push -u origin master
+				
+			}
+			
+			public DeleteMaster(){ //not working
+				https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
+				git symbolic-ref HEAD refs/heads/another-branch
+				http://matthew-brett.github.io/pydagogue/gh_delete_master.html
+			}
 			
 			MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
 			git pull origin branchname --allow-unrelated-histories			
 			//recommended
 			git clone
-			
-			git push -u origin branchname {!!!<pushing to branch>!!!}
+						
 			
 			git remote -v -> check remotes
 			git branch -> check what branch you are in
@@ -544,16 +559,24 @@ Revise:
 			git checkout -b \\url to branch		
 			add commit push section 
 			
+			git push -u origin branchname {!!!<pushing to branch>!!!}
+			
 			REMOVE REPO
 			git remote rm origin
-					
+				
+			//log commits
+			https://stackoverflow.com/questions/1838873/visualizing-branch-topology-in-git
+			git log --graph
+			gitk
+			
+			git-ls-tree 
+			git-ls-remote
 		}
 
 	}
 
 	public Issuer Trackers
 	{
-		
 		public TFS()
 		{
 			
@@ -1532,1068 +1555,1066 @@ Parent and child progects merged in child branch
 				}				
 							
 			}					
-			
-		}			
-		
-		public class Deploy()
-		{
-			
-			public void IIS()
+					
+			public class Deploy()
 			{
 				
-				public void Mnual()
+				public void IIS()
 				{
-					https://msdn.microsoft.com/en-us/library/1y1404zt.aspx
-					1) Build Web API
-					2) Create folder in IIS visible area
-					3) CopyPast project
-					4) Add site in iis -> set folder -> configure bindings (no name possible)
+					
+					public void Mnual()
+					{
+						https://msdn.microsoft.com/en-us/library/1y1404zt.aspx
+						1) Build Web API
+						2) Create folder in IIS visible area
+						3) CopyPast project
+						4) Add site in iis -> set folder -> configure bindings (no name possible)
+					}
+					
+				}
+			
+			}
+			
+			public class VisualStudio()
+			{
+				
+				public void ConsoleManager()
+				{https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
+				
+					Update-Package Microsoft.AspNet.Mvc -Reinstall
+					Install-Package Microsoft.AspNet.Mvc -Version 3.2
+					Install-Package Microsoft.ApplicationInsights.Web
+					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
+					
+					
+					Find-Package microsoft.net.http
+					Install-Package microsoft.net.http
+					Install-Package microsoft.net.http -ProjectName ConsoleApp1
+					install-package Newtonsoft.Json
+					
+					Install-Package xunit
+					Install-Package xunit.analyzers 
+					Install-Package xunit.runner.console
+					Install-Package xunit.runner.visualstudio
+					
+					Update-Package -Reinstall
+					
+					//system.web.hhtp
+					Install-Package Microsoft.AspNet.WebApi
 				}
 				
-			}
-		
-		}
-		
-		public class VisualStudio()
-		{
-			
-			public void ConsoleManager()
-			{https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
-			
-				Update-Package Microsoft.AspNet.Mvc -Reinstall
-				Install-Package Microsoft.AspNet.Mvc -Version 3.2
-				Install-Package Microsoft.ApplicationInsights.Web
-				Update-Package Microsoft.ApplicationInsights.Web -Reinstall
-				
-				
-				Find-Package microsoft.net.http
-				Install-Package microsoft.net.http
-				Install-Package microsoft.net.http -ProjectName ConsoleApp1
-									
-				Install-Package xunit
-				Install-Package xunit.analyzers 
-				Install-Package xunit.runner.console
-				Install-Package xunit.runner.visualstudio
-				
-				Update-Package -Reinstall
-			}
-			
-			public void ConfigurationManager()
-			{
-				reference 
-				FRAMEWORKS -> System.Configuration
-				
-			}
-						
-			
-		}
-		
-		public void MSbuild()
-		{
-
-/*				
-"10.0" указывает на поднабор инструментов .NET Framework 4;
-"11.0" указывает на поднабор инструментов .NET Framework 4.5;
-"12.0" указывает на поднабор инструментов .NET Framework 4.5.1.
-*/
-
-			//build v14.0
-			C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe "C:\workflow\projects\Dev\Intranet Development\AddressBook_News2\AddressBook_News2-branch1\AddressBook_News.sln" /p:Configuration=Debug  /p:VisualStudioVersion=14.0;BaseOutputPath=bin\res
-			
-			
-		}
+				public void ConfigurationManager()
+				{
+					reference 
+					FRAMEWORKS -> System.Configuration
 					
-		public class Unsorted
-		{
+				}
+			}			
 			
-		//delete from oracle table and link parametrized insert command to connection
-		public class oracle_queries(){
-		oracleConnection.Open();
-		oracleDeleteCommand.Connection = oracleConnection;
-		oracleDeleteCommand.CommandText = oracleQueriesBank.unparametrizedDelete;
-		oracleDeleteCommand.ExecuteNonQuery();
-
-		OracleCommand oracleInsertCommand = new OracleCommand();
-		oracleInsertCommand.Connection = oracleConnection;
-		oracleInsertCommand.CommandText = oracleQueriesBank.parametrizedInsert;
-
-		oracleConnection.Open();
-		oracleTablePresence.Connection = oracleConnection;
-		oracleTablePresence.CommandText = oracleQueriesBank.tablePresenceTest;
-		oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
-		tablecount = oracleTablePresence.ExecuteScalar().ToString();
-
-		oracleTablePresence.CommandText = oracleQueriesBank.tableColumnTest;
-		oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
-		oracleTablePresence.Parameters.Add(new OracleParameter("columnname", "ID_MERCHANT"));
-		columncount = oracleTablePresence.ExecuteScalar().ToString();
-
-		connectionInitialize(oracleConnection);
-		OracleCommand oracleTableCount = new OracleCommand();
-		oracleConnection.Open();
-		oracleTableCount.Connection = oracleConnection;
-		oracleTableCount.CommandText = oracleQueriesBank.unparametrizedRowCount;
-
-		oracleTableCount.CommandText = oracleQueriesBank.tableColumnTest;
-		rowcount = oracleTableCount.ExecuteScalar().ToString();
-		}
-
-		//oracle service query texts
-		public class servise_queries(){
-		//used for parametrized insert from import datagridview to oracle table
-		//occurs in dataGridView_Import_DoubleClick throught OracleQueryExecutor class
-		sampleInsert = "insert into merchant_list (ID_MERCHANT) values ('test_val')";
-
-		unparametrizedDelete = "delete from merchant_list";
-		parametrizedInsert = "insert into merchant_list values (:value)";
-		unparametrizedRowCount = "select max(rownum) from merchant_list";
-
-		//used for detecting marchant_list table presence and it's creation
-		tablePresenceTest = "select max(rownum) from user_tables where table_name = (:tablename)";
-		//detecting rownumbers in table
-		tableColumnTest = "select max(rownum) from user_tab_columns where table_name = (:tablename) and column_name = (:columnname)";
-		createTable = "create table MERCHANT_LIST (ID_MERCHANT varchar(50))";
-		}
-
-		//SERIALIZE DESERIALIZE
-		public class serealization_deserialization(){
-		public void Serialize(String path, List<OracleQueriesListClass> myArray)
-		{
-		BinaryFormatter formatter = new BinaryFormatter();
-		using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.Write))
-		{
-		formatter.Serialize(stream, myArray);
-		}
-		}
-
-		public List<OracleQueriesListClass> DeserializeList(String path)
-		{
-		BinaryFormatter formatter = new BinaryFormatter();
-		using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
-		{
-		List<OracleQueriesListClass> myList = (List<OracleQueriesListClass>)formatter.Deserialize(stream);
-		return myList;
-		}
-		}
-		}
-
-		//app setting connstrings example
-		public class connstrings(){
-
-		//requesting connString from appsettings
-		System.Configuration.ConfigurationSettings.AppSettings["ConnectionString"];
-		System.Configuration.ConfigurationManager.ConnectionStrings["connectionStringName"].ConnectionString;
-		</startup>
-		<appSettings>
-		<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch" />
-		<add key="ClientSettingsProvider.ServiceUri" value="" />
-		<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;" />
-		</appSettings>
-		}
-
-		public class ExcelIntegration(){
-			
-
-		//create excel xlsx with OPEN xml
-		private void OPENxmlCreate(){
-		string fileName = @"C:\111\test.xlsx";
-		using (SpreadsheetDocument document = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook))
-		{
-		WorkbookPart workbookPart = document.AddWorkbookPart();
-		workbookPart.Workbook = new Workbook();
-
-		WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-		worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-		Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
-
-		Sheet sheet = new Sheet() { Id = workbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Test Sheet" };
-
-		sheets.Append(sheet);
-
-		workbookPart.Workbook.Save();
-		}
-		}
-
-		}
-
-		/////
-
-		//connection strings
-		public void connectionStrings()
-		{
-
-		//connection to local SQL express from MVC
-		//<add name="BookContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=text_db;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
-
-		//<add name="SoocerContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=tempdb;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
-
-		//connection from console app
-		//string connectionString = @"Initial Catalog=tempdb;Data Source=.\SQLEXPRESS2;Integrated Security=SSPI;";
-
-		//string connectionStringORCL = @"User Id=neprintsev_ia; password = awsedrDRSEAW; Data Source = dwh.rs.ru; Pooling=false;";
-		//string connectionStringSQL = @"Data Source=.\SQLEXPRESS;Initial Catalog=DWH_replica;Integrated Security=SSPI;";
-
-		}
-
-		//----------------------------------------------
-
-
-		//mvc tempaltes
-		public void MVC_templates()
-		{
-
-		//view add button with rediraect
-		<input type="button" value="ClickMe" onclick="location.href='@Url.Action("Migrate","Home")'"
-
-		//view submit button
-		<input type="submit" value="Save" class="btn btn-default" />
-
-		//view actionlink
-		@Html.ActionLink("Back to List", "Index")
-
-		// Refresh model in controller if passing values after changes in layer
-		if(ModelState.IsValid)
-		{
-		ModelState.Clear();
-		}
-
-		//start wcf service async
-		Task.Run(() => migrateService.migrate_((DateTime)DateFrom, (DateTime)DateTo));
-
-		//one of multiple buttons
-		//controller part
-		[HttpPost]
-		[MultipleButton(Name = "action", Argument = "Stop")]
-		public ActionResult Stop(int ID, DateTime? DateFrom, DateTime? DateTo)
-		{}
-
-		//view part
-		<td>
-		<input type="submit" value="Stop" name="action:Stop" />
-		</td>
-
-		//pass multiple parameters to controller from view
-		<td>
-		<input type="text" id="DateTo" name="DateTo" value="@tab.DateTo" />
-		</td>
-
-		//parametrized groupping linq to entity
-		var a = from s in db.FD_ACQ_D
-		where DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month,01,0,0,0) ==
-		DbFunctions.CreateDateTime(fromDate.Year, fromDate.Month, 01, 0, 0, 0)
-		group s by new { DT_REG= DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month, 01, 0, 0, 0), TYPE_TRANSACTION=s.TYPE_TRANSACTION, PAY_SYSTEM=s.PAY_SYS} into g
-		select new
-		{
-		DT_REG = g.Key.DT_REG,
-		TYPE_TRANSACTION = g.Key.TYPE_TRANSACTION,
-		PAY_SYSTEM=g.Key.PAY_SYSTEM,
-		AMT = g.Sum(s => s.AMT)
-		};
-		foreach(var b in a)
-		{
-		this.FD_ACQ_D.Add(new FD_RES { DT_REG = b.DT_REG, TYPE_TRANSACTION = b.TYPE_TRANSACTION, AMT = b.AMT, PAY_SYS=b.PAY_SYSTEM });
-		}
-
-
-		//return json from controller public string GetJson()
-		{
-		ml.GetACQ(db);
-		string jsn = JsonConvert.SerializeObject(ml.FD_ACQ_D);
-		return jsn;
-		}
-
-		}
-
-		//json serialization with newtonsoft dll
-		public void jsonserialization()
-		{
-
-		string json2 = JsonConvert.SerializeObject(jst1, Formatting.Indented);
-		File.WriteAllText(@"C:\test\insert\json.json", json2);
-
-		string json3 = "";
-		json3 = File.ReadAllText(@"C:\test\insert\json.json");
-		json_tst_par jDes = JsonConvert.DeserializeObject<json_tst_par>(json3);
-
-		}
-
-		public void StoreValuesToSettings()
-		{
-
-		//storing values to settings
-		WindowsFormsApplication2.Properties.Settings.Default.Upgrade();
-		//changes
-		WindowsFormsApplication2.Properties.Settings.Default.Save();
-
-		//Initializing Form Elements in form methods
-		TextBox tb = (TextBox)sender;
-
-		//datetime defenition
-		DateTime dt = new DateTime(1, 1, 1, 0, 0, 0)
-		}
-
-		//default connection strings for oracle and excel
-		public void connectionStrings()
-		{
-		<appSettings>
-		<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch;" />
-		<add key="ClientSettingsProvider.ServiceUri" value="" />
-		<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;Pooling=false;" />
-		</appSettings>
-		}
-
-		//List object on excel list REFRESH
-		if (lob.Name == liobName)
-		{
-		lob.QueryTable.CommandText = queryText__;
-		lob.QueryTable.Connection = connectionString;
-		lob.QueryTable.BackgroundQuery = true;
-		lob.QueryTable.SaveData = true;
-		lob.QueryTable.EnableRefresh = true;
-		//lob.QueryTable.Refresh(false);
-		try
-		{
-		lob.QueryTable.Refresh(false);
-		}
-		catch (Exception e)
-		{
-
-		}
-		}
-
-		//List object on excel list PLACE
-		if (ws.Name==wsName)
-		{
-
-		ExcelInterop.Range worksheetRange = ws.get_Range("A1");
-		string tableName=Path.GetRandomFileName().Replace(".","");
-		tableName = Regex.Replace(tableName, @"\d", "");
-
-
-		ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
-		((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
-
-		//ListObject.QueryTable.CommandText = ((object)excelCommand);
-		ListObject.QueryTable.CommandText = ((object)queryText__);
-		ListObject.QueryTable.RowNumbers = false;
-		ListObject.QueryTable.FillAdjacentFormulas = false;
-		ListObject.QueryTable.PreserveFormatting = true;
-		ListObject.QueryTable.RefreshOnFileOpen = false;
-		ListObject.QueryTable.BackgroundQuery = true;
-		ListObject.QueryTable.SavePassword = false;
-		ListObject.QueryTable.SaveData = true;
-		ListObject.QueryTable.AdjustColumnWidth = true;
-		ListObject.QueryTable.RefreshPeriod = 10;
-		ListObject.QueryTable.PreserveColumnInfo = true;
-		ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
-		ListObject.QueryTable.EnableRefresh = true;
-		ListObject.QueryTable.Refresh(false);
-
-		}
-
-		//searchs all processes and finds id for passed main window title
-		//apl.Caption for excell aplications
-		public int GetProcessIdByWindowTitle(string windowTitle)
-		{
-
-		int processID;
-		processID = 0;
-		foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
-		{
-		if (proc.MainWindowTitle == windowTitle)
-		processID = proc.Id;
-		}
-		return processID;
-		}
-
-		//kills process with current ID
-		public void processKill(int ID)
-		{
-		foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
-		{
-		if (proc.Id == ID)
-		proc.Kill();
-		}
-		}
-
-		//creates file for current excel workbook with path
-		public void fileSave(ExcelInterop.Workbook wb, string OutputFileName)
-		{
-		if (!Directory.Exists(Path.GetDirectoryName(OutputFileName)))
-		{
-		Directory.CreateDirectory(Path.GetDirectoryName(OutputFileName));
-		}
-
-		wb.SaveAs(OutputFileName, ExcelInterop.XlFileFormat.xlWorkbookDefault,
-		Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-		ExcelInterop.XlSaveAsAccessMode.xlExclusive,
-		Missing.Value, Missing.Value, Missing.Value,
-		Missing.Value, Missing.Value);
-		wb.Close();
-		}
-
-		//correct excel application killing
-		public void ExcelApplicationTest()
-		{
-		xlNS.Application apl2;
-		apl2 = new xlNS.Application();
-
-		xlNS.Workbooks wbs2;
-		wbs2 = apl2.Workbooks;
-
-		xlNS.Workbook wb2;
-		xlNS.Worksheet ws2;
-
-		 
-
-		if(!File.Exists(ExcelPath))
-		{
-		wb2 = wbs2.Add(xlNS.XlWBATemplate.xlWBATWorksheet);
-		//ws2 = (xlNS.Worksheet)wb2.Worksheets[1];
-		wb2.SaveAs(ExcelPath);
-		}
-		else
-		{
-		wb2 = wbs2.Open(ExcelPath);
-		}
-
-		wb2.Close();
-		apl2.Quit();
-		wbs2.Close();
-
-		Marshal.ReleaseComObject(wb2);
-		Marshal.ReleaseComObject(wbs2);
-		Marshal.ReleaseComObject(apl2);
-
-		wb2 = null;
-		apl2 = null;
-		wbs2 = null;
-
-		}
-
-		//Opens filedialog and inserts results from excel to datagrid view
-		public void dataGridSelectedFill(DataGridView dg, FilePath FilePath_)
-		{
-		OpenFileDialog ofd = new OpenFileDialog();
-		Stream stream = null;
-
-		ofd.Filter = "excel files (*.xls)|*.xls|excel files (*.xlsx)|*.xlsx";
-		ofd.FilterIndex = 2;
-		ofd.RestoreDirectory = true;
-
-		if (ofd.ShowDialog() == DialogResult.OK)
-		{
-		if (File.Exists(ofd.FileName))
-		{
-		FilePath_.inputFilePath = ofd.FileName;
-
-		try
-		{
-		ofd.InitialDirectory = FilePath_.inputFileFolder;
-
-		try
-		{
-		if ((stream = ofd.OpenFile()) != null)
-		{
-		WindowsFormsApplication2.Properties.Settings.Default.InputFilePath = ofd.FileName;
-		WindowsFormsApplication2.Properties.Settings.Default.Save();
-
-		using (stream)
-		{
-		//calls main method for excel file from filedialog open and dataset to datagrid bnding
-		dg.DataSource = StreamToGrid(stream, ofd.FileName);
-		//new BindingSource(result.Tables[0], null);
-		}
-
-		}
-		}
-		catch (Exception ex)
-		{
-		MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-		}
-
-		}
-		catch (Exception ex)
-		{
-		MessageBox.Show("Error: no file folder exists!" + ex.Message);
-		}
-		}
-		}
-		}
-
-		//converts stream of file to datagrid for xls,xlsx
-		//with CodePlex data reader http://exceldatareader.codeplex.com/
-		public DataTable StreamToGrid(Stream stream, string ofd)
-		{
-		IExcelDataReader excelReader = null;
-		DataSet result = new DataSet();
-
-		string ExcelExtension= Path.GetExtension(ofd);
-
-
-		if (ExcelExtension == ".xls")
-		{
-		excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
-		result = excelReader.AsDataSet();
-		}
-
-		if (ExcelExtension == ".xlsx")
-		{
-		excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-		excelReader.IsFirstRowAsColumnNames = true;
-		result = excelReader.AsDataSet();
-		}
-
-
-		//6. Free resources (IExcelDataReader is IDisposable)
-		excelReader.Close();
-
-		return result.Tables[0];
-
-		}
-
-		 
-
-		//Initializes and starts new form from another one (for excel worksheet selection)
-		private void wsSelectShow(ExcelInterop.Workbook wb, ExcelExport ee, string connectionString)
-		{
-		ListObjects_ liob = new ListObjects_();
-		wsSelect wsSelect_ = new wsSelect(wb, ee, connectionString);
-		wsSelect_.Show();
-		}
-
-		//publishing of excel list object
-		public void listObjectPublish(){
-
-		ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
-		((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
-
-		//ListObject.QueryTable.CommandText = ((object)excelCommand);
-		ListObject.QueryTable.CommandText = ((object)queryText__);
-		ListObject.QueryTable.RowNumbers = false;
-		ListObject.QueryTable.FillAdjacentFormulas = false;
-		ListObject.QueryTable.PreserveFormatting = true;
-		ListObject.QueryTable.RefreshOnFileOpen = false;
-		ListObject.QueryTable.BackgroundQuery = true;
-		ListObject.QueryTable.SavePassword = false;
-		ListObject.QueryTable.SaveData = true;
-		ListObject.QueryTable.AdjustColumnWidth = true;
-		ListObject.QueryTable.RefreshPeriod = 10;
-		ListObject.QueryTable.PreserveColumnInfo = true;
-		ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
-		ListObject.QueryTable.EnableRefresh = true;
-		ListObject.QueryTable.Refresh(false);
-		}
-
-		//refreshing of list objects on excel
-		public void ListObject refresh()
-		{
-		lob.QueryTable.CommandText = queryText__;
-		lob.QueryTable.Connection = connectionString;
-		lob.QueryTable.BackgroundQuery = true;
-		lob.QueryTable.SaveData = true;
-		lob.QueryTable.EnableRefresh = true;
-		lob.QueryTable.Refresh(false);
-		}
-
-		//Connection string and query for reading excel files with OLEDB and storing to datatable to excel
-		public void readExcelOledbStoreDTtoExcel()
-		{
-		//string for oledb to excel query
-		string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
-
-		OleDbConnection oleCon = new OleDbConnection(conString);
-		OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
-		DataTable dt = new DataTable("Output");
-
-		oleCon.Open();
-		dt.Load(oleCmd.ExecuteReader());
-
-		//save dt as xml
-		dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
-
-		Excel.Application excel_ = new Excel.Application();
-		Excel.Workbook wb_ = excel_.Workbooks.Add(true);
-		Excel.Worksheet ws_ = wb_.Worksheets[1];
-
-		ws_ = wb_.Worksheets[1];
-
-
-		//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
-
-
-		//passing datatable to array of objects dim to dim
-		var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
-		int drC = 0;
-		int drR = 0;
-
-		foreach(DataRow dr in dt.Rows)
-		{
-		drR = drR + 1;
-		foreach(DataColumn dc in dt.Columns)
-		{
-		drC = drC + 1;
-		data[drR, drC] = dt.Rows[drR-1][drC-1];
-		}
-		drC = 0;
-		}
-
-		var startCell = (Excel.Range)ws_.Cells[1, 1];
-		var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
-		var writeRange = ws_.Range[startCell, endCell];
-
-		//passing array of objects to excel list
-		writeRange.Value2 = data;
-		wb_.SaveAs(folder + @"\" + @"output.xlsx");
-
-		wb_.Close();
-
-		//read stored xml to datatable increases values if datatable not empty
-		dt.ReadXml(folder + @"\" + @"output.xml");
-		dt.WriteXml(folder + @"\" + @"output2.xml", XmlWriteMode.WriteSchema, false);
-
-		oleCon.Close();
-
-		}
-
-		//Get current application folder console
-		public void ApplicationFolder()
-		{
-		Application.StartupPath
-		System.IO.Path.GetDirectoryName(
-		System.Reflection.Assembly.GetExecutingAssembly().Location)
-		AppDomain.CurrentDomain.BaseDirectory //Priority
-		System.IO.Directory.GetCurrentDirectory()
-		Environment.CurrentDirectory
-		System.IO.Path.GetDirectoryName(
-		System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)
-		System.IO.Path.GetDirectory(Application.ExecutablePath)
-		}
-
-		//Get current application folder models
-		public void Application folder()
-		{
-		AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-		}
-
-		//Get current application folder view
-		public void Application_view()
-		{
-		HttpContext.Server.MapPath("~/App_Date/");
-		}
-
-		//using Interface IENUMERABLE for looping throught dates in list
-		public void loopThroughDates()
-		{
-
-		public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
-		{
-		for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
-		yield return day;
-		}
-
-		foreach(DateTime date in EachDay(startDate,finishDate))
-		{
-		DatesRequested.Add(date);
-		}
-		}
-
-		//reads excel contents into datatable and stores it as xml
-		public void readExceloledb()
-		{
-
-		public string oledbRequest = "SELECT F2,sum(F3) FROM [????1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
-
-		string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
-
-		OleDbConnection oleCon = new OleDbConnection(conString);
-		OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
-		DataTable dt = new DataTable("Output");
-
-		oleCon.Open();
-
-		//dt is datatable
-		dt.Load(oleCmd.ExecuteReader());
-
-		//save dt as xml
-		dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
-
-		}
-
-		//reads datatable , convets it to excel array on worksheet and saves xlsx
-		public void storeDatatableAsXLSX()
-		{
-
-		Excel.Application excel_ = new Excel.Application();
-		Excel.Workbook wb_ = excel_.Workbooks.Add(true);
-		Excel.Worksheet ws_ = wb_.Worksheets[1];
-
-		ws_ = wb_.Worksheets[1];
-
-
-		//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
-
-
-		//passing datatable to array of objects dim to dim
-		var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
-		int drC = 0;
-		int drR = 0;
-
-		foreach(DataRow dr in dt.Rows)
-		{
-		drR = drR + 1;
-		foreach(DataColumn dc in dt.Columns)
-		{
-		drC = drC + 1;
-		data[drR, drC] = dt.Rows[drR-1][drC-1];
-		}
-		drC = 0;
-		}
-
-
-		var startCell = (Excel.Range)ws_.Cells[1, 1];
-		var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
-		var writeRange = ws_.Range[startCell, endCell];
-
-		//passing array of objects to excel list
-		writeRange.Value2 = data;
-		wb_.SaveAs(folder + @"\" + @"output.xlsx");
-
-		}
-
-
-
-		//openXMLread
-		public void openXML()
-		{
-		// open the document read-only
-		SpreadsheetDocument document = SpreadsheetDocument.Open(fileName, false);
-		SharedStringTable sharedStringTable = document.WorkbookPart.SharedStringTablePart.SharedStringTable;
-		string cellValue = null;
-
-		foreach (WorksheetPart worksheetPart in document.WorkbookPart.WorksheetParts)
-		{
-		foreach (SheetData sheetData in worksheetPart.Worksheet.Elements<SheetData>())
-		{
-		if (sheetData.HasChildren)
-		{
-		foreach (Row row in sheetData.Elements<Row>())
-		{
-		foreach (Cell cell in row.Elements<Cell>())
-		{
-		cellValue = cell.InnerText;
-
-		/*
-		try
-		{
-		if (cell.DataType == CellValues.SharedString)
-		{
-		Console.WriteLine("cell val: " + sharedStringTable.ElementAt(Int32.Parse(cellValue)).InnerText);
-		}
-		else
-		{
-		Console.WriteLine("cell val: " + cellValue);
-		}
-		}
-		catch(Exception e)
-		{
-		if(e.Message=="Error in implicit conversion. Cannot convert null object.")
-		{
-		MessageBox.Show(e.Message);
-		}
-		}
-		* */
-		}
-		}
-		}
-		}
-		}
-		document.Close();
-
-		}
-
-
-		//select max ID from list of classes
-		public void LINQlogic()
-		{
-		//add list of objects to ienumerable
-		IEnumerable<QueryTextNew> Queries =
-		from QueryTextNew in querytextList
-		select QueryTextNew;
-
-		//select max ID catching empty element exception
-		int itemsMax;
-
-		try
-		{
-		itemsMax = Queries.Max(x => x.ID);
-		}
-		catch(Exception e )
-		{
-		itemsMax = 0;
-		}
-
-		}
-
-		//creating procedure for dataset return
-		public void oracleprocedurefordataset()
-		{
-		create or replace
-		procedure get_daily(out_dt out SYS_REFCURSOR)
-		AS
-		BEGIN
-		OPEN out_dt FOR SELECT * FROM neprintsev_ia.temp_acq_d where rownum <=10;
-		END get_daily;
-		}
-
-		//get dataset from oracle procedure and store result datatable in xml
-		public void datasetget()
-		{
-
-		string fileToParse = @"C:\test\daily\output\01022015report + fee2.xlsx";
-		string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [????1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
-		string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
-
-		string connString = @"Data Source=dwh.rs.ru;User ID=neprintsev_ia;Password=awsedrRDESWA;";
-		string oracleQuery = "get_daily";
-
-		OracleConnection oracleConn = new OracleConnection(connString);
-
-		OracleCommand oracleComm = new OracleCommand(oracleQuery, oracleConn);
-		oracleComm.CommandType = CommandType.StoredProcedure;
-		DataSet orads = new DataSet();
-		oracleComm.Parameters.Add("out_dt", OracleType.Cursor).Direction=ParameterDirection.Output;
-
-		oracleConn.Open();
-		oracleComm.ExecuteNonQuery();
-
-		OracleDataReader reader =
-		oracleComm.Parameters["out_dt"].Value as OracleDataReader;
-
-		OracleDataAdapter oracleAdapt = new OracleDataAdapter(oracleComm);
-
-		oracleAdapt.Fill(orads);
-
-		foreach (DataTable dtt in orads.Tables)
-		{
-		dtt.WriteXml(Path.GetDirectoryName(fileToParse) + @"\" + @"f_output.xml", XmlWriteMode.WriteSchema, false);
-		}
-
-
-		}
-
-		//populate datatable to excel for current rowcolumn number
-		public void populatedatatble to excel()
-		{
-
-		public void populateDataTable(DataTable dt,Excel.Worksheet ws_,int x,int y )
-		{
-		var data = new object[dt.Rows.Count , dt.Columns.Count ];
-		int drC = -1;
-		int drR = -1;
-
-		foreach (DataRow drr in dt.Rows)
-		{
-		drR = drR + 1;
-		foreach (DataColumn dcc in dt.Columns)
-		{
-		drC = drC + 1;
-		data[drR, drC] = dt.Rows[drR ][drC];
-		}
-		drC = -1;
-		}
-
-
-		var startCell = (Excel.Range)ws_.Cells[x, y];
-		var endCell = (Excel.Range)ws_.Cells[x+dt.Rows.Count-1, y+dt.Columns.Count-1];
-		var writeRange = ws_.Range[startCell, endCell];
-
-		writeRange.Value2 = data;
-
-		}
-
-		}
-
-		//copy as embedded cahrt to powerpoint (editable) with smoexecute
-		public void copytopowerpoiny(){
-		pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
-		}
-
-
-		//copy as ambeded and select object in powerpoint
-		public void powerPoint(){
-		//chartobject
-		ch.Copy();
-
-		pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
-		Thread.Sleep(1000);
-		var a = pptSlide.Application.ActiveWindow.Selection;
-
-		a.ShapeRange.Left = 10;
-		a.ShapeRange.Top = 10;
-		a.ShapeRange.Height = 200;
-		a.ShapeRange.Width = 200;
-		}
-
-
-		//JSON serialization
-		//Read write to filestream using memorystream
-		public void JSONserialize(){
-
-		MemoryStream ms = new MemoryStream();
-		DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(rQueries_ih));
-		ser.WriteObject(ms, q);
-
-		ms.Position = 0;
-
-		using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
-		FileMode.Create, System.IO.FileAccess.Write))
-		{
-		ms.WriteTo(fs);
-		ms.Close();
-		}
-
-		using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
-		FileMode.Open, System.IO.FileAccess.Read))
-		{
-		MemoryStream ms2 = new MemoryStream();
-		byte[] bytes = new byte[fs.Length];
-		fs.Read(bytes, 0, (int)fs.Length);
-		ms2.Write(bytes, 0, (int)fs.Length);
-
-		ms2.Position = 0;
-		q2 = (rQueries_ih)ser.ReadObject(ms2);
-		ms2.Close();
-		}
-
-		}
-
-
-		//inheritance
-		public Inheritance()
-		{
-		A:B:C:D
-		void -> new (virtual)-> virtual -> override
-		void -> virtual-> override -> override
-		A : D(C) => A
-
-		virtual -> new virtual -> override
-		A:C(D) =>A
-
-		A:B:C:D
-		virtual -> override-> virtual -> override
-		A(B):D => B, C(D):D => D
-
-		A,B:A,C:A
-		virtual -> new
-		B:B => A
-		virtual -> override
-		C:C => C
-
-
-		}
-
-		//copy past excel range to powwerpoint
-		public void CopyRangeEmbeded(xlNS.Range rn_, pptNS.Slide ptSld, pptNS.Shape sh)
-		{
-
-		rn_.Application.Visible = true;
-		rn_.Worksheet.Activate();
-		rn_.Select();
-		rn_.Copy();
-		ptSld.Select();
-		sh.Select();
-
-		//needs thread sleep activation - unstable
-		/*
-		Thread.Sleep(500);
-		sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-		Application.DoEvents();
-		*/
-
-		//copy but with standart format
-		//ptSld.Application.ActiveWindow.View.PasteSpecial();
-		//ptSld.Application.ActiveWindow.View.Paste();
-
-
-		//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
-		//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault,,,,,);
-
-		//ptSld.Application.ActiveWindow.View.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault);
-
-
-		//PasteDestinationTheme
-		//PasteAsEmbedded
-		//PasteSourceFormatting
-		//PasteExcelTableSourceFormatting
-
-
-		//powerpointApplication.ActiveWindow.View.PasteSpecial();
-
-		//only working example with correct shape and format
-		//worked after first type commenting
-		try
-		{
-		sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-		}
-		catch (Exception e)
-		{
-		Logger.LogAddDebug(e.Message);
-		}
-
-		//sh.Application.ActiveWindow.Selection.Unselect();
-		//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-		}
-
-		//copy pasy excel sheet to powwerpoint
-		public void CopyChartEmbeded(xlNS.Shape ch, pptNS.Slide sl, pptNS.Shape sh)
-		{
-		ch.Copy();
-		sl.Select();
-		sh.Select();
-
-		//paste as link
-		//pptSlide.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
-		//sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-		//sh.Application.ActiveWindow.Selection.Unselect();
-		//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-
-		try
-		{
-		sl.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
-		}
-		catch (Exception e)
-		{
-		Logger.LogAddDebug(e.Message);
-		}
-		//Thread.Sleep(1000);
-		var a = sl.Application.ActiveWindow.Selection;
-		}
-
-	}
-	
-		
-		
-
-	}
-
-	public class External_Libraries()
-	{
+			public void MSbuild()
+			{
+
+			/*				
+			"10.0" указывает на поднабор инструментов .NET Framework 4;
+			"11.0" указывает на поднабор инструментов .NET Framework 4.5;
+			"12.0" указывает на поднабор инструментов .NET Framework 4.5.1.
+			*/
+
+				//build v14.0
+				C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe "C:\workflow\projects\Dev\Intranet Development\AddressBook_News2\AddressBook_News2-branch1\AddressBook_News.sln" /p:Configuration=Debug  /p:VisualStudioVersion=14.0;BaseOutputPath=bin\res
 				
-	//reading excel
-	http://epplus.codeplex.com/
-	//Entity Framework extensions
-	http://entityframework-extensions.net/
-	//nUnit
-	https://github.com/nunit/nunit
-	
-	
-	
+				
+			public class Unsorted
+			{
+				
+			//delete from oracle table and link parametrized insert command to connection
+			public class oracle_queries(){
+			oracleConnection.Open();
+			oracleDeleteCommand.Connection = oracleConnection;
+			oracleDeleteCommand.CommandText = oracleQueriesBank.unparametrizedDelete;
+			oracleDeleteCommand.ExecuteNonQuery();
+
+			OracleCommand oracleInsertCommand = new OracleCommand();
+			oracleInsertCommand.Connection = oracleConnection;
+			oracleInsertCommand.CommandText = oracleQueriesBank.parametrizedInsert;
+
+			oracleConnection.Open();
+			oracleTablePresence.Connection = oracleConnection;
+			oracleTablePresence.CommandText = oracleQueriesBank.tablePresenceTest;
+			oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
+			tablecount = oracleTablePresence.ExecuteScalar().ToString();
+
+			oracleTablePresence.CommandText = oracleQueriesBank.tableColumnTest;
+			oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
+			oracleTablePresence.Parameters.Add(new OracleParameter("columnname", "ID_MERCHANT"));
+			columncount = oracleTablePresence.ExecuteScalar().ToString();
+
+			connectionInitialize(oracleConnection);
+			OracleCommand oracleTableCount = new OracleCommand();
+			oracleConnection.Open();
+			oracleTableCount.Connection = oracleConnection;
+			oracleTableCount.CommandText = oracleQueriesBank.unparametrizedRowCount;
+
+			oracleTableCount.CommandText = oracleQueriesBank.tableColumnTest;
+			rowcount = oracleTableCount.ExecuteScalar().ToString();
+			}
+
+			//oracle service query texts
+			public class servise_queries(){
+			//used for parametrized insert from import datagridview to oracle table
+			//occurs in dataGridView_Import_DoubleClick throught OracleQueryExecutor class
+			sampleInsert = "insert into merchant_list (ID_MERCHANT) values ('test_val')";
+
+			unparametrizedDelete = "delete from merchant_list";
+			parametrizedInsert = "insert into merchant_list values (:value)";
+			unparametrizedRowCount = "select max(rownum) from merchant_list";
+
+			//used for detecting marchant_list table presence and it's creation
+			tablePresenceTest = "select max(rownum) from user_tables where table_name = (:tablename)";
+			//detecting rownumbers in table
+			tableColumnTest = "select max(rownum) from user_tab_columns where table_name = (:tablename) and column_name = (:columnname)";
+			createTable = "create table MERCHANT_LIST (ID_MERCHANT varchar(50))";
+			}
+
+			//SERIALIZE DESERIALIZE
+			public class serealization_deserialization(){
+			public void Serialize(String path, List<OracleQueriesListClass> myArray)
+			{
+			BinaryFormatter formatter = new BinaryFormatter();
+			using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.Write))
+			{
+			formatter.Serialize(stream, myArray);
+			}
+			}
+
+			public List<OracleQueriesListClass> DeserializeList(String path)
+			{
+			BinaryFormatter formatter = new BinaryFormatter();
+			using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+			{
+			List<OracleQueriesListClass> myList = (List<OracleQueriesListClass>)formatter.Deserialize(stream);
+			return myList;
+			}
+			}
+			}
+
+			//app setting connstrings example
+			public class connstrings(){
+
+			//requesting connString from appsettings
+			System.Configuration.ConfigurationSettings.AppSettings["ConnectionString"];
+			System.Configuration.ConfigurationManager.ConnectionStrings["connectionStringName"].ConnectionString;
+			</startup>
+			<appSettings>
+			<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch" />
+			<add key="ClientSettingsProvider.ServiceUri" value="" />
+			<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;" />
+			</appSettings>
+			}
+
+			public class ExcelIntegration(){
+				
+
+			//create excel xlsx with OPEN xml
+			private void OPENxmlCreate(){
+			string fileName = @"C:\111\test.xlsx";
+			using (SpreadsheetDocument document = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook))
+			{
+			WorkbookPart workbookPart = document.AddWorkbookPart();
+			workbookPart.Workbook = new Workbook();
+
+			WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+			worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+			Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
+
+			Sheet sheet = new Sheet() { Id = workbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Test Sheet" };
+
+			sheets.Append(sheet);
+
+			workbookPart.Workbook.Save();
+			}
+			}
+
+			}
+
+			/////
+
+			//connection strings
+			public void connectionStrings()
+			{
+
+			//connection to local SQL express from MVC
+			//<add name="BookContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=text_db;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
+
+			//<add name="SoocerContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=tempdb;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
+
+			//connection from console app
+			//string connectionString = @"Initial Catalog=tempdb;Data Source=.\SQLEXPRESS2;Integrated Security=SSPI;";
+
+			//string connectionStringORCL = @"User Id=neprintsev_ia; password = awsedrDRSEAW; Data Source = dwh.rs.ru; Pooling=false;";
+			//string connectionStringSQL = @"Data Source=.\SQLEXPRESS;Initial Catalog=DWH_replica;Integrated Security=SSPI;";
+
+			}
+
+			//----------------------------------------------
+
+
+			//mvc tempaltes
+			public void MVC_templates()
+			{
+
+			//view add button with rediraect
+			<input type="button" value="ClickMe" onclick="location.href='@Url.Action("Migrate","Home")'"
+
+			//view submit button
+			<input type="submit" value="Save" class="btn btn-default" />
+
+			//view actionlink
+			@Html.ActionLink("Back to List", "Index")
+
+			// Refresh model in controller if passing values after changes in layer
+			if(ModelState.IsValid)
+			{
+			ModelState.Clear();
+			}
+
+			//start wcf service async
+			Task.Run(() => migrateService.migrate_((DateTime)DateFrom, (DateTime)DateTo));
+
+			//one of multiple buttons
+			//controller part
+			[HttpPost]
+			[MultipleButton(Name = "action", Argument = "Stop")]
+			public ActionResult Stop(int ID, DateTime? DateFrom, DateTime? DateTo)
+			{}
+
+			//view part
+			<td>
+			<input type="submit" value="Stop" name="action:Stop" />
+			</td>
+
+			//pass multiple parameters to controller from view
+			<td>
+			<input type="text" id="DateTo" name="DateTo" value="@tab.DateTo" />
+			</td>
+
+			//parametrized groupping linq to entity
+			var a = from s in db.FD_ACQ_D
+			where DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month,01,0,0,0) ==
+			DbFunctions.CreateDateTime(fromDate.Year, fromDate.Month, 01, 0, 0, 0)
+			group s by new { DT_REG= DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month, 01, 0, 0, 0), TYPE_TRANSACTION=s.TYPE_TRANSACTION, PAY_SYSTEM=s.PAY_SYS} into g
+			select new
+			{
+			DT_REG = g.Key.DT_REG,
+			TYPE_TRANSACTION = g.Key.TYPE_TRANSACTION,
+			PAY_SYSTEM=g.Key.PAY_SYSTEM,
+			AMT = g.Sum(s => s.AMT)
+			};
+			foreach(var b in a)
+			{
+			this.FD_ACQ_D.Add(new FD_RES { DT_REG = b.DT_REG, TYPE_TRANSACTION = b.TYPE_TRANSACTION, AMT = b.AMT, PAY_SYS=b.PAY_SYSTEM });
+			}
+
+
+			//return json from controller public string GetJson()
+			{
+			ml.GetACQ(db);
+			string jsn = JsonConvert.SerializeObject(ml.FD_ACQ_D);
+			return jsn;
+			}
+
+			}
+
+			//json serialization with newtonsoft dll
+			public void jsonserialization()
+			{
+
+			string json2 = JsonConvert.SerializeObject(jst1, Formatting.Indented);
+			File.WriteAllText(@"C:\test\insert\json.json", json2);
+
+			string json3 = "";
+			json3 = File.ReadAllText(@"C:\test\insert\json.json");
+			json_tst_par jDes = JsonConvert.DeserializeObject<json_tst_par>(json3);
+
+			}
+
+			public void StoreValuesToSettings()
+			{
+
+			//storing values to settings
+			WindowsFormsApplication2.Properties.Settings.Default.Upgrade();
+			//changes
+			WindowsFormsApplication2.Properties.Settings.Default.Save();
+
+			//Initializing Form Elements in form methods
+			TextBox tb = (TextBox)sender;
+
+			//datetime defenition
+			DateTime dt = new DateTime(1, 1, 1, 0, 0, 0)
+			}
+
+			//default connection strings for oracle and excel
+			public void connectionStrings()
+			{
+			<appSettings>
+			<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch;" />
+			<add key="ClientSettingsProvider.ServiceUri" value="" />
+			<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;Pooling=false;" />
+			</appSettings>
+			}
+
+			//List object on excel list REFRESH
+			if (lob.Name == liobName)
+			{
+			lob.QueryTable.CommandText = queryText__;
+			lob.QueryTable.Connection = connectionString;
+			lob.QueryTable.BackgroundQuery = true;
+			lob.QueryTable.SaveData = true;
+			lob.QueryTable.EnableRefresh = true;
+			//lob.QueryTable.Refresh(false);
+			try
+			{
+			lob.QueryTable.Refresh(false);
+			}
+			catch (Exception e)
+			{
+
+			}
+			}
+
+			//List object on excel list PLACE
+			if (ws.Name==wsName)
+			{
+
+			ExcelInterop.Range worksheetRange = ws.get_Range("A1");
+			string tableName=Path.GetRandomFileName().Replace(".","");
+			tableName = Regex.Replace(tableName, @"\d", "");
+
+
+			ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
+			((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
+
+			//ListObject.QueryTable.CommandText = ((object)excelCommand);
+			ListObject.QueryTable.CommandText = ((object)queryText__);
+			ListObject.QueryTable.RowNumbers = false;
+			ListObject.QueryTable.FillAdjacentFormulas = false;
+			ListObject.QueryTable.PreserveFormatting = true;
+			ListObject.QueryTable.RefreshOnFileOpen = false;
+			ListObject.QueryTable.BackgroundQuery = true;
+			ListObject.QueryTable.SavePassword = false;
+			ListObject.QueryTable.SaveData = true;
+			ListObject.QueryTable.AdjustColumnWidth = true;
+			ListObject.QueryTable.RefreshPeriod = 10;
+			ListObject.QueryTable.PreserveColumnInfo = true;
+			ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
+			ListObject.QueryTable.EnableRefresh = true;
+			ListObject.QueryTable.Refresh(false);
+
+			}
+
+			//searchs all processes and finds id for passed main window title
+			//apl.Caption for excell aplications
+			public int GetProcessIdByWindowTitle(string windowTitle)
+			{
+
+			int processID;
+			processID = 0;
+			foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
+			{
+			if (proc.MainWindowTitle == windowTitle)
+			processID = proc.Id;
+			}
+			return processID;
+			}
+
+			//kills process with current ID
+			public void processKill(int ID)
+			{
+			foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
+			{
+			if (proc.Id == ID)
+			proc.Kill();
+			}
+			}
+
+			//creates file for current excel workbook with path
+			public void fileSave(ExcelInterop.Workbook wb, string OutputFileName)
+			{
+			if (!Directory.Exists(Path.GetDirectoryName(OutputFileName)))
+			{
+			Directory.CreateDirectory(Path.GetDirectoryName(OutputFileName));
+			}
+
+			wb.SaveAs(OutputFileName, ExcelInterop.XlFileFormat.xlWorkbookDefault,
+			Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+			ExcelInterop.XlSaveAsAccessMode.xlExclusive,
+			Missing.Value, Missing.Value, Missing.Value,
+			Missing.Value, Missing.Value);
+			wb.Close();
+			}
+
+			//correct excel application killing
+			public void ExcelApplicationTest()
+			{
+			xlNS.Application apl2;
+			apl2 = new xlNS.Application();
+
+			xlNS.Workbooks wbs2;
+			wbs2 = apl2.Workbooks;
+
+			xlNS.Workbook wb2;
+			xlNS.Worksheet ws2;
+
+			 
+
+			if(!File.Exists(ExcelPath))
+			{
+			wb2 = wbs2.Add(xlNS.XlWBATemplate.xlWBATWorksheet);
+			//ws2 = (xlNS.Worksheet)wb2.Worksheets[1];
+			wb2.SaveAs(ExcelPath);
+			}
+			else
+			{
+			wb2 = wbs2.Open(ExcelPath);
+			}
+
+			wb2.Close();
+			apl2.Quit();
+			wbs2.Close();
+
+			Marshal.ReleaseComObject(wb2);
+			Marshal.ReleaseComObject(wbs2);
+			Marshal.ReleaseComObject(apl2);
+
+			wb2 = null;
+			apl2 = null;
+			wbs2 = null;
+
+			}
+
+			//Opens filedialog and inserts results from excel to datagrid view
+			public void dataGridSelectedFill(DataGridView dg, FilePath FilePath_)
+			{
+			OpenFileDialog ofd = new OpenFileDialog();
+			Stream stream = null;
+
+			ofd.Filter = "excel files (*.xls)|*.xls|excel files (*.xlsx)|*.xlsx";
+			ofd.FilterIndex = 2;
+			ofd.RestoreDirectory = true;
+
+			if (ofd.ShowDialog() == DialogResult.OK)
+			{
+			if (File.Exists(ofd.FileName))
+			{
+			FilePath_.inputFilePath = ofd.FileName;
+
+			try
+			{
+			ofd.InitialDirectory = FilePath_.inputFileFolder;
+
+			try
+			{
+			if ((stream = ofd.OpenFile()) != null)
+			{
+			WindowsFormsApplication2.Properties.Settings.Default.InputFilePath = ofd.FileName;
+			WindowsFormsApplication2.Properties.Settings.Default.Save();
+
+			using (stream)
+			{
+			//calls main method for excel file from filedialog open and dataset to datagrid bnding
+			dg.DataSource = StreamToGrid(stream, ofd.FileName);
+			//new BindingSource(result.Tables[0], null);
+			}
+
+			}
+			}
+			catch (Exception ex)
+			{
+			MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+			}
+
+			}
+			catch (Exception ex)
+			{
+			MessageBox.Show("Error: no file folder exists!" + ex.Message);
+			}
+			}
+			}
+			}
+
+			//converts stream of file to datagrid for xls,xlsx
+			//with CodePlex data reader http://exceldatareader.codeplex.com/
+			public DataTable StreamToGrid(Stream stream, string ofd)
+			{
+			IExcelDataReader excelReader = null;
+			DataSet result = new DataSet();
+
+			string ExcelExtension= Path.GetExtension(ofd);
+
+
+			if (ExcelExtension == ".xls")
+			{
+			excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+			result = excelReader.AsDataSet();
+			}
+
+			if (ExcelExtension == ".xlsx")
+			{
+			excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+			excelReader.IsFirstRowAsColumnNames = true;
+			result = excelReader.AsDataSet();
+			}
+
+
+			//6. Free resources (IExcelDataReader is IDisposable)
+			excelReader.Close();
+
+			return result.Tables[0];
+
+			}
+
+			 
+
+			//Initializes and starts new form from another one (for excel worksheet selection)
+			private void wsSelectShow(ExcelInterop.Workbook wb, ExcelExport ee, string connectionString)
+			{
+			ListObjects_ liob = new ListObjects_();
+			wsSelect wsSelect_ = new wsSelect(wb, ee, connectionString);
+			wsSelect_.Show();
+			}
+
+			//publishing of excel list object
+			public void listObjectPublish(){
+
+			ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
+			((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
+
+			//ListObject.QueryTable.CommandText = ((object)excelCommand);
+			ListObject.QueryTable.CommandText = ((object)queryText__);
+			ListObject.QueryTable.RowNumbers = false;
+			ListObject.QueryTable.FillAdjacentFormulas = false;
+			ListObject.QueryTable.PreserveFormatting = true;
+			ListObject.QueryTable.RefreshOnFileOpen = false;
+			ListObject.QueryTable.BackgroundQuery = true;
+			ListObject.QueryTable.SavePassword = false;
+			ListObject.QueryTable.SaveData = true;
+			ListObject.QueryTable.AdjustColumnWidth = true;
+			ListObject.QueryTable.RefreshPeriod = 10;
+			ListObject.QueryTable.PreserveColumnInfo = true;
+			ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
+			ListObject.QueryTable.EnableRefresh = true;
+			ListObject.QueryTable.Refresh(false);
+			}
+
+			//refreshing of list objects on excel
+			public void ListObject refresh()
+			{
+			lob.QueryTable.CommandText = queryText__;
+			lob.QueryTable.Connection = connectionString;
+			lob.QueryTable.BackgroundQuery = true;
+			lob.QueryTable.SaveData = true;
+			lob.QueryTable.EnableRefresh = true;
+			lob.QueryTable.Refresh(false);
+			}
+
+			//Connection string and query for reading excel files with OLEDB and storing to datatable to excel
+			public void readExcelOledbStoreDTtoExcel()
+			{
+			//string for oledb to excel query
+			string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
+
+			OleDbConnection oleCon = new OleDbConnection(conString);
+			OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
+			DataTable dt = new DataTable("Output");
+
+			oleCon.Open();
+			dt.Load(oleCmd.ExecuteReader());
+
+			//save dt as xml
+			dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
+
+			Excel.Application excel_ = new Excel.Application();
+			Excel.Workbook wb_ = excel_.Workbooks.Add(true);
+			Excel.Worksheet ws_ = wb_.Worksheets[1];
+
+			ws_ = wb_.Worksheets[1];
+
+
+			//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
+
+
+			//passing datatable to array of objects dim to dim
+			var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
+			int drC = 0;
+			int drR = 0;
+
+			foreach(DataRow dr in dt.Rows)
+			{
+			drR = drR + 1;
+			foreach(DataColumn dc in dt.Columns)
+			{
+			drC = drC + 1;
+			data[drR, drC] = dt.Rows[drR-1][drC-1];
+			}
+			drC = 0;
+			}
+
+			var startCell = (Excel.Range)ws_.Cells[1, 1];
+			var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
+			var writeRange = ws_.Range[startCell, endCell];
+
+			//passing array of objects to excel list
+			writeRange.Value2 = data;
+			wb_.SaveAs(folder + @"\" + @"output.xlsx");
+
+			wb_.Close();
+
+			//read stored xml to datatable increases values if datatable not empty
+			dt.ReadXml(folder + @"\" + @"output.xml");
+			dt.WriteXml(folder + @"\" + @"output2.xml", XmlWriteMode.WriteSchema, false);
+
+			oleCon.Close();
+
+			}
+
+			//Get current application folder console
+			public void ApplicationFolder()
+			{
+			Application.StartupPath
+			System.IO.Path.GetDirectoryName(
+			System.Reflection.Assembly.GetExecutingAssembly().Location)
+			AppDomain.CurrentDomain.BaseDirectory //Priority
+			System.IO.Directory.GetCurrentDirectory()
+			Environment.CurrentDirectory
+			System.IO.Path.GetDirectoryName(
+			System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)
+			System.IO.Path.GetDirectory(Application.ExecutablePath)
+			}
+
+			//Get current application folder models
+			public void Application folder()
+			{
+			AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+			}
+
+			//Get current application folder view
+			public void Application_view()
+			{
+			HttpContext.Server.MapPath("~/App_Date/");
+			}
+
+			//using Interface IENUMERABLE for looping throught dates in list
+			public void loopThroughDates()
+			{
+
+			public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+			{
+			for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+			yield return day;
+			}
+
+			foreach(DateTime date in EachDay(startDate,finishDate))
+			{
+			DatesRequested.Add(date);
+			}
+			}
+
+			//reads excel contents into datatable and stores it as xml
+			public void readExceloledb()
+			{
+
+			public string oledbRequest = "SELECT F2,sum(F3) FROM [????1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
+
+			string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
+
+			OleDbConnection oleCon = new OleDbConnection(conString);
+			OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
+			DataTable dt = new DataTable("Output");
+
+			oleCon.Open();
+
+			//dt is datatable
+			dt.Load(oleCmd.ExecuteReader());
+
+			//save dt as xml
+			dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
+
+			}
+
+			//reads datatable , convets it to excel array on worksheet and saves xlsx
+			public void storeDatatableAsXLSX()
+			{
+
+			Excel.Application excel_ = new Excel.Application();
+			Excel.Workbook wb_ = excel_.Workbooks.Add(true);
+			Excel.Worksheet ws_ = wb_.Worksheets[1];
+
+			ws_ = wb_.Worksheets[1];
+
+
+			//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
+
+
+			//passing datatable to array of objects dim to dim
+			var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
+			int drC = 0;
+			int drR = 0;
+
+			foreach(DataRow dr in dt.Rows)
+			{
+			drR = drR + 1;
+			foreach(DataColumn dc in dt.Columns)
+			{
+			drC = drC + 1;
+			data[drR, drC] = dt.Rows[drR-1][drC-1];
+			}
+			drC = 0;
+			}
+
+
+			var startCell = (Excel.Range)ws_.Cells[1, 1];
+			var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
+			var writeRange = ws_.Range[startCell, endCell];
+
+			//passing array of objects to excel list
+			writeRange.Value2 = data;
+			wb_.SaveAs(folder + @"\" + @"output.xlsx");
+
+			}
+
+
+
+			//openXMLread
+			public void openXML()
+			{
+			// open the document read-only
+			SpreadsheetDocument document = SpreadsheetDocument.Open(fileName, false);
+			SharedStringTable sharedStringTable = document.WorkbookPart.SharedStringTablePart.SharedStringTable;
+			string cellValue = null;
+
+			foreach (WorksheetPart worksheetPart in document.WorkbookPart.WorksheetParts)
+			{
+			foreach (SheetData sheetData in worksheetPart.Worksheet.Elements<SheetData>())
+			{
+			if (sheetData.HasChildren)
+			{
+			foreach (Row row in sheetData.Elements<Row>())
+			{
+			foreach (Cell cell in row.Elements<Cell>())
+			{
+			cellValue = cell.InnerText;
+
+			/*
+			try
+			{
+			if (cell.DataType == CellValues.SharedString)
+			{
+			Console.WriteLine("cell val: " + sharedStringTable.ElementAt(Int32.Parse(cellValue)).InnerText);
+			}
+			else
+			{
+			Console.WriteLine("cell val: " + cellValue);
+			}
+			}
+			catch(Exception e)
+			{
+			if(e.Message=="Error in implicit conversion. Cannot convert null object.")
+			{
+			MessageBox.Show(e.Message);
+			}
+			}
+			* */
+			}
+			}
+			}
+			}
+			}
+			document.Close();
+
+			}
+
+
+			//select max ID from list of classes
+			public void LINQlogic()
+			{
+			//add list of objects to ienumerable
+			IEnumerable<QueryTextNew> Queries =
+			from QueryTextNew in querytextList
+			select QueryTextNew;
+
+			//select max ID catching empty element exception
+			int itemsMax;
+
+			try
+			{
+			itemsMax = Queries.Max(x => x.ID);
+			}
+			catch(Exception e )
+			{
+			itemsMax = 0;
+			}
+
+			}
+
+			//creating procedure for dataset return
+			public void oracleprocedurefordataset()
+			{
+			create or replace
+			procedure get_daily(out_dt out SYS_REFCURSOR)
+			AS
+			BEGIN
+			OPEN out_dt FOR SELECT * FROM neprintsev_ia.temp_acq_d where rownum <=10;
+			END get_daily;
+			}
+
+			//get dataset from oracle procedure and store result datatable in xml
+			public void datasetget()
+			{
+
+			string fileToParse = @"C:\test\daily\output\01022015report + fee2.xlsx";
+			string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [????1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
+			string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
+
+			string connString = @"Data Source=dwh.rs.ru;User ID=neprintsev_ia;Password=awsedrRDESWA;";
+			string oracleQuery = "get_daily";
+
+			OracleConnection oracleConn = new OracleConnection(connString);
+
+			OracleCommand oracleComm = new OracleCommand(oracleQuery, oracleConn);
+			oracleComm.CommandType = CommandType.StoredProcedure;
+			DataSet orads = new DataSet();
+			oracleComm.Parameters.Add("out_dt", OracleType.Cursor).Direction=ParameterDirection.Output;
+
+			oracleConn.Open();
+			oracleComm.ExecuteNonQuery();
+
+			OracleDataReader reader =
+			oracleComm.Parameters["out_dt"].Value as OracleDataReader;
+
+			OracleDataAdapter oracleAdapt = new OracleDataAdapter(oracleComm);
+
+			oracleAdapt.Fill(orads);
+
+			foreach (DataTable dtt in orads.Tables)
+			{
+			dtt.WriteXml(Path.GetDirectoryName(fileToParse) + @"\" + @"f_output.xml", XmlWriteMode.WriteSchema, false);
+			}
+
+
+			}
+
+			//populate datatable to excel for current rowcolumn number
+			public void populatedatatble to excel()
+			{
+
+			public void populateDataTable(DataTable dt,Excel.Worksheet ws_,int x,int y )
+			{
+			var data = new object[dt.Rows.Count , dt.Columns.Count ];
+			int drC = -1;
+			int drR = -1;
+
+			foreach (DataRow drr in dt.Rows)
+			{
+			drR = drR + 1;
+			foreach (DataColumn dcc in dt.Columns)
+			{
+			drC = drC + 1;
+			data[drR, drC] = dt.Rows[drR ][drC];
+			}
+			drC = -1;
+			}
+
+
+			var startCell = (Excel.Range)ws_.Cells[x, y];
+			var endCell = (Excel.Range)ws_.Cells[x+dt.Rows.Count-1, y+dt.Columns.Count-1];
+			var writeRange = ws_.Range[startCell, endCell];
+
+			writeRange.Value2 = data;
+
+			}
+
+			}
+
+			//copy as embedded cahrt to powerpoint (editable) with smoexecute
+			public void copytopowerpoiny(){
+			pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
+			}
+
+
+			//copy as ambeded and select object in powerpoint
+			public void powerPoint(){
+			//chartobject
+			ch.Copy();
+
+			pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
+			Thread.Sleep(1000);
+			var a = pptSlide.Application.ActiveWindow.Selection;
+
+			a.ShapeRange.Left = 10;
+			a.ShapeRange.Top = 10;
+			a.ShapeRange.Height = 200;
+			a.ShapeRange.Width = 200;
+			}
+
+
+			//JSON serialization
+			//Read write to filestream using memorystream
+			public void JSONserialize(){
+
+			MemoryStream ms = new MemoryStream();
+			DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(rQueries_ih));
+			ser.WriteObject(ms, q);
+
+			ms.Position = 0;
+
+			using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
+			FileMode.Create, System.IO.FileAccess.Write))
+			{
+			ms.WriteTo(fs);
+			ms.Close();
+			}
+
+			using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
+			FileMode.Open, System.IO.FileAccess.Read))
+			{
+			MemoryStream ms2 = new MemoryStream();
+			byte[] bytes = new byte[fs.Length];
+			fs.Read(bytes, 0, (int)fs.Length);
+			ms2.Write(bytes, 0, (int)fs.Length);
+
+			ms2.Position = 0;
+			q2 = (rQueries_ih)ser.ReadObject(ms2);
+			ms2.Close();
+			}
+
+			}
+
+
+			//inheritance
+			public Inheritance()
+			{
+			A:B:C:D
+			void -> new (virtual)-> virtual -> override
+			void -> virtual-> override -> override
+			A : D(C) => A
+
+			virtual -> new virtual -> override
+			A:C(D) =>A
+
+			A:B:C:D
+			virtual -> override-> virtual -> override
+			A(B):D => B, C(D):D => D
+
+			A,B:A,C:A
+			virtual -> new
+			B:B => A
+			virtual -> override
+			C:C => C
+
+
+			}
+
+			//copy past excel range to powwerpoint
+			public void CopyRangeEmbeded(xlNS.Range rn_, pptNS.Slide ptSld, pptNS.Shape sh)
+			{
+
+			rn_.Application.Visible = true;
+			rn_.Worksheet.Activate();
+			rn_.Select();
+			rn_.Copy();
+			ptSld.Select();
+			sh.Select();
+
+			//needs thread sleep activation - unstable
+			/*
+			Thread.Sleep(500);
+			sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			Application.DoEvents();
+			*/
+
+			//copy but with standart format
+			//ptSld.Application.ActiveWindow.View.PasteSpecial();
+			//ptSld.Application.ActiveWindow.View.Paste();
+
+
+			//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
+			//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault,,,,,);
+
+			//ptSld.Application.ActiveWindow.View.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault);
+
+
+			//PasteDestinationTheme
+			//PasteAsEmbedded
+			//PasteSourceFormatting
+			//PasteExcelTableSourceFormatting
+
+
+			//powerpointApplication.ActiveWindow.View.PasteSpecial();
+
+			//only working example with correct shape and format
+			//worked after first type commenting
+			try
+			{
+			sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			}
+			catch (Exception e)
+			{
+			Logger.LogAddDebug(e.Message);
+			}
+
+			//sh.Application.ActiveWindow.Selection.Unselect();
+			//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			}
+
+			//copy pasy excel sheet to powwerpoint
+			public void CopyChartEmbeded(xlNS.Shape ch, pptNS.Slide sl, pptNS.Shape sh)
+			{
+			ch.Copy();
+			sl.Select();
+			sh.Select();
+
+			//paste as link
+			//pptSlide.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
+			//sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			//sh.Application.ActiveWindow.Selection.Unselect();
+			//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+
+			try
+			{
+			sl.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
+			}
+			catch (Exception e)
+			{
+			Logger.LogAddDebug(e.Message);
+			}
+			//Thread.Sleep(1000);
+			var a = sl.Application.ActiveWindow.Selection;
+			}
+
+		}
+		
+		
+		}
+
 	}
 
-	public class IssuesErrors()
-	{
+		public class External_Libraries()
+		{
+					
+		//reading excel
+		http://epplus.codeplex.com/
+		//Entity Framework extensions
+		http://entityframework-extensions.net/
+		//nUnit
+		https://github.com/nunit/nunit
+		
+		
+		
+		}
+
+		public class IssuesErrors()
+		{
 
 		//Issues\Errors
 		public void .NET()
@@ -2750,6 +2771,8 @@ access, please check that you have enabled metadata publishing at the specified 
 		}	
 	
 		
+	}
+	
 	}
 	
 	#endregion 
@@ -3134,8 +3157,6 @@ access, please check that you have enabled metadata publishing at the specified 
 			http://www.drewgreenwell.com/projects/metrojs
 			//treant js
 			http://fperucic.github.io/treant-js/
-			//basic primitives
-			https://www.basicprimitives.com/
 
 		}
 		public void Unsorted(){
@@ -6143,10 +6164,111 @@ drop table #Account;
 
 		public void OrientDB()
 		{
-				
+			
 			public void REST_API()
 			{
+				
+				
+Orient_REST_API(){
 
+	https://orientdb.com/docs/2.1/OrientDB-REST.html?q=
+	http://localhost:2480/database/test_db1/plocal
+	http://localhost:2480/class/test_db1/Address2
+	http://localhost:2480/class/test_db1/dateField/DATE
+	http://localhost:2480/class/test_db1/
+	{
+	  "name": {
+		  "propertyType": "STRING"
+	  },
+	  "father": {
+		  "propertyType": "LINK",
+		  "linkedClass": "Person"
+	  }
+	}
+
+	http://localhost:2480/command/test_db1/sql
+	{
+	  "command": "select from V where name = :name and city = :city",
+	  "parameters": {
+		"name": "Luca",
+		"city": "Rome"
+	  }
+	}
+	//sql batch
+	http://localhost:2480/batch/test_db1/
+	{ "transaction" : true,
+	  "operations" : [
+		{
+		  "type" : "script",
+		  "language" : "sql",
+		  "script" : [ "LET account = CREATE VERTEX Account SET name = 'Luke'",
+					   "LET city = SELECT FROM City WHERE name = 'London'",
+					   "CREATE EDGE Lives FROM $account TO $city RETRY 100" ]
+		}
+	  ]
+	}
+	//batch
+	http://localhost:2480/batch/test_db1/
+	{ "transaction" : true,
+	  "operations" : [
+		{ "type" : "u",
+		  "record" : {
+			"@rid" : "#14:122",
+			"name" : "Luca",
+			"vehicle" : "Car"
+		  }
+		}, {
+		  "type" : "d",
+		  "record" : {
+			"@rid" : "#14:100"
+		  }
+		}, {
+		  "type" : "c",
+		  "record" : {
+			"@class" : "City",
+			"name" : "Venice"
+		  }
+		}, {
+		  "type" : "cmd",
+		  "language" : "sql",
+		  "command" : "create edge Friend from #10:33 to #11:33"
+		}, {
+		  "type" : "script",
+		  "language" : "javascript",
+		  "script" : "orient.getGraph().createVertex('class:Account')"
+		}
+	  ]
+	}
+
+	http://localhost:2480/cluster/test_db1/Address
+
+	ALTER CLASS Customer ADDCLUSTER USA_Customers
+	clusters
+	browse cluster OUser
+
+	
+	
+}
+
+Orient_REST_FIDDLER(){
+	
+http://localhost:2480/database/demo/plocal
+http://localhost:2480/connect/test_db1
+User-Agent: Fiddler
+Host: localhost:2480
+Authorization: Basic cm9vdDpyb290
+
+
+http://localhost:2480/database/test_db1
+Host: localhost:2480
+Cookie: OSESSIONID=OS15104197214972108562285800211602;
+Connection: keep-alive
+
+	
+}
+
+adbn_db_exmpls(){
+	
 host:port/ApiType/dbName/
 host:port/ApiType/dbName/FunctionName/Params
 host:port/ApiType/dbName/sql/commandText
@@ -6210,7 +6332,7 @@ http://msk1-vm-ovisp02:2480/batch/news_test3/
 }
 
 
-//add from batch
+	//add from batch
  http://msk1-vm-ovisp02:2480/batch/news_test2/
  
  { "transaction" : true,
@@ -6220,7 +6342,7 @@ http://msk1-vm-ovisp02:2480/batch/news_test3/
       "language" : "sql",
       "script" : [
 		"let $a = insert into UserSettings content {\"showBirthday\":true};"
-		,"let $b = create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;"
+	,"let $b = create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;"
 	  ]
     }
   ]
@@ -6232,9 +6354,11 @@ delete vertex from  object where Content="A"
 
 http://msk1-vm-ovisp02:2480/command/news_test3/sql/
 {"command":"CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\\"sql\\",\\" select r.ToLowerCase() as r from (select '\\"+input+\\"' as r) \\"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;"}
+			
+}
 
-		}
-
+			}
+			
 			public void Maintenance()
 			{
 				
@@ -6256,7 +6380,6 @@ PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
 CREATE FUNCTION test "var g=orient.getGraph(); var b=g.command(\"sql\",\"select if(eval(\'1=2\'),2,3) \" ); return b;" 
 PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
 		
-		'\"+input+\"'
 	}
 	
 	public void Initial_NewsApi_Queries()
@@ -6297,8 +6420,6 @@ create class MainAssignment extends ESC;
 create class InExtAssignment extends ESC;
 create class OutExtAssignment extends ESC;
 create class OldMainAssignment extends ESC;
-
-
 
 delete vertex Unit;
 delete vertex Person;
@@ -6343,7 +6464,6 @@ CREATE CLASS CommonSettings EXTENDS E;
 update MainAssignment remove HierarhyWeight;
 CREATE PROPERTY MainAssignment.HierarhyWeight INTEGER;
 
-
 CREATE PROPERTY Person.sAMAccountName string;
 CREATE PROPERTY Person.mail string;
 
@@ -6370,7 +6490,6 @@ create edge publishBirthdate from (select from 21:2 ) to (select from 46:0);
 select outE("publishBirthdate").inV().BirthDay[0] as BD ,Name from Person where @rid  in [21:0,21:2,21:3];
 
 */
-
 
 /*Lowerest level Weight*/
 update MainAssignment set HierarhyWeight = 1000;
@@ -6409,6 +6528,8 @@ update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник 
 update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления тарифов и отчетности'
 update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Управления технологий'
 update MainAssignment set HierarhyWeight = 100 where Name = 'Начальник Юридического управления'
+																											  
+																																										 
 update MainAssignment set HierarhyWeight = 101 where Name = 'Заместитель начальника управления'
 update MainAssignment set HierarhyWeight = 101 where Name = 'Заместитель начальника Управления безопасности'
 update MainAssignment set HierarhyWeight = 101 where Name = 'Заместитель начальника Управления бухгалтерского учета и отчетности'
@@ -6435,7 +6556,6 @@ update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник 
 update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела технического администрирования'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника отдела'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника Отдела взаимоотношений с поставщиками'
-
 	}
 
 	public void Initial_PersonApi_Functions()
@@ -6454,13 +6574,15 @@ CREATE FUNCTION test " value \"  \\\" ' \' \\' \\\' \\ "  IDEMPOTENT true LANGUA
 value "  \" ' ' \' \' \ 
 
 		*/
+		
 		/*GetUnitByAccount*/
-delete from Ofunction  where name in ["GetGUID","GetCollegesLowerByAccount","GetLowerCase","GetUnitByAccount","GetDepartmentByAccount","GetManagerByAccount","GetManagerHierarhyByAccount","GetCollegesByAccount"]
-
+		delete from Ofunction  where name in ["GetGUID","GetCollegesLowerByAccount","GetLowerCase","GetUnitByAccount","GetDepartmentByAccount","GetManagerByAccount","GetManagerHierarhyByAccount","GetCollegesByAccount"]
+	
 		CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\"sql\",\" select r.ToLowerCase() as r from (select '\"+input+\"' as r) \"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;
 		CREATE FUNCTION GetUnitByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\" select in('MainAssignment').Name[0] as Name from Person WHERE sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0] and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )\"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetDepartmentByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\" select Name from ( traverse in('MainAssignment','SubUnit') from (select from Person where sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0] ) ) where PGUID='00000000-0000-0000-0000-000000000000'  \" ); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetManagerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"select r as Name from ( select   /*   If person HierarhyWeight is smallest -> header of Unit => get PUnit header   else Unit Header   */ if(eval('$z.w[0]=$a.w[0]'),if(eval('$x.inE(\\\"MainAssignment\\\").outV(\\\"Unit\\\").PGUID =\\\"00000000-0000-0000-0000-000000000000\\\"'),'kvv',$f.Name[0]),$e.Name[0]) as r /* if(eval('1=2'),1,if(eval('1=2'),2,3)) */    let   $x = ( select  from Person where sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]) 	/*person HierarhyWeight*/   ,$z = (       select HierarhyWeight as w from (select expand(inE('MainAssignment')) from Person where sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase())   where (inE('MainAssignment').Disabled is null or inE('MainAssignment').Disabled >= sysdate() and (inE('MainAssignment').State != 'Отпуск по уходу за ребенком' and inE('MainAssignment').State != 'Отпуск по беременности и родам' ))   )   /*Min weigth in Person Unit*/   ,$a = (     select min(HierarhyWeight) as w from ( select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null  ) /*Min weigth in Person PUnit*/   , $b = (       select min(HierarhyWeight) as w from ( select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null    )   /*Person Unit person appointment*/   	, $c = (       select Name as d ,HierarhyWeight as w,inV('Person').sAMAccountName as Name from ( select expand(inE('MainAssignment').OutV('SubUnit').outE('MainAssignment')) from Person where  sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where    (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null      )   /*Person PUnit person appointment*/   ,$d =(         select Name as d ,HierarhyWeight as w,inV('Person').sAMAccountName as Name from ( select expand(inE('MainAssignment').OutV('Unit').inE('SubUnit').outV('Unit').outE('MainAssignment')) from Person where sAMAccountName.ToLowerCase()=$x.sAMAccountName[0].ToLowerCase() ) where (Disabled is null or Disabled >= sysdate()) and  (State != 'Отпуск по уходу за ребенком' and State != 'Отпуск по беременности и родам' )  and inV('Person').sAMAccountName is not null       )   /*Person Unit Header $a->$c */   , $e = (      select from ( select expand($c)) where 1=1 and w =  $a.w[0]   )     /*Person PUnit Header $a->$c */   , $f = (      select from ( select expand($d)) where 1=1 and w = $b.w[0]   ) ) order by Name\"); return b;" PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;		
+																																																																																																																	   
 		CREATE FUNCTION GetManagerHierarhyByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select  Acc as Name from (    select expand($b3)    let   $x = (      select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]    )  ,$a = (      /*From Person by Unit Hierarhy*/     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').HierarhyWeight[0] as w , 	 inE('MainAssignment').Name[0] as a from (       select expand(inV()) from (            traverse inE('MainAssignment','SubUnit'),outE('MainAssignment'),outV('Unit','Person') from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0] )           ) ) where 1=1      and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() ) and (Disabled is null) and     (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )         /*If account name not assigned then deputy*/ 	and sAMAccountName is not null       ), $c = (      /*Select Header by HierarhyWeight 0 */     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').HierarhyWeight[0] as w, 	inE('MainAssignment').Name[0] as a from ( select from Person where inE('MainAssignment').HierarhyWeight[0] = 0     )    ) , $e = unionall (      /*Union all Unit Headers and Directory (as ddirectory not in linear structure -> not binded to parent node*/     $a,$c    ), $b = (      /*From United Person by Unit Hierarhy minimal Wights in Unit by account*/     select from  (     select Acc,d,a, min(w) as w from (       select expand($e)     ) group by  Acc       ) where 1=1 and w < $x.inE('MainAssignment').HierarhyWeight[0] order by w    ), $b2 = (      /*Minuimal wight by department*/     select from  (     select d , min(w) as w from (       select expand($e)     ) group by d       ) where 1=1 and w < $x.inE('MainAssignment').HierarhyWeight[0] order by w    ), $b3 = (   	select from (select expand($b )) where w in $b2.w   )  ) order by Name  \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetCollegesByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\" select sAMAccountName as Name from (   select expand($a)    let   $x = (     select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]   ),   $a =  (      select from (       select expand(a) from (         select inE('MainAssignment').outV('SubUnit').outE('MainAssignment').inV('Person') as a from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0])       )     ) where 1=1     /*Exclude person's account from results*/     and sAMAccountName != $x.sAMAccountName[0]      /*Standart overall Person filter*/     and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )     and (Disabled is null)     and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )    )  ) order by Name \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetCollegesLowerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select from (     select expand($c)     let $a = (select from Person where sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0] ),     $c = (       select sAMAccountName.ToLowerCase() as Name from (         traverse out('MainAssignment','SubUnit') from (           select  from ( traverse in('MainAssignment','SubUnit') from (select from  $a  ) ) where           PGUID='00000000-0000-0000-0000-000000000000'         )       ) where 1=1       and @class = 'Person'       and  inE('MainAssignment').HierarhyWeight[0] > $a.inE('MainAssignment').HierarhyWeight[0]      ),     $b =(       select ine('MainAssignment').HierarhyWeight from (         select expand($a)       )     )    ) order by Name \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
@@ -6470,13 +6592,12 @@ delete from Ofunction  where name in ["GetGUID","GetCollegesLowerByAccount","Get
 		
 		v1 CREATE FUNCTION GetManagerHierarhyByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"  select Acc as Name from ( select expand($e) let $x = ( select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]    )   ,$a = (      /*From Person by Unit Hierarhy*/     select  Name as n, sAMAccountName as Acc, inE('MainAssignment').outV('Unit').Name[0] as d,   inE('MainAssignment').HierarhyWeight[0] as w from (       select expand(inV()) from ( traverse inE('MainAssignment','SubUnit')   ,outE('MainAssignment'),outV('Unit','Person') from (           select from person where 1=1 and sAMAccountName=$x.sAMAccountName[0] )           ) ) where 1=1        and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )   and (Disabled is null) and     (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )      /*If account name not assigned then deputy*/ 	and sAMAccountName is not null       ),   $c = (      /*Select Header by HierarhyWeight 0 */     select  Name as n, sAMAccountName as Acc,   inE('MainAssignment').outV('Unit').Name[0] as d, inE('MainAssignment').HierarhyWeight[0] as w   from (       select from Person where inE('MainAssignment').HierarhyWeight[0] = 0     )    ) ,   $e = unionall (      /*Union all Unit Headers and Directory (as ddirectory not in linear structure -> not binded to parent node*/     $a,$c    )   , $b = (      /*From United Person by Unit Hierarhy minimal Wights in Unit*/     select d , min(w) as w from (       select expand($e)     ) group by d    )  )  where 1=1      and w in $b.w     and w != $x.inE('MainAssignment').HierarhyWeight[0] order by Name \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetCollegesLowerByAccount "var g=orient.getGraph(); var b=g.command(\"sql\",\"   select  sAMAccountName as Name from (     select expand($a )     let     $x = (         select from person where 1=1 and sAMAccountName.ToLowerCase()=GetLowerCase('\"+accountName+\"').r[0]   ),     $a =  (      select from (           select from person     ) where 1=1     /*Exclude person's account from results*/     and sAMAccountName != $x.sAMAccountName[0]       and inE('MainAssignment').HierarhyWeight[0] < $x.inE('MainAssignment').HierarhyWeight[0]          /*Standart overall Person filter*/         and (inE('MainAssignment')[0].Disabled is null or inE('MainAssignment')[0].Disabled >= sysdate() )         and (Disabled is null)         and (inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам'          )    )  ) order by Name    \"); return b; " PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT;		
-	
 	}
-	
-	public void Initial_NewsApi_Fucntions()
+			
+	public void Initial_NewsApi_Functions()
 	{
-		
-		/*works*/
+		//create function 
+		//CREATE FUNCTION test "var g=orient.getGraph();var b=g.command(\"sql\",\"select from Person where sAMAccountName =  '\"+accountName+\"' \");return b;" PARAMETERS [accountName]  IDEMPOTENT true LANGUAGE JAVASCRIPT
 		CREATE FUNCTION GetStructure "var g=orient.getGraph(); var b=g.command(\"sql\",\"select @RID,@class,FirstName,GUID,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl ,objectGUID , if( eval('@class = \\\"Person\\\"'),in('MainAssignment').GUID[0],PGUID ) as PGUID ,inE().Name[0] as AssignmentName ,inE().State[0] as AssignmentState ,inE().ExpDate[0] as AssignmentStateExpireDate from ( traverse out('MainAssignment') from (traverse out('SubUnit') from (select from Unit where GUID = '\"+Depth+\"') while $depth <= '\"+Depth+\"' ) ) where Disabled is null\") ; return b;" PARAMETERS [Depth] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetPersonPhoto "var link_s = \'http://msk1-vm-inapp01/AddressBookAPI/api/Photo/?email=\'"+mail+";return link_s;" PARAMETERS [mail] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetPerson "var g=orient.getGraph(); var b=g.command(\"sql\",'select GetPersonPhoto(mail) as Photo, FirstName, GUID, PGUID ,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl,objectGUID from Person where GUID = \"'+GUID+'\"'); return b;" PARAMETERS [GUID] IDEMPOTENT true LANGUAGE JAVASCRIPT;		
@@ -6492,11 +6613,6 @@ delete from Ofunction  where name in ["GetGUID","GetCollegesLowerByAccount","Get
 		CREATE FUNCTION GetAllStructureFAMILY "var g=orient.getGraph(); var b=g.command(\"sql\",\"select expand($c) let $v = (select from Unit where Name = 'НСПК'), $a = (select GUID as id, ifnull(PGUID,'0'.asSet()) as parents, Name as title, Name as label,' ' as phone, Name as description, '&nbsp' as mail, if( eval(\\\"@class = 'Person'\\\"),'PersonTemplate','UnitTemplate' ) as templateName , if(eval('outE(\\\"CommonSettings\\\").inv(\\\"UserSettings\\\").showBirthday[0]=true'),Birthday.format('dd.MM'),'') as birthday from ( traverse in() from (SELECT dijkstra($current, $v, 'SubUnit', 'both') FROM $v) while $depth =0 ) ), $b = ( select GUID as id, ifnull( if( eval(\\\"@class = 'Person'\\\"),in().GUID,PGUID.asSet()) ,'0'.asSet() ) as parents, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, ifnull((inE('MainAssignment').Name[0]), Name) as description , if( eval(\\\"@class = 'Person'\\\"),'PersonTemplate','UnitTemplate' ) as templateName,inE().State[0] as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate , Birthday.format('dd.MM') as birthday from ( traverse out('MainAssignment','SubUnit') from (select from Unit where Name = 'НСПК') ) where ( inE()[0].Disabled is null and Disabled is null) ), $c = unionall( $a, $b);\"); return b;"  IDEMPOTENT true LANGUAGE JAVASCRIPT
 		CREATE FUNCTION GetAllStructureLARGEHTY "var g=orient.getGraph(); var b=g.command(\"sql\",\"select GUID as id, ifnull( if( eval(\\\"@class = 'Person'\\\"),in(\\\"MainAssignment\\\").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor, if( eval(\\\"@class = 'Person'\\\"),'PersonTemplate','UnitTemplate' ) as templateName,inE().State[0] as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate , if(eval('outE(\\\"CommonSettings\\\").inv(\\\"UserSettings\\\").showBirthday[0]=true'),Birthday.format('dd.MM'),'') as birthday from ( traverse out('MainAssignment','SubUnit') from (select from Unit where Name = 'НСПК') ) where (( inE()[0].Disabled is null and Disabled is null) and ( ((@class = 'Person') or (out(\\\"MainAssignment\\\").size() >0) or (out(\\\"SubUnit\\\").size() >0)) or (Name = 'НСПК')) and inE().State != \'ОтпускПоУходуЗаРебенком\' ) \"); return b;"  IDEMPOTENT true LANGUAGE JAVASCRIPT
 		CREATE FUNCTION GetLarge "var g=orient.getGraph(); var b=g.command(\"sql\",\"select GUID as id , ifnull( if( eval(\\\"@class = 'Person'\\\"),in(\\\"MainAssignment\\\").GUID[0],PGUID[0]) ,'0' ) as parent , ifnull(telephoneNumber, ' ') as phone , ifnull( mail,'&nbsp')as mail , Name as title, Name as label , ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\\\"@class = 'Person'\\\"),'PersonTemplate','UnitTemplate' ) as templateName ,if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state , if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate , GetPositionBar(InE().Name[0].replace('\\\\\\\"',''))['groupTitle'][0] as groupTitle , if(eval('outE(\\\"CommonSettings\\\").inv(\\\"UserSettings\\\").showBirthday[0]=true'),Birthday.format('dd.MM'),'') as birthday from ( traverse out('MainAssignment','SubUnit') from (select from Unit where Name = 'НСПК') ) where (( inE()[0].Disabled is null and Disabled is null) and( ((@class = 'Person') or (out(\\\"MainAssignment\\\").size() >0) or (out(\\\"SubUnit\\\").size() >0)) or (Name = 'НСПК')) and inE().State != \'ОтпускПоУходуЗаРебенком\' ) \"); return b;" IDEMPOTENT true LANGUAGE JAVASCRIPT
-		
-		/*birthday part
-		if(eval('outE(\\\"CommonSettings\\\").inv(\\\"UserSettings\\\").showBirthday[0]=true'),Birthday.format('dd.MM'),'') as birthday
-		select from Person where 1=1 and outE("CommonSettings").inv("UserSettings").showBirthday[0] is null
-		*/
 		
 		
 	}
@@ -6857,6 +6973,7 @@ metadata {
 			public void Queries()
 			{
 
+
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
 
@@ -6966,13 +7083,14 @@ select name, notNull as nullable from (
 	
 }
 
-public BatchCreateFromSQL(){
+
+public BatchCreateFromSQL()
+{
 	
 	let $a = insert into UserSettings content {"showBirthday":true}
-	create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;
+create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;
 
 }
-
 public NestedAggr() {
 	
 select  from (
@@ -7313,8 +7431,8 @@ unwind Path) ) while $depth <=1 ) where $depth >=1
 			}
 
 			public void Functions()
-			{				
-
+			{
+				
 				public void PersonsAPI()
 				{
 										
@@ -7988,7 +8106,7 @@ return b;
 			public void FU()
 			{
 
-			
+	
 //<< I (try it out)
 //inverted V E In Out
 (v)-[e]->(v)
@@ -8055,9 +8173,9 @@ in v out
 //functions not visible from OFunction class
 
 			}
-		
+			
 		}
-		
+					
 		public void Neo4J()
 		{
 			
@@ -8730,9 +8848,9 @@ RAW JSON
 		}
 
 		}
-
-	}
 	
+	}
+		
 	#endregion
 		
 	#region OS
@@ -8757,7 +8875,18 @@ RAW JSON
 					del /F /Q  *.*
 					popd
 				}
-			
+				
+				public void Power()
+				{
+					powercfg -lastwake
+					powercfg -devicequery wake_armed
+					powercfg -devicedisablewake
+					
+					powercfg -devicedisablewake "HID Keyboard Device (001)"
+					powercfg -devicedisablewake "Контроллер семейства Realtek PCIe GBE"
+					powercfg -devicedisablewake "Realtek RTL8139/810x Family Fast Ethernet сетевой адаптер"
+				}
+				
 				public void Unsorted()
 				{
 					
@@ -8765,6 +8894,20 @@ RAW JSON
 					netsh [http] [add,delete] [iplisten] -> bind http listener
 					
 				}
+				
+				public void PS()			
+				{
+					
+					//powershell tools
+					https://marketplace.visualstudio.com/items?itemName=TFSPowerToolsTeam.MicrosoftVisualStudioTeamFoundationServer2013Power
+					
+					C:\Windows\SysWOW64\WindowsPowerShell\v1.0\powershell
+					//ps64
+					C:\Windows\System32\WindowsPowerShell\v1.0\powershell
+					//ps 32
+					
+				}
+				
 			}
 			
 			public void Execute()
@@ -8772,7 +8915,7 @@ RAW JSON
 				mstsc -> ??????????? ? ?????????? ???????? ?????
 				cmd -> ???????
 			}
-		
+			
 			public void PS()			
 			{
 				
@@ -8785,8 +8928,6 @@ RAW JSON
 				//ps 32
 				
 			}
-			
-			
 		}
 		
 		public UNIX
