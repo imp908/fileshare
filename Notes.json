@@ -39,9 +39,10 @@
 	[
 	
 http://msk1-vm-ovisp01
-newstest2
+newstest2 (persons,1c,birthdays,Acc0
 http://msk1-vm-ovisp02
 http://msk1-vm-indb01
+orgchart_prod
 http://msk1-vm-indb02
 http://msk1-vm-inapp01
 accountService

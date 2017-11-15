@@ -19,86 +19,99 @@ namespace NewsAPI
             // Web API configuration and services
 
             // Web API routes
-           config.MapHttpAttributeRoutes();
+            config.MapHttpAttributeRoutes();
 
+            //enables all parametreless methods
             config.Routes.MapHttpRoute(
-                 "DefaultForAll",
-                 "api/{controller}",                 
-                 new { httpmethod = new HttpMethodConstraint(HttpMethod.Get) }
-             );
-
-            config.Routes.MapHttpRoute(
-               "PersonAccount",
-               "api/{controller}/{action}",
-               new { controller = "person", Action = "Acc", httpmethod = new HttpMethodConstraint(HttpMethod.Get)
-               , name = @"^[a-zA-z]*$" }
-            );
-
-            config.Routes.MapHttpRoute(
-              "PersonHolidaysByAccount",
-              "api/{controller}/{action}",
-              new { controller = "person", Action = "HoliVationAcc", httpmethod = new HttpMethodConstraint(HttpMethod.Get)
-              ,
-                  name = @"^[a-zA-z]*$"
-              }
-            );
-
-            config.Routes.MapHttpRoute(
-              name: "TrackedBirthdaysPOST",
-              routeTemplate: "api/{controller}/{action}/{fromGUID}/{toGUID}"              
-            );
-            config.Routes.MapHttpRoute(
-             name: "TrackedBirthdaysGet",
-             routeTemplate: "api/{controller}/{action}/{GUID}"
-           );
-
-            config.Routes.MapHttpRoute(
-              "NewsID",
-              "api/{controller}/{type}",
-              new { httpmethod = new HttpMethodConstraint(HttpMethod.Get), type = @"^[a-zA-Z]*$" }
-            );
-
-            config.Routes.MapHttpRoute(
-              "AccountId",
-              "api/{controller}/{count}",
-              new { httpmethod = new HttpMethodConstraint(HttpMethod.Get), count = @"\d+" }
+            name: "DefaultApiParam",
+            routeTemplate: "api/{controller}/{action}"
             );
 
 
-            config.Routes.MapHttpRoute(
-               "ApiByTypeCnt",
-               "api/{controller}/{type}/{count}",
-                new { action = "Get" },
-                new { httpMethod = new HttpMethodConstraint(HttpMethod.Get), type = @"^[a-zA-Z]*$", count = @"\d+" }
 
+            //default Birthdays
+            config.Routes.MapHttpRoute(
+            name: "Persons_GET_paramed",
+            routeTemplate: "api/Person/TrackedBirthdaysAccGET/{GUID}",
+             defaults: new { controller = "Person", Action = "TrackedBirthdaysAccGET" }
             );
             config.Routes.MapHttpRoute(
-                "ApiByTypeOfs",
-                "api/{controller}/{type}/{start}/{count}",
-                 new { action = "Get" },
-                 new { httpMethod = new HttpMethodConstraint(HttpMethod.Get), type = @"^[a-zA-Z]*$", start = @"\d+", count = @"\d+" }
+            name: "Birthdays_GET_paramed",
+            routeTemplate: "api/Birthdays/GetBirthdays/{GUID}",
+            defaults: new { controller = "Birthdays", Action = "GetBirthdays" }
+            );
 
+
+
+            //birthdays Acc
+            config.Routes.MapHttpRoute(
+            name: "Birthdays_Acc_get",
+            routeTemplate: "api/Birthdays/GetBirthdaysAcc/{GUID}",
+            defaults: new { controller = "Birthdays", Action = "GetBirthdaysAcc" }
             );
             config.Routes.MapHttpRoute(
-                "ApiById",
-               "api/{controller}/{type}/{start}/{count}",
-                new { action = "Get" },
-                new { httpMethod = new HttpMethodConstraint(HttpMethod.Get), type = @"\d+", start = @"\d+", count = @"\d+" }
+            name: "Birthdays_Acc_POST",
+            routeTemplate: "api/Birthdays/GetBirthdaysAcc/{fromGUID}/{toGUID}",
+            defaults: new { controller = "Birthdays", Action = "PostBirthdaysAcc" }
             );
-
             config.Routes.MapHttpRoute(
-                "Persons",
-                "api/{controller}/{action}/{accountName}",
-                new { action = "Get", accountName = RouteParameter.Optional }                
+            name: "Birthdays_Acc_Delete",
+            routeTemplate: "api/Birthdays/GetBirthdaysAcc/{fromGUID}/{toGUID}",
+            defaults: new { controller = "Birthdays", Action = "DeleteBirthdaysAcc" }
+            );
+            //birthdays Authenticate
+            config.Routes.MapHttpRoute(
+            name: "Birthdays_noAcc_get",
+            routeTemplate: "api/Birthdays/GetBirthdays/",
+            defaults: new { controller = "Birthdays", Action = "GetBirthdays" }
+            );
+            config.Routes.MapHttpRoute(
+            name: "Birthdays_noAcc_POST",
+            routeTemplate: "api/Birthdays/PostBirthdays/{toGUID}",
+            defaults: new { controller = "Birthdays", Action = "PostBirthdays" }
+            );
+            config.Routes.MapHttpRoute(
+            name: "Birthdays_noAcc_Delete",
+            routeTemplate: "api/Birthdays/DeleteBirthdays/{toGUID}",
+            defaults: new { controller = "Birthdays", Action = "DeleteBirthdays" }
             );
 
-			var cors = new EnableCorsAttribute("*", "X-Accept-Charset,X-Accept,Content-Type,Credentials", "POST, GET, PUT, OPTIONS, PATCH, DELETE") { SupportsCredentials = true, PreflightMaxAge = 10 };
+
+
+
+
+            //placed first, enables all but disables
+            //all controllers GET methods with single parameter
+            config.Routes.MapHttpRoute(
+            name: "Persons_GET",
+            routeTemplate: "api/{controller}/{action}/{accountName}",
+            defaults: new { accountName = RouteParameter.Optional, controller = "Person" }
+            );
+            //enables Birthdays Get and Persons Gettracked with GUID parameter
+            config.Routes.MapHttpRoute(
+            name: "Birthdays_GET",
+            routeTemplate: "api/{controller}/{action}/{GUID}",
+            defaults: new { GUID = RouteParameter.Optional, controller = "Birthdays" }
+            );
+            
+
+            //enables whole bunch of Birthday, Person methods with fromGUID,toGUID signature
+            config.Routes.MapHttpRoute(
+             name: "Birthdays_Perosn_POST_DELETE",
+             routeTemplate: "api/{controller}/{action}/{fromGUID}/{toGUID}"
+            );
+
+         
+
+            /*            
+            var cors = new EnableCorsAttribute("*", "X-Accept-Charset,X-Accept,Content-Type,Credentials", "POST, GET, PUT, OPTIONS, PATCH, DELETE") { SupportsCredentials = true, PreflightMaxAge = 10 };
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/plain"));
             config.EnableCors(cors);
 
             var autofacResolver = AutofacConfig.ConfigureContainer().Build();
             config.DependencyResolver = new AutofacWebApiDependencyResolver(autofacResolver);
-            
+            */
+
         }
     }
 }

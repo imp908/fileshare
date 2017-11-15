@@ -203,6 +203,28 @@ namespace NSQLManager
             return resp;
 
         }
+        public string Delete(Type type_, IOrientObject from_, IOrientObject to_, ITypeToken condition_)
+        {
+            string deleteClause;
+
+            List<ITypeToken> commandTk = tb.Command(new OrientDeleteToken(), tk.Get(type_), tk.GetBase(type_));
+            List<ITypeToken> whereTk = new List<ITypeToken>() { new OrientWhereToken(), condition_ };
+
+            deleteClause = txb.Build(commandTk, new OrientDeleteCluaseFormat());
+            string whereClause = txb.Build(whereTk, new OrientWhereClauseFormat());
+
+            QueryUrl = CommandUrl + "/" + deleteClause + " " + whereClause;
+
+            owm.Authenticate(AuthUrl);
+
+            string resp =
+            ir.ReadResponse(
+                owm.GetResponse(QueryUrl, new POST().Text)
+               );
+
+            return resp;
+
+        }
 
         public string Add(ITypeToken db_name, ITypeToken command_type)
         {

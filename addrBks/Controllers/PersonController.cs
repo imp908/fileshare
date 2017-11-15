@@ -16,8 +16,13 @@ namespace NewsAPI.Controllers
         private readonly IJsonValidator jsonValidator;
         private readonly IUserAuthenticator userAuthenticator;
         private readonly IPersonFunctions personFunctions;
+
         private readonly NSQLManager.IPersonUOW pUOW;
         private readonly IWebManagers.IResponseReader responseReader;
+        private readonly NSQLManager.AdinTceRepo repo;
+
+        private IHttpActionResult response;
+        string name = string.Empty, GUID = string.Empty, res = string.Empty;
 
         public PersonController(
             IJsonValidator jsonValidator,
@@ -39,10 +44,13 @@ namespace NewsAPI.Controllers
             //binding of new JSON manager for parsing all Orient, 1C responses
             functions.BindJSONmanager(new JsonManagers.JSONManager());
             this.personFunctions = new OrientPersons(functions);
-           
+                  
             userAuthenticator = new UserAuthenticator();
             pUOW = new NSQLManager.PersonUOW();
             responseReader = new WebManagers.WebResponseReader();
+
+            repo = new NSQLManager.AdinTceRepo();
+            
         }
 
         [HttpGet]
@@ -64,7 +72,6 @@ namespace NewsAPI.Controllers
             return response;
 
         }
-
         [HttpGet]
         public IHttpActionResult GetDepartment(string accountName)
         {
@@ -84,7 +91,6 @@ namespace NewsAPI.Controllers
             return response;
 
         }
-
         [HttpGet]
         public IHttpActionResult GetManager(string accountName)
         {
@@ -104,7 +110,6 @@ namespace NewsAPI.Controllers
             return response;
 
         }
-
         [HttpGet]
         public IHttpActionResult GetColleges(string accountName)
         {
@@ -124,7 +129,6 @@ namespace NewsAPI.Controllers
             return response;
 
         }
-
         [HttpGet]
         public IHttpActionResult GetManagers(string accountName)
         {
@@ -144,7 +148,6 @@ namespace NewsAPI.Controllers
             return response;
 
         }
-
         [HttpGet]
         public IHttpActionResult GetCollegesLower(string accountName)
         {
@@ -164,7 +167,6 @@ namespace NewsAPI.Controllers
             return response;
 
         }
-
         [HttpGet]
         public IHttpActionResult GetGUID(string accountName)
         {
@@ -177,8 +179,7 @@ namespace NewsAPI.Controllers
             string res = personFunctions.GetGUID(accountName);
             WebManagers.ReturnEntities response = new WebManagers.ReturnEntities(res, Request);
             return response;
-        }
-       
+        }       
         [HttpGet]
         public IHttpActionResult SearchPerson(string accountName)
         {
@@ -190,7 +191,7 @@ namespace NewsAPI.Controllers
 
             // Получаем менеджера работника по имени аккаунта
             // проксирование выполняется после вызова функции в PersonFunctions через JSONproxy
-            string requestedEntity = personFunctions.SearchPerson(accountName);
+            string requestedEntity = personFunctions.SearchByFNameLName(accountName);
 
             // преобразуем строку в HttpResponseMessage с ReturnEntities с результатом в поле _value
             OrientNewsHelper.ReturnEntities response = new OrientNewsHelper.ReturnEntities(requestedEntity, Request);
@@ -199,16 +200,12 @@ namespace NewsAPI.Controllers
 
         }
 
+
         //adintce APIs
         [HttpGet]
         public IHttpActionResult HoliVationAcc()
         {
-            
-            NSQLManager.AdinTceRepo repo = new NSQLManager.AdinTceRepo();
-            WebManagers.WebResponseReader wr = new WebManagers.WebResponseReader();
-            string name = string.Empty, GUID = string.Empty,res = string.Empty;
-            WebManagers.ReturnEntities response=null;
-
+    
             try
             {
                 name = userAuthenticator.AuthenticateUser(base.User);
@@ -222,7 +219,7 @@ namespace NewsAPI.Controllers
 
             try
             {
-                GUID = wr.ReadResponse(GetGUID(name));
+                GUID = responseReader.ReadResponse(GetGUID(name));
                 if(GUID == string.Empty || GUID == null)
                 {
                     res = @"GUID searched";
@@ -254,14 +251,11 @@ namespace NewsAPI.Controllers
         }
         [HttpGet]
         public IHttpActionResult HoliVation(string accountName)
-        {
-            IHttpActionResult response = null;
-            NSQLManager.AdinTceRepo repo = new NSQLManager.AdinTceRepo();
-            WebManagers.WebResponseReader wr = new WebManagers.WebResponseReader();
+        {                          
             string res = string.Empty;
             try
             {
-                 res = wr.ReadResponse(GetGUID(accountName)); 
+                 res = responseReader.ReadResponse(GetGUID(accountName)); 
             }
             catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
 
@@ -273,19 +267,14 @@ namespace NewsAPI.Controllers
         }
         [HttpGet]
         public IHttpActionResult Acc()
-        {
-         
-            NSQLManager.AdinTceRepo repo = new NSQLManager.AdinTceRepo();
+        {       
           
-            string res ="Auth:{0};Envr:{1};WebCtx:{2};";
-            WebManagers.ReturnEntities response = null;
-
-            UserAuthenticator ua = new UserAuthenticator();
-          
+            string res ="Auth:{0};Envr:{1};WebCtx:{2};";           
+                 
             try
             {
                 res=string.Format(res,
-                    ua.AuthenticateUser(base.User), Environment.UserName, HttpContext.Current.User.Identity.Name.ToString());                
+                    userAuthenticator.AuthenticateUser(base.User), Environment.UserName, HttpContext.Current.User.Identity.Name.ToString());                
             }
             catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
            
@@ -301,20 +290,62 @@ namespace NewsAPI.Controllers
         }
 
 
+        //Birthdays
+        //check by params
+        [HttpGet]
+        public IHttpActionResult TrackedBirthdaysAccGET(string GUID)
+        {
+
+            string res = null;
+            try
+            {
+                res = pUOW.GetByGUID(GUID);
+                response = new WebManagers.ReturnEntities(res, Request);
+            }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
+            return response;
+        }
+        [HttpDelete]
+        public IHttpActionResult TrackedBirthdaysAccDELETE(string fromGUID, string toGUID)
+        {
+
+            string res = null;
+            try
+            {
+                res = pUOW.DeleteTrackedBirthday(new POCO.TrackBirthdays(), fromGUID, toGUID);
+                response = new WebManagers.ReturnEntities(res, Request);
+            }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
+            return response;
+        }
+        [HttpPost]
+        public IHttpActionResult TrackedBirthdaysAccPOST(string fromGUID,string toGUID)
+        {
+                     
+            string res = null;
+            try
+            {
+                res = pUOW.AddTrackBirthday(new POCO.TrackBirthdays(), fromGUID, toGUID);
+                response = new WebManagers.ReturnEntities(res, Request);
+            }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
+            return response;
+        }
+       
+        //get Acc from NTLM
         [HttpPost]
         public IHttpActionResult TrackedBirthdays(string toGUID)
         {
-            WebManagers.ReturnEntities response = null;
-            NSQLManager.IPersonUOW pUow = new NSQLManager.PersonUOW();
+                  
             string name = userAuthenticator.AuthenticateUser(base.User);
             string fromGUID = responseReader.ReadResponse( GetGUID(name));
 
             string res = null;
             try
-            {          
-                res = pUow.AddTrackBirthday(new POCO.TrackBirthdays(), fromGUID, toGUID);
+            {
+                res = pUOW.AddTrackBirthday(new POCO.TrackBirthdays(), fromGUID, toGUID);
 
-                response = new WebManagers.ReturnEntities(res, Request); 
+                response = new WebManagers.ReturnEntities(res, Request);
             }
             catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
             return response;
@@ -322,14 +353,13 @@ namespace NewsAPI.Controllers
         [HttpGet]
         public IHttpActionResult TrackedBirthdays()
         {
-            WebManagers.ReturnEntities response = null;
-            NSQLManager.IPersonUOW pUow = new NSQLManager.PersonUOW();
+         
             string name = userAuthenticator.AuthenticateUser(base.User);
             string GUID=responseReader.ReadResponse(GetGUID(name));
             string res = null;
             try
             {
-                res = pUow.GetByGUID(GUID);
+                res = pUOW.GetByGUID(GUID);
 
                 response = new WebManagers.ReturnEntities(res, Request);
             }

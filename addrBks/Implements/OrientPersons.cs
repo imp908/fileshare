@@ -63,7 +63,7 @@ namespace NewsAPI.Implements
             return _functions.CallFunctionItems(name, AccountName.ToLower());
         }
         //change JSON parsing
-        public string SearchPerson(string AccountName)
+        public string SearchByFNameLName(string AccountName)
         {
             string name = @"SearchByFNameLName";
             return _functions.CallFunctionParentChildId(name, AccountName.ToLower());

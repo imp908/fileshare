@@ -185,6 +185,11 @@ namespace NSQLManager
         public string Text { get; set; } = "Drop";
     }
 
+    public class OrientAndToken : ITypeToken
+    {
+        public string Text { get; set; } = @"and";
+    }
+
     public class OrientClassToken : ITypeToken
     {
         public string Text { get; set; } = "Class";
@@ -235,6 +240,10 @@ namespace NSQLManager
         public string Text { get; set; } = "notnull";
     }
 
+    public class OrientEqualsToken : ITypeToken
+    {
+        public string Text { get; set; } = @"=";
+    }
     public class OrientApostropheToken : ITypeToken
     {
         public string Text { get; set; } = @"'";
@@ -434,7 +443,10 @@ namespace NSQLManager
     {
         public string Text { get { return @"{0} {1}{2} {3}{4}{5}{6}{7}{8}{9}{10}{11}{12}{13}{14}{15}{16}{17}{18} {19} {20} {21} {22}"; } set { Text = value; } }
     }
-
+    public class OrientOutVinVFormat : ITypeToken
+    {
+        public string Text { get { return @"{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12} {13} {14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}"; } set { Text = value; } }
+    }
     #endregion
 
     #region TokenListsBuilders
@@ -533,77 +545,7 @@ namespace NSQLManager
         public static List<ITypeToken> authUrl = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientAuthenticateToken(), new OrientDatabaseNameToken() };
         public static List<ITypeToken> commandUrl = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientCommandToken(), new OrientDatabaseNameToken(), new OrientCommandSQLTypeToken() };
         public static List<ITypeToken> addDbURL = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientDatabaseToken()};
-    }
-
-    //converts from token tyoes for orient Db objects like (vertex,edge) to according model POCO class
-    //Vertex (Person) to class (Person)    
-    public class OrientTypeConverter : ITypeConverter
-    {
-        Dictionary<Type, ITypeToken> types;
-
-        public OrientTypeConverter()
-        {
-            types = new Dictionary<Type, ITypeToken>();
-
-            types.Add(typeof(OrientVertex), new OrientVertexToken());
-            types.Add(typeof(OrientEdge), new OrientEdgeToken());
-
-            types.Add(typeof(Person), new OrientPersonToken());
-            types.Add(typeof(Unit), new OrientUnitToken());
-
-            types.Add(typeof(MainAssignment), new OrientMainAssignmentToken());
-            types.Add(typeof(SubUnit), new OrientSubUnitToken());
-            types.Add(typeof(OrientDatabaseToken), new OrientTestDbToken());
-        }
-        public void Add(Type type_, ITypeToken token_)
-        {
-            this.types.Add(type_, token_);
-        }
-        public ITypeToken Get(Type type_)
-        {
-            ITypeToken token_ = null;
-
-            types.TryGetValue(type_, out token_);
-
-            return token_;
-        }
-        public ITypeToken GetBase(Type type_)
-        {
-            ITypeToken token_ = null;
-            Type tp = type_.BaseType;
-            types.TryGetValue(tp, out token_);
-
-            return token_;
-        }
-        public ITypeToken Get(IOrientVertex object_)
-        {
-            ITypeToken token_ =null;
-            
-                types.TryGetValue(object_.GetType(), out token_);
-                         
-            return token_;
-        }
-        public ITypeToken Get(IOrientDatabase object_)
-        {
-            ITypeToken token_ = null;
-
-            types.TryGetValue(object_.GetType(), out token_);
-
-            return token_;
-        }
-        public ITypeToken GetBase(IOrientVertex object_)
-        {
-            ITypeToken token_ = null;
-            Type tp = object_.GetType().BaseType;
-            IOrientVertex t2 = (IOrientVertex)object_;
-
-                types.TryGetValue(object_.GetType().BaseType, out token_);
-            
-
-            return token_;
-        }
-
-    }
+    }   
 	
     #region CommandBuilders
 	
@@ -675,10 +617,20 @@ namespace NSQLManager
             result.Add(tokenA);
             result.Add(new OrientToToken());
             result.Add(tokenB);
-            if (context_ != null && context_.Text != null && context_.Text!=string.Empty)
+
+            if(command_ is OrientCreateToken){
+                if (context_ != null && context_.Text != null && context_.Text != string.Empty)
+                {
+                    result.Add(new OrientContentToken());
+                    result.Add(context_);
+                }
+            }
+            if (command_ is OrientDeleteToken)
             {
-                result.Add(new OrientContentToken());
-                result.Add(context_);
+                if (context_ != null && context_.Text != null && context_.Text != string.Empty)
+                {                    
+                    result.Add(context_);
+                }
             }
             return result;
         }        
@@ -687,6 +639,7 @@ namespace NSQLManager
 
     public class OreintNewsTokenAggregator
     {
+        TypeConverter typeConverter_ = new TypeConverter();
 
         public List<ITypeToken> outEinVExp(ITypeToken command_,ITypeToken vertex_,ITypeToken edge_, ITypeToken condition_)
         {
@@ -728,6 +681,53 @@ namespace NSQLManager
             result.Add(new OrientLtRoundSquareToken());
             result.Add(new OrientApostropheToken());
             result.Add(new OrientRtRoundSquareToken());
+            return result;
+        }
+
+        public List<ITypeToken> outVinVcnd(Type object_, ITypeToken property_, ITypeToken conda_, ITypeToken condb_)
+        {
+            List<ITypeToken> result = new List<ITypeToken>();         
+            
+            if (object_.BaseType == typeof(OrientVertex) || object_.BaseType == typeof(OrientEdge))
+            {
+                       
+                //outV
+                result.Add(new OrientOutToken());
+                result.Add(new OrientVToken());
+                result.Add(new OrientLtRoundSquareToken());
+                result.Add(new OrientApostropheToken());
+                result.Add(typeConverter_.Get(object_));
+                result.Add(new OrientApostropheToken());
+                result.Add(new OrientRtRoundSquareToken());
+                result.Add(new OrientDotToken());
+                result.Add(property_);
+
+                result.Add(new OrientEqualsToken());
+
+                result.Add(new OrientApostropheToken());
+                result.Add(conda_);
+                result.Add(new OrientApostropheToken());
+
+                result.Add(new OrientAndToken());
+
+                //inv
+                result.Add(new OrientInToken());
+                result.Add(new OrientVToken());
+                result.Add(new OrientLtRoundSquareToken());
+                result.Add(new OrientApostropheToken());
+                result.Add(typeConverter_.Get(object_));
+                result.Add(new OrientApostropheToken());
+                result.Add(new OrientRtRoundSquareToken());
+                result.Add(new OrientDotToken());
+                result.Add(property_);
+
+                result.Add(new OrientEqualsToken());
+
+                result.Add(new OrientApostropheToken());
+                result.Add(condb_);
+                result.Add(new OrientApostropheToken());
+
+            }
             return result;
         }
 
@@ -1061,7 +1061,7 @@ namespace NSQLManager
 
             return token_;
         }
-        public ITypeToken Get(IOrientVertex object_)
+        public ITypeToken Get(IOrientObject object_)
         {
             ITypeToken token_ = null;
 
@@ -1069,7 +1069,7 @@ namespace NSQLManager
 
             return token_;
         }
-        public ITypeToken GetBase(IOrientVertex object_)
+        public ITypeToken GetBase(IOrientObject object_)
         {
             ITypeToken token_ = null;
             Type tp = object_.GetType().BaseType;
@@ -1162,7 +1162,7 @@ namespace NSQLManager
             string result = string.Empty;
             IEnumerable<Person> persons = null;
             TextToken condition_ = new TextToken() { Text = "1=1 and GUID ='" + GUID + "'" };
-            List<ITypeToken> tokens =  ob.outEinVExp(new OrientSelectToken(), 
+            List<ITypeToken> tokens =  ob.outEinVExp(new OrientSelectToken(),
                 _typeConverter.Get(typeof(Person)), _typeConverter.Get(typeof(TrackBirthdays)), condition_);
             string command = _textBuilder.Build(tokens, new OrientOutEinVFormat() { });
             persons = _repo.Select<Person>(command);
@@ -1170,15 +1170,31 @@ namespace NSQLManager
             return result;
         }
 
-        public string AddTrackBirthday(IOrientEdge edge, string guidFrom,string guidTo)
+        public string AddTrackBirthday(OrientEdge edge_, string guidFrom,string guidTo)
         {
+            string result = null;
             Person from = GetObjByGUID(guidFrom).FirstOrDefault();
             Person to = GetObjByGUID(guidTo).FirstOrDefault();
-            TrackBirthdays tb= new TrackBirthdays();
-            string result = null;
+         
             if(from!=null&&to!=null)
             {
-                result = _repo.Add(tb, from, to);
+                result = _repo.Add(edge_, from, to);
+            }
+            return result;
+        }
+        public string DeleteTrackedBirthday(OrientEdge edge_, string guidFrom, string guidTo)
+        {
+            string result = null;
+            Person from = GetObjByGUID(guidFrom).FirstOrDefault();
+            Person to = GetObjByGUID(guidTo).FirstOrDefault();
+      
+            List<ITypeToken> condTokens_ = ob.outVinVcnd(typeof(Person), new TextToken() { Text = "GUID" },
+                new TextToken() { Text = from.GUID }, new TextToken() { Text = to.GUID });
+            string command_ = _textBuilder.Build(condTokens_, new OrientOutVinVFormat() { });
+
+            if (from != null && to != null)
+            {
+                result = _repo.Delete(edge_.GetType(), new TextToken() { Text = command_ });
             }
             return result;
         }

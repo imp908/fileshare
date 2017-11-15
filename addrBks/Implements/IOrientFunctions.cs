@@ -25,7 +25,7 @@ namespace NewsAPI.Implements
         string GetCollegesLowerByAccount(string AccountName);
         string GetGUID(string AccountName);
         string SearchByLastName(string AccountName);
-        string SearchPerson(string AccountName);
+        string SearchByFNameLName(string AccountName);
 
        
 

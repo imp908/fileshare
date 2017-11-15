@@ -26,6 +26,8 @@ namespace NewsAPI.App_Start
             //builder.RegisterType<JSONProxy>().As<IJSONProxy>();
             //builder.RegisterType<FunctionsToString>().As<IFunctionToString>();
             //builder.RegisterType<OrientPersons>().As<IPersonFunctions>();
+            //builder.RegisterType<NSQLManager.IPersonUOW>().As<NSQLManager.PersonUOW>();
+           
 
             return builder;
         }

@@ -31,7 +31,7 @@ namespace IOrientObjects
     {
 
     }
-    public interface IOrientVertex
+    public interface IOrientVertex : IOrientObject
     {
         [JsonProperty("@type")]
         string type { get; set; }
@@ -52,8 +52,8 @@ namespace IOrientObjects
     public interface ITypeConverter
     {
         void Add(Type type_, ITypeToken token_);
-        ITypeToken Get(IOrientVertex object_);
-        ITypeToken GetBase(IOrientVertex object_);
+        ITypeToken Get(IOrientObject object_);
+        ITypeToken GetBase(IOrientObject object_);
         ITypeToken Get(Type type_);
         ITypeToken GetBase(Type type_);
     }
