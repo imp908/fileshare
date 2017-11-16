@@ -13,18 +13,19 @@ using QueryManagers;
 using IOrientObjects;
 using IJsonManagers;
 using IWebManagers;
-using NSQLManager;
+using IRepos;
+using OrientRealization;
 
-
-namespace NSQLManager
+namespace Repos
 {
-    public class Repo : IRepo.IRepo
+
+    public class Repo : IRepo
     {
 
         IJsonManger jm;
-        ITokenAggreagtor tb;
+        ITokenBuilder tb;
         ITypeConverter tk;
-        ITextAggreagtor txb;
+        ICommandBuilder cb;
         IWebManager wm;
         IResponseReader ir;
 
@@ -33,42 +34,42 @@ namespace NSQLManager
         string AuthUrl, CommandUrl, QueryUrl, DatabaseUrl;
 
         public Repo(
-            IJsonManger jsonManager_, ITokenAggreagtor tokenBuilder_, ITypeConverter typeConverter_, ITextAggreagtor textBuilder_,
+            IJsonManger jsonManager_, ITokenBuilder tokenBuilder_, ITypeConverter typeConverter_, ICommandBuilder commandBuilder_,
             IWebManager webManger_, IResponseReader responseReader_)
         {
 
             this.jm = jsonManager_;
             this.tb = tokenBuilder_;
             this.tk = typeConverter_;
-            this.txb = textBuilder_;
+            this.cb = commandBuilder_;
             this.wm = webManger_;
             this.ir = responseReader_;
 
-            AuthUrl = txb.Build(TokenRepo.authUrl, new OrientAuthenticationURLFormat());
-            CommandUrl = txb.Build(TokenRepo.commandUrl, new OrientCommandURLFormat());
-            owm.addCredentials(
+            AuthUrl = cb.Build(TokenRepo.authUrl, new OrientAuthenticationURLFormat());
+            CommandUrl = cb.Build(TokenRepo.commandUrl, new OrientCommandURLFormat());
+            owm.AddCredentials(
               new NetworkCredential(ConfigurationManager.AppSettings["orient_login"], ConfigurationManager.AppSettings["orient_pswd"]));
 
-            DatabaseUrl = txb.Build(TokenRepo.addDbURL, new OrientDatabaseUrlFormat());
+            DatabaseUrl = cb.Build(TokenRepo.addDbURL, new OrientDatabaseUrlFormat());
         }
 
         public void changeAuthCredentials(string Login, string Password)
         {
-            owm.addCredentials(new NetworkCredential(Login, Password));
+            owm.AddCredentials(new NetworkCredential(Login, Password));
         }
 
         public string Add(ITypeToken rest_command_, ITypeToken dbName_, ITypeToken type_)
         {
             List<ITypeToken> commandTk = tb.Command(dbName_, type_);
-            string command = txb.Build(commandTk, new TextToken() { Text = @"{0}/{1}" });
+            string command = cb.Build(commandTk, new TextToken() { Text = @"{0}/{1}" });
             QueryUrl = DatabaseUrl + "/" + command;
 
-            wm.addCredentials(
+            wm.AddCredentials(
                 new NetworkCredential(ConfigurationManager.AppSettings["orient_login"], ConfigurationManager.AppSettings["orient_pswd"]));
-
+            wm.AddRequest(QueryUrl);
             string resp =
             ir.ReadResponse(
-                wm.GetResponse(QueryUrl, rest_command_.Text)
+                wm.GetResponse( rest_command_.Text)
             );
 
             return resp;
@@ -78,7 +79,7 @@ namespace NSQLManager
 
             string content = jm.SerializeObject(obj_);
             List<ITypeToken> commandTk = tb.Command(new OrientCreateToken(), tk.Get(obj_), tk.GetBase(obj_), new TextToken() { Text = content });
-            string command = txb.Build(commandTk, new OrientCreateVertexCluaseFormat());
+            string command = cb.Build(commandTk, new OrientCreateVertexCluaseFormat());
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -99,7 +100,7 @@ namespace NSQLManager
             List<ITypeToken> commandTk = tb.Command(new OrientCreateToken(), tk.Get(obj_), tk.GetBase(obj_)
                 , new TextToken() { Text= from.id }, new TextToken() { Text = to.id }, new TextToken() { Text = context });
           
-            string command = txb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
+            string command = cb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -119,7 +120,7 @@ namespace NSQLManager
             string content = jm.SerializeObject(obj_);
             List<ITypeToken> commandTk = tb.Command(new OrientCreateToken(), tk.Get(obj_), tk.GetBase(obj_), from, to, new TextToken() { Text = content });
 
-            string command = txb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
+            string command = cb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -136,7 +137,7 @@ namespace NSQLManager
             string result = null;
 
             List<ITypeToken> commandTk = tb.Command(new OrientSelectToken(), tk.Get(object_), condition_);
-            string command = txb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
+            string command = cb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -153,7 +154,7 @@ namespace NSQLManager
             IEnumerable<T> result = null;
 
             List<ITypeToken> commandTk = tb.Command(new OrientSelectToken(), tk.Get(object_), condition_);
-            string command = txb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
+            string command = cb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -188,8 +189,8 @@ namespace NSQLManager
             List<ITypeToken> commandTk = tb.Command(new OrientDeleteToken(), tk.Get(type_), tk.GetBase(type_));
             List<ITypeToken> whereTk = new List<ITypeToken>() { new OrientWhereToken(), condition_ };
 
-            deleteClause = txb.Build(commandTk, new OrientDeleteCluaseFormat());
-            string whereClause = txb.Build(whereTk, new OrientWhereClauseFormat());
+            deleteClause = cb.Build(commandTk, new OrientDeleteCluaseFormat());
+            string whereClause = cb.Build(whereTk, new OrientWhereClauseFormat());
 
             QueryUrl = CommandUrl + "/" + deleteClause + " " + whereClause;
 
@@ -210,8 +211,8 @@ namespace NSQLManager
             List<ITypeToken> commandTk = tb.Command(new OrientDeleteToken(), tk.Get(type_), tk.GetBase(type_));
             List<ITypeToken> whereTk = new List<ITypeToken>() { new OrientWhereToken(), condition_ };
 
-            deleteClause = txb.Build(commandTk, new OrientDeleteCluaseFormat());
-            string whereClause = txb.Build(whereTk, new OrientWhereClauseFormat());
+            deleteClause = cb.Build(commandTk, new OrientDeleteCluaseFormat());
+            string whereClause = cb.Build(whereTk, new OrientWhereClauseFormat());
 
             QueryUrl = CommandUrl + "/" + deleteClause + " " + whereClause;
 
@@ -234,7 +235,7 @@ namespace NSQLManager
                 new OrientHost(),new OrientPort(),new OrientDatabaseToken(), db_name,new OrientPlocalToken()
             };
 
-            string command = txb.Build(dbCommandUrl, new TextToken() { Text = @"{0}:{1}/{2}/{3}/{4}" });
+            string command = cb.Build(dbCommandUrl, new TextToken() { Text = @"{0}:{1}/{2}/{3}/{4}" });
 
             WebRequest wr = WebRequest.Create(command);
             wr.Method = command_type.Text;
@@ -272,8 +273,8 @@ namespace NSQLManager
                 functionTokens.Add(itt);
             }
 
-            string connect = txb.Build(connectTokens, new OrientFuncionToken());
-            string command = txb.Build(functionTokens, new OrientTokenFormatFromListGenerate(functionTokens, "/"));
+            string connect = cb.Build(connectTokens, new OrientFuncionToken());
+            string command = cb.Build(functionTokens, new OrientTokenFormatFromListGenerate(functionTokens, "/"));
             string url = connect + "/" + command;
 
             owm.Authenticate(AuthUrl);

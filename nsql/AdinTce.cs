@@ -9,7 +9,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
 using System.Configuration;
 
-namespace NSQLManager
+namespace AdinTce
 {
 
     #region AdinTce
@@ -18,7 +18,7 @@ namespace NSQLManager
     public class AdinTceRepo
     {
 
-        IQueryManagers.ITextAggreagtor _textBuilder;
+        IQueryManagers.ICommandBuilder _CommandBuilder;
         IWebManagers.IWebManager _webManager;
         IWebManagers.IResponseReader _responseReader;
         IJsonManagers.IJsonManger _jsonManager;
@@ -28,12 +28,12 @@ namespace NSQLManager
         AdinTceExplicitTokenBuilder tokenBuilder;
 
         public AdinTceRepo(
-            IQueryManagers.ITextAggreagtor textBuilder_,
+            IQueryManagers.ICommandBuilder CommandBuilder_,
             IWebManagers.IWebManager webManager_,
             IWebManagers.IResponseReader responseReader_,
             IJsonManagers.IJsonManger jsonManager_)
         {
-            this._textBuilder = textBuilder_;
+            this._CommandBuilder = CommandBuilder_;
             this._webManager = webManager_;
             this._responseReader = responseReader_;
             this._jsonManager = jsonManager_;
@@ -44,12 +44,12 @@ namespace NSQLManager
 
         public AdinTceRepo()
         {
-            this._textBuilder = new AdinTceTextBuilder();
+            this._CommandBuilder = new AdinTceCommandBuilder();
             this._webManager = new AdinTceWebManager();
             this._responseReader = new AdinTceResponseReader();
             this._jsonManager = new AdinTceJsonManager();
 
-            _webManager.addCredentials(new System.Net.NetworkCredential(
+            _webManager.AddCredentials(new System.Net.NetworkCredential(
                ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
 
             GUIDtoken = new AdinTceGUIDToken();
@@ -67,13 +67,14 @@ namespace NSQLManager
             string holidayCommand, vacationCommand, holidaysResp, vacationsResp;
             GUIDtoken.Text = GUID;
 
-            _textBuilder.SetText(tokenBuilder.HolidaysCommand(GUIDtoken), new AdinTcePartformat());
-            holidayCommand = _textBuilder.GetText();
-            _textBuilder.SetText(tokenBuilder.VacationsCommand(GUIDtoken), new AdinTcePartformat());
-            vacationCommand = _textBuilder.GetText();
+            _CommandBuilder.SetText(tokenBuilder.HolidaysCommand(GUIDtoken), new AdinTcePartformat());
+            holidayCommand = _CommandBuilder.GetText();
+            _CommandBuilder.SetText(tokenBuilder.VacationsCommand(GUIDtoken), new AdinTcePartformat());
+            vacationCommand = _CommandBuilder.GetText();
 
             //Task.Run(() => {
-            holidaysResp = _responseReader.ReadResponse(_webManager.addRequest(holidayCommand, "GET").GetResponse());
+            _webManager.AddRequest(holidayCommand);
+            holidaysResp = _responseReader.ReadResponse(_webManager.GetResponse("GET"));
             if (holidaysResp != null && holidaysResp != string.Empty)
             {
                 gpl = _jsonManager.DeserializeFromParentNode<GUIDPOCO>(holidaysResp);
@@ -82,8 +83,8 @@ namespace NSQLManager
                 adp.Position = gpl.Select(s => s).FirstOrDefault().Position;
                 adp.holidays = dhl.ToList();
             }
-
-            vacationsResp = _responseReader.ReadResponse(_webManager.addRequest(vacationCommand, "GET").GetResponse());
+            _webManager.AddRequest(holidayCommand);
+            vacationsResp = _responseReader.ReadResponse(_webManager.GetResponse( "GET"));
             if (vacationsResp!=null && vacationsResp != string.Empty)
             {
                 vhl = _jsonManager.DeserializeFromParentChildren<Vacation>(vacationsResp, "Holidays");
@@ -159,7 +160,7 @@ namespace NSQLManager
 
     ///<summary>AdinTce realization of Base builder,web,reader,json
     ///</summary>
-    public class AdinTceTextBuilder : QueryManagers.TextBuilder
+    public class AdinTceCommandBuilder : QueryManagers.CommandBuilder
     {
 
     }

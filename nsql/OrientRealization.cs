@@ -11,19 +11,14 @@ using System.Configuration;
 using WebManagers;
 using IQueryManagers;
 using QueryManagers;
-
 using IOrientObjects;
-
-using JsonManagers;
-using IWebManagers;
-using IRepo;
 
 using POCO;
 
 /// <summary>
 /// Realization of IJsonMangers, IWebManagers, and IOrient specifically for orient db
 /// </summary>
-namespace NSQLManager
+namespace OrientRealization
 {
 
     /// <summary>
@@ -40,8 +35,8 @@ namespace NSQLManager
         {
 
             //HttpWebResponse resp = null;
-            base.addRequest(url, method);
-            base.addHeader(HttpRequestHeader.Cookie, this.OSESSIONID);
+            base.RequestAdd(url, method);
+            base.AddHeader(HttpRequestHeader.Cookie, this.OSESSIONID);
 
             try
             {
@@ -54,10 +49,10 @@ namespace NSQLManager
 
             return null;
         }
-        public HttpWebResponse PostDB(string method_)
+        public HttpWebResponse GetResponseCred(string method_)
         {
 
-            //HttpWebResponse resp = null;    base.addRequest(url, method);
+            //HttpWebResponse resp = null; base.addRequest(url, method);
             this._request.Method = method_;
             try
             {
@@ -74,13 +69,13 @@ namespace NSQLManager
         {
 
             WebResponse resp;
-            addRequest(url, "GET");
-            if (nc == null) { bindCredentials(); }
-            else { addCredentials(nc); }
+            RequestAdd(url, "GET");
+            if (nc == null) { CredentialsBind(); }
+            else { AddCredentials(nc); }
             try
             {
                 resp = this._request.GetResponse();
-                OSESSIONID = getHeaderValue("Set-Cookie");
+                OSESSIONID = GetHeaderValue("Set-Cookie");
                 return resp;
             }
             catch (Exception e)
@@ -453,7 +448,7 @@ namespace NSQLManager
 
     //buider for commands with format
     //mostly used for URLS (auth,
-    public class OrientCommandBuilder : TextBuilder
+    public class OrientCommandBuilder : CommandBuilder
     {
         public OrientCommandBuilder() : base()
         {
@@ -471,7 +466,7 @@ namespace NSQLManager
     //class segregation for different cluse builders
 
     //Authentication URL build
-    public class OrientAuthenticationURIBuilder : TextBuilder
+    public class OrientAuthenticationURIBuilder : CommandBuilder
     {
         public OrientAuthenticationURIBuilder(List<ITypeToken> tokens_, OrientAuthenticationURLFormat FormatPattern_)
              : base(tokens_, FormatPattern_)
@@ -480,21 +475,21 @@ namespace NSQLManager
         }
     }
     //Command URL build
-    public class OrientCommandURIBuilder : TextBuilder
+    public class OrientCommandURIBuilder : CommandBuilder
     {
         public OrientCommandURIBuilder(List<ITypeToken> tokens_, OrientCommandURLFormat FormatPattern_)
             : base(tokens_, FormatPattern_)
         {
 
         }
-        public OrientCommandURIBuilder(List<ITextAggreagtor> texts_, ITypeToken FormatPattern_, TextBuilder.BuildTypeFormates type_)
+        public OrientCommandURIBuilder(List<ICommandBuilder> texts_, ITypeToken FormatPattern_, CommandBuilder.BuildTypeFormates type_)
           : base(texts_, FormatPattern_, type_)
         {
 
         }
     }
 
-    public class OrientSelectClauseBuilder : TextBuilder
+    public class OrientSelectClauseBuilder : CommandBuilder
     {
         public OrientSelectClauseBuilder(List<ITypeToken> tokens_, OrientSelectClauseFormat FormatPattern_ = null)
             : base(tokens_, FormatPattern_ = new OrientSelectClauseFormat())
@@ -502,7 +497,7 @@ namespace NSQLManager
 
         }
     }
-    public class OrientWhereClauseBuilder : TextBuilder
+    public class OrientWhereClauseBuilder : CommandBuilder
     {
         public OrientWhereClauseBuilder(List<ITypeToken> tokens_, OrientWhereClauseFormat FormatPattern_)
             : base(tokens_, FormatPattern_)
@@ -511,7 +506,7 @@ namespace NSQLManager
         }
     }
 
-    public class OrientCreateClauseBuilder : TextBuilder
+    public class OrientCreateClauseBuilder : CommandBuilder
     {
         public OrientCreateClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
             : base(tokens_, format_)
@@ -519,7 +514,7 @@ namespace NSQLManager
 
         }
     }
-    public class OrientDeleteClauseBuilder : TextBuilder
+    public class OrientDeleteClauseBuilder : CommandBuilder
     {
         public OrientDeleteClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
             : base(tokens_, format_)
@@ -528,7 +523,7 @@ namespace NSQLManager
         }
     }
 
-    public class OrientNestedSelectClauseBuilder : TextBuilder
+    public class OrientNestedSelectClauseBuilder : CommandBuilder
     {
         public OrientNestedSelectClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
             : base(tokens_, format_)
@@ -557,7 +552,7 @@ namespace NSQLManager
     /// which not requer special format like {0}:{1}\{2} but samle , generated fro mtoken list like {0} {1} {2}
     /// but generated in lagre ammounts with differen types.
     /// </summary>
-    public class OrientTokenAggregator : ITokenAggreagtor
+    public class OrientTokenBuilder : ITokenBuilder
     {
         //for select command
         public List<ITypeToken> Command(ITypeToken command_, ITypeToken orientObject)
@@ -637,7 +632,7 @@ namespace NSQLManager
 
     }
 
-    public class OreintNewsTokenAggregator
+    public class OreintNewsTokenBuilder
     {
         TypeConverter typeConverter_ = new TypeConverter();
 
@@ -735,7 +730,7 @@ namespace NSQLManager
 	/// <summary>creates collection of tokens
     /// builds add,delete,create commands from token amount
     /// </summary>
-    public class OrientCommandBuilderImplicit : ITokenAggreagtorTypeGen
+    public class OrientCommandBuilderImplicit : ITokenBuilderTypeGen
     {
 
         ITypeConverter _typeConverter;
@@ -1004,7 +999,7 @@ namespace NSQLManager
             return result;
         }
 
-        public List<ITypeToken> Function(ITypeToken function_,ITextAggreagtor params_)
+        public List<ITypeToken> Function(ITypeToken function_,ICommandBuilder params_)
         {
             List<ITypeToken> result = new List<ITypeToken>();
                 result.Add(function_);
@@ -1082,124 +1077,5 @@ namespace NSQLManager
 
     }
 
-	#region Repos
-    //deprecation possible -> replaced with new explicit builder 
- 
-    ///<summary>Context class
-    ///</summary>
-    ///<summary>builds url strings from token collections
-    ///url oriet class names converted with type converter 
-    ///2 level inheritance is allowed : GetType() for Vertex,Edge and GetType().BaseType for Classes
-    ///</summary>
-   
-    public class PersonUOW : IPersonUOW
-    {
-        IRepo.IRepo _repo;
-        OreintNewsTokenAggregator ob = new OreintNewsTokenAggregator();
-        ITypeConverter _typeConverter;
-        ITextAggreagtor _textBuilder;
-        JSONManager _jsonManager;
-        ITokenAggreagtor _tokenAggregator;     
-        IWebManager wm;
-        IResponseReader wr;
-
-        public PersonUOW()
-        {
-            _jsonManager = new JSONManager();
-            _tokenAggregator = new OrientTokenAggregator();
-            _typeConverter = new TypeConverter();
-            _textBuilder = new OrientCommandBuilder();
-            wm = new OrientWebManager();
-            wr = new WebResponseReader();
-
-            _repo = new Repo(_jsonManager, _tokenAggregator, _typeConverter, _textBuilder, wm, wr);
-        }      
-        
-       
-        public IEnumerable<Person> GetObjByGUID(string GUID)
-        {            
-            IEnumerable<Person> result = null;
-            TextToken condition_ = new TextToken() { Text = "1=1 and GUID ='" + GUID + "'" };
-            try
-            {
-                result = _repo.Select<Person>(typeof(Person), condition_);                
-            }
-            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
-
-            return result;
-        }
-        public string GetByGUID(string GUID)
-        {
-            string result = string.Empty;
-            IEnumerable<Person> persons = null;
-            TextToken condition_ = new TextToken() { Text = "1=1 and GUID ='" + GUID + "'" };
-            try
-            {
-                persons = _repo.Select<Person>(typeof(Person), condition_);
-                result= _jsonManager.SerializeObject(persons);
-            }
-            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
-
-            return result;
-        }
-        public IEnumerable<Person> GetAll()
-        {          
-
-            IEnumerable<Person> result = null;
-            TextToken condition_ = new TextToken() { Text = "1=1" };
-            try
-            {
-                result = _repo.Select<Person>(typeof(Person), condition_);
-
-            }
-            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
-
-            return result;
-        }
-
-        public string GetTrackedBirthday(string GUID)
-        {
-            string result = string.Empty;
-            IEnumerable<Person> persons = null;
-            TextToken condition_ = new TextToken() { Text = "1=1 and GUID ='" + GUID + "'" };
-            List<ITypeToken> tokens =  ob.outEinVExp(new OrientSelectToken(),
-                _typeConverter.Get(typeof(Person)), _typeConverter.Get(typeof(TrackBirthdays)), condition_);
-            string command = _textBuilder.Build(tokens, new OrientOutEinVFormat() { });
-            persons = _repo.Select<Person>(command);
-            result = _jsonManager.SerializeObject(persons);
-            return result;
-        }
-
-        public string AddTrackBirthday(OrientEdge edge_, string guidFrom,string guidTo)
-        {
-            string result = null;
-            Person from = GetObjByGUID(guidFrom).FirstOrDefault();
-            Person to = GetObjByGUID(guidTo).FirstOrDefault();
-         
-            if(from!=null&&to!=null)
-            {
-                result = _repo.Add(edge_, from, to);
-            }
-            return result;
-        }
-        public string DeleteTrackedBirthday(OrientEdge edge_, string guidFrom, string guidTo)
-        {
-            string result = null;
-            Person from = GetObjByGUID(guidFrom).FirstOrDefault();
-            Person to = GetObjByGUID(guidTo).FirstOrDefault();
-      
-            List<ITypeToken> condTokens_ = ob.outVinVcnd(typeof(Person), new TextToken() { Text = "GUID" },
-                new TextToken() { Text = from.GUID }, new TextToken() { Text = to.GUID });
-            string command_ = _textBuilder.Build(condTokens_, new OrientOutVinVFormat() { });
-
-            if (from != null && to != null)
-            {
-                result = _repo.Delete(edge_.GetType(), new TextToken() { Text = command_ });
-            }
-            return result;
-        }
-
-    }
-    #endregion
 
 }

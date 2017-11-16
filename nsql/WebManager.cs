@@ -1,8 +1,6 @@
 ﻿
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
 using IWebManagers;
 using System.Net;
@@ -14,6 +12,11 @@ using System.Threading;
 
 namespace WebManagers
 {
+
+    public class NoRequestBinded : Exception
+    {
+        
+    }
 
     ///-->In new overwritten
     ///Base web manager for sending request with type method and reading response to URL
@@ -28,15 +31,15 @@ namespace WebManagers
         {
             _request = null;            
         }
-        public WebRequest addRequest(string url, string method)
+        public WebRequest RequestAdd(string url, string method)
         {
             try
             {
                 _request = WebRequest.Create(url);
                 _request.Method = method;
                 _request.ContentLength = 0;
-              
-                bindCredentials();
+                
+                CredentialsBind();
                 
             }
             catch (Exception e)
@@ -45,28 +48,29 @@ namespace WebManagers
             }
             return _request;
         }
-        internal void addHeader(HttpRequestHeader header, string value)
+        internal void AddHeader(HttpRequestHeader header, string value)
         {
             _request.Headers.Add(header, value);
         }
-        internal void add64Header(HttpRequestHeader header, string value)
+        public void AddBase64AuthHeader(string value)
         {
-            _request.Headers.Add(header, "Basic " + System.Convert.ToBase64String(
+            _request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
             Encoding.ASCII.GetBytes(value)
             ));
         }
-        internal string getHeaderValue(string header)
+       
+        internal string GetHeaderValue(string header)
         {
             string result = string.Empty;
             result = this._request.GetResponse().Headers.Get(header);
             return result;
         }
-        public void addCredentials(NetworkCredential credentials)
+        public void AddCredentials(NetworkCredential credentials)
         {
             _credentials = credentials;
-            bindCredentials();
+            CredentialsBind();
         }
-        public void bindCredentials()
+        public void CredentialsBind()
         {
             if (this._request != null)
             {
@@ -76,11 +80,32 @@ namespace WebManagers
                 }
             }
         }
+        public void CredentialsUnBind()
+        {
+            if (this._request != null)
+            {
+                this._request.Credentials = null;
+            }
+        }
+        public virtual WebResponse GetResponseAuth(string url, string method)
+        {
+
+            RequestAdd(url, method);            
+            try
+            {
+                return (HttpWebResponse)this._request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+
+        }
         public virtual WebResponse GetResponse(string url, string method)
         {
 
-            addRequest(url, method);
-            bindCredentials();
+            RequestAdd(url, method);
+            CredentialsBind();
             try
             {
                 return (HttpWebResponse)this._request.GetResponse();
@@ -93,7 +118,7 @@ namespace WebManagers
         }
         public virtual WebResponse GetResponse()
         {
-            bindCredentials();
+            CredentialsBind();
             try
             {
                 return (HttpWebResponse)this._request.GetResponse();
@@ -110,8 +135,8 @@ namespace WebManagers
         public virtual async Task<HttpWebResponse> GetResponseAsync(string url, string method)
         {
             HttpWebResponse resp;
-            addRequest(url, method);
-            bindCredentials();
+            RequestAdd(url, method);
+            CredentialsBind();
             try
             {
                 resp = (HttpWebResponse)this._request.GetResponse();
@@ -124,6 +149,155 @@ namespace WebManagers
             return await Task.FromResult(resp);
         }
 
+        public WebResponse GetResponse(string method) { throw new NotImplementedException();  }
+        public WebRequest AddRequest(string url) { throw new NotImplementedException(); }
+
+    }
+
+    public class WebManager2 : IWebManager
+    {
+        WebRequest _request;
+        NetworkCredential credentials;
+        string GET="GET";
+        string _url;
+
+        public WebRequest AddRequest(string url)
+        {
+            if (_request == null)
+            {
+                _url = url;
+                this._request = WebRequest.Create(url);
+            }
+            else
+            {
+                this._request = SwapRequests(url);
+            }
+            return this._request;
+        }
+        public HttpWebResponse GetHttpResponse(string method=null)
+        {
+
+            if (this._request == null)
+            {
+                throw new NoRequestBinded();
+            }
+           
+            if (_url == null) { throw new NoRequestBinded(); }
+
+            this._request = WebRequest.Create(_url);
+
+                if (method != null)
+                {
+                    this._request.Method = method;
+                    if (method != GET)
+                    {
+                        this._request.ContentLength = 0;
+                    }
+
+                }
+            else { this._request.Method = GET; }
+                try
+                {
+                    return (HttpWebResponse)this._request.GetResponse();
+
+                }
+                catch (Exception e) { throw e; }
+            
+          
+        }
+
+        public void AddCredentials(NetworkCredential credentials)
+        {
+            this.credentials=credentials;
+        }
+        public void BindCredentials()
+        {
+            if (this._request == null)
+            {
+                throw new NoRequestBinded();
+            }
+            if (this.credentials != null)
+            {
+                this._request.Credentials = this.credentials;
+            }
+            
+        }
+
+        internal WebRequest SwapRequests(string url)
+        {
+            WebRequest temp_request;
+            temp_request = WebRequest.Create(url);
+
+            temp_request.ContentType = this._request.ContentType;
+
+            if (this._request.Method!=GET)
+            {
+                using(Stream strFrom = this._request.GetRequestStream())
+                {
+                    byte[] bt = new byte[strFrom.Length];
+                    using(Stream strTo = temp_request.GetRequestStream())
+                    {
+                        strFrom.ReadAsync(bt, 0, bt.Length);
+                        strTo.WriteAsync(bt, 0, bt.Length);
+                    }               
+                    
+                }
+                temp_request.ContentLength = this._request.ContentLength;
+            }
+
+            temp_request.Headers = this._request.Headers;
+            this._request = temp_request;
+            return this._request;
+        }
+        public void Addheader(HttpRequestHeader header,string value)
+        {
+            if (this._request == null)
+            {
+                throw new NoRequestBinded();
+            }
+            this._request.Headers.Add(header, value);
+        }
+        public string GetHeader(string name)
+        {
+            string header=string.Empty;
+            CheckReq();
+            try
+            {
+                header = this._request.Headers.Get(name);
+            } catch (Exception e) { }
+
+            return header;
+        }      
+        public void AddContent(string value)
+        {          
+            CheckReq();
+            if (this._request.Method != GET)
+            {
+                byte[] bt = null;
+                try
+                {
+                    using (Stream str = this._request.GetRequestStream())
+                    {
+                        bt = new byte[value.Length];
+                        str.WriteAsync(bt, 0, bt.Length);
+                    }                  
+                }
+                catch (Exception e) { }
+            }           
+        }
+
+        internal void CheckReq()
+        {
+            if (this._request == null)
+            {
+                throw new NoRequestBinded();
+            }
+        }
+
+        public WebResponse GetResponse(string method)
+        {
+            throw new Exception();
+        }
     }
 
     /// <summary>
@@ -158,8 +332,7 @@ namespace WebManagers
         public string ReadResponse(HttpResponseMessage response)
         {
             string result = string.Empty;
-            System.Net.Http.HttpContent sm = response.Content;
-            Task<Stream> sr = sm.ReadAsStreamAsync();
+            System.Net.Http.HttpContent sm = response.Content;            
             Task<string> res = sm.ReadAsStringAsync();
             result = res.Result;
             return result;
@@ -191,6 +364,9 @@ namespace WebManagers
 
     }
 
+    /// <summary>
+    /// Wraps result in IhttpActionResult for ApiController return
+    /// </summary>
     public class ReturnEntities : IHttpActionResult
     {
         HttpRequestMessage _returnedTask;

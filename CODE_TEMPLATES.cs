@@ -706,6 +706,7 @@ Parent and child progects merged in child branch
 		
 		public Ideas()
 		{
+			
 			DRY:
 			Common library - leads to a lot links to one unrelated code
 			Common source code - file in proj folder leds to diverse versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
@@ -810,7 +811,21 @@ Parent and child progects merged in child branch
 									
 					System.Net : WebRequest,WebResponse, HttpWebRequest,HttpWebResponse -> web iteration puggable protocols
 				}
-								
+				
+				public class StringConcatenation()
+				{
+					
+https://stackoverflow.com/questions/21078/most-efficient-way-to-concatenate-strings
+					
+Using the plus (+) symbol.
+string.Concat().
+string.Join().
+string.Format().
+string.Append().
+StringBuilder.
+					
+				}
+				
 			}
 			
 			public void Patterns()
@@ -1515,6 +1530,7 @@ Parent and child progects merged in child branch
 					}
 					
 				}
+			
 			}
 			
 			public void WebApi()
@@ -1690,16 +1706,17 @@ Parent and child progects merged in child branch
 					Install-Package Microsoft.ApplicationInsights.Web
 					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
 					
-					
+					 
+					-ProjectName
 					Find-Package microsoft.net.http
 					Install-Package microsoft.net.http
 					Install-Package microsoft.net.http -ProjectName ConsoleApp1
-					install-package Newtonsoft.Json
+					Install-package Newtonsoft.Json
 					
-					Install-Package xunit
-					Install-Package xunit.analyzers 
-					Install-Package xunit.runner.console
-					Install-Package xunit.runner.visualstudio
+					Install-Package xunit  
+					Install-Package xunit.analyzers  
+					Install-Package xunit.runner.console  
+					Install-Package xunit.runner.visualstudio  
 					
 					Update-Package -Reinstall
 					
@@ -2701,7 +2718,7 @@ Parent and child progects merged in child branch
 		
 		}
 
-	}
+		}
 
 		public class External_Libraries()
 		{
@@ -6298,6 +6315,7 @@ Orient_REST_API(){
 		"city": "Rome"
 	  }
 	}
+	
 	//sql batch
 	http://localhost:2480/batch/test_db1/
 	{ "transaction" : true,
@@ -6496,6 +6514,90 @@ http://msk1-vm-ovisp02:2480/command/news_test3/sql/
 			
 }
 
+CommandsConcatenate(){
+	
+	
+//repo commands
+
+CreateDb(DB1);
+CreateDb(DB1,host1);
+CreateDb(DB1,host2);
+CreateDb(DB2,host2);
+POST
+host:port/database/DB1.name/plocal
+
+DB1.add(IOrientObject).extends(IOrientObject);
+DB1.add(Person).extends(V);
+DB1.add(Person,V);
+DB1.add(Unit).extends(V);
+DB1.add(MainAss).extends(E);
+POST
+host:port/command/DB1.name/sql
+{"command":"add class extends class"}
+add {0} 
+extends {0}
+{0} {1}
+
+DB.add(Property);
+{"command":"add property class.property type (mandatory true,notnull tru);"}
+add {0} ->
+{0}.{1} ->
+(mandatory {0}, notnull {1}) ->
+{0} {1} {2} {3}
+
+Person p0 = new Person() {};
+DB1.Add(p0);
+POST
+host:port/command/DB1.name/sql
+{"command":"add class content {\"\":\"\"}"}
+add {0} 
+content {0}
+{0} {1}
+
+Person p1 = DB1.select<Person>().where(s=>s.GUID=='a');
+DB1.select(Person,condition);
+
+Unit u1 = DB1.select(Unit).where(s=>s.GUID=='b');
+
+DB2.add(MainAss).from(p1).to(u1);
+DB2.Add(MainAss,p1,u1);
+
+DB1.Delete(p1);
+DB1.Delete(Person,condition);
+
+select from {0} -> select from person
+where {0} -> where 1=1
+{0} {1} -> select from person where 1=1
+
+
+
+//urls
+type orientdatabase -> host:port/database/{dbname}/plocal
+add,delete,get -> METHOD
+type class (no content)-> host:port/command/{dbname}/sql
+POST,DELETE
+type class content-> host:port/command/{dbname}/sql
+POST,DELETE
+{"command":""}
+host:port/batch/{dbname}
+POST
+{ "transaction" : true,
+	  "operations" : [
+		{
+		  "type" : "script",
+		  "language" : "sql",
+		  "script" : [ {0} ]
+		}
+	  ]
+	} -> {0}, {1}, {2}
+	
+
+
+
+
+
+}
+			
 			}
 			
 			public void Maintenance()

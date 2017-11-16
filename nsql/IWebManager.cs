@@ -1,25 +1,20 @@
 ﻿using System.Net;
 using System.Net.Http;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace IWebManagers
 {
 
-    /// <summary>
+      /// <summary>
     /// Gets response from URL with method
     /// </summary>
     public interface IWebManager
     {
-        void addCredentials(NetworkCredential credentials);
-        WebResponse GetResponse(string url, string method);
-        WebRequest addRequest(string url, string method);
-    }
+        void AddCredentials(NetworkCredential credentials);
+        WebResponse GetResponse(string method);                
+        WebRequest AddRequest(string url);
+        
+    }    
     /// <summary>
     /// Reads response and converts it to string
     /// </summary>

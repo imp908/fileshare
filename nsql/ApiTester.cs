@@ -65,7 +65,7 @@ namespace APItesting
         {
             string jStr = JsonConvert.SerializeObject(APItester_sngltn.TestCases, Formatting.Indented);
             string dir = AppDomain.CurrentDomain.BaseDirectory;
-            if (path is null)
+            if(path == null)
             {
                 path = AppDomain.CurrentDomain.BaseDirectory;
             }
@@ -73,7 +73,7 @@ namespace APItesting
         }
         public void Import(string path = null)
         {
-            if (path is null)
+            if (path == null)
             {
                 path = AppDomain.CurrentDomain.BaseDirectory;
             }
@@ -87,7 +87,8 @@ namespace APItesting
                 bool res = false;
                 try
                 {
-                    var resp = webManager.GetResponse(tc.URI, tc.Method);
+                    webManager.AddRequest(tc.URI);
+                    var resp = webManager.GetResponse(tc.Method);
                     string rR = responseReader.ReadResponse(resp);
 
                     if (tc.Expected.ToLower() == "not null")
