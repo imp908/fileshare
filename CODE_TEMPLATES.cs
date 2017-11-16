@@ -706,7 +706,6 @@ Parent and child progects merged in child branch
 		
 		public Ideas()
 		{
-			
 			DRY:
 			Common library - leads to a lot links to one unrelated code
 			Common source code - file in proj folder leds to diverse versions/getting-started-with-ef-5-using-mvc-4/implementing-the-repository-and-unit-of-work-patterns-in-an-asp-net-mvc-application
@@ -811,7 +810,7 @@ Parent and child progects merged in child branch
 									
 					System.Net : WebRequest,WebResponse, HttpWebRequest,HttpWebResponse -> web iteration puggable protocols
 				}
-				
+								
 				public class StringConcatenation()
 				{
 					
@@ -825,7 +824,6 @@ string.Append().
 StringBuilder.
 					
 				}
-				
 			}
 			
 			public void Patterns()
@@ -1530,7 +1528,6 @@ StringBuilder.
 					}
 					
 				}
-			
 			}
 			
 			public void WebApi()
@@ -1706,17 +1703,17 @@ StringBuilder.
 					Install-Package Microsoft.ApplicationInsights.Web
 					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
 					
-					 
+					
 					-ProjectName
 					Find-Package microsoft.net.http
 					Install-Package microsoft.net.http
 					Install-Package microsoft.net.http -ProjectName ConsoleApp1
-					Install-package Newtonsoft.Json
+					install-package Newtonsoft.Json
 					
-					Install-Package xunit  
-					Install-Package xunit.analyzers  
-					Install-Package xunit.runner.console  
-					Install-Package xunit.runner.visualstudio  
+					Install-Package xunit
+					Install-Package xunit.analyzers 
+					Install-Package xunit.runner.console
+					Install-Package xunit.runner.visualstudio
 					
 					Update-Package -Reinstall
 					
@@ -1730,7 +1727,8 @@ StringBuilder.
 					FRAMEWORKS -> System.Configuration
 					
 				}
-			}			
+			
+			}
 			
 			public void MSbuild()
 			{
@@ -2718,7 +2716,7 @@ StringBuilder.
 		
 		}
 
-		}
+	}
 
 		public class External_Libraries()
 		{
@@ -6315,7 +6313,6 @@ Orient_REST_API(){
 		"city": "Rome"
 	  }
 	}
-	
 	//sql batch
 	http://localhost:2480/batch/test_db1/
 	{ "transaction" : true,
@@ -6329,6 +6326,7 @@ Orient_REST_API(){
 		}
 	  ]
 	}
+	
 	//batch
 	http://localhost:2480/batch/test_db1/
 	{ "transaction" : true,
@@ -6373,54 +6371,122 @@ Orient_REST_API(){
 }
 
 Orient_REST_FIDDLER(){
+		
+	POST/DELETE
+	http://localhost:2480/database/demo/plocal
+
+
+	http://localhost:2480/connect/test_db1
+	User-Agent: Fiddler
+	Host: localhost:2480
+	Authorization: Basic cm9vdDpyb290
+
+
+	http://localhost:2480/database/test_db1
+	Host: localhost:2480
+	Cookie: OSESSIONID=OS15104197214972108562285800211602;
+	Connection: keep-alive
+
+	http://localhost:2480/command/test_db/sql
+	Host: localhost:2480
+	Connection: keep-alive
+	Authorization: Basic cm9vdDpyb290
+	Content-Length: 85
+	{
+	  "command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"
+	 }
+	{
+	  "command": "CREATE class  Person;"
+	 }
+
+	http://localhost:2480/batch/test_db/sql
+	Host: localhost:2480
+	Connection: keep-alive
+	Authorization: Basic cm9vdDpyb290
+	Content-Length: 756
+	{ "transaction" : true,
+	"operations" : [
+	{
+	  "type" : "script",
+	  "language" : "sql",
+	  "script" : [
+	"delete vertex Person",
+		 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"
+		 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"2\", \"Name\": \"0\"}"
+		 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"3\", \"Name\": \"0\"}"
+		 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"4\", \"Name\": \"0\"}"
+	  ]
+	}
+	]
+	}
+
+	{ "transaction" : true,
+	"operations" : [
+	{
+	  "type" : "script",
+	  "language" : "sql",
+	  "script" : [
+	"delete vertex Person",
+	"delete vertex Unit",
+	"delete edge MainAssignment",
+	"create vertex Unit content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"5\", \"Name\": \"0\"}",
+	"create vertex Unit content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"6\", \"Name\": \"0\"}",
+	"create vertex Unit content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"7\", \"Name\": \"0\"}",
+
+	"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"
+	,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"2\", \"Name\": \"0\"}"
+	,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"3\", \"Name\": \"0\"}"
+	,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"4\", \"Name\": \"0\"}"
+
+
+	]
+	}
+	]
+	}
 	
-POST/DELETE
-http://localhost:2480/database/demo/plocal
+	//will work edges only throught let or command
+	{ "transaction" : true,
+	"operations" : [
+	{
+	  "type" : "script",
+	  "language" : "sql",
+	  "script" : [
+	"let a = select from Unit where GUID =5",
+	"let b = select from Person where GUID =1",
+	" create edge MainAssignment from $a to $b  content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"8\", \"Name\": \"0\"}"
 
+	]
+	}
+	]
+	}
+	
+	//will work too
+	{ "transaction" : true,
+	"operations" : [
+	{
+		  "type" : "cmd",
+		  "language" : "sql",
+		  "command" : "create edge MainAssignment from 47:0 to 50:1 content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"4\", \"Name\": \"0\"}"
+		}
+	]
+	}
 
-http://localhost:2480/connect/test_db1
-User-Agent: Fiddler
-Host: localhost:2480
-Authorization: Basic cm9vdDpyb290
+	//will not work -> only command
+	{ "transaction" : true,
+	  "operations" : [
+		{
+		  "type" : "script",
+		  "language" : "sql",
+		  "script" : [
 
+	"create edge MainAssignment from (select from Unit where Name = 5) to (select from Person where Name = 1) content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"8\", \"Name\": \"0\"}"
+	,"create edge MainAssignment from (select from Unit where Name = 5) to (select from Person where Name = 2) content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"8\", \"Name\": \"0\"}"
+	,"create edge MainAssignment from (select from Unit where Name = 6) to (select from Person where Name = 3) content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"8\", \"Name\": \"0\"}"
 
-http://localhost:2480/database/test_db1
-Host: localhost:2480
-Cookie: OSESSIONID=OS15104197214972108562285800211602;
-Connection: keep-alive
-
-http://localhost:2480/command/test_db/sql
-Host: localhost:2480
-Connection: keep-alive
-Authorization: Basic cm9vdDpyb290
-Content-Length: 85
-{
-  "command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"
- }
-{
-  "command": "CREATE class  Person;"
- }
-
-http://localhost:2480/batch/test_db/sql
-Host: localhost:2480
-Connection: keep-alive
-Authorization: Basic cm9vdDpyb290
-Content-Length: 756
-{ "transaction" : true,
-"operations" : [
-{
-  "type" : "script",
-  "language" : "sql",
-  "script" : [
-"delete vertex Person",
-	 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"
-	 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"2\", \"Name\": \"0\"}"
-	 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"3\", \"Name\": \"0\"}"
-	 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"4\", \"Name\": \"0\"}"
-  ]
-}
-]
-}
+	]
+		}
+	  ]
+	}
 
 }
 
@@ -6515,90 +6581,90 @@ http://msk1-vm-ovisp02:2480/command/news_test3/sql/
 }
 
 CommandsConcatenate(){
-	
-	
-//repo commands
-
-CreateDb(DB1);
-CreateDb(DB1,host1);
-CreateDb(DB1,host2);
-CreateDb(DB2,host2);
-POST
-host:port/database/DB1.name/plocal
-
-DB1.add(IOrientObject).extends(IOrientObject);
-DB1.add(Person).extends(V);
-DB1.add(Person,V);
-DB1.add(Unit).extends(V);
-DB1.add(MainAss).extends(E);
-POST
-host:port/command/DB1.name/sql
-{"command":"add class extends class"}
-add {0} 
-extends {0}
-{0} {1}
-
-DB.add(Property);
-{"command":"add property class.property type (mandatory true,notnull tru);"}
-add {0} ->
-{0}.{1} ->
-(mandatory {0}, notnull {1}) ->
-{0} {1} {2} {3}
-
-Person p0 = new Person() {};
-DB1.Add(p0);
-POST
-host:port/command/DB1.name/sql
-{"command":"add class content {\"\":\"\"}"}
-add {0} 
-content {0}
-{0} {1}
-
-Person p1 = DB1.select<Person>().where(s=>s.GUID=='a');
-DB1.select(Person,condition);
-
-Unit u1 = DB1.select(Unit).where(s=>s.GUID=='b');
-
-DB2.add(MainAss).from(p1).to(u1);
-DB2.Add(MainAss,p1,u1);
-
-DB1.Delete(p1);
-DB1.Delete(Person,condition);
-
-select from {0} -> select from person
-where {0} -> where 1=1
-{0} {1} -> select from person where 1=1
 
 
+//Rest paramters strategy
+Type = IOrientDatabase => 
+host:port/database/{dbname}/plocal | POST,DELETE
+host:port/connect/{dbname} | GET
 
-//urls
-type orientdatabase -> host:port/database/{dbname}/plocal
-add,delete,get -> METHOD
-type class (no content)-> host:port/command/{dbname}/sql
-POST,DELETE
-type class content-> host:port/command/{dbname}/sql
-POST,DELETE
-{"command":""}
-host:port/batch/{dbname}
-POST
+Type = IorientVertex,IorientEdge => 
+host:port/command/{dbname}/sql | POST
+host:port/batch/{dbname} | POST
+
+Content != null => + content
+{"command":"query"}
 { "transaction" : true,
 	  "operations" : [
 		{
 		  "type" : "script",
 		  "language" : "sql",
-		  "script" : [ {0} ]
+		  "script" : [{0}]
 		}
 	  ]
-	} -> {0}, {1}, {2}
+	} -> {0} ,..,{n}
+
 	
+//command signatures
+delete/Add(Idb);
+delete/Add(Idb,host);
+delete/Add(Type,ItypeToken content);
+{classes}
+delete/Add(IorientObject);
+{objects}
 
 
+//url formats
+format  define {0}:{1} => host:port
+format  gen {0}{*}..{*}{n} => 
+host:port /dbname/plocal ; 
+host:port/connect/dbname ;
+host:port/command/dbname/sql ;
+host:port/batch/dbname ;
+[examples
+{0} {1} .. {n}
+{0}/{1}/../{n}
+]
 
 
+//command formats
+///Property foreach prop of class, with type convert, nullable,
+///pregen foramat for small token collections, then aggregate them, in command token collections
+//{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
+format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
+create class [V/E] <extends [V/E]>
 
-}
-			
+format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1} {2}
+	   property {V/E}.{Property} type ( mandatory = bool , notnull = bool )
+
+	   
+																			{0}[1p]{2} => 0
+																			cond 'param'
+																			
+																			format gen {0}{1} +{0}{1}[2p]{3}{4} +{0}[1p] +[0p] {1} => {0}{1}{2} {3}
+																			inE['[class]'] .Property cond 'param'
+																			in|out/E|V
+
+																			[0p].[1p] [0p] {0}[1p]{2} => {0} {1} {2}
+																			class.property cond 'param'
+																			GUID/ID/@class.size = ''
+	
+																format gen[0] .. [n]
+																where 1=1 
+
+											format gen{0} {1} [2p]<{3} .. [] ..[n]> => {0} {0} .. {n} => {0} {1}
+											select from [V/E] < where 1=1 .. connd1 .. condN>
+
+format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1} {2} {3} => {0} {1}
+		vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
+
+		
+		
+
+					}
 			}
+		
+		}
 			
 			public void Maintenance()
 			{
@@ -6625,7 +6691,8 @@ PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
 	
 	public void Initial_NewsApi_Queries()
 	{
-		
+
+
 CREATE CLASS VSC extends V;
 
 CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);
@@ -6872,7 +6939,7 @@ DOUBLE	FLOAT	BINARY	EMBEDDED	LINKBAG
 EMBEDDEDLIST	EMBEDDEDSET	EMBEDDEDMAP
 LINKLIST	LINKSET	LINKMAP
 		*/
-		
+	
 create class VSCN extends V;
 CREATE PROPERTY VSCN.Name STRING (MANDATORY TRUE, notnull true);
 CREATE PROPERTY VSCN.Created DATETIME (MANDATORY TRUE, notnull true);
