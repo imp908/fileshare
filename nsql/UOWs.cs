@@ -89,7 +89,11 @@ namespace UOWs
             TextToken condition_ = new TextToken() { Text = "1=1 and GUID ='" + GUID + "'" };
             List<ITypeToken> tokens = ob.outEinVExp(new OrientSelectToken(),
                 _typeConverter.Get(typeof(Person)), _typeConverter.Get(typeof(TrackBirthdays)), condition_);
-            string command = _CommandBuilder.Build(tokens, new OrientOutEinVFormat() { });
+
+            _CommandBuilder.AddTokens(tokens);
+            _CommandBuilder.AddFormat(new OrientOutEinVFormat() { });
+            string command = _CommandBuilder.Build();
+
             persons = _repo.Select<Person>(command);
             result = _jsonManager.SerializeObject(persons);
             return result;
@@ -115,11 +119,15 @@ namespace UOWs
 
             List<ITypeToken> condTokens_ = ob.outVinVcnd(typeof(Person), new TextToken() { Text = "GUID" },
                 new TextToken() { Text = from.GUID }, new TextToken() { Text = to.GUID });
-            string command_ = _CommandBuilder.Build(condTokens_, new OrientOutVinVFormat() { });
+
+            _CommandBuilder.AddTokens(condTokens_);
+            _CommandBuilder.AddFormat(new OrientOutVinVFormat() { });
+            string command = _CommandBuilder.Build();
+      
 
             if (from != null && to != null)
             {
-                result = _repo.Delete(edge_.GetType(), new TextToken() { Text = command_ });
+                result = _repo.Delete(edge_.GetType(), new TextToken() { Text = command });
             }
             return result;
         }

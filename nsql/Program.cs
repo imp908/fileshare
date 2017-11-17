@@ -5,11 +5,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
-using System.IO;
+
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
 
 using JsonManagers;
 using WebManagers;
@@ -17,8 +14,10 @@ using QueryManagers;
 using POCO;
 
 using APItesting;
-using IOrientObjects;
-
+using IQueryManagers;
+using OrientRealization;
+using Repos;
+using UOWs;
 
 namespace NSQLManager
 {
@@ -38,9 +37,9 @@ namespace NSQLManager
     {
 
         JSONManager jm;
-        OrientTokenAggregator tb;
+        OrientTokenBuilder tb;
         TypeConverter tc;
-        TextBuilder ocb;
+        CommandBuilder ocb;
         OrientWebManager wm ;
         WebResponseReader wr;
 
@@ -55,11 +54,12 @@ namespace NSQLManager
         UserSettings us;
         CommonSettings cs;
         string guid_;
-
+        
         public RepoCheck()
-        {
+        {            
+            
             jm = new JSONManager();
-            tb = new OrientTokenAggregator();
+            tb = new OrientTokenBuilder();
             tc = new TypeConverter();
             ocb = new OrientCommandBuilder();
             wm = new OrientWebManager();
@@ -67,9 +67,9 @@ namespace NSQLManager
 
             us = new UserSettings() { showBirthday = true };
             cs = new CommonSettings();
-
+            
             repo = new Repo(jm, tb, tc, ocb, wm, wr);
-
+         
             s = new SubUnit();
 
             p =
@@ -91,13 +91,16 @@ new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 
 
         public void GO()
         {
-            APItester_sngltnCheck();
-
+           
             TrackBirthdaysPtP();
             DeleteBirthdays();
-            DbCreateDeleteCheck();            
-            TrackBirthdaysOneToAll();          
+            DbCreateDeleteCheck();
             AddCheck();
+            APItester_sngltnCheck();
+
+                        
+            TrackBirthdaysOneToAll();          
+            
             DeleteCheck();
             ExplicitCommandsCheck();
             BirthdayConditionAdd();
@@ -111,7 +114,7 @@ new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 
         }
         public void AddCheck()
         {
-            int lim = 500;
+            int lim = 10;
 
             for (int i = 0; i <= lim; i++)
             {
@@ -147,37 +150,37 @@ new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 
             List<IQueryManagers.ITypeToken> lt = new List<IQueryManagers.ITypeToken>();
             List<string> ls = new List<string>();
 
-
-lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientClassToken() { Text = "V" });
-ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+      
+lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientClassToken() { Text = "V" });           
+ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
 
 lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientPropertyToken() { Text = "Name" }, new OrientSTRINGToken(), true,true);
-ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
 
 lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientPropertyToken() { Text = "Created" }, new OrientDATEToken(), true, true);
-ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
 
 
 
 lt = eb.Create(new OrientClassToken() { Text = "ESCN" }, new OrientClassToken() { Text = "E" });
-ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
 
 lt = eb.Create(new OrientClassToken() { Text = "ESCN" }, new OrientPropertyToken() { Text = "Name" }, new OrientSTRINGToken(), true, true);
-ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
 
 lt = eb.Create(new OrientClassToken() { Text = "ESCN" }, new OrientPropertyToken() { Text = "Created" }, new OrientDATEToken(), true, true);
-ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
 
 
 
 lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientClassToken() { Text = "VSCN" });
-ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
 
 lt = eb.Create(new OrientClassToken() { Text = "Beer" }, new OrientClassToken() { Text = "VSCN" });
-ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
 
 lt = eb.Create(new OrientClassToken() { Text = "Produces" }, new OrientClassToken() { Text = "ESCN" });
-ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
+ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
 
 
 
@@ -206,8 +209,8 @@ ls.Add(cb.Build(lt, new TextFormatGenerate(lt)));
         public void DbCreateDeleteCheck()
         {
 
-            repo.Add(new TextToken() { Text = "news_test3" }, new DELETE());
-            repo.Add(new TextToken() { Text = "news_test3" }, new POST());
+            repo.Add(new TextToken() { Text = "test_db" }, new DELETE());
+            repo.Add(new TextToken() { Text = "test_db" }, new POST());
 
         }
         public void TrackBirthdaysOneToAll()

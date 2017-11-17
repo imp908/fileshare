@@ -6286,8 +6286,7 @@ drop table #Account;
 			
 			public void REST_API()
 			{
-				
-				
+								
 Orient_REST_API(){
 
 	https://orientdb.com/docs/2.1/OrientDB-REST.html?q=
@@ -6636,7 +6635,6 @@ create class [V/E] <extends [V/E]>
 
 format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1} {2}
 	   property {V/E}.{Property} type ( mandatory = bool , notnull = bool )
-
 	   
 																			{0}[1p]{2} => 0
 																			cond 'param'
@@ -6657,15 +6655,15 @@ format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1
 
 format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1} {2} {3} => {0} {1}
 		vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
-
-		
+	
 		
 
 					}
 			}
 		
 		}
-			
+
+		
 			public void Maintenance()
 			{
 				

@@ -12,7 +12,7 @@ using WebManagers;
 using IQueryManagers;
 using QueryManagers;
 using IOrientObjects;
-
+using IFormats;
 using POCO;
 
 /// <summary>
@@ -251,13 +251,21 @@ namespace OrientRealization
     {
         public string Text { get; set; } = @",";
     }
-    public class OrientLtRoundSquareToken : ITypeToken
+    public class OrientRoundBraketLeftToken : ITypeToken
     {
         public string Text { get; set; } = @"(";
     }
-    public class OrientRtRoundSquareToken : ITypeToken
+    public class OrientRoundBraketRightToken : ITypeToken
     {
         public string Text { get; set; } = @")";
+    }
+    public class OrientSquareBraketLeftToken : ITypeToken
+    {
+        public string Text { get; set; } = @"[";
+    }
+    public class OrientSquareBraketRightToken : ITypeToken
+    {
+        public string Text { get; set; } = @"]";
     }
     public class OrientTRUEToken : ITypeToken
     {
@@ -305,7 +313,7 @@ namespace OrientRealization
 
     public class OrientTestDbToken : ITypeToken
     {
-        public string Text { get; set; } = "TestDB";
+        public string Text { get; set; } = ConfigurationManager.AppSettings["TestDBname"];
     }
 
     public class OrientUserSettingsToken : ITypeToken
@@ -354,16 +362,19 @@ namespace OrientRealization
     }
     #endregion
 
-    #region TokenFormats
-    /// <summary>
-    /// Builder formats
-    /// </summary>
 
-    //genrate sample format from colectin of tokens
-    public class OrientTokenFormatFromListGenerate : ITypeToken
+    /// <summary>
+    /// genrates sample format from collection of tokens
+    /// </summary>
+    public class FormatFromListGenerator :  IFormatFromListGenerator
     {
-        public string Text { get; set; }
-        public OrientTokenFormatFromListGenerate(List<ITypeToken> tokens)
+        public FormatFromListGenerator(ITypeToken token_)
+        {
+            this.Token = token_;
+        }
+        public ITypeToken Token { get; set; }
+
+        public ITypeToken FormatFromListGenerate(List<ITypeToken> tokens)
         {
             string res = "{}";
             int[] cnt = new int[tokens.Count];
@@ -372,21 +383,238 @@ namespace OrientRealization
                 cnt[i] = i;
             }
             string res2 = string.Join(@"} {", cnt);
-            this.Text = res.Insert(1, res2);
+            this.Token.Text = res.Insert(1, res2);
+            return this.Token;
         }
-        public OrientTokenFormatFromListGenerate(List<ITypeToken> tokens, string delimeter)
+        public ITypeToken FormatFromListGenerate(List<ITypeToken> tokens, string delimeter)
         {
             string res = "{}";
-            string placeholder = string.Format("}", delimeter, "{");
+            string placeholder = string.Join("}", delimeter, "{");
             int[] cnt = new int[tokens.Count];
             for (int i = 0; i < tokens.Count(); i++)
             {
                 cnt[i] = i;
             }
             string res2 = string.Join(placeholder, cnt);
-            this.Text = res.Insert(1, res2);
+            this.Token.Text = res.Insert(1, res2);
+            return this.Token;
         }
     }
+
+
+    public class Commands
+    {
+        ICommandBuilder _commandBuilder;
+        IFormatFromListGenerator _formatGenerator;
+        ITypeToken _token;
+
+        CommandShemas commandShemas;
+
+        public string GetCommand()
+        {
+            return this._commandBuilder.Text.Text;
+        }
+        public Commands(ICommandBuilder cb_, IFormatFromListGenerator tt_, ITypeToken token_)
+        {
+            this._commandBuilder = cb_;
+            this._formatGenerator = tt_;
+            this._token = token_;
+
+            commandShemas = new CommandShemas(cb_, tt_, token_);
+        }
+        
+        public Commands Select(ICommandBuilder param = null)
+        {
+            this._commandBuilder = commandShemas.Select(param);
+            return this;
+        }
+        public Commands Nest(ITypeToken leftToken, ITypeToken rightToken, ITypeToken format = null)
+        {
+            this._commandBuilder = commandShemas.Nest(this._commandBuilder, leftToken,rightToken,format);
+            return this;
+        }
+
+
+
+    }
+
+    public class CommandShemas
+    {
+
+        ICommandBuilder _commandBuilder;
+        IFormatFromListGenerator _formatGenerator;
+        ITypeToken _token;
+        public CommandShemas(ICommandBuilder cb_, IFormatFromListGenerator tt_, ITypeToken token_)
+        {
+            this._commandBuilder = cb_;
+            this._formatGenerator = tt_;
+            this._token = token_;
+        }
+        
+        /// <summary>
+        /// Universal builder of tokens, looks like reinvention of concat, but for classes
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        public ICommandBuilder Command(List<ITypeToken> tokens, ITypeToken format = null)
+        {
+            if (format == null)
+            {
+                //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+                this._token = _formatGenerator.FormatFromListGenerate(tokens);
+            }
+            else { this._token = format; }
+
+            this._commandBuilder.AddTokens(tokens);
+            this._commandBuilder.AddFormat(_token);
+            this._commandBuilder.Build();
+            return this._commandBuilder;
+        }
+        /// <summary>
+        /// Universal builder of commands use for large commands aggregation
+        /// </summary>
+        /// <param name="tokens"></param>
+        /// <param name="format"></param>
+        /// <returns></returns>
+        public ICommandBuilder Command(List<ICommandBuilder> tokens, ITypeToken format)
+        {
+            _commandBuilder.AddBuilders(tokens, format);
+            return this._commandBuilder;
+        }
+
+        public ICommandBuilder Nest(ICommandBuilder param,ITypeToken leftToken,ITypeToken rightToken,ITypeToken format = null)
+        {
+            List<ITypeToken> tokenList = new List<ITypeToken>();
+
+            tokenList.Add(leftToken);
+            tokenList.AddRange(param.Tokens);
+            tokenList.Add(rightToken);
+         
+            if (format != null)
+            {
+                this._token = _formatGenerator.FormatFromListGenerate(tokenList, format.Text);
+            }
+            else
+            {
+                this._token = _formatGenerator.FormatFromListGenerate(tokenList);
+            }
+
+            this._commandBuilder.AddTokens(tokenList);
+            this._commandBuilder.AddFormat(_token);
+            string command = this._commandBuilder.Build();
+
+            return this._commandBuilder;
+        }
+        public ICommandBuilder Content(ICommandBuilder param)
+        {
+            List<ITypeToken> tokenList = new List<ITypeToken>();
+
+            tokenList.Add(new OrientContentToken());
+
+            tokenList.AddRange(param.Tokens);
+
+
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            this._token = _formatGenerator.FormatFromListGenerate(tokenList);
+
+            this._commandBuilder.AddTokens(tokenList);
+            this._commandBuilder.AddFormat(_token);
+            string command = this._commandBuilder.Build();
+
+            return this._commandBuilder;
+        }
+        public ICommandBuilder Extends(ITypeToken param)
+        {
+            List<ITypeToken> tokenList = new List<ITypeToken>();
+
+            tokenList.Add(new OrientExtendsToken());
+            tokenList.Add(param);
+           
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            this._token = _formatGenerator.FormatFromListGenerate(tokenList);
+
+            this._commandBuilder.AddTokens(tokenList);
+            this._commandBuilder.AddFormat(_token);
+            string command = this._commandBuilder.Build();
+
+            return this._commandBuilder;
+        }
+        public ICommandBuilder Class(ICommandBuilder param = null)
+        {
+            List<ITypeToken> tokenList = new List<ITypeToken>();
+
+            tokenList.Add(new OrientClassToken());
+            if (param != null)
+            {
+                tokenList.AddRange(param.Tokens);
+            }
+
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            this._token = _formatGenerator.FormatFromListGenerate(tokenList);
+
+            this._commandBuilder.AddTokens(tokenList);
+            this._commandBuilder.AddFormat(_token);
+            string command = this._commandBuilder.Build();
+
+            return this._commandBuilder;
+        }
+
+        public ICommandBuilder Create(ICommandBuilder param)
+        {
+            List<ITypeToken> tokenList = new List<ITypeToken>();
+
+            tokenList.Add(new OrientCreateToken());
+           
+            tokenList.AddRange(param.Tokens);
+            
+
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            this._token = _formatGenerator.FormatFromListGenerate(tokenList);
+
+            this._commandBuilder.AddTokens(tokenList);
+            this._commandBuilder.AddFormat(_token);
+            string command = this._commandBuilder.Build();
+
+            return this._commandBuilder;
+        }
+
+
+
+        /// <summary>
+        /// Returns select from command when null passed. when any commandbuilderpassed returns select {0} from command
+        /// </summary>
+        /// <param name="param">Command builder containining what to select </param>
+        /// <returns></returns>
+        public ICommandBuilder Select(ICommandBuilder param = null)
+        {
+            List<ITypeToken> tokenList = new List<ITypeToken>();
+
+            tokenList.Add(new OrientSelectToken());
+            if (param != null)
+            {
+                tokenList.AddRange(param.Tokens);
+            }
+            tokenList.Add(new OrientFromToken());
+
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            this._token = _formatGenerator.FormatFromListGenerate(tokenList);
+
+            this._commandBuilder.AddTokens(tokenList);
+            this._commandBuilder.AddFormat(_token);
+            string command = this._commandBuilder.Build();
+
+            return this._commandBuilder;
+        }
+        
+    }
+
+    //<<<
+    /// <summary>
+    /// <<< deprecation possible. mmostly replaced by generator with empty string placeholder. 
+    /// Complex edge filter formats replaced by groups of nested concatenation
+    /// </summary>
+    #region TokenFormats
     //Auth Orient URL
     public class OrientAuthenticationURLFormat : ITypeToken
     {
@@ -443,108 +671,10 @@ namespace OrientRealization
         public string Text { get { return @"{0}{1}{2}{3}{4}{5}{6}{7}{8}{9}{10}{11}{12} {13} {14}{15}{16}{17}{18}{19}{20}{21}{22}{23}{24}{25}{26}"; } set { Text = value; } }
     }
     #endregion
-
-    #region TokenListsBuilders
-
-    //buider for commands with format
-    //mostly used for URLS (auth,
-    public class OrientCommandBuilder : CommandBuilder
-    {
-        public OrientCommandBuilder() : base()
-        {
-
-        }
-        public OrientCommandBuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
-             : base(tokens_, FormatPattern_)
-        {
-
-        }
-    }
-
-    //<<--deprecation possible, replaced with type convertible commandbuilder
-    //Query builders
-    //class segregation for different cluse builders
-
-    //Authentication URL build
-    public class OrientAuthenticationURIBuilder : CommandBuilder
-    {
-        public OrientAuthenticationURIBuilder(List<ITypeToken> tokens_, OrientAuthenticationURLFormat FormatPattern_)
-             : base(tokens_, FormatPattern_)
-        {
-
-        }
-    }
-    //Command URL build
-    public class OrientCommandURIBuilder : CommandBuilder
-    {
-        public OrientCommandURIBuilder(List<ITypeToken> tokens_, OrientCommandURLFormat FormatPattern_)
-            : base(tokens_, FormatPattern_)
-        {
-
-        }
-        public OrientCommandURIBuilder(List<ICommandBuilder> texts_, ITypeToken FormatPattern_, CommandBuilder.BuildTypeFormates type_)
-          : base(texts_, FormatPattern_, type_)
-        {
-
-        }
-    }
-
-    public class OrientSelectClauseBuilder : CommandBuilder
-    {
-        public OrientSelectClauseBuilder(List<ITypeToken> tokens_, OrientSelectClauseFormat FormatPattern_ = null)
-            : base(tokens_, FormatPattern_ = new OrientSelectClauseFormat())
-        {
-
-        }
-    }
-    public class OrientWhereClauseBuilder : CommandBuilder
-    {
-        public OrientWhereClauseBuilder(List<ITypeToken> tokens_, OrientWhereClauseFormat FormatPattern_)
-            : base(tokens_, FormatPattern_)
-        {
-
-        }
-    }
-
-    public class OrientCreateClauseBuilder : CommandBuilder
-    {
-        public OrientCreateClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
-            : base(tokens_, format_)
-        {
-
-        }
-    }
-    public class OrientDeleteClauseBuilder : CommandBuilder
-    {
-        public OrientDeleteClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
-            : base(tokens_, format_)
-        {
-
-        }
-    }
-
-    public class OrientNestedSelectClauseBuilder : CommandBuilder
-    {
-        public OrientNestedSelectClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
-            : base(tokens_, format_)
-        {
-
-        }
-    }
-    #endregion
-
-    //predefined url token collections
-    //prefered change to predefined url and command builds
-    public static class TokenRepo
-    {
-        public static List<ITypeToken> authUrl = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientAuthenticateToken(), new OrientDatabaseNameToken() };
-        public static List<ITypeToken> commandUrl = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientCommandToken(), new OrientDatabaseNameToken(), new OrientCommandSQLTypeToken() };
-        public static List<ITypeToken> addDbURL = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientDatabaseToken()};
-    }   
-	
+    //<<<
     #region CommandBuilders
-	
-   /// <summary>
+
+    /// <summary>
     /// Builders.
     /// Build command acording to type of passed object (class,vertes, or edge with objects referenced or ids)
     /// Not use predefined formatters 
@@ -579,7 +709,7 @@ namespace OrientRealization
             {
                 result.Add(command_);
                 result.Add(new OrientFromToken());
-                result.Add(orientObject);                
+                result.Add(orientObject);
                 result.Add(new OrientWhereToken());
                 result.Add(orientType);
             }
@@ -599,7 +729,7 @@ namespace OrientRealization
         }
 
         //for create Edge from to 
-        public List<ITypeToken> Command(ITypeToken command_, ITypeToken orientObject, ITypeToken orientType,  ITypeToken tokenA, ITypeToken tokenB, ITypeToken context_)
+        public List<ITypeToken> Command(ITypeToken command_, ITypeToken orientObject, ITypeToken orientType, ITypeToken tokenA, ITypeToken tokenB, ITypeToken context_)
         {
             tokenA.Text = tokenA.Text.Replace(@"#", "");
             tokenB.Text = tokenB.Text.Replace(@"#", "");
@@ -613,7 +743,8 @@ namespace OrientRealization
             result.Add(new OrientToToken());
             result.Add(tokenB);
 
-            if(command_ is OrientCreateToken){
+            if (command_ is OrientCreateToken)
+            {
                 if (context_ != null && context_.Text != null && context_.Text != string.Empty)
                 {
                     result.Add(new OrientContentToken());
@@ -623,12 +754,12 @@ namespace OrientRealization
             if (command_ is OrientDeleteToken)
             {
                 if (context_ != null && context_.Text != null && context_.Text != string.Empty)
-                {                    
+                {
                     result.Add(context_);
                 }
             }
             return result;
-        }        
+        }
 
     }
 
@@ -636,64 +767,64 @@ namespace OrientRealization
     {
         TypeConverter typeConverter_ = new TypeConverter();
 
-        public List<ITypeToken> outEinVExp(ITypeToken command_,ITypeToken vertex_,ITypeToken edge_, ITypeToken condition_)
+        public List<ITypeToken> outEinVExp(ITypeToken command_, ITypeToken vertex_, ITypeToken edge_, ITypeToken condition_)
         {
             List<ITypeToken> result = new List<ITypeToken>();
             result.Add(command_);
             //expand
             result.Add(new OrientExpandToken());
-            result.Add(new OrientLtRoundSquareToken());
-            
+            result.Add(new OrientRoundBraketLeftToken());
+
             //outE
             result.Add(new OrientOutToken());
             result.Add(new OrientEToken());
-            result.Add(new OrientLtRoundSquareToken());
+            result.Add(new OrientRoundBraketLeftToken());
             result.Add(new OrientApostropheToken());
             result.Add(edge_);
             result.Add(new OrientApostropheToken());
-            result.Add(new OrientRtRoundSquareToken());
+            result.Add(new OrientRoundBraketRightToken());
             result.Add(new OrientDotToken());
             //inv
             result.Add(new OrientInToken());
             result.Add(new OrientVToken());
-            result.Add(new OrientLtRoundSquareToken());
+            result.Add(new OrientRoundBraketLeftToken());
             result.Add(new OrientApostropheToken());
             result.Add(vertex_);
             result.Add(new OrientApostropheToken());
-            result.Add(new OrientRtRoundSquareToken());
+            result.Add(new OrientRoundBraketRightToken());
 
-            result.Add(new OrientRtRoundSquareToken());
+            result.Add(new OrientRoundBraketRightToken());
 
             result.Add(new OrientFromToken());
             result.Add(vertex_);
 
-            if(condition_!= null && condition_.Text != null && condition_.Text!=string.Empty)
+            if (condition_ != null && condition_.Text != null && condition_.Text != string.Empty)
             {
                 result.Add(new OrientWhereToken());
                 result.Add(condition_);
             }
 
-            result.Add(new OrientLtRoundSquareToken());
+            result.Add(new OrientRoundBraketLeftToken());
             result.Add(new OrientApostropheToken());
-            result.Add(new OrientRtRoundSquareToken());
+            result.Add(new OrientRoundBraketRightToken());
             return result;
         }
 
         public List<ITypeToken> outVinVcnd(Type object_, ITypeToken property_, ITypeToken conda_, ITypeToken condb_)
         {
-            List<ITypeToken> result = new List<ITypeToken>();         
-            
+            List<ITypeToken> result = new List<ITypeToken>();
+
             if (object_.BaseType == typeof(OrientVertex) || object_.BaseType == typeof(OrientEdge))
             {
-                       
+
                 //outV
                 result.Add(new OrientOutToken());
                 result.Add(new OrientVToken());
-                result.Add(new OrientLtRoundSquareToken());
+                result.Add(new OrientRoundBraketLeftToken());
                 result.Add(new OrientApostropheToken());
                 result.Add(typeConverter_.Get(object_));
                 result.Add(new OrientApostropheToken());
-                result.Add(new OrientRtRoundSquareToken());
+                result.Add(new OrientRoundBraketRightToken());
                 result.Add(new OrientDotToken());
                 result.Add(property_);
 
@@ -708,11 +839,11 @@ namespace OrientRealization
                 //inv
                 result.Add(new OrientInToken());
                 result.Add(new OrientVToken());
-                result.Add(new OrientLtRoundSquareToken());
+                result.Add(new OrientRoundBraketLeftToken());
                 result.Add(new OrientApostropheToken());
                 result.Add(typeConverter_.Get(object_));
                 result.Add(new OrientApostropheToken());
-                result.Add(new OrientRtRoundSquareToken());
+                result.Add(new OrientRoundBraketRightToken());
                 result.Add(new OrientDotToken());
                 result.Add(property_);
 
@@ -727,7 +858,7 @@ namespace OrientRealization
         }
 
     }
-	/// <summary>creates collection of tokens
+    /// <summary>creates collection of tokens
     /// builds add,delete,create commands from token amount
     /// </summary>
     public class OrientCommandBuilderImplicit : ITokenBuilderTypeGen
@@ -742,9 +873,9 @@ namespace OrientRealization
 
         public List<ITypeToken> Command(ITypeToken name_, ITypeToken type_)
         {
-            List<ITypeToken> result = new List<ITypeToken>();                           
-                result.Add(name_);
-                result.Add(type_);
+            List<ITypeToken> result = new List<ITypeToken>();
+            result.Add(name_);
+            result.Add(type_);
             return result;
         }
 
@@ -821,7 +952,7 @@ namespace OrientRealization
             result.Add(new OrientDotToken());
             result.Add(_typeConverter.Get(orientProperty_.GetType()));
             result.Add(orientType_);
-            result.Add(new OrientLtRoundSquareToken());
+            result.Add(new OrientRoundBraketLeftToken());
             result.Add(new OrientMandatoryToken());
             if (mandatory)
             {
@@ -837,7 +968,7 @@ namespace OrientRealization
                 result.Add(new OrientTRUEToken());
             }
             else { result.Add(new OrientFLASEToken()); }
-            result.Add(new OrientRtRoundSquareToken());
+            result.Add(new OrientRoundBraketRightToken());
 
 
 
@@ -869,15 +1000,15 @@ namespace OrientRealization
         }
 
     }
-	
+
     /// <summary>
     /// Builder with exlicitly named commands
     /// </summary>
     public class OrientTokenBuilderExplicit
     {
-        
+
         //Create class cluase (type check) with extends class option
-        public List<ITypeToken> Create(OrientClassToken classType_, ITypeToken extendsClassType_=null)
+        public List<ITypeToken> Create(OrientClassToken classType_, ITypeToken extendsClassType_ = null)
         {
 
             List<ITypeToken> result = new List<ITypeToken>() {
@@ -894,11 +1025,11 @@ namespace OrientRealization
                     result.Add(new OrientExtendsToken());
                     result.Add(extendsClassType_);
                 }
-            }           
+            }
             return result;
         }
         //Create  vertex cluase (type check) with content optiona
-        public List<ITypeToken> Create(OrientVertexToken classType_, ITypeToken extendsClassType_=null)
+        public List<ITypeToken> Create(OrientVertexToken classType_, ITypeToken extendsClassType_ = null)
         {
             List<ITypeToken> result = new List<ITypeToken>() {
                 new OrientCreateToken()
@@ -918,32 +1049,36 @@ namespace OrientRealization
         }
         //Create property cluase
         public List<ITypeToken> Create(ITypeToken className_, ITypeToken propertyName_, ITypeToken propertyType_,
-        bool mandatory_ = false, bool notnull=false)
+        bool mandatory_ = false, bool notnull = false)
         {
             List<ITypeToken> result = new List<ITypeToken>() {
                 new OrientCreateToken(), new OrientPropertyToken(),className_, new OrientDotToken(),propertyName_,propertyType_
             };
 
-            result.Add(new OrientLtRoundSquareToken());
+            result.Add(new OrientRoundBraketLeftToken());
             result.Add(new OrientMandatoryToken());
 
-            if (mandatory_){
+            if (mandatory_)
+            {
                 result.Add(new OrientTRUEToken());
-            }else { result.Add(new OrientFLASEToken()); }
+            }
+            else { result.Add(new OrientFLASEToken()); }
 
             result.Add(new OrientComaToken());
             result.Add(new OrientNotNULLToken());
 
-            if (notnull){
+            if (notnull)
+            {
                 result.Add(new OrientTRUEToken());
-            }else { result.Add(new OrientFLASEToken()); }
+            }
+            else { result.Add(new OrientFLASEToken()); }
 
-            result.Add(new OrientRtRoundSquareToken());
+            result.Add(new OrientRoundBraketRightToken());
 
             return result;
         }
         //Create edge clause
-        public List<ITypeToken> Create (ITypeToken className_, ITypeToken from_,ITypeToken to_)
+        public List<ITypeToken> Create(ITypeToken className_, ITypeToken from_, ITypeToken to_)
         {
 
             List<ITypeToken> result = new List<ITypeToken>(){
@@ -974,7 +1109,7 @@ namespace OrientRealization
             return result;
         }
         //delete vertex,edge,or class
-        public List<ITypeToken> Delete(ITypeToken classType_,ITypeToken classname_)
+        public List<ITypeToken> Delete(ITypeToken classType_, ITypeToken classname_)
         {
             List<ITypeToken> result = new List<ITypeToken>();
             if (classType_ is OrientVertexToken)
@@ -992,24 +1127,123 @@ namespace OrientRealization
                 result.Add(new OrientDropToken());
                 result.Add(classType_);
             }
-            if(result.Count()!=0)
+            if (result.Count() != 0)
             {
                 result.Add(classname_);
             }
             return result;
         }
 
-        public List<ITypeToken> Function(ITypeToken function_,ICommandBuilder params_)
+        public List<ITypeToken> Function(ITypeToken function_, ICommandBuilder params_)
         {
             List<ITypeToken> result = new List<ITypeToken>();
-                result.Add(function_);
-                result.AddRange(params_.Tokens);
+            result.Add(function_);
+            result.AddRange(params_.Tokens);
             return result;
         }
     }
-	
-	#endregion	
 
+    #endregion
+    //<<<
+    #region TokenListsBuilders
+
+    ///<summary>buider for commands with format
+    ///mostly used for URLS (auth)</summary
+    public class OrientCommandBuilder : CommandBuilder
+    {
+        public OrientCommandBuilder() : base()
+        {
+
+        }
+        public OrientCommandBuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
+             : base(tokens_, FormatPattern_)
+        {
+
+        }
+    }
+
+    //<<<deprecation possible, replaced with type convertible commandbuilder
+    ///<summary>   
+    ///Query builders
+    ///class segregation for different cluse builders
+    ///</summary>
+    //Authentication URL build
+    public class OrientAuthenticationURIBuilder : CommandBuilder
+    {
+        public OrientAuthenticationURIBuilder(List<ITypeToken> tokens_, OrientAuthenticationURLFormat FormatPattern_)
+             : base(tokens_, FormatPattern_)
+        {
+
+        }
+    }
+    //Command URL build
+    public class OrientCommandURIBuilder : CommandBuilder
+    {
+        public OrientCommandURIBuilder(List<ITypeToken> tokens_, OrientCommandURLFormat FormatPattern_)
+            : base(tokens_, FormatPattern_)
+        {
+
+        }
+        public OrientCommandURIBuilder(List<ICommandBuilder> texts_, ITypeToken FormatPattern_)
+          : base(texts_,FormatPattern_)
+        {
+
+        }
+    }
+
+    public class OrientSelectClauseBuilder : CommandBuilder
+    {
+        public OrientSelectClauseBuilder(List<ITypeToken> tokens_, OrientSelectClauseFormat FormatPattern_ = null)
+            : base(tokens_, FormatPattern_ = new OrientSelectClauseFormat())
+        {
+
+        }
+    }
+    public class OrientWhereClauseBuilder : CommandBuilder
+    {
+        public OrientWhereClauseBuilder(List<ITypeToken> tokens_, OrientWhereClauseFormat FormatPattern_)
+            : base(tokens_, FormatPattern_)
+        {
+
+        }
+    }
+
+    public class OrientCreateClauseBuilder : CommandBuilder
+    {
+        public OrientCreateClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
+            : base(tokens_, format_)
+        {
+
+        }
+    }
+    public class OrientDeleteClauseBuilder : CommandBuilder
+    {
+        public OrientDeleteClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
+            : base(tokens_, format_)
+        {
+
+        }
+    }
+
+    public class OrientNestedSelectClauseBuilder : CommandBuilder
+    {
+        public OrientNestedSelectClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
+            : base(tokens_, format_)
+        {
+
+        }
+    }
+    #endregion
+    //<<<
+    ///<summary>predefined url token collections
+    ///prefered change to predefined url and command builds</summary>
+    public static class TokenRepo
+    {
+        public static List<ITypeToken> authUrl = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientAuthenticateToken(), new OrientDatabaseNameToken() };
+        public static List<ITypeToken> commandUrl = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientCommandToken(), new OrientDatabaseNameToken(), new OrientCommandSQLTypeToken() };
+        public static List<ITypeToken> addDbURL = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientDatabaseToken()};
+    }   
+	
     ///<summary>Converts from model poco classes types to ItypeToken types
     ///</summary>
     public class TypeConverter : ITypeConverter

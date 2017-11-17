@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-
+using System;
 
 using IQueryManagers;
+using IFormats;
 
 namespace QueryManagers
 {
@@ -35,120 +36,145 @@ namespace QueryManagers
         public string Text { get; set; }
     }
 
-    // Base class for url tokens concatenation
-    //CommandBuilder realization for Format placeholders for URL concatenation
+    ///<summary> Base class for url tokens concatenation
+    ///CommandBuilder realization for Format placeholders for URL concatenation
+    ///</summary>
     public class CommandBuilder : ICommandBuilder
     {
-
+        public IFormatFromListGenerator formatGenerator { get; set; }
+        public ITypeToken typeToken { get; set; }
         public ITypeToken Text { get; set; }
         public ITypeToken FormatPattern { get; set; }
         public List<ITypeToken> Tokens { get; set; }
         
         public CommandBuilder()
         {
-
+ 
         }
         //concatenates Tokens from colection with format pattern
         public CommandBuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
-        {        
+        {            
             this.FormatPattern = FormatPattern_;
             this.Tokens = tokens_;
             SetText(this.Tokens, this.FormatPattern);
         }
         //cocatenates URLbuilders Token collections from URLbuilders with format pattern
-        public CommandBuilder(List<ICommandBuilder> texts_, ITypeToken FormatPattern_, BuildTypeFormates type_)
+        public CommandBuilder(List<ICommandBuilder> texts_, ITypeToken FormatPattern_)
         {
-      
             this.FormatPattern = FormatPattern_;
+
+            TokenFormatConcatenation(texts_, FormatPattern_);
+
+            //build new string
+            SetText(this.Tokens, this.FormatPattern);            
+
+        }
+
+        public CommandBuilder(List<ITypeToken> tokens_, IFormatFromListGenerator formatGenerator_)
+        {            
+            this.formatGenerator = formatGenerator_;
+            this.FormatPattern = this.formatGenerator.FormatFromListGenerate(this.Tokens);
+            this.Tokens = tokens_;
+            SetText(this.Tokens, this.FormatPattern);
+        }
+        public CommandBuilder(List<ICommandBuilder> texts_, IFormatFromListGenerator formatGenerator_)
+        {
+
+            this.formatGenerator = formatGenerator_;
+            this.FormatPattern = this.formatGenerator.FormatFromListGenerate(this.Tokens);
             this.Tokens = new List<ITypeToken>();
 
-            if (type_ == BuildTypeFormates.FULL)
-            {
-                this.FormatPattern = FormatPattern_;
-                this.Tokens = texts_.SelectMany(s => s.Tokens).ToList();
-                SetText(this.Tokens, this.FormatPattern);
-            }
-            if (type_ == BuildTypeFormates.NESTED)
-            {
-                List<ITypeToken> str = new List<ITypeToken>();
-                foreach (ICommandBuilder tb in texts_)
-                {
-                    //build string
-                    tb.SetText(tb.Tokens, tb.FormatPattern);
-                    //add tokens to list
-                    this.Tokens.AddRange(tb.Tokens);
-                    //concatenate formats according to new, nested format
-                    str.Add(tb.FormatPattern);
-                }
+            TokenFormatConcatenation(texts_, this.FormatPattern);
 
-                string[] arr = (from s in str select s.Text).ToArray();
+            //build new string
+            SetText(this.Tokens, this.FormatPattern);
 
-                //add format concatenation 
-                //concatenate collection of formats according to format
-                this.FormatPattern.Text = string.Format(this.FormatPattern.Text, arr);
-                //recount foramt variables from 0 to max
-                this.FormatPattern.Text = FormatStringReArrange(this.FormatPattern.Text);
-                //build new string
-                SetText(this.Tokens, this.FormatPattern);
-            }
         }
+
+        public void AddTokens(List<ITypeToken> tokens_)
+        {
+            this.Tokens = tokens_;
+        }
+        public void AddFormat(ITypeToken formatPatern_)
+        {
+            this.FormatPattern = formatPatern_;
+        }
+        public void AddFormatGenerator(IFormatFromListGenerator formatGenerator_)
+        {
+            this.formatGenerator = formatGenerator_;
+        }
+        public void AddBuilders(List<ICommandBuilder> texts_, ITypeToken FormatPattern_ = null)
+        {            
+            TokenFormatConcatenation(texts_, FormatPattern_);
+        }
+
         public void SetText(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
         {
             List<string> str = new List<string>();
             this.FormatPattern = FormatPattern_;
             this.Tokens = tokens_;
-            foreach (ITypeToken tt in this.Tokens)
-            {
-                if (tt != null) { str.Add(tt.Text); }
-                else { str.Add(null); }
-            }            
-            this.Text = new TextToken() { Text = string.Format(this.FormatPattern.Text, str.ToArray()) };
+            if (this.Tokens != null && this.FormatPattern != null) {
+            
+                foreach (ITypeToken tt in this.Tokens)
+                {
+                    if (tt != null) { str.Add(tt.Text); }
+                    else { str.Add(null); }
+                }
+
+                try
+                {
+                    this.Text = new TextToken()
+                    {
+
+                        Text = string.Format(this.FormatPattern.Text, str.ToArray())
+
+                    };
+                }
+                catch (Exception e) { }
+
+            }
         }
         public string GetText()
         {
             return this.Text.Text;
         }
-        public string Build(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
+        public string Build()
         {
-            SetText(tokens_, FormatPattern_);
+            if (this.Tokens == null) { throw new Exception("No tokens"); }
+            CheckFormat();
+            SetText(this.Tokens, this.FormatPattern);
             return GetText();
         }
-        public string Build(List<ICommandBuilder> texts_, ITypeToken FormatPattern_, BuildTypeFormates type_)
+        ///<summary>Defined NESTED, concatenates every command according to it format. 
+        ///Results concatenated according to passed FormatPettern. 
+        ///FULL concatenates all tokens from all commandBuilders according to new passed patterformat</summary>
+        public string Build(List<ICommandBuilder> texts_, ITypeToken FormatPattern_)
         {
 
             this.FormatPattern = FormatPattern_;
             this.Tokens = new List<ITypeToken>();
-
-            if (type_ == BuildTypeFormates.FULL)
+                 
+            List<ITypeToken> str = new List<ITypeToken>();
+            foreach (ICommandBuilder tb in texts_)
             {
-                this.FormatPattern = FormatPattern_;
-                this.Tokens = texts_.SelectMany(s => s.Tokens).ToList();
-                SetText(this.Tokens, this.FormatPattern);
-            }
-            if (type_ == BuildTypeFormates.NESTED)
-            {
-                List<ITypeToken> str = new List<ITypeToken>();
-                foreach (ICommandBuilder tb in texts_)
-                {
-                    //build string
-                    tb.SetText(tb.Tokens, tb.FormatPattern);
-                    //add tokens to list
-                    this.Tokens.AddRange(tb.Tokens);
-                    //concatenate formats according to new, nested format
-                    str.Add(tb.FormatPattern);
-                }
-
-                string[] arr = (from s in str select s.Text).ToArray();
-
-                //add format concatenation 
-                //concatenate collection of formats according to format
-                this.FormatPattern.Text = string.Format(this.FormatPattern.Text, arr);
-                //recount foramt variables from 0 to max
-                this.FormatPattern.Text = FormatStringReArrange(this.FormatPattern.Text);
-                //build new string
-                SetText(this.Tokens, this.FormatPattern);
+                //build string
+                tb.SetText(tb.Tokens, tb.FormatPattern);
+                //add tokens to list
+                this.Tokens.AddRange(tb.Tokens);
+                //concatenate formats according to new, nested format
+                str.Add(tb.FormatPattern);
             }
 
+            string[] arr = (from s in str select s.Text).ToArray();
+
+            //add format concatenation 
+            //concatenate collection of formats according to format
+            this.FormatPattern.Text = string.Format(this.FormatPattern.Text, arr);
+            //recount foramt variables from 0 to max
+            this.FormatPattern.Text = FormatStringReArrange(this.FormatPattern.Text);
+            //build new string
+            SetText(this.Tokens, this.FormatPattern);
+            
             return GetText();
         }
 
@@ -197,8 +223,52 @@ namespace QueryManagers
             return result = string.Concat(input_chars);
         }
 
-    }
+        internal void TokenFormatConcatenation(List<ICommandBuilder> texts_, ITypeToken FormatPattern_=null)
+        {
+            List<ITypeToken> tempTokens = new List<ITypeToken>();
+            List<ITypeToken> str = new List<ITypeToken>();
+            string newFromat = null;
 
+            foreach (ICommandBuilder tb in texts_)
+            {
+                //build string
+                tb.SetText(tb.Tokens, tb.FormatPattern);
+                //add tokens to list
+                tempTokens.AddRange(tb.Tokens);
+                //concatenate formats according to new, nested format
+                str.Add(tb.FormatPattern);
+            }
+
+            //concatenating of al formatpatterns
+            string[] arr = (from s in str select s.Text).ToArray();
+
+            this.Tokens = tempTokens;
+
+            if (FormatPattern_==null)
+            {
+                FormatPattern = formatGenerator.FormatFromListGenerate(this.Tokens);
+            }
+
+            try
+            {
+                newFromat = FormatStringReArrange(string.Format(FormatPattern_.Text, arr));
+            }
+            catch (Exception e) { }
+
+
+            this.Tokens = tempTokens;
+            this.FormatPattern.Text = newFromat;
+        }
+        internal void CheckFormat()
+        {
+            if (this.FormatPattern == null && this.Tokens != null)
+            {
+                if (formatGenerator == null) { throw new Exception("No format pattern or generator passed"); }
+                typeToken = formatGenerator.FormatFromListGenerate(this.Tokens);
+            }
+        }
+
+    }
 
     /// <summary>
     /// Http manager Tokens

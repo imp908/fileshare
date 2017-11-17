@@ -45,12 +45,15 @@ namespace Repos
             this.wm = webManger_;
             this.ir = responseReader_;
 
-            AuthUrl = cb.Build(TokenRepo.authUrl, new OrientAuthenticationURLFormat());
-            CommandUrl = cb.Build(TokenRepo.commandUrl, new OrientCommandURLFormat());
+            cb.AddTokens(TokenRepo.authUrl);cb.AddFormat(new OrientAuthenticationURLFormat());
+            AuthUrl = cb.Build();
+            cb.AddTokens(TokenRepo.commandUrl); cb.AddFormat(new OrientCommandURLFormat());
+            CommandUrl = cb.Build();
             owm.AddCredentials(
               new NetworkCredential(ConfigurationManager.AppSettings["orient_login"], ConfigurationManager.AppSettings["orient_pswd"]));
 
-            DatabaseUrl = cb.Build(TokenRepo.addDbURL, new OrientDatabaseUrlFormat());
+            cb.AddTokens(TokenRepo.addDbURL); cb.AddFormat(new OrientDatabaseUrlFormat());
+            DatabaseUrl = cb.Build();
         }
 
         public void changeAuthCredentials(string Login, string Password)
@@ -61,7 +64,11 @@ namespace Repos
         public string Add(ITypeToken rest_command_, ITypeToken dbName_, ITypeToken type_)
         {
             List<ITypeToken> commandTk = tb.Command(dbName_, type_);
-            string command = cb.Build(commandTk, new TextToken() { Text = @"{0}/{1}" });
+
+            cb.AddTokens(commandTk);
+            cb.AddFormat(new TextToken() { Text = @"{0}/{1}" });
+            string command = cb.Build();
+
             QueryUrl = DatabaseUrl + "/" + command;
 
             wm.AddCredentials(
@@ -79,7 +86,11 @@ namespace Repos
 
             string content = jm.SerializeObject(obj_);
             List<ITypeToken> commandTk = tb.Command(new OrientCreateToken(), tk.Get(obj_), tk.GetBase(obj_), new TextToken() { Text = content });
-            string command = cb.Build(commandTk, new OrientCreateVertexCluaseFormat());
+
+            cb.AddTokens(commandTk);
+            cb.AddFormat(new OrientCreateVertexCluaseFormat());
+            string command = cb.Build();
+
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -99,8 +110,11 @@ namespace Repos
             
             List<ITypeToken> commandTk = tb.Command(new OrientCreateToken(), tk.Get(obj_), tk.GetBase(obj_)
                 , new TextToken() { Text= from.id }, new TextToken() { Text = to.id }, new TextToken() { Text = context });
-          
-            string command = cb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
+        
+            cb.AddTokens(commandTk);
+            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(commandTk));
+            string command = cb.Build();
+
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -120,7 +134,9 @@ namespace Repos
             string content = jm.SerializeObject(obj_);
             List<ITypeToken> commandTk = tb.Command(new OrientCreateToken(), tk.Get(obj_), tk.GetBase(obj_), from, to, new TextToken() { Text = content });
 
-            string command = cb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
+            cb.AddTokens(commandTk);
+            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(commandTk));
+            string command = cb.Build();
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -137,7 +153,11 @@ namespace Repos
             string result = null;
 
             List<ITypeToken> commandTk = tb.Command(new OrientSelectToken(), tk.Get(object_), condition_);
-            string command = cb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
+
+            cb.AddTokens(commandTk);
+            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(commandTk));
+            string command = cb.Build();
+
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -154,7 +174,11 @@ namespace Repos
             IEnumerable<T> result = null;
 
             List<ITypeToken> commandTk = tb.Command(new OrientSelectToken(), tk.Get(object_), condition_);
-            string command = cb.Build(commandTk, new OrientTokenFormatFromListGenerate(commandTk));
+
+            cb.AddTokens(commandTk);
+            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(commandTk));
+            string command = cb.Build();
+
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -189,8 +213,14 @@ namespace Repos
             List<ITypeToken> commandTk = tb.Command(new OrientDeleteToken(), tk.Get(type_), tk.GetBase(type_));
             List<ITypeToken> whereTk = new List<ITypeToken>() { new OrientWhereToken(), condition_ };
 
-            deleteClause = cb.Build(commandTk, new OrientDeleteCluaseFormat());
-            string whereClause = cb.Build(whereTk, new OrientWhereClauseFormat());
+            cb.AddTokens(commandTk);
+            cb.AddFormat(new OrientDeleteCluaseFormat());
+            deleteClause = cb.Build();
+
+
+            cb.AddTokens(whereTk);
+            cb.AddFormat(new OrientWhereClauseFormat());           
+            string whereClause = cb.Build();
 
             QueryUrl = CommandUrl + "/" + deleteClause + " " + whereClause;
 
@@ -211,8 +241,13 @@ namespace Repos
             List<ITypeToken> commandTk = tb.Command(new OrientDeleteToken(), tk.Get(type_), tk.GetBase(type_));
             List<ITypeToken> whereTk = new List<ITypeToken>() { new OrientWhereToken(), condition_ };
 
-            deleteClause = cb.Build(commandTk, new OrientDeleteCluaseFormat());
-            string whereClause = cb.Build(whereTk, new OrientWhereClauseFormat());
+            cb.AddTokens(commandTk);
+            cb.AddFormat(new OrientDeleteCluaseFormat());
+            deleteClause = cb.Build();
+
+            cb.AddTokens(whereTk);
+            cb.AddFormat(new OrientWhereClauseFormat());
+            string whereClause = cb.Build();
 
             QueryUrl = CommandUrl + "/" + deleteClause + " " + whereClause;
 
@@ -235,7 +270,9 @@ namespace Repos
                 new OrientHost(),new OrientPort(),new OrientDatabaseToken(), db_name,new OrientPlocalToken()
             };
 
-            string command = cb.Build(dbCommandUrl, new TextToken() { Text = @"{0}:{1}/{2}/{3}/{4}" });
+            cb.AddTokens(dbCommandUrl);
+            cb.AddFormat(new TextToken() { Text = @"{0}:{1}/{2}/{3}/{4}" });
+            string command = cb.Build();          
 
             WebRequest wr = WebRequest.Create(command);
             wr.Method = command_type.Text;
@@ -273,8 +310,14 @@ namespace Repos
                 functionTokens.Add(itt);
             }
 
-            string connect = cb.Build(connectTokens, new OrientFuncionToken());
-            string command = cb.Build(functionTokens, new OrientTokenFormatFromListGenerate(functionTokens, "/"));
+            cb.AddTokens(connectTokens);
+            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(connectTokens));
+            string connect = cb.Build();
+        
+            cb.AddTokens(functionTokens);
+            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(functionTokens));
+            string command = cb.Build();         
+
             string url = connect + "/" + command;
 
             owm.Authenticate(AuthUrl);

@@ -15,11 +15,14 @@ using System.Threading.Tasks;
 using JsonManagers;
 using POCO;
 using WebManagers;
-using NSQLManager;
-using IOrientObjects;
+
 using IQueryManagers;
 using QueryManagers;
 using APItesting;
+using OrientRealization;
+using UOWs;
+using Repos;
+using IUOWs;
 
 /// <summary>
 /// Deprecated, unused and refactored code mooved here
@@ -521,12 +524,12 @@ namespace Trash
 
             //collection of FULL tokens 
             //@"{0}:{1}/{2}/{3}/{4}/{5} {6} {7} {8} {9}"
-            List<ITextAggreagtor> CommandTokens = new List<ITextAggreagtor>(){
+            List<ICommandBuilder> CommandTokens = new List<ICommandBuilder>(){
                 commandUrlPart,selectUrlPart,whereUrlPart
             };
             //Aggregate all query TokenManagers to one Select URL command with where
             OrientCommandURIBuilder commandSample = new OrientCommandURIBuilder(
-                CommandTokens, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED
+                CommandTokens, new TextToken() { Text = @"{0}/{1} {2}" }
                 );
             //full select query command
             string selectcommandURL = commandSample.Text.Text;
@@ -662,13 +665,13 @@ namespace Trash
 
 
             //build commands strings according to string format
-            List<ITextAggreagtor> createPersonTk = new List<ITextAggreagtor>() { ub, cpb };
-            List<ITextAggreagtor> selectTk = new List<ITextAggreagtor>() { ub, spb, wb };
-            List<ITextAggreagtor> deleteTk = new List<ITextAggreagtor>() { ub, dpb, wb };
+            List<ICommandBuilder> createPersonTk = new List<ICommandBuilder>() { ub, cpb };
+            List<ICommandBuilder> selectTk = new List<ICommandBuilder>() { ub, spb, wb };
+            List<ICommandBuilder> deleteTk = new List<ICommandBuilder>() { ub, dpb, wb };
 
-            List<ITextAggreagtor> createUnitTk = new List<ITextAggreagtor>() { ub, cub };
-            List<ITextAggreagtor> selectUnitTk = new List<ITextAggreagtor>() { ub, sub, wb };
-            List<ITextAggreagtor> deleteUnitTk = new List<ITextAggreagtor>() { ub, dub, wb };
+            List<ICommandBuilder> createUnitTk = new List<ICommandBuilder>() { ub, cub };
+            List<ICommandBuilder> selectUnitTk = new List<ICommandBuilder>() { ub, sub, wb };
+            List<ICommandBuilder> deleteUnitTk = new List<ICommandBuilder>() { ub, dub, wb };
 
 
             //building command urls according to string format
@@ -676,18 +679,18 @@ namespace Trash
             //EXAMPLE for token formats
             //Token1 -> "{0}\{1}" ; Token2 -> "{0} {1} {2}"; UrlToken -> "{0}:{1}"; Result => UrlToken "{0}\{1}:{2} {3} {4}"
             OrientCommandURIBuilder cpU =
-    new OrientCommandURIBuilder(createPersonTk, new TextToken() { Text = @"{0}/{1}" }, TextBuilder.BuildTypeFormates.NESTED);
+    new OrientCommandURIBuilder(createPersonTk, new TextToken() { Text = @"{0}/{1}" });
             OrientCommandURIBuilder spU =
-    new OrientCommandURIBuilder(selectTk, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED);
+    new OrientCommandURIBuilder(selectTk, new TextToken() { Text = @"{0}/{1} {2}" });
             OrientCommandURIBuilder dpU =
-    new OrientCommandURIBuilder(deleteTk, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED);
+    new OrientCommandURIBuilder(deleteTk, new TextToken() { Text = @"{0}/{1} {2}" });
 
             OrientCommandURIBuilder cuU =
-    new OrientCommandURIBuilder(createUnitTk, new TextToken() { Text = @"{0}/{1}" }, TextBuilder.BuildTypeFormates.NESTED);
+    new OrientCommandURIBuilder(createUnitTk, new TextToken() { Text = @"{0}/{1}" });
             OrientCommandURIBuilder suU =
-    new OrientCommandURIBuilder(selectUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED);
+    new OrientCommandURIBuilder(selectUnitTk, new TextToken() { Text = @"{0}/{1} {2}" });
             OrientCommandURIBuilder duU =
-    new OrientCommandURIBuilder(deleteUnitTk, new TextToken() { Text = @"{0}/{1} {2}" }, TextBuilder.BuildTypeFormates.NESTED);
+    new OrientCommandURIBuilder(deleteUnitTk, new TextToken() { Text = @"{0}/{1} {2}" });
 
 
             //check
@@ -790,14 +793,14 @@ namespace Trash
             OrientCommandBuilder SuB = new OrientCommandBuilder(SubUnitTk, SbUtf);
             OrientCommandBuilder MaB = new OrientCommandBuilder(MainAssignmentTk, MnAsf);
 
-            List<ITextAggreagtor> SuTb = new List<ITextAggreagtor>() { ub, SuB };
-            List<ITextAggreagtor> MaTb = new List<ITextAggreagtor>() { ub, MaB };
+            List<ICommandBuilder> SuTb = new List<ICommandBuilder>() { ub, SuB };
+            List<ICommandBuilder> MaTb = new List<ICommandBuilder>() { ub, MaB };
 
 
             OrientCommandURIBuilder SuUB =
-                new OrientCommandURIBuilder(SuTb, new TextToken() { Text = @"{0}/{1}" }, TextBuilder.BuildTypeFormates.NESTED);
+                new OrientCommandURIBuilder(SuTb, new TextToken() { Text = @"{0}/{1}" });
             OrientCommandURIBuilder MaUB =
-                new OrientCommandURIBuilder(MaTb, new TextToken() { Text = @"{0}/{1}" }, TextBuilder.BuildTypeFormates.NESTED);
+                new OrientCommandURIBuilder(MaTb, new TextToken() { Text = @"{0}/{1}" });
 
 
             SubUnitsIDs.Add(
@@ -970,7 +973,225 @@ namespace Trash
 
 
     }
-  
+
+
+    public class RepoCheck
+    {
+
+        JSONManager jm;
+        OrientTokenBuilder ta;
+        TypeConverter tc;
+        CommandBuilder ocb;
+        OrientWebManager wm;
+        WebResponseReader wr;
+
+        Repo repo;
+        Person p;
+        Unit u;
+        SubUnit s;
+
+        MainAssignment m;
+        List<string> lp, lu;
+
+        UserSettings us;
+        CommonSettings cs;
+        string guid_;
+        IPersonUOW pUOW;
+
+        public RepoCheck()
+        {
+            pUOW = new PersonUOW();
+            jm = new JSONManager();
+            ta = new OrientTokenBuilder();
+            tc = new TypeConverter();
+            ocb = new OrientCommandBuilder();
+            wm = new OrientWebManager();
+            wr = new WebResponseReader();
+
+            us = new UserSettings() { showBirthday = true };
+            cs = new CommonSettings();
+
+            repo = new Repo(jm, ta, tc, ocb, wm, wr);
+
+            s = new SubUnit();
+
+            p =
+new Person() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
+
+            u =
+new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
+
+            m =
+new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
+
+            lp = new List<string>();
+            lu = new List<string>();
+
+            guid_ = "ba124b8e-9857-11e7-8119-005056813668";
+
+        }
+
+
+        public void GO()
+        {
+            DbCreateDeleteCheck();
+            TrackBirthdaysPtP();
+            TrackBirthdaysOneToAll();
+            AddCheck();
+            DeleteCheck();
+            ExplicitCommandsCheck();
+            BirthdayConditionAdd();
+        }
+        public void AddCheck()
+        {
+            int lim = 500;
+
+            for (int i = 0; i <= lim; i++)
+            {
+                lp.Add(jm.DeserializeFromParentNode<Person>(repo.Add(p), new RESULT().Text).Select(s => s.id.Replace(@"#", "")).FirstOrDefault());
+                lu.Add(jm.DeserializeFromParentNode<Unit>(repo.Add(u), new RESULT().Text).Select(s => s.id.Replace(@"#", "")).FirstOrDefault());
+
+            }
+            for (int i = 0; i <= lim / 2; i++)
+            {
+                repo.Add(m, new TextToken() { Text = lu[i] }, new TextToken() { Text = lp[i + 1] });
+            }
+            for (int i = 0; i <= lim / 2; i++)
+            {
+                repo.Add(s, new TextToken() { Text = lu[i] }, new TextToken() { Text = lu[i + 1] });
+            }
+
+        }
+        public void DeleteCheck()
+        {
+            string str;
+            str = repo.Delete(typeof(Person), new TextToken() { Text = @"Name =0" });
+            str = repo.Delete(typeof(Unit), new TextToken() { Text = @"Name =0" });
+            str = repo.Delete(typeof(MainAssignment), new TextToken() { Text = @"Name =0" });
+            str = repo.Delete(typeof(SubUnit), new TextToken() { Text = @"Name =0" });
+        }
+        public void ExplicitCommandsCheck()
+        {
+
+            OrientTokenBuilderExplicit eb = new OrientTokenBuilderExplicit();
+
+            List<IQueryManagers.ITypeToken> lt = new List<IQueryManagers.ITypeToken>();
+            List<string> ls = new List<string>();
+
+          
+            lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientClassToken() { Text = "V" });
+            ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
+
+            lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientPropertyToken() { Text = "Name" }, new OrientSTRINGToken(), true, true);
+            ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
+
+            lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientPropertyToken() { Text = "Created" }, new OrientDATEToken(), true, true);
+            ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
+
+
+
+            lt = eb.Create(new OrientClassToken() { Text = "ESCN" }, new OrientClassToken() { Text = "E" });
+            ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
+
+            lt = eb.Create(new OrientClassToken() { Text = "ESCN" }, new OrientPropertyToken() { Text = "Name" }, new OrientSTRINGToken(), true, true);
+            ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
+
+            lt = eb.Create(new OrientClassToken() { Text = "ESCN" }, new OrientPropertyToken() { Text = "Created" }, new OrientDATEToken(), true, true);
+            ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
+
+
+
+            lt = eb.Create(new OrientClassToken() { Text = "VSCN" }, new OrientClassToken() { Text = "VSCN" });
+            ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
+
+            lt = eb.Create(new OrientClassToken() { Text = "Beer" }, new OrientClassToken() { Text = "VSCN" });
+            ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
+
+            lt = eb.Create(new OrientClassToken() { Text = "Produces" }, new OrientClassToken() { Text = "ESCN" });
+            ls.Add(new OrientCommandBuilder(lt, new TextFormatGenerate(lt)).Text.Text);
+
+
+
+        }
+        public void BirthdayConditionAdd()
+        {
+
+            List<string> persIds = new List<string>();
+            List<string> edgeIds = new List<string>();
+
+            persIds.AddRange(
+                jm.DeserializeFromParentNode<Person>(repo.Select(typeof(Person), new TextToken() { Text = "1=1 and outE(\"CommonSettings\").inv(\"UserSettings\").showBirthday[0] is null" }), new RESULT().Text).Select(s => s.id.Replace(@"#", ""))
+            );
+
+            for (int i = 0; i < persIds.Count(); i++)
+            {
+                string id = jm.DeserializeFromParentNode<UserSettings>(repo.Add(us), new RESULT().Text).Select(s => s.id.Replace(@"#", "")).FirstOrDefault();
+
+                repo.Add(cs, new TextToken() { Text = persIds[i] }, new TextToken() { Text = id });
+            }
+
+            repo.Delete(typeof(UserSettings), new TextToken() { Text = @"1 =1" });
+            repo.Delete(typeof(CommonSettings), new TextToken() { Text = @"1 =1" });
+
+        }
+        public void DbCreateDeleteCheck()
+        {
+
+            repo.Add(new TextToken() { Text = "testdb" }, new DELETE());
+            repo.Add(new TextToken() { Text = "testdb" }, new POST());
+
+        }
+        public void TrackBirthdaysOneToAll()
+        {
+            repo.changeAuthCredentials(
+                ConfigurationManager.AppSettings["ParentLogin"]
+                , ConfigurationManager.AppSettings["ParentPassword"]
+                );
+
+            TrackBirthdays tb = new TrackBirthdays();
+
+            Person fromPerson = pUOW.GetObjByGUID(guid_).FirstOrDefault();
+            List<Person> personsTo = pUOW.GetAll().ToList();
+            List<string> ids = new List<string>() { };
+
+            foreach (Person pt in personsTo)
+            {
+                ids.Add(repo.Add(tb, fromPerson, pt));
+            }
+
+            repo.Delete(typeof(TrackBirthdays), new TextToken() { Text = "1=1" });
+
+        }
+        public void TrackBirthdaysPtP()
+        {
+            repo.changeAuthCredentials(
+                ConfigurationManager.AppSettings["ParentLogin"]
+                , ConfigurationManager.AppSettings["ParentPassword"]
+                );
+
+            TrackBirthdays tb = new TrackBirthdays();
+            List<Person> personsTo = pUOW.GetAll().Take(3).ToList();
+            string personsfrom = null;
+
+            List<string> ids = new List<string>() { };
+
+            foreach (Person pf in personsTo)
+            {
+                foreach (Person pt in personsTo)
+                {
+                    ids.Add(repo.Add(tb, pf, pt));
+                }
+            }
+
+            personsfrom = pUOW.GetTrackedBirthday(personsTo.FirstOrDefault().GUID);
+
+            repo.Delete(typeof(TrackBirthdays), new TextToken() { Text = "1=1" });
+
+        }
+
+    }
+
+
     //DRIVER scope
     public static class OrientNumToCLRType
     {

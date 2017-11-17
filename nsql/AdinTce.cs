@@ -8,6 +8,7 @@ using System.Text;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
 using System.Configuration;
+using IQueryManagers;
 
 namespace AdinTce
 {
@@ -162,7 +163,7 @@ namespace AdinTce
     ///</summary>
     public class AdinTceCommandBuilder : QueryManagers.CommandBuilder
     {
-
+       
     }
 
     public class AdinTceWebManager : WebManagers.WebManager
