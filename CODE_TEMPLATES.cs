@@ -1719,6 +1719,8 @@ StringBuilder.
 					
 					//system.web.hhtp
 					Install-Package Microsoft.AspNet.WebApi
+					//using System.Web.Http.Cors;
+					Install-Package Microsoft.AspNet.WebApi.Cors
 				}
 				
 				public void ConfigurationManager()
@@ -2895,7 +2897,66 @@ access, please check that you have enabled metadata publishing at the specified 
 	}
 	
 	#endregion 
+	
+	#region Python
+		
+		public void Python{
+			
+			public void IO()
+			{
+				
+    'r' : use for reading
+    'w' : use for writing
+    'x' : use for creating and writing to a new file
+    'a' : use for appending to a file
+    'r+' : use for reading and writing to the same file
 
+				
+			}
+			
+			public void LocalServerForTesting()
+			{
+				#stollen from 
+#http://pbcraft.ru/simple-python3-web-server/
+import http.server
+import socketserver
+
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+PORT = 8000
+
+class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
+	def do_GET(self):
+		# Отправляем код 200 (ОК)
+		self.send_response(200)
+		 # Теперь очередь за заголовками
+		self.send_header('Content-type','text/html')
+		self.end_headers()
+	def do_POST(self):
+		# Отправляем код 200 (ОК)
+		self.send_response(200)
+		 # Теперь очередь за заголовками
+		self.send_header('Content-type','text/html')
+		self.end_headers()
+	def do_DEL(self):
+		# Отправляем код 200 (ОК)
+		self.send_response(200)
+		 # Теперь очередь за заголовками
+		self.send_header('Content-type','text/html')
+		self.end_headers()
+		
+Handler = http.server.SimpleHTTPRequestHandler
+
+with socketserver.TCPServer(("", PORT), testHTTPServer_RequestHandler) as httpd:
+    print("serving at port", PORT)
+    httpd.serve_forever()
+				
+			}
+		
+		}
+	
+	#endregion
+	
 	#region C++ 
 
 	public Code theory
@@ -3259,8 +3320,8 @@ access, please check that you have enabled metadata publishing at the specified 
 		
 	}
 
-	#endregion
-
+	#endregion	
+	
 	#region JS5
 
 	//js templates
@@ -3675,7 +3736,221 @@ $(document).ready(function(){
 				
 			}
 			
+   public void Examples()
+		{
 			
+			public void Select2OnInter03(){
+				
+								
+				var data_arr={};
+
+				function query_cleverence(processF,bindF,item){
+
+					var restServerURL = "http://"; 
+					
+					$.ajax({
+					  type:"GET",
+					  url: restServerURL ,
+					  accepts: "application/json",
+					  dataType:"json",	 	 	  
+					  success: function(data, xhr, textStatus){
+									 
+						console.log("query_cleverenceSt")
+						data_arr = processF(data);
+						//console.log(data_arr);
+						bindF(item);
+						return data_arr;
+						
+					  },
+					  error:function(jqXHR, textStatus, errorThrown){
+									   alert(errorThrown);
+					  }
+					});
+				}
+
+				function processData(data){
+					console.log('processData');
+					var res = Object.keys(data).map(function(k) { return { id: data[k].GUID, text: data[k]["Адрес"] } });
+					//console.log(res);
+					return res;
+				}
+				function bindSelect2ToItem(item){
+					var dt =[];	
+					console.log("bindSelect2ToItem");
+					$(item).select2({data: data_arr});	
+				}	
+
+				function registerSelect2(item,placeholder){
+					$(item).select2({
+						placeholder: placeholder,
+						minimumInputLength: 3
+					});
+				}
+				function registerSelect2Data(item)
+				{
+					console.log("dt2 change");
+					$(item).select2({data:data_arr});
+				}
+				function registerSelect2_FIO(item,placeholder){
+					$(item).select2({
+						tags: false,
+						minimumInputLength: 3,
+						placeholder: placeholder,
+						language: "ru",
+						ajax: {
+							url: 'http://',
+							dataType: "json",
+							type: "GET",
+							data: function (params) {
+
+								var queryParameters = {
+									p2: params.term
+								}
+								return queryParameters;
+							},
+							processResults: function (data) {
+									console.log(data);
+								return {
+								
+									results: $.map(data, function (item) {
+										return {
+											text: item.label ,
+											id: item.login
+										}
+									})
+								};
+							}
+							
+						}
+					});
+				}
+
+				function ChangeNodeToSelect(d)
+				{
+					var f1 = $(d);
+					var f2 = f1.clone();
+					
+					console.log(f1);
+					console.log(f2);
+					
+					var attrs = { };
+
+				$.each($(d)[0].attributes, function(idx, attr) {
+					attrs[attr.nodeName] = attr.nodeValue;
+				});
+
+
+
+				$(d).replaceWith(function () {
+					return $("<select />", attrs).append($(this).contents());
+				});
+
+					
+				}
+
+
+				function ItemCSS(item)
+				{
+					$(item).css({'width':'500px'});
+					
+				}
+
+
+				function registerSelectByID(item1,item2)
+				{
+					console.log("registerSelectByID" + "st");
+					query_cleverence(processData,bindSelect2ToItem,item1);	
+					ChangeNodeToSelect(item1);
+					ChangeNodeToSelect(item2);
+					registerSelect2(item1,'Поиск GUID по адресу');
+					registerSelect2(item2,'Поиск по ФИО');
+					registerSelect2Data(item1);
+					registerSelect2_FIO(item2,'Поиск ФИО из 1С');
+					ItemCSS(item1);
+					ItemCSS(item2);
+					console.log("registerSelectByID" + "fn");
+					
+				}
+
+				function registerSelectByIDOne(item1)
+				{
+					console.log("registerSelectByIDOne" + "st");
+					query_cleverence(processData,bindSelect2ToItem,item1);	
+					ChangeNodeToSelect(item1);
+					registerSelect2(item1,'Поиск GUID по адресу');
+					registerSelect2Data(item1);
+					ItemCSS(item1);
+					console.log("registerSelectByIDOne" + "fn");
+					
+				}
+
+				function FireAndRegister(){
+					
+						
+					var EqId1="#field4114";
+					var FIOId1="#field4112";	
+					
+					var EqId2="#field4108";
+					var FIOId2="#field4110";	
+					
+					var EqId3="#field4107";
+					var FIOId3="#field4104";
+					var FIOId32="#field4109";
+					
+					try{
+						registerSelectByID(EqId1,FIOId1);
+					}catch(e)
+					{
+						console.log('1lvlfl')
+					}
+						
+					try{
+						registerSelectByID(EqId2,FIOId2);
+					}catch(e)
+					{
+						console.log('2lvlfl')
+					}
+					
+					try{
+						registerSelectByID(EqId3,FIOId3);
+					}catch(e)
+					{
+						console.log('3lvlfl')
+					}
+					
+					
+					try{
+						//registerSelectByIDOne(FIOId32);
+					}catch(e)
+					{
+						console.log('32lvlfl')
+					}
+					
+				}
+
+
+				$(document).ready(function(){
+					
+					//console.log("Doc ready started")
+					FireAndRegister()	
+					
+					// $("#input1").on("select2:focus", function(e) { console.log ("focus");})
+					// .on("select2:selecting", function(e) { console.log ("selecting");})
+					// .on("select2:highlight", function(e) { console.log ("highlight");})
+					// .on("select2:change", function(e) { console.log ("change");})
+					// .on("change", function(e) { console.log ("change2");})
+					// .on("select2-blur", function(e) { console.log ("blur");})
+					// .on("select2:blur", function(e) { console.log ("blur2");})
+					
+					//$("#input3").mouseenter(function(e){  registerSelect2Data("#input1"); console.log("mouseenter");})
+					//$('.select2-search__field').on('keyup',function(e){  console.log("hover"); })
+					//console.log("Doc ready finished")
+					
+				});
+
+
+				
+			}
 			
 		}
 	}
@@ -6286,7 +6561,8 @@ drop table #Account;
 			
 			public void REST_API()
 			{
-								
+				
+				
 Orient_REST_API(){
 
 	https://orientdb.com/docs/2.1/OrientDB-REST.html?q=
@@ -6635,6 +6911,7 @@ create class [V/E] <extends [V/E]>
 
 format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1} {2}
 	   property {V/E}.{Property} type ( mandatory = bool , notnull = bool )
+
 	   
 																			{0}[1p]{2} => 0
 																			cond 'param'
@@ -6655,15 +6932,15 @@ format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1
 
 format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1} {2} {3} => {0} {1}
 		vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
-	
+
+		
 		
 
 					}
 			}
 		
 		}
-
-		
+			
 			public void Maintenance()
 			{
 				
