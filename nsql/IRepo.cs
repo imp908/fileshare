@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using IOrientObjects;
 using IQueryManagers;
 
-namespace IRepo
+namespace IRepos
 {
     public interface IRepo
     {

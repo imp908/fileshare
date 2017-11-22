@@ -46,16 +46,26 @@ namespace QueryManagers
         public ITypeToken Text { get; set; }
         public ITypeToken FormatPattern { get; set; }
         public List<ITypeToken> Tokens { get; set; }
-        
+
+
         public CommandBuilder()
         {
- 
+
         }
         //concatenates Tokens from colection with format pattern
         public CommandBuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
-        {            
-            this.FormatPattern = FormatPattern_;
-            this.Tokens = tokens_;
+        {
+            if(this.FormatPattern==null)
+            {
+                this.FormatPattern = FormatPattern_;
+            }
+            else { this.FormatPattern.Text += FormatPattern.Text;}
+            if (this.Tokens == null)
+            {
+                this.Tokens = tokens_;
+            }
+            else { this.Tokens.AddRange(tokens_); }
+          
             SetText(this.Tokens, this.FormatPattern);
         }
         //cocatenates URLbuilders Token collections from URLbuilders with format pattern
@@ -73,16 +83,31 @@ namespace QueryManagers
         public CommandBuilder(List<ITypeToken> tokens_, IFormatFromListGenerator formatGenerator_)
         {            
             this.formatGenerator = formatGenerator_;
-            this.FormatPattern = this.formatGenerator.FormatFromListGenerate(this.Tokens);
-            this.Tokens = tokens_;
+            this.FormatPattern.Text +=this.formatGenerator.FormatFromListGenerate(this.Tokens).Text;
+            if (this.Tokens == null)
+            {
+                this.Tokens = tokens_;
+            }
+            else { this.Tokens.AddRange(tokens_); }         
             SetText(this.Tokens, this.FormatPattern);
         }
         public CommandBuilder(List<ICommandBuilder> texts_, IFormatFromListGenerator formatGenerator_)
         {
 
             this.formatGenerator = formatGenerator_;
-            this.FormatPattern = this.formatGenerator.FormatFromListGenerate(this.Tokens);
-            this.Tokens = new List<ITypeToken>();
+            this.FormatPattern.Text += this.formatGenerator.FormatFromListGenerate(this.Tokens).Text;
+            if (this.Tokens == null)
+            {
+                this.Tokens = new List<ITypeToken>();
+               
+            }
+            foreach (ICommandBuilder cb in texts_)
+            {
+                foreach (ITypeToken tp in cb.Tokens)
+                {
+                    this.Tokens.Add(tp);
+                }
+            }
 
             TokenFormatConcatenation(texts_, this.FormatPattern);
 
@@ -91,15 +116,34 @@ namespace QueryManagers
 
         }
 
+        public void BindTokens(List<ITypeToken> tokens_)
+        {
+            this.Tokens = new List<ITypeToken>();
+            this.Tokens.AddRange(tokens_);
+        }
         public void AddTokens(List<ITypeToken> tokens_)
         {
-            this.Tokens = tokens_;
+            if (this.Tokens == null){          
+                this.Tokens = new List<ITypeToken>();              
+            }
+            this.Tokens.AddRange(tokens_);
+        }
+        public void BindFormat(ITypeToken formatPatern_)
+        {        
+            this.FormatPattern = formatPatern_;           
+            this.FormatPattern.Text = FormatStringReArrange(this.FormatPattern.Text);
         }
         public void AddFormat(ITypeToken formatPatern_)
         {
-            this.FormatPattern = formatPatern_;
+            if (this.FormatPattern != null)
+            {
+                this.FormatPattern.Text += formatPatern_.Text;
+            }
+            //<<< change
+            else { this.FormatPattern = formatPatern_; }
+            this.FormatPattern.Text = FormatStringReArrange(this.FormatPattern.Text);
         }
-        public void AddFormatGenerator(IFormatFromListGenerator formatGenerator_)
+        public void BindFormatGenerator(IFormatFromListGenerator formatGenerator_)
         {
             this.formatGenerator = formatGenerator_;
         }
@@ -181,7 +225,7 @@ namespace QueryManagers
         public enum BuildTypeFormates { FULL, NESTED }
 
         //recounts format string parameters from 0 for concatenated from several format strings
-        string FormatStringReArrange(string input_)
+        public string FormatStringReArrange(string input_)
         {
             string result = string.Empty;
             List<char> input_chars = input_.ToCharArray().ToList();
@@ -193,11 +237,15 @@ namespace QueryManagers
                 {
                     while (char.IsDigit(input_chars[i2 + 1]))
                     {
-                        i2 += 1;
+                        if ((i2 + 1) < input_chars.Count)
+                        {
+                            i2 += 1;
+                        }
+                        else { break; }
                     }
                     for (int i3 = i; i3 <= i2; i3++)
                     {
-                        input_chars.RemoveAt(i3);
+                        input_chars.RemoveAt(i);
                     }
 
                     char[] chToInsert = ctr.ToString().ToCharArray();
@@ -225,6 +273,7 @@ namespace QueryManagers
 
         internal void TokenFormatConcatenation(List<ICommandBuilder> texts_, ITypeToken FormatPattern_=null)
         {
+
             List<ITypeToken> tempTokens = new List<ITypeToken>();
             List<ITypeToken> str = new List<ITypeToken>();
             string newFromat = null;
@@ -259,9 +308,17 @@ namespace QueryManagers
             this.Tokens = tempTokens;
             this.FormatPattern.Text = newFromat;
         }
+     
         internal void CheckFormat()
         {
-            if (this.FormatPattern == null && this.Tokens != null)
+            if (this.Tokens == null) { throw new Exception("No tokens passed"); }
+
+            if (this.FormatPattern != null)
+            {
+                //rearrange
+                this.FormatPattern.Text = FormatStringReArrange(this.FormatPattern.Text);
+            }
+            else
             {
                 if (formatGenerator == null) { throw new Exception("No format pattern or generator passed"); }
                 typeToken = formatGenerator.FormatFromListGenerate(this.Tokens);

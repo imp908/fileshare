@@ -31,9 +31,11 @@ namespace IQueryManagers
         ITypeToken FormatPattern { get; }
         List<ITypeToken> Tokens { get; }
 
+        void BindTokens(List<ITypeToken> tokens_);
         void AddTokens(List<ITypeToken> tokens_);
+        void BindFormat(ITypeToken formatPatern_);
         void AddFormat(ITypeToken formatPatern_);
-        void AddFormatGenerator(IFormatFromListGenerator formatGenerator_);
+        void BindFormatGenerator(IFormatFromListGenerator formatGenerator_);
         void AddBuilders(List<ICommandBuilder> texts_, ITypeToken FormatPattern_ = null);
 
         string Build();

@@ -1,23 +1,17 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
 
 namespace IJsonManagers
 {   
     public interface IJsonManger
     {
-
         IJEnumerable<JToken> ExtractFromParentNode(string input);
-        IJEnumerable<JToken> ExtractFromParentNode(string input, string parentNodeName);        
+        IJEnumerable<JToken> ExtractFromParentNode(string input, string parentNodeName);
         IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName, string childNodeName);
         IJEnumerable<JToken> ExtractFromParentChildren(string input, string childNodeName);
-      
-       
+
+
         string SerializeObject(object input_, JsonSerializerSettings settings_ = null);
         string SerializeObject(object input_, JsonConverter converter_ = null);
         string SerializeObject(object input_);
