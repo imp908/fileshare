@@ -22,6 +22,17 @@ namespace IQueryManagers
         string Text { get; set; }
     }
 
+    public interface ITokenFactory
+    {
+        ITypeToken NewToken();
+    }
+
+    public interface ICommandFactory
+    {
+        ICommandBuilder CommandBuilder();
+        ICommandBuilder CommandBuilder(List<ITypeToken> tokens, ITypeToken format);
+    }
+
     //Building Item from Token types
     public interface ICommandBuilder
     {

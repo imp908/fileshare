@@ -8,6 +8,7 @@ using IFormats;
 namespace QueryManagers
 {
 
+    //<<<
     public class TextFormatGenerate : ITypeToken
     {
         public string Text { get; set; } = string.Empty;
@@ -23,8 +24,6 @@ namespace QueryManagers
                 {
                     result += @" ";
                 }
-
-
             }
             Text = result;
         }
@@ -34,6 +33,18 @@ namespace QueryManagers
     public class TextToken : ITypeToken
     {
         public string Text { get; set; }
+    }
+   
+    public class CommandFactory : ICommandFactory
+    {
+        public ICommandBuilder CommandBuilder()
+        {
+            return new CommandBuilder();
+        }
+        public ICommandBuilder CommandBuilder(List<ITypeToken> tokens,ITypeToken format)
+        {
+            return new CommandBuilder(tokens,format);
+        }
     }
 
     ///<summary> Base class for url tokens concatenation
@@ -46,7 +57,6 @@ namespace QueryManagers
         public ITypeToken Text { get; set; }
         public ITypeToken FormatPattern { get; set; }
         public List<ITypeToken> Tokens { get; set; }
-
 
         public CommandBuilder()
         {
@@ -147,7 +157,7 @@ namespace QueryManagers
         {
             this.formatGenerator = formatGenerator_;
         }
-        public void AddBuilders(List<ICommandBuilder> texts_, ITypeToken FormatPattern_ = null)
+        public void AddBuilders(List<ICommandBuilder> texts_, ITypeToken FormatPattern_)
         {            
             TokenFormatConcatenation(texts_, FormatPattern_);
         }
@@ -295,18 +305,29 @@ namespace QueryManagers
 
             if (FormatPattern_==null)
             {
-                FormatPattern = formatGenerator.FormatFromListGenerate(this.Tokens);
+                if (this.FormatPattern==null || this.FormatPattern.Text == null)
+                {
+                    //try to generate if no format passed
+                    try
+                    {
+                        if (formatGenerator == null) { throw new Exception("No ForamtPattern no FormatGenerator not binded"); }
+                        FormatPattern = formatGenerator.FormatFromListGenerate(this.Tokens);
+                    }
+                    catch (Exception e) { }
+                }             
             }
-
+            else
+            {
+                this.FormatPattern = FormatPattern_;
+            }
             try
             {
-                newFromat = FormatStringReArrange(string.Format(FormatPattern_.Text, arr));
+                newFromat = FormatStringReArrange(string.Format(this.FormatPattern.Text, arr));
+                this.Tokens = tempTokens;
+                this.FormatPattern.Text = newFromat;
             }
             catch (Exception e) { }
-
-
-            this.Tokens = tempTokens;
-            this.FormatPattern.Text = newFromat;
+            
         }
      
         internal void CheckFormat()
@@ -323,6 +344,72 @@ namespace QueryManagers
                 if (formatGenerator == null) { throw new Exception("No format pattern or generator passed"); }
                 typeToken = formatGenerator.FormatFromListGenerate(this.Tokens);
             }
+        }
+
+    }
+
+    /// <summary>
+    /// genrates sample format from collection of tokens
+    /// </summary>
+    public class FormatFromListGenerator : IFormatFromListGenerator
+    {
+        ITokenFactory _factory;
+        public FormatFromListGenerator(ITokenFactory factory)
+        {
+            this._factory = factory;
+        }
+
+        public ITypeToken FormatFromListGenerate(List<ITypeToken> tokens)
+        {
+            string res = "{}";
+            int[] cnt = new int[tokens.Count];
+            for (int i = 0; i < tokens.Count(); i++)
+            {
+                cnt[i] = i;
+            }
+            string res2 = string.Join(@"} {", cnt);
+            ITypeToken token = this._factory.NewToken();
+            token.Text = res.Insert(1, res2);
+            return token;
+        }
+        public ITypeToken FormatFromListGenerate(List<ITypeToken> tokens, string delimeter = null)
+        {
+            string res = "{}";
+            string placeholder;
+            if (delimeter != null)
+            {
+                placeholder = string.Join("}", delimeter, "{");
+            }
+            else { placeholder = @"} {"; }
+            int[] cnt = new int[tokens.Count];
+            for (int i = 0; i < tokens.Count(); i++)
+            {
+                cnt[i] = i;
+            }
+            string res2 = string.Join(placeholder, cnt);
+            ITypeToken token = this._factory.NewToken();
+            token.Text = res.Insert(1, res2);
+            return token;
+        }
+        public ITypeToken FormatFromListGenerate<T>(List<T> items, string delimeter = null)
+            where T : class
+        {
+            string res = "{}";
+            string placeholder;
+            if (delimeter != null)
+            {
+                placeholder = string.Join("}", delimeter, "{");
+            }
+            else { placeholder = @"} {"; }
+            int[] cnt = new int[items.Count];
+            for (int i = 0; i < items.Count(); i++)
+            {
+                cnt[i] = i;
+            }
+            string res2 = string.Join(placeholder, cnt);
+            ITypeToken token = this._factory.NewToken();
+            token.Text = res.Insert(1, res2);
+            return token;
         }
 
     }

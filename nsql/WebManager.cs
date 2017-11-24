@@ -286,18 +286,26 @@ namespace WebManagers
             }           
         }
 
-        internal void CheckReq()
+        internal bool CheckReq()
         {
             if (this._request == null)
             {
                 throw new NoRequestBinded();
             }
+            else { return true; }
         }
-
+        public void SetTimeout(int ms)
+        {
+            if(CheckReq())
+            {
+                this._request.Timeout = ms;
+            }
+        }
         public WebResponse GetResponse(string method)
         {
             throw new Exception();
         }
+
     }
 
     /// <summary>

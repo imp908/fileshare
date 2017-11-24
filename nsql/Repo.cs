@@ -112,7 +112,7 @@ namespace Repos
                 , new TextToken() { Text= from.id }, new TextToken() { Text = to.id }, new TextToken() { Text = context });
         
             cb.AddTokens(commandTk);
-            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(commandTk));
+            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(commandTk));
             string command = cb.Build();
 
             QueryUrl = CommandUrl + "/" + command;
@@ -135,7 +135,7 @@ namespace Repos
             List<ITypeToken> commandTk = tb.Command(new OrientCreateToken(), tk.Get(obj_), tk.GetBase(obj_), from, to, new TextToken() { Text = content });
 
             cb.AddTokens(commandTk);
-            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(commandTk));
+            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(commandTk));
             string command = cb.Build();
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
@@ -155,7 +155,7 @@ namespace Repos
             List<ITypeToken> commandTk = tb.Command(new OrientSelectToken(), tk.Get(object_), condition_);
 
             cb.AddTokens(commandTk);
-            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(commandTk));
+            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(commandTk));
             string command = cb.Build();
 
             QueryUrl = CommandUrl + "/" + command;
@@ -176,7 +176,7 @@ namespace Repos
             List<ITypeToken> commandTk = tb.Command(new OrientSelectToken(), tk.Get(object_), condition_);
 
             cb.AddTokens(commandTk);
-            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(commandTk));
+            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(commandTk));
             string command = cb.Build();
 
             QueryUrl = CommandUrl + "/" + command;
@@ -311,11 +311,11 @@ namespace Repos
             }
 
             cb.AddTokens(connectTokens);
-            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(connectTokens));
+            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(connectTokens));
             string connect = cb.Build();
         
             cb.AddTokens(functionTokens);
-            cb.AddFormat(new FormatFromListGenerator(new TextToken()).FormatFromListGenerate(functionTokens));
+            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(functionTokens));
             string command = cb.Build();         
 
             string url = connect + "/" + command;

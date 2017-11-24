@@ -507,7 +507,7 @@ Revise:
 			
 
 	#endregion
-		
+
 	#region SourceControl
 
 	public Bug Trackers
@@ -723,7 +723,7 @@ Parent and child progects merged in child branch
 		{
 			
 			public void Theory()
-			{			
+			{
 				
 				public class Equality(){
 					
@@ -1708,7 +1708,7 @@ StringBuilder.
 					Find-Package microsoft.net.http
 					Install-Package microsoft.net.http
 					Install-Package microsoft.net.http -ProjectName ConsoleApp1
-					install-package Newtonsoft.Json
+					install-package Newtonsoft.Json -ProjectName NewsAPI, NewsAPI.Tsts
 					
 					Install-Package xunit
 					Install-Package xunit.analyzers 
@@ -2897,66 +2897,7 @@ access, please check that you have enabled metadata publishing at the specified 
 	}
 	
 	#endregion 
-	
-	#region Python
-		
-		public void Python{
-			
-			public void IO()
-			{
-				
-    'r' : use for reading
-    'w' : use for writing
-    'x' : use for creating and writing to a new file
-    'a' : use for appending to a file
-    'r+' : use for reading and writing to the same file
 
-				
-			}
-			
-			public void LocalServerForTesting()
-			{
-				#stollen from 
-#http://pbcraft.ru/simple-python3-web-server/
-import http.server
-import socketserver
-
-from http.server import BaseHTTPRequestHandler, HTTPServer
-
-PORT = 8000
-
-class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
-	def do_GET(self):
-		# Отправляем код 200 (ОК)
-		self.send_response(200)
-		 # Теперь очередь за заголовками
-		self.send_header('Content-type','text/html')
-		self.end_headers()
-	def do_POST(self):
-		# Отправляем код 200 (ОК)
-		self.send_response(200)
-		 # Теперь очередь за заголовками
-		self.send_header('Content-type','text/html')
-		self.end_headers()
-	def do_DEL(self):
-		# Отправляем код 200 (ОК)
-		self.send_response(200)
-		 # Теперь очередь за заголовками
-		self.send_header('Content-type','text/html')
-		self.end_headers()
-		
-Handler = http.server.SimpleHTTPRequestHandler
-
-with socketserver.TCPServer(("", PORT), testHTTPServer_RequestHandler) as httpd:
-    print("serving at port", PORT)
-    httpd.serve_forever()
-				
-			}
-		
-		}
-	
-	#endregion
-	
 	#region C++ 
 
 	public Code theory
@@ -3320,8 +3261,8 @@ with socketserver.TCPServer(("", PORT), testHTTPServer_RequestHandler) as httpd:
 		
 	}
 
-	#endregion	
-	
+	#endregion
+
 	#region JS5
 
 	//js templates
@@ -3434,7 +3375,7 @@ with socketserver.TCPServer(("", PORT), testHTTPServer_RequestHandler) as httpd:
 	}
 		}
 		
- public void Templates(){
+		public void Templates(){
 			
 			public void select2Template(){
 				
@@ -3734,9 +3675,11 @@ $(document).ready(function(){
 
 
 				
-			}
-			
-   public void Examples()
+			}			
+					
+		}
+		
+		public void Examples()
 		{
 			
 			public void Select2OnInter03(){
@@ -3972,6 +3915,65 @@ $(document).ready(function(){
 	//----------------------------------------------
 	#endregion
 
+	#region Python
+		
+		public void Python{
+			
+			public void IO()
+			{
+				
+    'r' : use for reading
+    'w' : use for writing
+    'x' : use for creating and writing to a new file
+    'a' : use for appending to a file
+    'r+' : use for reading and writing to the same file
+
+				
+			}
+			
+			public void LocalServerForTesting()
+			{
+				#stollen from 
+#http://pbcraft.ru/simple-python3-web-server/
+import http.server
+import socketserver
+
+from http.server import BaseHTTPRequestHandler, HTTPServer
+
+PORT = 8000
+
+class testHTTPServer_RequestHandler(BaseHTTPRequestHandler):
+	def do_GET(self):
+		# Отправляем код 200 (ОК)
+		self.send_response(200)
+		 # Теперь очередь за заголовками
+		self.send_header('Content-type','text/html')
+		self.end_headers()
+	def do_POST(self):
+		# Отправляем код 200 (ОК)
+		self.send_response(200)
+		 # Теперь очередь за заголовками
+		self.send_header('Content-type','text/html')
+		self.end_headers()
+	def do_DEL(self):
+		# Отправляем код 200 (ОК)
+		self.send_response(200)
+		 # Теперь очередь за заголовками
+		self.send_header('Content-type','text/html')
+		self.end_headers()
+		
+Handler = http.server.SimpleHTTPRequestHandler
+
+with socketserver.TCPServer(("", PORT), testHTTPServer_RequestHandler) as httpd:
+    print("serving at port", PORT)
+    httpd.serve_forever()
+				
+			}
+		
+		}
+	
+	#endregion	
+	
 	#region DB
 	
 	public void SQL()
@@ -6546,7 +6548,31 @@ drop table #Account;
 
 
 				}
-			
+				
+				public void Pivot()
+				{
+					
+					
+select 'Avg' as avg, [110221],[115201],[140091] from (
+select ZipCode, Id--avg(Id) as "AVG"
+from Adresses
+where ZipCode in (110221,115201,140091)
+--group by ZipCode
+) as source
+pivot(
+AVG(Id) for ZipCode in([110221],[115201],[140091])
+) as pivot_
+
+					
+select 'Avg' as avg, [1],[1112] from (
+select [Target],[UserID] from TaskBasePermission 
+) as source
+pivot (
+AVG( [Target]) for [UserID] in ([1],[1112])
+) as pivot_
+
+				}
+				
 			}			
 		
 		}
@@ -6561,8 +6587,7 @@ drop table #Account;
 			
 			public void REST_API()
 			{
-				
-				
+								
 Orient_REST_API(){
 
 	https://orientdb.com/docs/2.1/OrientDB-REST.html?q=
@@ -6668,11 +6693,11 @@ Orient_REST_FIDDLER(){
 	Authorization: Basic cm9vdDpyb290
 	Content-Length: 85
 	{
-	  "command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"
-	 }
+		"command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"
+	}
 	{
-	  "command": "CREATE class  Person;"
-	 }
+		"command": "CREATE class  Person;"
+	}
 
 	http://localhost:2480/batch/test_db/sql
 	Host: localhost:2480
@@ -6746,6 +6771,8 @@ Orient_REST_FIDDLER(){
 	]
 	}
 
+	///{ "command" : "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"4\", \"Name\": \"0\"}" }
+	
 	//will not work -> only command
 	{ "transaction" : true,
 	  "operations" : [
@@ -6764,183 +6791,178 @@ Orient_REST_FIDDLER(){
 	}
 
 }
-
+		
 adbn_db_exmpls(){
-	
-host:port/ApiType/dbName/
-host:port/ApiType/dbName/FunctionName/Params
-host:port/ApiType/dbName/sql/commandText
+		
+	host:port/ApiType/dbName/
+	host:port/ApiType/dbName/FunctionName/Params
+	host:port/ApiType/dbName/sql/commandText
 
 
-//get database
-http://msk1-vm-ovisp02:2480/database/news_test3
-//geet class
-http://msk1-vm-ovisp02:2480/class/news_test3/Entity
-http://msk1-vm-ovisp02:2480/class/news_test3/Person
-http://msk1-vm-ovisp02:2480/class/news_test3/Authorship
-//execute indeponent function
-http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
+	//get database
+	http://msk1-vm-ovisp02:2480/database/news_test3
+	//geet class
+	http://msk1-vm-ovisp02:2480/class/news_test3/Entity
+	http://msk1-vm-ovisp02:2480/class/news_test3/Person
+	http://msk1-vm-ovisp02:2480/class/news_test3/Authorship
+	//execute indeponent function
+	http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
 
-//GET sql
-http://msk1-vm-ovisp02:2480/query/news_test3/sql/select * from Entity
-//POST sql
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/select * from Person where Name = '0'
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0')
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0'),( '2017-10-19 18:00:09', '2015-02-02 12:43:56',  '0',  '0')
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/delete vertex Person where Name = '0'
-//Fucntion (indeponent)
-http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
-//call to HW API
-api/Orient/GetByID/1
+	//GET sql
+	http://msk1-vm-ovisp02:2480/query/news_test3/sql/select * from Entity
+	//POST sql
+	http://msk1-vm-ovisp02:2480/command/news_test3/sql/select * from Person where Name = '0'
+	http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
+	http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0')
+	http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0'),( '2017-10-19 18:00:09', '2015-02-02 12:43:56',  '0',  '0')
+	http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
+	http://msk1-vm-ovisp02:2480/command/news_test3/sql/delete vertex Person where Name = '0'
+	//Fucntion (indeponent)
+	http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
+	//call to HW API
+	api/Orient/GetByID/1
 
 
 
-//batch
+	//batch
 
-http://msk1-vm-ovisp02:2480/batch/news_test3/
+	http://msk1-vm-ovisp02:2480/batch/news_test3/
 
-//body1
-{ "transaction" : true,
-  "operations" : [
-    {
-      "type" : "script",
-      "language" : "sql",
-      "script" : [
-		  "create vertex Object set Content=\"A\""
-		  ,"create vertex Object set Content=\"A\""
+	//body1
+	{ "transaction" : true,
+	  "operations" : [
+		{
+		  "type" : "script",
+		  "language" : "sql",
+		  "script" : [
+			  "create vertex Object set Content=\"A\""
+			  ,"create vertex Object set Content=\"A\""
+		  ]
+		}
 	  ]
-    }
-  ]
-}
+	}
 
-//body1
-{ "transaction" : true,
-  "operations" : [
-    {
-      "type" : "script",
-      "language" : "sql",
-      "script" : [
-		 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-		 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+	//body1
+	{ "transaction" : true,
+	  "operations" : [
+		{
+		  "type" : "script",
+		  "language" : "sql",
+		  "script" : [
+			 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+			 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+		  ]
+		}
 	  ]
-    }
-  ]
-}
+	}
 
 
-	//add from batch
- http://msk1-vm-ovisp02:2480/batch/news_test2/
- 
- { "transaction" : true,
-  "operations" : [
-    {
-      "type" : "script",
-      "language" : "sql",
-      "script" : [
-		"let $a = insert into UserSettings content {\"showBirthday\":true};"
-	,"let $b = create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;"
+		//add from batch
+	 http://msk1-vm-ovisp02:2480/batch/news_test2/
+	 
+	 { "transaction" : true,
+	  "operations" : [
+		{
+		  "type" : "script",
+		  "language" : "sql",
+		  "script" : [
+			"let $a = insert into UserSettings content {\"showBirthday\":true};"
+		,"let $b = create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;"
+		  ]
+		}
 	  ]
-    }
-  ]
-}
+	}
 
 
-//bad command quotes no intervals
-delete vertex from  object where Content="A"
+	//bad command quotes no intervals
+	delete vertex from  object where Content="A"
 
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/
-{"command":"CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\\"sql\\",\\" select r.ToLowerCase() as r from (select '\\"+input+\\"' as r) \\"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;"}
-			
+	http://msk1-vm-ovisp02:2480/command/news_test3/sql/
+	{"command":"CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\\"sql\\",\\" select r.ToLowerCase() as r from (select '\\"+input+\\"' as r) \\"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;"}
+		
 }
 
 CommandsConcatenate(){
 
 
-//Rest paramters strategy
-Type = IOrientDatabase => 
-host:port/database/{dbname}/plocal | POST,DELETE
-host:port/connect/{dbname} | GET
+	//Rest paramters strategy
+	Type = IOrientDatabase => 
+	host:port/database/{dbname}/plocal | POST,DELETE
+	host:port/connect/{dbname} | GET
 
-Type = IorientVertex,IorientEdge => 
-host:port/command/{dbname}/sql | POST
-host:port/batch/{dbname} | POST
+	Type = IorientVertex,IorientEdge => 
+	host:port/command/{dbname}/sql | POST
+	host:port/batch/{dbname} | POST
 
-Content != null => + content
-{"command":"query"}
-{ "transaction" : true,
-	  "operations" : [
-		{
-		  "type" : "script",
-		  "language" : "sql",
-		  "script" : [{0}]
-		}
-	  ]
-	} -> {0} ,..,{n}
-
-	
-//command signatures
-delete/Add(Idb);
-delete/Add(Idb,host);
-delete/Add(Type,ItypeToken content);
-{classes}
-delete/Add(IorientObject);
-{objects}
-
-
-//url formats
-format  define {0}:{1} => host:port
-format  gen {0}{*}..{*}{n} => 
-host:port /dbname/plocal ; 
-host:port/connect/dbname ;
-host:port/command/dbname/sql ;
-host:port/batch/dbname ;
-[examples
-{0} {1} .. {n}
-{0}/{1}/../{n}
-]
-
-
-//command formats
-///Property foreach prop of class, with type convert, nullable,
-///pregen foramat for small token collections, then aggregate them, in command token collections
-//{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
-format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
-create class [V/E] <extends [V/E]>
-
-format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1} {2}
-	   property {V/E}.{Property} type ( mandatory = bool , notnull = bool )
-
-	   
-																			{0}[1p]{2} => 0
-																			cond 'param'
-																			
-																			format gen {0}{1} +{0}{1}[2p]{3}{4} +{0}[1p] +[0p] {1} => {0}{1}{2} {3}
-																			inE['[class]'] .Property cond 'param'
-																			in|out/E|V
-
-																			[0p].[1p] [0p] {0}[1p]{2} => {0} {1} {2}
-																			class.property cond 'param'
-																			GUID/ID/@class.size = ''
-	
-																format gen[0] .. [n]
-																where 1=1 
-
-											format gen{0} {1} [2p]<{3} .. [] ..[n]> => {0} {0} .. {n} => {0} {1}
-											select from [V/E] < where 1=1 .. connd1 .. condN>
-
-format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1} {2} {3} => {0} {1}
-		vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
+	Content != null => + content
+	{"command":"query"}
+	{ "transaction" : true,
+		  "operations" : [
+			{
+			  "type" : "script",
+			  "language" : "sql",
+			  "script" : [{0}]
+			}
+		  ]
+		} -> {0} ,..,{n}
 
 		
+	//command signatures
+	delete/Add(Idb);
+	delete/Add(Idb,host);
+	delete/Add(Type,ItypeToken content);
+	{classes}
+	delete/Add(IorientObject);
+	{objects}
+
+
+	//url formats
+	format define {0}:{1} => host:port
+	format gen {0}{*}..{*}{n} => 
+	host:port /dbname/plocal ; 
+	host:port/connect/dbname ;
+	host:port/command/dbname/sql ;
+	host:port/batch/dbname ;
+	[examples
+	{0} {1} .. {n}
+	{0}/{1}/../{n}
+	]
+
+
+	///command formats
+	///Property foreach prop of class, with type convert, nullable,
+	///pregen foramat for small token collections, then aggregate them, in command token collections
+	///{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
+	format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
+	create class [V/E] <extends [V/E]>
+
+	format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1} {2}
+		   property {V/E}.{Property} type ( mandatory = bool , notnull = bool )
+		   
+																				{0}[1p]{2} => 0
+																				cond 'param'
+																				
+																				format gen {0}{1} +{0}{1}[2p]{3}{4} +{0}[1p] +[0p] {1} => {0}{1}{2} {3}
+																				inE['[class]'] .Property cond 'param'
+																				in|out/E|V
+
+																				[0p].[1p] [0p] {0}[1p]{2} => {0} {1} {2}
+																				class.property cond 'param'
+																				GUID/ID/@class.size = ''
 		
+																	format gen[0] .. [n]
+																	where 1=1
+
+												format gen{0} {1} [2p]<{3} .. [] ..[n]> => {0} {0} .. {n} => {0} {1}
+												select from [V/E] < where 1=1 .. connd1 .. condN>
+
+	format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1} {2} {3} => {0} {1}
+			vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
 
 					}
+					
 			}
-		
-		}
-			
+					
 			public void Maintenance()
 			{
 				
@@ -7180,6 +7202,9 @@ value "  \" ' ' \' \' \
 	public void Initial_NewsApi_Functions()
 	{
 		//create function 
+		
+		delete from Ofunction  where name in [ "GetStructure","GetPersonPhoto","GetPerson","GetDepartmentName","GetDepartmentColorClass","GetDepartmentColor","GetPositionBar", "GetWeight","SearchPerson","GetStructureByUnitGUIDAtCurrentLevel","GetStructureByPersonGUID","GetStructureByUnitGUID", "GetAllStructureFAMILY","GetAllStructureLARGEHTY","GetLarge" 		]
+		
 		//CREATE FUNCTION test "var g=orient.getGraph();var b=g.command(\"sql\",\"select from Person where sAMAccountName =  '\"+accountName+\"' \");return b;" PARAMETERS [accountName]  IDEMPOTENT true LANGUAGE JAVASCRIPT
 		CREATE FUNCTION GetStructure "var g=orient.getGraph(); var b=g.command(\"sql\",\"select @RID,@class,FirstName,GUID,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl ,objectGUID , if( eval('@class = \\\"Person\\\"'),in('MainAssignment').GUID[0],PGUID ) as PGUID ,inE().Name[0] as AssignmentName ,inE().State[0] as AssignmentState ,inE().ExpDate[0] as AssignmentStateExpireDate from ( traverse out('MainAssignment') from (traverse out('SubUnit') from (select from Unit where GUID = '\"+Depth+\"') while $depth <= '\"+Depth+\"' ) ) where Disabled is null\") ; return b;" PARAMETERS [Depth] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetPersonPhoto "var link_s = \'http://msk1-vm-inapp01/AddressBookAPI/api/Photo/?email=\'"+mail+";return link_s;" PARAMETERS [mail] IDEMPOTENT true LANGUAGE JAVASCRIPT;
@@ -8800,6 +8825,14 @@ in v out
 //XIV
 //functions not visible from OFunction class
 
+//XV
+//fired colleges
+// select from (
+// select expand(inE().outV().outE()) from Person where Name like '%имощ%' 
+// ) where 
+// Name ='Начальник отдела'
+
+
 			}
 			
 		}
@@ -9476,8 +9509,10 @@ RAW JSON
 		}
 
 		}
-	
+
+		
 	}
+	
 		
 	#endregion
 		
