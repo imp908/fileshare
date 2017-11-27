@@ -396,83 +396,201 @@ namespace Parts{
 	}
 	
 	#region TODO
-	
-		public class Utility
-		{
-
-0 neo4jAPI 
-	-> CRUD
-	-> boilerplate code sample nodes db with rel creation <- done
-0 JS hacks (ajax to form)
-	-> bind result js to site
-	-> sample hack Select2 to API calls loc + interactive <- done	
-0 HTTP,JSON,Orient Managers
-	-> extend existing managers
-	-> HttpManager, JSON, string managers, queryManager <- done
-0 PersonAPI
-	-> redeploy with new addressbook
-	-> HttpManager <- done
-	-> JSONmanager <- done
-	-> PersonManager <- done
-	-> WebApiConfig <- done
-0 Repo
--> Repo (against SQL base and Northwind base)
--> Repo (Chaining IRepo implementation for Date + list filter)
-0 UOW
--> Finilize for all
-0 WCF - move t oREST API most likely due to unclear configuration while mooving
--> POCO to DataContract converter
--> ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)
--> Add BLL Business logic layer between POCOs and UOW
--> Add JS multiple model items update at one time
--> to DLL
-0 WebAPI
--> between repo and MVC site
-1 PresentationSite
--> parsing excel file to objects method decompose to several
-	///Sector type from filename
-	///Fist file input determines merchant sector
-	parse file mask;
-	
-	if parsed then
 	{
+		
+		"TODO": [{
+		"Infrastructure": [{
+				"Correct decoupling of projects": []
+			}, {
+				"Build automate": []
+			},
+			{
+				"Testng automate": [{
+					"Name": "Test localhost server",
+					"What": "starts localhost for methods testing",
+					"How": ["Python localhost server"],
+					"TODO": ["add responses on 8001"],
+					"DONE": ["Starts localhost on 8000", "handles GET,POST,DELETE"]
+				}, {
+					"Name": "API tester",
+					"What": "runs config file with aprameters for URL response check with WebManager,WebResponseReader",
+					"TODO": [
+						"POST,PUT,DELETE methods",
+						"request body and format type"
+					],
+					"DONE": [
+						"Config export/import",
+						"Exeption expected",
+						"Null expected",
+						"Ok not OK to config print"
+					]
+				}]
+			}
+		]
+	}, {
+		"Utility": [{
+				"Js hacks": [{
+					"Name": "JS hacks",
+					"What": "Js scripts to load on page and change functionality",
+					"TODO": [
+						"New API drop box above textbox add. Textbox no ovewrite"
+					],
+					"DONE": [
+						"Select2 Js To site"
+					]
+				}]
+			}, {
+				"neo4jAPI": [{
+					"Name": "Builderplate",
+					"What": ["script for neo4j builderplate"],
+					"TODO": ["script"]
+				}, {
+					"Name": "CRUD",
+					"What": ["script for neo4j crud operations"],
+					"DONE": ["crud"]
+				}]
+			}, {
+				"PersonAPI": [{
+					"Name": "OrientManager",
+					"What": "Builder of commands and urls from tokens",
+					"TODO": [
+						"Command Builder",
+						"UrlBuilder"
+					],
+					"DONE": [
+						"Query manager",
+						"TokenBuilder"
+					]
+				}, {
+					"Name": "WebAPI",
+					"What": "Apis for person,addressbook,news,birthdays",
+					"How": [
+						"c# web api"
+					]
+				}, {
+					"Name": "HttpManager",
+					"What": "handling http requests",
+					"TODO": [
+						"Handshake procedure"
+					],
+					"DONE": [
+						"Handling http methods POST,GET,DEL,PUT",
+						"Adding headers",
+						"Add request body",
+						"Orient DB cookie authorization"
+					],
+					"How": [
+						"c# http"
+					]
+				}, {
+					"Name": "JSONmanager",
+					"What": "Round aboud Newtonsoft JSON",
+					"DONE": [
+						"Parsing to/from objects/strings to/from JSON string"
+					],
+					"TODO": [
+						"Clatrify parsing to string",
+						"make generic"
+					],
+					"How": [
+						"c#"
+					]
+				}]
+			},
+			{
+				"Presentation site": [{
+					"Name": "WCF",
+					"What": "Between UOW  and Presentation site",
+					"How": [
+						"PCOCs instead of data contracts"
+					],
+					"Comments": "move to REST API most likely due to unclear configuration while mooving",
+					"TODO": [
+						"ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)",
+						"Add BLL Business logic layer between POCOs and UOW",
+						"Add JS multiple model items update at one time"
+					]
+				}, {
+					"Name": "WebApi",
+					"What": "Between UOW  and Presentation site",
+					"TODO": [
+						"Add"
+					]
+				}, {
+					"Name": "Excel parser",
+					"What": "parsing excel file to objects method",
+					"TODO": [
+						"decompose to several projects"
+					],
+					"How": [
+						"parse file mask",
+						"Sector type from filename",
+						"Fist file input determines merchant sector"
+					]
+				}, {
+					"Name": "Excel exporter",
+					"What": "Export to excel",
+					"How": [
+						"For collection of POCO objects Read properties of PCOO object",
+						"Every property to column, every object to row"
+					]
+				}, {
+					"Name": "SQL SLR Type converter",
+					"What": "Type converter for migration",
+					"How": [
+						"Add SQL to CLR type conversion",
+						"SQLEntity to DWH entity converter",
+						"Converter logic to string name or type name"
+					]
+				}, {
+					"Name": "WCF",
+					"What": "Add WCF between Repo and Site",
+					"Comments": "bad idea WCF diff to config. REST API instead"
+				}, {
+					"Name": "UOW",
+					"DONE": [
+						"bind repo to generic with as and type conversion",
+						"bind context to every"
+					]
+				}, {
+					"Name": "Repository",
+					"Test": [{
+						"Integration": "Tables migration"
+					}],
+					"TODO": [
+						"against SQL base and Northwind base",
+						"Chaining IRepo implementation for Date + list filter"
+
+					],
+					"DONE": [{
+							"Name": "IRpository",
+							"DONE": [
+								"CRUD operations"
+							]
+						},
+						{
+							"Name": "Explicit Repository",
+							"What": "Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}"
+
+						},
+						{
+							"Name": "Implicit Repository",
+							"What": "Repo<T>() where T: IOne { GetByOne(); } ... Repo<T>() where T: In { GetByN(); } <- done"
+
+						}
+					]
+				}, {
+					"Name": "Northwind",
+					"DONE": [
+						"change login employee get from TempData to model",
+						"add complex model"
+					]
+				}]
+			}
+		]
+
+	}]
 	
-		get sector id from filename; --from config
-		get property fields; --from config
-		if(no merchant column then error); --from parser
-
-		foreach row
-		{
-			check merchant doubles for this sector; --from UOF
-			remove doubles; --from UOF
-			insert; --from UOF
-		}
-		
-	}
-
--> Export to excel
--> Type converter for migration (
-Add SQL to CLR type conversion ; 
-SQLEntity to DWH entity converter; 
-Converter logic to string name or type name;)
--> Add WCF between Repo and Site <- done bad idea WCF diff to config. REST API instead
--> UOW bind repo to generic with as and type conversion <- done
--> UOW bind context to every repo  <- done
--> Specific repository for every entity <- done
--> IRepository<T> with CRUD operations lightweight  <- done
-SB , Repo and UOF to different projects  <- done
-Northwind -> change login employee get from TempData to model  <- done
-Northwind -> add complex model add  <- done
-Tables migration - test with repo <- done
--> Emplicit implicit repos
-1-explicit repo (mostly type by merchant)
-Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}
-2-implicit repo (mostly one type by repo instance)
-Repo<T>() where T: IOne { GetByOne(); }
-...
-Repo<T>() where T: In { GetByN(); } <- done
-		}
-		
 		public class Mastery
 		{
 II:Mastery
@@ -480,34 +598,26 @@ II:Mastery
 0 Command line Console parameters parse app dll -> to SB
 0 Multithread socket message ping pong -> to SB
 0 CollectionsComparison -> to SB
-		}
-		
-		public class Infrastructure
-		{
-III:Infrastructure
-0 Testng automate
-0 Build automate
-0 Correct decoupling of projects
+0 Pluggin/addon architecture -> to SB
 		}
 		
 		public class Miscellaneous
 		{
-			
-	
+				
 	IV:Miscellaneous ˌmɪs(ə)'leɪnɪəs
 Actual:
-Theory to SB;
-	Merge CT,TODO, and notepads txt;
+TODO to JSON;
 JdeveloperInstall;
-	VS2017 install->
-	check .NET Core2;
+Check .NET Core2;
 Revise:
 	equality, string, default null init, inheritance, events
+	
 		}
 			
-
+	}
+	
 	#endregion
-
+		
 	#region SourceControl
 
 	public Bug Trackers
@@ -723,7 +833,7 @@ Parent and child progects merged in child branch
 		{
 			
 			public void Theory()
-			{
+			{			
 				
 				public class Equality(){
 					
@@ -2896,8 +3006,8 @@ access, please check that you have enabled metadata publishing at the specified 
 	
 	}
 	
-	#endregion 
-
+	#endregion 	
+	
 	#region C++ 
 
 	public Code theory
@@ -3261,8 +3371,8 @@ access, please check that you have enabled metadata publishing at the specified 
 		
 	}
 
-	#endregion
-
+	#endregion	
+	
 	#region JS5
 
 	//js templates
@@ -3375,7 +3485,7 @@ access, please check that you have enabled metadata publishing at the specified 
 	}
 		}
 		
-		public void Templates(){
+ public void Templates(){
 			
 			public void select2Template(){
 				
@@ -3675,10 +3785,8 @@ $(document).ready(function(){
 
 
 				
-			}			
-					
-		}
-		
+			}
+			
 		public void Examples()
 		{
 			
@@ -3896,6 +4004,7 @@ $(document).ready(function(){
 			}
 			
 		}
+	
 	}
 	//JS vendors
 	public void JSvendors()
@@ -3914,7 +4023,9 @@ $(document).ready(function(){
 
 	//----------------------------------------------
 	#endregion
-
+	
+	#endregion	
+	
 	#region Python
 		
 		public void Python{
@@ -3970,9 +4081,35 @@ with socketserver.TCPServer(("", PORT), testHTTPServer_RequestHandler) as httpd:
 				
 			}
 		
+			public void Libs()
+			{
+				pip install numpy
+pip install matplotlib
+pip install bokeh
+pip install pandas
+npm install -g phantomjs-prebuilt
+pip install ipython
+			}
+		
+			public void Wheels()
+			{
+				{"Name":"Python Libs WHL",
+"WHL":[
+{
+"LIBNAME":"LXM"
+,"VER":"Python 3.6 pip 9.0"
+,"URL":"https://pypi.python.org/packages/cb/b4/21319db4bef36225ea0924a3129332ab9989da7dfaba790fa427ac105ee7/lxml-4.1.1-cp36-cp36m-win_amd64.whl#md5=1cd0365757ebacaf99de8737739f75c7"
+,"CMD":"pip install lxml-4.1.1-cp36-cp36m-win_amd64.whl"
+,"DESCRIPTION":"parse html"
+}
+,{}
+]
+}
+			}
+		
 		}
 	
-	#endregion	
+	#endregion		
 	
 	#region DB
 	
@@ -6548,8 +6685,8 @@ drop table #Account;
 
 
 				}
-				
-				public void Pivot()
+			
+	 	public void Pivot()
 				{
 					
 					
@@ -6587,7 +6724,8 @@ AVG( [Target]) for [UserID] in ([1],[1112])
 			
 			public void REST_API()
 			{
-								
+				
+
 Orient_REST_API(){
 
 	https://orientdb.com/docs/2.1/OrientDB-REST.html?q=
@@ -6693,11 +6831,11 @@ Orient_REST_FIDDLER(){
 	Authorization: Basic cm9vdDpyb290
 	Content-Length: 85
 	{
-		"command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"
-	}
+	  "command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"
+	 }
 	{
-		"command": "CREATE class  Person;"
-	}
+	  "command": "CREATE class  Person;"
+	 }
 
 	http://localhost:2480/batch/test_db/sql
 	Host: localhost:2480
@@ -6771,8 +6909,6 @@ Orient_REST_FIDDLER(){
 	]
 	}
 
-	///{ "command" : "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"4\", \"Name\": \"0\"}" }
-	
 	//will not work -> only command
 	{ "transaction" : true,
 	  "operations" : [
@@ -6791,178 +6927,217 @@ Orient_REST_FIDDLER(){
 	}
 
 }
-		
+
 adbn_db_exmpls(){
-		
-	host:port/ApiType/dbName/
-	host:port/ApiType/dbName/FunctionName/Params
-	host:port/ApiType/dbName/sql/commandText
+	
+host:port/ApiType/dbName/
+host:port/ApiType/dbName/FunctionName/Params
+host:port/ApiType/dbName/sql/commandText
 
 
-	//get database
-	http://msk1-vm-ovisp02:2480/database/news_test3
-	//geet class
-	http://msk1-vm-ovisp02:2480/class/news_test3/Entity
-	http://msk1-vm-ovisp02:2480/class/news_test3/Person
-	http://msk1-vm-ovisp02:2480/class/news_test3/Authorship
-	//execute indeponent function
-	http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
+//get database
+http://msk1-vm-ovisp02:2480/database/news_test3
+//geet class
+http://msk1-vm-ovisp02:2480/class/news_test3/Entity
+http://msk1-vm-ovisp02:2480/class/news_test3/Person
+http://msk1-vm-ovisp02:2480/class/news_test3/Authorship
+//execute indeponent function
+http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
 
-	//GET sql
-	http://msk1-vm-ovisp02:2480/query/news_test3/sql/select * from Entity
-	//POST sql
-	http://msk1-vm-ovisp02:2480/command/news_test3/sql/select * from Person where Name = '0'
-	http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
-	http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0')
-	http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0'),( '2017-10-19 18:00:09', '2015-02-02 12:43:56',  '0',  '0')
-	http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
-	http://msk1-vm-ovisp02:2480/command/news_test3/sql/delete vertex Person where Name = '0'
-	//Fucntion (indeponent)
-	http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
-	//call to HW API
-	api/Orient/GetByID/1
+//GET sql
+http://msk1-vm-ovisp02:2480/query/news_test3/sql/select * from Entity
+//POST sql
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/select * from Person where Name = '0'
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0')
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0'),( '2017-10-19 18:00:09', '2015-02-02 12:43:56',  '0',  '0')
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/delete vertex Person where Name = '0'
+//Fucntion (indeponent)
+http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
+//call to HW API
+api/Orient/GetByID/1
 
 
 
-	//batch
+//batch
 
-	http://msk1-vm-ovisp02:2480/batch/news_test3/
+http://msk1-vm-ovisp02:2480/batch/news_test3/
 
-	//body1
-	{ "transaction" : true,
-	  "operations" : [
-		{
-		  "type" : "script",
-		  "language" : "sql",
-		  "script" : [
-			  "create vertex Object set Content=\"A\""
-			  ,"create vertex Object set Content=\"A\""
-		  ]
-		}
+//body1
+{ "transaction" : true,
+  "operations" : [
+    {
+      "type" : "script",
+      "language" : "sql",
+      "script" : [
+		  "create vertex Object set Content=\"A\""
+		  ,"create vertex Object set Content=\"A\""
 	  ]
-	}
+    }
+  ]
+}
 
-	//body1
-	{ "transaction" : true,
-	  "operations" : [
-		{
-		  "type" : "script",
-		  "language" : "sql",
-		  "script" : [
-			 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-			 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-		  ]
-		}
+//body1
+{ "transaction" : true,
+  "operations" : [
+    {
+      "type" : "script",
+      "language" : "sql",
+      "script" : [
+		 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+		 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
 	  ]
-	}
+    }
+  ]
+}
 
 
-		//add from batch
-	 http://msk1-vm-ovisp02:2480/batch/news_test2/
-	 
-	 { "transaction" : true,
-	  "operations" : [
-		{
-		  "type" : "script",
-		  "language" : "sql",
-		  "script" : [
-			"let $a = insert into UserSettings content {\"showBirthday\":true};"
-		,"let $b = create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;"
-		  ]
-		}
+	//add from batch
+ http://msk1-vm-ovisp02:2480/batch/news_test2/
+ 
+ { "transaction" : true,
+  "operations" : [
+    {
+      "type" : "script",
+      "language" : "sql",
+      "script" : [
+		"let $a = insert into UserSettings content {\"showBirthday\":true};"
+	,"let $b = create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;"
 	  ]
-	}
+    }
+  ]
+}
 
 
-	//bad command quotes no intervals
-	delete vertex from  object where Content="A"
+//bad command quotes no intervals
+delete vertex from  object where Content="A"
 
-	http://msk1-vm-ovisp02:2480/command/news_test3/sql/
-	{"command":"CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\\"sql\\",\\" select r.ToLowerCase() as r from (select '\\"+input+\\"' as r) \\"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;"}
-		
+http://msk1-vm-ovisp02:2480/command/news_test3/sql/
+{"command":"CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\\"sql\\",\\" select r.ToLowerCase() as r from (select '\\"+input+\\"' as r) \\"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;"}
+			
 }
 
 CommandsConcatenate(){
 
+URI,Method,Header,content
+.CreateDb(Name db,host = null) -> 
+createHost<=dbname[<=host],POST,AuthHeader
+store DbName,Host,created (true|false)
 
-	//Rest paramters strategy
-	Type = IOrientDatabase => 
-	host:port/database/{dbname}/plocal | POST,DELETE
-	host:port/connect/{dbname} | GET
+.createClass(typeof(Person)).extend(typeof(Object));
+.createClass<Person>().extend<Object>();
+.createClass<Person>();
+commandHost,POST,AuthHeader | OSSESSIONID cookie header , content <-
+command json + createproperty command
+//just after class created OK
+.create(PropertyObject,type,mandatory=null,notnull=null) -> 
+commandHost,POST,AuthHeader | OSSESSIONID cookie header , content <-
+command json + createproperty command
+{add or test existing type converter from POCO to ITypeToken}
 
-	Type = IorientVertex,IorientEdge => 
-	host:port/command/{dbname}/sql | POST
-	host:port/batch/{dbname} | POST
+.create(Vertex Instance)
+stored host,batch,dbname,POST,AuthHeander,
+batchJson insert create vertex command from object with content generated
+.batchCreate(..)...
+batchJson insert ',' 
 
-	Content != null => + content
-	{"command":"query"}
-	{ "transaction" : true,
-		  "operations" : [
-			{
-			  "type" : "script",
-			  "language" : "sql",
-			  "script" : [{0}]
-			}
-		  ]
-		} -> {0} ,..,{n}
+
+.create(Edge Instance).from(Vertex instance).to(Vertex instance)
+stored host,batch,dbname,POST,AuthHeander,
+batchJson insert create vertex command object with content generated
+.batchCreate(..)...
+batchJson insert ',' create edge command object with content generated from to objects
+{ids try}
+
+.createSequences
+//in command body OK
+
+
+
+//Rest paramters strategy
+Type = IOrientDatabase => 
+host:port/database/{dbname}/plocal | POST,DELETE
+host:port/connect/{dbname} | GET
+
+Type = IorientVertex,IorientEdge => 
+host:port/command/{dbname}/sql | POST
+host:port/batch/{dbname} | POST
+
+Content != null => + content
+{"command":"query"}
+{ "transaction" : true,
+	  "operations" : [
+		{
+		  "type" : "script",
+		  "language" : "sql",
+		  "script" : [{0}]
+		}
+	  ]
+	} -> {0} ,..,{n}
+
+	
+//command signatures
+delete/Add(Idb);
+delete/Add(Idb,host);
+delete/Add(Type,ItypeToken content);
+{classes}
+delete/Add(IorientObject);
+{objects}
+
+
+//url formats
+format  define {0}:{1} => host:port
+format  gen {0}{*}..{*}{n} => 
+host:port /dbname/plocal ; 
+host:port/connect/dbname ;
+host:port/command/dbname/sql ;
+host:port/batch/dbname ;
+[examples
+{0} {1} .. {n}
+{0}/{1}/../{n}
+]
+
+
+//command formats
+///Property foreach prop of class, with type convert, nullable,
+///pregen foramat for small token collections, then aggregate them, in command token collections
+//{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
+format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
+create class [V/E] <extends [V/E]>
+
+format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1} {2}
+	   property {V/E}.{Property} type ( mandatory = bool , notnull = bool )
+
+	   
+																			{0}[1p]{2} => 0
+																			cond 'param'
+																			
+																			format gen {0}{1} +{0}{1}[2p]{3}{4} +{0}[1p] +[0p] {1} => {0}{1}{2} {3}
+																			inE['[class]'] .Property cond 'param'
+																			in|out/E|V
+
+																			[0p].[1p] [0p] {0}[1p]{2} => {0} {1} {2}
+																			class.property cond 'param'
+																			GUID/ID/@class.size = ''
+	
+																format gen[0] .. [n]
+																where 1=1 
+
+											format gen{0} {1} [2p]<{3} .. [] ..[n]> => {0} {0} .. {n} => {0} {1}
+											select from [V/E] < where 1=1 .. connd1 .. condN>
+
+format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1} {2} {3} => {0} {1}
+		vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
 
 		
-	//command signatures
-	delete/Add(Idb);
-	delete/Add(Idb,host);
-	delete/Add(Type,ItypeToken content);
-	{classes}
-	delete/Add(IorientObject);
-	{objects}
-
-
-	//url formats
-	format define {0}:{1} => host:port
-	format gen {0}{*}..{*}{n} => 
-	host:port /dbname/plocal ; 
-	host:port/connect/dbname ;
-	host:port/command/dbname/sql ;
-	host:port/batch/dbname ;
-	[examples
-	{0} {1} .. {n}
-	{0}/{1}/../{n}
-	]
-
-
-	///command formats
-	///Property foreach prop of class, with type convert, nullable,
-	///pregen foramat for small token collections, then aggregate them, in command token collections
-	///{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
-	format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
-	create class [V/E] <extends [V/E]>
-
-	format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1} {2}
-		   property {V/E}.{Property} type ( mandatory = bool , notnull = bool )
-		   
-																				{0}[1p]{2} => 0
-																				cond 'param'
-																				
-																				format gen {0}{1} +{0}{1}[2p]{3}{4} +{0}[1p] +[0p] {1} => {0}{1}{2} {3}
-																				inE['[class]'] .Property cond 'param'
-																				in|out/E|V
-
-																				[0p].[1p] [0p] {0}[1p]{2} => {0} {1} {2}
-																				class.property cond 'param'
-																				GUID/ID/@class.size = ''
 		
-																	format gen[0] .. [n]
-																	where 1=1
-
-												format gen{0} {1} [2p]<{3} .. [] ..[n]> => {0} {0} .. {n} => {0} {1}
-												select from [V/E] < where 1=1 .. connd1 .. condN>
-
-	format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1} {2} {3} => {0} {1}
-			vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
 
 					}
-					
 			}
-					
+		
+		}
+			
 			public void Maintenance()
 			{
 				
@@ -7202,9 +7377,6 @@ value "  \" ' ' \' \' \
 	public void Initial_NewsApi_Functions()
 	{
 		//create function 
-		
-		delete from Ofunction  where name in [ "GetStructure","GetPersonPhoto","GetPerson","GetDepartmentName","GetDepartmentColorClass","GetDepartmentColor","GetPositionBar", "GetWeight","SearchPerson","GetStructureByUnitGUIDAtCurrentLevel","GetStructureByPersonGUID","GetStructureByUnitGUID", "GetAllStructureFAMILY","GetAllStructureLARGEHTY","GetLarge" 		]
-		
 		//CREATE FUNCTION test "var g=orient.getGraph();var b=g.command(\"sql\",\"select from Person where sAMAccountName =  '\"+accountName+\"' \");return b;" PARAMETERS [accountName]  IDEMPOTENT true LANGUAGE JAVASCRIPT
 		CREATE FUNCTION GetStructure "var g=orient.getGraph(); var b=g.command(\"sql\",\"select @RID,@class,FirstName,GUID,Name,Disabled,Created,sAMAccountName,Changed,LastName,MiddleName,mail,telephoneNumber,userAccountControl ,objectGUID , if( eval('@class = \\\"Person\\\"'),in('MainAssignment').GUID[0],PGUID ) as PGUID ,inE().Name[0] as AssignmentName ,inE().State[0] as AssignmentState ,inE().ExpDate[0] as AssignmentStateExpireDate from ( traverse out('MainAssignment') from (traverse out('SubUnit') from (select from Unit where GUID = '\"+Depth+\"') while $depth <= '\"+Depth+\"' ) ) where Disabled is null\") ; return b;" PARAMETERS [Depth] IDEMPOTENT true LANGUAGE JAVASCRIPT;
 		CREATE FUNCTION GetPersonPhoto "var link_s = \'http://msk1-vm-inapp01/AddressBookAPI/api/Photo/?email=\'"+mail+";return link_s;" PARAMETERS [mail] IDEMPOTENT true LANGUAGE JAVASCRIPT;
@@ -8825,14 +8997,6 @@ in v out
 //XIV
 //functions not visible from OFunction class
 
-//XV
-//fired colleges
-// select from (
-// select expand(inE().outV().outE()) from Person where Name like '%имощ%' 
-// ) where 
-// Name ='Начальник отдела'
-
-
 			}
 			
 		}
@@ -9509,10 +9673,8 @@ RAW JSON
 		}
 
 		}
-
-		
-	}
 	
+	}
 		
 	#endregion
 		
@@ -9541,6 +9703,12 @@ RAW JSON
 				
 				public void Power()
 				{
+					
+					//shutdown
+					SHUTDOWN -s -t 60
+					//stop
+					SHUTDOWN -a 
+					
 					powercfg -lastwake
 					powercfg -devicequery wake_armed
 					powercfg -devicedisablewake
