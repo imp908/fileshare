@@ -31,7 +31,7 @@ namespace WebManagers
         {
             _request = null;            
         }
-        public WebRequest RequestAdd(string url, string method)
+        public WebRequest AddRequest(string url, string method)
         {
             try
             {
@@ -90,7 +90,7 @@ namespace WebManagers
         public virtual WebResponse GetResponseAuth(string url, string method)
         {
 
-            RequestAdd(url, method);            
+            AddRequest(url, method);            
             try
             {
                 return (HttpWebResponse)this._request.GetResponse();
@@ -104,7 +104,7 @@ namespace WebManagers
         public virtual WebResponse GetResponse(string url, string method)
         {
 
-            RequestAdd(url, method);
+            AddRequest(url, method);
             CredentialsBind();
             try
             {
@@ -135,7 +135,7 @@ namespace WebManagers
         public virtual async Task<HttpWebResponse> GetResponseAsync(string url, string method)
         {
             HttpWebResponse resp;
-            RequestAdd(url, method);
+            AddRequest(url, method);
             CredentialsBind();
             try
             {
@@ -156,6 +156,7 @@ namespace WebManagers
 
     public class WebManager2 : IWebManager
     {
+
         WebRequest _request;
         NetworkCredential credentials;
         string GET="GET";

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 
 using IOrientObjects;
-using IFormats;
+
 namespace IQueryManagers
 {
 
@@ -22,15 +22,82 @@ namespace IQueryManagers
         string Text { get; set; }
     }
 
-    public interface ITokenFactory
+    public interface ITokenMiniFactory
     {
         ITypeToken NewToken();
+        ITypeToken NewEmptyString();
+
+        ITypeToken Dot();
+        ITypeToken Coma();
+        ITypeToken Gap();
     }
+    
+    public interface IOrientQueryFactory
+    {
+        ITypeToken ClassToken();
+        ITypeToken ContentToken();
+        ITypeToken CreateToken();
+        ITypeToken EdgeToken();
+        ITypeToken Equals();
+        ITypeToken ExtendsToken();
+        ITypeToken FromToken();
+        ITypeToken LeftRoundBraket();
+        ITypeToken LeftSquareBraket();
+        ITypeToken Mandatory();
+        ITypeToken NotNull();
+        ITypeToken PropertyItemFormatToken();
+        ITypeToken PropertyToken();
+        ITypeToken PropertyTypeToken();
+        ITypeToken RightRoundBraket();
+        ITypeToken RightSquareBraket();
+        ITypeToken SelectToken();
+        ITypeToken ToToken();
+        ITypeToken VertexToken();
+        ITypeToken WhereToken();
+    }
+    public interface IOrientQueryBodyFactory
+    {
+       
+        ITypeToken BackSlash();
+        ITypeToken Colon();
+        ITypeToken Comma();
+        ITypeToken Batch();
+        ITypeToken Command();
+        ITypeToken PLocal();
+        ITypeToken Database();
+        ITypeToken Connect();
+        ITypeToken Content();
+        ITypeToken Language();
+        ITypeToken sql();
+        ITypeToken LeftFgGap();
+        ITypeToken RightFgGap();
+        ITypeToken LeftSqGap();
+        ITypeToken RightSqGap();
+        ITypeToken Operations();
+        ITypeToken Quotes();    
+        ITypeToken Sctipt();
+        ITypeToken Transactions();
+        ITypeToken True();
+        ITypeToken Type();
+    } 
 
     public interface ICommandFactory
     {
-        ICommandBuilder CommandBuilder();
-        ICommandBuilder CommandBuilder(List<ITypeToken> tokens, ITypeToken format);
+        ICommandBuilder CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_);
+        ICommandBuilder CommandBuilder(List<ITypeToken> tokens, ITypeToken format);     
+    }
+
+    public interface IFormatFactory
+    {
+        IFormatFromListGenerator FormatGenerator(ITokenMiniFactory tokkenFactory_);
+    }
+
+    public interface IFormatFromListGenerator
+    {
+        ITypeToken FormatFromListGenerate(List<ITypeToken> tokens);
+        ITypeToken FormatFromListGenerate(List<ITypeToken> tokens, string delimeter);
+        ITypeToken FormatFromListGenerate<T>(List<T> items, string delimeter = null)
+            where T : class;
     }
 
     //Building Item from Token types
@@ -39,7 +106,7 @@ namespace IQueryManagers
         IFormatFromListGenerator formatGenerator { get; }
         ITypeToken typeToken { get; }
         ITypeToken Text { get; }
-        ITypeToken FormatPattern { get; }
+        ITypeToken FormatPattern { get; set; }
         List<ITypeToken> Tokens { get; }
 
         void BindTokens(List<ITypeToken> tokens_);
@@ -53,7 +120,6 @@ namespace IQueryManagers
         string Build(List<ICommandBuilder> tokens_, ITypeToken FormatPattern_);
         string GetText();
         void SetText(List<ITypeToken> tokens_, ITypeToken FormatPattern_);
-
     }
 
     /// <summary>
@@ -68,7 +134,7 @@ namespace IQueryManagers
         ITypeToken GetBase(Type type_);
     }
 
-    
+    //<<< obsolette
     public interface ITokenBuilder
     {
 

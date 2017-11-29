@@ -12,8 +12,10 @@ using WebManagers;
 using IQueryManagers;
 using QueryManagers;
 using IOrientObjects;
-using IFormats;
+
 using POCO;
+
+using IQueryManagers;
 
 /// <summary>
 /// Realization of IJsonMangers, IWebManagers, and IOrient specifically for orient db
@@ -35,7 +37,7 @@ namespace OrientRealization
         {
 
             //HttpWebResponse resp = null;
-            base.RequestAdd(url, method);
+            base.AddRequest(url, method);
             base.AddHeader(HttpRequestHeader.Cookie, this.OSESSIONID);
 
             try
@@ -69,7 +71,7 @@ namespace OrientRealization
         {
 
             WebResponse resp;
-            RequestAdd(url, "GET");
+            AddRequest(url, "GET");
             if (nc == null) { CredentialsBind(); }
             else { AddCredentials(nc); }
             try
@@ -128,16 +130,15 @@ namespace OrientRealization
     }
     public class OrientBatchToken : ITypeToken
     {
-        public string Text { get; set; } = "Batch";
+        public string Text { get; set; } = "batch";
     }
-
 
     /// <summary>
     /// Orient query tokens
     /// </summary>  
 
     //Orient SQL syntax tokens
-    public class OrientDatabaseToken : ITypeToken
+    public class OrientURLDatabaseToken : ITypeToken
     {
         public string Text { get; set; } = "database";
     }
@@ -145,58 +146,13 @@ namespace OrientRealization
     {
         public string Text { get; set; } = "plocal";
     }
-
-    public class OrientSelectToken : ITypeToken
-    {
-        public string Text { get; set; } = "Select";
-    }
-    public class OrientFromToken : ITypeToken
-    {
-        public string Text { get; set; } = "from";
-    }
-    public class OrientWhereToken : ITypeToken
-    {
-        public string Text { get; set; } = "where";
-    }
     public class OrientExpandToken : ITypeToken
     {
         public string Text { get; set; } = "expand";
     }
-
-    public class OrientCreateToken : ITypeToken
-    {
-        public string Text { get; set; } = "Create";
-    }
     public class OrientContentToken : ITypeToken
     {
         public string Text { get; set; } = "content";
-    }
-    public class OrientDeleteToken : ITypeToken
-    {
-        public string Text { get; set; } = "Delete";
-    }
-    public class OrientDropToken : ITypeToken
-    {
-        public string Text { get; set; } = "Drop";
-    }
-
-    public class OrientTypeToken : ITypeToken
-    {
-        public string Text { get; set; } = "Type";
-    }
-
-    public class OrientAndToken : ITypeToken
-    {
-        public string Text { get; set; } = @"and";
-    }
-
-    public class OrientClassToken : ITypeToken
-    {
-        public string Text { get; set; } = "Class";
-    }
-    public class OrientVertexToken : ITypeToken
-    {
-        public string Text { get; set; } = "Vertex";
     }
     public class OrientEdgeToken : ITypeToken
     {
@@ -226,7 +182,10 @@ namespace OrientRealization
     {
         public string Text { get; set; } = "V";
     }
-
+    public class OrientVertexToken : ITypeToken
+    {
+        public string Text { get; set; } = "Vertex";
+    }
     public class OrientExtendsToken : ITypeToken
     {
         public string Text { get; set; } = "Extends";
@@ -239,11 +198,75 @@ namespace OrientRealization
     {
         public string Text { get; set; } = "NOTNULL";
     }
-
-    
-    public class OrientGapToken : ITypeToken
+    //Orient URL command and batch body tokens 
+    public class OrientBodyConnectToken : ITypeToken
     {
-        public string Text { get; set; } = @" ";
+        public string Text { get; set; } = "connect";
+    }
+    public class OrientBodyCommandToken : ITypeToken
+    {
+        public string Text { get; set; } = "command";
+    }
+    public class OrientBodyTransactionToken : ITypeToken
+    {
+        public string Text { get; set; } = "transaction";
+    }
+    public class OrientBodyOperationToken : ITypeToken
+    {
+        public string Text { get; set; } = "operations";
+    }
+    public class OrientBodyTypeToken : ITypeToken
+    {
+        public string Text { get; set; } = "type";
+    }
+    public class OrientBodyLanguageToken : ITypeToken
+    {
+        public string Text { get; set; } = "language";
+    }
+    public class OrientBodyScriptToken : ITypeToken
+    {
+        public string Text { get; set; } = "script";
+    }
+
+
+    //SQL tokens
+    public class OrientSelectToken : ITypeToken
+    {
+        public string Text { get; set; } = "Select";
+    }
+    public class OrientFromToken : ITypeToken
+    {
+        public string Text { get; set; } = "from";
+    }
+    public class OrientWhereToken : ITypeToken
+    {
+        public string Text { get; set; } = "where";
+    }
+    public class OrientCreateToken : ITypeToken
+    {
+        public string Text { get; set; } = "Create";
+    }
+    public class OrientDeleteToken : ITypeToken
+    {
+        public string Text { get; set; } = "Delete";
+    }
+    public class OrientDropToken : ITypeToken
+    {
+        public string Text { get; set; } = "Drop";
+    }
+    
+    //Overall command tokens
+    public class OrientTypeToken : ITypeToken
+    {
+        public string Text { get; set; } = "Type";
+    }
+    public class OrientAndToken : ITypeToken
+    {
+        public string Text { get; set; } = @"and";
+    }
+    public class OrientClassToken : ITypeToken
+    {
+        public string Text { get; set; } = "Class";
     }
     public class OrientEqualsToken : ITypeToken
     {
@@ -253,11 +276,19 @@ namespace OrientRealization
     {
         public string Text { get; set; } = @"'";
     }
+    public class OrientDoubleQuotesToken : ITypeToken
+    {
+        public string Text { get; set; } = @"""";
+    }
+    public class OrientGapToken : ITypeToken
+    {
+        public string Text { get; set; } = @" ";
+    }
     public class OrientDotToken : ITypeToken
     {
         public string Text { get; set; } = @".";
     }
-    public class OrientComaToken : ITypeToken
+    public class OrientCommaToken : ITypeToken
     {
         public string Text { get; set; } = @",";
     }
@@ -268,6 +299,14 @@ namespace OrientRealization
     public class OrientRoundBraketRightToken : ITypeToken
     {
         public string Text { get; set; } = @")";
+    }
+    public class OrientFigureBraketLeftToken : ITypeToken
+    {
+        public string Text { get; set; } = @"{";
+    }
+    public class OrientFigureBraketRightToken : ITypeToken
+    {
+        public string Text { get; set; } = @"}";
     }
     public class OrientSquareBraketLeftToken : ITypeToken
     {
@@ -286,6 +325,21 @@ namespace OrientRealization
         public string Text { get; set; } = @"FALSE";
     }
 
+    //URI tokens
+    public class ColonToken : ITypeToken
+    {
+        public string Text { get; set; } = ":";
+    }
+    public class SlashToken : ITypeToken
+    {
+        public string Text { get; set; } = "\\";
+    }
+    public class BackSlashToken : ITypeToken
+    {
+        public string Text { get; set; } = "/";
+    }
+   
+
     public class OrientIdSharpToken : ITypeToken
     {
         public string Text { get; set; } = @"#";
@@ -294,14 +348,7 @@ namespace OrientRealization
     {
         public string Text { get; set; } = "Id";
     }
-    public class OrientNameToken : ITypeToken
-    {
-        public string Text { get; set; } = "Name";
-    }
-    public class OrientAccountToken : ITypeToken
-    {
-        public string Text { get; set; } = "sAMAccountName";
-    }
+  
 
     //orient dateformats tokens
     public class OrientSTRINGToken : ITypeToken
@@ -321,19 +368,7 @@ namespace OrientRealization
         public string Text { get; set; } = "DATETIME";
     }
 
-    public class OrientTestDbToken : ITypeToken
-    {
-        public string Text { get; set; } = ConfigurationManager.AppSettings["TestDBname"];
-    }
-
-    public class OrientUserSettingsToken : ITypeToken
-    {
-        public string Text { get; set; } = "UserSettings";
-    }
-    public class OrientCommonSettingsToken : ITypeToken
-    {
-        public string Text { get; set; } = "CommonSettings";
-    }
+        
     //orient Class tokens
     public class OrientPersonToken : ITypeToken
     {
@@ -355,12 +390,30 @@ namespace OrientRealization
     {
         public string Text { get; set; } = "TrackBirthdays";
     }
-
+    public class OrientNameToken : ITypeToken
+    {
+        public string Text { get; set; } = "Name";
+    }
+    public class OrientAccountToken : ITypeToken
+    {
+        public string Text { get; set; } = "sAMAccountName";
+    }
     public class OrientBrewery : ITypeToken
     {
         public string Text { get; set; } = "Brewery";
     }
-
+    public class OrientUserSettingsToken : ITypeToken
+    {
+        public string Text { get; set; } = "UserSettings";
+    }
+    public class OrientCommonSettingsToken : ITypeToken
+    {
+        public string Text { get; set; } = "CommonSettings";
+    }
+    public class OrientTestDbToken : ITypeToken
+    {
+        public string Text { get; set; } = ConfigurationManager.AppSettings["TestDBname"];
+    }
 
     ///<summary>
     ///Web response reader Tokens
@@ -379,29 +432,10 @@ namespace OrientRealization
     }
     #endregion
 
-    public class TokenMiniFactory : ITokenFactory
-    {
-        public ITypeToken NewToken()
-        {
-            return new TextToken();
-        }
-        public ITypeToken NewEmptyString()
-        {
-            return new TextToken() { Text = string.Empty };
-        }
+    #region Factories
 
-        public ITypeToken Dot()
-        {
-            return new OrientDotToken();
-        }
-        public ITypeToken Coma()
-        {
-            return new OrientComaToken();
-        }
-        public ITypeToken Gap()
-        {
-            return new OrientGapToken();
-        }
+    public class OrientTokenFactory : TokenMiniFactory, IOrientQueryFactory
+    {
 
         public ITypeToken CreateToken()
         {
@@ -494,33 +528,148 @@ namespace OrientRealization
         }
 
     }
-
-    public class CommandsChain
+    public class OrientQueryBodyFactory : IOrientQueryBodyFactory
     {
 
-        ICommandBuilder _commandBuilder;
-        IFormatFromListGenerator _formatGenerator;
+        public ITypeToken PLocal()
+        {
+            return new OrientPlocalToken();
+        }
+        public ITypeToken Connect()
+        {
+            return new OrientBodyConnectToken();
+        }
+        public ITypeToken Comma()
+        {
+            return new OrientCommaToken();
+        }
+        public ITypeToken True()
+        {
+            return new OrientTRUEToken();
+        }
+        public ITypeToken Content()
+        {
+            return new OrientContentToken();
+        }
+
+        // \
+        public ITypeToken BackSlash()
+        {
+            return new BackSlashToken();
+        }
+
+        public ITypeToken LeftSqGap()
+        {
+            return new OrientSquareBraketLeftToken();
+        }
+        public ITypeToken RightSqGap()
+        {
+            return new OrientSquareBraketRightToken();
+        }
+
+        //:
+        public ITypeToken Colon()
+        {
+            return new ColonToken();
+        }      
+        // {
+        public ITypeToken LeftFgGap()
+        {
+            return new OrientFigureBraketLeftToken();
+        }
+        // }
+        public ITypeToken RightFgGap()
+        {
+            return new OrientFigureBraketRightToken();
+        }
+        // "
+        public ITypeToken Quotes()
+        {
+            return new OrientDoubleQuotesToken();
+        }
+
+        public ITypeToken Batch()
+        {
+            return new OrientBatchToken();
+        }
+
+        public ITypeToken Database()
+        {
+            return new OrientURLDatabaseToken();
+        }
+
+        public ITypeToken Command()
+        {
+            return new OrientBodyCommandToken();
+        }
+        public ITypeToken Transactions()
+        {
+            return new OrientBodyTransactionToken();
+        }
+        public ITypeToken Operations()
+        {
+            return new OrientBodyOperationToken();
+        }
+        public ITypeToken Type()
+        {
+            return new OrientBodyTypeToken();
+        }
+
+        public ITypeToken Language()
+        {
+            return new OrientBodyLanguageToken();
+        }
+        public ITypeToken sql()
+        {
+            return new OrientCommandSQLTypeToken();
+        }
+        public ITypeToken Sctipt()
+        {
+            return new OrientBodyScriptToken();
+        }
+    }    
+
+    #endregion
+
+    /// <summary>
+    /// Chains cmmand with parameters.
+    /// </summary>
+    public class CommandsChain
+    {
+        //contains basic syntax factory
+        ITokenMiniFactory _tokenMiniFactory;
+        //contains specific orient syntax factory
+        IOrientQueryFactory _tokenOrientFactory;
+        //format generators factory
+        IFormatFactory _formatFactory;
+        //commandBuilder factory
         ICommandFactory _commandFactory;
 
+        //commandbuilder for chaining
+        ICommandBuilder _commandBuilder;
+        IFormatFromListGenerator _formatGenerator;
+        
         CommandShemasExplicit _commandShemas;
 
-        ITypeToken leftRoundTk, rightRoundTk, leftSquareTk, rightSquareTk;
-
-        public CommandsChain(ICommandBuilder cb_, IFormatFromListGenerator tt_
-            , ITypeToken leftRdBraket, ITypeToken rightRdBraket
-            , ITypeToken leftSquareBraket, ITypeToken RightSquareBraket)
+        public CommandsChain(ITokenMiniFactory tokenMiniFactory_,
+            IOrientQueryFactory tokenQueryFactory_,
+            IFormatFactory formatFactory_,
+            ICommandFactory commandFactory_)
         {
-            this._commandBuilder = cb_;
-            this._formatGenerator = tt_;           
+            
+            this._tokenMiniFactory = tokenMiniFactory_;
+            this._tokenOrientFactory = tokenQueryFactory_;
+            this._formatFactory = formatFactory_;
+            this._commandFactory = commandFactory_;
 
-            this.leftRoundTk = leftRdBraket;
-            this.rightRoundTk = rightRdBraket;
+            this._commandBuilder = this._commandFactory.CommandBuilder(this._tokenMiniFactory, this._formatFactory);
+            this._formatGenerator = _formatFactory.FormatGenerator(this._tokenMiniFactory);
 
-            this.leftSquareTk = leftSquareBraket;
-            this.rightSquareTk = RightSquareBraket;
-
-            _commandShemas = new CommandShemasExplicit(cb_, tt_);
-            _commandFactory = new CommandFactory();
+            _commandShemas = 
+                new CommandShemasExplicit(this._commandBuilder
+                ,this._formatGenerator
+                , tokenMiniFactory_
+                ,tokenQueryFactory_);
         }
 
         public IFormatFromListGenerator GetGenerator()
@@ -535,16 +684,16 @@ namespace OrientRealization
         {
             return this._commandBuilder;
         }
+
         public CommandsChain NestSq()
         {
-
-            this._commandBuilder = _commandShemas.Nest(this._commandBuilder, leftSquareTk, rightSquareTk);
+            this._commandBuilder = _commandShemas.Nest(this._commandBuilder, _tokenOrientFactory.LeftSquareBraket(), _tokenOrientFactory.RightSquareBraket());
             return this;
         }
         public CommandsChain NestRnd()
         {
 
-            this._commandBuilder = _commandShemas.Nest(this._commandBuilder, leftRoundTk, rightRoundTk);
+            this._commandBuilder = _commandShemas.Nest(this._commandBuilder, _tokenOrientFactory.LeftRoundBraket(), _tokenOrientFactory.RightRoundBraket());
             return this;
         }
         public CommandsChain Nest(ITypeToken leftToken, ITypeToken rightToken)
@@ -571,12 +720,12 @@ namespace OrientRealization
             return this;
         }
 
-        public CommandsChain Nest(ITypeToken leftToken = null, ITypeToken rightToken = null, ITypeToken format = null)
+        public CommandsChain Nest(ITypeToken leftToken_ = null, ITypeToken rightToken_ = null, ITypeToken format = null)
         {
             ITypeToken lt, rt;
 
-            lt = (leftToken == null) ? leftRoundTk : leftToken;
-            rt = (rightToken == null) ? rightRoundTk : rightToken;
+            lt = (leftToken_ == null) ? _tokenOrientFactory.LeftRoundBraket() : leftToken_;
+            rt = (rightToken_ == null) ? _tokenOrientFactory.RightRoundBraket() : rightToken_;
 
             this._commandBuilder = _commandShemas.Nest(this._commandBuilder, lt, rt, format);
             return this;
@@ -606,35 +755,97 @@ namespace OrientRealization
             this._commandBuilder = _commandShemas.Content(param);
             return this;
         }
-
+        
     }
 
-    public class CommandShemasExplicit
+    /// <summary>
+    /// Base class for shemas building.
+    /// Not abstract, because can be used for manual command generation
+    /// </summary>
+    public class Shemas
+    {
+
+        internal ICommandBuilder _commandBuilder;
+        internal IFormatFromListGenerator _formatGenerator;
+        internal ITokenMiniFactory _miniFactory;
+        internal string lastGeneneratedCommand;
+
+        public Shemas(ICommandBuilder commandBuilder
+            ,IFormatFromListGenerator formatGenerator
+            , ITokenMiniFactory miniFactory_)
+        {
+            _commandBuilder = commandBuilder;
+            _formatGenerator = formatGenerator;
+            _miniFactory = miniFactory_;
+        }
+
+        public void Build(List<ITypeToken> tokenList_, ITypeToken format = null)
+        {
+            //tokenList_.Add(factory.NewEmptyString());            
+            this._commandBuilder.AddTokens(tokenList_);
+
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            ITypeToken token = _miniFactory.NewToken();
+            if (format == null)
+            {
+                token = _formatGenerator.FormatFromListGenerate(tokenList_);
+            }
+            else { token = format; }
+            this._commandBuilder.AddFormat(token);
+            lastGeneneratedCommand = this._commandBuilder.Build();
+        }
+        public void ReBuild(List<ITypeToken> tokenList_, ITypeToken format = null)
+        {
+            //tokenList_.Add(factory.NewEmptyString());            
+            this._commandBuilder.BindTokens(tokenList_);
+
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            ITypeToken token = _miniFactory.NewToken();
+            if (format == null)
+            {
+                token = _formatGenerator.FormatFromListGenerate(tokenList_);
+            }
+            else { token = format; }
+
+            this._commandBuilder.BindFormat(token);
+            lastGeneneratedCommand = this._commandBuilder.Build();
+        }
+
+    }
+    /// <summary>
+    /// Shemas for different commands with parameters and builders.
+    /// Needs CommandBuilder and FormatGenerator realizations.
+    /// Command tokens generated in token factory.
+    /// </summary>
+    public class CommandShemasExplicit : Shemas
     {
 
         ICommandBuilder _commandBuilder;
         IFormatFromListGenerator _formatGenerator;
-        TokenMiniFactory factory;
+        ITokenMiniFactory miniFactory;
+        IOrientQueryFactory orientFactory;
 
         string lastGeneneratedCommand;
 
-        public CommandShemasExplicit(ICommandBuilder cb_, IFormatFromListGenerator tt_)
+        public CommandShemasExplicit(ICommandBuilder commandBuilder_
+            , IFormatFromListGenerator formatListgenerator_
+            , ITokenMiniFactory miniFactory_
+            , IOrientQueryFactory queryfactory_)
+            :base(commandBuilder_,formatListgenerator_,miniFactory_)
         {
-            this._commandBuilder = cb_;
-            this._formatGenerator = tt_;
-
-            factory = new TokenMiniFactory();
-
+            this._commandBuilder = commandBuilder_;
+            this._formatGenerator = formatListgenerator_;
+            this.miniFactory = miniFactory_;
+            this.orientFactory = queryfactory_;
         }
 
-      
         public void Build(List<ITypeToken> tokenList_, ITypeToken format = null)
         {
             //tokenList_.Add(factory.NewEmptyString());            
             this._commandBuilder.AddTokens(tokenList_);
             
             //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
-            ITypeToken token = factory.NewToken();
+            ITypeToken token = miniFactory.NewToken();
             if (format == null)
             {
                 token = _formatGenerator.FormatFromListGenerate(tokenList_);
@@ -650,7 +861,7 @@ namespace OrientRealization
             this._commandBuilder.BindTokens(tokenList_);
 
             //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
-            ITypeToken token = factory.NewToken();
+            ITypeToken token = miniFactory.NewToken();
             if (format == null)
             {
                 token = _formatGenerator.FormatFromListGenerate(tokenList_);
@@ -662,89 +873,88 @@ namespace OrientRealization
         }
 
 
-
-        [Obsolete]
-        public List<ITypeToken> Tokenise(List<ITypeToken> token_, ITypeToken param = null)
-        {
-            if (param != null)
-            {
-                token_.Add(param);
-            }
-
-            return token_;
-        }
-        [Obsolete]
-        public List<ITypeToken> Tokenise(ITypeToken token_, ICommandBuilder param)
-        {
-            List<ITypeToken> tokenList = new List<ITypeToken>();
-
-            tokenList.Add(token_);
-            if (param != null)
-            {
-                tokenList.AddRange(param.Tokens);
-            }
-            return tokenList;
-        }
-
-
+        /// <summary>
+        /// For default right handed command functionality (Extends,class,token e.t.c)
+        /// </summary>
+        /// <param name="token_">Command token</param>
+        /// <param name="param_">Command parameters</param>
+        /// <returns></returns>
         public ICommandBuilder ParametrizedCommand(ITypeToken token_, ITypeToken param_)
         {
             List<ITypeToken> tokenList = new List<ITypeToken>();
-            tokenList.Add(factory.Gap());
+            tokenList.Add(miniFactory.Gap());
             tokenList.Add(token_);
-           
+
             if (param_ != null)
             {
-                tokenList.Add(factory.Gap());
+                tokenList.Add(miniFactory.Gap());
                 tokenList.Add(param_);
             }
 
-            Build(tokenList, _formatGenerator.FormatFromListGenerate(tokenList, factory.NewEmptyString().Text));
+            Build(tokenList, _formatGenerator.FormatFromListGenerate(tokenList, miniFactory.NewEmptyString().Text));
             return this._commandBuilder;
         }
-        public ICommandBuilder CommandFormatted(List<ITypeToken> tokenList, ITypeToken format_)
-        {         
-            Build(tokenList, format_);
-            return this._commandBuilder;
-        }
+        /// <summary>
+        /// For creating commans with nesting functionality and double indenting (Nest).
+        /// Adds to the left from all previous commandbuilder
+        /// </summary>
+        /// <param name="tokenList">List of tokens added to the left</param>
+        /// <param name="format_">Format for token assembly. If null standart with gap generated</param>
+        /// <returns></returns>
         public ICommandBuilder CommandFormattedRebuild(List<ITypeToken> tokenList, ITypeToken format_)
         {
             ReBuild(tokenList, format_);
             return this._commandBuilder;
         }
-      
+        /// <summary>
+        /// For creating commans with nesting functionality and left indenting (Content,Create,Where).
+        /// Adds to the right from all previous commandbuilder but with parameters
+        /// </summary>
+        /// <param name="token_">Command token</param>
+        /// <param name="builder_">Builder, to which Tokens command is used</param>
+        /// <param name="gapBefore">Gap before command presence</param>
+        /// <returns></returns>
         public ICommandBuilder ParametrizedCommand(ITypeToken token_, ICommandBuilder builder_, bool gapBefore)
         {
            
             List<ITypeToken> tokenList = new List<ITypeToken>();
             if (gapBefore)
             {
-                tokenList.Add(factory.Gap());
+                tokenList.Add(miniFactory.Gap());
             }
             tokenList.Add(token_);
 
             if (builder_ != null)
             {
-                tokenList.Add(factory.Gap());
+                tokenList.Add(miniFactory.Gap());
                 tokenList.AddRange(builder_.Tokens);
             }
 
-            Build(tokenList, _formatGenerator.FormatFromListGenerate(tokenList, factory.NewEmptyString().Text));
+            Build(tokenList, _formatGenerator.FormatFromListGenerate(tokenList, miniFactory.NewEmptyString().Text));
             return this._commandBuilder;
         }
+        /// <summary>
+        /// For creating commans with nesting functionality and left indenting (Select).
+        /// Adds to the left from all previous commandbuilder. Has no left gap string
+        /// </summary>
+        /// <param name="token_">Command token</param>
+        /// <param name="params_">Command parameters</param>
+        /// <param name="builder_">Builder, to which Tokens command is used</param>
+        /// <param name="gapBefore">Gap before command presence</param>
+        /// <returns></returns>
         public ICommandBuilder ParametrizedCommandRebuild(ITypeToken token_
             , ICommandBuilder params_, ICommandBuilder builder_,bool gapBefore)
         {
             List<ITypeToken> tokenList = new List<ITypeToken>();
             if (gapBefore)
             {
-                tokenList.Add(factory.Gap());
+                tokenList.Add(miniFactory.Gap());
             }
             tokenList.Add(token_);
 
             if (params_ != null)
             {
-                tokenList.Add(factory.Gap());
+                tokenList.Add(miniFactory.Gap());
                 tokenList.AddRange(params_.Tokens);
             }
 
@@ -752,30 +962,36 @@ namespace OrientRealization
             {
                 if(builder_.Tokens !=null)
                 {
-                    tokenList.Add(factory.Gap());
+                    tokenList.Add(miniFactory.Gap());
                     tokenList.AddRange(builder_.Tokens);                   
                 }
             }
 
-            ReBuild(tokenList, _formatGenerator.FormatFromListGenerate(tokenList, factory.NewEmptyString().Text));
+            ReBuild(tokenList, _formatGenerator.FormatFromListGenerate(tokenList, miniFactory.NewEmptyString().Text));
+            return this._commandBuilder;
+        }
+
+
+        //<<<obsolette possible not used
+        public ICommandBuilder CommandFormatted(List<ITypeToken> tokenList, ITypeToken format_)
+        {
+            Build(tokenList, format_);
             return this._commandBuilder;
         }
 
         [Obsolete]
         public void Build(List<ITypeToken> tokenList_, IFormatFromListGenerator formatgenerator_)
         {
-            tokenList_.Add(factory.NewEmptyString());
+            tokenList_.Add(miniFactory.NewEmptyString());
             this._commandBuilder.AddTokens(tokenList_);
 
             //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
-            ITypeToken token = factory.NewToken();
+            ITypeToken token = miniFactory.NewToken();
             token = formatgenerator_.FormatFromListGenerate(tokenList_);
 
             this._commandBuilder.AddFormat(token);
             lastGeneneratedCommand = this._commandBuilder.Build();
-        }
-        
-
+        }        
         /// <summary>
         /// Universal builder of tokens, looks like reinvention of concat, but for classes
         /// </summary>
@@ -785,7 +1001,7 @@ namespace OrientRealization
         [Obsolete]
         public ICommandBuilder Command(List<ITypeToken> tokenList_, ITypeToken format = null)
         {
-            ITypeToken token = factory.NewToken();
+            ITypeToken token = miniFactory.NewToken();
             if (format == null)
             {
                 //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
@@ -811,11 +1027,35 @@ namespace OrientRealization
             return this._commandBuilder;
         }
 
+        [Obsolete]
+        public List<ITypeToken> Tokenise(List<ITypeToken> token_, ITypeToken param = null)
+        {
+            if (param != null)
+            {
+                token_.Add(param);
+            }
+
+            return token_;
+        }
+        [Obsolete]
+        public List<ITypeToken> Tokenise(ITypeToken token_, ICommandBuilder param)
+        {
+            List<ITypeToken> tokenList = new List<ITypeToken>();
+
+            tokenList.Add(token_);
+            if (param != null)
+            {
+                tokenList.AddRange(param.Tokens);
+            }
+            return tokenList;
+        }
+
+
         public ICommandBuilder Nest(ICommandBuilder param, ITypeToken leftToken, ITypeToken rightToken
             , ITypeToken format = null)
         {
             List<ITypeToken> tokenList = new List<ITypeToken>();
-            ITypeToken token = factory.NewToken();
+            ITypeToken token = miniFactory.NewToken();
 
             tokenList.Add(leftToken);
             if (param != null)
@@ -843,7 +1083,6 @@ namespace OrientRealization
 
             return CommandFormattedRebuild(tokenList, token);
         }
-
         public ICommandBuilder Property(ITypeToken class_, ITypeToken prop_, ITypeToken type_
            , ITypeToken mandatory_, ITypeToken notnull_)
         {
@@ -855,75 +1094,74 @@ namespace OrientRealization
             return this._commandBuilder;
         }
 
-
         public ICommandBuilder Content(ICommandBuilder param)
         {
-            return ParametrizedCommand(factory.ContentToken(), param, false);
+            return ParametrizedCommand(orientFactory.ContentToken(), param, false);
         }
         public ICommandBuilder Extends(ITypeToken param)
         {
-            return ParametrizedCommand(factory.ExtendsToken(), param);
+            return ParametrizedCommand(orientFactory.ExtendsToken(), param);
         }
         public ICommandBuilder Class(ITypeToken param = null)
         {
-            return ParametrizedCommand(factory.ClassToken(), param);
+            return ParametrizedCommand(orientFactory.ClassToken(), param);
         }
        
         public ICommandBuilder PropertyItem(ITypeToken class_,ITypeToken prop_ )
         {
             List<ITypeToken> tokenList = new List<ITypeToken>();
 
-            tokenList.Add(factory.PropertyToken());
+            tokenList.Add(orientFactory.PropertyToken());
             tokenList.Add(class_);
-            tokenList.Add(factory.Dot());
+            tokenList.Add(miniFactory.Dot());
             tokenList.Add(prop_);
           
-            Build(tokenList, factory.PropertyItemFormatToken());
+            Build(tokenList, orientFactory.PropertyItemFormatToken());
             return this._commandBuilder;
         }
         public ICommandBuilder PropertyType(ITypeToken type_)
         {
             List<ITypeToken> tokenList = new List<ITypeToken>();
 
-            tokenList.Add(factory.Gap());
+            tokenList.Add(miniFactory.Gap());
             tokenList.Add(type_);
-            tokenList.Add(factory.Gap());
+            tokenList.Add(miniFactory.Gap());
 
-            Build(tokenList, _formatGenerator.FormatFromListGenerate(tokenList,factory.NewEmptyString().Text));
+            Build(tokenList, _formatGenerator.FormatFromListGenerate(tokenList,miniFactory.NewEmptyString().Text));
             return this._commandBuilder;
         }
         public ICommandBuilder PropertyCondition(ITypeToken mandatory_, ITypeToken notnull_)
         {
             List<ITypeToken> tokenList = new List<ITypeToken>();
 
-            tokenList.Add(factory.Gap());
-            tokenList.Add(factory.LeftRoundBraket());
-            tokenList.Add(factory.Mandatory());
-            tokenList.Add(factory.Gap());
+            tokenList.Add(miniFactory.Gap());
+            tokenList.Add(orientFactory.LeftRoundBraket());
+            tokenList.Add(orientFactory.Mandatory());
+            tokenList.Add(miniFactory.Gap());
             tokenList.Add(mandatory_);
-            tokenList.Add(factory.Coma());
-            tokenList.Add(factory.NotNull());
-            tokenList.Add(factory.Gap());
+            tokenList.Add(miniFactory.Coma());
+            tokenList.Add(orientFactory.NotNull());
+            tokenList.Add(miniFactory.Gap());
             tokenList.Add(notnull_);
-            tokenList.Add(factory.RightRoundBraket());
-            tokenList.Add(factory.Gap());
+            tokenList.Add(orientFactory.RightRoundBraket());
+            tokenList.Add(miniFactory.Gap());
 
-            Build(tokenList, _formatGenerator.FormatFromListGenerate(tokenList, factory.NewEmptyString().Text));
+            Build(tokenList, _formatGenerator.FormatFromListGenerate(tokenList, miniFactory.NewEmptyString().Text));
             return this._commandBuilder;
         }
 
         public ICommandBuilder Vertex(ITypeToken param = null)
         {
-            return ParametrizedCommand(factory.VertexToken(), param);
+            return ParametrizedCommand(orientFactory.VertexToken(), param);
         }
         public ICommandBuilder Edge(ITypeToken param = null)
         {
-            return ParametrizedCommand(factory.EdgeToken(), param);
+            return ParametrizedCommand(orientFactory.EdgeToken(), param);
         }
 
         public ICommandBuilder Create(ICommandBuilder param = null)
         {
-            return ParametrizedCommand(factory.CreateToken(), param, false);
+            return ParametrizedCommand(orientFactory.CreateToken(), param, false);
         }
 
         /// <summary>
@@ -934,7 +1172,7 @@ namespace OrientRealization
         public ICommandBuilder Select(ICommandBuilder param_ = null)
         {
           
-            return ParametrizedCommandRebuild( factory.SelectToken(),param_,this._commandBuilder,false);
+            return ParametrizedCommandRebuild(orientFactory.SelectToken(),param_,this._commandBuilder,false);
 
             /*
             List<ITypeToken> tokenList = new List<ITypeToken>();
@@ -973,20 +1211,292 @@ namespace OrientRealization
         }
         public ICommandBuilder From(ITypeToken param_ = null)
         {
-            return ParametrizedCommand(factory.FromToken(), param_);
+            return ParametrizedCommand(orientFactory.FromToken(), param_);
         }
         public ICommandBuilder To(ITypeToken param_ = null)
         {
-            return ParametrizedCommand(factory.ToToken(), param_);
+            return ParametrizedCommand(orientFactory.ToToken(), param_);
         }
 
         public ICommandBuilder Where(ICommandBuilder param_ = null)
         {
-            return ParametrizedCommand(factory.WhereToken(), param_,true);
+            return ParametrizedCommand(orientFactory.WhereToken(), param_,true);
+        }
+
+    }
+    /// <summary>
+    /// Shemas for Orient URLs
+    /// </summary>
+    public class UrlShemasExplicit : Shemas
+    {
+
+        ICommandBuilder _commandBuilder;
+        IFormatFromListGenerator _formatGenerator;
+        ITokenMiniFactory _miniFactory;
+        internal IOrientQueryBodyFactory _QueryFactory;
+
+        internal ITypeToken dbHost;
+        internal string lastGeneneratedCommand;
+
+        public UrlShemasExplicit(ICommandBuilder commandBuilder_,
+            IFormatFromListGenerator formatGenerator_,
+            ITokenMiniFactory miniFactory_,
+            IOrientQueryBodyFactory queryFactory_)
+            : base(commandBuilder_, formatGenerator_, miniFactory_)
+        {
+            _commandBuilder = commandBuilder_;
+            _formatGenerator = formatGenerator_;
+            _miniFactory = miniFactory_;
+            _QueryFactory = queryFactory_;           
+        }
+
+        public void AddHost(ITypeToken host_)
+        {
+            this.dbHost = host_;
+        }
+        public ITypeToken GetHost()
+        {
+            return this.dbHost;
+        }
+        internal void ChekHost()
+        {
+            if (this.dbHost==null || this.dbHost.Text == null)
+            {
+                throw new Exception("No db host URL passed");
+            }
+        }
+        public void Build(List<ITypeToken> tokenList_, ITypeToken format = null)
+        {
+            //tokenList_.Add(factory.NewEmptyString());            
+            this._commandBuilder.AddTokens(tokenList_);
+
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            ITypeToken token = _miniFactory.NewToken();
+            if (format == null)
+            {
+                token = _formatGenerator.FormatFromListGenerate(tokenList_);
+            }
+            else { token = format; }
+
+            this._commandBuilder.AddFormat(token);          
+        }
+        public void ReBuild(List<ITypeToken> tokenList_, ITypeToken format = null)
+        {
+            //tokenList_.Add(factory.NewEmptyString());            
+            this._commandBuilder.BindTokens(tokenList_);
+
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            ITypeToken token = _miniFactory.NewToken();
+            if (format == null)
+            {
+                token = _formatGenerator.FormatFromListGenerate(tokenList_);
+            }
+            else { token = format; }
+
+            this._commandBuilder.BindFormat(token);
+            lastGeneneratedCommand = this._commandBuilder.Build();
+        }
+        public void ReBuildDelimeter(List<ITypeToken> tokenList_, ITypeToken delimeter_)
+        {
+            //tokenList_.Add(factory.NewEmptyString());            
+            this._commandBuilder.BindTokens(tokenList_);
+
+            //generate format from token list with system.empty placeholder List<n> => "{0} ..{}.. {n}"
+            ITypeToken token = _miniFactory.NewToken();
+            if (delimeter_ == null)
+            {
+                token = _formatGenerator.FormatFromListGenerate(tokenList_);
+            }
+            else {
+                token = _formatGenerator.FormatFromListGenerate(tokenList_, delimeter_.Text);
+            }
+
+            this._commandBuilder.BindFormat(token);
+            lastGeneneratedCommand = this._commandBuilder.Build();
+        }
+
+
+        public ICommandBuilder Database(ITypeToken databaseName_)
+        {
+            ChekHost();
+            List<ITypeToken> typeToken = new List<ITypeToken>();
+            typeToken.Add(this.dbHost);
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(this._QueryFactory.Database());
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(databaseName_);
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(this._QueryFactory.PLocal());
+
+            ReBuildDelimeter(typeToken, new TextToken() { Text = string.Empty });
+            return this._commandBuilder;
+        }
+        public ICommandBuilder Connect(ITypeToken databaseName_)
+        {
+            ChekHost();
+            List<ITypeToken> typeToken = new List<ITypeToken>();
+            typeToken.Add(this.dbHost);
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(this._QueryFactory.Connect());
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(databaseName_);
+
+            ReBuildDelimeter(typeToken, new TextToken() { Text = string.Empty });
+            return this._commandBuilder;
+        }
+        public ICommandBuilder Command(ITypeToken databaseName_)
+        {
+            ChekHost();
+            List<ITypeToken> typeToken = new List<ITypeToken>();
+            typeToken.Add(this.dbHost);
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(this._QueryFactory.Command());
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(databaseName_);
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(this._QueryFactory.sql());
+
+            ReBuildDelimeter(typeToken, new TextToken() { Text = string.Empty });
+            return this._commandBuilder;
+        }
+        public ICommandBuilder Batch(ITypeToken databaseName_)
+        {
+            ChekHost();
+            List<ITypeToken> typeToken = new List<ITypeToken>();
+            typeToken.Add(this.dbHost);
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(this._QueryFactory.Batch());
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(databaseName_);
+
+            typeToken.Add(this._QueryFactory.BackSlash());
+            typeToken.Add(this._QueryFactory.sql());
+
+            ReBuildDelimeter(typeToken, new TextToken() { Text= string.Empty });
+            return this._commandBuilder;
         }
 
     }
 
+    public class BodyShemas : UrlShemasExplicit
+    {
+        public BodyShemas(ICommandBuilder commandBuilder_,
+            IFormatFromListGenerator formatGenerator_,
+            ITokenMiniFactory miniFactory_,
+            IOrientQueryBodyFactory queryFactory_)
+            : base(commandBuilder_, formatGenerator_, miniFactory_, queryFactory_)
+        {          
+
+        }
+
+        public ICommandBuilder Command(ICommandBuilder command_)
+        {
+            ChekHost();
+            List<ITypeToken> typeToken = new List<ITypeToken>();
+            
+            typeToken.Add(this._QueryFactory.LeftFgGap());
+
+            typeToken.Add(this._QueryFactory.Quotes());
+            typeToken.Add(this._QueryFactory.Command());
+            typeToken.Add(this._QueryFactory.Quotes());
+
+            typeToken.Add(this._QueryFactory.Colon());
+
+            typeToken.Add(this._QueryFactory.Quotes());
+            typeToken.AddRange(command_.Tokens);
+            typeToken.Add(this._QueryFactory.Quotes());
+
+            typeToken.Add(this._QueryFactory.RightFgGap());
+
+            ReBuild(typeToken, null);
+            return this._commandBuilder;
+        }
+
+        public ICommandBuilder Batch(ICommandBuilder command_)
+        {
+            ChekHost();
+            List<ITypeToken> typeToken = new List<ITypeToken>();
+            
+            //{
+            typeToken.Add(this._QueryFactory.LeftFgGap());
+
+            typeToken.Add(this._QueryFactory.Quotes());
+            typeToken.Add(this._QueryFactory.Transactions());
+            typeToken.Add(this._QueryFactory.Quotes());
+
+            //:
+            typeToken.Add(this._QueryFactory.Colon());
+
+            typeToken.Add(this._QueryFactory.True());
+            typeToken.Add(this._QueryFactory.Comma());
+
+            typeToken.Add(this._QueryFactory.Quotes());
+            typeToken.Add(this._QueryFactory.Operations());
+            typeToken.Add(this._QueryFactory.Quotes());
+
+            //:
+            typeToken.Add(this._QueryFactory.Colon());
+                
+                //{ [
+                typeToken.Add(this._QueryFactory.LeftSqGap());
+                typeToken.Add(this._QueryFactory.LeftFgGap());
+
+                    typeToken.Add(this._QueryFactory.Quotes());
+                    typeToken.Add(this._QueryFactory.Type());
+                    typeToken.Add(this._QueryFactory.Quotes());
+                    //:
+                    typeToken.Add(this._QueryFactory.Colon());
+
+                    typeToken.Add(this._QueryFactory.Quotes());
+                    typeToken.Add(this._QueryFactory.Sctipt());
+                    typeToken.Add(this._QueryFactory.Quotes());
+                    typeToken.Add(this._QueryFactory.Comma());
+
+
+                    typeToken.Add(this._QueryFactory.Quotes());
+                    typeToken.Add(this._QueryFactory.Language());
+                    typeToken.Add(this._QueryFactory.Quotes());
+                    //:
+                    typeToken.Add(this._QueryFactory.Colon());
+
+                    typeToken.Add(this._QueryFactory.Quotes());
+                    typeToken.Add(this._QueryFactory.sql());
+                    typeToken.Add(this._QueryFactory.Quotes());
+                    typeToken.Add(this._QueryFactory.Comma());
+
+                        typeToken.Add(this._QueryFactory.Quotes());
+                        typeToken.Add(this._QueryFactory.Language());
+                        typeToken.Add(this._QueryFactory.Quotes());
+                        //:
+                        typeToken.Add(this._QueryFactory.Colon());
+                        
+                        //[
+                        typeToken.Add(this._QueryFactory.LeftSqGap());
+
+    typeToken.AddRange(_commandBuilder.Tokens);
+            
+            //]}]}
+            typeToken.Add(this._QueryFactory.RightSqGap());
+            typeToken.Add(this._QueryFactory.RightFgGap());
+            typeToken.Add(this._QueryFactory.RightSqGap());            
+            typeToken.Add(this._QueryFactory.RightFgGap());
+
+            ReBuild(typeToken, null);
+            return this._commandBuilder;
+        }
+
+
+    }
 
     //<<<
     /// <summary>
@@ -1340,7 +1850,7 @@ namespace OrientRealization
             else { result.Add(new OrientFLASEToken()); }
             result.Add(new OrientNotNULLToken());
 
-            result.Add(new OrientComaToken());
+            result.Add(new OrientCommaToken());
 
             if (notnull)
             {
@@ -1443,7 +1953,7 @@ namespace OrientRealization
             }
             else { result.Add(new OrientFLASEToken()); }
 
-            result.Add(new OrientComaToken());
+            result.Add(new OrientCommaToken());
             result.Add(new OrientNotNULLToken());
 
             if (notnull)
@@ -1530,8 +2040,12 @@ namespace OrientRealization
     ///mostly used for URLS (auth)</summary
     public class OrientCommandBuilder : CommandBuilder
     {
-        public OrientCommandBuilder() : base() { }
+      
+        public OrientCommandBuilder(ITokenMiniFactory tokenFactory_,  IFormatFactory formatFactory_) 
+            : base(tokenFactory_, formatFactory_)
+        {
 
+        }
         public OrientCommandBuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
              : base(tokens_, FormatPattern_)
         {
@@ -1619,7 +2133,7 @@ namespace OrientRealization
     {
         public static List<ITypeToken> authUrl = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientAuthenticateToken(), new OrientDatabaseNameToken() };
         public static List<ITypeToken> commandUrl = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientCommandToken(), new OrientDatabaseNameToken(), new OrientCommandSQLTypeToken() };
-        public static List<ITypeToken> addDbURL = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientDatabaseToken()};
+        public static List<ITypeToken> addDbURL = new List<ITypeToken>() { new OrientHost(), new OrientPort(), new OrientURLDatabaseToken()};
     }   
 	
     ///<summary>Converts from model poco classes types to ItypeToken types

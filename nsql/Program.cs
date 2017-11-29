@@ -61,7 +61,7 @@ namespace NSQLManager
             jm = new JSONManager();
             tb = new OrientTokenBuilder();
             tc = new TypeConverter();
-            ocb = new OrientCommandBuilder();
+            ocb = new OrientCommandBuilder(new TokenMiniFactory(), new FormatFactory());
             wm = new OrientWebManager();
             wr = new WebResponseReader();
 
@@ -143,7 +143,7 @@ new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 
         public void ExplicitCommandsCheck()
         {
 
-            OrientCommandBuilder cb = new OrientCommandBuilder();
+            OrientCommandBuilder cb = new OrientCommandBuilder(new TokenMiniFactory(), new FormatFactory());
             OrientTokenBuilderExplicit eb = new OrientTokenBuilderExplicit();
             ITypeConverter tc = new TypeConverter();
 

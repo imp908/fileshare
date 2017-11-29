@@ -3,7 +3,9 @@ using System.Linq;
 using System;
 
 using IQueryManagers;
-using IFormats;
+
+
+using OrientRealization;
 
 namespace QueryManagers
 {
@@ -29,21 +31,62 @@ namespace QueryManagers
         }
     }
 
-    //Tokens for storing Resulted build strings (URLs, commands e.t.c)
+    /// <summary>
+    ///  Token for storing Resulted build strings (URLs, commands e.t.c).
+    ///  Can be used to manually pass commands to managers.
+    /// </summary>
     public class TextToken : ITypeToken
     {
         public string Text { get; set; }
     }
-   
+
+    /// <summary>
+    /// Token factory for OrientDb command builders.
+    /// </summary>
+    public class TokenMiniFactory : ITokenMiniFactory
+    {
+
+        public ITypeToken NewToken()
+        {
+            return new TextToken();
+        }
+        public ITypeToken NewEmptyString()
+        {
+            return new TextToken() { Text = string.Empty };
+        }
+
+        public ITypeToken Dot()
+        {
+            return new OrientDotToken();
+        }
+        public ITypeToken Coma()
+        {
+            return new OrientCommaToken();
+        }
+        public ITypeToken Gap()
+        {
+            return new OrientGapToken();
+        }
+
+    }    
+
     public class CommandFactory : ICommandFactory
     {
-        public ICommandBuilder CommandBuilder()
+        public ICommandBuilder CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_)
         {
-            return new CommandBuilder();
+            return new CommandBuilder(tokenFactory_, formatFactory_);
         }
         public ICommandBuilder CommandBuilder(List<ITypeToken> tokens,ITypeToken format)
         {
             return new CommandBuilder(tokens,format);
+        }
+      
+    }
+    public class FormatFactory : IFormatFactory
+    {
+        public IFormatFromListGenerator FormatGenerator(ITokenMiniFactory tokkenFactory_)
+        {
+            return new FormatFromListGenerator(tokkenFactory_);
         }
     }
 
@@ -52,15 +95,21 @@ namespace QueryManagers
     ///</summary>
     public class CommandBuilder : ICommandBuilder
     {
+
         public IFormatFromListGenerator formatGenerator { get; set; }
+        public IFormatFactory _formatFactory { get; set; }
+
         public ITypeToken typeToken { get; set; }
         public ITypeToken Text { get; set; }
         public ITypeToken FormatPattern { get; set; }
         public List<ITypeToken> Tokens { get; set; }
-
-        public CommandBuilder()
+       
+        public CommandBuilder(ITokenMiniFactory tokenFactory_,IFormatFactory formatFactory_)
         {
 
+            this._formatFactory = formatFactory_;
+
+            formatGenerator = formatFactory_.FormatGenerator(tokenFactory_);
         }
         //concatenates Tokens from colection with format pattern
         public CommandBuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
@@ -290,15 +339,20 @@ namespace QueryManagers
 
             foreach (ICommandBuilder tb in texts_)
             {
+                if (tb.FormatPattern == null)
+                {
+                    tb.FormatPattern = formatGenerator.FormatFromListGenerate(tb.Tokens); 
+                }
                 //build string
                 tb.SetText(tb.Tokens, tb.FormatPattern);
                 //add tokens to list
                 tempTokens.AddRange(tb.Tokens);
                 //concatenate formats according to new, nested format
                 str.Add(tb.FormatPattern);
+                               
             }
 
-            //concatenating of al formatpatterns
+            //concatenating of all formatpatterns
             string[] arr = (from s in str select s.Text).ToArray();
 
             this.Tokens = tempTokens;
@@ -349,12 +403,13 @@ namespace QueryManagers
     }
 
     /// <summary>
-    /// genrates sample format from collection of tokens
+    /// Genrates sample format from collection of tokens. 
+    /// If delimeter passed uses delimeter , if not uses default empty string
     /// </summary>
     public class FormatFromListGenerator : IFormatFromListGenerator
     {
-        ITokenFactory _factory;
-        public FormatFromListGenerator(ITokenFactory factory)
+        ITokenMiniFactory _factory;
+        public FormatFromListGenerator(ITokenMiniFactory factory)
         {
             this._factory = factory;
         }

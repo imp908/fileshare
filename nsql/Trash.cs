@@ -695,7 +695,7 @@ namespace Trash
             jm = new JSONManager();
             ta = new OrientTokenBuilder();
             tc = new TypeConverter();
-            ocb = new OrientCommandBuilder();
+            ocb = new OrientCommandBuilder(new TokenMiniFactory(), new FormatFactory());
             wm = new OrientWebManager();
             wr = new WebResponseReader();
 

@@ -267,7 +267,7 @@ namespace Repos
             string result = null;
             List<ITypeToken> dbCommandUrl = new List<ITypeToken>()
             {
-                new OrientHost(),new OrientPort(),new OrientDatabaseToken(), db_name,new OrientPlocalToken()
+                new OrientHost(),new OrientPort(),new OrientURLDatabaseToken(), db_name,new OrientPlocalToken()
             };
 
             cb.AddTokens(dbCommandUrl);

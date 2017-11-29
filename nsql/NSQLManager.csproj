@@ -101,7 +101,6 @@
   <ItemGroup>
     <Compile Include="AdinTce.cs" />
     <Compile Include="ApiTester.cs" />
-    <Compile Include="IFormatFromListGenerator.cs" />
     <Compile Include="IJsonManager.cs" />
     <Compile Include="IorientObjects.cs" />
     <Compile Include="IUOWS.cs" />

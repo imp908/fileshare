@@ -33,7 +33,7 @@ namespace UOWs
             _jsonManager = new JSONManager();
             _tokenAggregator = new OrientTokenBuilder();
             _typeConverter = new TypeConverter();
-            _CommandBuilder = new OrientCommandBuilder();
+            _CommandBuilder = new OrientCommandBuilder(new TokenMiniFactory(), new FormatFactory());
             wm = new OrientWebManager();
             wr = new WebResponseReader();
 
