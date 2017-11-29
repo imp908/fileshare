@@ -23,59 +23,63 @@ using System.Configuration.Install;
 
 using System.Windows.Forms;
 
+using System.Net;
+using System.Net.Sockets;
+
+using System.Web.Http;
+//install-package Microsoft.AspNet.WebApi.SelfHost
+using System.Web.Http.SelfHost;
+
+//install-package Microsoft.AspNet.Mvc 
+//using System.Web.Mvc;
+using System.Web.Routing;
+
 namespace SB_
 {
 
-
-    public static class DriveRead
+    #region TipsAndTricks
+    public static class TnT
     {
-        private static DriveInfo[] drives_;
-        private static DirectoryInfo[] directories_;
-        private static FileInfo[] fileInfo_;
-
-        public static void Disk()
-        {      
-            BindDrives();
-            ReadDrives(drives_);
-            ReadDirectories(directories_);
+        public static void Check()
+        {
+            //equality();
+            StructsCompare();
         }
 
-        private static void BindDrives()
+        public static void equality()
         {
-            drives_ = DriveInfo.GetDrives();
+            string a = null;
+            //->throws System.NullReferenceException
+            a.Equals(null);
         }
-        private static void ReadDrives(DriveInfo[] drives_)
-        {
-            foreach (DriveInfo di in drives_)
-            {
-                DirectoryInfo rootDir_ = di.RootDirectory;
-                directories_ = rootDir_.GetDirectories();
-            }
-        }
-        private static void ReadDirectories(DirectoryInfo[] dirs_)
-        {
-            foreach(DirectoryInfo dirInf_ in dirs_)
-            {
-                if (dirInf_.GetDirectories().Count() != 0)
-                {
-                    ReadDirectories(dirInf_.GetDirectories());
-                }
-                else
-                {
-                    fileInfo_ = dirInf_.GetFiles();
-                }
-            }
-        }
-        private static void ReadFiles(FileInfo[] files_)
-        {
-            foreach(FileInfo fi_ in files_)
-            {
 
-            }
+        public struct Str1
+        {
+            public string a;
+            public int b;
         }
+        public struct Str2
+        {
+            public string a;
+            public int b;
+        }
+        public static void StructsCompare()
+        {
+            Str1 str1 = new Str1() { a = "Str1", b = 5 };
+            Str1 str2 = str1;
+            //true
+            bool equalsResult = str1.Equals(str2);
+            //false
+            bool referenceResult = Object.ReferenceEquals(str1, str2);
+
+        }
+
+
     }
+    
+    #endregion
 
-
+    //Language
     #region Overriding
     //sample override
     public static class OverridingCheck
@@ -393,6 +397,9 @@ namespace SB_
 
     public static class DelegateCheck
     {
+
+        static Helper helper = new Helper();
+
         public delegate void del1();
         public delegate void del11();
         public delegate string del2();
@@ -432,7 +439,7 @@ namespace SB_
         }
         static void delMeth3(string input_)
         {
-            DW.cout("Del3 inputed " + input_);
+            helper.cout("Del3 inputed " + input_);
         }
         static string delMeth4(string input_)
         {
@@ -513,18 +520,18 @@ namespace SB_
         //simple invokation
         public static void delegatesInvokation()
         {
-            DW.cout("Delegates invoked");
+            helper.cout("Delegates invoked");
             del.Invoke();
 
-            DW.cout(del2_());
-            DW.cout(del2_.Invoke());
+            helper.cout(del2_());
+            helper.cout(del2_.Invoke());
 
             del3_.Invoke("del 3 input");
         }
         //invokation with action
         public static void delegatesAction()
         {
-            DW.cout("Delegate actions invoked");
+            helper.cout("Delegate actions invoked");
             Action act = delMeth1;
             act += delMeth1_;
             act.Invoke();
@@ -532,7 +539,7 @@ namespace SB_
         //invokation from array
         public static void delegateArray()
         {
-            DW.cout("Delegates array");
+            helper.cout("Delegates array");
             del1[] delarr = { delMeth1, delMeth1_ };
             foreach (del1 del_ in delarr)
             {
@@ -556,7 +563,9 @@ namespace SB_
     //new structural delegates
     public class Delegates
     {
+        //delegate type declaration
         delegate void GetStringDel(string i);
+        //variables of delegate type declaratoin
         GetStringDel PrintString;
         GetStringDel PrintString2;
         GetStringDel PrintString3;
@@ -566,12 +575,13 @@ namespace SB_
         {
 
         }
-
+        
         public void DelegatesBind()
         {
-
+            //delegate initializations
+            //with method name
             PrintString = PrintStringA;
-
+            
             //#2.0 anonimous init
             PrintString2 = delegate (string i) { System.Diagnostics.Trace.WriteLine(@"Anonimous init for: " + i); };
 
@@ -1091,18 +1101,20 @@ namespace SB_
     public static class DelegateAsyncCheck
     {
         private delegate int AsyncDel(int i);
-
+        private delegate string d(int i);
         internal static void delAsyncCheck_0()
         {
             AsyncDel asyncDel_ = new AsyncDel(DelMethod);
-
+           
             asyncDel_.BeginInvoke(1,
                 cb =>
-                {
+                { 
                     System.Diagnostics.Trace.WriteLine(@"Begin invoked");
                     asyncDel_.EndInvoke(cb);
                 }
             , null);
+
+            
         }
         internal static void delAsyncCheck_1()
         {
@@ -1387,7 +1399,7 @@ namespace SB_
         private static Task MethodTask()
         {
             TraceLog.WriteLn(@"task start");
-            Thread.Sleep(2000);
+            Thread.Sleep(3000);
             TraceLog.WriteLn(@"task finish");
             return Task.Run(() => {
 
@@ -1413,7 +1425,366 @@ namespace SB_
         }
 
         #endregion
+
+        public class AsyncDelegates
+        {
+
+            public delegate void dAsyncPrint();
+
+            List<int> intList = new List<int>();
+            List<string> strList = new List<string>();
+            Helper helper = new Helper();
+            int capacity;
+
+            public AsyncDelegates(int capacity_)
+            {
+                capacity = capacity_;
+                ListsInit();
+            }
+
+            protected void ListIntPrintFor()
+            {
+                System.Diagnostics.Trace.WriteLine(@"--ST--1");
+                TraceLog.WriteLn(@"Started ListIntPrintFor in thread : " + Thread.CurrentThread.ManagedThreadId);
+
+                for (int i = 0; i <= capacity; i++)
+                {
+                    System.Diagnostics.Trace.Write(intList[i] + @" ");
+                }
+                System.Diagnostics.Trace.WriteLine(@"--END--1");
+            }
+            protected void ListStrPrintFor()
+            {
+                System.Diagnostics.Trace.WriteLine(@"--ST--2");
+                TraceLog.WriteLn(@"Started ListStrPrintFor in thread : " + Thread.CurrentThread.ManagedThreadId);
+
+                for (int i = 0; i <= capacity; i++)
+                {
+                    System.Diagnostics.Trace.Write(strList[i] + @" ");
+                }
+                System.Diagnostics.Trace.WriteLine(@"--END--2");
+            }
+            protected void ListIntPrintWith()
+            {
+                System.Diagnostics.Trace.WriteLine(@"--ST--1");
+                TraceLog.WriteLn(@"Started ListIntPrintWith in thread : " + Thread.CurrentThread.ManagedThreadId);
+
+                helper.PrintList<int>(intList);
+                System.Diagnostics.Trace.WriteLine(@"--END--1");
+            }
+            protected void ListStrPrintWith()
+            {
+                System.Diagnostics.Trace.WriteLine(@"--ST--2");
+                TraceLog.WriteLn(@"Started ListStrPrintWith in thread : " + Thread.CurrentThread.ManagedThreadId);
+
+                helper.PrintList<string>(strList);
+                System.Diagnostics.Trace.WriteLine(@"--END--2");
+            }
+
+            protected void ListsInit()
+            {
+                for (int i = 0; i <= capacity; i++)
+                {
+                    intList.Add(i);
+                    strList.Add(intList[i].GetHashCode().ToString());
+                }
+            }
+
+            public void PrintForCall()
+            {
+                System.Diagnostics.Trace.WriteLine(@"--ST--0");
+                dAsyncPrint dPrint = new dAsyncPrint(ListIntPrintFor);
+
+                IAsyncResult iasrt = dPrint.BeginInvoke(null, dPrint);
+                TraceLog.WriteLn(@"Other stuff at thread : " + Thread.CurrentThread.ManagedThreadId);
+                ListStrPrintFor();
+                dPrint.EndInvoke(iasrt);
+                System.Diagnostics.Trace.WriteLine(@"--END--0");
+
+            }
+            public void PrintWithCall()
+            {
+                System.Diagnostics.Trace.WriteLine(@"--ST--0");
+                dAsyncPrint dp = new dAsyncPrint(ListIntPrintWith);
+
+                IAsyncResult iasrt = dp.BeginInvoke(null, dp);
+
+                while (!iasrt.IsCompleted)
+                {
+                    TraceLog.WriteLn(@"State :" + iasrt.AsyncState + " " + Thread.CurrentThread.ManagedThreadId);
+                    Thread.Sleep(100);
+                }
+                ListStrPrintWith();
+                dp.EndInvoke(iasrt);
+                System.Diagnostics.Trace.WriteLine(@"--END--0");
+            }
+
+            public void Check()
+            {
+                AsyncDelegates ad = new AsyncDelegates(20);
+                ad.PrintForCall();
+                System.Diagnostics.Trace.WriteLine(@"-----------");
+                ad.PrintWithCall();
+            }
+        }
+
     }
+    
+    public class AsyncCheck
+    {
+        string ams = @"Async method start";
+        string amf = @"Async method final";
+
+        string acs = @"Async call start";
+        string acf = @"Async call final";
+
+        string sms = @"sync method start";
+        string smf = @"sync method final";
+
+        void SyncMethod()
+        {
+            TraceLog.Log(sms);
+            TraceLog.WriteLn(sms);
+
+            TraceLog.Log(smf);
+            TraceLog.WriteLn(smf);
+        }
+        async Task async_()
+        {
+            TraceLog.Log(ams);
+            TraceLog.WriteLn(ams);
+            await Task.Run(()=> Thread.Sleep(1000));
+            TraceLog.Log(amf);
+            TraceLog.WriteLn(amf);
+        }
+
+        public async void AsyncCall()
+        {
+            TraceLog.Log(acs);
+            TraceLog.WriteLn(acs);
+            await async_();
+            SyncMethod();
+            TraceLog.Log(acf);
+            TraceLog.WriteLn(acf);        
+        
+        }
+
+        public void TaskWaitLambda()
+        {
+            Task t = Task.Run(() => {
+                // Just loop.
+                long ctr = 0;
+                for (ctr = 0; ctr <= 100000000; ctr++)
+                { }
+                TraceLog.Log(string.Format("Finished {0} loop iterations",ctr));
+                TraceLog.WriteLn(string.Format("Finished {0} loop iterations", ctr));
+            });
+            t.Wait();
+        }
+    }
+    #endregion
+
+    #region Threads
+
+    /// <summary>
+    /// class for passing parameters, of list ammount to thread method
+    /// </summary>
+    public class PrintParams
+    {
+        public int cpacity { get; set; }
+    }
+
+    public class ThreadCheck
+    {
+        //instance of list generator\printer
+        Helper helper = new Helper();
+
+        //object to lock threads
+        private object threadLockToken = new object();
+
+        int lkCnt = 0;
+
+        //Methods to fire 
+        //sample thread check list print
+        public void ThreadSt()
+        {
+            Thread thr = new Thread( new ThreadStart(helper.PrintListInt));
+            thr.Start();
+        }
+        //Host method for printing methods
+        public void ThreadMultipleStart(int ammount)
+        {
+            Thread[] threads = new Thread[ammount];            
+
+          
+            for (int i = 0; i < ammount; i++)
+            {
+                threads[i] = new Thread(new ThreadStart(ThreadSleepPrintMonitor));
+            }
+
+
+            for (int i = 0; i < ammount; i++)
+            {
+                threads[i].Start();
+            }
+            
+        }
+        //Host method multiple threads with parameter
+        public void ThreadMultipleStartParam(int ammount)
+        {
+            Thread[] threads = new Thread[ammount];
+            PrintParams pp = new PrintParams() { cpacity = 10 };            
+
+            for (int i = 0; i < ammount; i++)
+            {
+                threads[i] = new Thread(PrintSleepParam);
+            }
+
+
+            for (int i = 0; i < ammount; i++)
+            {
+                threads[i].Start(pp);
+            }
+
+        }       
+
+        public void ThreadInterlock()
+        {
+            int nums = 5;
+            int trhs = 4;
+
+            helper.intListSampleInit(nums);
+            Thread[] threads = new Thread[trhs];
+
+            for(int i =0;i< trhs; i++)
+            {
+                threads[i] = new Thread(ThreadSleepPrintInterlock);
+            }
+
+            for (int i = 0; i < trhs; i++)
+            {
+                threads[i].Start();
+                System.Diagnostics.Trace.WriteLine(@"Loop value -> " + lkCnt);
+            }
+           
+        }
+
+
+        //host methods to pass params or instantiate delegates
+        private void PrintParam(object print_)
+        {
+            PrintParams pp = null;
+
+            if(print_ is PrintParams)
+            {
+                pp = (PrintParams)print_;
+                helper.intListSampleInit(pp.cpacity);
+                helper.PrintListInt(pp.cpacity);
+            }
+        }
+        public void ThreadStParam(int capacity_)
+        {
+            helper.PrintListInt(capacity_);
+            helper.intListSampleInit(capacity_);
+            PrintParams pp = new PrintParams() { cpacity = 10 };
+            Thread thr = new Thread(PrintParam);
+            thr.Name = "Thread_0";
+            thr.Start(pp);
+        }
+        //target method for parametrized Thread with parameter class
+        public void PrintSleepParam(object capacity_)
+        {
+            PrintParams pp = null;
+            if(capacity_ is PrintParams)
+            {
+                pp = (PrintParams)capacity_;
+            }
+            ThreadSleepPrintParam(pp);
+        }
+
+        //Methods to Lock
+        //satart printing 
+        public void ThreadSleepPrintLock()
+        {
+            helper.intListSampleInit(10);
+            //bad style
+            lock (this)
+            {
+                for (int i = 0; i < helper.GetIntList().Count(); i++)
+                {
+                    int sleep_ = helper.r.Next(10) * 100;
+                    Thread.Sleep(sleep_);
+                    System.Diagnostics.Trace.WriteLine(
+                        "Thread :" + Thread.CurrentThread.ManagedThreadId
+                        + @" slept :" + sleep_
+                        + " Value -> " + helper.GetIntList()[i] + ";"
+                        );
+                }
+            }
+        }
+        //satart printing with params
+        public void ThreadSleepPrintParam(PrintParams capacity_)
+        {
+            helper.intListSampleInit(capacity_.cpacity);
+            //bad style locking
+            //lock (this)
+
+            lock (threadLockToken)
+            {
+                for (int i = 0; i < capacity_.cpacity; i++)
+                {
+                    int sleep_ = helper.r.Next(10) * 100;
+                    Thread.Sleep(sleep_);
+                    System.Diagnostics.Trace.WriteLine(
+                        "Thread :" + Thread.CurrentThread.ManagedThreadId
+                        + @" slept :" + sleep_
+                        + " Value -> " + helper.GetIntList()[i] + ";"
+                        );
+                }
+            }
+        }
+        //lock with monitor syntax explicitly
+        public void ThreadSleepPrintMonitor()
+        {
+            helper.intListSampleInit(10);
+            //good style
+            Monitor.Enter(threadLockToken);
+            try{                
+                for (int i = 0; i < helper.GetIntList().Count(); i++)
+                {
+                    int sleep_ = helper.r.Next(10) * 100;
+                    Thread.Sleep(sleep_);
+                    System.Diagnostics.Trace.WriteLine(
+                        "Thread monitor:" + Thread.CurrentThread.ManagedThreadId
+                        + @" slept :" + sleep_
+                        + " Value -> " + helper.GetIntList()[i] + ";"
+                        );
+                }
+            
+            }catch(Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+            finally
+            {
+                Monitor.Exit(threadLockToken);
+            }
+        }
+        public void ThreadSleepPrintInterlock()
+        {
+            
+            for (int i = 0; i < helper.GetIntList().Count(); i++)
+            {
+                Interlocked.Add(ref lkCnt, 1);
+                //lkCnt += 1;
+                System.Diagnostics.Trace.WriteLine(@"Locked value -> " + lkCnt);
+            }
+        }
+
+
+
+    }
+    
     #endregion
 
     #region Parallel
@@ -1482,6 +1853,56 @@ namespace SB_
             Thread.Sleep(8000);
         }
     }
+
+    public class ParallelFor
+    {
+        List<int> list = new List<int>();
+        private int capacity = 0;
+
+        public ParallelFor(int capacity_)
+        {
+            capacity = capacity_;
+            ListInit();
+        }            
+        public void GO()
+        {
+            //ParallelForeachPrint();            
+            ParallelInvoke();
+
+            ForeachPrint();
+        }
+
+        private void ListInit()
+        {
+            for (int i = 0; i <= capacity; i++)
+            {
+                list.Add(i);
+            }
+        }
+        private void ParallelForeachPrint()
+        {
+            Parallel.ForEach(list, (item) => {                
+                System.Diagnostics.Trace.Write(item + ",");
+            });
+        }
+        private void ParallelInvoke()
+        {
+            Parallel.Invoke(
+                () => {
+                    ForeachPrint();
+                }
+                );
+        }
+        private void ForeachPrint()
+        {
+           foreach(int item in list)
+            {
+                System.Diagnostics.Trace.Write(item + ",");
+            };
+        }
+
+    }
+
     #endregion
 
     #region Reflection
@@ -1658,7 +2079,7 @@ namespace SB_
                 //StoreLog.Log(@"TestService started");
                 TestService.Run(new TestService());
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 System.Diagnostics.Trace.WriteLine(e.Message);
             }
@@ -1708,7 +2129,56 @@ namespace SB_
             return result_;
         }
     }
-    
+
+    #endregion
+
+    #region SelfHost
+
+    [RoutePrefix(@"api/test")]
+    public class TestController : ApiController
+    {
+        [Route("all")]
+        public string GetAll()
+        {
+            return " All ";
+        }
+        [Route("call")]
+        public string GetCall()
+        {
+            return " Call ";
+        }
+        
+        public string PostAll(string input)
+        {
+            return "All posted " + input;
+        }
+    }   
+
+        public class SelfHost
+    {
+        HttpSelfHostConfiguration config;
+        
+        public SelfHost()
+        {
+            config
+            = new HttpSelfHostConfiguration(@"http://localhost:8080");
+
+            config.Routes.MapHttpRoute("Call"
+                , "api/{controller}/{action}/{input}"
+                , new { input = RouteParameter.Optional });
+            config.MapHttpAttributeRoutes();
+            
+        }
+        public  void GO()
+        {
+            using (HttpSelfHostServer server = new HttpSelfHostServer(config))
+            {
+                server.OpenAsync().Wait();
+                System.Diagnostics.Trace.WriteLine("Press Enter to exit");
+                Console.ReadLine();
+            }
+        }
+    }
     #endregion
 
     #region WindowsService
@@ -1747,7 +2217,7 @@ namespace SB_
         protected override void OnStart(string[] args)
         {
             StoreLog.Log(@"TestService started");
-            MessageBox.Show("TestServiceStarted st", "TestServiceStarted", 
+            MessageBox.Show("TestServiceStarted st", "TestServiceStarted",
             MessageBoxButtons.OK,
             MessageBoxIcon.Information,
             MessageBoxDefaultButton.Button1,
@@ -1759,9 +2229,191 @@ namespace SB_
             base.OnStop();
         }
     }
-    
+
     #endregion
 
+    #region Sockets
+
+    public class SocketListener
+    {
+        public void Listen()
+        {
+
+            Socket listener = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+            listener.Bind(new IPEndPoint(IPAddress.IPv6Any, 2112));
+            listener.Listen(10);                 
+            
+            while(true)
+            {
+                Console.WriteLine(@"Waiting...");
+                Socket socket = listener.Accept();
+                string receive = string.Empty;
+                string reply = string.Empty;
+
+                while(true)
+                {
+                    try
+                    {
+                        byte[] bytes = new byte[1024];
+                        int numBytes = socket.Receive(bytes);
+                        
+                        Console.WriteLine(@"Receiving");
+                        receive += Encoding.ASCII.GetString(bytes, 0, numBytes);                       
+                        
+                    }catch(Exception e)
+                    {
+                        TraceLog.Log(e.Message);
+                    }
+
+                    if (receive.IndexOf("[FINAL]") > -1)
+                    {
+                        break;
+                    }
+                   
+                   
+                }
+
+                reply = @"Received: " + receive;
+                Console.WriteLine(@"Reply: " + reply);
+                byte[] response = Encoding.BigEndianUnicode.GetBytes(reply);
+                try
+                {
+                    socket.Send(response);
+                }
+                catch (Exception e)
+                {
+                    TraceLog.Log(e.Message);
+                }
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+
+            }
+        
+        }
+        
+    }
+
+    public class SocketClient
+    {
+        public void Send()
+        {
+            byte[] receivedBytes = new byte[1024];
+            IPHostEntry ipHost = Dns.GetHostEntry("127.0.0.1");
+            IPAddress ipAdress = ipHost.AddressList[0];
+
+
+
+
+            while (true)
+            {
+                IPEndPoint ipEndpoint = new IPEndPoint(ipAdress, 2112);
+
+                Socket sender = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
+
+                try
+                {
+                    sender.Connect(ipEndpoint);
+                    Console.WriteLine("Connected");
+                }
+                catch (Exception e)
+                {
+                    TraceLog.Log(e.Message);
+                }
+
+                string sendMessage = Console.ReadLine();
+                byte[] sendBytes = Encoding.ASCII.GetBytes(sendMessage + @"[FINAL]");
+
+                try
+                {
+                    sender.Send(sendBytes);
+                    int receivedNum = sender.Receive(receivedBytes);
+                }
+                catch (Exception e)
+                {
+                    TraceLog.Log(e.Message);
+                }
+
+                if (sendMessage.IndexOf("[FINAL]") > -1)
+                {
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
+                }
+            }
+
+        }
+
+    }
+
+    #endregion
+
+    //.NET assemblies
+    #region Libraries
+    public static class DriveRead
+    {
+        private static DriveInfo[] drives_;
+        private static DirectoryInfo[] directories_;
+        private static FileInfo[] fileInfo_;
+
+        public static void Disk()
+        {
+            BindDrives();
+            ReadDrives(drives_);
+            ReadDirectories(directories_);
+        }
+
+        private static void BindDrives()
+        {
+            drives_ = DriveInfo.GetDrives();
+        }
+        private static void ReadDrives(DriveInfo[] drives_)
+        {
+            foreach (DriveInfo di in drives_)
+            {
+                DirectoryInfo rootDir_ = di.RootDirectory;
+                directories_ = rootDir_.GetDirectories();
+            }
+        }
+        private static void ReadDirectories(DirectoryInfo[] dirs_)
+        {
+            foreach (DirectoryInfo dirInf_ in dirs_)
+            {
+                if (dirInf_.GetDirectories().Count() != 0)
+                {
+                    ReadDirectories(dirInf_.GetDirectories());
+                }
+                else
+                {
+                    fileInfo_ = dirInf_.GetFiles();
+                }
+            }
+        }
+        private static void ReadFiles(FileInfo[] files_)
+        {
+            foreach (FileInfo fi_ in files_)
+            {
+
+            }
+        }
+    }
+
+    #endregion
+
+
+    //start
+    #region Check
+
+    
+    public static class Check
+    {       
+        public static void GO()
+        {
+            TraceLog.LogNWrite(@"GO start");
+            FormatRearrange.GO();
+            TraceLog.LogNWrite(@"GO final");
+        }
+    }
+
+    #endregion
 
 
     /// <summary>
@@ -1790,9 +2442,9 @@ namespace SB_
             StringBuilder sb = new StringBuilder();
             char[] ch = new char[0];
 
-            for(int i =0;i<input_.Length; i++)
+            for (int i = 0; i < input_.Length; i++)
             {
-                if(EncoutedType(input_[i]) == typeof(Number))
+                if (EncoutedType(input_[i]) == typeof(Number))
                 {
                     ch = ParseDigit(i);
                     i += ch.Count();
@@ -1803,37 +2455,37 @@ namespace SB_
                     }
                 }
             }
-      
+
             _result = sb.ToString();
             return _result;
         }
 
         //from position, if digit, parses value (int,double)
-        public char[] ParseDigit(int start_ )
+        public char[] ParseDigit(int start_)
         {
             char[] _result = new char[0];
-            
-            if (start_ <= input_.Length  )
+
+            if (start_ <= input_.Length)
             {
-                if (EncoutedType(input_[start_]) == typeof(Number) )
+                if (EncoutedType(input_[start_]) == typeof(Number))
                 {
                     int curpos = input_.Length;
-                    Token token_ = null;                  
+                    Token token_ = null;
                     bool rightGap = false;
 
-                    for (int i = start_;i < input_.Length;i++)
+                    for (int i = start_; i < input_.Length; i++)
                     {
                         if (rightGap) { break; }
 
-                        char ch_ = input_[i];                       
+                        char ch_ = input_[i];
 
                         //digit with dots meet + parse + add
-                       
-                        token_ = new DigitInt();                            
-                                              
+
+                        token_ = new DigitInt();
+
                         for (int i2 = i; i2 < input_.Length; i2++)
                         {
-                            ch_ = input_[i2];                          
+                            ch_ = input_[i2];
                             if (EncoutedType(input_[i2]) == typeof(Number))
                             {
                                 if (i2 == input_.Length - 1)
@@ -1853,20 +2505,20 @@ namespace SB_
 
                         }
                         rightGap = true;
-                        _result = new char[curpos+1 - i];
+                        _result = new char[curpos + 1 - i];
                         i += 1;
-                        for (int i3 = 0; i3 < curpos+1 - i; i3++)
+                        for (int i3 = 0; i3 < curpos + 1 - i; i3++)
                         {
-                            _result[i3] = input_[i-1+i3];
+                            _result[i3] = input_[i - 1 + i3];
                         }
-                            
-                        i = curpos+1;
-                        
+
+                        i = curpos + 1;
+
                     }
-                                        
+
                 }
             }
-            
+
             return _result;
 
         }
@@ -1876,7 +2528,8 @@ namespace SB_
         {
             Type _result = null;
 
-            if (SignDictionary.GetToken(ch_) != null) {
+            if (SignDictionary.GetToken(ch_) != null)
+            {
                 if (dict_.GetToken(ch_) is DOT) { _result = typeof(Number); }
                 else { _result = SignDictionary.GetToken(ch_).GetType(); }
             }
@@ -1884,7 +2537,7 @@ namespace SB_
             {
                 if (Char.IsLetter(ch_)) { _result = typeof(Var); }
                 if (Char.IsDigit(ch_)) { _result = typeof(Number); }
-              
+
             }
             return _result;
         }
@@ -1936,23 +2589,23 @@ namespace SB_
     }
     public class SUMM : OPERATION
     {
-      
+
     }
     public class MULT : OPERATION
     {
-       
+
     }
     public class SUBS : OPERATION
     {
-       
+
     }
     public class DIVI : OPERATION
     {
-      
+
     }
     public class EXP : OPERATION
     {
-      
+
     }
     public class EQU : Sign
     {
@@ -1965,10 +2618,10 @@ namespace SB_
     }
     public class DigitInt : Number
     {
-                
+
     }
     public class DigitDouble : Number
-    {              
+    {
     }
     public class DOT : TokenNumber
     {
@@ -2000,7 +2653,7 @@ namespace SB_
     {
         public static int NodeId { get; set; }
 
-        public Tree LeftNode { get ; set; }
+        public Tree LeftNode { get; set; }
         public Tree RightNode { get; set; }
 
         public IOperation TreeVertex { get; set; }
@@ -2012,11 +2665,11 @@ namespace SB_
 
     public class SignDictionary
     {
-        
+
         public Dictionary<char[], Token> Dictionary_;
         public SignDictionary()
         {
-           
+
 
             Dictionary_ = new Dictionary<char[], Token>();
 
@@ -2031,7 +2684,7 @@ namespace SB_
             DictionaryAdd(new char[1] { '(' }, new LEFTBR());
             DictionaryAdd(new char[1] { ')' }, new RIGHTBR());
 
-            foreach(KeyValuePair<char[], Token> kvp in Dictionary_)
+            foreach (KeyValuePair<char[], Token> kvp in Dictionary_)
             {
                 char[] ch = new char[1] { '.' };
                 var c = kvp.Key.SequenceEqual(ch);
@@ -2049,7 +2702,7 @@ namespace SB_
         }
         public void DictionaryAdd(char[] ch_, Token value_)
         {
-            if(!this.Dictionary_.Where(s=>s.Key==ch_).Any())
+            if (!this.Dictionary_.Where(s => s.Key == ch_).Any())
             {
                 Dictionary_.Add(ch_, value_);
             }
@@ -2058,7 +2711,7 @@ namespace SB_
         {
             Token _result = null;
 
-            if(Dictionary_.Where(s => s.Key.SequenceEqual(ch_)).Any())
+            if (Dictionary_.Where(s => s.Key.SequenceEqual(ch_)).Any())
             {
                 _result = Dictionary_.Where(s => s.Key.SequenceEqual(ch_)).FirstOrDefault().Value;
             }
@@ -2068,17 +2721,17 @@ namespace SB_
         public Token GetToken(char ch_)
         {
             Token _result = null;
-            char[] _ch = new char[1] { ch_ } ;
-           
+            char[] _ch = new char[1] { ch_ };
+
             _result = GetToken(_ch);
-                    
+
             return _result;
         }
 
     }
-  
-    public delegate Tree OperationDel (Token tl, Token rt, SUMM op);
-    
+
+    public delegate Tree OperationDel(Token tl, Token rt, SUMM op);
+
     public class TokenSum
     {
 
@@ -2105,7 +2758,7 @@ namespace SB_
 
             return _result;
         }
-        public TokenDouble TokenSumDouble(TokenDouble tl,TokenDouble tr, SUMM op)
+        public TokenDouble TokenSumDouble(TokenDouble tl, TokenDouble tr, SUMM op)
         {
             _double.Value = tl.Value + tr.Value;
             return _double;
@@ -2120,13 +2773,13 @@ namespace SB_
         {
             _result = tree_;
         }
-        public Tree TreeSumming(Tree t1,Tree t2, IOperation o)
+        public Tree TreeSumming(Tree t1, Tree t2, IOperation o)
         {
-            if(t1.simplified)
+            if (t1.simplified)
             {
-                if(t2.simplified)
+                if (t2.simplified)
                 {
-                    if(o is SUMM)
+                    if (o is SUMM)
                     {
 
                     }
@@ -2136,14 +2789,14 @@ namespace SB_
             return _result;
         }
     }
-    
+
     #endregion
-  
+
     /// <summary>
     /// Polinom parsing project
     /// </summary>
     #region PoliParseType
-    
+
     public static class PoliParse
     {
         public static void Check()
@@ -2156,7 +2809,7 @@ namespace SB_
             try
             {
 
-                StringBuilder sb = new StringBuilder();                             
+                StringBuilder sb = new StringBuilder();
                 List<ItemsStatus> ds = new List<ItemsStatus>();
 
                 container_.ParsedInit();
@@ -2564,7 +3217,7 @@ namespace SB_
         }
 
         public void StringToItemParse(string input_)
-        {            
+        {
             IItem_ actReadItem = null;
 
             for (int i = 0; i < input_.Length; i++)
@@ -2573,7 +3226,7 @@ namespace SB_
 
                 //operation met
                 if ((from s in operations where s.CheckValue(ch_) == true select s).Any())
-                {                    
+                {
                     actReadItem = (from s in operations where s.CheckValue(ch_) == true select s).FirstOrDefault();
                 }
                 if ((from s in items where s.CheckValue(ch_) == true select s).Any())
@@ -2583,7 +3236,7 @@ namespace SB_
                 }
                 //variable met
                 if (Char.IsLetter(ch_))
-                {                    
+                {
                     actReadItem = new Variable_(ch_);
                 }
                 //double digit met
@@ -2611,21 +3264,21 @@ namespace SB_
                 {
                     throw new NotRecognizedTokenException();
                 }
-             
-                parsed.Add( new ParsedItems(actReadItem, actReadItem.GetType()) );
-               
+
+                parsed.Add(new ParsedItems(actReadItem, actReadItem.GetType()));
+
             }
 
         }
 
         public void ExpressionsParse()
         {
-        
+
             IItem_ prevReadItem = null;
             IItem_ actReadItem = null;
             IItem_[] arr;
-          
-            foreach (ParsedItems pi_ in parsed )
+
+            foreach (ParsedItems pi_ in parsed)
             {
 
                 IItem_ item_ = pi_.Item;
@@ -2644,12 +3297,12 @@ namespace SB_
                     if (prevReadItem.GetType() is IDigit_)
                     {
                         //actual digit
-                        if(actReadItem.GetType() is IDigit_)
+                        if (actReadItem.GetType() is IDigit_)
                         {
                             throw new DoubleDigitsException();
                         }
                         //multiplication 
-                        if(actReadItem.GetType() is IVariable_)
+                        if (actReadItem.GetType() is IVariable_)
                         {
 
                         }
@@ -2665,16 +3318,16 @@ namespace SB_
                     }
                 }
 
-            prevReadItem = actReadItem;
-            }           
-           
+                prevReadItem = actReadItem;
+            }
+
         }
-        
+
     }
 
     public class ParsedItems
     {
-        public ParsedItems(IItem_ item_,Type type_)
+        public ParsedItems(IItem_ item_, Type type_)
         {
             this.Item = item_;
             this.Type = type_;
@@ -2703,7 +3356,7 @@ namespace SB_
                 Status = false;
             }
         }
-        
+
     }
 
     #endregion
@@ -3124,7 +3777,7 @@ namespace SB_
         }
         public static void ExportJson()
         {
-            
+
         }
         public static void ImportJson()
         {
@@ -3151,10 +3804,10 @@ namespace SB_
     /// <summary>
     /// >>||| REWRITE
     /// Gets files from folder parses them with Encoding to txt file with pathes and Encoding name.
-    /// </summary>
+    /// </summary>s
     #region StreamsTesting
 
-    public delegate string encodeStringDel(byte[] arr );
+    public delegate string encodeStringDel(byte[] arr);
     public delegate byte[] encodeArrDel(string input_);
 
     public delegate string encodeStringCodePageDel(byte[] arr, int codepage_);
@@ -3239,9 +3892,9 @@ namespace SB_
         public static void DeserializeOne()
         {
             string FileToParse = @"C:\FILES\SHARE\debug\moove\new\out.txt";
-           
+
             string FileToExport = @"C:\FILES\SHARE\debug\moove\new\out_de.txt";
-            byte[] arr;           
+            byte[] arr;
 
             FileStream fs = new FileStream(FileToParse, FileMode.Open);
             arr = new byte[fs.Length];
@@ -3250,7 +3903,7 @@ namespace SB_
             using (FileStream fsWrite_ = new FileStream(FileToExport, FileMode.OpenOrCreate))
             {
                 fsWrite_.Write(arr, 0, arr.Length);
-            }           
+            }
 
         }
 
@@ -3274,7 +3927,7 @@ namespace SB_
             arr = new byte[length];
             fsIn.Read(arr, 0, length);
             ByteArrayAsIs(arr, FilePathOut + @"_bytesASIS.txt");
-            fsOut.Write(arr, 0, length);            
+            fsOut.Write(arr, 0, length);
             BytesExport();
         }
         public static void BytesExport()
@@ -3373,17 +4026,17 @@ namespace SB_
         {
             fsIn = new FileStream(FilePathOut, FileMode.Open);
             sr = new StreamReader(fsIn);
-            int encode = 0;           
+            int encode = 0;
             while (fsIn.Position + 1 < fsIn.Length)
             {
                 string path = ParsePathText();
                 Int32.TryParse(ParsePathText(), out encode);
                 localEncoding_ = Encoding.UTF8; //Encoding.GetEncoding(encode);
-                string text = ParsePathText();              
-                if(path!="" && encode != 0 && text != "")
+                string text = ParsePathText();
+                if (path != "" && encode != 0 && text != "")
                 {
                     pathTextList.Add(new PathText(Path.Combine(DirectoryOut, Path.GetFileName(path)), arr, codepage));
-                }                
+                }
             }
         }
         public static void PathtextRead()
@@ -3393,7 +4046,7 @@ namespace SB_
                 if (true == true)
                 {
                     using (FileStream fss = new FileStream(pt_.path, FileMode.OpenOrCreate))
-                    {                        
+                    {
                         try
                         {
                             fss.Write(pt_.text, 0, pt_.text.Length);
@@ -3420,7 +4073,7 @@ namespace SB_
             fsIn.Position -= cnt + 1;
             arr = new byte[cnt];
             fsIn.Read(arr, 0, cnt);
-            a = encodingStrCP(arr, codepage);           
+            a = encodingStrCP(arr, codepage);
             Int32.TryParse(a, out b);
             arr = new byte[b];
             fsIn.Position += 1;
@@ -3443,7 +4096,7 @@ namespace SB_
         {
             StreamReader sr = new StreamReader(fs_, true);
             encoding = sr.CurrentEncoding;
-            if(Path.GetExtension(fs_.Name) == ".7z")
+            if (Path.GetExtension(fs_.Name) == ".7z")
             {
                 encoding = Encoding.BigEndianUnicode;
             }
@@ -3452,7 +4105,7 @@ namespace SB_
         public static Encoding EncodingGetFS(FileStream fs_)
         {
             StreamReader sr = new StreamReader(fs_, true);
-            Encoding result_= sr.CurrentEncoding;
+            Encoding result_ = sr.CurrentEncoding;
             if (Path.GetExtension(fs_.Name) == ".")
             {
                 result_ = Encoding.BigEndianUnicode;
@@ -3469,7 +4122,7 @@ namespace SB_
         {
             encoding = Encoding.UTF8;
         }
-               
+
         static void UTFenc()
         {
             encodingStr = EncodeStringUTF8;
@@ -3520,15 +4173,265 @@ namespace SB_
         public string path { get; set; }
         public byte[] text { get; set; }
         public int? codepage { get; set; }
-    
+
         public PathText(string path_, byte[] text_, int? codepage_ = null)
         {
             this.path = path_;
-            this.text = text_;            
+            this.text = text_;
             this.codepage = codepage_;
         }
     }
+
+    #endregion
+
+    #region KATAs
+    public static class ReqwindKATA
+    {
+
+      
+
+        public static string GO(string input_)
+        {
+
+            List<char> arr = new List<char>();
+            Stack<char> st = new Stack<char>();
+            Stack<char> st2 = new Stack<char>();
+
+            for (int i =0;i<input_.ToArray().Length;i++)
+            {
+                char ch = input_.ToArray()[i];
+
+                if (ch != ' ')
+                {
+                    st.Push(ch);
+                }
+                else
+                {
+                    if (st.Count >= 5)
+                    {
+                        while (st.Count > 0)
+                        {
+                            arr.Add(st.Pop());
+                        }
+                       
+                    }
+                    else
+                    {
+                        while (st.Count > 0)
+                        {
+                            st2.Push(st.Pop());
+                        }
+                        while (st2.Count > 0)
+                        {
+                            arr.Add(st2.Pop());
+                        }
+                        
+                    }
+                    arr.Add(' ');
+                }
+            }
+
+            if (st.Count >= 5)
+            {
+                while (st.Count > 0)
+                {
+                    arr.Add(st.Pop());
+                }
+                
+            }
+            else
+            {
+                while (st.Count > 0)
+                {
+                    st2.Push(st.Pop());
+                }
+                while (st2.Count > 0)
+                {
+                    arr.Add(st2.Pop());
+                }
+               
+            }
+
+            return string.Join(null, arr);
+        }
+    }
+
+    public static class FindKata
+    {
+        public static char GO(char[] input)
+        {
+            byte[] arr = Encoding.ASCII.GetBytes(input);
+            char result = ' ';
+            for (int i =0; i< arr.Length-1; i++)
+            {
+                if(arr[i]+1<arr[i+1])
+                {
+                    result = (char)(arr[i]+1);
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+    }
+
+    public static class DivideKATA {
+        public static int[] Divisors(int n)
+        {
+            if (n < 2) { return null; }
+                    
+
+            List<int> divisors = new List<int>();
+
+            for (int i = 2; i < n; i++)
+            {
+                if (n % i == 0) { divisors.Add(i); }
+            }
+            if (divisors.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return divisors.ToArray();
+            }
+           
+        }
+    }
     
+    public static class FormatRearrange
+    {
+        public static void GO()
+        {
+            StringsCheck();
+        }
+
+        static void StringsCheck()
+        {          
+
+            string input = "{0}{1} {2}";        
+            string r1 = Rearrange(input);
+        }
+
+        static string Rearrange(string input_)
+        {
+            string result = input_;
+            char[] chr = input_.ToCharArray();
+            int lng = chr.Length;
+            char[] prevDigit=null;
+            char[] currDigit = null;
+
+            for (int i =0;i<lng;i++)
+            {
+
+                int i2 = i;
+
+                if (char.IsDigit(chr[i2]))
+                {     
+
+                    if ( i2+1 < lng)
+                    {
+                        while(char.IsDigit(chr[i2+1]))
+                        {
+                            i2++;
+                        }
+                      
+                    }
+               
+
+                    if (prevDigit == null)
+                    {
+                        prevDigit = ChArrFill(i, i2, chr);                  
+                    }
+                    else
+                    {
+                        currDigit = ChArrFill(i, i2, chr);
+
+                        if (!check(currDigit, prevDigit))
+                        {
+                            currDigit = intRecount(currDigit, prevDigit);
+
+                            char[] chrN = new char[chr.Length + currDigit.Length - prevDigit.Length];
+
+                            for (int i4 = 0; i4 < i; i4++)
+                            {
+                                chrN[i4] = chr[i4];
+                            }
+                            for (int i4 = i; i4 < i2; i4++)
+                            {
+                                chrN[i4] = chr[i4];
+                            }
+                            for (int i4 = i2; i4 <= lng; i4++)
+                            {
+                                chrN[i4] = chr[i4];
+                            }
+
+                            result = charArrToInteger(chrN).ToString();
+                        }
+                        else {
+                            prevDigit = intToCharArr(charArrToInteger(currDigit));                        
+                        }
+
+                    }
+
+                }
+
+            }
+
+            return result;
+        }
+
+        static int charArrToInteger(char[] arr_)
+        {
+            int res = 0;
+            int i = 1;            
+            for(int i2 = arr_.Length-1;i2>=0;i2--)
+            {               
+                res += (int)(char.GetNumericValue(arr_[i2]) * i);
+                i *= 10;
+            }
+            return res;
+        }
+        static char[] intToCharArr(int i_)
+        {
+            return i_.ToString().ToCharArray();   
+        }
+        static char[] intRecount(char[] currDig_,char[] prevDigit_)
+        {
+            if(charArrToInteger(currDig_) == charArrToInteger(prevDigit_)+1)
+            {
+                return currDig_;
+            }
+            else
+            {
+                return intToCharArr(charArrToInteger(prevDigit_) + 1);
+            }
+        }
+        static bool check(char[] currDig_, char[] prevDigit_)
+        {
+            if (charArrToInteger(currDig_) == charArrToInteger(prevDigit_) + 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        static char[] ChArrFill(int i_,int i2_, char[] chFrom_)
+        {
+            char[] chTo_ = new char[(i2_ - i_)+1];
+
+            for (int i3_ = 0; i3_ <= (i2_ - i_); i3_++)
+            {
+                chTo_[i3_] = chFrom_[i_ + i3_];
+            }
+            return chTo_;
+        }
+
+    }
+
     #endregion
 
 }
@@ -3538,27 +4441,45 @@ namespace SB_
     public static class TraceLog
     {
         internal static Random rnd = new Random();
-        internal static long LoadCnt=0;
-     
+        internal static long LoadCnt = 0;
+        static string path;
+        static StreamWriter f;
+
+        static TraceLog()
+        {
+            TraceLog.path = AppDomain.CurrentDomain.BaseDirectory;          
+        }
         public static void Log(string input_)
         {
-
+            TraceLog.f = new StreamWriter(path + @"\log.txt", true);
+            f.Write(DateTime.Now + " : ");
+            f.Write(input_);
+            f.Write(" ;");
+            f.Write(Environment.NewLine);
+            f.Flush();
+            f.Close();
         }
-        public static void WriteLn(string str_ = @"NO_STRING")
+        public static void WriteLn(string input_ = @"NO_STRING")
         {
-            System.Diagnostics.Trace.WriteLine(str_);
+            System.Diagnostics.Trace.WriteLine(input_);
         }
+        public static void LogNWrite(string input_)
+        {
+            Log(input_);
+            WriteLn(input_);
+        }
+
         public static string GetFunctionName()
         {
             string className = @"NO_CLASSNAME";
             string methodName = @"NO_METHODNAME";
-            
+
             StackTrace st = new StackTrace();
             StackFrame sf = st.GetFrame(1);
 
             className = st.GetType().Name;
             methodName = sf.GetMethod().Name;
-       
+
             string result_ = String.Format(@"Class: {0}, Method: {1} ;", className, methodName);
             return result_;
         }
@@ -3572,7 +4493,7 @@ namespace SB_
             Stopwatch watch = new Stopwatch();
             Console.WriteLine(@"started");
             watch.Start();
-            while (cnt<iterations)
+            while (cnt < iterations)
             {
                 cnt += 1;
                 // Make the loop go on for "percentage" milliseconds then sleep the 
@@ -3588,14 +4509,14 @@ namespace SB_
             }
             Console.ReadKey();
         }
-        public static void ConsumeCPUcount(long x,long y,bool print = false)
+        public static void ConsumeCPUcount(long x, long y, bool print = false)
         {
-            int[,] arr = new int[x,y];
+            int[,] arr = new int[x, y];
             long result_ = 0;
-            
+
             Stopwatch watch = new Stopwatch();
             watch.Start();
-            for (long i=0;i<x;i++)
+            for (long i = 0; i < x; i++)
             {
                 for (long i2 = 0; i2 < y; i2++)
                 {
@@ -3609,12 +4530,12 @@ namespace SB_
                 }
             }
             watch.Stop();
-            TraceLog.WriteLn("Elapsed :" + watch.Elapsed + " for " + x + " " + y + " With result:"+ result_);
-        }       
+            TraceLog.WriteLn("Elapsed :" + watch.Elapsed + " for " + x + " " + y + " With result:" + result_);
+        }
     }
 
     public interface IlogParams
-    {       
+    {
         DateTime LogTime { get; set; }
         string Messsage { get; set; }
     }
@@ -3622,22 +4543,22 @@ namespace SB_
     {
         public static int ID { get; set; }
         public DateTime LogTime { get; set; }
-        public string Messsage { get; set; }       
+        public string Messsage { get; set; }
     }
     public static class StoreLog
     {
         internal static string LogFileName = @"Log.txt";
-        internal static string LogFilePath = null;    
+        internal static string LogFilePath = null;
         internal static IlogParams logParams = null;
-        
+
         static StoreLog()
         {
-            LogFilePath = Path.Combine( Path.GetDirectoryName( Assembly.GetExecutingAssembly().Location), LogFileName);
-            if(!File.Exists(LogFilePath))
+            LogFilePath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), LogFileName);
+            if (!File.Exists(LogFilePath))
             {
                 File.Create(LogFilePath);
             }
-                 
+
         }
         public static void InterfaceBind(IlogParams input_)
         {
@@ -3646,19 +4567,78 @@ namespace SB_
         public static void Log(string message_)
         {
             if (logParams != null)
-            {                               
+            {
                 logParams.LogTime = DateTime.Now;
-                logParams.Messsage = message_;              
+                logParams.Messsage = message_;
                 File.AppendAllText(LogFilePath, logParams.LogTime.ToString() + @" " + logParams.Messsage + Environment.NewLine);
             }
         }
     }
 
-    public static class DW
+    public class Helper
     {
-        public static void cout(string input_)
+        public Random r = new Random();
+
+        private List<int> intList = null;
+        public Helper()
+        {
+            intListSampleInit(101);
+        }
+
+        public void cout(string input_)
         {
             System.Diagnostics.Trace.WriteLine(input_);
         }
+        public void PrintList<T>(List<T> list_)
+        {
+            foreach(var item in list_)
+            {
+                System.Diagnostics.Trace.Write(item);
+            }
+        }
+
+        public List<int> GetIntList()
+        {
+            if(this.intList == null)
+            {
+                intListSampleInit(100);
+            }
+            return this.intList;
+        }
+        public void PrintListInt()
+        {
+            System.Diagnostics.Trace.WriteLine(null);
+            System.Diagnostics.Trace.Write(":>>");
+            foreach (var a in intList.Select(s => s))
+            {
+                System.Diagnostics.Trace.Write(a + ",");
+            }
+            System.Diagnostics.Trace.Write(";");
+            System.Diagnostics.Trace.WriteLine(null);
+        }
+        public void PrintListInt(int capacity_)
+        {           
+            PrintListInt();
+        }
+
+
+        public void intListSampleInit(int capacity)
+        {
+            this.intList = new List<int>();
+            for (int i=0;i< capacity; i++)
+            {
+                this.intList.Add(i);
+            }
+        }        
+        public void initListRandInt(int cpacity)
+        {
+            intList = new List<int>();
+            for(int i = 0;i<= cpacity; i++)
+            {
+                intList.Add(r.Next());
+            }
+        }
+
     }
+
 }
