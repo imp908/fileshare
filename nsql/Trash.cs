@@ -485,7 +485,7 @@ namespace Trash
                 new OrientCreateToken(),new OrientVertexToken(),new OrientPersonToken(), new OrientContentToken()
                 , content};
             OrientCreateVertexCluaseFormat cf = new OrientCreateVertexCluaseFormat();
-            OrientCreateClauseBuilder cb = new OrientCreateClauseBuilder(CreateTokens, cf);
+            CommandBuilder cb = new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), CreateTokens, cf);
             string CreateCommand = cb.Text.Text;
         }
         //check delete clause
@@ -495,18 +495,17 @@ namespace Trash
             List<ITypeToken> wT =
                 new List<ITypeToken>() { new OrientWhereToken(), new TextToken() { Text = "\"Name\" = \"0\"" } };
             OrientWhereClauseFormat cf =
-                new OrientWhereClauseFormat();
-            OrientWhereClauseBuilder cb = new OrientWhereClauseBuilder(wT, cf);
-
+                new OrientWhereClauseFormat();    
+            CommandBuilder cb = new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), wT, cf);
 
             //<<ad where clause builder
-            List<ITypeToken> dt =
+            List <ITypeToken> dt =
                 new List<ITypeToken>(){new OrientDeleteToken(), new OrientVertexToken(), new OrientPersonToken()
                 , new TextToken(){Text = "where Name = 0" }};
             OrientDeleteVertexCluaseFormat df
                 = new OrientDeleteVertexCluaseFormat();
-            OrientDeleteClauseBuilder dlb = new OrientDeleteClauseBuilder(dt, df);
-
+            CommandBuilder dlb = new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), dt, df);
+        
             string deleteClause = dlb.Text.Text;
         }
        

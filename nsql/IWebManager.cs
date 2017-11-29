@@ -11,7 +11,8 @@ namespace IWebManagers
     public interface IWebManager
     {
         void AddCredentials(NetworkCredential credentials);
-        WebResponse GetResponse(string method);                
+        WebResponse GetResponse(string method);
+        WebResponse GetResponse64(string method);
         WebRequest AddRequest(string url);
         
     }    

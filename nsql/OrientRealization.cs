@@ -839,7 +839,7 @@ namespace OrientRealization
             this.orientFactory = queryfactory_;
         }
 
-        public void Build(List<ITypeToken> tokenList_, ITypeToken format = null)
+        public new void Build(List<ITypeToken> tokenList_, ITypeToken format = null)
         {
             //tokenList_.Add(factory.NewEmptyString());            
             this._commandBuilder.AddTokens(tokenList_);
@@ -855,7 +855,7 @@ namespace OrientRealization
             this._commandBuilder.AddFormat(token);
             lastGeneneratedCommand = this._commandBuilder.Build();
         }
-        public void ReBuild(List<ITypeToken> tokenList_, ITypeToken format = null)
+        public new void ReBuild(List<ITypeToken> tokenList_, ITypeToken format = null)
         {
             //tokenList_.Add(factory.NewEmptyString());            
             this._commandBuilder.BindTokens(tokenList_);
@@ -1405,17 +1405,16 @@ namespace OrientRealization
             List<ITypeToken> typeToken = new List<ITypeToken>();
             
             typeToken.Add(this._QueryFactory.LeftFgGap());
-
             typeToken.Add(this._QueryFactory.Quotes());
             typeToken.Add(this._QueryFactory.Command());
             typeToken.Add(this._QueryFactory.Quotes());
-
             typeToken.Add(this._QueryFactory.Colon());
-
             typeToken.Add(this._QueryFactory.Quotes());
+
+
             typeToken.AddRange(command_.Tokens);
-            typeToken.Add(this._QueryFactory.Quotes());
 
+            typeToken.Add(this._QueryFactory.Quotes());
             typeToken.Add(this._QueryFactory.RightFgGap());
 
             ReBuild(typeToken, null);
@@ -1494,7 +1493,6 @@ namespace OrientRealization
             ReBuild(typeToken, null);
             return this._commandBuilder;
         }
-
 
     }
 
@@ -2046,11 +2044,7 @@ namespace OrientRealization
         {
 
         }
-        public OrientCommandBuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
-             : base(tokens_, FormatPattern_)
-        {
-
-        }
+       
     }
 
     //<<<deprecation possible, replaced with type convertible commandbuilder
@@ -2061,8 +2055,8 @@ namespace OrientRealization
     //Authentication URL build
     public class OrientAuthenticationURIBuilder : CommandBuilder
     {
-        public OrientAuthenticationURIBuilder(List<ITypeToken> tokens_, OrientAuthenticationURLFormat FormatPattern_)
-             : base(tokens_, FormatPattern_)
+        public OrientAuthenticationURIBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatfactory_)
+             : base(tokenFactory_, formatfactory_)
         {
 
         }
@@ -2070,8 +2064,8 @@ namespace OrientRealization
     //Command URL build
     public class OrientCommandURIBuilder : CommandBuilder
     {
-        public OrientCommandURIBuilder(List<ITypeToken> tokens_, OrientCommandURLFormat FormatPattern_)
-            : base(tokens_, FormatPattern_)
+        public OrientCommandURIBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatfactory_)
+             : base(tokenFactory_, formatfactory_)
         {
 
         }
@@ -2084,16 +2078,16 @@ namespace OrientRealization
 
     public class OrientSelectClauseBuilder : CommandBuilder
     {
-        public OrientSelectClauseBuilder(List<ITypeToken> tokens_, OrientSelectClauseFormat FormatPattern_ = null)
-            : base(tokens_, FormatPattern_ = new OrientSelectClauseFormat())
+        public OrientSelectClauseBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatfactory_)
+             : base(tokenFactory_, formatfactory_)
         {
 
         }
     }
     public class OrientWhereClauseBuilder : CommandBuilder
     {
-        public OrientWhereClauseBuilder(List<ITypeToken> tokens_, OrientWhereClauseFormat FormatPattern_)
-            : base(tokens_, FormatPattern_)
+        public OrientWhereClauseBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatfactory_)
+             : base(tokenFactory_, formatfactory_)
         {
 
         }
@@ -2101,16 +2095,15 @@ namespace OrientRealization
 
     public class OrientCreateClauseBuilder : CommandBuilder
     {
-        public OrientCreateClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
-            : base(tokens_, format_)
-        {
+        public OrientCreateClauseBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatfactory_)
+             : base(tokenFactory_, formatfactory_) { 
 
         }
     }
     public class OrientDeleteClauseBuilder : CommandBuilder
     {
-        public OrientDeleteClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
-            : base(tokens_, format_)
+        public OrientDeleteClauseBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatfactory_)
+             : base(tokenFactory_, formatfactory_)
         {
 
         }
@@ -2118,8 +2111,8 @@ namespace OrientRealization
 
     public class OrientNestedSelectClauseBuilder : CommandBuilder
     {
-        public OrientNestedSelectClauseBuilder(List<ITypeToken> tokens_, ITypeToken format_)
-            : base(tokens_, format_)
+        public OrientNestedSelectClauseBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatfactory_)
+             : base(tokenFactory_, formatfactory_)
         {
 
         }

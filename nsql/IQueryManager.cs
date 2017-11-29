@@ -84,7 +84,7 @@ namespace IQueryManagers
     public interface ICommandFactory
     {
         ICommandBuilder CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_);
-        ICommandBuilder CommandBuilder(List<ITypeToken> tokens, ITypeToken format);     
+        
     }
 
     public interface IFormatFactory

@@ -149,6 +149,7 @@ namespace WebManagers
             return await Task.FromResult(resp);
         }
 
+        public WebResponse GetResponse64(string method) { throw new NotImplementedException(); }
         public WebResponse GetResponse(string method) { throw new NotImplementedException();  }
         public WebRequest AddRequest(string url) { throw new NotImplementedException(); }
 
@@ -161,6 +162,7 @@ namespace WebManagers
         NetworkCredential credentials;
         string GET="GET";
         string _url;
+        object _lock = new object();
 
         public WebRequest AddRequest(string url)
         {
@@ -246,7 +248,14 @@ namespace WebManagers
                 temp_request.ContentLength = this._request.ContentLength;
             }
 
-            temp_request.Headers = this._request.Headers;
+            foreach(string header in temp_request.Headers)
+            {
+                if(header != "Host")
+                {
+                    temp_request.Headers = this._request.Headers;
+                }
+            }
+        
             this._request = temp_request;
             return this._request;
         }
@@ -286,6 +295,24 @@ namespace WebManagers
                 catch (Exception e) { }
             }           
         }
+        public void AddBase64AuthHeader(string value)
+        {
+            _request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
+            Encoding.ASCII.GetBytes(value)
+            ));
+        }
+        public void AddBase64AuthHeader()
+        {         
+                if (this.credentials == null)
+                { throw new Exception("No credentials binded"); }
+
+                _request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
+                Encoding.ASCII.GetBytes(
+                    string.Format("{0}:{1}", this.credentials.UserName, this.credentials.Password)
+                    )
+                ));            
+                      
+        }
 
         internal bool CheckReq()
         {
@@ -304,9 +331,30 @@ namespace WebManagers
         }
         public WebResponse GetResponse(string method)
         {
-            throw new Exception();
+            try
+            {
+                return (HttpWebResponse)this._request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
         }
+        public WebResponse GetResponse64(string method)
+        {
+            if (this._request == null) { return null; }       
 
+            try
+            {
+                AddBase64AuthHeader();
+                return (HttpWebResponse)this._request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+       
     }
 
     /// <summary>

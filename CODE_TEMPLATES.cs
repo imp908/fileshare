@@ -16,7 +16,7 @@ namespace Parts{
 	
 }
 
-	//Usefull links
+	//Usefull links 
 	public void mostUsefullLinks()
 	{
 	
@@ -44,6 +44,15 @@ namespace Parts{
 	https://docs.microsoft.com/en-us/vsts/build-release/actions/ci-cd-part-1
 	//PowerShell TFS
 	https://blogs.technet.microsoft.com/heyscriptingguy/2014/04/21/powershell-and-tfs-the-basics-and-beyond/
+	
+	//Async
+	http://blog.stephencleary.com/2013/11/there-is-no-thread.html
+	https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+	//async request
+	https://stackoverflow.com/questions/12281777/implementing-httpwebrequest-async-calls
+	https://msdn.microsoft.com/ru-ru/library/system.net.httpwebrequest.begingetresponse(v=vs.110).aspx
+	//tasks
+	https://www.codeproject.com/Articles/152765/Task-Parallel-Library-of-n
 	
 	
 	
@@ -7055,6 +7064,38 @@ batchJson insert ',' create edge command object with content generated from to o
 
 
 
+//token concatenation strategy
+List<ItypeToken> tokens,ItypeToken format
+List<ItypeToken> tokens,formatgen
+List<ItypeToken> tokens,ItypeToken delimeter (format generate with deimeter)
+
+List<ICommandBuilder> commands,ItypeToken format (concatenate format arrays of command builders)
+List<ICommandBuilder> commands,formatgen
+List<ICommandBuilder> commands,ItypeToken delimeter (format generate with deimeter)
+
+
+
+>> add commandbuilder into bodyshema concatenation
+	>> start all shemas + builder into query object aggregation
+	
+		
+		>1) from what source, which format using string to build 
+		build(List<ITypeTokens>, tokens_ ItypeToken format)
+		build(List<ITypeTokens>, tokens_ ItypeToken delimeter)
+			format = foramtGen(delimeter)
+		build(List<IcommandBuilders>, tokens_ ItypeToken format)
+			foramt = commandbuilders.foramts.concatenate9format)
+		build(List<IcommandBuilders>, tokens_ ItypeToken delimeter)
+			format = foramtGen(delimeter)
+		
+		2) how to concatenate with existing string
+		addright,addLeft,rewrite
+		3) add gap or not
+		add gap before,after
+		
+		
+		
+		
 //Rest paramters strategy
 Type = IOrientDatabase => 
 host:port/database/{dbname}/plocal | POST,DELETE

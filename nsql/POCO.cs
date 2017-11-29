@@ -39,7 +39,7 @@ namespace POCO
     public class OrientVertex : IOrientVertex
     {
         public string type { get; set; }
-
+        [JsonProperty("@rid")]
         public string id { get; set; }
 
         public string version { get; set; }
@@ -89,10 +89,11 @@ namespace POCO
         public string OneSHash { get; set; }
         public string Hash { get; set; }
 
+        /*
         [JsonProperty("id")]
         public new string id { get; set; }
 
-        /*
+        
         public List<string> in_MainAssignment { get; set; }
         public List<string> out_MainAssignment { get; set; }
         */

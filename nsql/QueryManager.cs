@@ -76,11 +76,7 @@ namespace QueryManagers
         {
             return new CommandBuilder(tokenFactory_, formatFactory_);
         }
-        public ICommandBuilder CommandBuilder(List<ITypeToken> tokens,ITypeToken format)
-        {
-            return new CommandBuilder(tokens,format);
-        }
-      
+     
     }
     public class FormatFactory : IFormatFactory
     {
@@ -106,27 +102,18 @@ namespace QueryManagers
        
         public CommandBuilder(ITokenMiniFactory tokenFactory_,IFormatFactory formatFactory_)
         {
-
             this._formatFactory = formatFactory_;
-
             formatGenerator = formatFactory_.FormatGenerator(tokenFactory_);
         }
-        //concatenates Tokens from colection with format pattern
-        public CommandBuilder(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
+        public CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_
+            ,List<ITypeToken> tokens_, ITypeToken format_)
         {
-            if(this.FormatPattern==null)
-            {
-                this.FormatPattern = FormatPattern_;
-            }
-            else { this.FormatPattern.Text += FormatPattern.Text;}
-            if (this.Tokens == null)
-            {
-                this.Tokens = tokens_;
-            }
-            else { this.Tokens.AddRange(tokens_); }
-          
-            SetText(this.Tokens, this.FormatPattern);
+            this._formatFactory = formatFactory_;
+            formatGenerator = formatFactory_.FormatGenerator(tokenFactory_);
+            AddTokens(tokens_);
+            AddFormat(format_);
         }
+     
         //cocatenates URLbuilders Token collections from URLbuilders with format pattern
         public CommandBuilder(List<ICommandBuilder> texts_, ITypeToken FormatPattern_)
         {
@@ -138,7 +125,6 @@ namespace QueryManagers
             SetText(this.Tokens, this.FormatPattern);            
 
         }
-
         public CommandBuilder(List<ITypeToken> tokens_, IFormatFromListGenerator formatGenerator_)
         {            
             this.formatGenerator = formatGenerator_;
@@ -173,6 +159,14 @@ namespace QueryManagers
             //build new string
             SetText(this.Tokens, this.FormatPattern);
 
+        }
+
+        public CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_
+          , List<ICommandBuilder> command_, ITypeToken format_)
+        {
+            this._formatFactory = formatFactory_;
+            formatGenerator = formatFactory_.FormatGenerator(tokenFactory_);
+            TokenFormatConcatenation(command_, format_);       
         }
 
         public void BindTokens(List<ITypeToken> tokens_)
@@ -239,6 +233,12 @@ namespace QueryManagers
         }
         public string GetText()
         {
+            try
+            {
+                Build();
+            }
+            catch (Exception e) { throw e; }
+
             return this.Text.Text;
         }
         public string Build()
@@ -288,42 +288,114 @@ namespace QueryManagers
         {
             string result = string.Empty;
             List<char> input_chars = input_.ToCharArray().ToList();
-            int i = 0, i2 = 0, ctr = 0;
+            int i = 0, i2 = 0;
+            List<char> chPrev = new List<char>();
+            List<char> chCur = new List<char>();
+            int intPrev = 0;
+            int intCur = 0;
+            char[] chToInsert=null;
+
             for (i = 0; i < input_chars.Count; i++)
             {
+              
+                bool multiDigit = false;
                 i2 = i;
+
+                //if digit is met
                 if (char.IsDigit(input_chars[i]))
                 {
+                    //check length of multidigit
                     while (char.IsDigit(input_chars[i2 + 1]))
                     {
+                        multiDigit = true;
                         if ((i2 + 1) < input_chars.Count)
                         {
                             i2 += 1;
                         }
                         else { break; }
                     }
-                    for (int i3 = i; i3 <= i2; i3++)
+
+                    //rem number if first encounter
+                    if (chPrev.Count == 0)
                     {
-                        input_chars.RemoveAt(i);
-                    }
-
-                    char[] chToInsert = ctr.ToString().ToCharArray();
-
-                    if (chToInsert.Count() > 1)
-                    {
-
-                        for (int i4 = 0; i4 < chToInsert.Count(); i4++)
+                        for (int i3 = i; i3 <= i2; i3++)
                         {
-                            input_chars.Insert(i, chToInsert[i4]);
-                            i += 1;
+                            chPrev.Add(input_chars[i3]);
                         }
-                        i -= 1;
+                        int.TryParse(chCur.ToString(), out intCur);
+                        if (intCur != 0) {
+                            intCur = 0;
+
+                            for (int i3 = i; i3 <= i2; i3++)
+                            {
+                                input_chars.RemoveAt(i);
+                            }
+
+                            chToInsert = intCur.ToString().ToCharArray();
+
+                            if (chToInsert.Count() > 1)
+                            {
+
+                                for (int i4 = 0; i4 < chToInsert.Count(); i4++)
+                                {
+                                    input_chars.Insert(i, chToInsert[i4]);
+                                    i += 1;
+                                }
+                                i -= 1;
+                            }
+                            else
+                            {
+                                input_chars.Insert(i, chToInsert[0]);
+                            }
+
+                        }
                     }
                     else
-                    {
-                        input_chars.Insert(i, chToInsert[0]);
+                    {//second didgit and so on
+                        for (int i3 = i; i3 <= i2; i3++)
+                        {
+                            chCur.Add(input_chars[i3]);
+                        }
+
+                        int.TryParse(chCur.ToString(), out intCur);
+                        int.TryParse(chPrev.ToString(), out intPrev);
+
+                        if ((intPrev+1)!= intCur)
+                        {//if digits not sequenced by +1
+                            intCur = intPrev + 1;
+                            
+                            //rewrite
+                            for (int i3 = i; i3 <= i2; i3++)
+                            {
+                                input_chars.RemoveAt(i);
+                            }
+                            multiDigit = false;
+
+                            chToInsert = intCur.ToString().ToCharArray();
+
+                            if (chToInsert.Count() > 1)
+                            {
+
+                                for (int i4 = 0; i4 < chToInsert.Count(); i4++)
+                                {
+                                    input_chars.Insert(i, chToInsert[i4]);
+                                    i += 1;
+                                }
+                                i -= 1;
+                            }
+                            else
+                            {
+                                input_chars.Insert(i, chToInsert[0]);
+                            }
+
+                        }
+                        //swap prev to cur
+                        chPrev.Clear();
+                        chPrev.AddRange(chCur);
+                        chCur.Clear();
                     }
-                    ctr += 1;
+
+                 
                 }
             }
 

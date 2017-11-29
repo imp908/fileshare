@@ -9,6 +9,7 @@ using Newtonsoft.Json.Converters;
 using Newtonsoft.Json;
 using System.Configuration;
 using System.Threading.Tasks;
+using System.Threading;
 
 using IQueryManagers;
 
@@ -32,6 +33,15 @@ namespace AdinTce
 
         AdinTceExplicitTokenBuilder tokenBuilder;
 
+        AdinTcePOCO adp = new AdinTcePOCO();
+        IEnumerable<Holiday> holidays = null;
+        IEnumerable<Vacation> vacations = null;
+        IEnumerable<GraphRead> graphs = null;
+        IEnumerable<GUIDPOCO> guidpocos = null;
+
+        string holidayCommand, vacationCommand, graphCommand,
+             holidaysResp = string.Empty, vacationsResp = string.Empty, graphResp = string.Empty;
+
         public AdinTceRepo(
             IQueryManagers.ICommandBuilder CommandBuilder_,
             IWebManagers.IWebManager webManager_,
@@ -49,7 +59,7 @@ namespace AdinTce
 
         public AdinTceRepo()
         {
-
+         
             this._CommandBuilder = new AdinTceCommandBuilder(new TokenMiniFactory(), new FormatFactory());
             this._webManager = new AdinTceWebManager();
             this._responseReader = new AdinTceResponseReader();
@@ -64,15 +74,8 @@ namespace AdinTce
         public string HoliVation(string GUID)
         {
             
-            AdinTcePOCO adp = new AdinTcePOCO();
-            IEnumerable<Holiday> dhl=null;
-            IEnumerable<Vacation> vhl = null;
-            IEnumerable<GraphRead> ghl = null;
-            IEnumerable<GUIDPOCO> gpl = null;
-
             string result = string.Empty;
-            string holidayCommand, vacationCommand, graphCommand,
-                holidaysResp = string.Empty, vacationsResp = string.Empty, graphResp = string.Empty;
+         
             GUIDtoken.Text = GUID;
 
             _CommandBuilder.SetText(tokenBuilder.HolidaysCommand(GUIDtoken), new AdinTcePartformat());
@@ -80,87 +83,46 @@ namespace AdinTce
             _CommandBuilder.SetText(tokenBuilder.VacationsCommand(GUIDtoken), new AdinTcePartformat());
             vacationCommand = _CommandBuilder.GetText();
             _CommandBuilder.SetText(tokenBuilder.GraphCommand(GUIDtoken), new AdinTcePartformat());
-            graphCommand = _CommandBuilder.GetText();
+            graphCommand = _CommandBuilder.GetText();     
 
-
-            Task[] tasks = new Task[3];
-
-            _webManager.AddRequest(holidayCommand);
-            tasks[0]=Task.Factory.StartNew(async () => holidaysResp = _responseReader.ReadResponse(_webManager.GetResponse("GET")));
-            _webManager.AddRequest(vacationCommand);
-            tasks[1]=Task.Factory.StartNew(async () => vacationsResp = _responseReader.ReadResponse(_webManager.GetResponse("GET")));
-            _webManager.AddRequest(graphCommand);
-            tasks[2]=Task.Factory.StartNew(async () => graphResp = _responseReader.ReadResponse(_webManager.GetResponse("GET")));
-
-            Task.WaitAll(tasks);
-
-			if (holidaysResp != null && holidaysResp != string.Empty)
-            {
-                if (adp == null)
-                {
-                    adp = new AdinTcePOCO();                
-                    gpl = _jsonManager.DeserializeFromParentNode<GUIDPOCO>(holidaysResp);
-                    dhl = _jsonManager.DeserializeFromParentChildren<Holiday>(holidaysResp, "Holidays");
-                }
-                adp.GUID_ = gpl.Select(s => s).FirstOrDefault().GUID_;
-                adp.Position = gpl.Select(s => s).FirstOrDefault().Position;
-                adp.holidays = dhl.ToList();
-            }
-
-
-          
-            if (vacationsResp!=null && vacationsResp != string.Empty)
-            {
-                if (adp == null)
-                {
-                    adp = new AdinTcePOCO();
-                    gpl = _jsonManager.DeserializeFromParentNode<GUIDPOCO>(holidaysResp);
-                    dhl = _jsonManager.DeserializeFromParentChildren<Holiday>(holidaysResp, "Holidays");
-                }
-                vhl = _jsonManager.DeserializeFromParentChildren<Vacation>(vacationsResp, "Holidays");
-                adp.vacations = vhl.ToList();
-            }
-          
-            if (graphResp != null && graphResp != string.Empty)
-            {
-                if (adp == null)
-                {
-                    adp = new AdinTcePOCO();
-                    gpl = _jsonManager.DeserializeFromParentNode<GUIDPOCO>(holidaysResp);
-                    dhl = _jsonManager.DeserializeFromParentChildren<Holiday>(holidaysResp, "Holidays");
-                }
-                ghl = _jsonManager.DeserializeFromParentChildren<GraphRead>(graphResp, "Holidays");
-                adp.Graphs = GrapthReadToWriteDateCheck(ghl.ToList());
-            }
-
-			
-            //Task.Run(() => {
-            _webManager.AddRequest(holidayCommand);
-            holidaysResp = _responseReader.ReadResponse(_webManager.GetResponse("GET"));
-            if (holidaysResp != null && holidaysResp != string.Empty)
-            {
-                gpl = _jsonManager.DeserializeFromParentNode<GUIDPOCO>(holidaysResp);
-                dhl = _jsonManager.DeserializeFromParentChildren<Holiday>(holidaysResp, "Holidays");
-                adp.GUID_ = gpl.Select(s => s).FirstOrDefault().GUID_;
-                adp.Position = gpl.Select(s => s).FirstOrDefault().Position;
-                adp.holidays = dhl.ToList();
-            }
-            _webManager.AddRequest(holidayCommand);
-            vacationsResp = _responseReader.ReadResponse(_webManager.GetResponse( "GET"));
-            if (vacationsResp!=null && vacationsResp != string.Empty)
-            {
-                vhl = _jsonManager.DeserializeFromParentChildren<Vacation>(vacationsResp, "Holidays");
-                adp.vacations = vhl.ToList();
-            }
-
-            //});
+            GetResp(); 
+            
+            ParseResponseTry();
 
             result = _jsonManager.SerializeObject(adp);
 
             return result;
         }
 
+        void AdpCheck()
+        {
+            if (adp == null)
+            {
+                adp = new AdinTcePOCO();
+            }
 
+            if (guidpocos == null)
+            {
+                guidpocos = _jsonManager.DeserializeFromParentNode<GUIDPOCO>(holidaysResp);
+            }
+            if (holidays == null)
+            {
+                holidays = _jsonManager.DeserializeFromParentChildren<Holiday>(holidaysResp, "Holidays");
+            }
+            if (adp.GUID_ == null)
+            {
+                adp.GUID_ = guidpocos.Select(s => s).FirstOrDefault().GUID_;
+            }
+            if (adp.holidays == null)
+            {
+                adp.Position = guidpocos.Select(s => s).FirstOrDefault().Position;
+            }
+
+        }
+        void GetResp()
+        {
+            Parallel.Invoke(new Action[] { HolidaysResp, VacationsResp, GraphResp });
+        }
         private async Task<string> Request(string command_)
         {
             _webManager.AddRequest(command_);
@@ -171,8 +133,39 @@ namespace AdinTce
             await task_;
             return task_.Result;
         }
-      
-  public List<GraphWrite> GrapthReadToWriteDateCheck(List<GraphRead> ghl_)
+        void ParseResponseTry()
+        {
+
+            if (holidaysResp != null && holidaysResp != string.Empty)
+            {
+                AdpCheck();
+                try{
+                    adp.holidays = holidays.ToList();
+                }
+                catch (Exception e) { }
+            }
+
+            if (vacationsResp != null && vacationsResp != string.Empty)
+            {
+                AdpCheck();
+                try{
+                    adp.vacations = vacations.ToList();
+                }
+                catch (Exception e) { }
+            }
+
+            if (graphResp != null && graphResp != string.Empty)
+            {
+
+                AdpCheck();
+                try{
+                    graphs = _jsonManager.DeserializeFromParentChildren<GraphRead>(graphResp, "Holidays");
+                    adp.Graphs = GrapthReadToWriteDateCheck(graphs.ToList());
+                }
+                catch (Exception e) { }
+            }
+        }
+        public List<GraphWrite> GrapthReadToWriteDateCheck(List<GraphRead> ghl_)
         {
             List<GraphWrite> gw = new List<GraphWrite>();
             foreach (GraphRead gr in ghl_)
@@ -189,9 +182,37 @@ namespace AdinTce
             }
             return gw;
         }
+
+        void HolidaysResp()
+        {
+            AdinTceWebManager webManagerAc = new AdinTceWebManager();
+            webManagerAc.AddCredentials(new System.Net.NetworkCredential(
+             ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
+            webManagerAc.AddRequest(holidayCommand);
+            holidaysResp = _responseReader.ReadResponse(webManagerAc.GetResponse64("GET"));
+
+        }
+        void VacationsResp()
+        {
+            AdinTceWebManager webManagerAc = new AdinTceWebManager();
+            webManagerAc.AddCredentials(new System.Net.NetworkCredential(
+             ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
+            webManagerAc.AddRequest(vacationCommand);
+            vacationsResp = _responseReader.ReadResponse(webManagerAc.GetResponse64("GET"));
+
+        }
+        void GraphResp()
+        {
+            AdinTceWebManager webManagerAc = new AdinTceWebManager();
+            webManagerAc.AddCredentials(new System.Net.NetworkCredential(
+             ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
+            webManagerAc.AddRequest(graphCommand);
+            graphResp = _responseReader.ReadResponse(webManagerAc.GetResponse64("GET"));
+        }
+
     }
 
-    //Command buil from Tokens,with explicit sytax for repo call
+    //Command build from Tokens,with explicit sytax for repo call
     public class AdinTceExplicitTokenBuilder
     {
 
@@ -270,7 +291,7 @@ namespace AdinTce
         }
     }
 
-    public class AdinTceWebManager : WebManagers.WebManager
+    public class AdinTceWebManager : WebManagers.WebManager2
     {
 
     }
