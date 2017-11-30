@@ -50,7 +50,7 @@ namespace QueryManagers
         {
             return new TextToken();
         }
-        public ITypeToken NewEmptyString()
+        public ITypeToken EmptyString()
         {
             return new TextToken() { Text = string.Empty };
         }
@@ -200,7 +200,8 @@ namespace QueryManagers
         {
             this.formatGenerator = formatGenerator_;
         }
-        public void AddBuilders(List<ICommandBuilder> texts_, ITypeToken FormatPattern_)
+
+        public void BindBuilders(List<ICommandBuilder> texts_, ITypeToken FormatPattern_)
         {            
             TokenFormatConcatenation(texts_, FormatPattern_);
         }
@@ -246,7 +247,7 @@ namespace QueryManagers
             if (this.Tokens == null) { throw new Exception("No tokens"); }
             CheckFormat();
             SetText(this.Tokens, this.FormatPattern);
-            return GetText();
+            return this.Text.Text;
         }
         ///<summary>Defined NESTED, concatenates every command according to it format. 
         ///Results concatenated according to passed FormatPettern. 
@@ -284,7 +285,7 @@ namespace QueryManagers
         public enum BuildTypeFormates { FULL, NESTED }
 
         //recounts format string parameters from 0 for concatenated from several format strings
-        public string FormatStringReArrange(string input_)
+        public string FormatStringReArrange0(string input_)
         {
             string result = string.Empty;
             List<char> input_chars = input_.ToCharArray().ToList();
@@ -402,6 +403,11 @@ namespace QueryManagers
             return result = string.Concat(input_chars);
         }
 
+        public string FormatStringReArrange(string input_)
+        {
+            return FormatRearrange.Rearrange(input_);
+        }
+
         internal void TokenFormatConcatenation(List<ICommandBuilder> texts_, ITypeToken FormatPattern_=null)
         {
 
@@ -472,6 +478,182 @@ namespace QueryManagers
             }
         }
 
+        /// <summary>
+        /// Char arrays rearrange (arrays gaps error)
+        /// </summary>
+        public static class FormatRearrange
+        {
+
+            public static void StringsCheck()
+            {
+
+                //string r1 = Rearrange("{0}{1} {2} {3}{4}/{5}:{6}{7} {8}"); //OK "{0}{1} {2} {3}{4}/{5}:{6}{7} {8}"
+                //string r1 = Rearrange("{0}{1} {3}"); //OK "{0}{1} {2}"
+                //string r1 = Rearrange("{0}{2} {3}"); // OK "{0}{1} {2}"
+                //string r1 = Rearrange("{0}{0} "); // OK "{0}{1}"
+                //string r1 = Rearrange("{0} {0} {0}"); //OK "{0} {1} {2}"
+                //string r1 = Rearrange("{0} {3} {2}{5}"); //OK "{0} {1} {2}{3}"            
+                //string r1 = Rearrange("{1}"); //OK "{0}"
+                //string r1 = Rearrange("{2} {7}:{0} / {3}"); //OK "{0} {1}:{2} / {3}"
+                //string r1 = Rearrange("{10}{10}{10}"); //OK "{0}{1}{2}"
+                //string r1 = Rearrange("{10}{0}{2}");
+
+            }
+            public static string Rearrange(string input_)
+            {
+
+                string result = input_;
+                char[] chr = input_.ToCharArray();
+                int lng = chr.Length;
+
+                char[] prevDigit = null;
+                char[] currDigit = null;
+                char[] insDigit = null;
+
+                int i2 = 0;
+
+                for (int i = 0; i < lng; i++)
+                {
+                    i2 = i;
+                    if (char.IsDigit(chr[i2]))
+                    {
+                        if (i2 + 1 < lng)
+                        {
+                            while (char.IsDigit(chr[i2 + 1]))
+                            {
+                                i2++;
+                            }
+                        }
+
+                        if (prevDigit == null)
+                        {
+                            currDigit = ChArrFill(i, i2, chr);
+                            if (charArrToInteger(currDigit) != 0)
+                            {
+                                insDigit = intToCharArr(0);
+                                prevDigit = insDigit;
+                                char[] chrN = InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
+                                result = new string(chrN);
+                                chr = chrN;
+                                lng = chr.Length;
+                            }
+                            else { prevDigit = currDigit; }
+
+                        }
+                        else
+                        {
+                            currDigit = ChArrFill(i, i2, chr);
+                            if (!check(currDigit, prevDigit))
+                            {
+                                insDigit = intToCharArr(charArrToInteger(prevDigit) + 1);
+                                char[] chrN = InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
+                                prevDigit = insDigit;
+
+                                /*
+                                char[] chrN = new char[chr.Length + currDigit.Length - prevDigit.Length];
+
+                                for (int i4 = 0; i4 < i; i4++)
+                                {
+                                    chrN[i4] = chr[i4];
+                                }
+                                for (int i4 = i; i4 <= i2; i4++)
+                                {
+                                    chrN[i4] = currDigit[i4-i];
+                                }
+                                for (int i4 = i2+1; i4 < lng; i4++)
+                                {
+                                    chrN[i4] = chr[i4];
+                                }
+                                */
+
+                                result = new string(chrN);
+                                chr = chrN;
+                                lng = chr.Length;
+                            }
+                            else { prevDigit = currDigit; }
+                        }
+                        if (prevDigit != null)
+                        {
+                            i += prevDigit.Length - 1;
+                        }
+                    }
+
+                }
+
+                return result;
+            }
+
+            static char[] InsertDigitInPosition(char[] insDigit_, char[] fromArr_, int pos_, int curDigitLen_)
+            {
+                char[] toArr = new char[fromArr_.Length + insDigit_.Length - curDigitLen_];
+                int arrGap = toArr.Length - fromArr_.Length;
+                //before position copy
+                for (int i4 = 0; i4 < pos_; i4++)
+                {
+                    toArr[i4] = fromArr_[i4];
+                }
+                //position copy num length
+                for (int i4 = pos_; i4 <= (pos_ + insDigit_.Length - 1); i4++)
+                {
+                    toArr[i4] = insDigit_[i4 - pos_];
+                }
+                //after position copy from num length + arrrays gap
+                for (int i4 = (pos_ + insDigit_.Length - arrGap); i4 < fromArr_.Length; i4++)
+                {
+                    toArr[i4 + arrGap] = fromArr_[i4];
+                }
+                return toArr;
+            }
+            static int charArrToInteger(char[] arr_)
+            {
+                int res = 0;
+                int i = 1;
+                for (int i2 = arr_.Length - 1; i2 >= 0; i2--)
+                {
+                    res += (int)(char.GetNumericValue(arr_[i2]) * i);
+                    i *= 10;
+                }
+                return res;
+            }
+            static char[] intToCharArr(int i_)
+            {
+                return i_.ToString().ToCharArray();
+            }
+            static char[] intRecount(char[] currDig_, char[] prevDigit_)
+            {
+                if (charArrToInteger(currDig_) == charArrToInteger(prevDigit_) + 1)
+                {
+                    return currDig_;
+                }
+                else
+                {
+                    return intToCharArr(charArrToInteger(prevDigit_) + 1);
+                }
+            }
+            static bool check(char[] currDig_, char[] prevDigit_)
+            {
+                if (charArrToInteger(currDig_) == charArrToInteger(prevDigit_) + 1)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            static char[] ChArrFill(int i_, int i2_, char[] chFrom_)
+            {
+                char[] chTo_ = new char[(i2_ - i_) + 1];
+
+                for (int i3_ = 0; i3_ <= (i2_ - i_); i3_++)
+                {
+                    chTo_[i3_] = chFrom_[i_ + i3_];
+                }
+                return chTo_;
+            }
+
+        }
+
     }
 
     /// <summary>
@@ -505,7 +687,7 @@ namespace QueryManagers
             string placeholder;
             if (delimeter != null)
             {
-                placeholder = string.Join("}", delimeter, "{");
+                placeholder = string.Join("","}", delimeter, "{");
             }
             else { placeholder = @"} {"; }
             int[] cnt = new int[tokens.Count];
@@ -525,7 +707,7 @@ namespace QueryManagers
             string placeholder;
             if (delimeter != null)
             {
-                placeholder = string.Join("}", delimeter, "{");
+                placeholder = string.Join("","}", delimeter, "{");
             }
             else { placeholder = @"} {"; }
             int[] cnt = new int[items.Count];

@@ -25,7 +25,7 @@ namespace IQueryManagers
     public interface ITokenMiniFactory
     {
         ITypeToken NewToken();
-        ITypeToken NewEmptyString();
+        ITypeToken EmptyString();
 
         ITypeToken Dot();
         ITypeToken Coma();
@@ -114,7 +114,8 @@ namespace IQueryManagers
         void BindFormat(ITypeToken formatPatern_);
         void AddFormat(ITypeToken formatPatern_);
         void BindFormatGenerator(IFormatFromListGenerator formatGenerator_);
-        void AddBuilders(List<ICommandBuilder> texts_, ITypeToken FormatPattern_ = null);
+
+        void BindBuilders(List<ICommandBuilder> texts_, ITypeToken FormatPattern_ = null);
 
         string Build();
         string Build(List<ICommandBuilder> tokens_, ITypeToken FormatPattern_);

@@ -163,6 +163,7 @@ namespace WebManagers
         string GET="GET";
         string _url;
         object _lock = new object();
+        int Timeout = 0;
 
         public WebRequest AddRequest(string url)
         {
@@ -323,14 +324,21 @@ namespace WebManagers
             else { return true; }
         }
         public void SetTimeout(int ms)
+        {           
+            Timeout = ms;                           
+        }
+        void bindTimeout()
         {
-            if(CheckReq())
+            if (this._request != null && this.Timeout!=0)
             {
-                this._request.Timeout = ms;
+                this._request.Timeout = this.Timeout;
             }
         }
+
         public WebResponse GetResponse(string method)
         {
+            if (this._request == null) { return null; }
+            bindTimeout();
             try
             {
                 return (HttpWebResponse)this._request.GetResponse();
@@ -342,8 +350,8 @@ namespace WebManagers
         }
         public WebResponse GetResponse64(string method)
         {
-            if (this._request == null) { return null; }       
-
+            if (this._request == null) { return null; }
+            bindTimeout();
             try
             {
                 AddBase64AuthHeader();

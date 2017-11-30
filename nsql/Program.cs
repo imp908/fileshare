@@ -27,6 +27,8 @@ namespace NSQLManager
 
         static void Main(string[] args)
         {
+            Trash.FormatRearrange.StringsCheck();
+
             RepoCheck rc = new RepoCheck();
             rc.GO();
         }
@@ -90,8 +92,8 @@ new MainAssignment() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 
 
 
         public void GO()
-        {
-            
+        {            
+
             TrackBirthdaysPtP();
             DeleteBirthdays();
             DbCreateDeleteCheck();
