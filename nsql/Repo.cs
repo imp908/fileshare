@@ -49,7 +49,7 @@ namespace Repos
             AuthUrl = cb.Build();
             cb.BindTokens(TokenRepo.commandUrl); cb.BindFormat(new OrientCommandURLFormat());
             CommandUrl = cb.Build();
-            owm.AddCredentials(
+            owm.SetCredentials(
               new NetworkCredential(ConfigurationManager.AppSettings["orient_login"], ConfigurationManager.AppSettings["orient_pswd"]));
 
             cb.BindTokens(TokenRepo.addDbURL); cb.BindFormat(new OrientDatabaseUrlFormat());
@@ -58,7 +58,7 @@ namespace Repos
 
         public void changeAuthCredentials(string Login, string Password)
         {
-            owm.AddCredentials(new NetworkCredential(Login, Password));
+            owm.SetCredentials(new NetworkCredential(Login, Password));
         }
 
         public string Add(ITypeToken rest_command_, ITypeToken dbName_, ITypeToken type_)
@@ -71,7 +71,7 @@ namespace Repos
 
             QueryUrl = DatabaseUrl + "/" + command;
 
-            wm.AddCredentials(
+            wm.SetCredentials(
                 new NetworkCredential(ConfigurationManager.AppSettings["orient_login"], ConfigurationManager.AppSettings["orient_pswd"]));
             wm.AddRequest(QueryUrl);
             string resp =

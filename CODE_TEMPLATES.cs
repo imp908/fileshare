@@ -2,16 +2,26 @@
 namespace Parts{
 	
 	#region Names
-	public Groups
-	{
-		public Technics
+	
+{
+"TODO":[
+	{"Infrastructure":[
 		{
-			public Methods
-			{
-				
-			}
+		"Name":""
+		,"What":""
+		,"How":""
+		,"TODO":[]
+		,"DONE":[]
+		,"Test":[]
+		,"Comments":""
 		}
-	}
+	]}
+	,{"Utility":[]}
+	,{"Mastery":[]}
+	,{"Actual":[]}
+]
+}
+
 	#endregion
 	
 }
@@ -406,7 +416,7 @@ namespace Parts{
 	
 	#region TODO
 	{
-		
+		{
 		"TODO": [{
 		"Infrastructure": [{
 				"Correct decoupling of projects": []
@@ -436,9 +446,9 @@ namespace Parts{
 				}]
 			}
 		]
-	}, {
-		"Utility": [{
-				"Js hacks": [{
+			}
+			, {"Utility": [
+			{"Js hacks": [{
 					"Name": "JS hacks",
 					"What": "Js scripts to load on page and change functionality",
 					"TODO": [
@@ -447,28 +457,19 @@ namespace Parts{
 					"DONE": [
 						"Select2 Js To site"
 					]
-				}]
-			}, {
-				"neo4jAPI": [{
-					"Name": "Builderplate",
-					"What": ["script for neo4j builderplate"],
-					"TODO": ["script"]
-				}, {
-					"Name": "CRUD",
-					"What": ["script for neo4j crud operations"],
-					"DONE": ["crud"]
-				}]
-			}, {
-				"PersonAPI": [{
-					"Name": "OrientManager",
-					"What": "Builder of commands and urls from tokens",
+				}]}
+			,{ "PersonAPI": [{
+					"Name": "NSQLmanager",
+					"What": "OreintDb command builder,REST API executor and parser",
 					"TODO": [
-						"Command Builder",
-						"UrlBuilder"
+						"Rewrite old shemas for new base shema methods",
+						"Check fire working request"
 					],
 					"DONE": [
 						"Query manager",
-						"TokenBuilder"
+						"TokenBuilder",
+						"Token,Orient,URL factories",
+						"Command shema base with factories with Build from collections of tokens and commandbuilders"
 					]
 				}, {
 					"Name": "WebAPI",
@@ -480,7 +481,8 @@ namespace Parts{
 					"Name": "HttpManager",
 					"What": "handling http requests",
 					"TODO": [
-						"Handshake procedure"
+						"Request content body addition",
+						"Handshake procedure"						
 					],
 					"DONE": [
 						"Handling http methods POST,GET,DEL,PUT",
@@ -504,14 +506,24 @@ namespace Parts{
 					"How": [
 						"c#"
 					]
+				}
+				,{
+					"neo4jAPI": [{
+						"Name": "Boilerplate",
+						"What": ["script for neo4j builderplate"],
+						"TODO": ["script"]
+					}, {
+						"Name": "CRUD",
+						"What": ["script for neo4j crud operations"],
+						"DONE": ["crud"]
+					}]
 				}]
-			},
-			{
-				"Presentation site": [{
+			}
+			,{ "Presentation site": [{
 					"Name": "WCF",
 					"What": "Between UOW  and Presentation site",
 					"How": [
-						"PCOCs instead of data contracts"
+						"POCOs instead of data contracts"
 					],
 					"Comments": "move to REST API most likely due to unclear configuration while mooving",
 					"TODO": [
@@ -597,8 +609,8 @@ namespace Parts{
 				}]
 			}
 		]
-
-	}]
+		}]
+		}
 	
 		public class Mastery
 		{
@@ -3193,7 +3205,7 @@ access, please check that you have enabled metadata publishing at the specified 
 		}	
 	
 		
-	}
+		}
 	
 	}
 	
@@ -7022,11 +7034,11 @@ Orient_REST_FIDDLER(){
 	Authorization: Basic cm9vdDpyb290
 	Content-Length: 85
 	{
-	  "command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"
-	 }
+		"command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"
+	}
 	{
-	  "command": "CREATE class  Person;"
-	 }
+		"command": "CREATE class  Person;"
+	}
 
 	http://localhost:2480/batch/test_db/sql
 	Host: localhost:2480
@@ -7260,8 +7272,8 @@ CommandChain:
 
 	
 	
->> add commandbuilder into bodyshema concatenation
-	>> start all shemas + builder into query object aggregation
+>> add commandbuilder into bodyshema concatenation <- done
+	>> start all shemas + builder into query object aggregation <- done
 
 		>1) from what source, which format using string to build
 		build(List<ITypeTokens>, tokens_ ItypeToken format)
@@ -7356,6 +7368,7 @@ format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1}
 			
 					}
 			}
+		
 		}
 			
 			public void Maintenance()
@@ -7804,8 +7817,7 @@ drop class vscn;
 */
 
 
-	}
-	
+	}	
 	
 	AdbBoilerplate(){
 

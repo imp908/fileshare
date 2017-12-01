@@ -55,7 +55,7 @@ namespace IQueryManagers
         ITypeToken VertexToken();
         ITypeToken WhereToken();
     }
-    public interface IOrientQueryBodyFactory
+    public interface IOrientBodyFactory
     {
        
         ITypeToken BackSlash();

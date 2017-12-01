@@ -8,7 +8,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
 using System.Threading;
-
+using System.Collections.Generic;
 
 namespace WebManagers
 {
@@ -65,7 +65,7 @@ namespace WebManagers
             result = this._request.GetResponse().Headers.Get(header);
             return result;
         }
-        public void AddCredentials(NetworkCredential credentials)
+        public void SetCredentials(NetworkCredential credentials)
         {
             _credentials = credentials;
             CredentialsBind();
@@ -155,7 +155,7 @@ namespace WebManagers
 
     }
 
-    public class WebManager2 : IWebManager
+    public class WebRequestManager : IWebManager
     {
 
         WebRequest _request;
@@ -164,109 +164,67 @@ namespace WebManagers
         string _url;
         object _lock = new object();
         int Timeout = 0;
-
+        byte[] _content = null;
+        string _method = null;
+        Dictionary<HttpRequestHeader, string> _headres 
+            = new Dictionary<HttpRequestHeader, string>();
+        
         public WebRequest AddRequest(string url)
         {
-            if (_request == null)
-            {
-                _url = url;
-                this._request = WebRequest.Create(url);
-            }
-            else
-            {
-                this._request = SwapRequests(url);
-            }
-            return this._request;
-        }
-        public HttpWebResponse GetHttpResponse(string method=null)
-        {
 
-            if (this._request == null)
-            {
-                throw new NoRequestBinded();
-            }
-           
-            if (_url == null) { throw new NoRequestBinded(); }
-
-            this._request = WebRequest.Create(_url);
-
-                if (method != null)
-                {
-                    this._request.Method = method;
-                    if (method != GET)
-                    {
-                        this._request.ContentLength = 0;
-                    }
-
-                }
-            else { this._request.Method = GET; }
-                try
-                {
-                    return (HttpWebResponse)this._request.GetResponse();
-
-                }
-                catch (Exception e) { throw e; }
+            if (url == null) { throw new Exception("String not passed"); }
+            SetUrl(url);
+            this._request = WebRequest.Create(url);
+            return this._request;            
             
-          
+        }
+     
+        public void SetUrl(string url_)
+        {
+            this._url = url_;
         }
 
-        public void AddCredentials(NetworkCredential credentials)
+        public void SetCredentials(NetworkCredential credentials)
         {
             this.credentials=credentials;
         }
-        public void BindCredentials()
+        internal void bindCredentials()
         {
-            if (this._request == null)
-            {
-                throw new NoRequestBinded();
-            }
+            CheckReq();
             if (this.credentials != null)
             {
                 this._request.Credentials = this.credentials;
-            }
-            
+            }            
         }
-
-        internal WebRequest SwapRequests(string url)
+     
+        public bool SetHeader(HttpRequestHeader header, string value)
         {
-            WebRequest temp_request;
-            temp_request = WebRequest.Create(url);
-
-            temp_request.ContentType = this._request.ContentType;
-
-            if (this._request.Method!=GET)
-            {
-                using(Stream strFrom = this._request.GetRequestStream())
-                {
-                    byte[] bt = new byte[strFrom.Length];
-                    using(Stream strTo = temp_request.GetRequestStream())
-                    {
-                        strFrom.ReadAsync(bt, 0, bt.Length);
-                        strTo.WriteAsync(bt, 0, bt.Length);
-                    }               
-                    
-                }
-                temp_request.ContentLength = this._request.ContentLength;
+            if (_headres.ContainsKey(header)) {
+                _headres.Remove(header);
             }
-
-            foreach(string header in temp_request.Headers)
+            _headres.Add(header, value);
+            return true;
+        }
+        public bool RemoveHeader(HttpRequestHeader header)
+        {
+            if (_headres.ContainsKey(header))
             {
-                if(header != "Host")
+                _headres.Remove(header);
+            }
+            return true;
+        }
+        internal bool bindHeaders()
+        {          
+            CheckReq();                       
+            foreach (KeyValuePair<HttpRequestHeader, string> pair in _headres)
+            {
+                this._request.Headers.Clear();
+                if (pair.Value != null)
                 {
-                    temp_request.Headers = this._request.Headers;
+                    this._request.Headers.Add(pair.Key, pair.Value);
                 }
             }
-        
-            this._request = temp_request;
-            return this._request;
-        }
-        public void Addheader(HttpRequestHeader header,string value)
-        {
-            if (this._request == null)
-            {
-                throw new NoRequestBinded();
-            }
-            this._request.Headers.Add(header, value);
+            return true;
         }
         public string GetHeader(string name)
         {
@@ -278,66 +236,136 @@ namespace WebManagers
             } catch (Exception e) { }
 
             return header;
-        }      
-        public void AddContent(string value)
-        {          
+        }
+
+        public void SetContent(string value)
+        {
+            value.ToCharArray().CopyTo(_content, 0);
+        }
+        void bindContent()
+        {
             CheckReq();
+            CheckContent();
             if (this._request.Method != GET)
             {
-                byte[] bt = null;
                 try
                 {
                     using (Stream str = this._request.GetRequestStream())
                     {
-                        bt = new byte[value.Length];
-                        str.WriteAsync(bt, 0, bt.Length);
-                    }                  
+                        str.WriteAsync(_content, 0, _content.Length);
+                    }
                 }
                 catch (Exception e) { }
-            }           
+
+            }
         }
-        public void AddBase64AuthHeader(string value)
+
+        public void SetTimeout(int ms)
         {
-            _request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
-            Encoding.ASCII.GetBytes(value)
+            Timeout = ms;
+        }
+        void bindTimeout()
+        {
+            if (this._request != null && this.Timeout != 0)
+            {
+                this._request.Timeout = this.Timeout;
+            }
+        }
+
+        public void SetBase64AuthHeader(string value)
+        {
+            SetHeader(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
+                Encoding.ASCII.GetBytes(value)
             ));
         }
-        public void AddBase64AuthHeader()
-        {         
-                if (this.credentials == null)
-                { throw new Exception("No credentials binded"); }
-
-                _request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
-                Encoding.ASCII.GetBytes(
-                    string.Format("{0}:{1}", this.credentials.UserName, this.credentials.Password)
-                    )
-                ));            
-                      
+        public void SetBase64AuthHeader()
+        {
+            if (this.credentials == null) { throw new Exception("Credentials not binded"); }
+            string value_ = string.Format("{0}:{1}", this.credentials.UserName, this.credentials.Password);
+            SetBase64AuthHeader(value_);
         }
 
         internal bool CheckReq()
         {
             if (this._request == null)
             {
-                throw new NoRequestBinded();
+                if (_url == null) { throw new NoRequestBinded(); }
+                this._request = WebRequest.Create(_url);
             }
-            else { return true; }
+            
+            return true;
         }
-        public void SetTimeout(int ms)
-        {           
-            Timeout = ms;                           
-        }
-        void bindTimeout()
+        internal bool CheckContent()
         {
-            if (this._request != null && this.Timeout!=0)
+            if (this._content == null) { return false; }
+            if (this._content.Length == 0) { return false; }
+            return true;
+        }
+        
+        public void SetMethod(string method_)
+        {
+            if (method_ != null)
             {
-                this._request.Timeout = this.Timeout;
+                _method = method_;                
+                //if (method_ != GET){this._request.ContentLength = 0; }
             }
+            else { this._request.Method = GET; }
+        }
+        internal void bindMethod()
+        {
+            CheckReq();            
+            if (_method!=null)
+            {               
+                this._request.Method = _method;
+            }
+        }
+
+        internal void SwapMethod(string method_)
+        {
+            SetMethod(_method);
+            SwapRequestsURL(_url);
+        }
+        internal void SwapRequestsURL(string url)
+        {
+            AddRequest(url);
+            bindMethod();
+            bindHeaders();
+            if (this._request.Method != GET)
+            {
+                bindContent();
+            }                      
+        }
+        internal void SwapContent(string value_)
+        {
+            CheckReq();
+            SetContent(value_);
+            bindMethod();
+            bindHeaders();
+            if (this._request.Method != GET)
+            {
+                bindContent();
+            }
+        }
+
+        public HttpWebResponse GetHttpResponse(string method_)
+        {
+
+            CheckReq();
+            SwapMethod(method_);          
+        
+            try
+            {
+                return (HttpWebResponse)this._request.GetResponse();
+            }
+            catch (Exception e) { throw e; }
+
         }
 
         public WebResponse GetResponse(string method)
         {
-            if (this._request == null) { return null; }
+
+            CheckReq();
+
             bindTimeout();
             try
             {
@@ -348,13 +376,33 @@ namespace WebManagers
                 throw e;
             }
         }
+        public WebResponse GetResponse(string url_, string method)
+        {
+            CheckReq();
+            SetUrl(url_);
+            SetMethod(method);
+            bindTimeout();
+            try
+            {
+                return (HttpWebResponse)this._request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
         public WebResponse GetResponse64(string method)
         {
-            if (this._request == null) { return null; }
-            bindTimeout();
+
+            CheckReq();
+            SetBase64AuthHeader();
+            SetMethod(method);            
+            bindTimeout();            
+            SwapMethod(method);
+
             try
-            {
-                AddBase64AuthHeader();
+            {            
                 return (HttpWebResponse)this._request.GetResponse();
             }
             catch (Exception e)
@@ -362,7 +410,26 @@ namespace WebManagers
                 throw e;
             }
         }
-       
+        public WebResponse GetResponse64(string url_, string method)
+        {
+
+            CheckReq();
+            SetUrl(url_);
+            SetBase64AuthHeader();
+            SetMethod(method);
+            bindTimeout();
+            SwapMethod(method);
+
+            try
+            {
+                return (HttpWebResponse)this._request.GetResponse();
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 
     /// <summary>
@@ -456,7 +523,7 @@ namespace WebManagers
     /// WEB scope deprecation posible (Only if several credentials to different hosts needed, several DBs? )
     /// Contains Credentials for URI
     /// Currently unused
-    /// </summary>    
+    /// </summary>
     public class CredentialPool
     {
         CredentialCache credentialsCache;

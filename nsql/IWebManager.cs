@@ -10,12 +10,14 @@ namespace IWebManagers
     /// </summary>
     public interface IWebManager
     {
-        void AddCredentials(NetworkCredential credentials);
+        void SetCredentials(NetworkCredential credentials);
         WebResponse GetResponse(string method);
         WebResponse GetResponse64(string method);
         WebRequest AddRequest(string url);
         
-    }    
+    }
+   
+
     /// <summary>
     /// Reads response and converts it to string
     /// </summary>

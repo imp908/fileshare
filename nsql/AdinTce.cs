@@ -65,7 +65,7 @@ namespace AdinTce
             this._responseReader = new AdinTceResponseReader();
             this._jsonManager = new AdinTceJsonManager();
 
-            _webManager.AddCredentials(new System.Net.NetworkCredential(
+            _webManager.SetCredentials(new System.Net.NetworkCredential(
                ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
 
             GUIDtoken = new AdinTceGUIDToken();
@@ -186,7 +186,7 @@ namespace AdinTce
         void HolidaysResp()
         {
             AdinTceWebManager webManagerAc = new AdinTceWebManager();
-            webManagerAc.AddCredentials(new System.Net.NetworkCredential(
+            webManagerAc.SetCredentials(new System.Net.NetworkCredential(
              ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
             webManagerAc.AddRequest(holidayCommand);
             holidaysResp = _responseReader.ReadResponse(webManagerAc.GetResponse64("GET"));
@@ -195,7 +195,7 @@ namespace AdinTce
         void VacationsResp()
         {
             AdinTceWebManager webManagerAc = new AdinTceWebManager();
-            webManagerAc.AddCredentials(new System.Net.NetworkCredential(
+            webManagerAc.SetCredentials(new System.Net.NetworkCredential(
              ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
             webManagerAc.AddRequest(vacationCommand);
             vacationsResp = _responseReader.ReadResponse(webManagerAc.GetResponse64("GET"));
@@ -204,7 +204,7 @@ namespace AdinTce
         void GraphResp()
         {
             AdinTceWebManager webManagerAc = new AdinTceWebManager();
-            webManagerAc.AddCredentials(new System.Net.NetworkCredential(
+            webManagerAc.SetCredentials(new System.Net.NetworkCredential(
              ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
             webManagerAc.AddRequest(graphCommand);
             graphResp = _responseReader.ReadResponse(webManagerAc.GetResponse64("GET"));
@@ -291,7 +291,7 @@ namespace AdinTce
         }
     }
 
-    public class AdinTceWebManager : WebManagers.WebManager2
+    public class AdinTceWebManager : WebManagers.WebRequestManager
     {
 
     }
