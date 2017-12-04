@@ -92,7 +92,7 @@ namespace UOWs
 
             _CommandBuilder.AddTokens(tokens);
             _CommandBuilder.AddFormat(new OrientOutEinVFormat() { });
-            string command = _CommandBuilder.Build();
+            string command = _CommandBuilder.Build().GetText();
 
             persons = _repo.Select<Person>(command);
             result = _jsonManager.SerializeObject(persons);
@@ -122,7 +122,7 @@ namespace UOWs
 
             _CommandBuilder.AddTokens(condTokens_);
             _CommandBuilder.AddFormat(new OrientOutVinVFormat() { });
-            string command = _CommandBuilder.Build();
+            string command = _CommandBuilder.Build().GetText();
       
 
             if (from != null && to != null)

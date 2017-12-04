@@ -342,7 +342,7 @@ namespace NSQLManagerTests.Tests
             List<ICommandBuilder> cb1 = new List<ICommandBuilder>();
 
             cb1.Add(CommandInit().Select(select).GetBuilder());
-            cb1.Add(CommandInit().From(person).GetBuilder());
+            cb1.Add(CommandInit().From().GetBuilder());
             cb1.Add(CommandInit().Where(where).GetBuilder());
             cb1.Add(CommandInit().Create().GetBuilder());
             cb1.Add(CommandInit().Class(person).GetBuilder());
@@ -350,7 +350,7 @@ namespace NSQLManagerTests.Tests
             cb1.Add(CommandInit().Vertex().GetBuilder());
             cb1.Add(CommandInit().Content(select).GetBuilder());
 
-            commandBuilder.BindBuilders(cb1, CommandInit().GetGenerator().FormatFromListGenerate<ICommandBuilder>(cb1));
+            commandBuilder.BindBuilders(cb1, CommandInit().GetGenerator().FromatFromTokenArray(cb1,null));
             commandBuilder.Build();
 
             string res = commandBuilder.GetText();
@@ -367,7 +367,7 @@ namespace NSQLManagerTests.Tests
         {
             this.commandOne.NestSq();
             string result = this.commandOne.GetCommand();
-            Assert.Equal("[ ]", result);
+            Assert.Equal("[]", result);
         }
         [Fact]
         public void CommandNestSelectNestSquareCheck()
@@ -375,7 +375,7 @@ namespace NSQLManagerTests.Tests
             this.commandOne.Select(commandBuilder_SelectFrom).From()
                 .NestSq().Select();
             string result = this.commandOne.GetCommand();
-            Assert.Equal("Select [Select Name,GUID from]", result);
+            Assert.Equal("Select [Select Name,GUID from ]", result);
         }
         [Fact]
         public void CommandNestSelectNestRoundCheck()
@@ -383,7 +383,7 @@ namespace NSQLManagerTests.Tests
             this.commandOne.Select(commandBuilder_SelectFrom).From()
                 .NestRnd().Select().From();
             string result = this.commandOne.GetCommand();
-            Assert.Equal("Select (Select Name,GUID from) from", result);
+            Assert.Equal("Select (Select Name,GUID from ) from", result);
         }
         [Fact]
         public void CommandChainSelectFromCheck()
@@ -391,8 +391,9 @@ namespace NSQLManagerTests.Tests
             this.commandOne.Select(commandBuilder_SelectFrom).From()
                 .Nest(new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(),
                 new TextToken() { Text = @" {0} {1} {2} " }).Select().From();
+            
             string result = this.commandOne.GetCommand();
-            Assert.Equal("Select (Select Name,GUID from) from", result);
+            Assert.Equal("Select (Select Name,GUID from ) from ", result);
         }
         [Fact]
         public void CommandChainSelectParameterCheck()
@@ -418,7 +419,7 @@ namespace NSQLManagerTests.Tests
             this.commandOne.Select().From().Nest(new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(), new TextToken() { Text = string.Empty });
 
             string result = this.commandOne.GetCommand();
-            Assert.Equal("(Select from)", result);
+            Assert.Equal("(Select from )", result);
         }
 
         [Fact]
@@ -427,7 +428,7 @@ namespace NSQLManagerTests.Tests
             this.commandOne.Class();
 
             string result = this.commandOne.GetCommand();
-            Assert.Equal(" Class", result);
+            Assert.Equal("Class ", result);
         }
 
         [Fact]
@@ -437,7 +438,7 @@ namespace NSQLManagerTests.Tests
             this.commandOne.Create().Class(V).Extends(VSC);
 
             string result = this.commandOne.GetCommand();
-            Assert.Equal("Create Class V Extends VSC", result);
+            Assert.Equal("Create Class V Extends VSC ", result);
         }
 
         [Fact]
@@ -450,47 +451,47 @@ namespace NSQLManagerTests.Tests
 
             this.commandOne.Where(cb);
             string result = this.commandOne.GetCommand();
-            Assert.Equal(" where 1=1", result);
+            Assert.Equal("where 1=1 ", result);
         }
         [Fact]
         public void CommandWhereCheck()
         {
             this.commandOne.Where();
             string result = this.commandOne.GetCommand();
-            Assert.Equal(" where", result);
+            Assert.Equal("where ", result);
         }
         [Fact]
         public void CommandNestCheck()
         {
             this.commandOne.NestRnd();
             string result = this.commandOne.GetCommand();
-            Assert.Equal("( )", result);
+            Assert.Equal("()", result);
         }
 
         [Fact]
         public void CommandFromParamCheck()
         {
             string result = CommandInit().From(new TextToken() { Text = "Person" }).GetBuilder().GetText();
-            Assert.Equal(" from Person", result);
+            Assert.Equal("from Person ", result);
         }
         [Fact]
         public void CommandFromCheck()
         {
             string result = CommandInit().From().GetBuilder().GetText();
-            Assert.Equal(" from", result);
+            Assert.Equal("from ", result);
         }
 
         [Fact]
         public void CommandSelectFromCheck()
         {
             string result = CommandInit().Select().From().GetBuilder().GetText();
-            Assert.Equal("Select from", result);
+            Assert.Equal("Select from ", result);
         }
         [Fact]
         public void CommandSelectFromParamCheck()
         {
-            string result = CommandInit().Select().From(new TextToken() { Text = "Person" }).GetBuilder().GetText();
-            Assert.Equal("Select from Person", result);
+            string result = CommandInit().Select().From().GetBuilder().GetText();
+            Assert.Equal("Select from ", result);
         }
 
 
@@ -678,6 +679,7 @@ namespace NSQLManagerTests.Tests
     {
         UrlShemasExplicit Urlshema;
         string testDBname;
+        string parentHost;
         public UrlShemasExplicitTest()
         {
             ITokenMiniFactory tf = new TokenMiniFactory();
@@ -692,6 +694,7 @@ namespace NSQLManagerTests.Tests
             Urlshema = new UrlShemasExplicit(cb, fg, tf, qbf);
             Urlshema.AddHost( new TextToken() { Text = ConfigurationManager.AppSettings["ParentHost"] });
             testDBname = ConfigurationManager.AppSettings["testDbname"];
+            parentHost = ConfigurationManager.AppSettings["ParentHost"];
         }
 
         [Fact]
@@ -703,7 +706,7 @@ namespace NSQLManagerTests.Tests
         public void UrlShemasCreateCheck()
         {
             string result = string.Empty;
-            string expected = "http://msk1-vm-ovisp02/database/test_db/plocal";
+            string expected = parentHost + "/database/test_db/plocal";
             result = Urlshema.Database(new TextToken() { Text = testDBname}).GetText();
             Assert.Equal(expected,result);
         }
@@ -711,7 +714,7 @@ namespace NSQLManagerTests.Tests
         public void UrlShemasConnectCheck()
         {
             string result = string.Empty;
-            string expected = "http://msk1-vm-ovisp02/connect/test_db";
+            string expected = parentHost + "/connect/test_db";
             result = Urlshema.Connect(new TextToken() { Text = testDBname }).GetText();
             Assert.Equal(expected, result);
         }
@@ -719,7 +722,7 @@ namespace NSQLManagerTests.Tests
         public void UrlShemasCommandCheck()
         {
             string result = string.Empty;
-            string expected = "http://msk1-vm-ovisp02/command/test_db/sql";
+            string expected = parentHost + "/command/test_db/sql";
             result = Urlshema.Command(new TextToken() { Text = testDBname }).GetText();
             Assert.Equal(expected, result);
         }
@@ -727,7 +730,7 @@ namespace NSQLManagerTests.Tests
         public void UrlShemasBatchCheck()
         {
             string result = string.Empty;
-            string expected = "http://msk1-vm-ovisp02/batch/test_db/sql";
+            string expected = parentHost + "/batch/test_db/sql";
             result = Urlshema.Batch(new TextToken() { Text = testDBname }).GetText();
             Assert.Equal(expected, result);
         }
@@ -800,12 +803,18 @@ namespace NSQLManagerTests.Tests
     {
         CommandShemasExplicit commandShemas;
         CommandBuilder commandBuilder, commandBuilder_SelectFrom;
+        TokenMiniFactory tokenfactory;
+
+        List<ITypeToken>
+            selectNameGuidAccTokenListForBuiler
+            , selectNameGuidAccTokenList;
 
         public CommandShemaTest()
         {
             commandBuilder_SelectFrom = 
     new CommandBuilder(new TokenMiniFactory(), new FormatFactory()) { Tokens = new List<ITypeToken>() { new TextToken(){ Text="Name,GUID"} } };
-            commandBuilder = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
+            commandBuilder = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());        
+            tokenfactory = new TokenMiniFactory();
 
             //initialize command interfaces
             this.commandShemas = new CommandShemasExplicit(
@@ -815,6 +824,12 @@ namespace NSQLManagerTests.Tests
                 , new OrientQueryFactory()
                 );
 
+            selectNameGuidAccTokenListForBuiler = new List<ITypeToken>() {
+                new TextToken() { Text="Name"},new TextToken() { Text="GUID"},new TextToken() { Text="Acc"}};
+            selectNameGuidAccTokenList = new List<ITypeToken>() {
+                new TextToken() { Text="Name"},new TextToken() { Text=","}
+                ,new TextToken() { Text="GUID"},new TextToken() { Text=","}
+                ,new TextToken() { Text="Acc"}};
         }
 
         [Fact]
@@ -849,7 +864,7 @@ namespace NSQLManagerTests.Tests
 
             string res = commandShemas.Property(class_, prop_, type_, mandatory_, notnull_).GetText();
 
-            Assert.Equal("PropertyPerson.Name STRING  (MANDATORY TRUE,NOTNULL TRUE) ", res);
+            Assert.Equal("Property Person.Name STRING (MANDATORY TRUE,NOTNULL TRUE)", res);
         }
         [Fact]
         public void ShemaPropertyItemCheck()
@@ -881,7 +896,7 @@ namespace NSQLManagerTests.Tests
 
             string res = commandShemas.PropertyCondition(mandatory_, notnull_).GetText();
 
-            Assert.Equal(@" (MANDATORY TRUE,NOTNULL TRUE) ", res);
+            Assert.Equal(@"(MANDATORY TRUE,NOTNULL TRUE)", res);
         }
 
         [Fact]
@@ -902,30 +917,172 @@ namespace NSQLManagerTests.Tests
         {
             ITypeToken param = new TextToken() { Text = "Person" };
             string result = this.commandShemas.Extends(param).GetText();
-            Assert.Equal(" Extends Person", result);
+            Assert.Equal("Extends Person ", result);
+        }
+
+        #region Create
+
+        [Fact]
+        public void ShemaCreateCheck()
+        {
+            string result = this.commandShemas.Create().GetText();
+            Assert.Equal("Create ", result);
         }
         [Fact]
-        public void ShemaCreateClassCheck()
-        {            
-            CommandBuilder commandBuilder = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
-            commandBuilder.AddTokens(new List<ITypeToken> { new TextToken() { Text = "class" } });
-            commandBuilder.AddFormat(new TextToken() { Text = "{0}" });
-
-            string result = this.commandShemas.Create(commandBuilder).GetText();
+        public void ShemaCreateParamCheck()
+        {                       
+            string result = this.commandShemas.Create(new TextToken() { Text = "class" }).GetText();
             Assert.Equal("Create class", result);
         }
 
+        #endregion
+
+        #region Where
+
+        [Fact]
+        public void ShemaWhereCheck()
+        {          
+            string result = this.commandShemas.Where().GetText();
+            Assert.Equal(" where", result);
+        }
+        [Fact]
+        public void ShemaWhereWithParamsDoubleCheck()
+        {        
+            List<ITypeToken> tokenList = new List<ITypeToken>() {
+                new TextToken() { Text="1=1"},new TextToken() { Text="and"},new TextToken() { Text="2=2"}};
+            this.commandBuilder.Build(tokenList, new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(tokenList, tokenfactory.Gap()));
+            string result = this.commandShemas.Where(this.commandBuilder).GetText();
+            Assert.Equal(" where 1=1 and 2=2", result);
+        }
+
+        #endregion
+
+        #region From
+        [Fact]
+        public void ShemaFromCheck()
+        {         
+            string result = this.commandShemas.From().GetText();
+            Assert.Equal(" from", result);
+        }
+        [Fact]
+        public void ShemaFromParamCheck()
+        {
+            string result = this.commandShemas.From(new TextToken() { Text = "Person" }).GetText();
+            Assert.Equal(" from Person", result);
+        }
+        #endregion
+
+        #region Select
         [Fact]
         public void ShemaSelectCheck()
         {
             string result = this.commandShemas.Select().GetText();
-            Assert.Equal("Select", result);
+            Assert.Equal("Select ", result);
         }
         [Fact]
         public void ShemaSelectParametersCheck()
         {
-            string result = this.commandShemas.Select(commandBuilder_SelectFrom).GetText();
-            Assert.Equal("Select Name,GUID", result);
+            string result = this.commandShemas.Select(selectNameGuidAccTokenList).GetText();
+            Assert.Equal("Select Name,GUID,Acc", result);
+        }
+        [Fact]
+        public void ShemaSelectParametersTokenListCheck()
+        {            
+            this.commandBuilder.Build(selectNameGuidAccTokenListForBuiler,
+                new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(selectNameGuidAccTokenListForBuiler, tokenfactory.Coma()));
+            string result = this.commandShemas.Select(this.commandBuilder).GetText();
+            Assert.Equal("Select Name,GUID,Acc ", result);
+        }
+        #endregion
+
+    }
+
+    public class FormatGeneratorTest
+    {
+        IFormatFactory formatFactory_;
+        ITokenMiniFactory miniFactory_;
+
+        IFormatFromListGenerator formatGenerator_;
+     
+        string ExpectedFromTokenListgenerator = @"{0} {1} {2}";
+        string ExpectedFromTokenListWithDelimeter= @"{0}.{1}.{2}";
+        string ExpectedFromCommandList = @"{0} {1} {2},{0} {1}";
+        string ExpectedFromCommandListWithFormat = @"{0}:{1}.{2}{0}|{1}";
+
+        public FormatGeneratorTest()
+        {
+            miniFactory_ = new TokenMiniFactory();
+            formatFactory_ = new FormatFactory();
+
+            formatGenerator_ = new FormatFromListGenerator(miniFactory_);
+        }
+        [Fact]
+        public void FromTokenListgeneratorCheck()
+        {
+            List<ITypeToken> tokens = new List<ITypeToken>() {
+                new TextToken() { Text="Item1"},new TextToken() { Text="Item2"},new TextToken() { Text="Item3"}
+            };
+
+            string result = formatGenerator_.FromatFromTokenArray(tokens,miniFactory_.Gap()).Text;
+
+            Assert.Equal(ExpectedFromTokenListgenerator, result);
+        }
+        [Fact]
+        public void FromTokenListWithDelimeterCheck()
+        {
+            List<ITypeToken> tokens = new List<ITypeToken>() {
+                new TextToken() { Text="Item1"},new TextToken() { Text="Item2"},new TextToken() { Text="Item3"}
+            };
+
+            string result = formatGenerator_.FromatFromTokenArray(tokens, miniFactory_.Dot()).Text;
+
+            Assert.Equal(ExpectedFromTokenListWithDelimeter, result);
+        }
+        [Fact]
+        public void FromCommandListCheck()
+        {
+            List<ITypeToken> tokens1 = new List<ITypeToken>() {
+                new TextToken() { Text="Item1"},new TextToken() { Text="Item2"},new TextToken() { Text="Item3"}
+            };
+
+            List<ITypeToken> tokens2 = new List<ITypeToken>() {
+                new TextToken() { Text="Item4"},new TextToken() { Text="Item5"}
+            };
+
+            CommandBuilder cb1 = new CommandBuilder(miniFactory_, formatFactory_) { Tokens = tokens1 };
+            CommandBuilder cb2 = new CommandBuilder(miniFactory_, formatFactory_) { Tokens = tokens2 };
+
+            List<ICommandBuilder> builders = new List<ICommandBuilder>() {
+                cb1,cb2
+            };
+
+            string result = formatGenerator_.FromatFromTokenArray(builders, miniFactory_.Coma()).Text;
+
+            Assert.Equal(ExpectedFromCommandList, result);
+        }
+        [Fact]
+        public void FromCommandListWithFormatCheck()
+        {
+            List<ITypeToken> tokens1 = new List<ITypeToken>() {
+                new TextToken() { Text="Item1"},new TextToken() { Text="Item2"},new TextToken() { Text="Item3"}
+            };
+            ITypeToken format1 = miniFactory_.NewToken("{0}:{1}.{2}");
+
+            List<ITypeToken> tokens2 = new List<ITypeToken>() {
+                new TextToken() { Text="Item4"},new TextToken() { Text="Item5"}
+            };
+            ITypeToken format2 = miniFactory_.NewToken("{0}|{1}");
+
+            CommandBuilder cb1 = new CommandBuilder(miniFactory_, formatFactory_,tokens1,format1) { };
+            CommandBuilder cb2 = new CommandBuilder(miniFactory_, formatFactory_,tokens2,format2) { };            
+
+            List<ICommandBuilder> builders = new List<ICommandBuilder>() {
+                cb1,cb2
+            };
+
+            string result = formatGenerator_.FromatFromTokenArray(builders, miniFactory_.EmptyString()).Text;
+
+            Assert.Equal(ExpectedFromCommandListWithFormat, result);
         }
 
     }
@@ -1323,7 +1480,7 @@ namespace NSQLManagerTests.Tests
             OrientSelectClauseFormat sf = new OrientSelectClauseFormat();
             OrientDeleteVertexCluaseFormat df = new OrientDeleteVertexCluaseFormat();
             OrientWhereClauseFormat wf = new OrientWhereClauseFormat();
-
+            
             CommandBuilder ub = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
             ub.AddTokens(commandTokents);
             ub.AddFormat(uf);

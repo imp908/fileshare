@@ -46,9 +46,9 @@ namespace QueryManagers
     public class TokenMiniFactory : ITokenMiniFactory
     {
 
-        public ITypeToken NewToken()
+        public ITypeToken NewToken(string text_=null)
         {
-            return new TextToken();
+            return new TextToken() { Text = text_ };
         }
         public ITypeToken EmptyString()
         {
@@ -76,7 +76,13 @@ namespace QueryManagers
         {
             return new CommandBuilder(tokenFactory_, formatFactory_);
         }
-     
+        
+        public ICommandBuilder CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_
+            , List<ITypeToken> tokens_, ITypeToken format_)
+        {
+            return new CommandBuilder(tokenFactory_, formatFactory_, tokens_, format_);
+        }
+       
     }
     public class FormatFactory : IFormatFactory
     {
@@ -94,6 +100,7 @@ namespace QueryManagers
 
         public IFormatFromListGenerator formatGenerator { get; set; }
         public IFormatFactory _formatFactory { get; set; }
+        public ITokenMiniFactory miniFactory { get; set; }
 
         public ITypeToken typeToken { get; set; }
         public ITypeToken Text { get; set; }
@@ -103,17 +110,34 @@ namespace QueryManagers
         public CommandBuilder(ITokenMiniFactory tokenFactory_,IFormatFactory formatFactory_)
         {
             this._formatFactory = formatFactory_;
+            this.miniFactory = tokenFactory_;
             formatGenerator = formatFactory_.FormatGenerator(tokenFactory_);
         }
         public CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_
-            ,List<ITypeToken> tokens_, ITypeToken format_)
+            ,List<ITypeToken> tokens_, ITypeToken format_=null)
         {
             this._formatFactory = formatFactory_;
+            this.miniFactory = tokenFactory_;
             formatGenerator = formatFactory_.FormatGenerator(tokenFactory_);
             AddTokens(tokens_);
             AddFormat(format_);
         }
-     
+        public CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_
+          , ITypeToken token_, ITypeToken format_ = null)
+        {
+            List<ITypeToken> tokens_ = new List<ITypeToken>();
+            tokens_.Add(token_);
+            this.miniFactory = tokenFactory_;
+            this._formatFactory = formatFactory_;
+            formatGenerator = formatFactory_.FormatGenerator(tokenFactory_);
+            AddTokens(tokens_);
+            if (format_ != null)
+            {
+                AddFormat(format_);
+            }
+            else { AddFormat(formatGenerator.FromatFromTokenArray(tokens_));  }
+        }
+
         //cocatenates URLbuilders Token collections from URLbuilders with format pattern
         public CommandBuilder(List<ICommandBuilder> texts_, ITypeToken FormatPattern_)
         {
@@ -128,7 +152,7 @@ namespace QueryManagers
         public CommandBuilder(List<ITypeToken> tokens_, IFormatFromListGenerator formatGenerator_)
         {            
             this.formatGenerator = formatGenerator_;
-            this.FormatPattern.Text +=this.formatGenerator.FormatFromListGenerate(this.Tokens).Text;
+            this.FormatPattern.Text +=this.formatGenerator.FromatFromTokenArray(this.Tokens).Text;
             if (this.Tokens == null)
             {
                 this.Tokens = tokens_;
@@ -140,7 +164,7 @@ namespace QueryManagers
         {
 
             this.formatGenerator = formatGenerator_;
-            this.FormatPattern.Text += this.formatGenerator.FormatFromListGenerate(this.Tokens).Text;
+            this.FormatPattern.Text += this.formatGenerator.FromatFromTokenArray(this.Tokens).Text;
             if (this.Tokens == null)
             {
                 this.Tokens = new List<ITypeToken>();
@@ -167,6 +191,12 @@ namespace QueryManagers
             this._formatFactory = formatFactory_;
             formatGenerator = formatFactory_.FormatGenerator(tokenFactory_);
             TokenFormatConcatenation(command_, format_);       
+        }
+        public CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_
+        , List<ICommandBuilder> command_)
+        {
+            this._formatFactory = formatFactory_;
+            TokenFormatConcatenation(command_, formatFactory_.FormatGenerator(tokenFactory_).FromatFromTokenArray(command_,null));
         }
 
         public void BindTokens(List<ITypeToken> tokens_)
@@ -234,20 +264,18 @@ namespace QueryManagers
         }
         public string GetText()
         {
-            try
+            if (this.Text.Text != null)
             {
-                Build();
+                return this.Text.Text;
             }
-            catch (Exception e) { throw e; }
-
-            return this.Text.Text;
+            return null;
         }
-        public string Build()
+        public ICommandBuilder Build()
         {
             if (this.Tokens == null) { throw new Exception("No tokens"); }
             CheckFormat();
             SetText(this.Tokens, this.FormatPattern);
-            return this.Text.Text;
+            return this;
         }
         ///<summary>Defined NESTED, concatenates every command according to it format. 
         ///Results concatenated according to passed FormatPettern. 
@@ -281,6 +309,12 @@ namespace QueryManagers
             
             return GetText();
         }
+        public string Build(List<ITypeToken> tokens_, ITypeToken FormatPattern_)
+        {
+            BindTokens(tokens_);
+            BindFormat(FormatPattern_);
+            return Build().GetText();
+        }
 
         public enum BuildTypeFormates { FULL, NESTED }
 
@@ -295,20 +329,26 @@ namespace QueryManagers
 
             List<ITypeToken> tempTokens = new List<ITypeToken>();
             List<ITypeToken> str = new List<ITypeToken>();
-            string newFromat = null;
+            ITypeToken newFromat = miniFactory.NewToken();
 
             foreach (ICommandBuilder tb in texts_)
             {
-                if (tb.FormatPattern == null)
+                if (tb != null)
                 {
-                    tb.FormatPattern = formatGenerator.FormatFromListGenerate(tb.Tokens); 
+                    if (tb.FormatPattern == null)
+                    {
+                        tb.FormatPattern = formatGenerator.FromatFromTokenArray(tb.Tokens);
+                    }
+                    if (tb.Tokens != null)
+                    {
+                        //build string
+                        tb.SetText(tb.Tokens, tb.FormatPattern);
+                        //add tokens to list
+                        tempTokens.AddRange(tb.Tokens);
+                        //concatenate formats according to new, nested format
+                        str.Add(tb.FormatPattern);
+                    }
                 }
-                //build string
-                tb.SetText(tb.Tokens, tb.FormatPattern);
-                //add tokens to list
-                tempTokens.AddRange(tb.Tokens);
-                //concatenate formats according to new, nested format
-                str.Add(tb.FormatPattern);
                                
             }
 
@@ -319,26 +359,26 @@ namespace QueryManagers
 
             if (FormatPattern_==null)
             {
-                if (this.FormatPattern==null || this.FormatPattern.Text == null)
-                {
+                //if (this.FormatPattern==null || this.FormatPattern.Text == null)
+                //{
                     //try to generate if no format passed
                     try
                     {
                         if (formatGenerator == null) { throw new Exception("No ForamtPattern no FormatGenerator not binded"); }
-                        FormatPattern = formatGenerator.FormatFromListGenerate(this.Tokens);
+                        FormatPattern = formatGenerator.FromatFromTokenArray(str, null);
                     }
                     catch (Exception e) { }
-                }             
+                    newFromat.Text = FormatStringReArrange(string.Format(this.FormatPattern.Text, arr));
+                //}             
             }
             else
             {
-                this.FormatPattern = FormatPattern_;
+                newFromat = FormatPattern_;
             }
             try
-            {
-                newFromat = FormatStringReArrange(string.Format(this.FormatPattern.Text, arr));
+            {               
                 this.Tokens = tempTokens;
-                this.FormatPattern.Text = newFromat;
+                this.FormatPattern = newFromat;
             }
             catch (Exception e) { }
             
@@ -356,253 +396,312 @@ namespace QueryManagers
             else
             {
                 if (formatGenerator == null) { throw new Exception("No format pattern or generator passed"); }
-                typeToken = formatGenerator.FormatFromListGenerate(this.Tokens);
+                typeToken = formatGenerator.FromatFromTokenArray(this.Tokens);
             }
         }
 
         /// <summary>
         /// Char arrays rearrange (arrays gaps error)
         /// </summary>
-        public static class FormatRearrange
+      
+
+    }
+
+    /// <summary>
+    /// Recounts numbers in string concatenation format (SCF) from zero with +1 increment
+    /// </summary>
+    public static class FormatRearrange
+    {
+
+        public static void StringsCheck()
         {
 
-            public static void StringsCheck()
+            //string r1 = Rearrange("{0}{1} {2} {3}{4}/{5}:{6}{7} {8}"); //OK "{0}{1} {2} {3}{4}/{5}:{6}{7} {8}"
+            //string r1 = Rearrange("{0}{1} {3}"); //OK "{0}{1} {2}"
+            //string r1 = Rearrange("{0}{2} {3}"); // OK "{0}{1} {2}"
+            //string r1 = Rearrange("{0}{0} "); // OK "{0}{1}"
+            //string r1 = Rearrange("{0} {0} {0}"); //OK "{0} {1} {2}"
+            //string r1 = Rearrange("{0} {3} {2}{5}"); //OK "{0} {1} {2}{3}"            
+            //string r1 = Rearrange("{1}"); //OK "{0}"
+            //string r1 = Rearrange("{2} {7}:{0} / {3}"); //OK "{0} {1}:{2} / {3}"
+            //string r1 = Rearrange("{10}{10}{10}"); //OK "{0}{1}{2}"
+            //string r1 = Rearrange("{10}{0}{2}");
+
+        }
+        public static string Rearrange(string input_)
+        {
+
+            string result = input_;
+            char[] chr = input_.ToCharArray();
+            int lng = chr.Length;
+
+            char[] prevDigit = null;
+            char[] currDigit = null;
+            char[] insDigit = null;
+
+            int i2 = 0;
+
+            for (int i = 0; i < lng; i++)
             {
-
-                //string r1 = Rearrange("{0}{1} {2} {3}{4}/{5}:{6}{7} {8}"); //OK "{0}{1} {2} {3}{4}/{5}:{6}{7} {8}"
-                //string r1 = Rearrange("{0}{1} {3}"); //OK "{0}{1} {2}"
-                //string r1 = Rearrange("{0}{2} {3}"); // OK "{0}{1} {2}"
-                //string r1 = Rearrange("{0}{0} "); // OK "{0}{1}"
-                //string r1 = Rearrange("{0} {0} {0}"); //OK "{0} {1} {2}"
-                //string r1 = Rearrange("{0} {3} {2}{5}"); //OK "{0} {1} {2}{3}"            
-                //string r1 = Rearrange("{1}"); //OK "{0}"
-                //string r1 = Rearrange("{2} {7}:{0} / {3}"); //OK "{0} {1}:{2} / {3}"
-                //string r1 = Rearrange("{10}{10}{10}"); //OK "{0}{1}{2}"
-                //string r1 = Rearrange("{10}{0}{2}");
-
-            }
-            public static string Rearrange(string input_)
-            {
-
-                string result = input_;
-                char[] chr = input_.ToCharArray();
-                int lng = chr.Length;
-
-                char[] prevDigit = null;
-                char[] currDigit = null;
-                char[] insDigit = null;
-
-                int i2 = 0;
-
-                for (int i = 0; i < lng; i++)
+                i2 = i;
+                if (char.IsDigit(chr[i2]))
                 {
-                    i2 = i;
-                    if (char.IsDigit(chr[i2]))
+                    if (i2 + 1 < lng)
                     {
-                        if (i2 + 1 < lng)
+                        while (char.IsDigit(chr[i2 + 1]))
                         {
-                            while (char.IsDigit(chr[i2 + 1]))
-                            {
-                                i2++;
-                            }
-                        }
-
-                        if (prevDigit == null)
-                        {
-                            currDigit = ChArrFill(i, i2, chr);
-                            if (charArrToInteger(currDigit) != 0)
-                            {
-                                insDigit = intToCharArr(0);
-                                prevDigit = insDigit;
-                                char[] chrN = InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
-                                result = new string(chrN);
-                                chr = chrN;
-                                lng = chr.Length;
-                            }
-                            else { prevDigit = currDigit; }
-
-                        }
-                        else
-                        {
-                            currDigit = ChArrFill(i, i2, chr);
-                            if (!check(currDigit, prevDigit))
-                            {
-                                insDigit = intToCharArr(charArrToInteger(prevDigit) + 1);
-                                char[] chrN = InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
-                                prevDigit = insDigit;
-
-                                /*
-                                char[] chrN = new char[chr.Length + currDigit.Length - prevDigit.Length];
-
-                                for (int i4 = 0; i4 < i; i4++)
-                                {
-                                    chrN[i4] = chr[i4];
-                                }
-                                for (int i4 = i; i4 <= i2; i4++)
-                                {
-                                    chrN[i4] = currDigit[i4-i];
-                                }
-                                for (int i4 = i2+1; i4 < lng; i4++)
-                                {
-                                    chrN[i4] = chr[i4];
-                                }
-                                */
-
-                                result = new string(chrN);
-                                chr = chrN;
-                                lng = chr.Length;
-                            }
-                            else { prevDigit = currDigit; }
-                        }
-                        if (prevDigit != null)
-                        {
-                            i += prevDigit.Length - 1;
+                            i2++;
                         }
                     }
 
+                    if (prevDigit == null)
+                    {
+                        currDigit = ChArrFill(i, i2, chr);
+                        if (charArrToInteger(currDigit) != 0)
+                        {
+                            insDigit = intToCharArr(0);
+                            prevDigit = insDigit;
+                            char[] chrN = InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
+                            result = new string(chrN);
+                            chr = chrN;
+                            lng = chr.Length;
+                        }
+                        else { prevDigit = currDigit; }
+
+                    }
+                    else
+                    {
+                        currDigit = ChArrFill(i, i2, chr);
+                        if (!check(currDigit, prevDigit))
+                        {
+                            insDigit = intToCharArr(charArrToInteger(prevDigit) + 1);
+                            char[] chrN = InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
+                            prevDigit = insDigit;
+
+                            /*
+                            char[] chrN = new char[chr.Length + currDigit.Length - prevDigit.Length];
+
+                            for (int i4 = 0; i4 < i; i4++)
+                            {
+                                chrN[i4] = chr[i4];
+                            }
+                            for (int i4 = i; i4 <= i2; i4++)
+                            {
+                                chrN[i4] = currDigit[i4-i];
+                            }
+                            for (int i4 = i2+1; i4 < lng; i4++)
+                            {
+                                chrN[i4] = chr[i4];
+                            }
+                            */
+
+                            result = new string(chrN);
+                            chr = chrN;
+                            lng = chr.Length;
+                        }
+                        else { prevDigit = currDigit; }
+                    }
+                    if (prevDigit != null)
+                    {
+                        i += prevDigit.Length - 1;
+                    }
                 }
 
-                return result;
             }
 
-            static char[] InsertDigitInPosition(char[] insDigit_, char[] fromArr_, int pos_, int curDigitLen_)
-            {
-                char[] toArr = new char[fromArr_.Length + insDigit_.Length - curDigitLen_];
-                int arrGap = toArr.Length - fromArr_.Length;
-                //before position copy
-                for (int i4 = 0; i4 < pos_; i4++)
-                {
-                    toArr[i4] = fromArr_[i4];
-                }
-                //position copy num length
-                for (int i4 = pos_; i4 <= (pos_ + insDigit_.Length - 1); i4++)
-                {
-                    toArr[i4] = insDigit_[i4 - pos_];
-                }
-                //after position copy from num length + arrrays gap
-                for (int i4 = (pos_ + insDigit_.Length - arrGap); i4 < fromArr_.Length; i4++)
-                {
-                    toArr[i4 + arrGap] = fromArr_[i4];
-                }
-                return toArr;
-            }
-            static int charArrToInteger(char[] arr_)
-            {
-                int res = 0;
-                int i = 1;
-                for (int i2 = arr_.Length - 1; i2 >= 0; i2--)
-                {
-                    res += (int)(char.GetNumericValue(arr_[i2]) * i);
-                    i *= 10;
-                }
-                return res;
-            }
-            static char[] intToCharArr(int i_)
-            {
-                return i_.ToString().ToCharArray();
-            }
-            static char[] intRecount(char[] currDig_, char[] prevDigit_)
-            {
-                if (charArrToInteger(currDig_) == charArrToInteger(prevDigit_) + 1)
-                {
-                    return currDig_;
-                }
-                else
-                {
-                    return intToCharArr(charArrToInteger(prevDigit_) + 1);
-                }
-            }
-            static bool check(char[] currDig_, char[] prevDigit_)
-            {
-                if (charArrToInteger(currDig_) == charArrToInteger(prevDigit_) + 1)
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            static char[] ChArrFill(int i_, int i2_, char[] chFrom_)
-            {
-                char[] chTo_ = new char[(i2_ - i_) + 1];
+            return result;
+        }
 
-                for (int i3_ = 0; i3_ <= (i2_ - i_); i3_++)
-                {
-                    chTo_[i3_] = chFrom_[i_ + i3_];
-                }
-                return chTo_;
+        static char[] InsertDigitInPosition(char[] insDigit_, char[] fromArr_, int pos_, int curDigitLen_)
+        {
+            char[] toArr = new char[fromArr_.Length + insDigit_.Length - curDigitLen_];
+            int arrGap = toArr.Length - fromArr_.Length;
+            //before position copy
+            for (int i4 = 0; i4 < pos_; i4++)
+            {
+                toArr[i4] = fromArr_[i4];
             }
+            //position copy num length
+            for (int i4 = pos_; i4 <= (pos_ + insDigit_.Length - 1); i4++)
+            {
+                toArr[i4] = insDigit_[i4 - pos_];
+            }
+            //after position copy from num length + arrrays gap
+            for (int i4 = (pos_ + insDigit_.Length - arrGap); i4 < fromArr_.Length; i4++)
+            {
+                toArr[i4 + arrGap] = fromArr_[i4];
+            }
+            return toArr;
+        }
+        static int charArrToInteger(char[] arr_)
+        {
+            int res = 0;
+            int i = 1;
+            for (int i2 = arr_.Length - 1; i2 >= 0; i2--)
+            {
+                res += (int)(char.GetNumericValue(arr_[i2]) * i);
+                i *= 10;
+            }
+            return res;
+        }
+        static char[] intToCharArr(int i_)
+        {
+            return i_.ToString().ToCharArray();
+        }
+        static char[] intRecount(char[] currDig_, char[] prevDigit_)
+        {
+            if (charArrToInteger(currDig_) == charArrToInteger(prevDigit_) + 1)
+            {
+                return currDig_;
+            }
+            else
+            {
+                return intToCharArr(charArrToInteger(prevDigit_) + 1);
+            }
+        }
+        static bool check(char[] currDig_, char[] prevDigit_)
+        {
+            if (charArrToInteger(currDig_) == charArrToInteger(prevDigit_) + 1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        static char[] ChArrFill(int i_, int i2_, char[] chFrom_)
+        {
+            char[] chTo_ = new char[(i2_ - i_) + 1];
 
+            for (int i3_ = 0; i3_ <= (i2_ - i_); i3_++)
+            {
+                chTo_[i3_] = chFrom_[i_ + i3_];
+            }
+            return chTo_;
         }
 
     }
 
     /// <summary>
-    /// Genrates sample format from collection of tokens. 
-    /// If delimeter passed uses delimeter , if not uses default empty string
+    /// Generates concatenation format (SCF) sheme in ..{0}delimeter{0].. type    
     /// </summary>
     public class FormatFromListGenerator : IFormatFromListGenerator
     {
         ITokenMiniFactory _factory;
+        string _result;
+        string placeholder;
+        List<int> elements_;
+       
         public FormatFromListGenerator(ITokenMiniFactory factory)
         {
             this._factory = factory;
+            _result = "{}";                        
+            placeholder = @"} {";
         }
+        void delimeterCheck(ITypeToken delimeter_=null)
+        {
+            placeholder = @"} {";
+            if (delimeter_ != null)
+            {
+                if (delimeter_.Text != null)
+                {
+                    placeholder = string.Join("", "}", delimeter_.Text, "{");
+                }
+            }           
+        }
+        string formatFromArray()
+        {
+            string result = null;
+            int cnt = this.elements_.Count();
+            int cnt2 = cnt + (this.elements_.Count() * 2);
+            string res = string.Empty;
 
-        public ITypeToken FormatFromListGenerate(List<ITypeToken> tokens)
-        {
-            string res = "{}";
-            int[] cnt = new int[tokens.Count];
-            for (int i = 0; i < tokens.Count(); i++)
-            {
-                cnt[i] = i;
-            }
-            string res2 = string.Join(@"} {", cnt);
-            ITypeToken token = this._factory.NewToken();
-            token.Text = res.Insert(1, res2);
-            return token;
+            res = string.Join(this.placeholder, this.elements_);
+            res = string.Format("{0}{1}{2}","{", res,"}");
+            result = res;
+            return result;
         }
-        public ITypeToken FormatFromListGenerate(List<ITypeToken> tokens, string delimeter = null)
-        {
-            string res = "{}";
-            string placeholder;
-            if (delimeter != null)
-            {
-                placeholder = string.Join("","}", delimeter, "{");
-            }
-            else { placeholder = @"} {"; }
-            int[] cnt = new int[tokens.Count];
-            for (int i = 0; i < tokens.Count(); i++)
-            {
-                cnt[i] = i;
-            }
-            string res2 = string.Join(placeholder, cnt);
-            ITypeToken token = this._factory.NewToken();
-            token.Text = res.Insert(1, res2);
-            return token;
-        }
-        public ITypeToken FormatFromListGenerate<T>(List<T> items, string delimeter = null)
-            where T : class
-        {
-            string res = "{}";
-            string placeholder;
-            if (delimeter != null)
-            {
-                placeholder = string.Join("","}", delimeter, "{");
-            }
-            else { placeholder = @"} {"; }
-            int[] cnt = new int[items.Count];
-            for (int i = 0; i < items.Count(); i++)
-            {
-                cnt[i] = i;
-            }
-            string res2 = string.Join(placeholder, cnt);
-            ITypeToken token = this._factory.NewToken();
-            token.Text = res.Insert(1, res2);
-            return token;
-        }
+        
 
+        public ITypeToken FromatFromTokenArray(List<ITypeToken> tokens_, ITypeToken delimeter_ = null)
+        {
+            ITypeToken res = _factory.NewToken();
+            delimeterCheck(delimeter_);
+            if (tokens_!=null)
+            {
+                int cnt = tokens_.Where(s => s.Text != null).Count();
+                this.elements_ = new List<int>(cnt) {  };
+                int i2 = 0;
+                for (int i =0;i<tokens_.Count;i++)
+                {
+                    if(tokens_[i].Text!=null)
+                    {
+                        this.elements_.Add( i2);
+                        i2 += 1;
+                    }
+                }
+            }
+                       
+            res.Text = formatFromArray();
+            return res;
+        }
+        public ITypeToken FromatFromTokenArray(List<ICommandBuilder> builders_, ITypeToken delimeter_ = null)
+        {
+            ITypeToken res = _factory.NewToken();
+            this.elements_ = new List<int>(){};
+            string result_ = null;
+            delimeterCheck(delimeter_);
+
+            if (builders_ != null)
+            {
+                int i2 = 0;
+
+                foreach (ICommandBuilder cb_ in builders_)
+                {
+                    if(cb_!=null)
+                    {
+                        if(cb_.Tokens!=null)
+                        {
+                            this.elements_.Add(i2);
+                            i2 += 1;
+                        }
+                    }
+                }               
+
+                //for (int i = 0; i < builders_.Count; i++)
+                //{
+                //    if (builders_[i].Tokens != null)
+                //    {
+                //        this.elements_.Add(i2);
+                //        i2 += 1;
+                //    }
+                //}
+            }
+
+            result_=formatFromArray();
+
+            List<ITypeToken> formats_ = new List<ITypeToken>();
+            foreach(ICommandBuilder b in builders_)
+            {
+                if (b != null)
+                {
+                    if (b.FormatPattern != null) { formats_.Add(b.FormatPattern); }
+                    else
+                    {
+                        formats_.Add(
+                            FromatFromTokenArray(b.Tokens, (ITypeToken)null)
+                        );
+                    }
+                }
+            }
+
+            string[] formatsArr = (from s in formats_ select s.Text).ToArray();
+
+            res.Text = string.Format(result_, formatsArr);
+            return res;
+        }
+       
     }
 
     /// <summary>

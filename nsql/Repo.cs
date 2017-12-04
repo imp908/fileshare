@@ -46,14 +46,14 @@ namespace Repos
             this.ir = responseReader_;
 
             cb.BindTokens(TokenRepo.authUrl);cb.BindFormat(new OrientAuthenticationURLFormat());
-            AuthUrl = cb.Build();
+            AuthUrl = cb.Build().GetText();
             cb.BindTokens(TokenRepo.commandUrl); cb.BindFormat(new OrientCommandURLFormat());
-            CommandUrl = cb.Build();
+            CommandUrl = cb.Build().GetText();
             owm.SetCredentials(
               new NetworkCredential(ConfigurationManager.AppSettings["orient_login"], ConfigurationManager.AppSettings["orient_pswd"]));
 
             cb.BindTokens(TokenRepo.addDbURL); cb.BindFormat(new OrientDatabaseUrlFormat());
-            DatabaseUrl = cb.Build();
+            DatabaseUrl = cb.Build().GetText();
         }
 
         public void changeAuthCredentials(string Login, string Password)
@@ -67,7 +67,7 @@ namespace Repos
 
             cb.BindTokens(commandTk);
             cb.BindFormat(new TextToken() { Text = @"{0}/{1}" });
-            string command = cb.Build();
+            string command = cb.Build().GetText();
 
             QueryUrl = DatabaseUrl + "/" + command;
 
@@ -89,7 +89,7 @@ namespace Repos
 
             cb.BindTokens(commandTk);
             cb.BindFormat(new OrientCreateVertexCluaseFormat());
-            string command = cb.Build();
+            string command = cb.Build().GetText();
 
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
@@ -112,8 +112,8 @@ namespace Repos
                 , new TextToken() { Text= from.id }, new TextToken() { Text = to.id }, new TextToken() { Text = context });
         
             cb.BindTokens(commandTk);
-            cb.BindFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(commandTk));
-            string command = cb.Build();
+            cb.BindFormat(new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(commandTk));
+            string command = cb.Build().GetText();
 
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
@@ -135,8 +135,8 @@ namespace Repos
             List<ITypeToken> commandTk = tb.Command(new OrientCreateToken(), tk.Get(obj_), tk.GetBase(obj_), from, to, new TextToken() { Text = content });
 
             cb.BindTokens(commandTk);
-            cb.BindFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(commandTk));
-            string command = cb.Build();
+            cb.BindFormat(new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(commandTk));
+            string command = cb.Build().GetText();
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
 
@@ -155,8 +155,8 @@ namespace Repos
             List<ITypeToken> commandTk = tb.Command(new OrientSelectToken(), tk.Get(object_), condition_);
 
             cb.BindTokens(commandTk);
-            cb.BindFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(commandTk));
-            string command = cb.Build();
+            cb.BindFormat(new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(commandTk));
+            string command = cb.Build().GetText();
 
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
@@ -176,8 +176,8 @@ namespace Repos
             List<ITypeToken> commandTk = tb.Command(new OrientSelectToken(), tk.Get(object_), condition_);
 
             cb.BindTokens(commandTk);
-            cb.BindFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(commandTk));
-            string command = cb.Build();
+            cb.BindFormat(new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(commandTk));
+            string command = cb.Build().GetText();
 
             QueryUrl = CommandUrl + "/" + command;
             owm.Authenticate(AuthUrl);
@@ -215,12 +215,12 @@ namespace Repos
 
             cb.BindTokens(commandTk);
             cb.BindFormat(new OrientDeleteCluaseFormat());
-            deleteClause = cb.Build();
+            deleteClause = cb.Build().GetText();
 
 
             cb.AddTokens(whereTk);
             cb.AddFormat(new OrientWhereClauseFormat());           
-            string whereClause = cb.Build();
+            string whereClause = cb.Build().GetText();
 
             QueryUrl = CommandUrl + "/" + deleteClause + " " + whereClause;
 
@@ -243,11 +243,11 @@ namespace Repos
 
             cb.BindTokens(commandTk);
             cb.BindFormat(new OrientDeleteCluaseFormat());
-            deleteClause = cb.Build();
+            deleteClause = cb.Build().GetText();
 
             cb.AddTokens(whereTk);
             cb.AddFormat(new OrientWhereClauseFormat());
-            string whereClause = cb.Build();
+            string whereClause = cb.Build().GetText();
 
             QueryUrl = CommandUrl + "/" + deleteClause + " " + whereClause;
 
@@ -272,7 +272,7 @@ namespace Repos
 
             cb.BindTokens(dbCommandUrl);
             cb.BindFormat(new TextToken() { Text = @"{0}:{1}/{2}/{3}/{4}" });
-            string command = cb.Build();          
+            string command = cb.Build().GetText();          
 
             WebRequest wr = WebRequest.Create(command);
             wr.Method = command_type.Text;
@@ -311,12 +311,12 @@ namespace Repos
             }
 
             cb.AddTokens(connectTokens);
-            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(connectTokens));
-            string connect = cb.Build();
+            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(connectTokens));
+            string connect = cb.Build().GetText();
         
             cb.AddTokens(functionTokens);
-            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FormatFromListGenerate(functionTokens));
-            string command = cb.Build();         
+            cb.AddFormat(new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(functionTokens));
+            string command = cb.Build().GetText();         
 
             string url = connect + "/" + command;
 
