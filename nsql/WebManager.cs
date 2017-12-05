@@ -245,8 +245,8 @@ namespace WebManagers
         void bindContent()
         {
             CheckReq();
-            CheckContent();
-            if (this._request.Method != GET)
+
+            if (CheckContent() && this._request.Method != GET)
             {
                 try
                 {
@@ -322,10 +322,10 @@ namespace WebManagers
 
         internal void SwapMethod(string method_)
         {
-            SetMethod(_method);
+            SetMethod(method_);
             SwapRequestsURL(_url);
         }
-        internal void SwapRequestsURL(string url)
+        public void SwapRequestsURL(string url)
         {
             AddRequest(url);
             bindMethod();

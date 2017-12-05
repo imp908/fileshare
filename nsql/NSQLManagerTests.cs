@@ -89,10 +89,12 @@ namespace NSQLManagerTests.Tests
     {
 
         WebRequestManager wm;
-
+        string testUrl;
         public WebManager2IntegrationTests()
         {
-
+            testUrl = string.Format("{0}:{1}"
+                , ConfigurationManager.AppSettings["TestHost"]
+                , ConfigurationManager.AppSettings["TestPort"]);
         }
 
         [Fact]
@@ -100,8 +102,8 @@ namespace NSQLManagerTests.Tests
         {
             HttpStatusCode code = HttpStatusCode.NotImplemented;
             wm = new WebRequestManager();
-            wm.AddRequest(ConfigurationManager.AppSettings["TestHost"]);
-            wm.SetTimeout(5000);
+            wm.AddRequest(testUrl);
+            //wm.SetTimeout(5000);
             code = ((HttpWebResponse)wm.GetHttpResponse("GET")).StatusCode;
             Assert.Equal(HttpStatusCode.OK, code);
         }
@@ -110,7 +112,7 @@ namespace NSQLManagerTests.Tests
         {
             HttpStatusCode code = HttpStatusCode.NotImplemented;
             wm = new WebRequestManager();
-            wm.AddRequest(ConfigurationManager.AppSettings["orient_command_host"]);
+            wm.AddRequest(testUrl);
             code = ((HttpWebResponse)wm.GetHttpResponse("POST")).StatusCode;
             Assert.Equal(HttpStatusCode.OK, code);
         }
@@ -119,13 +121,16 @@ namespace NSQLManagerTests.Tests
         {
             HttpStatusCode codeBefore = HttpStatusCode.NotImplemented;
             HttpStatusCode codeAfter = HttpStatusCode.NotImplemented;
+            HttpStatusCode codeDelete= HttpStatusCode.NotImplemented;
+            HttpStatusCode codePut = HttpStatusCode.NotImplemented;
             string methodBefore = "GET";
             string methodAfter = "POST";
-            string aMb = null, aMa = null;
-
-            string testHost = "http://localhost:8000";
+            string methodPut = "POST";
+            string methodDelete = "DELETE";
+            string aMb = null, aMa = null, aMd = null,aMp=null;
+         
             wm = new WebRequestManager();
-            wm.AddRequest(testHost);
+            wm.AddRequest(testUrl);
 
             using (HttpWebResponse wr = wm.GetHttpResponse(methodBefore))
             {
@@ -137,24 +142,48 @@ namespace NSQLManagerTests.Tests
                 codeAfter = wr2.StatusCode;
                 aMa = wr2.Method;
             }
+            using (HttpWebResponse wr2 = wm.GetHttpResponse(methodDelete))
+            {
+                codeDelete = wr2.StatusCode;
+                aMd = wr2.Method;
+            }
+            using (HttpWebResponse wr2 = wm.GetHttpResponse(methodPut))
+            {
+                codePut = wr2.StatusCode;
+                aMp = wr2.Method;
+            }
             Assert.Equal(HttpStatusCode.OK, codeBefore);
             Assert.Equal(HttpStatusCode.OK, codeAfter);
+            Assert.Equal(HttpStatusCode.OK, codeDelete);
+            Assert.Equal(HttpStatusCode.OK, codePut);
             Assert.Equal(methodBefore, aMb);
             Assert.Equal(methodAfter, aMa);
+            Assert.Equal(methodDelete, aMd);
+            Assert.Equal(methodPut, aMp);
         }
        
     }
 
     public class IntegrationCombatTest
     {
-        WebRequestManager wm;
-        WebResponseReader wr;
+        CommandsChain commandOne;
 
-        internal ICommandFactory _commandFactory;
-        internal IFormatFactory _formatFactory;
+        JSONManager jsonManage;
+
+        WebRequestManager webRequestManager;
+        WebResponseReader webResponseReader;
+        NetworkCredential nc = new NetworkCredential(ConfigurationManager.AppSettings["orient_login"]
+                , ConfigurationManager.AppSettings["orient_pswd"]);
+
+        //tokens instances used in query commands
         internal ITokenMiniFactory _miniFactory;
-
+        //Format generator instance
+        internal IFormatFactory _formatFactory;
+        //command builder instance generation
+        internal ICommandFactory _commandFactory;
+        //command builder instance
         internal ICommandBuilder _commandBuilder;
+        //format generator
         internal IFormatFromListGenerator _formatGenerator;
 
         IOrientBodyFactory _orientBodyFactory;
@@ -163,14 +192,18 @@ namespace NSQLManagerTests.Tests
         UrlShemasExplicit _urlShemas;
         CommandShemasExplicit _commandSchema;
         BodyShemas _bodyShema;
+        ITypeToken hostToken;
 
-        string orientAuth;
-
+    
+        string orientAuth, createDb, dropDb,databaseName;
+     
         public IntegrationCombatTest()
-        {
+        {            
 
-            wm = new WebRequestManager();
-            wr = new WebResponseReader();
+            jsonManage = new JSONManager();
+
+            webRequestManager = new WebRequestManager();
+            webResponseReader = new WebResponseReader();
 
             _commandFactory = new CommandFactory();
             _formatFactory = new FormatFactory();
@@ -186,40 +219,126 @@ namespace NSQLManagerTests.Tests
             _commandSchema = new CommandShemasExplicit(_commandFactory, _formatFactory, _miniFactory, _orientQueryFactory);
             _bodyShema = new BodyShemas(_commandFactory, _formatFactory, _miniFactory, _orientBodyFactory);
 
+            commandOne = new CommandsChain(_miniFactory, _orientQueryFactory, _formatFactory, _commandFactory);
+
             orientAuth = string.Format("{0}{1}{2}",
                  ConfigurationManager.AppSettings["orient_login"] 
                  ,":"
                  , ConfigurationManager.AppSettings["orient_pswd"]
                  );
 
-        }
-
-        [Fact]
-        public void IntegrationCreateDatabaseCombat()
-        {
-           
-            ITypeToken hostToken = new TextToken() { Text = 
+            hostToken = new TextToken()
+            {
+                Text =
                 string.Format("{0}:{1}"
                 , ConfigurationManager.AppSettings["ParentHost"]
                 , ConfigurationManager.AppSettings["ParentPort"])
-                };
+            };
 
-            ITypeToken dbName = new TextToken() { Text = ConfigurationManager.AppSettings["TestDBname"] };
-            
+            databaseName = ConfigurationManager.AppSettings["TestDBname"];
+        }
+
+        [Fact]
+        public void IntegrationCombatCreateDatabaseCombat()
+        {
+
+            Person p_ = new Person() {
+                Changed = new DateTime(2017, 01, 01, 00, 00, 00)
+                ,Created= new DateTime(2017, 01, 01, 00, 00, 00)
+                ,GUID = "1"
+                ,Name= "0"
+            };
+
+            string content_ = jsonManage.SerializeObject(p_);
+            List< ITypeToken> content = new List<ITypeToken> { _miniFactory.NewToken(content_) };
+            ITypeToken person = _miniFactory.NewToken("Person");
+
+            ICommandBuilder contentBody = _commandFactory
+                .CommandBuilder(_miniFactory, _formatFactory, content, _miniFactory.NewToken("{0}")).Build();
+
+            ITypeToken dbName = new TextToken() {Text = databaseName};
+
+            //binding host from dbname to shema builder
             _urlShemas.AddHost(hostToken);
-            //buil command url
+            //creating Orient REST API url for db creation from db name, using shemas
             string urlCommand = _urlShemas.Database(dbName).GetText();
+            //bind request to Webmanager
+            webRequestManager.AddRequest(urlCommand);
+            //bind credentials to request
+            webRequestManager.SetCredentials(nc);
+            //build and bind authentication header from passed credentials
+            webRequestManager.SetBase64AuthHeader(orientAuth);
 
-            wm.AddRequest(_urlShemas.Database(dbName).GetText());            
-            wm.SetBase64AuthHeader(orientAuth);
-            
-            string createDb = wr.ReadResponse(wm.GetResponse64("POST"));
+            //Create DB
+            //get response of POST method 
+            try
+            {
+                createDb = webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+            }
+            catch (Exception e) { }
+
+            ICommandBuilder commandBody=commandOne.Create().Vertex(person).Content(contentBody)
+                .GetBuilder().Build();
+
+            string commandBodyStr = _bodyShema.Batch(commandBody).Build().GetText();
+            string urlStr = _urlShemas.Command(dbName).Build().GetText();
+
+            urlCommand = _urlShemas.Command(dbName).GetText();
+            webRequestManager.SwapRequestsURL(urlCommand);
+            webRequestManager.SetContent(commandBodyStr);
+
+            try
+            {                
+                webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+            }
+            catch (Exception e) { }
+
+            //delete DB
+            //get response of DELETE method 
+            try { 
+                dropDb = webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
+            }
+            catch (Exception e) { }
 
             Assert.NotNull(createDb);
-
-            string dropDb = wr.ReadResponse(wm.GetResponse64("DELETE"));
-
             Assert.Equal(string.Empty,dropDb);
+        }
+
+        [Fact]
+        public void IntegrationCombatInsert()
+        {
+
+            ITypeToken dbName = new TextToken() { Text = ConfigurationManager.AppSettings["TestDBname"] };
+
+            //binding host from dbname to shema builder
+            _urlShemas.AddHost(hostToken);
+            //creating Orient REST API url for db creation from db name, using shemas
+            string urlCommand = _urlShemas.Database(dbName).GetText();
+            //bind request to Webmanager
+            webRequestManager.AddRequest(urlCommand);
+            //bind credentials to request
+            webRequestManager.SetCredentials(nc);
+            //build and bind authentication header from passed credentials
+            webRequestManager.SetBase64AuthHeader(orientAuth);
+
+            //Create DB
+            //get response of POST method 
+            createDb = webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+      
+            Assert.NotNull(createDb);
+
+            //
+            List<ITypeToken> tokens_ = new List<ITypeToken>() {
+                _miniFactory.EmptyString()
+            };
+
+            //Generate command url
+            _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tokens_, _miniFactory.EmptyString());
+
+            //delete DB
+            //get response of DELETE method 
+            string dropDb = webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
+            Assert.Equal(string.Empty, dropDb);
         }
 
     }
@@ -291,22 +410,46 @@ namespace NSQLManagerTests.Tests
         }
 
     }
-    public class CommandTest
+
+    public class ChainigTest
     {
 
         CommandsChain commandOne;
         CommandBuilder commandBuilder, commandBuilder_SelectFrom;
-        ITypeToken V, VSC;
+        ITypeToken V, VSC, Person;
+        List<ITypeToken> NGA;
 
-        public CommandTest()
+        ICommandBuilder SelectNGAfromPerson;
+
+        TokenMiniFactory miniFactory;
+        FormatFactory formatFactory;
+        CommandFactory commandFactory;
+
+        public ChainigTest()
         {
+
+            miniFactory = new TokenMiniFactory();
+            formatFactory = new FormatFactory();
+            commandFactory = new CommandFactory();
+
             commandBuilder = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
             commandBuilder_SelectFrom = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
             commandBuilder_SelectFrom.AddTokens(new List<ITypeToken> { new TextToken() { Text = "Name,GUID" } });
             commandBuilder_SelectFrom.AddFormat(new TextToken() { Text = "{0}" });
 
-            V = new TextToken() { Text = "V" };
-            VSC = new TextToken() { Text = "VSC" };
+
+            V = miniFactory.NewToken("V");
+            VSC = miniFactory.NewToken("VSC");
+            Person = miniFactory.NewToken("Person");
+            NGA = new List<ITypeToken>() {
+                miniFactory.NewToken("Name"),miniFactory.NewToken("GUID"),miniFactory.NewToken("Acc")
+            };
+            SelectNGAfromPerson = commandFactory.CommandBuilder(miniFactory
+                , formatFactory
+                , NGA
+                , formatFactory.FormatGenerator(miniFactory)
+                    .FromatFromTokenArray(NGA, miniFactory.Coma())
+            );
 
             this.commandOne = CommandInit();
         }
@@ -321,6 +464,254 @@ namespace NSQLManagerTests.Tests
             return new CommandsChain(tokenMiniFactory, tokenQueryFactory, formatFactoy, commandFactory);
         }
 
+        //VERTEX
+        [Fact]
+        public void ChainingVertexCheck()
+        {
+
+            ITypeToken class_ = miniFactory.NewToken("Person");
+            ITypeToken content_ = miniFactory.NewToken(
+"{\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"
+                );
+            ITypeToken format_ = miniFactory.NewToken("{0}");
+            List<ITypeToken> contentLt = new List<ITypeToken>() { content_ };
+
+            ICommandBuilder cb = commandFactory.CommandBuilder(miniFactory, formatFactory, contentLt, format_).Build();
+            string res = commandOne
+                .Create()
+                .Class(class_)
+                .Content(cb)
+                .GetBuilder().Build().GetText();
+
+            string exp =
+ "Create Class Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"} ";
+
+            Assert.Equal(exp, res);
+        }
+
+        //PROPERTY
+        [Fact]
+        public void ChainingCreatePropertyBoolCheck()
+        {
+
+            ITypeToken class_ = miniFactory.NewToken("UserSettings");
+            ITypeToken prop_ = miniFactory.NewToken("showBirthday");
+            ITypeToken type_ = miniFactory.NewToken("BOOLEAN");
+            ITypeToken true_ = null;
+
+            string res = commandOne
+                .Create()
+                .Property(class_, prop_, type_, true_, true_).GetBuilder().Build().GetText();
+
+            string exp =
+"Create Property UserSettings.showBirthday BOOLEAN";
+
+            Assert.Equal(exp, res);
+        }
+        [Fact]
+        public void ChainingCreatePropertyStringCheck()
+        {
+
+            ITypeToken class_ = miniFactory.NewToken("VSC");
+            ITypeToken prop_ = miniFactory.NewToken("Name");
+            ITypeToken type_ = miniFactory.NewToken("STRING");
+            ITypeToken true_ = miniFactory.NewToken("TRUE");
+
+            string res = commandOne
+                .Create()
+                .Property(class_, prop_, type_, true_, true_).GetBuilder().Build().GetText();
+
+            string exp =
+"Create Property VSC.Name STRING (MANDATORY TRUE,NOTNULL TRUE)";
+
+            Assert.Equal(exp, res);
+        }
+
+        //CLASS
+        [Fact]
+        public void ChainingCreateClassCheck()
+        {
+
+            ITypeToken VSC = miniFactory.NewToken("VSC");
+            ITypeToken V = miniFactory.NewToken("V");
+
+            ICommandBuilder cb = commandFactory.CommandBuilder(miniFactory, formatFactory);
+
+            commandOne.Create().Class(VSC).Extends(V);
+
+            string res = commandOne.GetBuilder().Build().GetText();
+            string exp =
+"Create Class VSC Extends V";
+
+            Assert.Equal(exp, res);
+
+        }
+
+
+        //NEST
+        [Fact]
+        public void ChainingSquareCheck()
+        {
+            this.commandOne.NestSq();
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("[]", result);
+        }
+        [Fact]
+        public void ChainingNestSelectNestSquareCheck()
+        {
+            this.commandOne.From().Select(commandBuilder_SelectFrom)
+                .NestSq().From().Select();
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("Select  from[Select Name,GUID from]", result);
+        }
+        [Fact]
+        public void ChainingNestSelectNestRoundCheck()
+        {
+            this.commandOne.From().Select(commandBuilder_SelectFrom)
+                .NestRnd().From().Select();
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("Select  from(Select Name,GUID from)", result);
+        }
+        [Fact]
+        public void ChainingChainSelectFromParamCheck()
+        {
+            this.commandOne.From().Select(commandBuilder_SelectFrom)
+                .Nest(new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(),
+                new TextToken() { Text = @" {0} {1} {2} " }).From().Select();
+
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("Select  from(Select Name,GUID from)", result);
+        }
+        [Fact]
+        public void ChainingChainSelectParameterCheck()
+        {
+            this.commandOne.Select(commandBuilder_SelectFrom).Select();
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("Select Select Name,GUID", result);
+        }
+
+
+        [Fact]
+        public void ChainingNestChainExtendedCheck()
+        {
+            this.commandOne.From()
+                .Select(commandBuilder_SelectFrom).Create().Class(V).Extends(VSC)
+                .Nest(new OrientRoundBraketLeftToken()
+                , new OrientRoundBraketRightToken(), new TextToken() { Text = string.Empty });
+
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("(Select Name,GUID fromCreate Class V Extends VSC)", result);
+        }
+        [Fact]
+        public void ChainingNestChainCheck()
+        {
+            this.commandOne.From().Select().Nest(new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(), new TextToken() { Text = string.Empty });
+
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("(Select  from)", result);
+        }
+
+        [Fact]
+        public void ChainingClassCheck()
+        {
+            this.commandOne.Class();
+
+            string result = this.commandOne.GetCommand();
+            Assert.Equal(" Class", result);
+        }
+
+        [Fact]
+        public void ChainingCreateChainCheck()
+        {
+
+            this.commandOne.Create().Class(V).Extends(VSC);
+
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("Create Class V Extends VSC", result);
+        }
+
+        [Fact]
+        public void ChainingWhereParamCheck()
+        {
+
+            ICommandBuilder cb = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
+            cb.AddTokens(new List<ITypeToken>() { new TextToken() { Text = "1=1" } });
+            cb.AddFormat(new TextToken() { Text = "{0}" });
+
+            this.commandOne.Where(cb);
+            string result = this.commandOne.GetCommand();
+            Assert.Equal(" where 1=1", result);
+        }
+        [Fact]
+        public void ChainingWhereCheck()
+        {
+            this.commandOne.Where();
+            string result = this.commandOne.GetCommand();
+            Assert.Equal(" where", result);
+        }
+        [Fact]
+        public void ChainingNestCheck()
+        {
+            this.commandOne.NestRnd();
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("()", result);
+        }
+
+    }
+
+    public class CommandTest
+    {
+
+        CommandsChain commandOne;
+        CommandBuilder commandBuilder, commandBuilder_SelectFrom;
+        ITypeToken V,VSC,Person;
+        List<ITypeToken> NGA;
+        
+        ICommandBuilder SelectNGAfromPerson;
+
+        TokenMiniFactory miniFactory;        
+        FormatFactory formatFactory;
+        CommandFactory commandFactory;
+
+        public CommandTest()
+        {
+
+            miniFactory = new TokenMiniFactory();
+            formatFactory = new FormatFactory();
+            commandFactory = new CommandFactory();           
+
+            commandBuilder = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
+            commandBuilder_SelectFrom = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
+            commandBuilder_SelectFrom.AddTokens(new List<ITypeToken> { new TextToken() { Text = "Name,GUID" } });
+            commandBuilder_SelectFrom.AddFormat(new TextToken() { Text = "{0}" });
+
+            V = miniFactory.NewToken("V");
+            VSC = miniFactory.NewToken("VSC");
+            Person = miniFactory.NewToken("Person");
+            NGA = new List<ITypeToken>() {
+                miniFactory.NewToken("Name"),miniFactory.NewToken("GUID"),miniFactory.NewToken("Acc")
+            };
+            SelectNGAfromPerson=commandFactory.CommandBuilder(miniFactory
+                , formatFactory
+                , NGA
+                , formatFactory.FormatGenerator(miniFactory)
+                    .FromatFromTokenArray(NGA, miniFactory.Coma())
+            );
+
+            this.commandOne = CommandInit();
+        }
+
+        public CommandsChain CommandInit()
+        {
+            TokenMiniFactory tokenMiniFactory = new TokenMiniFactory();
+            OrientQueryFactory tokenQueryFactory = new OrientQueryFactory();
+            FormatFactory formatFactoy = new FormatFactory();
+            CommandFactory commandFactory = new CommandFactory();
+
+            return new CommandsChain(tokenMiniFactory, tokenQueryFactory, formatFactoy, commandFactory);
+        }
+     
+        //WITH
         [Fact]
         public void CommandWithParametersCheck()
         {
@@ -350,151 +741,43 @@ namespace NSQLManagerTests.Tests
             cb1.Add(CommandInit().Vertex().GetBuilder());
             cb1.Add(CommandInit().Content(select).GetBuilder());
 
-            commandBuilder.BindBuilders(cb1, CommandInit().GetGenerator().FromatFromTokenArray(cb1,null));
+            commandBuilder.BindBuilders(cb1, CommandInit().GetGenerator()
+                .FromatFromTokenArray(cb1,miniFactory.EmptyString()));
             commandBuilder.Build();
 
             string res = commandBuilder.GetText();
             string exp =
-"Select GUID,Name,Unit  from Person  where 1=1 Create  Class Person  Extends Person  Vertex content GUID,Name,Unit";
+"Select GUID,Name,Unit from where 1=1Create Class Person Extends Person Vertexcontent GUID,Name,Unit ";
 
             Assert.Equal(exp, res);
 
-        }
-
-
-        [Fact]
-        public void CommandSquareCheck()
-        {
-            this.commandOne.NestSq();
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("[]", result);
-        }
-        [Fact]
-        public void CommandNestSelectNestSquareCheck()
-        {
-            this.commandOne.Select(commandBuilder_SelectFrom).From()
-                .NestSq().Select();
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("Select [Select Name,GUID from ]", result);
-        }
-        [Fact]
-        public void CommandNestSelectNestRoundCheck()
-        {
-            this.commandOne.Select(commandBuilder_SelectFrom).From()
-                .NestRnd().Select().From();
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("Select (Select Name,GUID from ) from", result);
-        }
-        [Fact]
-        public void CommandChainSelectFromCheck()
-        {
-            this.commandOne.Select(commandBuilder_SelectFrom).From()
-                .Nest(new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(),
-                new TextToken() { Text = @" {0} {1} {2} " }).Select().From();
-            
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("Select (Select Name,GUID from ) from ", result);
-        }
-        [Fact]
-        public void CommandChainSelectParameterCheck()
-        {
-            this.commandOne.Select(commandBuilder_SelectFrom).Select();
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("Select Select Name,GUID", result);
-        }
-
-
-        [Fact]
-        public void CommandNestChainExtendedCheck()
-        {
-
-            this.commandOne.Select(commandBuilder_SelectFrom).From().Create().Class(V).Extends(VSC).Nest(new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(), new TextToken() { Text = string.Empty });
-
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("(Select Name,GUID fromCreate Class V Extends VSC)", result);
-        }
-        [Fact]
-        public void CommandNestChainCheck()
-        {
-            this.commandOne.Select().From().Nest(new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(), new TextToken() { Text = string.Empty });
-
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("(Select from )", result);
-        }
-
-        [Fact]
-        public void CommandClassCheck()
-        {
-            this.commandOne.Class();
-
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("Class ", result);
-        }
-
-        [Fact]
-        public void CommandCreateChainCheck()
-        {
-
-            this.commandOne.Create().Class(V).Extends(VSC);
-
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("Create Class V Extends VSC ", result);
-        }
-
-        [Fact]
-        public void CommandWhereParamCheck()
-        {
-
-            ICommandBuilder cb = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
-            cb.AddTokens(new List<ITypeToken>() { new TextToken() { Text = "1=1" } });
-            cb.AddFormat(new TextToken() { Text = "{0}" });
-
-            this.commandOne.Where(cb);
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("where 1=1 ", result);
-        }
-        [Fact]
-        public void CommandWhereCheck()
-        {
-            this.commandOne.Where();
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("where ", result);
-        }
-        [Fact]
-        public void CommandNestCheck()
-        {
-            this.commandOne.NestRnd();
-            string result = this.commandOne.GetCommand();
-            Assert.Equal("()", result);
         }
 
         [Fact]
         public void CommandFromParamCheck()
         {
             string result = CommandInit().From(new TextToken() { Text = "Person" }).GetBuilder().GetText();
-            Assert.Equal("from Person ", result);
+            Assert.Equal(" from Person", result);
         }
         [Fact]
         public void CommandFromCheck()
         {
             string result = CommandInit().From().GetBuilder().GetText();
-            Assert.Equal("from ", result);
+            Assert.Equal(" from", result);
         }
 
         [Fact]
         public void CommandSelectFromCheck()
         {
-            string result = CommandInit().Select().From().GetBuilder().GetText();
-            Assert.Equal("Select from ", result);
+            string result = CommandInit().From().Select().GetBuilder().GetText();
+            Assert.Equal("Select  from", result);
         }
         [Fact]
         public void CommandSelectFromParamCheck()
         {
-            string result = CommandInit().Select().From().GetBuilder().GetText();
-            Assert.Equal("Select from ", result);
+            string result = CommandInit().From(Person).Select(SelectNGAfromPerson).GetBuilder().GetText();
+            Assert.Equal("Select Name,GUID,Acc from Person", result);
         }
-
-
 
 
         [Fact]
@@ -520,8 +803,8 @@ namespace NSQLManagerTests.Tests
             bds.Add(cb1);
             bds.Add(cb2);
 
-            CommandBuilder cb3 = new CommandBuilder(bds, new TextToken() { Text = "{0}_|_{1}" });
-            string result = cb3.GetText();
+            CommandBuilder cb3 = new CommandBuilder(miniFactory,formatFactory,bds, new TextToken() { Text = "{0}_|_{1}" });
+            string result = cb3.Build().GetText();
             Assert.Equal("token 1.token 2_|_token 3:token 4/token 5", result);
         }
 
@@ -693,7 +976,7 @@ namespace NSQLManagerTests.Tests
 
             Urlshema = new UrlShemasExplicit(cb, fg, tf, qbf);
             Urlshema.AddHost( new TextToken() { Text = ConfigurationManager.AppSettings["ParentHost"] });
-            testDBname = ConfigurationManager.AppSettings["testDbname"];
+            testDBname = ConfigurationManager.AppSettings["ChildDBname"];
             parentHost = ConfigurationManager.AppSettings["ParentHost"];
         }
 
@@ -735,7 +1018,6 @@ namespace NSQLManagerTests.Tests
             Assert.Equal(expected, result);
         }
         
-
 
     }    
     public class BodyShemaTest
@@ -794,8 +1076,7 @@ namespace NSQLManagerTests.Tests
         public void BodyBatchShemaCheck()
         {
             string result = Bodyshema.Batch(cb).GetText();
-            string expected = "{\"transaction\":TRUE,\"operations\":[{\"type\":\"script\",\"language\":\"sql\",\"script\":[ Create Class Property ]}]}";
-
+            string expected = "{\"transaction\":TRUE,\"operations\":[{\"type\":\"script\",\"language\":\"sql\",\"script\":[ Create Class Property ]}]}";            
             Assert.Equal(expected, result);
         }
     }
@@ -852,6 +1133,7 @@ namespace NSQLManagerTests.Tests
             Assert.Equal("Select Name , GUID from where", select);
         }
 
+        #region Property 
         [Fact]
         public void ShemaPropertyCheck()
         {
@@ -864,7 +1146,7 @@ namespace NSQLManagerTests.Tests
 
             string res = commandShemas.Property(class_, prop_, type_, mandatory_, notnull_).GetText();
 
-            Assert.Equal("Property Person.Name STRING (MANDATORY TRUE,NOTNULL TRUE)", res);
+            Assert.Equal(" Property Person.Name STRING (MANDATORY TRUE,NOTNULL TRUE)", res);
         }
         [Fact]
         public void ShemaPropertyItemCheck()
@@ -875,7 +1157,7 @@ namespace NSQLManagerTests.Tests
 
             string res = commandShemas.PropertyItem(class_, prop_).GetText();
 
-            Assert.Equal(@"Property Person.Name", res);
+            Assert.Equal(@" Property Person.Name", res);
         }
         [Fact]
         public void ShemaPropertyTypeCheck()
@@ -885,7 +1167,7 @@ namespace NSQLManagerTests.Tests
 
             string res = commandShemas.PropertyType(type_).GetText();
 
-            Assert.Equal(@" STRING ", res);
+            Assert.Equal(@" STRING", res);
         }
         [Fact]
         public void ShemaPropertyConditionCheck()
@@ -896,13 +1178,15 @@ namespace NSQLManagerTests.Tests
 
             string res = commandShemas.PropertyCondition(mandatory_, notnull_).GetText();
 
-            Assert.Equal(@"(MANDATORY TRUE,NOTNULL TRUE)", res);
+            Assert.Equal(@" (MANDATORY TRUE,NOTNULL TRUE)", res);
         }
+        #endregion
+
+        #region Nest
 
         [Fact]
-        public void ShemaNestCheck()
+        public void ShemaNestParamCheck()
         {           
-
             CommandBuilder commandBuilder = new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
             commandBuilder.AddTokens(new List<ITypeToken>() { new TextToken() { Text = "Select from" } });
             commandBuilder.AddFormat(new TextToken() { Text = "{0}" });
@@ -911,14 +1195,36 @@ namespace NSQLManagerTests.Tests
             this.commandShemas.Nest(commandBuilder, new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(), new TextToken() { Text = string.Empty }).Text.Text;
 
             Assert.Equal("(Select from)", result);
-        }
+        }      
+
+        #endregion
+
         [Fact]
         public void ShemaExtendesCheck()
         {
             ITypeToken param = new TextToken() { Text = "Person" };
             string result = this.commandShemas.Extends(param).GetText();
-            Assert.Equal("Extends Person ", result);
+            Assert.Equal(" Extends Person", result);
         }
+
+
+
+        #region Vertex
+
+        [Fact]
+        public void ShemaVertexCheck()
+        {
+            string result = this.commandShemas.Vertex().GetText();
+            Assert.Equal(" Vertex", result);
+        }
+        [Fact]
+        public void ShemaVertexParamCheck()
+        {
+            string result = this.commandShemas.Vertex(new TextToken() { Text = "Person" }).GetText();
+            Assert.Equal(" Vertex Person", result);
+        }
+
+        #endregion
 
         #region Create
 
@@ -926,7 +1232,7 @@ namespace NSQLManagerTests.Tests
         public void ShemaCreateCheck()
         {
             string result = this.commandShemas.Create().GetText();
-            Assert.Equal("Create ", result);
+            Assert.Equal("Create", result);
         }
         [Fact]
         public void ShemaCreateParamCheck()
@@ -1001,19 +1307,20 @@ namespace NSQLManagerTests.Tests
     {
         IFormatFactory formatFactory_;
         ITokenMiniFactory miniFactory_;
+        CommandFactory commandFactory_;
 
         IFormatFromListGenerator formatGenerator_;
      
         string ExpectedFromTokenListgenerator = @"{0} {1} {2}";
         string ExpectedFromTokenListWithDelimeter= @"{0}.{1}.{2}";
-        string ExpectedFromCommandList = @"{0} {1} {2},{0} {1}";
-        string ExpectedFromCommandListWithFormat = @"{0}:{1}.{2}{0}|{1}";
+        string ExpectedFromCommandList = @"{0} {1} {2},{3} {4}";
+        string ExpectedFromCommandListWithFormat = @"{0}:{1}.{2},{3}|{4}";
 
         public FormatGeneratorTest()
         {
             miniFactory_ = new TokenMiniFactory();
             formatFactory_ = new FormatFactory();
-
+            commandFactory_ = new CommandFactory();
             formatGenerator_ = new FormatFromListGenerator(miniFactory_);
         }
         [Fact]
@@ -1049,15 +1356,20 @@ namespace NSQLManagerTests.Tests
                 new TextToken() { Text="Item4"},new TextToken() { Text="Item5"}
             };
 
-            CommandBuilder cb1 = new CommandBuilder(miniFactory_, formatFactory_) { Tokens = tokens1 };
-            CommandBuilder cb2 = new CommandBuilder(miniFactory_, formatFactory_) { Tokens = tokens2 };
+            CommandBuilder cb1 = new CommandBuilder(miniFactory_, formatFactory_, tokens1,
+                formatFactory_.FormatGenerator(miniFactory_).FromatFromTokenArray(tokens1,miniFactory_.Gap()));
+            CommandBuilder cb2 = new CommandBuilder(miniFactory_, formatFactory_, tokens2,
+                formatFactory_.FormatGenerator(miniFactory_).FromatFromTokenArray(tokens2, miniFactory_.Gap()));
 
             List<ICommandBuilder> builders = new List<ICommandBuilder>() {
                 cb1,cb2
             };
 
-            string result = formatGenerator_.FromatFromTokenArray(builders, miniFactory_.Coma()).Text;
-
+            ICommandBuilder builder = commandFactory_.CommandBuilder(miniFactory_, formatFactory_);
+            builder.BindBuilders(builders,
+                formatFactory_.FormatGenerator(miniFactory_).FromatFromTokenArray(builders, miniFactory_.Coma()));
+            string result = builder.Build().FormatPattern.Text;
+           
             Assert.Equal(ExpectedFromCommandList, result);
         }
         [Fact]
@@ -1080,7 +1392,10 @@ namespace NSQLManagerTests.Tests
                 cb1,cb2
             };
 
-            string result = formatGenerator_.FromatFromTokenArray(builders, miniFactory_.EmptyString()).Text;
+            ICommandBuilder builder = commandFactory_.CommandBuilder(miniFactory_, formatFactory_);
+            builder.BindBuilders(builders,
+                formatFactory_.FormatGenerator(miniFactory_).FromatFromTokenArray(builders, miniFactory_.Coma()));
+            string result = builder.Build().FormatPattern.Text;
 
             Assert.Equal(ExpectedFromCommandListWithFormat, result);
         }
@@ -1419,7 +1734,7 @@ namespace NSQLManagerTests.Tests
             Assert.Equal(selectPersonURLExpected, selectcommandURL);
         }
         [Fact]
-        public void CreatePersonUrlBuild()
+        public void CreatePersonCommandTextBuild()
         {
             Person per = new Person()
             { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
@@ -1442,7 +1757,7 @@ namespace NSQLManagerTests.Tests
           );
             cb.AddTokens(CreateTokens);
             cb.AddFormat(cf);
-
+            cb.Build();
             string CreateCommand = cb.GetText();
 
             Assert.Equal(createCommandExpected, CreateCommand);
