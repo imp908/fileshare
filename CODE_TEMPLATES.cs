@@ -7043,9 +7043,9 @@ Orient_REST_FIDDLER(){
 	{"command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"}
 	{"command": "CREATE class  Person extends V;"}
 	{"command": "CREATE class  Unit extends V;"}
-	{ "command": "CREATE class MainAssignment extends E;"}
-	{"command":"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"}
-	 {   "transaction":true,"operations":[   {"type":"script","language":"sql","script":[   "Create Vertex Person content {"Name":"0","GUID":"1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}"   ]}]}   
+	{"command": "CREATE class MainAssignment extends E;"}
+	{"command": "CREATE vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"}
+	{"transaction":true,"operations":[{"type":"script","language":"sql","script":["Create Vertex Person content {"Name":"0","GUID":"1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}"]}]}   
   
   
 	
@@ -7581,6 +7581,7 @@ update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник 
 update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела технического администрирования'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника отдела'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника Отдела взаимоотношений с поставщиками'
+
 	}
 
 	public void Initial_PersonApi_Functions()
@@ -8037,6 +8038,15 @@ metadata {
 	SearchPersonExactly : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").Name[0],Name[0]) ,'0' ) as division , ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, LastName.append(' ').append(FirstName.substring( 0, 1 )).append('. ').append(MiddleName.substring( 0, 1 )).append('.') as shortFName, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate, GetPositionBar(InE().Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass, GetDepartmentName(GUID)[departmentName][0] as departmentName, sAMAccountName as login from Person WHERE sAMAccountName = '""+userLogin+""' and (inE(\""MainAssignment\"")[0].Disabled is null or inE(\""MainAssignment\"")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\' )""); return b; 
 	}
 		
+	}
+	
+	public FunctionsTest(){
+		
+http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1b0ff45-5cb1-11e7-8117-005056813668
+http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1a4c984-a00e-11e6-80db-005056813668
+http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1b0ff45-5cb1-11e7-8117-00505681366
+http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentLevel/c1b0ff45-5cb1-11e7-8117-005056813668
+	
 	}
 	
 			}

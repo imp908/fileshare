@@ -3,7 +3,7 @@ using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 
 namespace IJsonManagers
-{   
+{  
     public interface IJsonManger
     {
         IJEnumerable<JToken> ExtractFromParentNode(string input);
@@ -12,8 +12,8 @@ namespace IJsonManagers
         IJEnumerable<JToken> ExtractFromParentChildren(string input, string childNodeName);
 
 
-        string SerializeObject(object input_, JsonSerializerSettings settings_ = null);
-        string SerializeObject(object input_, JsonConverter converter_ = null);
+        string SerializeObject(object input_, JsonSerializerSettings settings_=null);
+        string SerializeObject(object input_, JsonConverter converter_=null);
         string SerializeObject(object input_);
 
 
@@ -25,7 +25,8 @@ namespace IJsonManagers
         IEnumerable<T> DeserializeFromParentNodeObjColl<T>(string input) where T : class;
 
         IEnumerable<T> JTokensToCollection<T>(IEnumerable<JToken> input) where T : class;
-        string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss = null) where T : class;
+        string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss=null) where T : class;
 
-    }
+   }
+
 }

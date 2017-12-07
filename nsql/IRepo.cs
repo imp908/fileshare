@@ -21,5 +21,5 @@ namespace IRepos
         IEnumerable<T> Select<T>(Type object_, ITypeToken condition_) where T:class;
         IEnumerable<T> Select<T>(string command_) where T : class;
 
-    }
+   }
 }

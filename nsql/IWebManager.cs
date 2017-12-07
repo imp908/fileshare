@@ -15,7 +15,7 @@ namespace IWebManagers
         WebResponse GetResponse64(string method);
         WebRequest AddRequest(string url);
         
-    }
+   }
    
 
     /// <summary>
@@ -27,6 +27,6 @@ namespace IWebManagers
         string ReadResponse(WebResponse response);
         string ReadResponse(HttpResponseMessage response);
         string ReadResponse(IHttpActionResult response);
-    }
+   }
 
 }

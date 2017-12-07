@@ -12,5 +12,5 @@ namespace IUOWs
         string GetTrackedBirthday(string GUID);
         string AddTrackBirthday(OrientEdge edge_, string guidFrom, string guidTo);
         string DeleteTrackedBirthday(OrientEdge edge_, string guidFrom, string guidTo);
-    }
+   }
 }
