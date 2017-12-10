@@ -1884,7 +1884,8 @@ StringBuilder.
 
 				//build v14.0
 				C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe "C:\workflow\projects\Dev\Intranet Development\AddressBook_News2\AddressBook_News2-branch1\AddressBook_News.sln" /p:Configuration=Debug  /p:VisualStudioVersion=14.0;BaseOutputPath=bin\res
-				
+			
+			}
 				
 			public class Unsorted
 			{
@@ -2858,6 +2859,7 @@ StringBuilder.
 		
 		
 		}
+			
 			public void SB()
 			{
 				
@@ -3038,6 +3040,7 @@ StringBuilder.
 				}    
 				
 			}
+	
 	}
 
 		public class External_Libraries()
@@ -3287,9 +3290,7 @@ access, please check that you have enabled metadata publishing at the specified 
 			
 			
 		}
-
-		
-		
+			
 	}
 
 	public Code Examples
@@ -7043,9 +7044,9 @@ Orient_REST_FIDDLER(){
 	{"command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"}
 	{"command": "CREATE class  Person extends V;"}
 	{"command": "CREATE class  Unit extends V;"}
-	{"command": "CREATE class MainAssignment extends E;"}
-	{"command": "CREATE vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"}
-	{"transaction":true,"operations":[{"type":"script","language":"sql","script":["Create Vertex Person content {"Name":"0","GUID":"1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}"]}]}   
+	{ "command": "CREATE class MainAssignment extends E;"}
+	{"command":"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"}
+	 {   "transaction":true,"operations":[   {"type":"script","language":"sql","script":[   "Create Vertex Person content {"Name":"0","GUID":"1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}"   ]}]}   
   
   
 	
@@ -7344,10 +7345,10 @@ host:port/batch/dbname ;
 ]
 
 
-//command formats
+///command formats
 ///Property foreach prop of class, with type convert, nullable,
 ///pregen foramat for small token collections, then aggregate them, in command token collections
-//{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
+///{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
 format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
 create class [V/E] <extends [V/E]>
 
@@ -7379,9 +7380,8 @@ format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1}
 		
 
 					}
-			}
-		
-		}
+			
+			}							
 			
 			public void Maintenance()
 			{
@@ -7581,7 +7581,6 @@ update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник 
 update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела технического администрирования'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника отдела'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника Отдела взаимоотношений с поставщиками'
-
 	}
 
 	public void Initial_PersonApi_Functions()
@@ -8038,16 +8037,15 @@ metadata {
 	SearchPersonExactly : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").Name[0],Name[0]) ,'0' ) as division , ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, LastName.append(' ').append(FirstName.substring( 0, 1 )).append('. ').append(MiddleName.substring( 0, 1 )).append('.') as shortFName, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate, GetPositionBar(InE().Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass, GetDepartmentName(GUID)[departmentName][0] as departmentName, sAMAccountName as login from Person WHERE sAMAccountName = '""+userLogin+""' and (inE(\""MainAssignment\"")[0].Disabled is null or inE(\""MainAssignment\"")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\' )""); return b; 
 	}
 		
-	}
-	
-	public FunctionsTest(){
+  public FunctionsTest(){
 		
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1b0ff45-5cb1-11e7-8117-005056813668
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1a4c984-a00e-11e6-80db-005056813668
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1b0ff45-5cb1-11e7-8117-00505681366
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentLevel/c1b0ff45-5cb1-11e7-8117-005056813668
 	
-	}
+						}																	
+	
 	
 			}
 
@@ -9256,7 +9254,10 @@ in v out
 			}
 			
 		}
-					
+			
+		
+		}
+		
 		public void Neo4J()
 		{
 			neo4j:root
@@ -10051,7 +10052,7 @@ RAW JSON
 				}
 				
 				public TerminalCommands
-				{				
+				{	
 					sudo apt-get update && sudo apt-get upgrade
 					sudo apt-get -f install
 					sudo dpkg --purge --force-depends libpowerdevilcore0 libtaskmanager4b
@@ -10100,6 +10101,28 @@ RAW JSON
 			
 				public Pakets
 				{
+					public Samba
+					{
+						
+https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20(Command-line%20interface/Linux%20Terminal)%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way!
+sudo apt-get update
+sudo apt-get install samba
+sudo smbpasswd -a <user_name>.
+mkdir /home/<user_name>/<folder_name>
+sudo cp /etc/samba/smb.conf ~
+sudo nano /etc/samba/smb.conf
+
+Once "smb.conf" has loaded, add this to the very end of the file:
+
+[<folder_name>]
+path = /home/<user_name>/<folder_name>
+valid users = <user_name>
+read only = no
+
+sudo service smbd restart
+
+					}
+					
 					public Mercurial
 					{
 						sudo add-apt-repository universse
@@ -10120,8 +10143,10 @@ RAW JSON
 						sudo pip install psutil logutils bottle batinfo https://bitbucket.org/gleb_zhulik/py3sensors/get/tip.tar.gz zeroconf netifaces pymdstat influxdb elasticsearch potsdb statsd pystache docker-py pysnmp pika py-cpuinfo bernhard
 						sudo pip install glances
 					}
+				
 				}
 			}
+			
 		}
 	
 	#endregion
