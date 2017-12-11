@@ -16,7 +16,7 @@ namespace APItesting
     /// </summary>
     public class APItester_sngltn
     {
-        IWebManagers.IWebManager webManager;
+        IWebManagers.IWebRequestManager webManager;
         IWebManagers.IResponseReader responseReader;
 
         private string Filename;
@@ -32,7 +32,7 @@ namespace APItesting
 
         public void Initialize()
         {
-            webManager=new WebManagers.WebManager();
+            webManager=new WebManagers.WebRequestManager();
             responseReader=new WebManagers.WebResponseReader();
 
             Filename="Res.json";

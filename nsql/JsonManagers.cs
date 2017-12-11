@@ -27,83 +27,83 @@ namespace JsonManagers
             IJEnumerable<JToken> result=null;
             result=JToken.Parse(input)[parentNodeName];
             return result;
-       }
+        }
         public IJEnumerable<JToken> ExtractFromParentChildren(string input,  string childNodeName)
         {
             IJEnumerable<JToken> result=null;
             result=JToken.Parse(input).Children()[childNodeName];
             return result;
-       }
+        }
         public IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName, string childNodeName)
         {
             IJEnumerable<JToken> result=null;
             result=JToken.Parse(input)[parentNodeName].Children()[childNodeName];
             return result;
-       }
+        }
         public IJEnumerable<JToken> ExtractFromChildNode(string input, string childNodeName)
         {
             IJEnumerable<JToken> result=null;
             result=JToken.Parse(input).Children()[childNodeName];
             return result;
-       }
+        }
        
         public IJEnumerable<JToken> ExtractFromParentNode(string input)
         {
             IJEnumerable<JToken> result=null;
             result=JToken.Parse(input);
             return result;
-       }
+        }
 
         public IEnumerable<T> DeserializeFromParentNode<T>(string input, string parentNodeName) where T : class
         {
             IEnumerable<T> result=null;
             result=JTokensToCollection<T>(ExtractFromParentNode(input, parentNodeName));
             return result;
-       }
+        }
         public IEnumerable<T> DeserializeFromParentChildren<T>(string input, string childNodeName) where T : class
         {
             IEnumerable<T> result=null;
             result=JTokensToCollectionObjColl<T>(ExtractFromParentChildren(input, childNodeName));
             return result;
-       }
+        }
         public IEnumerable<T> DeserializeFromParentChildNode<T>(string input, string parentNodeName, string childNodeName) where T : class
         {
             IEnumerable<T> result=null;
             result=JTokensToCollection<T>(ExtractFromParentChildNode(input, parentNodeName, childNodeName));
             return result;
-       }
+        }
         public IEnumerable<T> DeserializeFromChildNode<T>(string input, string childNodeName) where T : class
         {
             IEnumerable<T> result=null;
             result=JTokensToCollection<T>(ExtractFromChildNode(input, childNodeName));
             return result;
-       }
+        }
 
         public IEnumerable<T> DeserializeFromParentNode<T>(string input) where T : class
         {
             IEnumerable<T> result=null;
             result=JTokensToCollection<T>(ExtractFromParentNode(input));
             return result;
-       }
+        }
         public IEnumerable<T> DeserializeFromParentNodeObjColl<T>(string input) where T : class
         {
             IEnumerable<T> result=null;
             result=JTokensToCollectionObjColl<T>(ExtractFromParentNode(input));
             return result;
-       }      
+        }      
         
         public string SerializeObject(object input_, JsonSerializerSettings settings_=null)
         {
             string result=string.Empty;          
             result=JsonConvert.SerializeObject(input_, settings_);
             return result;
-       }
+        }
         public string SerializeObject(object input_, JsonConverter converter_=null)
         {
             string result=string.Empty;
             result=JsonConvert.SerializeObject(input_, converter_);
             return result;
-       }
+        }
         public string SerializeObject(object input_)
         {
             JsonSerializerSettings settings_=new JsonSerializerSettings()
@@ -138,20 +138,25 @@ namespace JsonManagers
        }
         public IEnumerable<T> JTokensToCollectionObjColl<T>(IEnumerable<JToken> input) where T : class
         {
-            IEnumerable<T> result=null;
-            foreach (var a in input)
+            IEnumerable<T> result=new List<T>();
+
+            List<T> lt = new List<T>();
+            foreach (JToken a in input)
             {
-                result=a.ToObject<List<T>>();
-           }
+                lt.Add(a.ToObject<T>());                
+            }
+
+            result = lt;
+
             return result;
-       }
+        }
         public T JTokensToCollectionObj<T>(IEnumerable<JToken> input) where T : class
         {
             T result=null;
             foreach (var a in input)
             {
                 result=a.ToObject<T>();
-           }
+            }
             return result;
        }
 

@@ -19,8 +19,8 @@ namespace IQueryManagers
     /// </summary>  
     public interface ITypeToken
     {
-        string Text {get; set;}
-   }
+        string Text {get; set;}      
+    }
 
     public interface ITokenMiniFactory
     {
@@ -30,7 +30,7 @@ namespace IQueryManagers
         ITypeToken Dot();
         ITypeToken Coma();
         ITypeToken Gap();
-   }
+    }
     
     public interface IOrientQueryFactory
     {
@@ -54,10 +54,10 @@ namespace IQueryManagers
         ITypeToken ToToken();
         ITypeToken VertexToken();
         ITypeToken WhereToken();
-   }
+    }
     public interface IOrientBodyFactory
     {
-       
+
         ITypeToken BackSlash();
         ITypeToken Colon();
         ITypeToken Comma();
@@ -74,12 +74,17 @@ namespace IQueryManagers
         ITypeToken LeftSqGap();
         ITypeToken RightSqGap();
         ITypeToken Operations();
-        ITypeToken Quotes();    
+        ITypeToken Quotes();
         ITypeToken Sctipt();
         ITypeToken Transactions();
         ITypeToken True();
+        ITypeToken False();
         ITypeToken Type();
-   } 
+
+        ITypeToken StringToken();
+        ITypeToken BooleanToken();
+
+    }
 
     public interface ICommandFactory
     {
@@ -89,19 +94,19 @@ namespace IQueryManagers
             , List<ITypeToken> tokens_, ITypeToken format_);
 
 
-   }
+    }
 
     public interface IFormatFactory
     {
         IFormatFromListGenerator FormatGenerator(ITokenMiniFactory tokkenFactory_);
-   }
+    }
 
     public interface IFormatFromListGenerator
     {
         ITypeToken FromatFromTokenArray(List<ITypeToken> tokens_, ITypeToken delimeter_=null);
         ITypeToken FromatFromTokenArray(List<ICommandBuilder> tokens_, ITypeToken delimeter_=null);
 
-   }
+    }
 
     //Building Item from Token types
     public interface ICommandBuilder
@@ -124,19 +129,29 @@ namespace IQueryManagers
         string Build(List<ICommandBuilder> tokens_, ITypeToken FormatPattern_);
         string GetText();
         void SetText(List<ITypeToken> tokens_, ITypeToken FormatPattern_);
-   }
+    }
 
     /// <summary>
     /// Converts from Database and POCO classes to Tokens
     /// </summary>
-    public interface ITypeConverter
+    public interface ITypeTokenConverter
     {
         void Add(Type type_, ITypeToken token_);
         ITypeToken Get(IOrientObject object_);
         ITypeToken GetBase(IOrientObject object_);
         ITypeToken Get(Type type_);
         ITypeToken GetBase(Type type_);
-   }
+        ITypeToken Get(string object_);
+        ITypeToken GetBase(string object_);
+
+        Type GegtypeFromAsm(string typeName_, string asm_ = null);
+    }
+
+    public interface IPropertyConverter
+    {      
+        ITypeToken GetBoolean(bool bool_);
+        ITypeToken Get(Type type_);
+    }
 
     //<<< obsolette
     public interface ITokenBuilder
@@ -147,7 +162,7 @@ namespace IQueryManagers
         List<ITypeToken> Command(ITypeToken command_, ITypeToken orientObject, ITypeToken orientType, ITypeToken context_);
         List<ITypeToken> Command(ITypeToken command_, ITypeToken orientObject, ITypeToken orientType, ITypeToken tokenA, ITypeToken tokenB, ITypeToken content );       
 
-   }
+    }
     public interface ITokenBuilderNoGen
     {
 
@@ -155,7 +170,7 @@ namespace IQueryManagers
         List<ITypeToken> Command(ITypeToken command_, IOrientObject orientClass_, ITypeToken orientObject, ITypeToken from, ITypeToken to, ITypeToken content=null);
         List<ITypeToken> Command(ITypeToken command_, IOrientObject orientClass_, ITypeToken orientObject);
 
-   }
+    }
     public interface ITokenBuilderTypeGen
     {
         List<ITypeToken> Command(ITypeToken name_, ITypeToken type_);
@@ -164,6 +179,6 @@ namespace IQueryManagers
         List<ITypeToken> Command(ITypeToken command_, IOrientObject orientClass_,  ITypeToken from, ITypeToken to, ITypeToken content=null);
         List<ITypeToken> Command(ITypeToken command_, IOrientObject orientClass_);
         List<ITypeToken> Command(ITypeToken command_, IOrientObject orientClass_,IOrientObject orientProperty_, ITypeToken orientType_, bool mandatory =false, bool notnull=false);
-   }
+    }
    
 }
