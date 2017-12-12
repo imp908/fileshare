@@ -19,7 +19,7 @@ using OrientRealization;
 namespace Repos
 {
 
-    public class Repo : IRepo
+    public class Repo : IRepo_v1
     {
 
         IJsonManger jm;

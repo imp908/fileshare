@@ -24,12 +24,12 @@ using System.Net;
 using System.Text;
 
 
-namespace UOWs
+namespace PersonUOWs
 {
     
-    public class PersonUOW : IPersonUOW
+    public class PersonUOWold : IPersonUOW
     {
-        IRepo _repo;
+        IRepo_v1 _repo;
         OreintNewsTokenBuilder ob=new OreintNewsTokenBuilder();
         ITypeTokenConverter _typeConverter;
         ICommandBuilder _CommandBuilder;
@@ -38,7 +38,7 @@ namespace UOWs
         IWebManager wm;
         IResponseReader wr;
 
-        public PersonUOW()
+        public PersonUOWold()
         {
             _jsonManager=new JSONManager();
             _tokenAggregator=new OrientTokenBuilder();
@@ -58,11 +58,11 @@ namespace UOWs
             try
             {
                 result=_repo.Select<Person>(typeof(Person), condition_);
-           }
+            }
             catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
             return result;
-       }
+        }
         public string GetByGUID(string GUID)
         {
             string result=string.Empty;
@@ -72,11 +72,11 @@ namespace UOWs
             {
                 persons=_repo.Select<Person>(typeof(Person), condition_);
                 result=_jsonManager.SerializeObject(persons);
-           }
+            }
             catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
             return result;
-       }
+        }
         public IEnumerable<Person> GetAll()
         {
 
@@ -86,11 +86,11 @@ namespace UOWs
             {
                 result=_repo.Select<Person>(typeof(Person), condition_);
 
-           }
+            }
             catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
             return result;
-       }
+        }
 
         public string GetTrackedBirthday(string GUID)
         {
@@ -107,9 +107,9 @@ namespace UOWs
             persons=_repo.Select<Person>(command);
             result=_jsonManager.SerializeObject(persons);
             return result;
-       }
+        }
 
-        public string AddTrackBirthday(OrientEdge edge_, string guidFrom, string guidTo)
+        public string AddTrackBirthday(E edge_, string guidFrom, string guidTo)
         {
             string result=null;
             Person from=GetObjByGUID(guidFrom).FirstOrDefault();
@@ -120,8 +120,8 @@ namespace UOWs
                 result=_repo.Add(edge_, from, to);
            }
             return result;
-       }
-        public string DeleteTrackedBirthday(OrientEdge edge_, string guidFrom, string guidTo)
+        }
+        public string DeleteTrackedBirthday(E edge_, string guidFrom, string guidTo)
         {
             string result=null;
             Person from=GetObjByGUID(guidFrom).FirstOrDefault();
@@ -140,9 +140,9 @@ namespace UOWs
                 result=_repo.Delete(edge_.GetType(), new TextToken() {Text=command});
            }
             return result;
-       }
+        }
 
-   }
+    }
 
 }
 
@@ -634,8 +634,8 @@ namespace Quizes
             ));
             string stringData="{\"transaction\":true,\"operations\":[{\"type\":\"script\",\"language\":\"sql\",\"script\":[ \"select from Quiz\" ]}]}"; //place body here
             stringData="{\"command\":\"select from Quiz where State ='Published'\"}"; //place body here
-            var data=Encoding.ASCII.GetBytes(stringData); // or UTF8
-
+            var data=Encoding.ASCII.GetBytes(stringData); // or UTF8            
+            
             request.Method="POST";
             request.ContentType=""; //place MIME type here
             request.ContentLength=data.Length;
@@ -811,6 +811,67 @@ qL=from s in quizList
             qs.parentid=50;
             
             return qs;
+        }
+
+    }
+
+}
+
+namespace NewsUOWs
+{
+
+    public class NewsUow
+    {
+
+        Manager manager;
+        string dbName;
+
+        public NewsUow()
+        {
+            string login = ConfigurationManager.AppSettings["orient_login"];
+            string password = ConfigurationManager.AppSettings["orient_pswd"];
+            string dbHost = string.Format("{0}:{1}"
+                , ConfigurationManager.AppSettings["ParentHost"]
+                , ConfigurationManager.AppSettings["ParentPort"]);
+            dbName = ConfigurationManager.AppSettings["ParentDB"];
+
+            TypeConverter typeConverter = new TypeConverter();
+            JsonManagers.JSONManager jsonMnager = new JSONManager();
+            TokenMiniFactory tokenFactory = new TokenMiniFactory();
+            UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+                new CommandBuilder(tokenFactory, new FormatFactory())
+                , new FormatFromListGenerator(new TokenMiniFactory())
+                , tokenFactory, new OrientBodyFactory());
+
+            BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
+                new OrientBodyFactory());
+
+            UrlShema.AddHost(dbHost);
+            WebResponseReader webResponseReader = new WebResponseReader();
+            WebRequestManager webRequestManager = new WebRequestManager();
+            webRequestManager.SetCredentials(new NetworkCredential(login, password));
+            CommandFactory commandFactory = new CommandFactory();
+            FormatFactory formatFactory = new FormatFactory();
+            OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
+            OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
+
+            manager = new Manager(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, webRequestManager
+                , webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+
+        }
+
+        public string UserVertexIDfromAccName(string accountName_)
+        {
+            string result = null;
+            var a =from s in manager.Props<Person>().ToList() where s.Name == "sAMAccountName" select s;
+
+            result =manager.SelectItem<Person>("sAMAccountName='" + accountName_+"'", dbName).id;
+            return result;
+        }
+
+        public string UserAcc()
+        {
+            return WebManagers.UserAuthenticationMultiple.UserAcc();
         }
 
     }

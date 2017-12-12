@@ -9,7 +9,9 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Threading;
 using System.Collections.Generic;
-using Newtonsoft.Json;
+using System.Web;
+
+using System.Security.Principal;
 
 namespace WebManagers
 {
@@ -578,4 +580,54 @@ namespace WebManagers
         }
     }
 
+    public static class UserAuthenticationMultiple
+    {
+
+        public static string UserAcc(IPrincipal principal=null)
+        {
+            string result = String.Empty;
+
+            if (principal != null)
+            {
+                //net NTLM auth
+                try
+                {
+                    result = principal.Identity.Name.Split('\\')[1];
+                }
+                catch (Exception e) { }
+            }
+
+            //Environment auth
+            if (result == null || result == string.Empty)
+            {
+                try
+                {
+                    result = HttpContext.Current.User.Identity.Name.ToString().Split('\\')[1];
+                }
+                catch (Exception e) { }
+            }
+
+            //context auth
+            if (result == null || result==string.Empty)
+            {
+                try
+                {
+                    result = Environment.UserName;
+                }
+                catch (Exception e) { }
+                if (result == null || result == string.Empty) { result = "Welcome Guest!"; }
+            }
+            return result;
+        }
+    }
+
+    public class UserAuthenticator
+    {
+        public string AuthenticateUser(IPrincipal principal)
+        {
+            var name = principal.Identity.Name.Split('\\')[1];
+            return name;
+        }
+    }
+   
 }

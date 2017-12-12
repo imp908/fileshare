@@ -14,7 +14,7 @@ using APItesting;
 using IQueryManagers;
 using OrientRealization;
 using Repos;
-using UOWs;
+using PersonUOWs;
 using POCO;
 
 using System.Net;
@@ -23,6 +23,7 @@ using System.Text;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Converters;
+using System.Reflection;
 
 namespace NSQLManager
 {
@@ -35,7 +36,8 @@ namespace NSQLManager
             Trash.FormatRearrange.StringsCheck();
 
             RepoCheck rc=new RepoCheck();
-            rc.ManagerCheck();
+            
+            rc.UOWcheck();
         }
 
     }
@@ -115,6 +117,31 @@ new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00,
 
         }
 
+        public void PropCheck()
+        {
+            propSearch<Person>(new Person() { Seed = 123  });
+
+        }
+        public void propSearch<T>(T item)
+        {
+            var pc = item.GetType().GetProperties();
+            var pc2 = typeof(T).GetProperties();
+     
+            foreach (PropertyInfo ps in pc)
+            {
+                MethodInfo[] mi = ps.GetAccessors(true);
+                Type pt = ps.PropertyType.GetType();
+                Type t = ps.PropertyType;
+                TypeInfo ti = ps.PropertyType.GetTypeInfo();
+                Type ptt = item.GetType().GetProperty(ps.Name).GetType();
+                var a = typeof(T).GetProperty(ps.Name).GetValue(item).GetType();
+                Type tt = a.GetType();
+            }
+        }
+
+        /// <summary>
+        /// Database boilerplate fire
+        /// </summary>
         public void ManagerCheck()
         {
 
@@ -125,37 +152,63 @@ new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00,
                 , ConfigurationManager.AppSettings["ParentPort"]);
             string dbName = ConfigurationManager.AppSettings["TestDBname"];
 
-            TypeConverter tc = new TypeConverter();
-            JsonManagers.JSONManager jm = new JSONManager();
-            TokenMiniFactory tf = new TokenMiniFactory();
-            UrlShemasExplicit us = new UrlShemasExplicit(
-                new CommandBuilder(tf,new FormatFactory()) 
+            TypeConverter typeConverter = new TypeConverter();
+            JsonManagers.JSONManager jsonMnager = new JSONManager();
+            TokenMiniFactory tokenFactory = new TokenMiniFactory();
+            UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+                new CommandBuilder(tokenFactory,new FormatFactory()) 
                 ,new FormatFromListGenerator(new TokenMiniFactory())
-                , tf, new OrientBodyFactory());
+                , tokenFactory, new OrientBodyFactory());
 
-            BodyShemas bs = new BodyShemas(new CommandFactory(),new FormatFactory(),new TokenMiniFactory(),
+            BodyShemas bodyShema = new BodyShemas(new CommandFactory(),new FormatFactory(),new TokenMiniFactory(),
                 new OrientBodyFactory());
 
-            us.AddHost(dbHost);
-            WebResponseReader wr = new WebResponseReader();
-            WebRequestManager wm = new WebRequestManager();
-            wm.SetCredentials(new NetworkCredential(login,password));
-            CommandFactory cf = new CommandFactory();
-            FormatFactory ff = new FormatFactory();
-            OrientQueryFactory oqf = new OrientQueryFactory();
-            OrientCLRconverter pc = new OrientCLRconverter();
+            UrlShema.AddHost(dbHost);
+            WebResponseReader webResponseReader = new WebResponseReader();
+            WebRequestManager webRequestManager = new WebRequestManager();
+            webRequestManager.SetCredentials(new NetworkCredential(login,password));
+            CommandFactory commandFactory = new CommandFactory();
+            FormatFactory formatFactory = new FormatFactory();
+            OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
+            OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
 
-            Manager mng = new Manager(tc,jm,tf,us, bs, wm,wr,cf,ff,oqf,pc);
+            Manager manager = new Manager(typeConverter, jsonMnager,tokenFactory,UrlShema, bodyShema, webRequestManager
+                ,webResponseReader,commandFactory,formatFactory,orientQueryFactory,orientCLRconverter);
 
-            //db crete
-            mng.CreateDb(dbName,dbHost);
+            Person personOne =
+new Person() { Seed =123, Name = "0", GUID = "000", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
 
-            mng.CreateClass("Person","V", dbName);
+            Person personTwo =
+new Person() { Seed = 456, Name = "0", GUID = "001", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
 
-            mng.CreateProperty("Person", "TestProp", typeof(string),true,true,dbName);
+            MainAssignment mainAssignment = new MainAssignment();
 
             //db delete
-            mng.DeleteDb(dbName, dbHost);
+            manager.DeleteDb(dbName, dbHost);
+
+            //db crete
+            manager.CreateDb(dbName,dbHost);
+
+            //create class
+            Type tp = manager.CreateClass<Unit,V>(dbName);
+
+            manager.CreateClass("Person","V", dbName);
+            
+            //create property
+            manager.CreateProperty<Person>(personOne, null);
+            manager.CreateProperty("Unit", "Name", typeof(string), false, false);
+
+            //add vertex
+            Person p0 = manager.CreateVertex<Person>(personTwo, dbName);
+            manager.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
+            Unit u0 = manager.CreateVertex<Unit>(u, dbName);
+
+            MainAssignment maA = manager.CreateEdge<MainAssignment>(mainAssignment,p0, u0, dbName);
+
+            IEnumerable<MainAssignment> a = manager.Select<MainAssignment>("1=1", dbName);
+
+            //db delete
+            manager.DeleteDb(dbName, dbHost);
 
         }
 
@@ -324,7 +377,7 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
                 , ConfigurationManager.AppSettings["ParentPassword"]
                 );
 
-            PersonUOW pUOW=new PersonUOW();
+            PersonUOWold pUOW=new PersonUOWold();
             TrackBirthdays tb=new TrackBirthdays();
 
             Person fromPerson=pUOW.GetObjByGUID(guid_).FirstOrDefault();
@@ -346,7 +399,7 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
                 , ConfigurationManager.AppSettings["orient_pswd"]
                 );
 
-            PersonUOW pUOW=new PersonUOW();
+            PersonUOWold pUOW=new PersonUOWold();
             TrackBirthdays tb=new TrackBirthdays();
             List<Person> personsTo=pUOW.GetAll().Take(3).ToList();
             string personsfrom=null;
@@ -388,11 +441,21 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
               , ConfigurationManager.AppSettings["ParentPassword"]
               );
 
-            PersonUOW pUOW=new PersonUOW();
+            PersonUOWold pUOW=new PersonUOWold();
             TrackBirthdays tb=new TrackBirthdays();
 
         }
- 
+        public void AuthCheck()
+        {
+            string res = UserAuthenticationMultiple.UserAcc();
+        }
+        public void  UOWcheck()
+        {
+            NewsUOWs.NewsUow nu = new NewsUOWs.NewsUow();
+
+            nu.UserVertexIDfromAccName("Neprintsevia");
+        }
+        
     }
 
 }

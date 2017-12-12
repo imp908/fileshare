@@ -10,7 +10,7 @@ namespace IUOWs
         string GetByGUID(string GUID);
         IEnumerable<Person> GetObjByGUID(string GUID);
         string GetTrackedBirthday(string GUID);
-        string AddTrackBirthday(OrientEdge edge_, string guidFrom, string guidTo);
-        string DeleteTrackedBirthday(OrientEdge edge_, string guidFrom, string guidTo);
+        string AddTrackBirthday(E edge_, string guidFrom, string guidTo);
+        string DeleteTrackedBirthday(E edge_, string guidFrom, string guidTo);
    }
 }

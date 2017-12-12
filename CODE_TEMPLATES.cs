@@ -1,29 +1,31 @@
-///Hierarhy
-namespace Parts{
 	
-	#region Names
-	
-{
-"TODO":[
-	{"Infrastructure":[
+	///Hierarhy
+	namespace Parts{
+		
+		#region Names
+		
 		{
-		"Name":""
-		,"What":""
-		,"How":""
-		,"TODO":[]
-		,"DONE":[]
-		,"Test":[]
-		,"Comments":""
+		"TODO":[
+			{"Infrastructure":[
+				{
+				"Name":""
+				,"What":""
+				,"How":""
+				,"TODO":[]
+				,"DONE":[]
+				,"Test":[]
+				,"Comments":""
+				}
+			]}
+			,{"Utility":[]}
+			,{"Mastery":[]}
+			,{"Actual":[]}
+		]
 		}
-	]}
-	,{"Utility":[]}
-	,{"Mastery":[]}
-	,{"Actual":[]}
-]
-}
-	#endregion
-	
-}
+		
+		#endregion
+		
+	}
 
 	//Usefull links
 	public void mostUsefullLinks()
@@ -321,7 +323,10 @@ namespace Parts{
 	//Repository overall
 	http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc	
 	//Not Generic REPOSITORY
-	https://softwareengineering.stackexchange.com/questions/180851/why-shouldnt-i-use-the-repository-pattern-with-entity-framework/220126#220126
+	https://softwareengineering.stackexchange.com/questions/180851/why-shouldnt-i-use-the-repository-pattern-with-entity-framework/220126#220126	
+	//NOSQL
+	//RaveDb
+	http://www.primaryobjects.com/2010/12/22/generating-flying-creatures-in-nosql-ravendb-with-c-asp-net-mvc-razor/
 	
 	
 	
@@ -412,8 +417,7 @@ namespace Parts{
 	
 	}
 	
-	#region TODO
-	
+	#region TODO	
 	{
 		"TODO": [{
 		"Infrastructure": [{
@@ -460,16 +464,7 @@ namespace Parts{
 				  
 					"Name": "NSQLmanager",
 					"What": "OreintDb command builder,REST API executor and parser",
-					   
-		
-					
-												  
-					 
-	  
-	   
-				   
-							 
-														
+						
 					"TODO": [
 						"Rewrite old shemas for new base shema methods",
 						"Check fire working request"
@@ -623,105 +618,104 @@ namespace Parts{
 		}]
 		
 	}
-	
-		public Utility
-		{
-			
-		public NSQL 
-			{
-			
-			public ClassSegregation 
-				{
-
-				
-		//shema
-		.select()=>select+gap
-		.from()=>from+ITk
-		.batch()
-
-				
-		//command
-		.select(T,V)=>shema.select(T)+shema from(V) LEFTINTEND
-
-
-		//context
-		<< host,dbname
-		new Context(string host,string dbname
-		,webRequestManager wm
-		,webResponseReader wr
-		,UrlShemasExplicit urlShemas_){
-			webRequestManager.SetBase64AuthHeader(string orientAuth);
-		}
-
-		Context.CreateDb(){
-			createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-		}
-		Context.DropDb(){
-			dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
-		}
-		Context.Command(ICommandBuilder cmd){
-			urlCommand=_urlShemas.Command(dbName).Build().GetText();
-			buildRequest();
-			createClass=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-		}
-		Context.Batch(ICommandBuilder cmd){
-			urlCommand=_urlShemas.Batch(dbName).Build().GetText();
-			buildRequest();
-			insertPerson=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-		}
-		internal buildRequest(){
-			urlDatabase=_urlShemas.Database(dbName).GetText();
-			webRequestManager.AddRequest(urlDatabase);
-			webRequestManager.SetCredentials(nc);
-		}
-		string fireRequest(){
-			webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-		}
-
-
-		//Repo
-		<< Context _context,T<Vertex|Edge>
-		new Repo<T>(Context _context)
-		_repo.ChangeContext(Context context_){this._context=context_;}
-		//create class
-		<class> _repo.Create<class>(ITypeToken T);
-		//create class extends
-		<class> _repo.Create<class,extendes>(ITypeToken T,ITypeToken V);
-		//create Vertex or property
-		<Vertex|Property> _repo.Create<Vertex|Property>(T type_,ICommandBuilder _content=null);
-		//create Edge
-		<Edge> _repo.Create<Edge,fromID,toId>(ITypeToken Edge,ITypeToken idfrom,ITypeToken idTo,ICommandBuilder _content=null);
-		//delete Vertex or Edge
-		<string> _repo.Delete(ITypeToken id);
-		//delete property 
-		<string> _repo.Delete<Property>(ITypeToken id);
-		//select Vertex or Edge [where]
-		<Vertex|Edge> _repo.Select<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-		//update Vertex or Edge [where]
-		<Vertex|Edge> _repo.Update<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-
-
-		//Type converter
-		(UOW)-[TypeConverter{Type->ITtypeToken}]->(Repo)
-
-
-		//UOW
-		//IUOW
-		new UOW(ContextFactory_,RepoFactory_,TypeConverter tc,string host_,string dbName_);
-		//UOW
-		new UOW(context_,repo_,_typeConverter,string host_,string dbName_);
-		_uow.ChangeHost(string host_){}; => recreate context
-		_uow.ChangeDb(string dbName_){}; => recreate context
-
-		//for vertex creation
-		_uow.Create<IorientObject>(Iobj) => convert to vertex ItypeToken, if  and to content if not null
-		//for vertex creation
-		_uow.Create<IorientObject>(Iobj)
-
-				}
-			}
 		
+		public Utility
+{
+		
+public NSQL 
+	{
+	
+	public ClassSegregation 
+		{
+
+		
+//shema
+.select()=>select+gap
+.from()=>from+ITk
+.batch()
+
+		
+//command
+.select(T,V)=>shema.select(T)+shema from(V) LEFTINTEND
+
+
+//context
+<< host,dbname
+new Context(string host,string dbname
+,webRequestManager wm
+,webResponseReader wr
+,UrlShemasExplicit urlShemas_){
+	webRequestManager.SetBase64AuthHeader(string orientAuth);
+}
+
+Context.CreateDb(){
+	createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+}
+Context.DropDb(){
+	dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
+}
+Context.Command(ICommandBuilder cmd){
+	urlCommand=_urlShemas.Command(dbName).Build().GetText();
+	buildRequest();
+	createClass=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+}
+Context.Batch(ICommandBuilder cmd){
+	urlCommand=_urlShemas.Batch(dbName).Build().GetText();
+	buildRequest();
+	insertPerson=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+}
+internal buildRequest(){
+	urlDatabase=_urlShemas.Database(dbName).GetText();
+	webRequestManager.AddRequest(urlDatabase);
+	webRequestManager.SetCredentials(nc);
+}
+string fireRequest(){
+	webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+}
+
+
+//Repo
+<< Context _context,T<Vertex|Edge>
+new Repo<T>(Context _context)
+_repo.ChangeContext(Context context_){this._context=context_;}
+//create class
+<class> _repo.Create<class>(ITypeToken T);
+//create class extends
+<class> _repo.Create<class,extendes>(ITypeToken T,ITypeToken V);
+//create Vertex or property
+<Vertex|Property> _repo.Create<Vertex|Property>(T type_,ICommandBuilder _content=null);
+//create Edge
+<Edge> _repo.Create<Edge,fromID,toId>(ITypeToken Edge,ITypeToken idfrom,ITypeToken idTo,ICommandBuilder _content=null);
+//delete Vertex or Edge
+<string> _repo.Delete(ITypeToken id);
+//delete property 
+<string> _repo.Delete<Property>(ITypeToken id);
+//select Vertex or Edge [where]
+<Vertex|Edge> _repo.Select<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
+//update Vertex or Edge [where]
+<Vertex|Edge> _repo.Update<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
+
+
+//Type converter
+(UOW)-[TypeConverter{Type->ITtypeToken}]->(Repo)
+
+
+//UOW
+//IUOW
+new UOW(ContextFactory_,RepoFactory_,TypeConverter tc,string host_,string dbName_);
+//UOW
+new UOW(context_,repo_,_typeConverter,string host_,string dbName_);
+_uow.ChangeHost(string host_){}; => recreate context
+_uow.ChangeDb(string dbName_){}; => recreate context
+
+//for vertex creation
+_uow.Create<IorientObject>(Iobj) => convert to vertex ItypeToken, if  and to content if not null
+//for vertex creation
+_uow.Create<IorientObject>(Iobj)
+
 		}
+	}
+}
 
 		public class Mastery
 		{
@@ -1983,8 +1977,7 @@ StringBuilder.
 
 				//build v14.0
 				C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe "C:\workflow\projects\Dev\Intranet Development\AddressBook_News2\AddressBook_News2-branch1\AddressBook_News.sln" /p:Configuration=Debug  /p:VisualStudioVersion=14.0;BaseOutputPath=bin\res
-			
-			}
+				
 				
 			public class Unsorted
 			{
@@ -2958,7 +2951,6 @@ StringBuilder.
 		
 		
 		}
-			
 			public void SB()
 			{
 				
@@ -3139,25 +3131,24 @@ StringBuilder.
 				}    
 				
 			}
-	
 	}
 
-	public class External_Libraries()
-	{
-				
-	//reading excel
-	http://epplus.codeplex.com/
-	//Entity Framework extensions
-	http://entityframework-extensions.net/
-	//nUnit
-	https://github.com/nunit/nunit
-	
-	
-	
-	}
+		public class External_Libraries()
+		{
+					
+		//reading excel
+		http://epplus.codeplex.com/
+		//Entity Framework extensions
+		http://entityframework-extensions.net/
+		//nUnit
+		https://github.com/nunit/nunit
+		
+		
+		
+		}
 
-	public class IssuesErrors()
-	{
+		public class IssuesErrors()
+		{
 
 		//Issues\Errors
 		public void .NET()
@@ -3316,7 +3307,8 @@ access, please check that you have enabled metadata publishing at the specified 
 		
 	}
 	
-		
+	}
+	
 	#endregion 	
 	
 	#region C++ 
@@ -3388,7 +3380,9 @@ access, please check that you have enabled metadata publishing at the specified 
 			
 			
 		}
-			
+
+		
+		
 	}
 
 	public Code Examples
@@ -7142,9 +7136,9 @@ Orient_REST_FIDDLER(){
 	{"command": "CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);"}
 	{"command": "CREATE class  Person extends V;"}
 	{"command": "CREATE class  Unit extends V;"}
-	{ "command": "CREATE class MainAssignment extends E;"}
-	{"command":"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"}
-	 {   "transaction":true,"operations":[   {"type":"script","language":"sql","script":[   "Create Vertex Person content {"Name":"0","GUID":"1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}"   ]}]}   
+	{"command": "CREATE class MainAssignment extends E;"}
+	{"command": "CREATE vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"}
+	{"transaction":true,"operations":[{"type":"script","language":"sql","script":["Create Vertex Person content {"Name":"0","GUID":"1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}"]}]}   
   
   
 	
@@ -7443,10 +7437,10 @@ host:port/batch/dbname ;
 ]
 
 
-///command formats
+//command formats
 ///Property foreach prop of class, with type convert, nullable,
 ///pregen foramat for small token collections, then aggregate them, in command token collections
-///{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
+//{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
 format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
 create class [V/E] <extends [V/E]>
 
@@ -7478,8 +7472,9 @@ format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1}
 		
 
 					}
-			
-			}							
+			}
+		
+		}
 			
 			public void Maintenance()
 			{
@@ -7679,6 +7674,7 @@ update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник 
 update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела технического администрирования'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника отдела'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника Отдела взаимоотношений с поставщиками'
+
 	}
 
 	public void Initial_PersonApi_Functions()
@@ -8135,15 +8131,16 @@ metadata {
 	SearchPersonExactly : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").Name[0],Name[0]) ,'0' ) as division , ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, LastName.append(' ').append(FirstName.substring( 0, 1 )).append('. ').append(MiddleName.substring( 0, 1 )).append('.') as shortFName, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate, GetPositionBar(InE().Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass, GetDepartmentName(GUID)[departmentName][0] as departmentName, sAMAccountName as login from Person WHERE sAMAccountName = '""+userLogin+""' and (inE(\""MainAssignment\"")[0].Disabled is null or inE(\""MainAssignment\"")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\' )""); return b; 
 	}
 		
-  public FunctionsTest(){
+	}
+	
+	public FunctionsTest(){
 		
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1b0ff45-5cb1-11e7-8117-005056813668
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1a4c984-a00e-11e6-80db-005056813668
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1b0ff45-5cb1-11e7-8117-00505681366
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentLevel/c1b0ff45-5cb1-11e7-8117-005056813668
 	
-						}																	
-	
+	}
 	
 			}
 
@@ -9352,10 +9349,7 @@ in v out
 			}
 			
 		}
-			
-		
-		}
-		
+					
 		public void Neo4J()
 		{
 			neo4j:root
@@ -10038,8 +10032,8 @@ RAW JSON
 		
 	#endregion
 		
-	#region OS		
-		
+	#region OS
+	
 		public Windows
 		{
 			public CMD
@@ -10150,7 +10144,7 @@ RAW JSON
 				}
 				
 				public TerminalCommands
-				{	
+				{				
 					sudo apt-get update && sudo apt-get upgrade
 					sudo apt-get -f install
 					sudo dpkg --purge --force-depends libpowerdevilcore0 libtaskmanager4b
@@ -10199,31 +10193,6 @@ RAW JSON
 			
 				public Pakets
 				{
-					public Samba
-					{
-						
-https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20(Command-line%20interface/Linux%20Terminal)%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way!
-sudo apt-get update
-sudo apt-get install samba
-sudo smbpasswd -a <user_name>.
-mkdir /home/<user_name>/<folder_name>
-sudo cp /etc/samba/smb.conf ~
-sudo nano /etc/samba/smb.conf
-
-Once "smb.conf" has loaded, add this to the very end of the file:
-
-[<folder_name>]
-path = /home/<user_name>/<folder_name>
-valid users = <user_name>
-read only = no
-
-sudo service smbd restart
-
-//in windows file explorere
-\\192.168.0.103\sharefolder
-
-					}
-					
 					public Mercurial
 					{
 						sudo add-apt-repository universse
@@ -10244,11 +10213,10 @@ sudo service smbd restart
 						sudo pip install psutil logutils bottle batinfo https://bitbucket.org/gleb_zhulik/py3sensors/get/tip.tar.gz zeroconf netifaces pymdstat influxdb elasticsearch potsdb statsd pystache docker-py pysnmp pika py-cpuinfo bernhard
 						sudo pip install glances
 					}
-				
 				}
 			}
-			
 		}
 	
 	#endregion
+
 	

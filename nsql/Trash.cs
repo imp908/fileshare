@@ -20,7 +20,7 @@ using IQueryManagers;
 using QueryManagers;
 using APItesting;
 using OrientRealization;
-using UOWs;
+using PersonUOWs;
 using Repos;
 using IUOWs;
 
@@ -689,7 +689,7 @@ namespace Trash
 
         public RepoCheck()
         {
-            pUOW=new PersonUOW();
+            pUOW=new PersonUOWold();
             jm=new JSONManager();
             ta=new OrientTokenBuilder();
             tc=new TypeConverter();

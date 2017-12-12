@@ -59,6 +59,7 @@ namespace IQueryManagers
     {
 
         ITypeToken BackSlash();
+        ITypeToken Slash();
         ITypeToken Colon();
         ITypeToken Comma();
         ITypeToken Batch();

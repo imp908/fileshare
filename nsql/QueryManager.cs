@@ -228,7 +228,7 @@ namespace QueryManagers
             }
             //<<< change
             else {
-                if (formatPatern_ != null) {
+                if (formatPatern_ != null && formatPatern_.Text != string.Empty) {
                     this.FormatPattern=formatPatern_;                   
                }else
                 {
@@ -603,14 +603,12 @@ namespace QueryManagers
     public class FormatFromListGenerator : IFormatFromListGenerator
     {
         ITokenMiniFactory _factory;
-        string _result;
         string placeholder;
         List<int> elements_;
        
         public FormatFromListGenerator(ITokenMiniFactory factory)
         {
-            this._factory=factory;
-            _result="{}";                        
+            this._factory=factory;                               
             placeholder=@"} {";
         }
         void delimeterCheck(ITypeToken delimeter_=null)
