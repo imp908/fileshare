@@ -37,7 +37,7 @@ namespace NSQLManager
 
             RepoCheck rc=new RepoCheck();
             
-            rc.UOWcheck();
+            rc.ManagerCheck();
         }
 
     }
@@ -173,15 +173,16 @@ new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00,
             OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
 
             Manager manager = new Manager(typeConverter, jsonMnager,tokenFactory,UrlShema, bodyShema, webRequestManager
-                ,webResponseReader,commandFactory,formatFactory,orientQueryFactory,orientCLRconverter);
+                ,webResponseReader,commandFactory,formatFactory,orientQueryFactory,orientCLRconverter);            
 
+            //node objects for insertion
             Person personOne =
 new Person() { Seed =123, Name = "0", GUID = "000", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
-
             Person personTwo =
 new Person() { Seed = 456, Name = "0", GUID = "001", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
+            MainAssignment mainAssignment=new MainAssignment();
 
-            MainAssignment mainAssignment = new MainAssignment();
+            //Type tpp = manager.CreateClass<Note, V>("news_test5");
 
             //db delete
             manager.DeleteDb(dbName, dbHost);
@@ -190,22 +191,47 @@ new Person() { Seed = 456, Name = "0", GUID = "001", Changed = new DateTime(2017
             manager.CreateDb(dbName,dbHost);
 
             //create class
-            Type tp = manager.CreateClass<Unit,V>(dbName);
+            Type tp=manager.CreateClass<Unit,V>(dbName);
+            Type nt=manager.CreateClass<Note, V>(dbName);
+            Type obc=manager.CreateClass<Object_SC, V>(dbName);
+            Type auCl = manager.CreateClass<Authorship, E>(dbName);
+            Type cmCl = manager.CreateClass<Comment, E>(dbName);
 
-            manager.CreateClass("Person","V", dbName);
+            Note ntCl = new Note();
+            Note ntCl0 = new Note() { name = "test name", content = "test content" };
+            Object_SC obs = new Object_SC() { GUID = "1", changed = DateTime.Now, created = DateTime.Now, disabled = DateTime.Now };
+            manager.CreateVertex<Note>(ntCl, dbName);
+            manager.CreateVertex<Object_SC>(obs, dbName);
+
+            manager.CreateClass("Person","V",dbName);
             
             //create property
             manager.CreateProperty<Person>(personOne, null);
             manager.CreateProperty("Unit", "Name", typeof(string), false, false);
 
-            //add vertex
+            //add node
             Person p0 = manager.CreateVertex<Person>(personTwo, dbName);
             manager.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
             Unit u0 = manager.CreateVertex<Unit>(u, dbName);
 
+            //add relation
             MainAssignment maA = manager.CreateEdge<MainAssignment>(mainAssignment,p0, u0, dbName);
-
+            
+            //select from relation
             IEnumerable<MainAssignment> a = manager.Select<MainAssignment>("1=1", dbName);
+
+            Note ntCr=manager.CreateVertex<Note>(ntCl0, dbName);
+            Authorship aut=new Authorship();
+            Authorship aCr=manager.CreateEdge<Authorship>(aut,p0,ntCr,dbName);
+
+
+            
+            //delete edge
+            string res=manager.DeleteEdge<Authorship, Person, Note>(p0, ntCr).GetResult();
+            //Delete concrete node
+            res=manager.Delete<Unit>(u0).GetResult();
+            //delete all nodes of type
+            res=manager.Delete<Person>().GetResult();
 
             //db delete
             manager.DeleteDb(dbName, dbHost);
@@ -221,7 +247,6 @@ new Person() { Seed = 456, Name = "0", GUID = "001", Changed = new DateTime(2017
             JSONManager jm = new JSONManager();
 
             IEnumerable<List<AdinTce.Holiday>> a = jm.DeserializeFromParentChildren<List<AdinTce.Holiday>>(hs, "Holidays");
-
         }
         public void QuizCheck()
         {
@@ -451,9 +476,14 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
         }
         public void  UOWcheck()
         {
-            NewsUOWs.NewsUow nu = new NewsUOWs.NewsUow();
+            NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow();
 
-            nu.UserVertexIDfromAccName("Neprintsevia");
+            Person p=newsUOW.GetByAccount("Neprintsevia");
+            Note nt=new Note() { name = "from prog", content = "very intresting" };
+            Authorship atr=new Authorship();
+
+            Note nCr=newsUOW.CreateNews(p, nt);
+            string res=newsUOW.DeleteNews(p, nCr.id);
         }
         
     }

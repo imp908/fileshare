@@ -164,6 +164,122 @@ namespace NSQLManagerTests.Tests
        
    }
 
+    public class IntegrationMnagerFireTest
+    {
+        Manager mng;
+        Person p;
+        Unit u;
+        MainAssignment mainAssignment;
+
+        string login, password, dbHost, dbName;
+
+        public IntegrationMnagerFireTest()
+        {
+            login = ConfigurationManager.AppSettings["orient_login"];
+            password = ConfigurationManager.AppSettings["orient_pswd"];
+            dbHost = string.Format("{0}:{1}"
+                , ConfigurationManager.AppSettings["ParentHost"]
+                , ConfigurationManager.AppSettings["ParentPort"]);
+            dbName = ConfigurationManager.AppSettings["TestDBname"];
+
+            p =
+new Person() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
+
+            u =
+new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
+
+            mainAssignment = new MainAssignment();
+
+            TypeConverter tc = new TypeConverter();
+            JsonManagers.JSONManager jm = new JSONManager();
+            TokenMiniFactory tf = new TokenMiniFactory();
+            UrlShemasExplicit us = new UrlShemasExplicit(
+                new CommandBuilder(tf, new FormatFactory())
+                , new FormatFromListGenerator(new TokenMiniFactory())
+                , tf, new OrientBodyFactory());
+
+            BodyShemas bs = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
+                new OrientBodyFactory());
+
+            us.AddHost(dbHost);
+            WebResponseReader wr = new WebResponseReader();
+            WebRequestManager wm = new WebRequestManager();
+            wm.SetCredentials(new NetworkCredential(login, password));
+            CommandFactory cf = new CommandFactory();
+            FormatFactory ff = new FormatFactory();
+            OrientQueryFactory oqf = new OrientQueryFactory();
+            OrientCLRconverter pc = new OrientCLRconverter();
+
+            mng = new Manager(tc, jm, tf, us, bs, wm, wr, cf, ff, oqf, pc);
+
+        }
+
+        bool NotNullNotEmpty(string str_)
+        {
+            if (str_ == null) { return false; }
+            if (str_ == string.Empty) { return false; }
+            return true;
+        }
+
+        [Fact]
+        public void DbBoilerplateCheck()
+        {
+
+            //db delete
+            mng.DeleteDb(dbName, dbHost);
+
+            //db crete
+            string CreateResult = mng.CreateDb(dbName, dbHost).GetResult();
+
+            //create class
+            Type crClstr = mng.CreateClass<Unit,V>(dbName);
+            Type maClstr = mng.CreateClass<MainAssignment, E>(dbName);
+
+            string crClmt = mng.CreateClass("Person", "V", dbName).GetResult();
+
+            //create property
+            Person crPrstr = mng.CreateProperty<Person>(p, null);
+            string crPrmt = mng.CreateProperty("Unit", "Name", typeof(string), false, false).GetResult();
+
+            //add vertex
+            Person crVrtstr = mng.CreateVertex<Person>(p, dbName);
+            string crVrtmt = mng.CreateVertex("Unit", "{\"Name\":\"TestName\"}", null).GetResult();
+            Unit u0 = mng.CreateVertex<Unit>(u, dbName);
+
+            MainAssignment maA = mng.CreateEdge<MainAssignment>(mainAssignment, crVrtstr, u0, dbName);
+
+            IEnumerable<Person> selectMt = mng.Select<Person>("1=1", dbName);
+
+            IEnumerable<MainAssignment> a = mng.Select<MainAssignment>("1=1", dbName);
+
+            //db delete
+            string DeleteResult = mng.DeleteDb(dbName, dbHost).GetResult();
+
+
+
+            Assert.Equal("Created", CreateResult);
+
+            Assert.NotNull(crClstr);
+            Assert.True(NotNullNotEmpty(crClmt));
+
+            Assert.NotNull(crPrstr);
+            Assert.True(NotNullNotEmpty(crPrmt));
+
+            Assert.NotNull(crVrtstr);
+            Assert.True(NotNullNotEmpty(crVrtmt));
+
+            Assert.NotNull(u0);
+            Assert.NotNull(maA);           
+
+            Assert.True(selectMt.Count() > 0);
+            Assert.True(a.Count() > 0);
+
+            Assert.Equal("Deleted", DeleteResult);
+
+        }
+
+    }
+
     public class IntegrationCombatTest
     {
         CommandsChain commandOne;
@@ -688,6 +804,21 @@ namespace NSQLManagerTests.Tests
             Assert.Equal("Select Select Name,GUID", result);
        }
 
+        [Fact]
+        public void ChainingChainCreateEdgeFromTo()
+        {
+            ITypeToken edgeTk = miniFactory.NewToken("MainAssignment");
+            ITypeToken fromId = miniFactory.NewToken("#15:0");
+            ITypeToken toId = miniFactory.NewToken("#16:0");
+            ITypeToken edgCnt = null;            
+
+            this.commandOne.Create().Edge(edgeTk).FromV(fromId).ToV(toId).Content(edgCnt)
+                   .GetBuilder().Build();
+
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("Create Edge MainAssignment from #15:0 To #16:0", result);
+        }
+        
 
         [Fact]
         public void ChainingNestChainExtendedCheck()
@@ -703,7 +834,8 @@ namespace NSQLManagerTests.Tests
         [Fact]
         public void ChainingNestChainCheck()
         {
-            this.commandOne.From().Select().Nest(new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(), new TextToken() {Text=string.Empty});
+            this.commandOne.From().Select()
+.Nest(new OrientRoundBraketLeftToken(), new OrientRoundBraketRightToken(), new TextToken() {Text=string.Empty});
 
             string result=this.commandOne.GetCommand();
             Assert.Equal("(Select  from)", result);
@@ -1339,6 +1471,8 @@ namespace NSQLManagerTests.Tests
             Assert.Equal("Create class", result);
         }
 
+      
+
         #endregion
 
         #region Where
@@ -1399,6 +1533,14 @@ namespace NSQLManagerTests.Tests
         }
         #endregion
 
+        #region Content
+        [Fact]
+        public void SchemaContentCheck()
+        {
+            string result = this.commandShemas.Content(new TextToken() { Text = "{\"a\":\"0\"}" }).Build().GetText();
+            Assert.Equal(" content {\"a\":\"0\"}", result);
+        }
+        #endregion 
     }
 
     public class FormatGeneratorTest
@@ -2202,6 +2344,60 @@ namespace NSQLManagerTests.Tests
 
        }
 
+
+    }
+
+    public class NewsUOWCHeck
+    {
+
+        NewsUOWs.NewsUow nu;
+        public NewsUOWCHeck()
+        {
+            nu = new NewsUOWs.NewsUow();
+        }
+
+        [Fact]
+        public void UOWAccCheck()
+        {
+            string result = nu.UserAcc();
+            Assert.Equal("Neprintsevia", result);
+        }
+        [Fact]
+        public void UOWByAccCheck()
+        {
+            string result = nu.GetByAccount("Neprintsevia").id;
+            Assert.Equal("#22:174", result);
+        }
+        [Fact]
+        public void UOWByNameCheck()
+        {
+            IEnumerable<Person> result = nu.SearchByName("олов");
+            Assert.NotEmpty(result);
+        }
+        [Fact]
+        public void UOWbyIdCheck()
+        {
+            string result = nu.GetOrientObjectById<Person>("22:174").id;
+            Assert.Equal("#22:174",result);
+        }
+        [Fact]
+        public void UOWCreateNewsCheck()
+        {            
+            JSONManager jm = new JSONManager();
+            Note nt = new Note() { content = "Very interesting new", Name="News" };            
+            string news = jm.SerializeObject(nt);
+            Person p = nu.GetByAccount("Neprintsevia");
+            string result = nu.CreateNews(p, nt).id;
+            Assert.NotNull(result);
+        }
+        [Fact]
+        public void UOWDeleteRelation()
+        {
+            Person p = nu.GetByAccount("Neprintsevia");
+            
+            string result = nu.DeleteNews(p, "");
+            Assert.Equal("Deleted", result);
+        }
 
     }
 

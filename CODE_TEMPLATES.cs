@@ -620,102 +620,104 @@
 	}
 		
 		public Utility
-{
-		
-public NSQL 
-	{
-	
-	public ClassSegregation 
 		{
+				
+			public NSQL 
+			{
+			
+				public ClassSegregation 
+				{
 
-		
-//shema
-.select()=>select+gap
-.from()=>from+ITk
-.batch()
+				
+		//shema
+		.select()=>select+gap
+		.from()=>from+ITk
+		.batch()
 
-		
-//command
-.select(T,V)=>shema.select(T)+shema from(V) LEFTINTEND
-
-
-//context
-<< host,dbname
-new Context(string host,string dbname
-,webRequestManager wm
-,webResponseReader wr
-,UrlShemasExplicit urlShemas_){
-	webRequestManager.SetBase64AuthHeader(string orientAuth);
-}
-
-Context.CreateDb(){
-	createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-}
-Context.DropDb(){
-	dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
-}
-Context.Command(ICommandBuilder cmd){
-	urlCommand=_urlShemas.Command(dbName).Build().GetText();
-	buildRequest();
-	createClass=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-}
-Context.Batch(ICommandBuilder cmd){
-	urlCommand=_urlShemas.Batch(dbName).Build().GetText();
-	buildRequest();
-	insertPerson=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-}
-internal buildRequest(){
-	urlDatabase=_urlShemas.Database(dbName).GetText();
-	webRequestManager.AddRequest(urlDatabase);
-	webRequestManager.SetCredentials(nc);
-}
-string fireRequest(){
-	webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-}
+				
+		//command
+		.select(T,V)=>shema.select(T)+shema from(V) LEFTINTEND
 
 
-//Repo
-<< Context _context,T<Vertex|Edge>
-new Repo<T>(Context _context)
-_repo.ChangeContext(Context context_){this._context=context_;}
-//create class
-<class> _repo.Create<class>(ITypeToken T);
-//create class extends
-<class> _repo.Create<class,extendes>(ITypeToken T,ITypeToken V);
-//create Vertex or property
-<Vertex|Property> _repo.Create<Vertex|Property>(T type_,ICommandBuilder _content=null);
-//create Edge
-<Edge> _repo.Create<Edge,fromID,toId>(ITypeToken Edge,ITypeToken idfrom,ITypeToken idTo,ICommandBuilder _content=null);
-//delete Vertex or Edge
-<string> _repo.Delete(ITypeToken id);
-//delete property 
-<string> _repo.Delete<Property>(ITypeToken id);
-//select Vertex or Edge [where]
-<Vertex|Edge> _repo.Select<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-//update Vertex or Edge [where]
-<Vertex|Edge> _repo.Update<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-
-
-//Type converter
-(UOW)-[TypeConverter{Type->ITtypeToken}]->(Repo)
-
-
-//UOW
-//IUOW
-new UOW(ContextFactory_,RepoFactory_,TypeConverter tc,string host_,string dbName_);
-//UOW
-new UOW(context_,repo_,_typeConverter,string host_,string dbName_);
-_uow.ChangeHost(string host_){}; => recreate context
-_uow.ChangeDb(string dbName_){}; => recreate context
-
-//for vertex creation
-_uow.Create<IorientObject>(Iobj) => convert to vertex ItypeToken, if  and to content if not null
-//for vertex creation
-_uow.Create<IorientObject>(Iobj)
-
+		//context
+		<< host,dbname
+		new Context(string host,string dbname
+		,webRequestManager wm
+		,webResponseReader wr
+		,UrlShemasExplicit urlShemas_){
+			webRequestManager.SetBase64AuthHeader(string orientAuth);
 		}
-	}
-}
+
+		Context.CreateDb(){
+			createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+		}
+		Context.DropDb(){
+			dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
+		}
+		Context.Command(ICommandBuilder cmd){
+			urlCommand=_urlShemas.Command(dbName).Build().GetText();
+			buildRequest();
+			createClass=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+		}
+		Context.Batch(ICommandBuilder cmd){
+			urlCommand=_urlShemas.Batch(dbName).Build().GetText();
+			buildRequest();
+			insertPerson=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+		}
+		internal buildRequest(){
+			urlDatabase=_urlShemas.Database(dbName).GetText();
+			webRequestManager.AddRequest(urlDatabase);
+			webRequestManager.SetCredentials(nc);
+		}
+		string fireRequest(){
+			webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+		}
+
+
+		//Repo
+		<< Context _context,T<Vertex|Edge>
+		new Repo<T>(Context _context)
+		_repo.ChangeContext(Context context_){this._context=context_;}
+		//create class
+		<class> _repo.Create<class>(ITypeToken T);
+		//create class extends
+		<class> _repo.Create<class,extendes>(ITypeToken T,ITypeToken V);
+		//create Vertex or property
+		<Vertex|Property> _repo.Create<Vertex|Property>(T type_,ICommandBuilder _content=null);
+		//create Edge
+		<Edge> _repo.Create<Edge,fromID,toId>(ITypeToken Edge,ITypeToken idfrom,ITypeToken idTo,ICommandBuilder _content=null);
+		//delete Vertex or Edge
+		<string> _repo.Delete(ITypeToken id);
+		//delete property 
+		<string> _repo.Delete<Property>(ITypeToken id);
+		//select Vertex or Edge [where]
+		<Vertex|Edge> _repo.Select<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
+		//update Vertex or Edge [where]
+		<Vertex|Edge> _repo.Update<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
+
+
+		//Type converter
+		(UOW)-[TypeConverter{Type->ITtypeToken}]->(Repo)
+
+
+		//UOW
+		//IUOW
+		new UOW(ContextFactory_,RepoFactory_,TypeConverter tc,string host_,string dbName_);
+		//UOW
+		new UOW(context_,repo_,_typeConverter,string host_,string dbName_);
+		_uow.ChangeHost(string host_){}; => recreate context
+		_uow.ChangeDb(string dbName_){}; => recreate context
+
+		//for vertex creation
+		_uow.Create<IorientObject>(Iobj) => convert to vertex ItypeToken, if  and to content if not null
+		//for vertex creation
+		_uow.Create<IorientObject>(Iobj)
+
+				}
+			
+			}
+		
+		}
 
 		public class Mastery
 		{
@@ -7114,8 +7116,9 @@ Orient_REST_API(){
 Orient_REST_FIDDLER(){
 		
 	POST/DELETE
-	http://localhost:2480/database/demo/plocal
-
+	http://localhost:2480/database/demo/plocal	
+	//delete response
+	{"result":[{"@type":"d","@version":0,"value":0}]}
 
 	http://localhost:2480/connect/test_db1
 	User-Agent: Fiddler

@@ -39,10 +39,21 @@ namespace POCO
         public string type {get;set;}
         [JsonProperty("@rid")]
         public string id {get;set;}
-
         public string version {get;set;}
-
         public string class_ {get; set;}
+    }
+    public class Object_SC : V
+    {
+        [JsonProperty("GUID", Order = 2)]
+        public string GUID { get; set; } = null;
+        [JsonProperty("Created", Order = 3)]
+        public DateTime? created { get; set; } = null;
+        [JsonProperty("Changed", Order = 4)]
+        public DateTime? changed { get; set; } = null;
+        [JsonProperty("Disabled", Order = 5)]
+        public DateTime? disabled { get; set; } = null;
+        [JsonProperty("Content", Order = 2)]
+        public string content { get; set; } = null;
     }
     public class E : IOrientEdge
     {
@@ -160,18 +171,44 @@ namespace POCO
     */
 
     //Note
-    public class Object : V
+    public class Note : V
     {
         string somethingNew { get; set; }
-        string Name { get; set; }
-        string name { get; set; }
-        string Content { get; set; }
+        public string Name { get; set; }
+
+        public string pic { get; set; } = string.Empty;
+        public string name { get; set; } = string.Empty;
+        public string guid { get; set; } = null;
+        public string content { get; set; } = string.Empty;
+        public string description { get; set; } = string.Empty;
+
+        public DateTime? pinned { get; set; } = null;
+        public DateTime? published { get; set; } = null;
+
+        int likes { get; set; } = 0;
+        bool liked { get; set; } = false;
     }
     public class Comment : E
     {
-
+        DateTime? When { get; set; }
     }
-    
+    public class Authorship : E
+    {
+        string strField { get; set; }
+    }
+    public class Like : E
+    {
+        int cnt { get; set; }
+    }
+    public class Tagged : E
+    {
+        string tagText { get; set; }
+    }
+    public class Tag : V
+    {
+        string tagText{ get; set; }
+    }
+
     //for spagetty check
     public class MigrateCollection
     {

@@ -828,6 +828,7 @@ namespace NewsUOWs
 
         public NewsUow()
         {
+
             string login = ConfigurationManager.AppSettings["orient_login"];
             string password = ConfigurationManager.AppSettings["orient_pswd"];
             string dbHost = string.Format("{0}:{1}"
@@ -860,13 +861,78 @@ namespace NewsUOWs
 
         }
 
-        public string UserVertexIDfromAccName(string accountName_)
+        public Person GetByAccount(string accountName_)
         {
-            string result = null;
-            var a =from s in manager.Props<Person>().ToList() where s.Name == "sAMAccountName" select s;
-
-            result =manager.SelectItem<Person>("sAMAccountName='" + accountName_+"'", dbName).id;
+            Person result=null;
+            var a=from s in manager.Props<Person>().ToList() where s.Name=="sAMAccountName" select s;
+            result=manager.SelectSingle<Person>("sAMAccountName='" + accountName_+"'", dbName);
             return result;
+        }
+        public Person GetByGUID(string GUID_)
+        {
+            Person result = null;            
+            result = manager.SelectSingle<Person>("GUID='" + GUID_ + "'", dbName);
+            return result;
+        }
+        public IEnumerable<Person> SearchByName(string Name_)
+        {
+            IEnumerable<Person> result=null;
+            result=manager
+                .Select<Person>("Name like '%"+Name_+"%' or sAMAccountName like '%"+Name_+"%'or mail like '%"+Name_+"%'"
+                ,dbName);
+            return result;
+        }
+
+        public T GetOrientObjectById<T>(string id_)
+            where T: class, IOrientObjects.IOrientObject
+        {
+            T result = null;
+            result = manager.Select<T>("@rid=" + id_ , dbName).FirstOrDefault();
+            return result;
+        }
+
+        public Note CreateNews(Person from, string news_)
+        {
+            Note note_ = manager.CreateVertex<Note>(news_, dbName);
+            Note created =CreateNews(from, note_);
+            return created;
+        }
+        public Note CreateNews(Person from,Note note_)
+        {
+            Authorship auth = new Authorship() { type = "Printed" };
+            Note nt_=manager.CreateVertex<Note>(note_, dbName);
+            Authorship newAuth = manager.CreateEdge<Authorship>(auth, from, nt_);
+            if(auth==null || note_==null)
+            {
+                manager.Delete<Note>(note_, null, dbName);
+                manager.Delete<Authorship>(auth, null, dbName);
+            }
+            return nt_;
+        }
+        //todo
+        public IEnumerable<Note>GetNews(Person p)
+        {
+            IEnumerable<Note> result = manager.Select<Note>("", dbName);
+            return result;
+        }
+
+        public string DeleteNews(Person from, string id_)
+        {
+            string result = string.Empty;
+            Note ntd = GetOrientObjectById<Note>(id_);
+
+            if (ntd != null) {
+                string deleteN=manager.DeleteEdge<Authorship,Person,Note>(from,ntd,null,dbName).GetResult();
+                string deleteR=manager.Delete<Note>(ntd, null, dbName).GetResult();
+                if(deleteN=="Deleted"&&deleteR == "Deleted") { result = "Deleted"; }
+            }
+            return result;
+        }
+
+        public IEnumerable<Note> GetPersonNews()
+        {
+            //return manager.Select<Person, Note>();
+            return null;
         }
 
         public string UserAcc()

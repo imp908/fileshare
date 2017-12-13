@@ -67,7 +67,14 @@ namespace QueryManagers
         {
             return new OrientGapToken();
         }
-
+        public ITypeToken Deleted()
+        {
+            return new UOWDeletedToken();
+        }
+        public ITypeToken Created()
+        {
+            return new UOWCreatedToken();
+        }
     }    
 
     public class CommandFactory : ICommandFactory
@@ -444,85 +451,87 @@ namespace QueryManagers
         }
         public static string Rearrange(string input_)
         {
-
-            string result=input_;
-            char[] chr=input_.ToCharArray();
-            int lng=chr.Length;
-
-            char[] prevDigit=null;
-            char[] currDigit=null;
-            char[] insDigit=null;
-
-            int i2=0;
-
-            for (int i=0; i < lng; i++)
+            string result = null;
+            if (input_ != null)
             {
-                i2=i;
-                if (char.IsDigit(chr[i2]))
+                result = input_;
+                char[] chr = input_.ToCharArray();
+                int lng = chr.Length;
+
+                char[] prevDigit = null;
+                char[] currDigit = null;
+                char[] insDigit = null;
+
+                int i2 = 0;
+
+                for (int i = 0; i < lng; i++)
                 {
-                    if (i2 + 1 < lng)
+                    i2 = i;
+                    if (char.IsDigit(chr[i2]))
                     {
-                        while (char.IsDigit(chr[i2 + 1]))
+                        if (i2 + 1 < lng)
                         {
-                            i2++;
+                            while (char.IsDigit(chr[i2 + 1]))
+                            {
+                                i2++;
+                            }
+                        }
+
+                        if (prevDigit == null)
+                        {
+                            currDigit = ChArrFill(i, i2, chr);
+                            if (charArrToInteger(currDigit) != 0)
+                            {
+                                insDigit = intToCharArr(0);
+                                prevDigit = insDigit;
+                                char[] chrN = InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
+                                result = new string(chrN);
+                                chr = chrN;
+                                lng = chr.Length;
+                            }
+                            else { prevDigit = currDigit; }
+
+                        }
+                        else
+                        {
+                            currDigit = ChArrFill(i, i2, chr);
+                            if (!check(currDigit, prevDigit))
+                            {
+                                insDigit = intToCharArr(charArrToInteger(prevDigit) + 1);
+                                char[] chrN = InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
+                                prevDigit = insDigit;
+
+                                /*
+                                char[] chrN=new char[chr.Length + currDigit.Length - prevDigit.Length];
+
+                                for (int i4=0; i4 < i; i4++)
+                                {
+                                    chrN[i4]=chr[i4];
+                               }
+                                for (int i4=i; i4 <= i2; i4++)
+                                {
+                                    chrN[i4]=currDigit[i4-i];
+                               }
+                                for (int i4=i2+1; i4 < lng; i4++)
+                                {
+                                    chrN[i4]=chr[i4];
+                               }
+                                */
+
+                                result = new string(chrN);
+                                chr = chrN;
+                                lng = chr.Length;
+                            }
+                            else { prevDigit = currDigit; }
+                        }
+                        if (prevDigit != null)
+                        {
+                            i += prevDigit.Length - 1;
                         }
                     }
 
-                    if (prevDigit == null)
-                    {
-                        currDigit=ChArrFill(i, i2, chr);
-                        if (charArrToInteger(currDigit) != 0)
-                        {
-                            insDigit=intToCharArr(0);
-                            prevDigit=insDigit;
-                            char[] chrN=InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
-                            result=new string(chrN);
-                            chr=chrN;
-                            lng=chr.Length;
-                        }
-                        else {prevDigit=currDigit;}
-
-                    }
-                    else
-                    {
-                        currDigit=ChArrFill(i, i2, chr);
-                        if (!check(currDigit, prevDigit))
-                        {
-                            insDigit=intToCharArr(charArrToInteger(prevDigit) + 1);
-                            char[] chrN=InsertDigitInPosition(insDigit, chr, i, currDigit.Length);
-                            prevDigit=insDigit;
-
-                            /*
-                            char[] chrN=new char[chr.Length + currDigit.Length - prevDigit.Length];
-
-                            for (int i4=0; i4 < i; i4++)
-                            {
-                                chrN[i4]=chr[i4];
-                           }
-                            for (int i4=i; i4 <= i2; i4++)
-                            {
-                                chrN[i4]=currDigit[i4-i];
-                           }
-                            for (int i4=i2+1; i4 < lng; i4++)
-                            {
-                                chrN[i4]=chr[i4];
-                           }
-                            */
-
-                            result=new string(chrN);
-                            chr=chrN;
-                            lng=chr.Length;
-                        }
-                        else {prevDigit=currDigit;}
-                    }
-                    if (prevDigit != null)
-                    {
-                        i += prevDigit.Length - 1;
-                    }
                 }
-
             }
-
             return result;
         }
 
@@ -692,27 +701,30 @@ namespace QueryManagers
                 //}
             }
 
-            result_=formatFromArray();
+            if (this.elements_.Count() > 0)
+            {
+                result_ = formatFromArray();
 
-            //List<ITypeToken> formats_=new List<ITypeToken>();
-            //foreach(ICommandBuilder b in builders_)
-            //{
-            //    if (b != null)
-            //    {
-            //        if (b.FormatPattern != null) {formats_.Add(b.FormatPattern);}
-            //        else
-            //        {
-            //            formats_.Add(
-            //                FromatFromTokenArray(b.Tokens, (ITypeToken)null)
-            //            );
-            //       }
-            //   }
-            //}
+                //List<ITypeToken> formats_=new List<ITypeToken>();
+                //foreach(ICommandBuilder b in builders_)
+                //{
+                //    if (b != null)
+                //    {
+                //        if (b.FormatPattern != null) {formats_.Add(b.FormatPattern);}
+                //        else
+                //        {
+                //            formats_.Add(
+                //                FromatFromTokenArray(b.Tokens, (ITypeToken)null)
+                //            );
+                //       }
+                //   }
+                //}
 
-            //string[] formatsArr=(from s in formats_ select s.Text).ToArray();
+                //string[] formatsArr=(from s in formats_ select s.Text).ToArray();
 
-            //res.Text=string.Format(result_, formatsArr);
-            res.Text=result_;
+                //res.Text=string.Format(result_, formatsArr);
+                res.Text = result_;
+            }
             return res;
         }
        
