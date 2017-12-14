@@ -33,6 +33,8 @@ namespace IQueryManagers
 
         ITypeToken Deleted();
         ITypeToken Created();
+
+        ITypeToken Apostrophe();
     }
     
     public interface IOrientQueryFactory
@@ -58,6 +60,16 @@ namespace IQueryManagers
         ITypeToken ToToken();
         ITypeToken VertexToken();
         ITypeToken WhereToken();
+
+        ITypeToken In();
+        ITypeToken Out();
+        ITypeToken E();
+        ITypeToken V();
+
+        ITypeToken As();
+
+        ITypeToken Expand();
+
     }
     public interface IOrientBodyFactory
     {

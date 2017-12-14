@@ -36,8 +36,9 @@ namespace NSQLManager
             Trash.FormatRearrange.StringsCheck();
 
             RepoCheck rc=new RepoCheck();
-            
-            rc.ManagerCheck();
+
+            rc.ManagerCheck(false);
+            rc.UOWRandomcheck();
         }
 
     }
@@ -142,7 +143,7 @@ new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00,
         /// <summary>
         /// Database boilerplate fire
         /// </summary>
-        public void ManagerCheck()
+        public void ManagerCheck(bool cleanUpAter = true)
         {
 
             string login = ConfigurationManager.AppSettings["orient_login"];
@@ -177,11 +178,23 @@ new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00,
 
             //node objects for insertion
             Person personOne =
-new Person() { Seed =123, Name = "0", GUID = "000", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
-            Person personTwo =
-new Person() { Seed = 456, Name = "0", GUID = "001", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
+new Person(){Seed=123,Name="0",GUID="000",Changed=new DateTime(2017,01,01,00,00,00),Created=new DateTime(2017,01,01,00,00,00)};
+            Person personTwo=
+new Person(){Seed=456,Name="0",GUID="001",Changed=new DateTime(2017,01,01,00,00,00),Created=new DateTime(2017,01,01,00,00,00)};
             MainAssignment mainAssignment=new MainAssignment();
 
+            List<Person> personsToAdd = new List<Person>() {
+new Person(){
+Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",GUID="000"
+,Changed=new DateTime(2017,01,01,00,00,00),Created=new DateTime(2017,01,01,00,00,00)
+}       
+    };
+            for(int i=0;i<=10;i++)
+            {
+                personsToAdd.Add(
+                    new Person() { sAMAccountName = "Person"+i, Name = "Person"+i }
+                    );
+            }
             //Type tpp = manager.CreateClass<Note, V>("news_test5");
 
             //db delete
@@ -194,8 +207,9 @@ new Person() { Seed = 456, Name = "0", GUID = "001", Changed = new DateTime(2017
             Type tp=manager.CreateClass<Unit,V>(dbName);
             Type nt=manager.CreateClass<Note, V>(dbName);
             Type obc=manager.CreateClass<Object_SC, V>(dbName);
-            Type auCl = manager.CreateClass<Authorship, E>(dbName);
-            Type cmCl = manager.CreateClass<Comment, E>(dbName);
+            Type auCl=manager.CreateClass<Authorship, E>(dbName);
+            Type cmCl=manager.CreateClass<Comment, E>(dbName);
+            Type maCl=manager.CreateClass<MainAssignment, E>(dbName);
 
             Note ntCl = new Note();
             Note ntCl0 = new Note() { name = "test name", content = "test content" };
@@ -214,6 +228,13 @@ new Person() { Seed = 456, Name = "0", GUID = "001", Changed = new DateTime(2017
             manager.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
             Unit u0 = manager.CreateVertex<Unit>(u, dbName);
 
+            //add test person
+            foreach (Person prs in personsToAdd)
+            {
+                Person p = manager.CreateVertex<Person>(prs, null);
+            }
+
+
             //add relation
             MainAssignment maA = manager.CreateEdge<MainAssignment>(mainAssignment,p0, u0, dbName);
             
@@ -224,17 +245,18 @@ new Person() { Seed = 456, Name = "0", GUID = "001", Changed = new DateTime(2017
             Authorship aut=new Authorship();
             Authorship aCr=manager.CreateEdge<Authorship>(aut,p0,ntCr,dbName);
 
+            if (cleanUpAter)
+            {
+                //delete edge
+                string res = manager.DeleteEdge<Authorship, Person, Note>(p0, ntCr).GetResult();
+                //Delete concrete node
+                res = manager.Delete<Unit>(u0).GetResult();
+                //delete all nodes of type
+                res = manager.Delete<Person>().GetResult();
 
-            
-            //delete edge
-            string res=manager.DeleteEdge<Authorship, Person, Note>(p0, ntCr).GetResult();
-            //Delete concrete node
-            res=manager.Delete<Unit>(u0).GetResult();
-            //delete all nodes of type
-            res=manager.Delete<Person>().GetResult();
-
-            //db delete
-            manager.DeleteDb(dbName, dbHost);
+                //db delete
+                manager.DeleteDb(dbName, dbHost);
+            }
 
         }
 
@@ -474,18 +496,98 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
         {
             string res = UserAuthenticationMultiple.UserAcc();
         }
-        public void  UOWcheck()
+        public void UOWRandomcheck()
         {
-            NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow();
 
-            Person p=newsUOW.GetByAccount("Neprintsevia");
-            Note nt=new Note() { name = "from prog", content = "very intresting" };
-            Authorship atr=new Authorship();
+List<string> idioticNews = new List<string> {
+"Fire on the sun!","Internet trolls are jerks","Bugs flying around with wings are flying bugs","Chuck norris facts are they true?"
+,"Health officials: Pools and diarea not good mix","Tiger wood He's goo at Golf","A nuclear explosion would be adisaster",
+"Russians are comming!","Rain creates wet roads"
+};
 
-            Note nCr=newsUOW.CreateNews(p, nt);
-            string res=newsUOW.DeleteNews(p, nCr.id);
-        }
+List<string> bullshitComments = new List<string>
+{
+"Supper!","Awasome!","How could thishappen!","i am stonned...","Ggggg "
+};
+
+//select expand(outE('Authorship').inV('Note')) from Person
+//traverse both() from (select expand(outE('Authorship').inV('Note')) from Person)
+    
+NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings["TestDBname"]);
+
+            List<Note> newsCreated = new List<Note>();
+            List<Note> commentsCreated = new List<Note>();
+            List<Person> personsAdded = new List<Person>();       
+
+            List<Note> news = new List<Note>();
+            foreach(string noteCont in idioticNews)
+            {
+news.Add(new Note() { name = noteCont, content = "here goes text of really fucking interesting news" });
+            }
+
+            List<Note> comments = new List<Note>();
+            foreach(string comment in bullshitComments)
+            {
+comments.Add(new Note() { name = comment, content = "here goes text of really fucking interesting news" });
+            }
+
+            personsAdded = newsUOW.GetOrientObjects<Person>(null).ToList();
+            
+            Random rnd=new Random();
+            int newsCount = idioticNews.Count() - 1;
+            int commentsCount = bullshitComments.Count() - 1;
+
+            //generate news 
+            foreach (Person p in personsAdded)
+            {
+                //news published count
+                int gap=(int)rnd.Next(0,5);
+                
+                if (gap > 0)
+                {                    
+                    for (int i = 0; i <= gap;i++)
+                    {
+                        //news index
+                        int newsRndInd=(int)rnd.Next(0, newsCount-1);
+                        newsCreated.Add(newsUOW.CreateNews(p, news[newsRndInd]));
+                    }
+                }                
+            }
+
+            //Generate commentaries
+            foreach (Person p in personsAdded)
+            {
+                //comments count
+                int gap = (int)rnd.Next(0, 5);
+
+                if (gap > 0)
+                {
+                    for (int i = 0; i <= gap;i++)
+                    {
+                        //created news gap
+                        newsCount = newsCreated.Count();
+                        //news index
+                        int newsRndInd = (int)rnd.Next(0, newsCount - 1);
+                        int commentRndInd = (int)rnd.Next(0, commentsCount - 1);
+                        commentsCreated.Add(newsUOW.CreateCommentary(p, newsCreated[newsRndInd], comments[commentRndInd]));
+                        
+                    }
+                }               
+
+            }
+
+            //traverse both() from (select from Person)
+            foreach (Note ntd in news)
+            {
+                newsUOW.DeleteNews(p, ntd.id);
+            }
         
+
+        }
+        public void UOWcheck()
+        {
+
+        }
     }
 
 }

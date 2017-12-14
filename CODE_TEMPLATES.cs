@@ -9286,11 +9286,13 @@ return b;
 	
 //<< I (try it out)
 //inverted V E In Out
+{
 (v)-[e]->(v)
 out e in 
 
 [e]->(v)->[e]
 in v out
+}
 
 //<< II
 //Traverse out -> shows nested Nodes but select from (traverse ) =< not
@@ -9325,18 +9327,18 @@ in v out
 
 //<< IX (stink it)
 //unpredicable commenaries
+//Exmpl: delete class with double gap throws error
 
 //<<X (i pee on you)
 //insert create from sql throught let absolutely fucked up syntax
 //http://orientdb.com/docs/last/Sequences-and-auto-increment.html
 //and this is described in docs Voila!
 
-
-//XI (surpise motherfuc.er!!)
+//XI (surpise motherfucker!!)
 //not all properties seen in schema
 //maybe cause script classses creation
 
-//XII (basic maths problems - developer not counter)
+//XII (basic maths problems - developer not accounter)
 //How the fuck does this even works (..<2..>1..)?
 //match {class:Person }.in("MainAssignment").out("SubUnit"){as: u, while: ($depth < 2),where: ($depth > 1)} return u
 //More fucks with (..=2..<2..)
@@ -9347,7 +9349,13 @@ in v out
 // \\" solves " but intrevals disappear
 
 //XIV
-//functions not visible from OFunction class
+//some functions not visible from OFunction class
+
+//XV
+//batch not indeponent, class and property creeation onl from command or batch with let
+
+//XVI
+//content property in Nodes or Relations broke batch command
 
 			}
 			

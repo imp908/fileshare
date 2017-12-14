@@ -258,7 +258,7 @@ namespace WebManagers
             }
             else
             {
-                _content=Encoding.ASCII.GetBytes(value);
+                _content = Encoding.UTF8.GetBytes(value);
             }
         }
         void bindContent()
@@ -270,11 +270,11 @@ namespace WebManagers
                     this._request.ContentType="application/json";
                     this._request.ContentLength=_content.Length;
                     using (Stream str=this._request.GetRequestStream())
-                    {
+                    {                                               
                         str.Write(_content, 0, _content.Length);                       
                     }
                 }
-                catch (Exception e) {}
+                catch(Exception e){}
 
             }
         }

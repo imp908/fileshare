@@ -826,7 +826,7 @@ namespace NewsUOWs
         Manager manager;
         string dbName;
 
-        public NewsUow()
+        public NewsUow(string databaseName=null)
         {
 
             string login = ConfigurationManager.AppSettings["orient_login"];
@@ -834,7 +834,11 @@ namespace NewsUOWs
             string dbHost = string.Format("{0}:{1}"
                 , ConfigurationManager.AppSettings["ParentHost"]
                 , ConfigurationManager.AppSettings["ParentPort"]);
-            dbName = ConfigurationManager.AppSettings["ParentDB"];
+            if (databaseName == null)
+            {
+                dbName = ConfigurationManager.AppSettings["ParentDB"];
+            }
+            else { dbName = databaseName; }
 
             TypeConverter typeConverter = new TypeConverter();
             JsonManagers.JSONManager jsonMnager = new JSONManager();
@@ -881,34 +885,101 @@ namespace NewsUOWs
                 .Select<Person>("Name like '%"+Name_+"%' or sAMAccountName like '%"+Name_+"%'or mail like '%"+Name_+"%'"
                 ,dbName);
             return result;
-        }
+        }        
 
         public T GetOrientObjectById<T>(string id_)
-            where T: class, IOrientObjects.IOrientObject
+            where T: class, IOrientObjects.IOrientEntity
         {
             T result = null;
             result = manager.Select<T>("@rid=" + id_ , dbName).FirstOrDefault();
             return result;
         }
-
-        public Note CreateNews(Person from, string news_)
+        public T GetOrientObject<T>(T object_)
+           where T : class, IOrientObjects.IOrientEntity
         {
-            Note note_ = manager.CreateVertex<Note>(news_, dbName);
-            Note created =CreateNews(from, note_);
+            T result = null;
+            result = manager.Select<T>("@rid=" + object_.id, dbName).FirstOrDefault();
+            return result;
+        }
+        public IEnumerable<T> GetOrientObjects<T>(string cond_=null)
+           where T : class, IOrientObjects.IOrientEntity
+        {
+            IEnumerable<T> result = null;
+            result = manager.Select<T>(cond_, dbName);
+            return result;
+        }
+
+        public Note CreateCommentary(Person from, string newsId_, string comment_)
+        {
+            Authorship auth = new Authorship() { type = "Printed" };
+            Comment commented = new Comment() { type = "Printed" };
+
+            //commentary Node created and relation from person created
+            Note commentary_ = CreateNews(from, comment_);
+
+            if (commentary_ != null)
+            {
+                Note newsToComment_ = manager.SelectSingle<Note>("@rid=" + newsId_, dbName);
+                if (newsToComment_ != null)
+                {
+                    //create relation from commment to news Nodes
+                    manager.CreateEdge<Comment>(commented, newsToComment_,commentary_ );
+                }
+                else
+                {
+                    //unsuccesfull news search
+                    //manager.Delete<Note>(commentary_);
+                }
+            }
+
+            return commentary_;
+        }
+        public Note CreateCommentary(Person from, Note newsId_, Note comment_)
+        {
+            Authorship auth = new Authorship() { type = "Printed" };
+            Comment commented = new Comment() { type = "Printed" };
+
+            //commentary Node created and relation from person created
+            Note commentary_ = CreateNews(from, comment_);
+
+            if (commentary_ != null)
+            {
+                Note newsToComment_ = manager.SelectSingle<Note>("@rid=" + newsId_.id, dbName);
+                if (newsToComment_ != null)
+                {
+                    //create relation from commment to news Nodes
+                    Comment commentedCr=manager.CreateEdge<Comment>(commented, newsToComment_,commentary_);
+                }
+                else
+                {
+                    //unsuccesfull news search
+                    //manager.Delete<Note>(commentary_);
+                }
+            }
+
+            return commentary_;
+        }    
+        public Note CreateNews(Person from,string news_)
+        {
+            Note note_=manager.CreateVertex<Note>(news_, dbName);
+            Note created=CreateNews(from, note_);
             return created;
         }
         public Note CreateNews(Person from,Note note_)
         {
-            Authorship auth = new Authorship() { type = "Printed" };
+            Authorship auth=new Authorship() {type = "Printed"};
             Note nt_=manager.CreateVertex<Note>(note_, dbName);
-            Authorship newAuth = manager.CreateEdge<Authorship>(auth, from, nt_);
-            if(auth==null || note_==null)
+            Authorship newAuth=manager.CreateEdge<Authorship>(auth,from,nt_);
+
+            //if unsucceced clean created objects
+            if(auth==null||note_==null)
             {
-                manager.Delete<Note>(note_, null, dbName);
-                manager.Delete<Authorship>(auth, null, dbName);
+                manager.Delete<Note>(note_,null,dbName);
+                manager.Delete<Authorship>(auth,null,dbName);
             }
             return nt_;
         }
+        
         //todo
         public IEnumerable<Note>GetNews(Person p)
         {
@@ -929,10 +1000,9 @@ namespace NewsUOWs
             return result;
         }
 
-        public IEnumerable<Note> GetPersonNews()
+        public IEnumerable<Note> GetPersonNews(Person p_=null)            
         {
-            //return manager.Select<Person, Note>();
-            return null;
+            return manager.Select<Person,Authorship, Note>(p_);          
         }
 
         public string UserAcc()

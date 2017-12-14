@@ -75,6 +75,11 @@ namespace QueryManagers
         {
             return new UOWCreatedToken();
         }
+        public ITypeToken Apostrophe()
+        {
+            return new OrientApostropheToken();
+        }
+
     }    
 
     public class CommandFactory : ICommandFactory
