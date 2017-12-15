@@ -22,7 +22,8 @@ namespace IJsonManagers
         IEnumerable<T> DeserializeFromParentChildNode<T>(string input, string parentNodeName, string childNodeName) where T : class;
         IEnumerable<T> DeserializeFromChildNode<T>(string input, string childNodeName) where T : class;
         IEnumerable<T> DeserializeFromParentChildren<T>(string input, string childNodeName) where T : class;
-        IEnumerable<T> DeserializeFromParentNodeObjColl<T>(string input) where T : class;
+        IEnumerable<T> DeserializeFromParentNodeStringArr<T>(string input) where T : class;
+        T DeserializeFromParentNodeStringObj<T>(string input) where T : class;
 
         IEnumerable<T> JTokensToCollection<T>(IEnumerable<JToken> input) where T : class;
         string CollectionToStringFormat<T>(IEnumerable<T> list_, JsonSerializerSettings jss=null) where T : class;

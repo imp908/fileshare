@@ -482,7 +482,7 @@ namespace Trash
             TextToken content=new TextToken() {Text=contentText};
 
             List<ITypeToken> CreateTokens=new List<ITypeToken>() {
-                new OrientCreateToken(),new OrientVertexToken(),new OrientPersonToken(), new OrientContentToken()
+                new OrientUUIDToken(),new OrientVertexToken(),new OrientPersonToken(), new OrientContentToken()
                 , content};
             OrientCreateVertexCluaseFormat cf=new OrientCreateVertexCluaseFormat();
             CommandBuilder cb=new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), CreateTokens, cf);

@@ -106,7 +106,7 @@ namespace NSQLManagerTests.Tests
             //wm.SetTimeout(5000);
             code=((HttpWebResponse)wm.GetHttpResponse("GET")).StatusCode;
             Assert.Equal(HttpStatusCode.OK, code);
-       }
+        }
         [Fact]
         public void WebManager2AddRequestPOSTCheck()
         {
@@ -115,7 +115,7 @@ namespace NSQLManagerTests.Tests
             wm.AddRequest(testUrl);
             code=((HttpWebResponse)wm.GetHttpResponse("POST")).StatusCode;
             Assert.Equal(HttpStatusCode.OK, code);
-       }
+        }
         [Fact]
         public void WebManager2AddRequestSwapGetPostCheckSameMethodsAndURL()
         {
@@ -160,8 +160,8 @@ namespace NSQLManagerTests.Tests
             Assert.Equal(methodAfter, aMa);
             Assert.Equal(methodDelete, aMd);
             Assert.Equal(methodPut, aMp);
-       }
-       
+        }
+               
    }
 
     public class IntegrationMnagerFireTest
@@ -210,7 +210,10 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             OrientQueryFactory oqf = new OrientQueryFactory();
             OrientCLRconverter pc = new OrientCLRconverter();
 
-            mng = new Manager(tc, jm, tf, us, bs, wm, wr, cf, ff, oqf, pc);
+            CommandShemasExplicit cs = new CommandShemasExplicit(cf, ff,
+       new TokenMiniFactory(), new OrientQueryFactory());
+
+            mng = new Manager(tc, jm, tf, us, bs, cs, wm, wr, cf, ff, oqf, pc);
 
         }
 
@@ -222,7 +225,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         }
 
         [Fact]
-        public void DbBoilerplateCheck()
+        public void ManagerDbBoilerplateCheck()
         {
 
             //db delete
@@ -276,7 +279,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             Assert.Equal("Deleted", DeleteResult);
 
-        }
+        }      
 
     }
 
@@ -554,7 +557,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             Assert.NotNull(createDb);
             Assert.Equal(string.Empty, dropDb);
        }
-
+        
     }
 
     public class OrientWebManagerIntegrationTests
@@ -666,7 +669,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             );
 
             this.commandOne=CommandInit();
-       }
+        }
 
         public CommandsChain CommandInit()
         {
@@ -676,7 +679,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             CommandFactory commandFactory=new CommandFactory();
 
             return new CommandsChain(tokenMiniFactory, tokenQueryFactory, formatFactoy, commandFactory);
-       }
+        }
 
         //VERTEX
         [Fact]
@@ -721,7 +724,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 "Create Property UserSettings.showBirthday BOOLEAN";
 
             Assert.Equal(exp, res);
-       }
+        }
         [Fact]
         public void ChainingCreatePropertyStringCheck()
         {
@@ -739,7 +742,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 "Create Property VSC.Name STRING (MANDATORY TRUE,NOTNULL TRUE)";
 
             Assert.Equal(exp, res);
-       }
+        }
 
         //CLASS
         [Fact]
@@ -759,7 +762,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             Assert.Equal(exp, res);
 
-       }
+        }
 
 
         //NEST
@@ -769,7 +772,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             this.commandOne.NestSq();
             string result=this.commandOne.GetCommand();
             Assert.Equal("[]", result);
-       }
+        }
         [Fact]
         public void ChainingNestSelectNestSquareCheck()
         {
@@ -777,7 +780,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                 .NestSq().From().Select();
             string result=this.commandOne.GetCommand();
             Assert.Equal("Select  from[Select Name,GUID from]", result);
-       }
+        }
         [Fact]
         public void ChainingNestSelectNestRoundCheck()
         {
@@ -785,7 +788,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                 .NestRnd().From().Select();
             string result=this.commandOne.GetCommand();
             Assert.Equal("Select  from(Select Name,GUID from)", result);
-       }
+        }
         [Fact]
         public void ChainingChainSelectFromParamCheck()
         {
@@ -795,14 +798,14 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             string result=this.commandOne.GetCommand();
             Assert.Equal("Select  from(Select Name,GUID from)", result);
-       }
+        }
         [Fact]
         public void ChainingChainSelectParameterCheck()
         {
             this.commandOne.Select(commandBuilder_SelectFrom).Select();
             string result=this.commandOne.GetCommand();
             Assert.Equal("Select Select Name,GUID", result);
-       }
+        }
 
         [Fact]
         public void ChainingChainCreateEdgeFromTo()
@@ -830,7 +833,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             string result=this.commandOne.GetCommand();
             Assert.Equal("(Select Name,GUID fromCreate Class V Extends VSC)", result);
-       }
+        }
         [Fact]
         public void ChainingNestChainCheck()
         {
@@ -839,7 +842,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             string result=this.commandOne.GetCommand();
             Assert.Equal("(Select  from)", result);
-       }
+        }
 
         [Fact]
         public void ChainingClassCheck()
@@ -848,7 +851,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             string result=this.commandOne.GetCommand();
             Assert.Equal(" Class", result);
-       }
+        }
 
         [Fact]
         public void ChainingCreateChainCheck()
@@ -858,8 +861,9 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             string result=this.commandOne.GetCommand();
             Assert.Equal("Create Class V Extends VSC", result);
-       }
+        }
 
+        //WHERE
         [Fact]
         public void ChainingWhereParamCheck()
         {
@@ -871,21 +875,34 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             this.commandOne.Where(cb);
             string result=this.commandOne.GetCommand();
             Assert.Equal(" where 1=1", result);
-       }
+        }
         [Fact]
         public void ChainingWhereCheck()
         {
             this.commandOne.Where();
             string result=this.commandOne.GetCommand();
             Assert.Equal(" where", result);
-       }
+        }
         [Fact]
         public void ChainingNestCheck()
         {
             this.commandOne.NestRnd();
             string result=this.commandOne.GetCommand();
             Assert.Equal("()", result);
-       }
+        }
+
+        //EXPAND
+        [Fact]
+        public void ChainingExpandCheck()
+        {
+            ITypeToken t0 = miniFactory.NewToken("Person");
+            ITypeToken t1 = miniFactory.NewToken("Note");
+            ITypeToken t2 = miniFactory.NewToken("r1");
+
+            this.commandOne.Select().InV(t1).As(t2).FromV(t0).Expand(t2);
+            string result = this.commandOne.GetCommand();
+            Assert.Equal("Select expand(r1) from(Select  inV('Note')  as r1 from Person )", result);
+        }
 
     }
 
@@ -1280,7 +1297,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
       
             CommandBuilder cbd=new CommandBuilder(new TokenMiniFactory(), new FormatFactory());
             cbd.AddTokens(new List<ITypeToken>() {
-                new OrientCreateToken()
+                new OrientUUIDToken()
                 , new OrientClassToken()
                 , new OrientPropertyToken()
                });
@@ -1530,7 +1547,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                 new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(selectNameGuidAccTokenListForBuiler, tokenfactory.Coma()));
             string result = this.commandShemas.Select(this.commandBuilder).GetText();
             Assert.Equal("Select Name,GUID,Acc ", result);
-        }
+        }       
         #endregion
 
         #region Content
@@ -1540,7 +1557,25 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             string result = this.commandShemas.Content(new TextToken() { Text = "{\"a\":\"0\"}" }).Build().GetText();
             Assert.Equal(" content {\"a\":\"0\"}", result);
         }
-        #endregion 
+        #endregion
+
+        #region ExpandInV
+        [Fact]
+        public void ShemaInVCheck()
+        {
+            string result = this.commandShemas.InV(new TextToken() { Text= "Note" }).Build().GetText();            
+            Assert.Equal(" inV('Note')", result);
+        }
+        [Fact]
+        public void ShemaExpandCheck()
+        {
+            this.commandBuilder.Build(selectNameGuidAccTokenListForBuiler,
+                new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(selectNameGuidAccTokenListForBuiler, tokenfactory.Coma()));
+
+            string result = this.commandShemas.Expand(this.commandBuilder,new TextToken() { Text="r1"}).Build().GetText();
+            Assert.Equal("select expand(r1) from(Select Name,GUID,Acc )", result);
+        }
+        #endregion
     }
 
     public class FormatGeneratorTest
@@ -1989,7 +2024,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             TextToken content=new TextToken() {Text=contentText};
 
             List<ITypeToken> CreateTokens=new List<ITypeToken>() {
-                new OrientCreateToken(),new OrientVertexToken(),new OrientPersonToken(), new OrientContentToken()
+                new OrientUUIDToken(),new OrientVertexToken(),new OrientPersonToken(), new OrientContentToken()
                 , content};
             OrientCreateVertexCluaseFormat cf=new OrientCreateVertexCluaseFormat();           
             CommandBuilder cb=new CommandBuilder(
@@ -2022,7 +2057,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             TextToken personContent=new TextToken() {Text=contentText};
 
             List<ITypeToken> CreateTokens =
-    new List<ITypeToken>() {new OrientCreateToken(), new OrientVertexToken(), new OrientPersonToken(), new OrientContentToken(), personContent};
+    new List<ITypeToken>() {new OrientUUIDToken(), new OrientVertexToken(), new OrientPersonToken(), new OrientContentToken(), personContent};
             List<ITypeToken> selectTokens =
     new List<ITypeToken>() {new OrientSelectToken(), new OrientFromToken(), new OrientPersonToken()};
             List<ITypeToken> DeleteToken =
@@ -2096,7 +2131,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             List<ITypeToken> tt=new List<ITypeToken>()
             {
-                 new OrientCreateToken(), new OrientEdgeToken(), new OrientSubUnitToken(), new OrientFromToken(),
+                 new OrientUUIDToken(), new OrientEdgeToken(), new OrientSubUnitToken(), new OrientFromToken(),
                 new OrientUnitToken(), new OrientToToken(),new OrientUnitToken()
            };
             TextFormatGenerate og=new TextFormatGenerate(tt);
@@ -2394,9 +2429,13 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         public void UOWDeleteRelation()
         {
             Person p = nu.GetByAccount("Neprintsevia");
-            
-            string result = nu.DeleteNews(p, "");
-            Assert.Equal("Deleted", result);
+            bool result = false;
+            string res = nu.DeleteNews(p, "");
+            if(res==null||res==string.Empty)
+            {
+                result = true;
+            }
+            Assert.True(result);
         }
 
     }

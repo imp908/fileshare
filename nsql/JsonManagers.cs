@@ -85,13 +85,19 @@ namespace JsonManagers
             result=JTokensToCollection<T>(ExtractFromParentNode(input));
             return result;
         }
-        public IEnumerable<T> DeserializeFromParentNodeObjColl<T>(string input) where T : class
+        public IEnumerable<T> DeserializeFromParentNodeStringArr<T>(string input) where T : class
         {
             IEnumerable<T> result=null;
-            result=JTokensToCollectionObjColl<T>(ExtractFromParentNode(input));
+            result=JsonConvert.DeserializeObject<IEnumerable<T>>(input);
             return result;
-        }      
-        
+        }
+        public T DeserializeFromParentNodeStringObj<T>(string input) where T : class
+        {
+            T result = null;
+            result = JsonConvert.DeserializeObject<T>(input);
+            return result;
+        }
+
         public string SerializeObject(object input_, JsonSerializerSettings settings_=null)
         {
             string result=string.Empty;          

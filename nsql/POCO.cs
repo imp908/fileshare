@@ -37,23 +37,24 @@ namespace POCO
     public class V : IOrientVertex
     {
         public string type {get;set;}
-        [JsonProperty("@rid")]
+        [JsonProperty("@rid", Order=1)]
         public string id {get;set;}
         public string version {get;set;}
         public string class_ {get; set;}
-    }
-    public class Object_SC : V
-    {
         [JsonProperty("GUID", Order = 2)]
         public string GUID { get; set; } = null;
         [JsonProperty("Created", Order = 3)]
-        public DateTime? created { get; set; } = null;
+        public DateTime? created { get; set; }=DateTime.Now;
         [JsonProperty("Changed", Order = 4)]
         public DateTime? changed { get; set; } = null;
         [JsonProperty("Disabled", Order = 5)]
         public DateTime? disabled { get; set; } = null;
-        [JsonProperty("Content_", Order = 2)]
+        [JsonProperty("Content_", Order = 6)]
         public string content { get; set; } = null;
+    }
+    public class Object_SC : V
+    {
+        
     }
     public class E : IOrientEdge
     {
@@ -67,6 +68,15 @@ namespace POCO
 
         public string In {get; set;}
         public string Out {get; set;}
+
+        [JsonProperty("Name", Order = 1)]
+        public string Name { get; set; }
+        [JsonProperty("GUID", Order = 2)]
+        public string GUID { get; set; }
+        [JsonProperty("Created", Order = 3 ),JsonConverter(typeof(orientFuckedUpDatetime))]
+        public DateTime? Created { get; set; } = DateTime.Now;
+        [JsonProperty("Changed", Order = 4),JsonConverter(typeof(orientFuckedUpDatetime))]
+        public DateTime? Changed { get; set; } = DateTime.Now;
     }
 
     /// <summary>
@@ -133,14 +143,7 @@ namespace POCO
     //Edges
     public class MainAssignment : E
     {
-        [JsonProperty("Name", Order=1)]
-        public string Name {get; set;}
-        [JsonProperty("GUID", Order=2)]
-        public string GUID {get; set;}
-        [JsonProperty("Created", Order=3)]
-        public DateTime? Created {get; set;}
-        [JsonProperty("Changed", Order=4)]
-        public DateTime? Changed {get; set;}
+      
     }
     public class OldMainAssignment : E
     {
@@ -177,13 +180,15 @@ namespace POCO
         public string Name { get; set; }
 
         public string pic { get; set; } = string.Empty;
-        public string name { get; set; } = string.Empty;
-        public string guid { get; set; } = null;
-        public string content { get; set; } = string.Empty;
+        public string name { get; set; } = string.Empty;       
+        new public string content { get; set; } = string.Empty;
         public string description { get; set; } = string.Empty;
 
         public DateTime? pinned { get; set; } = null;
         public DateTime? published { get; set; } = null;
+
+        public int? commentDepth { get; set; } = 0;
+        public bool hasComments { get; set; } = false;
 
         int likes { get; set; } = 0;
         bool liked { get; set; } = false;
@@ -292,6 +297,14 @@ namespace POCO
         {
             DateTimeFormat="yyyy-MM-dd hh:mm:ss";
        }
+    }
+
+    class orientFuckedUpDatetime : IsoDateTimeConverter
+    {
+        public orientFuckedUpDatetime()
+        {
+            DateTimeFormat = "yyyy-MM-ddhh:mm:ss";
+        }
     }
     #endregion
 

@@ -36,9 +36,9 @@ namespace NSQLManager
             Trash.FormatRearrange.StringsCheck();
 
             RepoCheck rc=new RepoCheck();
-
+            RepoCheck.startcond sc=RepoCheck.startcond.MNL;
             rc.ManagerCheck(false);
-            rc.UOWRandomcheck();
+            rc.UOWRandomcheck(sc);
         }
 
     }
@@ -64,7 +64,9 @@ namespace NSQLManager
         UserSettings us;
         CommonSettings cs;
         string guid_;
-        
+
+        public enum startcond {RNDGEN,MNL};
+
         public RepoCheck()
         {           
             
@@ -160,21 +162,23 @@ new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00,
                 new CommandBuilder(tokenFactory,new FormatFactory()) 
                 ,new FormatFromListGenerator(new TokenMiniFactory())
                 , tokenFactory, new OrientBodyFactory());
-
             BodyShemas bodyShema = new BodyShemas(new CommandFactory(),new FormatFactory(),new TokenMiniFactory(),
                 new OrientBodyFactory());
-
+         
             UrlShema.AddHost(dbHost);
-            WebResponseReader webResponseReader = new WebResponseReader();
-            WebRequestManager webRequestManager = new WebRequestManager();
+            WebResponseReader webResponseReader=new WebResponseReader();
+            WebRequestManager webRequestManager=new WebRequestManager();
             webRequestManager.SetCredentials(new NetworkCredential(login,password));
-            CommandFactory commandFactory = new CommandFactory();
-            FormatFactory formatFactory = new FormatFactory();
-            OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
-            OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
+            CommandFactory commandFactory=new CommandFactory();
+            FormatFactory formatFactory=new FormatFactory();
+            OrientQueryFactory orientQueryFactory=new OrientQueryFactory();
+            OrientCLRconverter orientCLRconverter=new OrientCLRconverter();
 
-            Manager manager = new Manager(typeConverter, jsonMnager,tokenFactory,UrlShema, bodyShema, webRequestManager
-                ,webResponseReader,commandFactory,formatFactory,orientQueryFactory,orientCLRconverter);            
+            CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+            new TokenMiniFactory(), new OrientQueryFactory());
+
+            Manager manager = new Manager(typeConverter, jsonMnager,tokenFactory,UrlShema,bodyShema, commandShema_
+            ,webRequestManager,webResponseReader,commandFactory,formatFactory,orientQueryFactory,orientCLRconverter);            
 
             //node objects for insertion
             Person personOne =
@@ -182,34 +186,39 @@ new Person(){Seed=123,Name="0",GUID="000",Changed=new DateTime(2017,01,01,00,00,
             Person personTwo=
 new Person(){Seed=456,Name="0",GUID="001",Changed=new DateTime(2017,01,01,00,00,00),Created=new DateTime(2017,01,01,00,00,00)};
             MainAssignment mainAssignment=new MainAssignment();
-
+            string pone = manager.ObjectToString<Person>(personOne);
             List<Person> personsToAdd = new List<Person>() {
 new Person(){
 Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",GUID="000"
 ,Changed=new DateTime(2017,01,01,00,00,00),Created=new DateTime(2017,01,01,00,00,00)
 }       
     };
+
             for(int i=0;i<=10;i++)
             {
                 personsToAdd.Add(
                     new Person() { sAMAccountName = "Person"+i, Name = "Person"+i }
                     );
             }
-            //Type tpp = manager.CreateClass<Note, V>("news_test5");
 
+          
             //db delete
             manager.DeleteDb(dbName, dbHost);
 
             //db crete
             manager.CreateDb(dbName,dbHost);
 
-            //create class
-            Type tp=manager.CreateClass<Unit,V>(dbName);
-            Type nt=manager.CreateClass<Note, V>(dbName);
-            Type obc=manager.CreateClass<Object_SC, V>(dbName);
-            Type auCl=manager.CreateClass<Authorship, E>(dbName);
-            Type cmCl=manager.CreateClass<Comment, E>(dbName);
-            Type maCl=manager.CreateClass<MainAssignment, E>(dbName);
+            manager.DbPredefinedParameters();
+
+            //create class           
+          
+            Type maCl=manager.CreateClass<MainAssignment,E>(dbName);
+            Type obc = manager.CreateClass<Object_SC, V>(dbName);
+            Type tp = manager.CreateClass<Unit, V>(dbName);
+            //Type tpp = manager.CreateClass<Note, V>("news_test5");
+            Type nt = manager.CreateClass<Note, V>(dbName);
+            Type auCl = manager.CreateClass<Authorship, E>(dbName);
+            Type cmCl = manager.CreateClass<Comment, E>(dbName);
 
             Note ntCl = new Note();
             Note ntCl0 = new Note() { name = "test name", content = "test content" };
@@ -224,14 +233,14 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",GUID="000"
             manager.CreateProperty("Unit", "Name", typeof(string), false, false);
 
             //add node
-            Person p0 = manager.CreateVertex<Person>(personTwo, dbName);
+            Person p0 = manager.CreateVertex<Person>(personTwo, dbName);        
             manager.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
             Unit u0 = manager.CreateVertex<Unit>(u, dbName);
 
             //add test person
             foreach (Person prs in personsToAdd)
             {
-                Person p = manager.CreateVertex<Person>(prs, null);
+                Person p = manager.CreateVertex<Person>(prs, null);                
             }
 
 
@@ -241,7 +250,7 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",GUID="000"
             //select from relation
             IEnumerable<MainAssignment> a = manager.Select<MainAssignment>("1=1", dbName);
 
-            Note ntCr=manager.CreateVertex<Note>(ntCl0, dbName);
+            Note ntCr=manager.CreateVertex<Note>(ntCl0, dbName);            
             Authorship aut=new Authorship();
             Authorship aCr=manager.CreateEdge<Authorship>(aut,p0,ntCr,dbName);
 
@@ -259,7 +268,7 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",GUID="000"
             }
 
         }
-
+        
         public void JsonManagerCheck()
         {
             string holidaysResp =
@@ -496,8 +505,9 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
         {
             string res = UserAuthenticationMultiple.UserAcc();
         }
-        public void UOWRandomcheck()
+        public void UOWRandomcheck(startcond sc_)
         {
+           
 
 List<string> idioticNews = new List<string> {
 "Fire on the sun!","Internet trolls are jerks","Bugs flying around with wings are flying bugs","Chuck norris facts are they true?"
@@ -507,7 +517,8 @@ List<string> idioticNews = new List<string> {
 
 List<string> bullshitComments = new List<string>
 {
-"Supper!","Awasome!","How could thishappen!","i am stonned...","Ggggg "
+"Supper!","Awasome!","How could this happen!","i am stonned...","Ggggg...","Summer is my favorite month","aaa","bbb"
+,"c","d","e","f","g","h","i","h","j"
 };
 
 //select expand(outE('Authorship').inV('Note')) from Person
@@ -517,71 +528,130 @@ NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings
 
             List<Note> newsCreated = new List<Note>();
             List<Note> commentsCreated = new List<Note>();
-            List<Person> personsAdded = new List<Person>();       
+            List<Person> personsCreated = new List<Person>();
+            List<Person> personsToAdd = new List<Person>();         
 
-            List<Note> news = new List<Note>();
+            List<Note> newsToAdd = new List<Note>();
             foreach(string noteCont in idioticNews)
             {
-news.Add(new Note() { name = noteCont, content = "here goes text of really fucking interesting news" });
+
+                newsToAdd.Add(new Note(){name=noteCont,content="here goes text of really fucking interesting news"});               
             }
 
-            List<Note> comments = new List<Note>();
+           
+            List<Note> commentsToAdd=new List<Note>();
             foreach(string comment in bullshitComments)
-            {
-comments.Add(new Note() { name = comment, content = "here goes text of really fucking interesting news" });
+            {             
+                commentsToAdd.Add(new Note(){name=comment,content="bullshit comment"});
             }
 
-            personsAdded = newsUOW.GetOrientObjects<Person>(null).ToList();
-            
+            personsToAdd=newsUOW.GetOrientObjects<Person>(null).ToList();            
             Random rnd=new Random();
-            int newsCount = idioticNews.Count() - 1;
-            int commentsCount = bullshitComments.Count() - 1;
+            int newsCount=idioticNews.Count()-1;
+            int commentsCount=bullshitComments.Count()-1;
 
-            //generate news 
-            foreach (Person p in personsAdded)
+            Note newsNewToAdd=new Note(){ pic="", GUID = "ABC",name="name1",content="news cont"};
+            Note newsNewAdded=newsUOW.CreateNews(personsToAdd[0],newsToAdd[0]);
+            string newsAdd=newsUOW.NoteToString(newsNewAdded);
+            string str
+= "{\"GUID\":\"abc\",\"pic\":\"acs\",\"name\":\"test name\",\"content\":\"test content\",\"description\":\"\",\"commentDepth\":0,\"hasComments\":false,\"@type\":\"d\",\"@rid\":\"#16:0\",\"@version\":\"1\",\"@class\":\"Note\"}";
+
+            Note newsRec = newsUOW.StringToNote(str);
+
+            //Note newsRec=newsUOW.StringToNote(str);
+
+            if (sc_==startcond.MNL)
             {
-                //news published count
-                int gap=(int)rnd.Next(0,5);
-                
-                if (gap > 0)
-                {                    
-                    for (int i = 0; i <= gap;i++)
-                    {
-                        //news index
-                        int newsRndInd=(int)rnd.Next(0, newsCount-1);
-                        newsCreated.Add(newsUOW.CreateNews(p, news[newsRndInd]));
-                    }
-                }                
+
+                //NEWS
+                //p0-[atrsh]->news0
+                newsCreated.Add(newsUOW.CreateNews(personsToAdd[0],newsToAdd[0]));
+                //p0-[atrsh]->news1
+                newsCreated.Add(newsUOW.CreateNews(personsToAdd[0],newsToAdd[1]));
+                //p1-[atrsh]->news2
+                newsCreated.Add(newsUOW.CreateNews(personsToAdd[1],newsToAdd[2]));
+
+                //COMMENTS
+                //p1-[atrsh]->(commentary)<-[comment0]-news0
+                commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[1], 
+                    new Note(){name="Comment",content="bullshit comment"}, newsCreated[0]));
+                //p3-[atrsh]->(commentary)<-[comment1]-news0
+                commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[3], commentsToAdd[1],newsCreated[0]));
+                //p0-[atrsh]->(commentary)<-[comment2]-news2
+                commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[0], commentsToAdd[2],newsCreated[2]));
+                //p1-[atrsh]->(commentary)<-[comment3]-comment1
+                commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[1], commentsToAdd[3], commentsCreated[1]));
+
+                //p3-[atrsh]->(commentary)<-[comment4]-comment3
+                commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[3], commentsToAdd[4], commentsCreated[3]));
+                //p0-[atrsh]->(commentary)<-[comment5]-comment4
+                commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[0], commentsToAdd[5], commentsCreated[4]));
+
+                //p2-[atrsh]->(commentary)<-[comment6]-news0
+                commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[2], commentsToAdd[6], newsCreated[0]));
+
+                //p1-[atrsh]->(commentary)<-[comment7]-comment6
+                commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[1], commentsToAdd[7], commentsCreated[6]));
+                //p3-[atrsh]->(commentary)<-[comment8]-comment6
+                commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[3], commentsToAdd[8], commentsCreated[6]));
+
+                //UPDATE NEWS
+                //change news 0
+                newsCreated[0].description="Changed content";
+                Note nt=newsUOW.UpdateNews(newsCreated[0]);
+
             }
 
-            //Generate commentaries
-            foreach (Person p in personsAdded)
+            if (sc_ == startcond.RNDGEN)
             {
-                //comments count
-                int gap = (int)rnd.Next(0, 5);
-
-                if (gap > 0)
+                //generate news 
+                foreach (Person p in personsToAdd)
                 {
-                    for (int i = 0; i <= gap;i++)
-                    {
-                        //created news gap
-                        newsCount = newsCreated.Count();
-                        //news index
-                        int newsRndInd = (int)rnd.Next(0, newsCount - 1);
-                        int commentRndInd = (int)rnd.Next(0, commentsCount - 1);
-                        commentsCreated.Add(newsUOW.CreateCommentary(p, newsCreated[newsRndInd], comments[commentRndInd]));
-                        
-                    }
-                }               
+                    //news published count
+                    int gap = (int)rnd.Next(0, 5);
 
+                    if (gap > 0)
+                    {
+                        for (int i = 0; i <= gap; i++)
+                        {
+                            //news index
+                            int newsRndInd = (int)rnd.Next(0, newsCount - 1);
+                            newsCreated.Add(newsUOW.CreateNews(p, newsCreated[newsRndInd]));
+                        }
+                    }
+                }
+
+                List<int> cnt = new List<int>();
+                //Generate commentaries
+                foreach (Person p in personsToAdd)
+                {
+                    //comments count
+                    int gap = (int)rnd.Next(0, 5);
+
+                    if (gap > 0)
+                    {
+                        for (int i = 0; i <= gap; i++)
+                        {
+                            //created news gap
+                            newsCount = newsCreated.Count();
+                            //news index
+                            int newsRndInd = (int)rnd.Next(0, newsCount - 1);
+                            int commentRndInd = (int)rnd.Next(0, commentsCount - 1);
+                            commentsCreated.Add(newsUOW.CreateCommentary(p, newsCreated[newsRndInd], commentsCreated[commentRndInd]));
+
+                        }
+                    }
+
+
+                    cnt.Add(newsUOW.GetPersonNews(p).Count());
+                }
             }
 
             //traverse both() from (select from Person)
-            foreach (Note ntd in news)
+            foreach (Note ntd in newsCreated)
             {
                 newsUOW.DeleteNews(p, ntd.id);
-            }
-        
+            }        
 
         }
         public void UOWcheck()

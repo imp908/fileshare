@@ -860,8 +860,11 @@ namespace NewsUOWs
             OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
             OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
 
-            manager = new Manager(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, webRequestManager
-                , webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+            CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+            new TokenMiniFactory(), new OrientQueryFactory());
+
+            manager = new Manager(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+            , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
 
         }
 
@@ -876,6 +879,12 @@ namespace NewsUOWs
         {
             Person result = null;            
             result = manager.SelectSingle<Person>("GUID='" + GUID_ + "'", dbName);
+            return result;
+        }
+        public Note GetNewsByGUID(string GUID_)
+        {
+            Note result = null;
+            result = manager.SelectSingle<Note>("GUID='" + GUID_ + "'", dbName);
             return result;
         }
         public IEnumerable<Person> SearchByName(string Name_)
@@ -895,7 +904,7 @@ namespace NewsUOWs
             return result;
         }
         public T GetOrientObject<T>(T object_)
-           where T : class, IOrientObjects.IOrientEntity
+            where T : class, IOrientObjects.IOrientEntity
         {
             T result = null;
             result = manager.Select<T>("@rid=" + object_.id, dbName).FirstOrDefault();
@@ -909,35 +918,62 @@ namespace NewsUOWs
             return result;
         }
 
-        public Note CreateCommentary(Person from, string newsId_, string comment_)
+        public Note CreateCommentary(Person from,string newsId_,string comment_)
         {
-            Authorship auth = new Authorship() { type = "Printed" };
-            Comment commented = new Comment() { type = "Printed" };
+            Authorship auth=new Authorship(){type="Printed"};
+            Comment commented=new Comment(){type="Printed"};
+            Note commentaryTochange_=null;
+            Note commentaryToAdd_=null;
+            Note newsToComment_=manager.SelectSingle<Note>("@rid="+newsId_,dbName);
 
-            //commentary Node created and relation from person created
-            Note commentary_ = CreateNews(from, comment_);
+            commentaryTochange_=manager.OrientStringToObject<Note>(comment_);
 
-            if (commentary_ != null)
+            Note prev=IsComment(newsId_);
+            //is comment to comment
+            if (prev!=null)
+            {             
+                commentaryTochange_.commentDepth=(prev.commentDepth + 1);               
+            }
+            else
             {
-                Note newsToComment_ = manager.SelectSingle<Note>("@rid=" + newsId_, dbName);
-                if (newsToComment_ != null)
+                newsToComment_.hasComments=true;
+            }
+            //commentary Node created and relation from person created
+            commentaryToAdd_=CreateNews(from,commentaryTochange_);
+
+            if (commentaryToAdd_!=null)
+            {               
+                if (newsToComment_!=null)
                 {
                     //create relation from commment to news Nodes
-                    manager.CreateEdge<Comment>(commented, newsToComment_,commentary_ );
+                    manager.CreateEdge<Comment>(commented,newsToComment_, commentaryToAdd_);
                 }
                 else
                 {
                     //unsuccesfull news search
                     //manager.Delete<Note>(commentary_);
+                    //check if has comments if no then hasComments=false;
                 }
             }
 
-            return commentary_;
+            return commentaryToAdd_;
         }
-        public Note CreateCommentary(Person from, Note newsId_, Note comment_)
+        public Note CreateCommentary(Person from,Note comment_,Note newsId_)
         {
             Authorship auth = new Authorship() { type = "Printed" };
             Comment commented = new Comment() { type = "Printed" };
+
+            Note prev = IsComment(newsId_.id);
+            if(prev!=null)
+            {
+                //comment to comment
+                comment_.commentDepth=prev.commentDepth+1;
+            }
+            else
+            {
+                //comment to news
+                comment_.commentDepth=comment_.commentDepth+1;
+            }
 
             //commentary Node created and relation from person created
             Note commentary_ = CreateNews(from, comment_);
@@ -979,12 +1015,48 @@ namespace NewsUOWs
             }
             return nt_;
         }
-        
-        //todo
-        public IEnumerable<Note>GetNews(Person p)
+
+        public Note UpdateNews(Note newsObj_)
+        {          
+            Note nt=manager.UpdateEntity<Note>(newsObj_, dbName);
+            return nt;
+        }
+        public Note UpdateNews(string newsStr_)
         {
-            IEnumerable<Note> result = manager.Select<Note>("", dbName);
+            Note result = null;
+            Note nt = manager.OrientStringToObject<Note>(newsStr_);
+            result = UpdateNews(nt);
             return result;
+        }
+
+        public Note PublishNews(string newsId_)
+        {
+            Note nt = manager.SelectSingle<Note>("@rid=" + newsId_);
+            nt.published = DateTime.Now;
+            return nt;
+        }
+        public Note UnPublishNews(string newsId_)
+        {
+            Note nt = manager.SelectSingle<Note>("@rid=" + newsId_);
+            nt.published=null;
+            return nt;
+        }
+        public Note PinNews(string newsId_)
+        {
+            Note nt = manager.SelectSingle<Note>("@rid=" + newsId_);
+            nt.pinned = DateTime.Now;
+            return nt;
+        }
+        public Note UnPinNews(string newsId_)
+        {
+            Note nt = manager.SelectSingle<Note>("@rid=" + newsId_);
+            nt.pinned = null;
+            return nt;
+        }
+
+        public IEnumerable<Note> GetNews(string accountName_)
+        {
+            return null;
         }
 
         public string DeleteNews(Person from, string id_)
@@ -1000,9 +1072,39 @@ namespace NewsUOWs
             return result;
         }
 
-        public IEnumerable<Note> GetPersonNews(Person p_=null)            
+        public IEnumerable<Note> GetPersonNews(Person p_=null)
         {
-            return manager.Select<Person,Authorship, Note>(p_);          
+            return manager.Select<Person,Authorship, Note>(p_);
+        }
+
+        /// <summary>
+        /// check inE types on Comment,Authorship. If has inE comment, then returns current Note.
+        /// </summary>
+        /// <param name="NewsId">Npte which type need to be checked</param>
+        /// <returns></returns>
+        public Note IsComment(string NewsId)
+        {
+            Note ret_=null;
+            Note nt=manager.SelectSingle<Note>("@rid="+NewsId);
+            if (nt!=null)
+            {
+
+                Note cm=manager.Select<Note,Comment>(nt,dbName).FirstOrDefault();
+                Note auth=manager.Select<Note,Authorship>(nt,dbName).FirstOrDefault();                
+
+                //comment
+                if (auth != null && cm != null)
+                {
+                    //take comment wich iscommented
+                    ret_=manager.SelectCommentToComment<Note,Comment,Note>(nt,dbName).FirstOrDefault();
+                }
+                //news
+                if (auth!=null&&cm==null)
+                {
+                    ret_=null;
+                }
+            }
+            return ret_;
         }
 
         public string UserAcc()
@@ -1010,6 +1112,18 @@ namespace NewsUOWs
             return WebManagers.UserAuthenticationMultiple.UserAcc();
         }
 
+        public string NoteToString(Note item_)
+        {
+            string result=null;
+                result=manager.ObjectToString<Note>(item_);
+            return result;
+        }
+        public Note StringToNote(string item_)
+        {
+            Note result = null;
+            result = manager.StringToObject<Note>(item_);
+            return result;
+        }
     }
 
 }

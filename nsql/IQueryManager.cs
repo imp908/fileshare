@@ -39,6 +39,13 @@ namespace IQueryManagers
     
     public interface IOrientQueryFactory
     {
+
+        ITypeToken AlterToken();
+        ITypeToken DefaultToken();
+        ITypeToken UUIDToken();
+
+        ITypeToken UpdateToken();
+
         ITypeToken ClassToken();
         ITypeToken ContentToken();
         ITypeToken CreateToken();
