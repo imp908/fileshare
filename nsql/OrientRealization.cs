@@ -15,7 +15,7 @@ using IOrientObjects;
 
 using POCO;
 using System.Reflection;
-using System.Linq.Expressions;
+using Newtonsoft.Json.Converters;
 
 /// <summary>
 /// Realization of IJsonMangers, IWebManagers, and IOrient specifically for orient db
@@ -132,6 +132,10 @@ namespace OrientRealization
     {
         public string Text {get; set;}="batch";
     }
+    public class OrientTraverseToken : ITypeToken
+    {
+        public string Text {get; set;}="traverse";
+    }
 
     /// <summary>
     /// Orient query tokens
@@ -141,15 +145,15 @@ namespace OrientRealization
     public class OrientURLDatabaseToken : ITypeToken
     {
         public string Text {get; set;}="database";
-   }
+    }
     public class OrientPlocalToken : ITypeToken
     {
         public string Text {get; set;}="plocal";
-   }
+    }
     public class OrientExpandToken : ITypeToken
     {
         public string Text {get; set;}="expand";
-   }
+    }
     public class OrientAsToken : ITypeToken
     {
         public string Text { get; set; } = "as";
@@ -157,99 +161,99 @@ namespace OrientRealization
     public class OrientContentToken : ITypeToken
     {
         public string Text {get; set;}="content";
-   }
+    }
     public class OrientEdgeToken : ITypeToken
     {
         public string Text {get; set;}="Edge";
-   }
+    }
     public class OrientPropertyToken : ITypeToken
     {
         public string Text {get; set;}="Property";
-   }
+    }
     public class OrientToToken : ITypeToken
     {
         public string Text {get; set;}="To";
-   }
+    }
     public class OrientInToken : ITypeToken
     {
         public string Text {get; set;}="in";
-   }
+    }
     public class OrientOutToken : ITypeToken
     {
         public string Text {get; set;}="out";
-   }
+    }
     public class OrientEToken : ITypeToken
     {
         public string Text {get; set;}="E";
-   }
+    }
     public class OrientVToken : ITypeToken
     {
         public string Text {get; set;}="V";
-   }
+    }
     public class OrientVertexToken : ITypeToken
     {
         public string Text {get; set;}="Vertex";
-   }
+    }
     public class OrientExtendsToken : ITypeToken
     {
         public string Text {get; set;}="Extends";
-   }
+    }
     public class OrientMandatoryToken : ITypeToken
     {
         public string Text {get; set;}="MANDATORY";
-   }
+    }
     public class OrientNotNULLToken : ITypeToken
     {
         public string Text {get; set;}="NOTNULL";
-   }
+    }
     //Orient URL command and batch body tokens 
     public class OrientBodyConnectToken : ITypeToken
     {
         public string Text {get; set;}="connect";
-   }
+    }
     public class OrientBodyCommandToken : ITypeToken
     {
         public string Text {get; set;}="command";
-   }
+    }
     public class OrientBodyTransactionToken : ITypeToken
     {
         public string Text {get; set;}="transaction";
-   }
+    }
     public class OrientBodyOperationToken : ITypeToken
     {
         public string Text {get; set;}="operations";
-   }
+    }
     public class OrientBodyTypeToken : ITypeToken
     {
         public string Text {get; set;}="type";
-   }
+    }
     public class OrientBodyLanguageToken : ITypeToken
     {
         public string Text {get; set;}="language";
-   }
+    }
     public class OrientBodyScriptToken : ITypeToken
     {
         public string Text {get; set;}="script";
-   }
+    }
     
 
     //SQL tokens
     public class OrientSelectToken : ITypeToken
     {
         public string Text {get; set;}="Select";
-   }
+    }
     public class OrientFromToken : ITypeToken
     {
         public string Text {get; set;}="from";
-   }
+    }
     public class OrientWhereToken : ITypeToken
     {
         public string Text {get; set;}="where";
-   }
+    }
     public class OrientUUIDToken : ITypeToken
     {
         public string Text {get; set;}= "uuid()";
-   }
+    }
     public class OrientAlterToken : ITypeToken
     {
         public string Text { get; set; } = "alter";
@@ -257,11 +261,11 @@ namespace OrientRealization
     public class OrientDeleteToken : ITypeToken
     {
         public string Text {get; set;}="Delete";
-   }
+    }
     public class OrientDropToken : ITypeToken
     {
         public string Text {get; set;}="Drop";
-   }
+    }
     public class OrientDefaultToken : ITypeToken
     {
         public string Text { get; set; } = "default";
@@ -272,58 +276,63 @@ namespace OrientRealization
     }
     public class OrientUpdateToken : ITypeToken
     {
-        public string Text { get; set; } = "update";
+      public string Text { get; set; } = "update";
     }
+    public class OrientBetweenToken : ITypeToken
+    {
+      public string Text {get;set;}="between";
+    }
+
 
     //Overall command tokens
     public class OrientTypeToken : ITypeToken
     {
         public string Text {get; set;}="Type";
-   }
+    }
     public class OrientAndToken : ITypeToken
     {
         public string Text {get; set;}=@"and";
-   }
+    }
     public class OrientClassToken : ITypeToken
     {
         public string Text {get; set;}="Class";
-   }
+    }
     public class OrientEqualsToken : ITypeToken
     {
         public string Text {get; set;}=@"=";
-   }
+    }
     public class OrientApostropheToken : ITypeToken
     {
         public string Text {get; set;}=@"'";
-   }
+    }
     public class OrientDoubleQuotesToken : ITypeToken
     {
         public string Text {get; set;}=@"""";
-   }
+    }
     public class OrientGapToken : ITypeToken
     {
         public string Text {get; set;}=@" ";
-   }
+    }
     public class OrientDotToken : ITypeToken
     {
         public string Text {get; set;}=@".";
-   }
+    }
     public class OrientCommaToken : ITypeToken
     {
         public string Text {get; set;}=@",";
-   }
+    }
     public class OrientRoundBraketLeftToken : ITypeToken
     {
         public string Text {get; set;}=@"(";
-   }
+    }
     public class OrientRoundBraketRightToken : ITypeToken
     {
         public string Text {get; set;}=@")";
-   }
+    }
     public class OrientFigureBraketLeftToken : ITypeToken
     {
         public string Text {get; set;}=@"{";
-   }
+    }
     public class OrientFigureBraketRightToken : ITypeToken
     {
         public string Text {get; set;}=@"}";
@@ -344,6 +353,7 @@ namespace OrientRealization
     {
         public string Text {get; set;}=@"FALSE";
    }
+    
 
     //URI tokens
     public class ColonToken : ITypeToken
@@ -525,6 +535,11 @@ namespace OrientRealization
             return new OrientUUIDToken();
         }
 
+        public ITypeToken DoubleQuotes()
+        {
+            return new OrientDoubleQuotesToken();
+        }
+
         public ITypeToken DeleteToken()
         {
             return new OrientDeleteToken();
@@ -544,72 +559,86 @@ namespace OrientRealization
         {
             return new OrientSelectToken ();
        }
+        public ITypeToken TraverseToken()
+        {
+          return new OrientTraverseToken();
+        }
+
         public ITypeToken FromToken()
         {
             return new OrientFromToken();
-       }
+        }
         public ITypeToken ToToken()
         {
             return new OrientToToken();
-       }
+        }
 
         public ITypeToken WhereToken()
         {
             return new OrientWhereToken();
-       }
+        }
+        public ITypeToken AndToken()
+        {
+          return new OrientAndToken();
+        }
+
+        public ITypeToken Between()
+        {
+            return new OrientBetweenToken();
+        }
 
         public ITypeToken ClassToken()
         {
-            return new OrientClassToken();
-       }
+          return new OrientClassToken();
+        }
         public ITypeToken ExtendsToken()
         {
-            return new OrientExtendsToken();
-       }
+          return new OrientExtendsToken();
+        }
         public ITypeToken ContentToken()
         {
-            return new OrientContentToken();
-       }
+          return new OrientContentToken();
+        }
 
         public ITypeToken VertexToken()
         {
-            return new OrientVertexToken();
-       }
+          return new OrientVertexToken();
+        }
         public ITypeToken EdgeToken()
         {
-            return new OrientEdgeToken();
-       }
+          return new OrientEdgeToken();
+        }
 
         public ITypeToken PropertyToken()
         {
-            return new OrientPropertyToken();
-       }
+          return new OrientPropertyToken();
+        }
         public ITypeToken PropertyTypeToken()
         {
-            return new OrientTypeToken();
-       }
+          return new OrientTypeToken();
+        }
 
         public ITypeToken LeftRoundBraket()
         {
-            return new OrientRoundBraketLeftToken();
-       }
+          return new OrientRoundBraketLeftToken();
+        }
         public ITypeToken RightRoundBraket()
         {
-            return new OrientRoundBraketRightToken();
-       }
+          return new OrientRoundBraketRightToken();
+        }
         public ITypeToken LeftSquareBraket()
         {
-            return new OrientSquareBraketLeftToken();
-       }
+          return new OrientSquareBraketLeftToken();
+        }
         public ITypeToken RightSquareBraket()
         {
-            return new OrientSquareBraketRightToken();
-       }
+          return new OrientSquareBraketRightToken();
+        }
 
         public ITypeToken Equals()
         {
-            return new OrientEqualsToken();
-       }
+          return new OrientEqualsToken();
+        }
 
         public ITypeToken In()
         {
@@ -863,7 +892,6 @@ namespace OrientRealization
             this._commandBuilder.Build();
             return this;
         }
-      
 
         public CommandsChain Where(ICommandBuilder param=null)
         {
@@ -880,7 +908,60 @@ namespace OrientRealization
             this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.Gap()));
             }
             return this;
+        }        
+        public CommandsChain Where(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Where(param_));
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }        
+
+        public CommandsChain Between(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Between(param_));
+
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
         }
+
+        public CommandsChain And(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.And(param_));
+
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+
         public CommandsChain From(ITypeToken param_=null)
         {
             this._commands=new List<ICommandBuilder>();
@@ -896,7 +977,6 @@ namespace OrientRealization
             this._commandBuilder.Build();
             return this;
         }
-
         public CommandsChain FromV(ITypeToken param_=null)
         {
             this._commands = new List<ICommandBuilder>();
@@ -913,6 +993,7 @@ namespace OrientRealization
             this._commandBuilder.Build();
             return this;
         }
+        
         public CommandsChain ToV(ITypeToken param_=null)
         {
             this._commands = new List<ICommandBuilder>();
@@ -945,7 +1026,22 @@ namespace OrientRealization
 
             return this;
         }
-       
+        public CommandsChain Traverse(ICommandBuilder columns_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            this._commands.Add( this._commandShemas.Traverse());
+            this._commands.Add(columns_);
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+           }
+            this._commandBuilder.BindBuilders(this._commands,this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+        
         public CommandsChain Create(ITypeToken param_=null)
         {
 
@@ -1174,6 +1270,22 @@ namespace OrientRealization
             this._commandBuilder.Build();
             return this;
         }
+        public CommandsChain Coma()
+        {
+            this._commands = new List<ICommandBuilder>();
+            List<ITypeToken> tl = new List<ITypeToken>(){_tokenMiniFactory.Coma()};
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandFactory.CommandBuilder(_tokenMiniFactory, _formatFactory, tl, _tokenMiniFactory.EmptyString()));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
 
         public CommandsChain Expand(ITypeToken aliace_)
         {
@@ -1360,7 +1472,7 @@ namespace OrientRealization
     public class CommandShemasExplicit : Shemas
     {
 
-        IOrientQueryFactory _orientFactory;
+        IOrientQueryFactory _queryFactory;
 
         //public CommandShemasExplicit(ICommandBuilder commandBuilder_
         //    , IFormatFromListGenerator formatListgenerator_
@@ -1385,7 +1497,7 @@ namespace OrientRealization
             this._commandFactory=commandFactory_;
             this._formatFactory=formatFactory_;
             this._miniFactory=miniFactory_;
-            this._orientFactory=queryfactory_;
+            this._queryFactory=queryfactory_;
 
             this._commandBuilder=_commandFactory.CommandBuilder(base._miniFactory, _formatFactory);
             this._formatGenerator=formatFactory_.FormatGenerator(base._miniFactory);
@@ -1447,7 +1559,7 @@ namespace OrientRealization
           
             this._commandBuilder=BuildNew(buildersList, this._miniFactory.EmptyString());          
        }
-        public void ParametrizedCommand(List<ITypeToken> token_, ICommandBuilder param_, ITypeToken delimeter_=null)
+        public void ParametrizedCommand(List<ITypeToken> token_,ICommandBuilder param_,ITypeToken delimeter_=null)
         {
             List<ICommandBuilder> buildersList=new List<ICommandBuilder>();
             ITypeToken placeholder=null;
@@ -1462,7 +1574,7 @@ namespace OrientRealization
 
             this._commandBuilder=BuildNew(buildersList, this._miniFactory.EmptyString());
        }
-        public void ParametrizedCommand(ITypeToken token_, ITypeToken param_)
+        public void ParametrizedCommand(ITypeToken token_,ITypeToken param_)
         {
             List<ICommandBuilder> buildersList=new List<ICommandBuilder>();
             List<ITypeToken> tokens=new List<ITypeToken>();
@@ -1477,7 +1589,7 @@ namespace OrientRealization
             buildersList.Add(BuildNew(tokens, this._miniFactory.EmptyString()));
             this._commandBuilder=BuildNew(buildersList, this._miniFactory.Gap());
        }
-        public void ParametrizedCommand(List<ITypeToken> tokens_, ITypeToken delimeter_= null)
+        public void ParametrizedCommand(List<ITypeToken> tokens_,ITypeToken delimeter_=null)
         {
             List<ICommandBuilder> buildersList=new List<ICommandBuilder>();
             ITypeToken placeholder=null;
@@ -1566,7 +1678,7 @@ namespace OrientRealization
             return this._commandBuilder;
        }
 
-
+        
         //<<<obsolette possible not used
         public ICommandBuilder CommandFormatted(List<ITypeToken> tokenList, ITypeToken format_)
         {
@@ -1651,8 +1763,8 @@ namespace OrientRealization
             List<ICommandBuilder> commands_=new List<ICommandBuilder>();
             ITypeToken lt, rt;
 
-            lt=(leftToken_==null) ? _orientFactory.LeftRoundBraket() : leftToken_;
-            rt=(rightToken_==null) ? _orientFactory.RightRoundBraket() : rightToken_;
+            lt=(leftToken_==null) ? _queryFactory.LeftRoundBraket() : leftToken_;
+            rt=(rightToken_==null) ? _queryFactory.RightRoundBraket() : rightToken_;
 
             List<ITypeToken> ltL=new List<ITypeToken> {lt};
             ITypeToken t1=_formatFactory.FormatGenerator(_miniFactory).FromatFromTokenArray(ltL);
@@ -1681,7 +1793,7 @@ namespace OrientRealization
             List<ITypeToken> tokens_=new List<ITypeToken>();
             List<ICommandBuilder> builders_=new List<ICommandBuilder>();
 
-            tokens_.Add(_orientFactory.ContentToken());
+            tokens_.Add(_queryFactory.ContentToken());
             tokens_.Add(_miniFactory.Gap());
 
             builders_.Add(
@@ -1709,7 +1821,7 @@ namespace OrientRealization
             List<ICommandBuilder> builders_ = new List<ICommandBuilder>();
 
             tokens_.Add(_miniFactory.Gap());
-            tokens_.Add(_orientFactory.ContentToken());
+            tokens_.Add(_queryFactory.ContentToken());
            
             if (param_ != null)
             {               
@@ -1730,7 +1842,7 @@ namespace OrientRealization
         {
             List<ITypeToken> tokenList=new List<ITypeToken>();
             tokenList.Add(_miniFactory.Gap());
-            tokenList.Add(_orientFactory.ExtendsToken());
+            tokenList.Add(_queryFactory.ExtendsToken());
             if (param != null)
             {
                 tokenList.Add(_miniFactory.Gap());
@@ -1745,7 +1857,7 @@ namespace OrientRealization
         {
             List<ITypeToken> tokenList=new List<ITypeToken>();
             tokenList.Add(_miniFactory.Gap());
-            tokenList.Add(_orientFactory.ClassToken());
+            tokenList.Add(_queryFactory.ClassToken());
             if (param != null)
             {
                 tokenList.Add(_miniFactory.Gap());
@@ -1776,7 +1888,7 @@ namespace OrientRealization
             List<ITypeToken> tokenList=new List<ITypeToken>();
 
             tokenList.Add(_miniFactory.Gap());
-            tokenList.Add(_orientFactory.PropertyToken());
+            tokenList.Add(_queryFactory.PropertyToken());
             tokenList.Add(_miniFactory.Gap());
             tokenList.Add(class_);
             tokenList.Add(_miniFactory.Dot());
@@ -1799,15 +1911,15 @@ namespace OrientRealization
             List<ITypeToken> tokenList=new List<ITypeToken>();
 
             tokenList.Add(_miniFactory.Gap());
-            tokenList.Add(_orientFactory.LeftRoundBraket());
-            tokenList.Add(_orientFactory.Mandatory());
+            tokenList.Add(_queryFactory.LeftRoundBraket());
+            tokenList.Add(_queryFactory.Mandatory());
             tokenList.Add(_miniFactory.Gap());
             tokenList.Add(mandatory_);
             tokenList.Add(_miniFactory.Coma());
-            tokenList.Add(_orientFactory.NotNull());
+            tokenList.Add(_queryFactory.NotNull());
             tokenList.Add(_miniFactory.Gap());
             tokenList.Add(notnull_);
-            tokenList.Add(_orientFactory.RightRoundBraket());
+            tokenList.Add(_queryFactory.RightRoundBraket());
           
             ParametrizedCommand(tokenList, null);
             return GetBuilder();
@@ -1817,7 +1929,7 @@ namespace OrientRealization
         {
             List<ITypeToken> tokenList=new List<ITypeToken>();
             tokenList.Add(_miniFactory.Gap());
-            tokenList.Add(_orientFactory.VertexToken());
+            tokenList.Add(_queryFactory.VertexToken());
             if(param!=null)
             {
                 tokenList.Add(_miniFactory.Gap());
@@ -1832,7 +1944,7 @@ namespace OrientRealization
             List<ITypeToken> tokenList = new List<ITypeToken>();
 
             tokenList.Add(_miniFactory.Gap());
-            tokenList.Add(_orientFactory.EdgeToken());
+            tokenList.Add(_queryFactory.EdgeToken());
 
             if (param != null)
             {
@@ -1848,7 +1960,7 @@ namespace OrientRealization
         {
             List<ITypeToken> tokens_=new List<ITypeToken>();
 
-            tokens_.Add(_orientFactory.CreateToken());            
+            tokens_.Add(_queryFactory.CreateToken());            
             if (param_ != null)
             {
                 tokens_.Add(_miniFactory.Gap());
@@ -1870,7 +1982,7 @@ namespace OrientRealization
             List<ICommandBuilder> builders_= new List<ICommandBuilder>();
 
             //add select tokens
-            tokens_.Add(_orientFactory.SelectToken());
+            tokens_.Add(_queryFactory.SelectToken());
             tokens_.Add(_miniFactory.Gap());
 
             //build select command builder
@@ -1899,7 +2011,22 @@ namespace OrientRealization
         {
             List<ITypeToken> tokens_=new List<ITypeToken>();
 
-            tokens_.Add(_orientFactory.SelectToken());
+            tokens_.Add(_queryFactory.SelectToken());
+            tokens_.Add(_miniFactory.Gap());
+            if (param_ != null)
+            {
+                tokens_.AddRange(param_);               
+            }
+            
+            ParametrizedCommand(tokens_, null);
+            return GetBuilder();
+
+        }
+        public ICommandBuilder Traverse(List<ITypeToken> param_=null)
+        {
+            List<ITypeToken> tokens_=new List<ITypeToken>();
+
+            tokens_.Add(_queryFactory.TraverseToken());
             tokens_.Add(_miniFactory.Gap());
             if (param_ != null)
             {
@@ -1911,11 +2038,27 @@ namespace OrientRealization
 
         }
 
+        public ICommandBuilder And(ITypeToken param_=null)
+        {
+            List<ITypeToken> tokens_=new List<ITypeToken>();
+            tokens_.Add(_miniFactory.Gap());
+            tokens_.Add(_queryFactory.AndToken()); 
+            
+            if (param_ != null)
+            {
+                tokens_.Add(_miniFactory.Gap());
+                tokens_.Add(param_);
+            }
+
+            ParametrizedCommand(tokens_, null);
+            return GetBuilder();
+
+        }
         public ICommandBuilder From(ITypeToken param_=null)
         {
             List<ITypeToken> tokens_=new List<ITypeToken>();
             tokens_.Add(_miniFactory.Gap());
-            tokens_.Add(_orientFactory.FromToken()); 
+            tokens_.Add(_queryFactory.FromToken()); 
             
             if (param_ != null)
             {
@@ -1935,7 +2078,7 @@ namespace OrientRealization
             if (param_ != null)
             {
                 tokens_.Add(_miniFactory.Gap());
-                tokens_.Add(_orientFactory.WhereToken());
+                tokens_.Add(_queryFactory.WhereToken());
 
                 builders_.Add(
                 _commandFactory.CommandBuilder(_miniFactory, _formatFactory
@@ -1954,12 +2097,46 @@ namespace OrientRealization
 
             this._commandBuilder=BuildNew(builders_, this._miniFactory.EmptyString());
             return GetBuilder();
-       }
+        }
+        public ICommandBuilder Where(ITypeToken param_=null)
+        {
+            List<ITypeToken> tokens_=new List<ITypeToken>();
+            tokens_.Add(_miniFactory.Gap());
+            tokens_.Add(_queryFactory.WhereToken()); 
+            
+            if (param_ != null)
+            {
+                tokens_.Add(_miniFactory.Gap());
+                tokens_.Add(param_);
+            }
+
+            ParametrizedCommand(tokens_, null);
+            return GetBuilder();
+
+        }
+
+        public ICommandBuilder Between(ITypeToken param_=null)
+        {
+            List<ITypeToken> tokens_=new List<ITypeToken>();
+            tokens_.Add(_miniFactory.Gap());
+            tokens_.Add(_queryFactory.Between()); 
+            
+            if (param_ != null)
+            {
+                tokens_.Add(_miniFactory.Gap());
+                tokens_.Add(param_);
+            }
+
+            ParametrizedCommand(tokens_, null);
+            return GetBuilder();
+
+        }
+
         public ICommandBuilder To(ITypeToken param_=null)
         {
             List<ITypeToken> tokens_=new List<ITypeToken>();
             tokens_.Add(_miniFactory.Gap());
-            tokens_.Add(_orientFactory.ToToken());
+            tokens_.Add(_queryFactory.ToToken());
 
             if (param_ != null)
             {
@@ -1974,7 +2151,7 @@ namespace OrientRealization
         {
             List<ITypeToken> tokens_ = new List<ITypeToken>();
                         
-            tokens_.Add(_orientFactory.DeleteToken());
+            tokens_.Add(_queryFactory.DeleteToken());
 
             if (param_ != null)
             {
@@ -1992,32 +2169,32 @@ namespace OrientRealization
                  
             tokens_.Add(dir_);
             tokens_.Add(type_);
-            tokens_.Add(_orientFactory.LeftRoundBraket());
+            tokens_.Add(_queryFactory.LeftRoundBraket());
             tokens_.Add(_miniFactory.Apostrophe());
 
             tokens_.Add(param_);
 
             tokens_.Add(_miniFactory.Apostrophe());
-            tokens_.Add(_orientFactory.RightRoundBraket());
+            tokens_.Add(_queryFactory.RightRoundBraket());
 
             ParametrizedCommand(tokens_, null);
             return GetBuilder();
         }
         public ICommandBuilder OutV(ITypeToken param_)
         {
-            return InVformat(_orientFactory.Out(),_orientFactory.V(),param_);
+            return InVformat(_queryFactory.Out(),_queryFactory.V(),param_);
         }
         public ICommandBuilder OutE(ITypeToken param_)
         {
-            return InVformat(_orientFactory.Out(),_orientFactory.E(),param_);
+            return InVformat(_queryFactory.Out(),_queryFactory.E(),param_);
         }
         public ICommandBuilder InV(ITypeToken param_ )
         {
-            return InVformat(_orientFactory.In(),_orientFactory.V(),param_);
+            return InVformat(_queryFactory.In(),_queryFactory.V(),param_);
         }
         public ICommandBuilder InE(ITypeToken param_)
         {
-            return InVformat(_orientFactory.In(),_orientFactory.E(),param_);
+            return InVformat(_queryFactory.In(),_queryFactory.E(),param_);
         }
 
         public ICommandBuilder As(ITypeToken aliace_)
@@ -2025,7 +2202,7 @@ namespace OrientRealization
             List<ITypeToken> tokens_ = new List<ITypeToken>();
 
             tokens_.Add(_miniFactory.Gap());
-            tokens_.Add(_orientFactory.As());
+            tokens_.Add(_queryFactory.As());
             tokens_.Add(aliace_);
 
             ParametrizedCommand(tokens_, null);
@@ -2038,15 +2215,15 @@ namespace OrientRealization
             List<ICommandBuilder> builders_ = new List<ICommandBuilder>();
 
             //add expand tokens before all
-            tokens_.Add(_orientFactory.SelectToken());
+            tokens_.Add(_queryFactory.SelectToken());
             tokens_.Add(_miniFactory.Gap());
-            tokens_.Add(_orientFactory.Expand());
-            tokens_.Add(_orientFactory.LeftRoundBraket());
+            tokens_.Add(_queryFactory.Expand());
+            tokens_.Add(_queryFactory.LeftRoundBraket());
             tokens_.Add(aliace);
-            tokens_.Add(_orientFactory.RightRoundBraket());
+            tokens_.Add(_queryFactory.RightRoundBraket());
             tokens_.Add(_miniFactory.Gap());
-            tokens_.Add(_orientFactory.FromToken());
-            tokens_.Add(_orientFactory.LeftRoundBraket());
+            tokens_.Add(_queryFactory.FromToken());
+            tokens_.Add(_queryFactory.LeftRoundBraket());
 
             //build expand command builder
             builders_.Add(
@@ -2064,7 +2241,7 @@ namespace OrientRealization
                 );
 
             tokens_.Clear();
-            tokens_.Add(_orientFactory.RightRoundBraket());
+            tokens_.Add(_queryFactory.RightRoundBraket());
 
             //build expand command builder
             builders_.Add(
@@ -2080,25 +2257,27 @@ namespace OrientRealization
             return GetBuilder();
         }
 
-        public ICommandBuilder AlterProperty(ITypeToken class_,ITypeToken property_,ITypeToken orientFunct_)
+        public ICommandBuilder AlterPropertyUUID(ITypeToken class_,ITypeToken property_,ITypeToken orientFunct_)
         {
-            List<ITypeToken> tokens_ = new List<ITypeToken>();         
+            List<ITypeToken> tokens_ = new List<ITypeToken>();
 
             //add expand tokens before all
-            tokens_.Add(_orientFactory.AlterToken());
+            tokens_.Add(_queryFactory.AlterToken());
             tokens_.Add(_miniFactory.Gap());
-            tokens_.Add(_orientFactory.PropertyToken());
+            tokens_.Add(_queryFactory.PropertyToken());
             tokens_.Add(_miniFactory.Gap());
 
             tokens_.Add(class_);
             tokens_.Add(_miniFactory.Dot());
             tokens_.Add(property_);
 
-            tokens_.Add(_miniFactory.Gap());
-            tokens_.Add(_orientFactory.DefaultToken());
+            tokens_.Add(_miniFactory.Gap());         
+            tokens_.Add(_queryFactory.DefaultToken());           
             tokens_.Add(_miniFactory.Gap());
 
+            tokens_.Add(_queryFactory.DoubleQuotes());
             tokens_.Add(orientFunct_);
+            tokens_.Add(_queryFactory.DoubleQuotes());
 
             ParametrizedCommand(tokens_, null);
             return GetBuilder();
@@ -2108,7 +2287,7 @@ namespace OrientRealization
         {
             List<ITypeToken> tokens_ = new List<ITypeToken>();
 
-            tokens_.Add(_orientFactory.UpdateToken());
+            tokens_.Add(_queryFactory.UpdateToken());
             if (param_ != null)
             {
                 tokens_.Add(_miniFactory.Gap());
@@ -2209,7 +2388,7 @@ namespace OrientRealization
             if (delimeter_==null)
             {
                 token=_formatGenerator.FromatFromTokenArray(tokenList_);
-           }
+            }
             else {
                 token=_formatGenerator.FromatFromTokenArray(tokenList_, delimeter_);
            }
@@ -3138,7 +3317,14 @@ namespace OrientRealization
         {
             ITypeToken token_=null;
             types.TryGetValue(type_, out token_);
-
+            if(token_==null)
+            {
+              Type tp=GegtypeFromAsm(type_.Name,null);
+              if(tp!=null)
+              {
+                token_=new TextToken() {Text=tp.Name};
+              }
+            }
             return token_;
         }
         public ITypeToken GetBase(Type type_)
@@ -3243,7 +3429,7 @@ namespace OrientRealization
     /// <summary>
     /// Manager for generating,sending, parsing commands to Orient db.
     /// </summary>
-    public class Manager : IManager
+    public class Manager:IManager
     {
         ICommandBuilder commandBody = null;
         ITypeToken result_;
@@ -3371,6 +3557,10 @@ namespace OrientRealization
             return new CommandsChain(_miniFactory, _orientfactory, _formatFactory, _commandFactory);
         }
 
+        public void BindDbName(string dbName_)
+        {
+          this.dbName=dbName_;
+        }
         public string GetResult()
         {
             return this.result_.Text;
@@ -3408,9 +3598,8 @@ namespace OrientRealization
 
             return this;
         }
-      
         public IManager Delete<T>(T item=null,string condition_=null,string dbName_=null) 
-            where T:class, IOrientEntity
+            where T:class, IorientDefaultObject
         {
                         
             ITypeToken token_=_typeConverter.Get(typeof(T));
@@ -3457,7 +3646,8 @@ namespace OrientRealization
                          
             return this;
         }     
-        public IManager DeleteEdge<T>(string from,string to,string condition_=null,string dbName_=null) where T : E
+        public IManager DeleteEdge<T>(string from,string to,string condition_=null,string dbName_=null) 
+          where T :class, IOrientEdge
         {
            
             ITypeToken relTypeToken_ = _typeConverter.Get(typeof(T));
@@ -3502,10 +3692,9 @@ namespace OrientRealization
         /// <param name="dbName_">Database name</param>
         /// <returns></returns>
         public IManager DeleteEdge<T,K,C>(K from,C to,string condition_=null,string dbName_=null)
-            where T:E where K:V where C:V
+            where T:IOrientEdge where K:IOrientVertex where C:IOrientVertex
         {
-           
-          
+                     
             ITypeToken relTypeToken_ = _typeConverter.Get(typeof(T));
             List<ITypeToken> tt = null;
             ICommandBuilder where_ = null;
@@ -3575,6 +3764,7 @@ namespace OrientRealization
             return this;
         }
         public Type CreateClass<T,K>(string dbName_=null)
+          where T:IOrientEntity where K:IOrientEntity 
         {
             ITypeToken clTk = _typeConverter.Get(typeof(T));
             ITypeToken extTk = _typeConverter.Get(typeof(K));
@@ -3627,15 +3817,16 @@ namespace OrientRealization
 
             return this;
         }
-        public T CreateProperty<T>(T item,string dbName_=null) where T:class
-        {         
-
+        public T CreateProperty<T>(T item=null,string dbName_=null) 
+          where T:class,IorientDefaultObject
+        {
             CheckDb(dbName_);
             T ret_ = null;
-            var a = from s in item.GetType().GetProperties() select s;
+           IEnumerable<PropertyInfo> poperties_ = from s in typeof(T).GetProperties() select s;
 
-            foreach (PropertyInfo ps in item.GetType().GetProperties())
+            foreach (PropertyInfo ps in poperties_)
             {
+                this.response_=null;
                 Type pt=null;
                
                 try
@@ -3643,8 +3834,10 @@ namespace OrientRealization
                     pt = item.GetType().GetProperty(ps.Name).GetValue(item).GetType();
                 }
                 catch (Exception e) { }
-
-                if (pt != null)
+                if(pt==null) {
+                  pt=ps.PropertyType;
+                }
+                if (pt != null && (ps.Name!="In"||ps.Name!="Out"))
                 {
 
                     ITypeToken clTk = _typeConverter.Get(typeof(T));
@@ -3653,28 +3846,19 @@ namespace OrientRealization
                     ITypeToken mandatoryTk = this._propertyConverter.GetBoolean(false);
                     ITypeToken notNnullTk = this._propertyConverter.GetBoolean(false);
                     
-                    if (pt.IsGenericType &&
-                    pt.GetGenericTypeDefinition() == typeof(Nullable<>))
-                    {
-                        mandatoryTk = this._propertyConverter.GetBoolean(false);
-                        notNnullTk = this._propertyConverter.GetBoolean(false);
-                    }
-                    else
-                    {
-                        mandatoryTk = this._propertyConverter.GetBoolean(true);
-                        notNnullTk = this._propertyConverter.GetBoolean(true);
-                    }
+                    ///not working - always flase for nullable properties
+                    //if (pt.IsGenericType &&
+                    //pt.GetGenericTypeDefinition() == typeof(Nullable<>))
+                    //{
+                    //    mandatoryTk = this._propertyConverter.GetBoolean(false);
+                    //    notNnullTk = this._propertyConverter.GetBoolean(false);
+                    //}
+                    //else
+                    //{
+                    //    mandatoryTk = this._propertyConverter.GetBoolean(true);
+                    //    notNnullTk = this._propertyConverter.GetBoolean(true);
+                    //}
 
-                    if (Nullable.GetUnderlyingType(pt) != null)
-                    {
-                        mandatoryTk = this._propertyConverter.GetBoolean(false);
-                        notNnullTk = this._propertyConverter.GetBoolean(false);
-                        // It's nullable
-                    }
-                    else {
-                        mandatoryTk = this._propertyConverter.GetBoolean(true);
-                        notNnullTk = this._propertyConverter.GetBoolean(true);
-                    }
 
                     if (clTk != null && propTk != null && orientType != null)
                     {
@@ -3686,13 +3870,14 @@ namespace OrientRealization
                         }
 
                         this.commandBody = NewChain().Create().Property(clTk, propTk,
-                        orientType, mandatoryTk, notNnullTk)
+                        orientType, mandatoryTk, notNnullTk)                        
                             .GetBuilder().Build();
 
+                      
                         BindCommandUrl();
                         BindCommandBody();
                         BindWebRequest();
-                        ReadResponseStr("POST", _miniFactory.Created());
+                        ReadResponseStr("POST", _miniFactory.Created());                                                
 
                         if (ps.Name == "GUID")
                         {
@@ -3821,10 +4006,13 @@ namespace OrientRealization
             }
             return ret_;
         }      
-        public T CreateVertex<T>(IOrientVertex vertex,string dbName_=null) where T: class
+        public T CreateVertex<T>(IOrientVertex vertex,string dbName_=null) 
+          where T: class,IOrientVertex
         {
             ITypeToken clTk=_typeConverter.Get(typeof(T));
-            ITypeToken prsTk=_miniFactory.NewToken(_jsonmanager.SerializeObject(vertex).Replace("\"", "\\\""));
+            ITypeToken prsTk = _miniFactory.NewToken(_jsonmanager.SerializeObject(vertex)
+            .Replace("\"", "\\\""));
+
             T ret_=null;
 
             CheckDb(dbName_);
@@ -3854,7 +4042,7 @@ namespace OrientRealization
             return ret_;
         }
 
-        public T CreateEdge<T>(T edge_, IOrientVertex vFrom,IOrientVertex vTo,string dbName_=null) 
+        public T CreateEdge<T>(IOrientEdge edge_,IOrientVertex vFrom,IOrientVertex vTo,string dbName_=null) 
             where T:class,IOrientEdge            
         {
 
@@ -3862,7 +4050,7 @@ namespace OrientRealization
             //edge type string for query
             ITypeToken edgeTk=_typeConverter.Get(typeof(T));
             //edge count
-            ITypeToken edgCnt=_miniFactory.NewToken(_jsonmanager.SerializeObject(edge_));
+            ITypeToken edgCnt=_miniFactory.NewToken(_jsonmanager.SerializeObject(edge_).Replace("\"", "\\\""));
             if(edgCnt==null)
             {
                 edgCnt=null;
@@ -3909,7 +4097,62 @@ namespace OrientRealization
             return ret_;
         }
 
-        public IEnumerable<T> SelectAll<T>(IOrientObject t_,string dbName_) where T:class
+        /// <summary>
+        /// Searches with any type by Condition. Type not parsed to DB.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="ID_"></param>
+        /// <param name="cond_"></param>
+        /// <param name="dbName_"></param>
+        /// <returns></returns>
+        public IEnumerable<T> SelectByIDWithCondition<T> (string ID_,string cond_=null,string dbName_=null)
+        where T:class,IorientDefaultObject
+        {
+          IEnumerable<T> result=null;
+          CheckDb(dbName_);
+          List<ITypeToken> tt=null;
+          ICommandBuilder where_=null;
+          ITypeToken id_=_miniFactory.NewToken(ID_);
+
+            if (cond_ != null)
+            {
+                tt=new List<ITypeToken>(){_miniFactory.NewToken(cond_)};
+
+                where_=
+                  _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
+            }
+
+            if (id_ != null)
+            {
+                //_commandFactory.CommandBuilder(_miniFactory, _formatFactory, prsTk, _miniFactory.NewToken("{0}"));
+
+                this.commandBody =
+                  NewChain().From(id_).Select().Where(where_).GetBuilder().Build();
+
+                BindBatchUrl();
+                BindBatchBody();
+                BindWebRequest();
+                ReadResponseStr("POST", _miniFactory.Created());
+
+                if (this.response_ != null && this.response_ != string.Empty)
+                {
+                    try
+                    {
+                        result=_jsonmanager.DeserializeFromParentNode<T>(this.response_, "result");
+                    }
+                    catch (Exception e) { }
+                }
+            }
+          return result;
+        }
+        /// <summary>
+        /// Searchersany type by type name parsed to DB.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="t_"></param>
+        /// <param name="dbName_"></param>
+        /// <returns></returns>
+        public IEnumerable<T> SelectAll<T>(IorientDefaultObject t_,string dbName_) where T:class,IorientDefaultObject
         {
             CheckDb(dbName_);
             ITypeToken pTk = _typeConverter.Get(t_);
@@ -3938,7 +4181,7 @@ namespace OrientRealization
             }
             return ret_;
         }
-        public IEnumerable<T> Select<T>(string cond_=null,string dbName_=null) where T : class
+        public IEnumerable<T> SelectFromType<T>(string cond_=null,string dbName_=null) where T : class,IorientDefaultObject
         {
             CheckDb(dbName_);
             ITypeToken pTk=_typeConverter.Get(typeof(T));
@@ -3978,8 +4221,15 @@ namespace OrientRealization
             }
             return ret_;
         }
+        /// <summary>
+        /// Searches single item parsing type to DB.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="cond_"></param>
+        /// <param name="dbName_"></param>
+        /// <returns></returns>
         public T SelectSingle<T>(string cond_,string dbName_=null) 
-            where T : class, IOrientObject
+            where T : class, IorientDefaultObject
         {
             CheckDb(dbName_);
             ITypeToken pTk = _typeConverter.Get(typeof(T));
@@ -4013,19 +4263,19 @@ namespace OrientRealization
         }
 
         public T UpdateEntity<T>(string item_,string dbName_=null)
-           where T:V
+           where T:class,IorientDefaultObject
         {
             T prsTk=OrientStringToObject<T>(item_);
             return UpdateEntity<T>(prsTk,dbName_);
         }
         public T UpdateEntity<T>(T item_,string dbName_=null)
-            where T:V
+            where T:class,IorientDefaultObject
         {
             T ret_ = null;
             
             ITypeToken tpTk=_typeConverter.Get(typeof(T));
             ITypeToken prsTk=_miniFactory.NewToken(_jsonmanager.SerializeObject(item_).Replace("\"", "\\\""));
-            ITypeToken cnd=_miniFactory.NewToken("@GUID="+item_.GUID);
+            ITypeToken cnd=_miniFactory.NewToken("GUID='"+item_.GUID+"'");
 
             ICommandBuilder cb=_commandFactory.CommandBuilder(_miniFactory,_formatFactory,
                 new List<ITypeToken>(){cnd},_miniFactory.EmptyString());
@@ -4053,18 +4303,11 @@ namespace OrientRealization
                 }
             }
             return ret_;
-        }
-
-        public bool CheckTpye<T,InE>()
-            where T:V where InE:E
-        {          
-            if (typeof(T).Equals(typeof(InE))) { return true; }
-            return false;
-        }
+        }      
 
         //T.inE(InE)
         public IEnumerable<T> Select<T,InE>(T vertexFrom_=null,string dbName_=null)
-            where InE:E where T : V
+            where T:class,IOrientVertex where InE:class,IOrientEdge
         {
             ITypeToken inVtk=null;
             ITypeToken intETk=null;
@@ -4118,10 +4361,9 @@ namespace OrientRealization
             return ret_;
 
         }
-
         //T.OutE(OutE).InV(InV)
         public IEnumerable<InV> Select<T,OutE,InV>(T vertexFrom_=null,string dbName_=null) 
-            where T:V where OutE:E where InV:V
+            where T:class,IOrientVertex where OutE:class,IOrientEdge where InV:class,IOrientVertex
         {
         
             ITypeToken outEtk = null;
@@ -4178,8 +4420,8 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
             return ret_;
         }
         //T.OutE(OutE).InV(InV)
-        public IEnumerable<InV> SelectCommentToComment<T,InE,InV>(T vertexFrom_=null, string dbName_=null)
-            where T:V where InE:E where InV:V
+        public IEnumerable<InV> SelectCommentToComment<T,InE,InV>(T vertexFrom_=null,string dbName_=null)
+            where T:class,IOrientVertex where InE:class,IOrientEdge where InV:class,IOrientVertex
         {
 
             ITypeToken inEtk = null;
@@ -4235,33 +4477,174 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
             }
             return ret_;
         }
+        public IEnumerable<T> SelectFromTraverseWithOffset<T,outE,inV,inE,inE2>(string ID_,string depthPropName_,int depthFrom_,int? depthOfset_=null,string dbName_=null)
+          where T:class,IorientDefaultObject
+        {
+          IEnumerable<T> ret_=null;
+          ITypeToken idTk=_miniFactory.NewToken(ID_);
+          ITypeToken tTk=_typeConverter.Get(typeof(T));
+          ITypeToken outETk=_typeConverter.Get(typeof(outE));
+          ITypeToken inVTk=_typeConverter.Get(typeof(inV));
+          ITypeToken inETk=_typeConverter.Get(typeof(inE));
+          ITypeToken inETk2=_typeConverter.Get(typeof(inE2));
+          ITypeToken _depthPropName=_miniFactory.NewToken(depthPropName_);
+          ITypeToken depthFromTk=_miniFactory.NewToken(depthFrom_.ToString());          
 
+          int _depth=depthOfset_==null?depthFrom_+3:depthFrom_+(int)depthOfset_;
+          ITypeToken depthToTk=_miniFactory.NewToken(_depth.ToString());
+
+          List<ICommandBuilder> commands=new List<ICommandBuilder>();
+
+
+          if(tTk!=null&&outETk!=null&&inVTk!=null&&inETk!=null){          
+
+            this.commandBody= 
+            //select
+            NewChain().Traverse().OutE(outETk).Coma().InV(inVTk).Coma().InE(inETk).Coma().InE(inETk2).FromV(idTk)
+            .NestRnd()
+            .From().Select()
+            .Where(_depthPropName)
+            .Between(depthFromTk).And(depthToTk)
+            .GetBuilder().Build();         
+            
+            BindBatchUrl();
+            BindBatchBody();
+            BindWebRequest();
+            ReadResponseStr("POST", _miniFactory.Created());
+
+              if (this.response_ != null && this.response_ != string.Empty)
+              {
+                  try
+                  {
+                      ret_ = _jsonmanager.DeserializeFromParentNode<T>(this.response_, "result");
+                  }
+                  catch (Exception e){}
+              }
+          }
+
+        return ret_;
+        }
+        public IEnumerable<T> SelectTraverseWithOffset<T,outE,inV,inE,inE2>(string ID_,string depthPropName_,int depthFrom_,int? depthOfset_=null,string dbName_=null)
+          where T:class,IorientDefaultObject
+        {
+          IEnumerable<T> ret_=null;
+          ITypeToken idTk=_miniFactory.NewToken(ID_);
+          ITypeToken tTk=_typeConverter.Get(typeof(T));
+          ITypeToken outETk=_typeConverter.Get(typeof(outE));
+          ITypeToken inVTk=_typeConverter.Get(typeof(inV));
+          ITypeToken inETk=_typeConverter.Get(typeof(inE));
+          ITypeToken inETk2=_typeConverter.Get(typeof(inE2));
+          ITypeToken _depthPropName=_miniFactory.NewToken(depthPropName_);
+          ITypeToken depthFromTk=_miniFactory.NewToken(depthFrom_.ToString());          
+
+          int _depth=depthOfset_==null?depthFrom_+3:depthFrom_+(int)depthOfset_;
+          ITypeToken depthToTk=_miniFactory.NewToken(_depth.ToString());
+
+          List<ICommandBuilder> commands=new List<ICommandBuilder>();
+
+
+          if(tTk!=null&&outETk!=null&&inVTk!=null&&inETk!=null){          
+
+            this.commandBody= 
+            //select
+            NewChain().Traverse().OutE(outETk).Coma().InV(inVTk).Coma().InE(inETk).Coma().InE(inETk2).FromV(idTk)                     
+            .GetBuilder().Build();         
+            
+            BindBatchUrl();
+            BindBatchBody();
+            BindWebRequest();
+            ReadResponseStr("POST", _miniFactory.Created());
+
+              if (this.response_ != null && this.response_ != string.Empty)
+              {
+                  try
+                  {
+                      ret_ = _jsonmanager.DeserializeFromParentNode<T>(this.response_, "result");
+                  }
+                  catch (Exception e){}
+              }
+          }
+
+        return ret_;
+        }
+        public IEnumerable<T> TraverseFrom<T,outE,inV,inE,inE2>(string ID_,string dbName_=null)
+          where T:class,IorientDefaultObject
+        {
+          IEnumerable<T> ret_=null;
+          ITypeToken idTk=_miniFactory.NewToken(ID_);
+          ITypeToken tTk=_typeConverter.Get(typeof(T));
+          ITypeToken outETk=_typeConverter.Get(typeof(outE));
+          ITypeToken inVTk=_typeConverter.Get(typeof(inV));
+          ITypeToken inETk=_typeConverter.Get(typeof(inE));
+          ITypeToken inETk2=_typeConverter.Get(typeof(inE2));
+      
+          List<ICommandBuilder> commands=new List<ICommandBuilder>();
+
+          if(tTk!=null&&outETk!=null&&inVTk!=null&&inETk!=null){          
+
+            this.commandBody= 
+            //select
+            NewChain().Traverse().OutE(outETk).Coma().InV(inVTk).Coma().InE(inETk).Coma().InE(inETk2).FromV(idTk)                     
+            .GetBuilder().Build();         
+            
+            BindBatchUrl();
+            BindBatchBody();
+            BindWebRequest();
+            ReadResponseStr("POST", _miniFactory.Created());
+
+              if (this.response_ != null && this.response_ != string.Empty)
+              {
+                  try
+                  {
+                      ret_ = _jsonmanager.DeserializeFromParentNode<T>(this.response_, "result");
+                  }
+                  catch (Exception e){}
+              }
+          }
+
+        return ret_;
+        }
+
+        //converting objects,strings and orients
         public T OrientStringToObject<T>(string item_)
-            where T:class,IOrientEntity
+            where T:class,IorientDefaultObject
         {
             T result = null;
             result=_jsonmanager.DeserializeFromParentNode<T>(item_,"result").SingleOrDefault();
             return result;
         }
-        public T StringToObject<T>(string item_)
-            where T : class
+        public T ContentStringToObject<T>(string item_)
+            where T:class,IorientDefaultObject
         {
             T result = null;
             result = _jsonmanager.DeserializeFromParentNodeStringObj<T>(item_);
             return result;
         }
-        public string ObjectToString<T>(T item_)
-          where T : class, IOrientEntity
+        public string ObjectToContentString<T>(T item_)
+          where T:class,IorientDefaultObject
         {
             string result = null;
             result = _jsonmanager.SerializeObject(item_);
             return result;
         }
-
+        public string ObjectToContentString<T>(IEnumerable<T> item_)
+          where T:class,IorientDefaultObject
+        {
+            string result = null;
+            result = _jsonmanager.SerializeObject(item_);
+            return result;
+        }
+        
+        /// <summary>
+        /// Alter property default with functionName. Will be Quoted "f()". Example "uuid()"
+        /// </summary>
+        /// <param name="class_"></param>
+        /// <param name="prop_"></param>
+        /// <param name="func_">nameOfFyncion</param>
         public void AlterProperty(ITypeToken class_,ITypeToken prop_,ITypeToken func_)
         {
         
-            this.commandBody = this._commandShema.AlterProperty(class_, prop_, func_)
+            this.commandBody = this._commandShema.AlterPropertyUUID(class_, prop_, func_)
                 .Build();
 
             BindCommandUrl();
@@ -4275,9 +4658,14 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
             }
         }
 
+        /// <summary>
+        /// Database dateformat.
+        /// </summary>
         public void DbPredefinedParameters()
         {
-            string cmd="ALTER DATABASE DATETIMEFORMAT \\\"yyyy-MM-dd HH:mm:ss\\\"";            
+            string dateFormat = ConfigurationManager.AppSettings["OrientDateTime"];
+            string cmd="ALTER DATABASE DATETIMEFORMAT \\\""+dateFormat+"\\\"";
+
             List<ITypeToken> tk = new List<ITypeToken>()
             {
                 _miniFactory.NewToken(cmd)
@@ -4301,25 +4689,58 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
 
     public interface IManager
     {
-        IManager CreateClass(string class_, string extends_, string dbName_ = null);
-        Type CreateClass<T, K>(string dbName_ = null);
-        IManager CreateDb(string name, string host);
-        T CreateEdge<T>(T edge_, IOrientVertex vFrom, IOrientVertex vTo, string dbName_ = null) where T : class, IOrientEdge;
-        IManager CreateProperty(string class_, string property_, Type type_, bool mandatory_, bool notnull_, string dbName_ = null);
-        IManager CreateProperty(Type item, string dbName_ = null);
-        T CreateProperty<T>(T item, string dbName_ = null) where T : class;
-        IManager CreateVertex(string vertex, string content_ = null, string dbName_ = null);
-        T CreateVertex<T>(IOrientVertex vertex, string dbName_ = null) where T : class;
-        IManager DeleteEdge<T, K, C>(K from, C to, string condition_=null,string dbName_ = null)
-            where T : E where K : V where C : V;
-        IManager DeleteEdge<T>(string from, string to, string condition_ = null, string dbName_ = null) 
-            where T : E;
-        IManager DeleteDb(string name, string host);
-        string GetResult();
-        CommandsChain NewChain();
-        IEnumerable<T> Select<T>(string cond_, string dbName_) where T : class;
-        IEnumerable<T> SelectAll<T>(IOrientObject t_, string dbName_) where T : class;
-        T SelectSingle<T>(string cond_, string dbName_) where T : class, IOrientObject;
+    void AlterProperty(ITypeToken class_, ITypeToken prop_, ITypeToken func_);    
+    IManager CreateClass(string class_, string extends_, string dbName_ = null);
+    Type CreateClass<T, K>(string dbName_ = null)
+      where T : IOrientEntity
+      where K : IOrientEntity;
+    IManager CreateDb(string name, string host);
+    T CreateEdge<T>(IOrientEdge edge_, IOrientVertex vFrom, IOrientVertex vTo, string dbName_ = null) where T : class, IOrientEdge;
+    IManager CreateProperty(Type item, string dbName_ = null);
+    IManager CreateProperty(string class_, string property_, Type type_, bool mandatory_, bool notnull_, string dbName_ = null);
+    T CreateProperty<T>(T item, string dbName_ = null) where T : class, IorientDefaultObject;
+    IManager CreateVertex(string vertex, string content_ = null, string dbName_ = null);
+    T CreateVertex<T>(string content_, string dbName_ = null) where T : class, IOrientVertex;
+    T CreateVertex<T>(IOrientVertex vertex, string dbName_ = null) where T : class, IOrientVertex;
+    void DbPredefinedParameters();
+    IManager Delete<T>(T item = null, string condition_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
+    IManager DeleteDb(string name, string host);
+    IManager DeleteEdge<T>(string from, string to, string condition_ = null, string dbName_ = null) where T : class, IOrientEdge;
+    IManager DeleteEdge<T, K, C>(K from, C to, string condition_ = null, string dbName_ = null)
+      where T : IOrientEdge
+      where K : IOrientVertex
+      where C : IOrientVertex;
+    string GetResult();
+    CommandsChain NewChain();
+    string ObjectToContentString<T>(T item_) where T : class, IorientDefaultObject;
+    T OrientStringToObject<T>(string item_) where T : class, IorientDefaultObject;
+    PropertyInfo[] Props<T>() where T :IOrientObject;
+    IEnumerable<T> SelectFromType<T>(string cond_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
+    IEnumerable<T> Select<T, InE>(T vertexFrom_ = default(T), string dbName_ = null)
+      where T : class,IOrientVertex
+      where InE :  class,IOrientEdge;
+    IEnumerable<InV> Select<T, OutE, InV>(T vertexFrom_ = default(T), string dbName_ = null)
+      where T :  class,IOrientVertex
+      where OutE :  class,IOrientEdge
+      where InV :  class,IOrientVertex;
+    IEnumerable<T> SelectAll<T>(IorientDefaultObject t_, string dbName_) where T : class, IorientDefaultObject;
+    IEnumerable<InV> SelectCommentToComment<T, InE, InV>(T vertexFrom_ = default(T), string dbName_ = null)
+      where T :  class,IOrientVertex
+      where InE :  class,IOrientEdge
+      where InV :  class,IOrientVertex;
+
+IEnumerable<T> SelectFromTraverseWithOffset<T,outE,inV,inE,inE2>(string ID_,string depthPropName_,int depthFrom_,int? depthOfset_=null,string dbName_=null)
+    where T:class,IorientDefaultObject;
+IEnumerable<T> SelectTraverseWithOffset<T,outE,inV,inE,inE2>(string ID_,string depthPropName_,int depthFrom_,int? depthOfset_=null,string dbName_=null)
+    where T:class,IorientDefaultObject;
+IEnumerable<T> TraverseFrom<T,outE,inV,inE,inE2>(string ID_,string dbName_=null)
+    where T:class,IorientDefaultObject;
+
+    T SelectSingle<T>(string cond_, string dbName_ = null) where T : class, IorientDefaultObject;
+    T ContentStringToObject<T>(string item_) where T : class, IorientDefaultObject;
+    T UpdateEntity<T>(T item_, string dbName_ = null) where T : class,IorientDefaultObject;
+    T UpdateEntity<T>(string item_, string dbName_ = null) where T : class,IorientDefaultObject;
+
     }
 
 }

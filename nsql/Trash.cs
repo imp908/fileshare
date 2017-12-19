@@ -470,7 +470,7 @@ namespace Trash
         //check insert clause
         public static void InsertClausesCheck()
         {
-            Person per=new Person() {Name="0", GUID="0", Changed=DateTime.Now, Created=DateTime.Now};
+            Person per=new Person() {Name="0", GUID="0", changed=DateTime.Now, created=DateTime.Now};
             JSONManager jm=new JSONManager();
             string contentText=jm.SerializeObject(per,
                 new JsonSerializerSettings()
@@ -705,13 +705,13 @@ namespace Trash
             s=new SubUnit();
 
             p =
-new Person() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00, 00, 00), Created=new DateTime(2017, 01, 01, 00, 00, 00)};
+new Person() {Name="0", GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00), created=new DateTime(2017, 01, 01, 00, 00, 00)};
 
             u =
-new Unit() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00, 00, 00), Created=new DateTime(2017, 01, 01, 00, 00, 00)};
+new Unit() {Name="0", GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00), created=new DateTime(2017, 01, 01, 00, 00, 00)};
 
             m =
-new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00, 00, 00), Created=new DateTime(2017, 01, 01, 00, 00, 00)};
+new MainAssignment() {GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00), created=new DateTime(2017, 01, 01, 00, 00, 00)};
 
             lp=new List<string>();
             lu=new List<string>();

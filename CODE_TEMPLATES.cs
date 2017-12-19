@@ -9363,6 +9363,14 @@ in v out
 //XVI
 //content property in Nodes or Relations broke batch command
 
+//XVIII
+//GUID command unpredictable 
+//ALTER PROPERTY CALSS.PROP DEFAULT uuid(); -> always same value
+//ALTER PROPERTY CALSS.PROP DEFAULT "uuid()"; -> new guid every create
+
+//XIX
+//batch adtetime if not esaped \"\" read as iso 8061, while database format  DATEtime is date time
+
 			}
 			
 		}
@@ -10235,5 +10243,5 @@ RAW JSON
 		}
 	
 	#endregion
-
+	
 	

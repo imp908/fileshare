@@ -25,6 +25,8 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Converters;
 using System.Reflection;
 
+using System.IO;
+
 namespace NSQLManager
 {
 
@@ -33,12 +35,27 @@ namespace NSQLManager
 
         static void Main(string[] args)
         {
-            Trash.FormatRearrange.StringsCheck();
+          Trash.FormatRearrange.StringsCheck();
 
-            RepoCheck rc=new RepoCheck();
-            RepoCheck.startcond sc=RepoCheck.startcond.MNL;
-            rc.ManagerCheck(false);
-            rc.UOWRandomcheck(sc);
+          RepoCheck rc=new RepoCheck();
+          RepoCheck.startcond sc=RepoCheck.startcond.MNL;
+
+      //DELETE and regenerate DB from scratch
+      //rc.ManagerCheck(false);
+      //generate News, and commentaries
+      //rc.UOWRealCheck(true);
+      //check absent person insert
+      //rc.UOWCheckPersonCreation();
+
+      //functional check
+      rc.UOWFunctionalCheck();
+
+//check structural or generated obj createion
+      //rc.UOWRandomcheck(sc);
+//check manual object behaviour
+      //rc.UOWstringobjectCheck();
+
+
         }
 
     }
@@ -85,13 +102,13 @@ namespace NSQLManager
             s=new SubUnit();
 
             p =
-new Person() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00, 00, 00), Created=new DateTime(2017, 01, 01, 00, 00, 00)};
+new Person() {Name="0", GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00), created=new DateTime(2017, 01, 01, 00, 00, 00)};
 
             u =
-new Unit() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00, 00, 00), Created=new DateTime(2017, 01, 01, 00, 00, 00)};
+new Unit() {Name="0", GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00), created=new DateTime(2017, 01, 01, 00, 00, 00)};
 
             m =
-new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00, 00, 00), Created=new DateTime(2017, 01, 01, 00, 00, 00)};
+new MainAssignment() { GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00), created=new DateTime(2017, 01, 01, 00, 00, 00)};
             
             lp=new List<string>();
             lu=new List<string>();
@@ -120,6 +137,60 @@ new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00,
 
         }
 
+        public Manager DefaultManagerInit(string databaseName=null,string hostPort_=null)
+        {
+          string dbName;
+          string login = ConfigurationManager.AppSettings["orient_login"];
+          string password = ConfigurationManager.AppSettings["orient_pswd"];
+          string dbHost = string.Format("{0}:{1}"
+              , ConfigurationManager.AppSettings["ParentHost"]
+              , ConfigurationManager.AppSettings["ParentPort"]);
+          if (databaseName == null)
+          {
+              dbName = ConfigurationManager.AppSettings["ParentDB"];
+          }
+          else { dbName = databaseName; }
+          if (hostPort_ == null)
+          {
+              dbHost = string.Format("{0}:{1}"
+              , ConfigurationManager.AppSettings["ParentHost"]
+              , ConfigurationManager.AppSettings["ParentPort"]);
+          }
+          else { dbName = hostPort_; }
+
+          TypeConverter typeConverter = new TypeConverter();
+          JsonManagers.JSONManager jsonMnager = new JSONManager();
+          TokenMiniFactory tokenFactory = new TokenMiniFactory();
+          UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+              new CommandBuilder(tokenFactory, new FormatFactory())
+              , new FormatFromListGenerator(new TokenMiniFactory())
+              , tokenFactory, new OrientBodyFactory());
+
+          BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
+              new OrientBodyFactory());
+
+          UrlShema.AddHost(dbHost);
+          WebResponseReader webResponseReader = new WebResponseReader();
+          WebRequestManager webRequestManager = new WebRequestManager();
+          webRequestManager.SetCredentials(new NetworkCredential(login, password));
+          CommandFactory commandFactory = new CommandFactory();
+          FormatFactory formatFactory = new FormatFactory();
+          OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
+          OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
+
+          CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+          new TokenMiniFactory(), new OrientQueryFactory());
+
+          return new Manager(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+          , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+
+        }
+        public NewsUOWs.NewsRealUow ActualNewsUOW()
+        {
+          NewsUOWs.NewsRealUow newsUow = new NewsUOWs.NewsRealUow("test_db");
+          return newsUow;
+        }
+        
         public void PropCheck()
         {
             propSearch<Person>(new Person() { Seed = 123  });
@@ -142,133 +213,8 @@ new MainAssignment() {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00,
             }
         }
 
-        /// <summary>
-        /// Database boilerplate fire
-        /// </summary>
-        public void ManagerCheck(bool cleanUpAter = true)
-        {
-
-            string login = ConfigurationManager.AppSettings["orient_login"];
-            string password = ConfigurationManager.AppSettings["orient_pswd"];
-            string dbHost = string.Format("{0}:{1}" 
-                ,ConfigurationManager.AppSettings["ParentHost"]
-                , ConfigurationManager.AppSettings["ParentPort"]);
-            string dbName = ConfigurationManager.AppSettings["TestDBname"];
-
-            TypeConverter typeConverter = new TypeConverter();
-            JsonManagers.JSONManager jsonMnager = new JSONManager();
-            TokenMiniFactory tokenFactory = new TokenMiniFactory();
-            UrlShemasExplicit UrlShema = new UrlShemasExplicit(
-                new CommandBuilder(tokenFactory,new FormatFactory()) 
-                ,new FormatFromListGenerator(new TokenMiniFactory())
-                , tokenFactory, new OrientBodyFactory());
-            BodyShemas bodyShema = new BodyShemas(new CommandFactory(),new FormatFactory(),new TokenMiniFactory(),
-                new OrientBodyFactory());
-         
-            UrlShema.AddHost(dbHost);
-            WebResponseReader webResponseReader=new WebResponseReader();
-            WebRequestManager webRequestManager=new WebRequestManager();
-            webRequestManager.SetCredentials(new NetworkCredential(login,password));
-            CommandFactory commandFactory=new CommandFactory();
-            FormatFactory formatFactory=new FormatFactory();
-            OrientQueryFactory orientQueryFactory=new OrientQueryFactory();
-            OrientCLRconverter orientCLRconverter=new OrientCLRconverter();
-
-            CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
-            new TokenMiniFactory(), new OrientQueryFactory());
-
-            Manager manager = new Manager(typeConverter, jsonMnager,tokenFactory,UrlShema,bodyShema, commandShema_
-            ,webRequestManager,webResponseReader,commandFactory,formatFactory,orientQueryFactory,orientCLRconverter);            
-
-            //node objects for insertion
-            Person personOne =
-new Person(){Seed=123,Name="0",GUID="000",Changed=new DateTime(2017,01,01,00,00,00),Created=new DateTime(2017,01,01,00,00,00)};
-            Person personTwo=
-new Person(){Seed=456,Name="0",GUID="001",Changed=new DateTime(2017,01,01,00,00,00),Created=new DateTime(2017,01,01,00,00,00)};
-            MainAssignment mainAssignment=new MainAssignment();
-            string pone = manager.ObjectToString<Person>(personOne);
-            List<Person> personsToAdd = new List<Person>() {
-new Person(){
-Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",GUID="000"
-,Changed=new DateTime(2017,01,01,00,00,00),Created=new DateTime(2017,01,01,00,00,00)
-}       
-    };
-
-            for(int i=0;i<=10;i++)
-            {
-                personsToAdd.Add(
-                    new Person() { sAMAccountName = "Person"+i, Name = "Person"+i }
-                    );
-            }
-
-          
-            //db delete
-            manager.DeleteDb(dbName, dbHost);
-
-            //db crete
-            manager.CreateDb(dbName,dbHost);
-
-            manager.DbPredefinedParameters();
-
-            //create class           
-          
-            Type maCl=manager.CreateClass<MainAssignment,E>(dbName);
-            Type obc = manager.CreateClass<Object_SC, V>(dbName);
-            Type tp = manager.CreateClass<Unit, V>(dbName);
-            //Type tpp = manager.CreateClass<Note, V>("news_test5");
-            Type nt = manager.CreateClass<Note, V>(dbName);
-            Type auCl = manager.CreateClass<Authorship, E>(dbName);
-            Type cmCl = manager.CreateClass<Comment, E>(dbName);
-
-            Note ntCl = new Note();
-            Note ntCl0 = new Note() { name = "test name", content = "test content" };
-            Object_SC obs = new Object_SC() { GUID = "1", changed = DateTime.Now, created = DateTime.Now, disabled = DateTime.Now };
-            manager.CreateVertex<Note>(ntCl, dbName);
-            manager.CreateVertex<Object_SC>(obs, dbName);
-
-            manager.CreateClass("Person","V",dbName);
-            
-            //create property
-            manager.CreateProperty<Person>(personOne, null);
-            manager.CreateProperty("Unit", "Name", typeof(string), false, false);
-
-            //add node
-            Person p0 = manager.CreateVertex<Person>(personTwo, dbName);        
-            manager.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
-            Unit u0 = manager.CreateVertex<Unit>(u, dbName);
-
-            //add test person
-            foreach (Person prs in personsToAdd)
-            {
-                Person p = manager.CreateVertex<Person>(prs, null);                
-            }
 
 
-            //add relation
-            MainAssignment maA = manager.CreateEdge<MainAssignment>(mainAssignment,p0, u0, dbName);
-            
-            //select from relation
-            IEnumerable<MainAssignment> a = manager.Select<MainAssignment>("1=1", dbName);
-
-            Note ntCr=manager.CreateVertex<Note>(ntCl0, dbName);            
-            Authorship aut=new Authorship();
-            Authorship aCr=manager.CreateEdge<Authorship>(aut,p0,ntCr,dbName);
-
-            if (cleanUpAter)
-            {
-                //delete edge
-                string res = manager.DeleteEdge<Authorship, Person, Note>(p0, ntCr).GetResult();
-                //Delete concrete node
-                res = manager.Delete<Unit>(u0).GetResult();
-                //delete all nodes of type
-                res = manager.Delete<Person>().GetResult();
-
-                //db delete
-                manager.DeleteDb(dbName, dbHost);
-            }
-
-        }
-        
         public void JsonManagerCheck()
         {
             string holidaysResp =
@@ -503,12 +449,11 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
         }
         public void AuthCheck()
         {
-            string res = UserAuthenticationMultiple.UserAcc();
+            string res=UserAuthenticationMultiple.UserAcc();
         }
         public void UOWRandomcheck(startcond sc_)
         {
            
-
 List<string> idioticNews = new List<string> {
 "Fire on the sun!","Internet trolls are jerks","Bugs flying around with wings are flying bugs","Chuck norris facts are they true?"
 ,"Health officials: Pools and diarea not good mix","Tiger wood He's goo at Golf","A nuclear explosion would be adisaster",
@@ -596,9 +541,10 @@ NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings
                 commentsCreated.Add(newsUOW.CreateCommentary(personsToAdd[3], commentsToAdd[8], commentsCreated[6]));
 
                 //UPDATE NEWS
-                //change news 0
-                newsCreated[0].description="Changed content";
-                Note nt=newsUOW.UpdateNews(newsCreated[0]);
+                //change news 0                  
+                Note addedNews=newsUOW.GetNewsByGUID("2eb7ec8c-ddcb-4149-994d-aa5517a0b078");
+                addedNews.content="updated content 10";
+                Note updatedNews=newsUOW.UpdateNews(addedNews);
 
             }
 
@@ -654,10 +600,339 @@ NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings
             }        
 
         }
-        public void UOWcheck()
+        public void UOWstringobjectCheck()
         {
+            NewsUOWs.NewsRealUow uow=new NewsUOWs.NewsRealUow("test_db");
+            PersonUOW pUow=new PersonUOW("test_db");
+            List<News> addedNews=new List<News>();
+
+             string pStr1=
+            "{\"Seed\":0,\"FirstName\":null,\"LastName\":null,\"MiddleName\":null,\"Birthday\":null,\"mail\":null,\"telephoneNumber\":null,\"userAccountControl\":null,\"objectGUID\":null,\"sAMAccountName\":\"acc1\",\"OneSHash\":null,\"Hash\":null,\"fieldTypes\":null,\"@class\":null,\"Name\":\"N10\",\"GUID\":\"g10\",\"Created\":\"2017-12-17 03:18:12\",\"Changed\":null,\"Disabled\":null}";
+            Person p2=new Person() {GUID="g10",Name="N10",sAMAccountName="acc1",id="id1"};
+            
+            //SERIALIZATIONs
+            string pStr2 = JsonConvert.SerializeObject(p2);
+
+            Person pGen2=JsonConvert.DeserializeObject<Person>(pStr2);
+            Person pGen1=JsonConvert.DeserializeObject<Person>(pStr1);
+
+            Person testPerson = pUow.GetPersonByAccount("YablokovAV");
+
+            Person person1=uow.UOWdeserialize<Person>(pStr1);
+            string strperson1=uow.UOWserialize<Person>(person1);
+
+
+            //FIELD HIDING CHECK
+            OrientDefaultObject v1=new OrientDefaultObject() {GUID="g10",id="id1"};
+
+            string v1Str = JsonConvert.SerializeObject(v1);
+
+            OrientDefaultObject v2 = JsonConvert.DeserializeObject<OrientDefaultObject>(v1Str);
+            OrientDefaultObject v3 =JsonConvert.DeserializeObject<OrientDefaultObject>(pStr1);
+
+            TestPersonPOCO tp1 = new TestPersonPOCO() { Name="person1", Acc="acc1",rid="#54:7", version="v1"};
+            string tpStr=JsonConvert.SerializeObject(tp1);
+            TestPersonPOCO tp1Gen=JsonConvert.DeserializeObject<TestPersonPOCO>(tpStr);
+            string tpStr2="{\"Name\":\"person1\",\"Acc\":\"acc1\",\"class\":null,\"type\":null,\"version\":\"v1\"}";
+            TestPersonPOCO tp2Gen=JsonConvert.DeserializeObject<TestPersonPOCO>(tpStr2);
+
+
+
+            //GET
+            //content byte convert check
+            string contenstr ="<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">С понедельника планируется работа по переводу сервисов RFC на новые типы заявок и бизнес-процессы, работа продлится до окончания фриза по изменениям в ОПКЦ системах.</span></span></p>↵↵<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">На сколько мне известно, у нас есть ряд доработок работающих в этих сервисах (например почтовое уведомление о недоступности сервиса при установке соответствующего чекбокса).</span></span></p>↵↵<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">Пришлите мне пожалуйста список этих доработок и что с моей стороны необходимо делать при переводе сервисов на другие типы заявок и БП, чтобы у нас ничего не отвалилось и весь дополнительный функционал продолжал работать в полном объеме без прерываний.</span></span></p>↵↵<p><img alt=\"\" height=\"223\" src=\"http://static.nspk.ru/files/a260252d4ed0b5c9fd29fdedab3ab817910c076f2b9cfc7d774ecda33369857d18736e48f6adfaf4b57332ac7329d46aa91488a63e8ddad43a831ddfb96c6fa9/1.jpg\" width=\"223\" /></p>↵↵<p>&nbsp;</p>↵↵<p>&nbsp;</p>↵";
+            //contenstr = "<p>1</p>\n\n<p>gugjhgch</p>\n";
+            //contenstr="<p style=\\\"margin-left:0cm; margin-right:0cm\\\">";
+            contenstr="<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">С понедельника планируется работа по переводу сервисов RFC на новые типы заявок и бизнес-процессы, работа продлится до окончания фриза по изменениям в ОПКЦ системах.</span></span></p>↵↵<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">На сколько мне известно, у нас есть ряд доработок работающих в этих сервисах (например почтовое уведомление о недоступности сервиса при установке соответствующего чекбокса).</span></span></p>↵↵<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">Пришлите мне пожалуйста список этих доработок и что с моей стороны необходимо делать при переводе сервисов на другие типы заявок и БП, чтобы у нас ничего не отвалилось и весь дополнительный функционал продолжал работать в полном объеме без прерываний.</span></span></p>↵↵<p><img alt=\"\" height=\"223\" src=\"http://static.nspk.ru/files/a260252d4ed0b5c9fd29fdedab3ab817910c076f2b9cfc7d774ecda33369857d18736e48f6adfaf4b57332ac7329d46aa91488a63e8ddad43a831ddfb96c6fa9/1.jpg\" width=\"223\" /></p>↵↵<p>&nbsp;</p>↵↵<p>&nbsp;</p>↵";
+
+
+            string enc = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(contenstr));
+
+
+            //CHECK CONTENT
+            News ns=new News();
+            ns.contentBase64 = contenstr;
+            string nsCont = uow.UOWserialize<News>(ns);
+            News nesAdd2=uow.CreateNews(person1, ns);
+            string cntDes = nesAdd2.contentBase64;
+
+            string newsStr="{\"PGUID\":\"\",\"authAcc\":\"\",\"authGUID\":\"\",\"authName\":\"\",\"pic\":\"\",\"name\":\"\",\"content_\":\"cnt1\",\"description\":\"\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"Created\":\"2017-12-19 13:43:04\"}";
+            News newsGen0 = uow.UOWdeserialize<News>(newsStr);
+            News nesAdd=uow.CreateNews(person1, newsGen0);
+            addedNews.Add(nesAdd);
+
+            //UPDATEs        
+            addedNews[0].contentBase64="updated content";
+            string strDes = uow.UOWserialize<News>(addedNews[0]);
+            Note updatedNews=uow.UpdateNews(addedNews[0]);
+            Note updatedNewsGet = uow.GetNewsByGUID(updatedNews.GUID);
+
+            //CHECK BASE64
+            string ctr = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(contenstr));         
+            byte[] bts = System.Convert.FromBase64String(ctr);
+            string contenstrDec=System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(ctr));
 
         }
+        public void UOWRealCheck(bool newsGen=false)
+        {
+          
+          List<Person> personsAdded = new List<Person>();          
+          List<News> newsAdded = new List<News>();          
+          List<Commentary> commentaryAdded = new List<Commentary>();          
+
+          List<V> nodes = new List<V>();
+
+          NewsUOWs.NewsRealUow uow = new NewsUOWs.NewsRealUow("test_db");
+
+          string dtStr="{\"transaction\":true,\"operations\":[{\"type\":\"script\",\"language\":\"sql\",\"script\":[\" create Vertex Person content {\"Seed\":1005911,\"FirstName\":\"Илья\",\"LastName\":\"Непринцев\",\"MiddleName\":\"Александрович\",\"Birthday\":\"1987-03-09 00:00:00\",\"mail\":\"Neprintsevia@nspk.ru\",\"telephoneNumber\":1312,\"userAccountControl\":512,\"objectGUID\":\"7E3E2C99-E53B-4265-B959-95B26CA939C8\",\"sAMAccountName\":\"Neprintsevia\",\"OneSHash\":\"5de9dfe2c74b5eef8e13f4f43163f445\",\"Hash\":\"f202a15b6dac384aecbd2424dcca10a7\",\"@class\":\"Person\",\"Name\":\"Непринцев Илья Александрович\",\"GUID\":\"ba124b8e-9857-11e7-8119-005056813668\",\"Created\":\"2017-09-13 07:15:29\",\"Changed\":\"2017-12-05 10:07:19\"} \"]}]}";
+          byte[] bt=Encoding.UTF8.GetBytes(dtStr);
+          string dtStrRegen = Encoding.UTF8.GetString(bt, 0, bt.Count());
+          bool res = dtStr.Equals(dtStrRegen);
+        
+          PersonUOWs.PersonUOW puow = new PersonUOW("news_test5","http://msk1-vm-ovisp02:2480");
+          Person person_ = puow.GetPersonByAccount("Neprintsevia");
+          string str=uow.UOWserialize<Person>(person_);
+          Manager mng = DefaultManagerInit();
+          Person pr=mng.CreateVertex<Person>(str,"test_db");
+
+          personsAdded=uow.GetOrientObjects<Person>(null).ToList();
+         
+       
+          Random rnd=new Random();
+          int persCnt=(int)rnd.Next(5,10);
+          int newsCnt=(int)rnd.Next(5,10);
+          int commentaryCnt=(int)rnd.Next(5,10);
+
+          //get news with commentaries
+          //news + comments
+          //comment + coments
+          //IEnumerable<Note> notes_=uow.GetByOffset("82f83601-d5cd-4108-b1b7-d27ac5a3933a",3);
+
+          IEnumerable<News> news_=uow.GetNews(10);
+          
+          if(newsGen) {
+            //news add
+            for(int i=0;i<personsAdded.Count()-1;i++)
+            {
+              
+              newsCnt=(int)rnd.Next(0,3);
+              for(int i2=0;i2<newsCnt;i2++)
+              {
+                newsAdded.Add(
+                  uow.CreateNews(personsAdded[i],new News(){name="News"+i2,content="fucking interesting news"})
+                );
+              }
+            }
+          }
+          
+          nodes.AddRange(
+            uow.GetOrientObjects<News>(null).ToList()
+          );
+
+          //rand, comments gen
+          for(int i=0;i<personsAdded.Count()-1;i++)
+          {
+            commentaryCnt=(int)rnd.Next(8,15);
+            for(int i2=0;i2<commentaryCnt;i2++){
+              int nodeToCommentId=(int)rnd.Next(0,nodes.Count()-1);
+              Note nodeToComment=uow.GetNoteByID(nodes[nodeToCommentId].id);
+              nodes.Add(
+                uow.CreateCommentary(personsAdded[i],new Commentary(){name="Commentary"+i2,content="fucking bullshit comentary"},nodeToComment)
+              );
+            }
+
+          }
+
+          string location_ = Assembly.GetExecutingAssembly().Location;
+          string path_ = Directory.GetParent(location_).ToString() + "\\nodes.json";
+          File.WriteAllText(path_, JsonConvert.SerializeObject(nodes,Formatting.Indented));
+        
+        }
+        
+        //DATABASE BOILERPLATE
+        public void ManagerCheck(bool cleanUpAter = true)
+        {
+            
+            string login = ConfigurationManager.AppSettings["orient_login"];
+            string password = ConfigurationManager.AppSettings["orient_pswd"];
+            string dbHost = string.Format("{0}:{1}" 
+                ,ConfigurationManager.AppSettings["ParentHost"]
+                , ConfigurationManager.AppSettings["ParentPort"]);
+            string dbName = ConfigurationManager.AppSettings["TestDBname"];
+
+            TypeConverter typeConverter = new TypeConverter();
+            JsonManagers.JSONManager jsonMnager = new JSONManager();
+            TokenMiniFactory tokenFactory = new TokenMiniFactory();
+            UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+                new CommandBuilder(tokenFactory,new FormatFactory()) 
+                ,new FormatFromListGenerator(new TokenMiniFactory())
+                , tokenFactory, new OrientBodyFactory());
+            BodyShemas bodyShema = new BodyShemas(new CommandFactory(),new FormatFactory(),new TokenMiniFactory(),
+                new OrientBodyFactory());
+         
+            UrlShema.AddHost(dbHost);
+            WebResponseReader webResponseReader=new WebResponseReader();
+            WebRequestManager webRequestManager=new WebRequestManager();
+            webRequestManager.SetCredentials(new NetworkCredential(login,password));
+            CommandFactory commandFactory=new CommandFactory();
+            FormatFactory formatFactory=new FormatFactory();
+            OrientQueryFactory orientQueryFactory=new OrientQueryFactory();
+            OrientCLRconverter orientCLRconverter=new OrientCLRconverter();
+
+            CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+            new TokenMiniFactory(), new OrientQueryFactory());
+
+            Manager manager = new Manager(typeConverter, jsonMnager,tokenFactory,UrlShema,bodyShema, commandShema_
+            ,webRequestManager,webResponseReader,commandFactory,formatFactory,orientQueryFactory,orientCLRconverter);            
+
+            //node objects for insertion
+            Person personOne =
+new Person(){Seed=123,Name="0",GUID="000",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)};
+            Person personTwo=
+new Person(){Seed=456,Name="0",GUID="001",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)};
+            MainAssignment mainAssignment=new MainAssignment();
+            string pone = manager.ObjectToContentString<Person>(personOne);
+            List<Person> personsToAdd = new List<Person>() {
+new Person(){
+Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",GUID="000"
+,changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)
+},
+new Person(){
+Seed =123,Name="YablokovAE",sAMAccountName="YablokovAE",GUID="000"
+,changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)
+}      
+    };            
+
+            for(int i=0;i<=10;i++)
+            {
+                personsToAdd.Add(
+                    new Person() { sAMAccountName="Person"+i, Name="Person"+i, GUID="GUID"+i }
+                    );
+            }
+
+            manager.BindDbName("test_db");            
+
+            //db delete
+            manager.DeleteDb(dbName, dbHost);
+
+            //db crete
+            manager.CreateDb(dbName,dbHost);
+
+            manager.DbPredefinedParameters();
+
+            //create class
+            Type oE=manager.CreateClass<OrientEdge,E>(dbName);
+            Type maCl=manager.CreateClass<MainAssignment,E>(dbName);
+            Type obc=manager.CreateClass<Object_SC, V>(dbName);
+            Type tp=manager.CreateClass<Unit, V>(dbName);
+            //Type tpp = manager.CreateClass<Note, V>("news_test5");
+            Type nt=manager.CreateClass<Note, V>(dbName);
+            
+            Type cmt=manager.CreateClass<Commentary,Note>(dbName);
+            Type nws=manager.CreateClass<News,Note>(dbName);
+            Type auCl=manager.CreateClass<Authorship,E>(dbName);
+            Type cmCl=manager.CreateClass<Comment,E>(dbName);
+
+            Note ntCl=new Note();
+            Note ntCl0=new Note(){name = "test name",content = "test content"};
+            Object_SC obs = new Object_SC() { GUID = "1", changed = DateTime.Now, created = DateTime.Now, disabled = DateTime.Now };
+            News ns = new News() {name ="Real news"};
+            Commentary cm = new Commentary() {name ="Real comment"};         
+
+            manager.CreateClass("Person","V",dbName);
+            MainAssignment ma = new MainAssignment() { };
+
+            //create property
+            //will not create properties - not initialized object all property types anonimous.
+            manager.CreateProperty<OrientEdge>(null, null);
+            //create all properties even if all null.
+            manager.CreateProperty<MainAssignment>( new MainAssignment(), null);
+            manager.CreateProperty<Unit>( new Unit(), null);
+            manager.CreateProperty<Note>( new Note(), null);
+            manager.CreateProperty<Authorship>( new Authorship(), null);
+            manager.CreateProperty<Comment>( new Comment(), null);
+            manager.CreateProperty<Commentary>( new Commentary(), null);
+            manager.CreateProperty<News>( new News(), null);
+            manager.CreateProperty<Person>(personOne, null);
+            //create single property from names
+            //manager.CreateProperty("Unit", "Name", typeof(string), false, false);
+
+            manager.CreateVertex<Note>(ntCl, dbName);
+            manager.CreateVertex<Object_SC>(obs, dbName);
+
+            manager.CreateVertex<News>(ns,dbName);
+            manager.CreateVertex<Commentary>(cm,dbName);
+
+            //add node
+            Person p0 = manager.CreateVertex<Person>(personTwo, dbName);        
+            manager.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
+            Unit u0 = manager.CreateVertex<Unit>(u, dbName);
+
+            //add test person
+            foreach (Person prs in personsToAdd)
+            {
+                Person p = manager.CreateVertex<Person>(prs, null);                
+            }
+
+
+            //add relation
+            MainAssignment maA = manager.CreateEdge<MainAssignment>(mainAssignment,p0, u0, dbName);
+            
+            //select from relation
+            IEnumerable<MainAssignment> a = manager.SelectFromType<MainAssignment>("1=1", dbName);
+
+            Note ntCr=manager.CreateVertex<Note>(ntCl0, dbName);            
+            Authorship aut=new Authorship();
+            Authorship aCr=manager.CreateEdge<Authorship>(aut,p0,ntCr,dbName);         
+
+            IEnumerable<Note> notes=manager.SelectFromTraverseWithOffset<Note, Comment, Commentary, Authorship, Comment>("26:2","commentDepth",0,2, "test_db");
+
+            if (cleanUpAter)
+            {
+                //delete edge
+                string res = manager.DeleteEdge<Authorship, Person, Note>(p0, ntCr).GetResult();
+                //Delete concrete node
+                res = manager.Delete<Unit>(u0).GetResult();
+                //delete all nodes of type
+                res = manager.Delete<Person>().GetResult();
+
+                //db delete
+                manager.DeleteDb(dbName, dbHost);
+            }
+
+        }
+        //FUNCTIONAL TESTS
+        public void UOWFunctionalCheck()
+        {
+
+          NewsUOWs.NewsRealUow nu = new NewsUOWs.NewsRealUow("test_db");
+          PersonUOWs.PersonUOW pu = new PersonUOWs.PersonUOW("news_test5");
+          
+          //ABSENT PERSON CHECK
+          Random rnd = new Random();
+          int acc = (int)rnd.Next(0, 10000);
+          
+          Person personAbsent = new Person() { Name = "PersonAbsent", sAMAccountName = "absent"+acc };
+          string newsContent = "{\"conntent_\":\"news text\",\"name\":\"News name\"}";
+          News newsToinsert = nu.UOWdeserialize<News>(newsContent);
+          News newsAdded=nu.CreateNews(personAbsent, newsToinsert);
+
+          Person personFromTest=pu.GetPersonByAccount("Neprintsevia");
+          News newsAdded2=nu.CreateNews(personFromTest, newsToinsert);
+
+          //GET check
+          IEnumerable<Note> notes=nu.GetByOffset("3238d02d-6486-4448-8bc4-b1cb8a659dcd", null);
+          IEnumerable<Note> news=nu.GetNews(null);
+        
+        }
+        
+        public void UOWfromStringObjectsCreate()
+        {
+          NewsUOWs.NewsRealUow nu = ActualNewsUOW();
+                    
+        }
+     
+    
     }
 
 }

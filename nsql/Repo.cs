@@ -15,12 +15,13 @@ using IJsonManagers;
 using IWebManagers;
 using IRepos;
 using OrientRealization;
+using POCO;
 
 namespace Repos
 {
 
     public class Repo : IRepo_v1
-    {
+  {
 
         IJsonManger jm;
         ITokenBuilder tb;
@@ -81,7 +82,7 @@ namespace Repos
 
             return resp;
        }
-        public string Add(IOrientVertex obj_)
+        public string Add(IorientDefaultObject obj_)
         {
 
             string content=jm.SerializeObject(obj_);
@@ -234,7 +235,7 @@ namespace Repos
             return resp;
 
        }
-        public string Delete(Type type_, IOrientObject from_, IOrientObject to_, ITypeToken condition_)
+        public string Delete(Type type_, IOrientEntity from_, IOrientEntity to_, ITypeToken condition_)
         {
             string deleteClause;
 

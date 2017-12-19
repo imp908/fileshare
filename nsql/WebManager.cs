@@ -258,7 +258,7 @@ namespace WebManagers
             }
             else
             {
-                _content = Encoding.UTF8.GetBytes(value);
+              _content = Encoding.UTF8.GetBytes(value);
             }
         }
         void bindContent()
@@ -269,9 +269,13 @@ namespace WebManagers
                 {
                     this._request.ContentType="application/json";
                     this._request.ContentLength=_content.Length;
+                    string tempRes = _content.ToString();
+                    
                     using (Stream str=this._request.GetRequestStream())
-                    {                                               
-                        str.Write(_content, 0, _content.Length);                       
+                    {
+                      //StreamWriter strw = new StreamWriter(str, new UTF8Encoding());
+                      //strw.Write(_content);
+                      str.Write(_content, 0, _content.Length);                       
                     }
                 }
                 catch(Exception e){}
@@ -441,13 +445,13 @@ namespace WebManagers
             }
             catch(WebException e)
             {
+              if(e.Response!=null){
                 string resp=new StreamReader(e.Response.GetResponseStream()).ReadToEnd();                
-
-                return e.Response;
+              }
+              return e.Response;              
             }
-            catch (Exception e)
-            {
-                throw e;
+            catch (Exception e){
+                return null;
             }
         }
         public WebResponse GetResponse64(string url_, string method)

@@ -43,6 +43,9 @@ namespace IQueryManagers
         ITypeToken AlterToken();
         ITypeToken DefaultToken();
         ITypeToken UUIDToken();
+        ITypeToken DoubleQuotes();
+
+        ITypeToken Between();
 
         ITypeToken UpdateToken();
 
@@ -64,9 +67,11 @@ namespace IQueryManagers
         ITypeToken RightRoundBraket();
         ITypeToken RightSquareBraket();
         ITypeToken SelectToken();
+        ITypeToken TraverseToken();
         ITypeToken ToToken();
         ITypeToken VertexToken();
         ITypeToken WhereToken();
+        ITypeToken AndToken();
 
         ITypeToken In();
         ITypeToken Out();
