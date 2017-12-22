@@ -29,7 +29,7 @@ namespace UOW
 
   public class UOW
   {
-    internal Manager manager;
+    internal OrientRepo manager;
     internal string dbName;
         
     public UOW(string databaseName = null, string hostPort_ = null)
@@ -76,9 +76,10 @@ namespace UOW
         CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
         new TokenMiniFactory(), new OrientQueryFactory());
 
-        manager = new Manager(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+        manager = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
         , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
 
+        manager.BindDbName(dbName);
     }
     
   }
@@ -208,23 +209,23 @@ namespace PersonUOWs
     public class PersonUOW : UOW.UOW
     {
       
-       public PersonUOW(string databaseName = null, string hostPort_ = null)
+      public PersonUOW(string databaseName = null, string hostPort_ = null)
       : base(databaseName, hostPort_)
       {
       }
 
       public Person GetPersonByAccount(string accountName_)
       {
-          Person result=null;
-          var a=from s in manager.Props<Person>().ToList() where s.Name=="sAMAccountName" select s;
-          result=manager.SelectSingle<Person>("sAMAccountName='" + accountName_+"'", dbName);
-          return result;
+        Person result=null;
+        var a=from s in manager.Props<Person>().ToList() where s.Name=="sAMAccountName" select s;
+        result=manager.SelectSingle<Person>("sAMAccountName='" + accountName_+"'", dbName);
+        return result;
       }
       public Person GetPersonByGUID(string GUID_)
       {
-          Person result = null;            
-          result = manager.SelectSingle<Person>("GUID='" + GUID_ + "'", dbName);
-          return result;
+        Person result = null;            
+        result = manager.SelectSingle<Person>("GUID='" + GUID_ + "'", dbName);
+        return result;
       }
 
     }
@@ -762,7 +763,7 @@ qL=from s in quizList
                     //QuizSend emptyQuiz=new QuizSend();
 
                     QuizSend defaultQuiz=new QuizSend()
-                    {title="Опросы", href=new QuizHrefNode() {link="http://my.nspk.ru/Quiz/Execute/", target="_self"}, id=50, parentid=1};
+                    {title="Опросы",href=new QuizHrefNode() {link="http://my.nspk.ru/Quiz/Execute/", target="_self"}, id=50, parentid=1};
 
                     //QuizSend checkQuiz=new QuizSend()
                     //{
@@ -908,7 +909,7 @@ namespace NewsUOWs
     public class NewsUow
     {
 
-      Manager manager;
+      OrientRepo manager;
       string dbName;
 
       public NewsUow(string databaseName=null)
@@ -948,7 +949,7 @@ namespace NewsUOWs
           CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
           new TokenMiniFactory(), new OrientQueryFactory());
 
-          manager = new Manager(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+          manager = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
           , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
 
       }
@@ -1016,24 +1017,24 @@ namespace NewsUOWs
           Note prev=IsComment(newsId_);
           //is comment to comment
           if (prev!=null)
-          {             
-              commentaryTochange_.commentDepth=(prev.commentDepth + 1);               
+          {
+            commentaryTochange_.commentDepth=(prev.commentDepth + 1);
           }
           else
           {
-              newsToComment_.hasComments=true;
+            newsToComment_.hasComments=true;
           }
           //commentary Node created and relation from person created
           commentaryToAdd_=CreateNews(from,commentaryTochange_);
 
           if (commentaryToAdd_!=null)
-          {               
-              if (newsToComment_!=null)
-              {
-                  //create relation from commment to news Nodes
-                  manager.CreateEdge<Comment>(commented,newsToComment_, commentaryToAdd_);
-              }
-              else
+          {
+            if (newsToComment_!=null)
+            {
+              //create relation from commment to news Nodes
+              manager.CreateEdge<Comment>(commented,newsToComment_, commentaryToAdd_);
+            }
+            else
               {
                   //unsuccesfull news search
                   //manager.Delete<Note>(commentary_);
@@ -1234,7 +1235,7 @@ namespace NewsUOWs
     public class NewsRealUow
     {
 
-      Manager manager;
+      OrientRepo manager;
       string dbName;
 
       public NewsRealUow(string databaseName = null, string host_ = null)
@@ -1281,13 +1282,21 @@ namespace NewsUOWs
           CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
           new TokenMiniFactory(), new OrientQueryFactory());
 
-          manager = new Manager(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+          manager = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
           , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
 
+          manager.BindDbName(dbName);
       }
      
-      public News GetNewsByGUID(string GUID_)
+      public Note GetNoteByGUID(string GUID_)
       {
+          Note result = null;
+          result = manager.SelectSingle<Note>("GUID='" + GUID_ + "'", dbName);
+          return result;
+      }     
+
+      public News GetNewsByGUID(string GUID_)
+      {      
           News result = null;
           result = manager.SelectSingle<News>("GUID='" + GUID_ + "'", dbName);
           return result;
@@ -1303,9 +1312,9 @@ namespace NewsUOWs
       {
         IEnumerable<Note> result_=null;
         Note nt=manager.SelectSingle<Note>("GUID='"+guid_+"'",dbName);
-        int startDepth=nt.commentDepth == null ? 0 : (int)nt.commentDepth;
-        int endDepth=offset_==null?startDepth:startDepth+(int)offset_;
-        if(nt!=null){
+        if(nt!=null) {
+          int startDepth=nt.commentDepth == null ? 0 : (int)nt.commentDepth;
+          int endDepth=offset_==null?startDepth:startDepth+(int)offset_;        
           IEnumerable<Note> temRes = manager.TraverseFrom<Note, Comment, Commentary, Authorship, Comment>(nt.id, dbName);
           if(temRes!=null){
             result_ = temRes.Where(s => (s.class_ == "Commentary" || s.class_ == "News")&&(s.commentDepth>=startDepth&&s.commentDepth<=endDepth));
@@ -1313,7 +1322,21 @@ namespace NewsUOWs
         }
         return result_;
       }
-      
+      public IEnumerable<TestNews> GetByOffsetTest(string guid_, int? offset_=3)
+      {
+        IEnumerable<TestNews> result_=null;
+        TestNews nt=manager.SelectByGUIDfromType<TestNews>(typeof(News),"GUID='"+guid_+"'",dbName).FirstOrDefault();
+        if(nt!=null) {
+          int startDepth=nt.commentDepth == null ? 0 : (int)nt.commentDepth;
+          int endDepth=offset_==null?startDepth:startDepth+(int)offset_;        
+          IEnumerable<TestNews> temRes = manager.TraverseFrom<TestNews, Comment, Commentary, Authorship, Comment>(nt.id, dbName);
+          if(temRes!=null){
+            result_ = temRes.Where(s => (s.class_ == "Commentary" || s.class_ == "News")&&(s.commentDepth>=startDepth&&s.commentDepth<=endDepth));
+          }
+        }
+        return result_;
+      }
+
       [Obsolete]
       public IEnumerable<News> GetNewsByOffset(int? offset_=20)
       {
@@ -1352,8 +1375,9 @@ namespace NewsUOWs
       public IEnumerable<Person> SearchByName(string Name_)
       {
           IEnumerable<Person> result=null;
+          Name_ = Name_.ToLower();
           result=manager
-              .SelectFromType<Person>("Name like '%"+Name_+"%' or sAMAccountName like '%"+Name_+"%'or mail like '%"+Name_+"%'"
+              .SelectFromType<Person>("Name.toLowerCase() like '%"+Name_+"%' or sAMAccountName.toLowerCase() like '%"+Name_+"%'or mail.toLowerCase() like '%"+Name_+"%'"
               ,dbName);
           return result;
       }        
@@ -1375,6 +1399,12 @@ namespace NewsUOWs
             string personContent = manager.ObjectToContentString<Person>(person_);
             result=manager.CreateVertex<Person>(personContent, dbName);
           }
+        return result;
+      }
+      public IEnumerable<Person> GetPersonsWithNews(Note news_= null)
+      {
+        IEnumerable<Person> result=null;
+          result = manager.SelectInEOutV<Note, Authorship, Person>(news_,dbName);       
         return result;
       }
 
@@ -1421,8 +1451,10 @@ namespace NewsUOWs
       }
       public Commentary CreateCommentary(Person from,Commentary comment_,Note newsId_)
       {
-          Authorship auth = new Authorship() { };
-          Comment commented = new Comment() {  };
+          Authorship auth = new Authorship(){};
+          Comment commented = new Comment(){};
+          Commentary commentary_ = null;
+
           from=CheckPerson(from);
 
           int? depth = IsCommentToComment(newsId_.id);
@@ -1437,53 +1469,64 @@ namespace NewsUOWs
               comment_.commentDepth=comment_.commentDepth+1;
           }
           
-          Note newsToComment_ = manager.SelectByIDWithCondition<Note>(newsId_.id,null,dbName).FirstOrDefault();
+          if(from!=null){
 
-          //commentary Node created and relation from person created
-          Commentary commentary_ = CreateCommentary(from, comment_);
+            Note newsToComment_ = manager.SelectByIDWithCondition<Note>(newsId_.id,null,dbName).FirstOrDefault();
           
-          commentary_.PGUID=newsToComment_.GUID;
+            if(newsToComment_!=null){
+              
 
-          commentary_.authAcc=from.sAMAccountName;
-          commentary_.authGUID=from.GUID;
-          commentary_.authName=from.Name;
+              comment_.PGUID=newsToComment_.GUID;
+              comment_.authAcc=from.sAMAccountName;
+              comment_.authGUID=from.GUID;
+              comment_.authName=from.Name;
+
+              //commentary Node created and relation from person created
+              commentary_=CreateCommentary(from, comment_);
+              commentary_.author_=from;
+
+              //UpdateNews(from,commentary_);
+
+            if (commentary_!=null)
+            {          
+                if (newsToComment_!=null)
+                {
+                    //create relation from commment to news Nodes
+                    Comment commentedCr=manager.CreateEdge<Comment>(commented,newsToComment_,commentary_);
+                    newsToComment_.hasComments=true;
+
+                    UpdateNote(from,newsToComment_);
+                }
+                else
+                {
+                    //unsuccesfull news search
+                    //manager.Delete<Note>(commentary_);
+                }
           
-          UpdateNews(commentary_);
-
-          if (commentary_ != null)
-          {
-          
-              if (newsToComment_ != null)
-              {
-                  //create relation from commment to news Nodes
-                  Comment commentedCr=manager.CreateEdge<Comment>(commented, newsToComment_,commentary_);
-                  newsToComment_.hasComments=true;
-
-                  UpdateNews(newsToComment_);
-              }
-              else
-              {
-                  //unsuccesfull news search
-                  //manager.Delete<Note>(commentary_);
-              }
-          }
+          }}}
 
           return commentary_;
       }    
       public Commentary CreateCommentary(Person from,Commentary note_)
       {
-          Authorship auth=new Authorship();
-          Commentary nt_=manager.CreateVertex<Commentary>(note_, dbName);
-          Authorship newAuth=manager.CreateEdge<Authorship>(auth,from,nt_);
+        Authorship auth=new Authorship();
+        Commentary nt_ = null;
+        Authorship newAuth = null;
+
+        if(from!=null){
+        
+          nt_=manager.CreateVertex<Commentary>(note_,dbName);
+          newAuth=manager.CreateEdge<Authorship>(auth,from,nt_);
           from=CheckPerson(from);
 
           //if unsucceced clean created objects
           if(auth==null||note_==null)
           {
-              manager.Delete<Commentary>(note_,null,dbName);
-              manager.Delete<Authorship>(auth,null,dbName);
+            manager.Delete<Commentary>(note_,null,dbName);
+            manager.Delete<Authorship>(auth,null,dbName);
           }
-          return nt_;
+        }
+        return nt_;
       }
 
       public News CreateNews(Person from,string news_)
@@ -1493,66 +1536,123 @@ namespace NewsUOWs
           News created=CreateNews(from, note_);
           return created;
       }
-      public News CreateNews(Person from,News note_)
+      public News CreateNews(Person from_,News note_)
       {
+        News nt_=null;
+        if(from_!=null ) {
         Authorship auth=new Authorship();
-        note_.PGUID = from.GUID;
 
-        note_.authAcc=from.sAMAccountName;
-        note_.authGUID=from.GUID;
-        note_.authName=from.Name;
-        from=CheckPerson(from);
+        note_.PGUID=from_.GUID;
+        note_.authAcc=from_.sAMAccountName;
+        note_.authGUID=from_.GUID;
+        note_.authName=from_.Name;
 
-        News nt_=manager.CreateVertex<News>(note_, dbName);
-        Authorship newAuth=manager.CreateEdge<Authorship>(auth,from,nt_);
-        nt_.author_=from;
-        //if unsucceced clean created objects
-        if(auth==null||note_==null)
-        {
-         
-          manager.Delete<News>(note_,null,dbName);
-          manager.Delete<Authorship>(auth,null,dbName);
+          Person personfrom_=CheckPerson(from_);
+          if(personfrom_!=null){
+            nt_=manager.CreateVertex<News>(note_, dbName);
+            Authorship newAuth=manager.CreateEdge<Authorship>(auth,personfrom_,nt_);
+            nt_.author_=personfrom_;
+            //if unsucceced clean created objects
+            if(auth==null||note_==null)
+            {         
+              manager.Delete<News>(note_,null,dbName);
+              manager.Delete<Authorship>(auth,null,dbName);
+            }
+          }
         }
-        return nt_;
-      }
-     
 
-      public Note UpdateNews(Note newsObj_)
-      {
-          newsObj_.changed = DateTime.Now;
-          manager.UpdateEntity<Note>(newsObj_, dbName);
-          Note nt=manager.SelectSingle<Note>("GUID='"+newsObj_.GUID+"'",dbName);
-          return nt;
-      }
-      public Note UpdateNews(string newsStr_)
-      {
-          Note result = null;
-          Note nt = manager.OrientStringToObject<Note>(newsStr_);
-          result = UpdateNews(nt);
-          return result;
+        return nt_;
       }     
 
-      public News PublishNews(string newsId_)
+      public News UpdateNews(Person from_,News noteFrom)
       {
-          News nt = manager.SelectSingle<News>("@rid=" + newsId_);
+    noteFrom.changed=DateTime.Now;
+    News noteTo = manager.SelectSingle<News>("GUID='" + noteFrom.GUID + "'");
+    News noteToAdd=manager.UpdateProperties<News>(noteFrom, noteTo);
+    manager.UpdateEntity<Note>(noteToAdd, dbName);
+    News nt=manager.SelectSingle<News>("GUID='"+noteFrom.GUID+"'",dbName);
+    return nt;
+      }
+      public Commentary UpdateCommentary(Person from_,Commentary noteFrom)
+      {
+    noteFrom.changed=DateTime.Now;
+    Commentary noteTo = manager.SelectSingle<Commentary>("GUID='" + noteFrom.GUID + "'");
+    Commentary noteToAdd=manager.UpdateProperties<Commentary>(noteFrom, noteTo);
+    manager.UpdateEntity<Note>(noteToAdd, dbName);
+    Commentary nt=manager.SelectSingle<Commentary>("GUID='"+noteFrom.GUID+"'",dbName);
+    return nt;
+      }     
+      
+      /// <summary>
+      /// Checks type and account. If commentary validates user by sAMAccountName. 
+      /// </summary>
+      /// <param name="from_">Person validate</param>
+      /// <param name="noteFrom"></param>
+      /// <returns></returns>
+      public Note UpdateNotePersonal(Person from_,Note noteFrom)
+      {
+        Note result = null;
+        bool update = true;
+        if(noteFrom.GetType()==typeof(Commentary)){
+          if(from_.sAMAccountName!=noteFrom.author_.sAMAccountName){
+            update = false;
+          }}
+        if(update){
+          result=UpdateNote(from_, noteFrom);
+        }
+        return result;
+      }
+
+      /// <summary>
+      /// Updates property by property object to object from. Custom Updatable system attribute true false checked.
+      /// </summary>
+      /// <param name="from_">Object from</param>
+      /// <param name="noteFrom">Object to</param>
+      /// <returns></returns>
+      public Note UpdateNote(Person from_,Note noteFrom)
+      {
+  noteFrom.changed=DateTime.Now;
+  Note noteTo = manager.SelectSingle<Note>("GUID='"+noteFrom.GUID+"'");
+  Person oldAuthor = GetPersonsWithNews(noteTo).FirstOrDefault();  
+
+  noteTo=manager.UpdateProperties<Note>(noteFrom,noteTo);
+
+  manager.DeleteEdge<Authorship, Person, Note>(oldAuthor, noteFrom, null, dbName);
+
+  noteTo.author_=from_;
+  
+  Authorship authNew=manager.CreateEdge<Authorship>(new Authorship(), from_, noteTo, dbName);
+
+  noteTo.authName = from_.Name;
+  noteTo.authAcc = from_.sAMAccountName;
+  noteTo.authGUID = from_.GUID;
+
+  Note updatedEntity=manager.UpdateEntity<Note>(noteTo, dbName);
+  Note nt=manager.SelectSingle<Note>("GUID='"+noteFrom.GUID+"'",dbName);
+  return nt;
+      }
+
+      public News PublishNews(string newsGUID_)
+      {
+          News nt = manager.SelectSingle<News>("GUID='"+newsGUID_+"'");
           nt.published = DateTime.Now;
           return nt;
       }
-      public News UnPublishNews(string newsId_)
+      public News UnPublishNews(string newsGUID_)
       {
-          News nt = manager.SelectSingle<News>("@rid=" + newsId_);
+          News nt = manager.SelectSingle<News>("GUID='"+newsGUID_+"'");
           nt.published=null;
           return nt;
       }
-      public News PinNews(string newsId_)
+      public News PinNews(string newsGUID_)
       {
-          News nt = manager.SelectSingle<News>("@rid=" + newsId_);
+          News nt = manager.SelectSingle<News>("GUID='"+newsGUID_+"'");
           nt.pinned = DateTime.Now;
           return nt;
       }
-      public News UnPinNews(string newsId_)
+      public News UnPinNews(string newsGUID_)
       {
-          News nt = manager.SelectSingle<News>("@rid=" + newsId_);
+          News nt = manager.SelectSingle<News>("GUID='"+newsGUID_+"'");
           nt.pinned = null;
           return nt;
       }
@@ -1561,7 +1661,11 @@ namespace NewsUOWs
       {
         IEnumerable<News> result = null;
         int endDepth=offset==null?20:(int)offset;
-          result = manager.SelectFromType<News>(null, dbName).OrderBy(s=>s.created).Take(endDepth);
+          result = manager.SelectByGUIDfromType<News>(typeof(News),null, dbName);
+          DateTime? mindate = (from s in result select s.created).Min();
+          DateTime? maxdate = (from s in result select s.created).Max();
+          result = result.OrderByDescending(s => s.created);
+          result = result.Take(endDepth);
         return result;
       }   
       public IEnumerable<News> GetPersonNews(Person p_=null)
@@ -1641,7 +1745,7 @@ namespace NewsUOWs
       {
         return System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(input));
       }
-    
+           
     }
 
 }

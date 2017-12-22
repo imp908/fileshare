@@ -166,7 +166,7 @@ namespace NSQLManagerTests.Tests
 
     public class IntegrationMnagerFireTest
     {
-        Manager mng;
+        OrientRepo mng;
         Person p;
         Unit u;
         MainAssignment mainAssignment;
@@ -180,13 +180,13 @@ namespace NSQLManagerTests.Tests
             dbHost = string.Format("{0}:{1}"
                 , ConfigurationManager.AppSettings["ParentHost"]
                 , ConfigurationManager.AppSettings["ParentPort"]);
-            dbName = ConfigurationManager.AppSettings["TestDBname"];
+            dbName = "test_db_gen";
 
             p =
-new Person() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
+new Person() { Name = "0", GUID = "0", changed = new DateTime(2017, 01, 01, 00, 00, 00), created = new DateTime(2017, 01, 01, 00, 00, 00) };
 
             u =
-new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00, 00), Created = new DateTime(2017, 01, 01, 00, 00, 00) };
+new Unit() { Name = "0", GUID = "0", changed = new DateTime(2017, 01, 01, 00, 00, 00), created = new DateTime(2017, 01, 01, 00, 00, 00) };
 
             mainAssignment = new MainAssignment();
 
@@ -213,7 +213,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             CommandShemasExplicit cs = new CommandShemasExplicit(cf, ff,
        new TokenMiniFactory(), new OrientQueryFactory());
 
-            mng = new Manager(tc, jm, tf, us, bs, cs, wm, wr, cf, ff, oqf, pc);
+            mng = new OrientRepo(tc, jm, tf, us, bs, cs, wm, wr, cf, ff, oqf, pc);
 
         }
 
@@ -225,7 +225,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         }
 
         [Fact]
-        public void ManagerDbBoilerplateCheck()
+        public void RepoDbCreateGenClassPropDelete()
         {
 
             //db delete
@@ -251,9 +251,9 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             MainAssignment maA = mng.CreateEdge<MainAssignment>(mainAssignment, crVrtstr, u0, dbName);
 
-            IEnumerable<Person> selectMt = mng.Select<Person>("1=1", dbName);
+            IEnumerable<Person> selectMt = mng.SelectFromType<Person>("1=1", dbName);
 
-            IEnumerable<MainAssignment> a = mng.Select<MainAssignment>("1=1", dbName);
+            IEnumerable<MainAssignment> a = mng.SelectFromType<MainAssignment>("1=1", dbName);
 
             //db delete
             string DeleteResult = mng.DeleteDb(dbName, dbHost).GetResult();
@@ -315,12 +315,12 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
     
         string 
-            //input vars
-            orientAuth,databaseName
-            //result conditions
-            ,createDb,dropDb
-            ,createClassResult,propertyStrResult, propertyBoolResult
-            ,insertVertexResult, createDbResult, dropDbResult;
+          //input vars
+          orientAuth,databaseName
+          //result conditions
+          ,createDb,dropDb
+          ,createClassResult,propertyStrResult, propertyBoolResult
+          ,insertVertexResult, createDbResult, dropDbResult;
      
         public IntegrationCombatTest()
         {           
@@ -379,8 +379,8 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             Person p_ = new Person()
             {
-                Changed = new DateTime(2017, 01, 01, 00, 00, 00)
-                ,Created = new DateTime(2017, 01, 01, 00, 00, 00)
+                changed = new DateTime(2017, 01, 01, 00, 00, 00)
+                ,created = new DateTime(2017, 01, 01, 00, 00, 00)
                 ,GUID = "1"
                 ,Name = "0"
             };
@@ -516,46 +516,46 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         public void IntegrationCombatDatabaseCreateDeleteCombat()
         {
 
-            ITypeToken dbName=new TextToken() {Text=ConfigurationManager.AppSettings["TestDBname"]};
+          ITypeToken dbName=new TextToken() {Text=ConfigurationManager.AppSettings["TestDBname"]};
 
-            //binding host from dbname to shema builder
-            _urlShemas.AddHost(hostToken.Text);
-            //creating Orient REST API url for db creation from db name, using shemas
-            string urlCommand=_urlShemas.Database(dbName).GetText();
-            //bind request to Webmanager
-            webRequestManager.AddRequest(urlCommand);
-            //bind credentials to request
-            webRequestManager.SetCredentials(nc);
-            //build and bind authentication header from passed credentials
-            webRequestManager.SetBase64AuthHeader(orientAuth);
+          //binding host from dbname to shema builder
+          _urlShemas.AddHost(hostToken.Text);
+          //creating Orient REST API url for db creation from db name, using shemas
+          string urlCommand=_urlShemas.Database(dbName).GetText();
+          //bind request to Webmanager
+          webRequestManager.AddRequest(urlCommand);
+          //bind credentials to request
+          webRequestManager.SetCredentials(nc);
+          //build and bind authentication header from passed credentials
+          webRequestManager.SetBase64AuthHeader(orientAuth);
 
-            //Create DB
-            //get response of POST method 
-            try
-            {
-                createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-            }
-            catch (Exception e) {}
+          //Create DB
+          //get response of POST method 
+          try
+          {
+            createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+          }
+          catch (Exception e) {}
           
-            //
-            List<ITypeToken> tokens_=new List<ITypeToken>() {
-                _miniFactory.EmptyString()
-            };
+          //
+          List<ITypeToken> tokens_=new List<ITypeToken>() {
+            _miniFactory.EmptyString()
+          };
 
-            //Generate command url
-            _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tokens_, _miniFactory.EmptyString());
+          //Generate command url
+          _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tokens_, _miniFactory.EmptyString());
 
-            //delete DB
-            //get response of DELETE method 
-            //get response of DELETE method 
-            try
-            {
-                dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
-            }
-            catch (Exception e) {}
+          //delete DB
+          //get response of DELETE method 
+          //get response of DELETE method 
+          try
+          {
+            dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
+          }
+          catch (Exception e) {}
 
-            Assert.NotNull(createDb);
-            Assert.Equal(string.Empty, dropDb);
+          Assert.NotNull(createDb);
+          Assert.Equal(string.Empty, dropDb);
        }
         
     }
@@ -575,56 +575,56 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                 , ConfigurationManager.AppSettings["ParentHost"]
                 , ConfigurationManager.AppSettings["ParentPort"]
                 , ConfigurationManager.AppSettings["AuthURL"]
-                , ConfigurationManager.AppSettings["ParentDB"]);
+                , ConfigurationManager.AppSettings["TestDBname"]);
 
             funcUrl=string.Format(@"{0}:{1}/{2}/{3}"
                 , ConfigurationManager.AppSettings["ParentHost"]
                 , ConfigurationManager.AppSettings["ParentPort"]
                 , ConfigurationManager.AppSettings["FunctionURL"]
-                , ConfigurationManager.AppSettings["ParentDB"]);
+                , ConfigurationManager.AppSettings["TestDBname"]);
 
             batchUrl=string.Format(@"{0}:{1}/{2}/{3}"
                 , ConfigurationManager.AppSettings["ParentHost"]
                 , ConfigurationManager.AppSettings["ParentPort"]
                 , ConfigurationManager.AppSettings["BatchURL"]
-                , ConfigurationManager.AppSettings["ParentDB"]);
+                , ConfigurationManager.AppSettings["TestDBname"]);
 
             commandUrl=string.Format(@"{0}:{1}/{2}/{3}"
                 , ConfigurationManager.AppSettings["ParentHost"]
                 , ConfigurationManager.AppSettings["ParentPort"]
                 , ConfigurationManager.AppSettings["CommandURL"]
-                , ConfigurationManager.AppSettings["ParentDB"]);
+                , ConfigurationManager.AppSettings["TestDBname"]);
 
             root=ConfigurationManager.AppSettings["orient_login"];
             password=ConfigurationManager.AppSettings["orient_pswd"];
 
             nc=new NetworkCredential(root, password);
 
-       }
+        }
 
         [Fact]
         public void GetResponseAnUthorizedReturnsNullIntegrationTest()
         {
-            WebResponse response;
-            response=orietWebManager.GetResponse(authUrl, "GET");
-            Assert.Null(response);
-       }
+          WebResponse response;
+          response=orietWebManager.GetResponse(authUrl, "GET");
+          Assert.Null(response);
+        }
 
         [Fact]
         public void AuthenticateIntegrationTest()
         {
-            string result=orietWebManager.Authenticate(authUrl, nc).Headers.Get("Set-Cookie");
-            bool check=result != string.Empty && result != null;
-            Assert.True(check);
-       }
+          string result=orietWebManager.Authenticate(authUrl, nc).Headers.Get("Set-Cookie");
+          bool check=result != string.Empty && result != null;
+          Assert.True(check);
+        }
 
         [Fact]
         public void CommandExecuteCheck()
         {
-            orietWebManager.GetResponse(authUrl, "GET");
-            orietWebManager.Authenticate(authUrl, nc).Headers.Get("Set-Cookie");
-            orietWebManager.GetResponseCred("GET");
-       }
+          orietWebManager.GetResponse(authUrl, "GET");
+          orietWebManager.Authenticate(authUrl, nc).Headers.Get("Set-Cookie");
+          orietWebManager.GetResponseCred("GET");
+        }
 
     }
 
@@ -701,7 +701,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                 .GetBuilder().Build().GetText();
 
             string exp =
- "Create Class Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"} ";
+ "create Class Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"} ";
 
             Assert.Equal(exp, res);
        }
@@ -721,7 +721,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                 .Property(class_, prop_, type_, true_, true_).GetBuilder().Build().GetText();
 
             string exp =
-"Create Property UserSettings.showBirthday BOOLEAN";
+"create Property UserSettings.showBirthday BOOLEAN";
 
             Assert.Equal(exp, res);
         }
@@ -739,7 +739,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                 .Property(class_, prop_, type_, true_, true_).GetBuilder().Build().GetText();
 
             string exp =
-"Create Property VSC.Name STRING (MANDATORY TRUE,NOTNULL TRUE)";
+"create Property VSC.Name STRING (MANDATORY TRUE,NOTNULL TRUE)";
 
             Assert.Equal(exp, res);
         }
@@ -756,11 +756,9 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             commandOne.Create().Class(VSC).Extends(V);
 
-            string res=commandOne.GetBuilder().Build().GetText();
-            string exp =
-"Create Class VSC Extends V";
+            string res=commandOne.GetBuilder().Build().GetText();       
 
-            Assert.Equal(exp, res);
+            Assert.Equal("create Class VSC Extends V", res);
 
         }
 
@@ -819,7 +817,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                    .GetBuilder().Build();
 
             string result = this.commandOne.GetCommand();
-            Assert.Equal("Create Edge MainAssignment from #15:0 To #16:0", result);
+            Assert.Equal("create Edge MainAssignment from #15:0 To #16:0", result);
         }
         
 
@@ -832,7 +830,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                 , new OrientRoundBraketRightToken(), new TextToken() {Text=string.Empty});
 
             string result=this.commandOne.GetCommand();
-            Assert.Equal("(Select Name,GUID fromCreate Class V Extends VSC)", result);
+            Assert.Equal("(Select Name,GUID fromcreate Class V Extends VSC)", result);
         }
         [Fact]
         public void ChainingNestChainCheck()
@@ -860,7 +858,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             this.commandOne.Create().Class(V).Extends(VSC);
 
             string result=this.commandOne.GetCommand();
-            Assert.Equal("Create Class V Extends VSC", result);
+            Assert.Equal("create Class V Extends VSC", result);
         }
 
         //WHERE
@@ -879,9 +877,9 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         [Fact]
         public void ChainingWhereCheck()
         {
-            this.commandOne.Where();
+            this.commandOne.Where(miniFactory.EmptyString());
             string result=this.commandOne.GetCommand();
-            Assert.Equal(" where", result);
+            Assert.Equal(" where ", result);
         }
         [Fact]
         public void ChainingNestCheck()
@@ -901,7 +899,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             this.commandOne.Select().InV(t1).As(t2).FromV(t0).Expand(t2);
             string result = this.commandOne.GetCommand();
-            Assert.Equal("Select expand(r1) from(Select  inV('Note')  as r1 from Person )", result);
+            Assert.Equal("Select expand(r1) from(Select inV('Note')  as r1 from Person )", result);
         }
 
     }
@@ -994,7 +992,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             string res=commandBuilder.GetText();
             string exp =
-"Select GUID,Name,Unit from where 1=1Create Class Person Extends Person Vertexcontent GUID,Name,Unit ";
+"Select GUID,Name,Unit from where 1=1create Class Person Extends Person Vertexcontent GUID,Name,Unit ";
 
             Assert.Equal(exp, res);
 
@@ -1223,7 +1221,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             Urlshema=new UrlShemasExplicit(cb, fg, tf, qbf);
             Urlshema.AddHost(ConfigurationManager.AppSettings["ParentHost"]);
-            testDBname=ConfigurationManager.AppSettings["ChildDBname"];
+            testDBname=ConfigurationManager.AppSettings["TestDBname"];
             parentHost=ConfigurationManager.AppSettings["ParentHost"];
        }
 
@@ -1239,7 +1237,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             string expected=parentHost + "/database/test_db/plocal";
             result=Urlshema.Database(new TextToken() {Text=testDBname}).GetText();
             Assert.Equal(expected,result);
-       }
+        }
         [Fact]
         public void UrlShemasConnectCheck()
         {
@@ -1255,7 +1253,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             string expected=parentHost + "/command/test_db/sql";
             result=Urlshema.Command(new TextToken() {Text=testDBname}).GetText();
             Assert.Equal(expected, result);
-       }
+        }
         [Fact]
         public void UrlShemasBatchCheck()
         {
@@ -1263,7 +1261,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             string expected=parentHost + "/batch/test_db/sql";
             result=Urlshema.Batch(new TextToken() {Text=testDBname}).GetText();
             Assert.Equal(expected, result);
-       }
+        }
         
 
     }    
@@ -1314,18 +1312,19 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         [Fact]
         public void BodyCommandShemaCheck()
         {
-            string result=Bodyshema.Command(cb).GetText();
-            string expected="{\"command\":\"Create Class Property\"}";
+          string result=Bodyshema.Command(cb).GetText();
+          string expected="{\"command\":\""+ cb.GetText() +"\"}";
 
-            Assert.Equal(expected, result);
-       }
+          Assert.Equal(expected, result);
+        }
         [Fact]
         public void BodyBatchShemaCheck()
         {
-            string result=Bodyshema.Batch(cb).GetText();
-            string expected="{\"transaction\":TRUE,\"operations\":[{\"type\":\"script\",\"language\":\"sql\",\"script\":[\" Create Class Property \"]}]}";            
-            Assert.Equal(expected, result);
-       }
+          string result=Bodyshema.Batch(cb).GetText();
+          string expected=
+"{\"transaction\":true,\"operations\":[{\"type\":\"script\",\"language\":\"sql\",\"script\":[\" "+ cb.GetText() +" \"]}]}";
+          Assert.Equal(expected, result);
+        }
     }
     public class CommandShemaTest
     {
@@ -1479,13 +1478,13 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         public void ShemaCreateCheck()
         {
             string result = this.commandShemas.Create().GetText();
-            Assert.Equal("Create", result);
+            Assert.Equal("create", result);
         }
         [Fact]
         public void ShemaCreateParamCheck()
         {
             string result = this.commandShemas.Create(new TextToken() { Text = "class" }).GetText();
-            Assert.Equal("Create class", result);
+            Assert.Equal("create class", result);
         }
 
       
@@ -1497,8 +1496,8 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         [Fact]
         public void ShemaWhereCheck()
         {
-            string result = this.commandShemas.Where().GetText();
-            Assert.Equal(" where", result);
+            string result = this.commandShemas.Where(new TextToken() {Text=""}).GetText();
+            Assert.Equal(" where ", result);
         }
         [Fact]
         public void ShemaWhereWithParamsDoubleCheck()
@@ -1564,7 +1563,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         public void ShemaInVCheck()
         {
             string result = this.commandShemas.InV(new TextToken() { Text= "Note" }).Build().GetText();            
-            Assert.Equal(" inV('Note')", result);
+            Assert.Equal("inV('Note')", result);
         }
         [Fact]
         public void ShemaExpandCheck()
@@ -1573,7 +1572,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
                 new FormatFromListGenerator(new TokenMiniFactory()).FromatFromTokenArray(selectNameGuidAccTokenListForBuiler, tokenfactory.Coma()));
 
             string result = this.commandShemas.Expand(this.commandBuilder,new TextToken() { Text="r1"}).Build().GetText();
-            Assert.Equal("select expand(r1) from(Select Name,GUID,Acc )", result);
+            Assert.Equal("Select expand(r1) from(Name,GUID,Acc )", result);
         }
         #endregion
     }
@@ -1784,7 +1783,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         string
         authUrlExpected, commandURLExpected, hostExpected, portExpected, dbExpected, commandExpected,
         patternAuthExpected, patternCommandExpected, commandTokenExpected
-        , selectClauseExpected, whereClauseExpected, createCommandExpected
+        , selectClauseExpected, whereClauseExpected
         , createPersonURLExpected, deletePersonURLExpected
         , formatGeneratedExpected
         ;
@@ -1806,9 +1805,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
             selectClauseExpected=@"Select from Person";
             whereClauseExpected=@"where 1=1";
-            createCommandExpected =
-            "Create Vertex Person content {\"Name\":\"0\",\"GUID\":\"0\",\"Created\":\"2017-01-01 00:00:00\",\"Changed\":\"2017-01-01 00:00:00\"}";
-
+         
             host_=new OrientHost();
             port_=new OrientPort();
             db_=new OrientDatabaseNameToken();
@@ -1847,8 +1844,8 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             commandURLExpected=string.Format(@"{0}:2480/command/{1}/sql", hostExpected, dbExpected);
 
             createPersonURLExpected=string.Format(
-                "{0}:2480/command/{1}/sql/Create Vertex Person content {2}"
-               , ConfigurationManager.AppSettings["ParentHost"], dbExpected, "{\"Name\":\"0\",\"GUID\":\"0\",\"Created\":\"2017-01-01 00:00:00\",\"Changed\":\"2017-01-01 00:00:00\"}");
+                "{0}:2480/command/{1}/sql/create Vertex Person content {2}"
+               , ConfigurationManager.AppSettings["ParentHost"], dbExpected, "{\"Name\":\"0\",\"GUID\":\"0\"}");
             selectPersonURLExpected=string.Format(@"{0}:2480/command/{1}/sql/{2}"
                  ,ConfigurationManager.AppSettings["ParentHost"], dbExpected, "Select from Person where Name=0");
             deletePersonURLExpected=string.Format(@"{0}:2480/command/{1}/sql/{2}"
@@ -2012,14 +2009,14 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
         public void CreatePersonCommandTextBuild()
         {
             Person per=new Person()
-            {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00, 00, 00), Created=new DateTime(2017, 01, 01, 00, 00, 00)};
+            {Name="0", GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00), created=new DateTime(2017, 01, 01, 00, 00, 00)};
             JSONManager jm=new JSONManager();
             string contentText=jm.SerializeObject(per,
                 new JsonSerializerSettings()
                 {
                     NullValueHandling=NullValueHandling.Ignore,
                     Formatting=Formatting.None,
-                    DateFormatString=@"yyyy-MM-dd HH:mm:ss"
+                    DateFormatString=ConfigurationManager.AppSettings["OrientDateTime"]
                });
             TextToken content=new TextToken() {Text=contentText};
 
@@ -2034,8 +2031,11 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             cb.AddFormat(cf);
             cb.Build();
             string CreateCommand=cb.GetText();
+            string exp = "uuid() Vertex Person content {\"Name\":\"0\",\"GUID\":\"0\"}";
 
-            Assert.Equal(createCommandExpected, CreateCommand);
+      Assert.Equal(
+      exp
+      , CreateCommand);
        }
 
         [Fact]
@@ -2045,7 +2045,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
   new List<ITypeToken>() {new OrientHost(), new OrientPort(), new OrientCommandToken(), new OrientDatabaseNameToken(), new OrientCommandSQLTypeToken()};
 
             Person per=new Person()
-            {Name="0", GUID="0", Changed=new DateTime(2017, 01, 01, 00, 00, 00), Created=new DateTime(2017, 01, 01, 00, 00, 00)};
+            {Name="0", GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00), created=new DateTime(2017, 01, 01, 00, 00, 00)};
             JSONManager jm=new JSONManager();
             string contentText=jm.SerializeObject(per,
                 new JsonSerializerSettings()
@@ -2057,7 +2057,7 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             TextToken personContent=new TextToken() {Text=contentText};
 
             List<ITypeToken> CreateTokens =
-    new List<ITypeToken>() {new OrientUUIDToken(), new OrientVertexToken(), new OrientPersonToken(), new OrientContentToken(), personContent};
+    new List<ITypeToken>() {new OrientCreateToken(), new OrientVertexToken(), new OrientPersonToken(), new OrientContentToken(), personContent};
             List<ITypeToken> selectTokens =
     new List<ITypeToken>() {new OrientSelectToken(), new OrientFromToken(), new OrientPersonToken()};
             List<ITypeToken> DeleteToken =
@@ -2156,14 +2156,15 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
 
         string adinTceUrl=ConfigurationManager.AppSettings["AdinTceUrl"] + "/holiday/full";
 
-        string testGUID= "542ceb48-8454-11e4-acb0-00c2c66d13b0";
+        string testGUID= "3f65ccf5-135e-11e6-80d6-005056813668";
         //"18222799-602e-11e4-ad69-00c2c66d13b0" //test_long
         //"18a14516-cbb4-11e4-b849-f80f41d3dd35" //test
         //"ed53c8ea-c179-11e4-8edf-f80f41d3dd35" //Fill
         //"c1a4c984-a00e-11e6-80db-005056813668" //Alex
         //"542ceb48-8454-11e4-acb0-00c2c66d13b0" //Rudenko
         //"ba124b8e-9857-11e7-8119-005056813668" //Myself
-        //1ab7726d-0daf-11e5-980e-000c299fef81 //nesterovayv
+        //"1ab7726d-0daf-11e5-980e-000c299fef81" //nesterovayv
+        //"3f65ccf5-135e-11e6-80d6-005056813668" //eliseeva
 
         string expectedResult =
 "{\"GUID\":\"18a14516-cbb4-11e4-b849-f80f41d3dd35\",\"Position\":\"Специалист 1 категории\",\"Holidays\":[{\"LeaveType\":\"Отпуск основной\",\"Days\":0.0},{\"LeaveType\":\"Отпуск основной\",\"Days\":0.0}],\"Vacations\":[{\"LeaveType\":\"Отпуск основной\",\"DateStart\":\"13.02.2017\",\"DateFinish\":\"19.02.2017\",\"DaysSpent\":7},{\"LeaveType\":\"Отпуск основной\",\"DateStart\":\"14.07.2017\",\"DateFinish\":\"27.07.2017\",\"DaysSpent\":14}]}";
@@ -2383,7 +2384,10 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
     }
 
     public class NewsUOWCHeck
-    {
+    {        
+        
+        Func<string, string> stringEmpty = delegate (string s) { if(s==string.Empty){ return null;}else{ return s; } };
+        Func<int, string> intEmpty = delegate (int s) { if(s==0){ return null;}else{ return s.ToString(); } };        
 
         NewsUOWs.NewsUow nu;
         public NewsUOWCHeck()
@@ -2398,32 +2402,28 @@ new Unit() { Name = "0", GUID = "0", Changed = new DateTime(2017, 01, 01, 00, 00
             Assert.Equal("Neprintsevia", result);
         }
         [Fact]
-        public void UOWByAccCheck()
-        {
-            string result = nu.GetByAccount("Neprintsevia").id;
-            Assert.Equal("#22:174", result);
+        public void UOWsCheck()
+        {        
+          List<string> results = new List<string>();
+          List<Person> pers = nu.GetOrientObjects<Person>(null).ToList();
+
+          results.Add(nu.GetByAccount("Neprintsevia").id);            
+          results.Add(intEmpty(nu.SearchByName("олов").Count()));
+          results.Add(intEmpty(pers.Count()));
+          results.Add(nu.GetOrientObjectById<Person>(pers[0].id).id);
+
+          Assert.Equal(4,results.Count());
         }
-        [Fact]
-        public void UOWByNameCheck()
-        {
-            IEnumerable<Person> result = nu.SearchByName("олов");
-            Assert.NotEmpty(result);
-        }
-        [Fact]
-        public void UOWbyIdCheck()
-        {
-            string result = nu.GetOrientObjectById<Person>("22:174").id;
-            Assert.Equal("#22:174",result);
-        }
+     
         [Fact]
         public void UOWCreateNewsCheck()
         {            
-            JSONManager jm = new JSONManager();
-            Note nt = new Note() { content = "Very interesting new", Name="News" };            
-            string news = jm.SerializeObject(nt);
-            Person p = nu.GetByAccount("Neprintsevia");
-            string result = nu.CreateNews(p, nt).id;
-            Assert.NotNull(result);
+          JSONManager jm = new JSONManager();
+          Note nt = new Note() { content="Very interesting new",name="News" };            
+          string news = jm.SerializeObject(nt);
+          Person p = nu.GetByAccount("Neprintsevia");
+          string result = nu.CreateNews(p, nt).id;
+          Assert.NotNull(result);
         }
         [Fact]
         public void UOWDeleteRelation()

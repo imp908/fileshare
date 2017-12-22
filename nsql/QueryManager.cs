@@ -299,7 +299,7 @@ namespace QueryManagers
         }
         public ICommandBuilder Build()
         {
-            if (this.Tokens == null) {throw new Exception("No tokens");}
+            if (this.Tokens==null){throw new Exception("No tokens");}
             CheckFormat();
             SetText(this.Tokens, this.FormatPattern);
             return this;

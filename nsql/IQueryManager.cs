@@ -82,6 +82,7 @@ namespace IQueryManagers
 
         ITypeToken Expand();
 
+        ITypeToken Dog();
     }
     public interface IOrientBodyFactory
     {

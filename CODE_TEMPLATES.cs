@@ -192,7 +192,8 @@
 	https://codeblog.jonskeet.uk/
 	//CoddingHorror
 	https://blog.codinghorror.com/
-	
+	//CodeNames
+	http://blog.codenamed.nl/
 	
 	
 	//CONTINUOUS INTEGRATION
@@ -748,26 +749,36 @@ Revise:
 
 	public Bug Trackers
 	{
-		public GIT hub
-		{https://git-scm.com/book/en/v2
+		
+		{GitLab
+
+repository withot ".git"
+http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
+
+		},
+		
+		public GIT hub{
+			https://git-scm.com/book/en/v2
 			
 			public InitializeNewRepo()
 			{
 				
-echo "# NSQLmanager" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/imp908/NSQLmanager.git
-git push -u origin master
+	echo "# NSQLmanager" >> README.md
+	git init
+	git add README.md
+	git commit -m "first commit"
+	git remote add origin https://github.com/imp908/NSQLmanager.git
+	git push -u origin master
 				
 			}
 			
-			public DeleteMaster(){ //not working
+			public DeleteMaster()
+			{ //not working
 				https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
 				git symbolic-ref HEAD refs/heads/another-branch
 				http://matthew-brett.github.io/pydagogue/gh_delete_master.html
 			}
+			
 			
 			MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
 			git pull origin branchname --allow-unrelated-histories			
@@ -2953,6 +2964,7 @@ StringBuilder.
 		
 		
 		}
+			
 			public void SB()
 			{
 				
@@ -3133,6 +3145,7 @@ StringBuilder.
 				}    
 				
 			}
+	
 	}
 
 		public class External_Libraries()
