@@ -1,31 +1,29 @@
+///Hierarhy
+namespace Parts{
 	
-	///Hierarhy
-	namespace Parts{
-		
-		#region Names
-		
+	#region Names
+	
+{
+"TODO":[
+	{"Infrastructure":[
 		{
-		"TODO":[
-			{"Infrastructure":[
-				{
-				"Name":""
-				,"What":""
-				,"How":""
-				,"TODO":[]
-				,"DONE":[]
-				,"Test":[]
-				,"Comments":""
-				}
-			]}
-			,{"Utility":[]}
-			,{"Mastery":[]}
-			,{"Actual":[]}
-		]
+		"Name":""
+		,"What":""
+		,"How":""
+		,"TODO":[]
+		,"DONE":[]
+		,"Test":[]
+		,"Comments":""
 		}
-		
-		#endregion
-		
-	}
+	]}
+	,{"Utility":[]}
+	,{"Mastery":[]}
+	,{"Actual":[]}
+]
+}
+	#endregion
+	
+}
 
 	//Usefull links
 	public void mostUsefullLinks()
@@ -324,13 +322,13 @@
 	//Repository overall
 	http://techbrij.com/generic-repository-unit-of-work-entity-framework-unit-testing-asp-net-mvc	
 	//Not Generic REPOSITORY
-	https://softwareengineering.stackexchange.com/questions/180851/why-shouldnt-i-use-the-repository-pattern-with-entity-framework/220126#220126	
+	https://softwareengineering.stackexchange.com/questions/180851/why-shouldnt-i-use-the-repository-pattern-with-entity-framework/220126#220126
 	//NOSQL
 	//RaveDb
 	http://www.primaryobjects.com/2010/12/22/generating-flying-creatures-in-nosql-ravendb-with-c-asp-net-mvc-razor/
 	
-	
-	
+																							
+		
 	//TESTING
 	//Test Automation most complete answer
 	https://stackoverflow.com/questions/1316101/automated-unit-testing-why-what-which#1316209
@@ -418,211 +416,247 @@
 	
 	}
 	
-	#region TODO	
-	{
-		"TODO": [{
-		"Infrastructure": [{
-				"Correct decoupling of projects": []
-			}, {
-				"Build automate": []
-			},
-			{
-				"Testng automate": [{
-					"Name": "Test localhost server",
-					"What": "starts localhost for methods testing",
-					"How": ["Python localhost server"],
-					"TODO": ["add responses on 8001"],
-					"DONE": ["Starts localhost on 8000", "handles GET,POST,DELETE"]
-				}, {
-					"Name": "API tester",
-					"What": "runs config file with aprameters for URL response check with WebManager,WebResponseReader",
-					"TODO": [
-						"POST,PUT,DELETE methods",
-						"request body and format type"
-					],
-					"DONE": [
-						"Config export/import",
-						"Exeption expected",
-						"Null expected",
-						"Ok not OK to config print"
-					]
-				}]
-			}
-		]
-			}
-			, {"Utility": [
-			{"Js hacks": [{
-					"Name": "JS hacks",
-					"What": "Js scripts to load on page and change functionality",
-					"TODO": [
-						"New API drop box above textbox add. Textbox no ovewrite"
-					],
-					"DONE": [
-						"Select2 Js To site"
-					]
-				}]}
-			,{ "PersonAPI": [{
-				  
-					"Name": "NSQLmanager",
-					"What": "OreintDb command builder,REST API executor and parser",
-						
-					"TODO": [
-						"Rewrite old shemas for new base shema methods",
-						"Check fire working request"
-					],
-					"DONE": [
-						"Query manager",
-						"TokenBuilder",
-						"Token,Orient,URL factories",
-						"Command shema base with factories with Build from collections of tokens and commandbuilders"
-					]
-				}, {
-					"Name": "WebAPI",
-					"What": "Apis for person,addressbook,news,birthdays",
-					"How": [
-						"c# web api"
-					]
-				}, {
-					"Name": "HttpManager",
-					"What": "handling http requests",
-					"TODO": [
-						"Request content body addition",
-						"Handshake procedure"						
-					],
-					"DONE": [
-						"Handling http methods POST,GET,DEL,PUT",
-						"Adding headers",
-						"Add request body",
-						"Orient DB cookie authorization"
-					],
-					"How": [
-						"c# http"
-					]
-				}, {
-					"Name": "JSONmanager",
-					"What": "Round aboud Newtonsoft JSON",
-					"DONE": [
-						"Parsing to/from objects/strings to/from JSON string"
-					],
-					"TODO": [
-						"Clatrify parsing to string",
-						"make generic"
-					],
-					"How": [
-						"c#"
-					]
-				}
-				,{
-					"neo4jAPI": [{
-						"Name": "Boilerplate",
-						"What": ["script for neo4j builderplate"],
-						"TODO": ["script"]
-					}, {
-						"Name": "CRUD",
-						"What": ["script for neo4j crud operations"],
-						"DONE": ["crud"]
-					}]
-				}]
-			}
+	#region TODO
 	
-			,{ "Presentation site": [{
-					"Name": "WCF",
-					"What": "Between UOW  and Presentation site",
-					"How": [
-						"POCOs instead of data contracts"
-					],
-					"Comments": "move to REST API most likely due to unclear configuration while mooving",
-					"TODO": [
-						"ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)",
-						"Add BLL Business logic layer between POCOs and UOW",
-						"Add JS multiple model items update at one time"
-					]
+  
+ [
+ 
+  {"C++":[
+  {"TODO": [
+      "Employee class",
+      "OpenGltutorials"
+    ]
+  }]
+  },
+  {"C#":[
+  {"TODO": [{
+			"Infrastructure": [{
+					"Correct decoupling of projects": []
 				}, {
-					"Name": "WebApi",
-					"What": "Between UOW  and Presentation site",
-					"TODO": [
-						"Add"
-					]
+					"Build automate": []
+				},
+				{
+					"Testng automate": [{
+						"Name": "Test localhost server",
+						"What": "starts localhost for methods testing",
+						"How": ["Python localhost server"],
+						"TODO": ["add responses on 8001"],
+						"DONE": ["Starts localhost on 8000", "handles GET,POST,DELETE"]
+					}, {
+						"Name": "API tester",
+						"What": "runs config file with aprameters for URL response check with WebManager,WebResponseReader",
+						"TODO": [
+							"POST,PUT,DELETE methods",
+							"request body and format type"
+						],
+						"DONE": [
+							"Config export/import",
+							"Exeption expected",
+							"Null expected",
+							"Ok not OK to config print"
+						]
+					}]
+				}
+			]
+		}, {
+			"Utility": [{
+					"Js hacks": [{
+						"Name": "JS hacks",
+						"What": "Js scripts to load on page and change functionality",
+						"TODO": [
+							"New API drop box above textbox add. Textbox no ovewrite"
+						],
+						"DONE": [
+							"Select2 Js To site"
+						]
+					}]
 				}, {
-					"Name": "Excel parser",
-					"What": "parsing excel file to objects method",
-					"TODO": [
-						"decompose to several projects"
-					],
-					"How": [
-						"parse file mask",
-						"Sector type from filename",
-						"Fist file input determines merchant sector"
-					]
-				}, {
-					"Name": "Excel exporter",
-					"What": "Export to excel",
-					"How": [
-						"For collection of POCO objects Read properties of PCOO object",
-						"Every property to column, every object to row"
-					]
-				}, {
-					"Name": "SQL SLR Type converter",
-					"What": "Type converter for migration",
-					"How": [
-						"Add SQL to CLR type conversion",
-						"SQLEntity to DWH entity converter",
-						"Converter logic to string name or type name"
-					]
-				}, {
-					"Name": "WCF",
-					"What": "Add WCF between Repo and Site",
-					"Comments": "bad idea WCF diff to config. REST API instead"
-				}, {
-					"Name": "UOW",
-					"DONE": [
-						"bind repo to generic with as and type conversion",
-						"bind context to every"
-					]
-				}, {
-					"Name": "Repository",
-					"Test": [{
-						"Integration": "Tables migration"
-					}],
-					"TODO": [
-						"against SQL base and Northwind base",
-						"Chaining IRepo implementation for Date + list filter"
+					"PersonAPI": [{
 
-					],
-					"DONE": [{
-							"Name": "IRpository",
+							"Name": "NSQLmanager",
+							"What": "OreintDb command builder,REST API executor and parser",
+
+							"TODO": [{
+								"simplify repo": [
+									"clean string methods",
+									"change T types to base interfaces",
+									"add universal Node reference"
+								]
+							}, {
+								"refactor UOW": [
+									"split Persons and News api",
+									"move current UOW logic to Manager"
+								]
+							}, {
+								"web part": [
+									"choose framework"
+								]
+							}],
 							"DONE": [
-								"CRUD operations"
+								"Query manager",
+								"TokenBuilder",
+								"Token,Orient,URL factories",
+								"Command shema base with factories with Build from collections of tokens and commandbuilders",
+								"Rewrite old shemas for new base shema methods",
+								"Check fire working request"
 							]
 						},
 						{
-							"Name": "Explicit Repository",
-							"What": "Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}"
-
+							"Name": "WebAPI",
+							"What": "Apis for person,addressbook,news,birthdays",
+							"How": [
+								"c# web api"
+							]
 						},
 						{
-							"Name": "Implicit Repository",
-							"What": "Repo<T>() where T: IOne { GetByOne(); } ... Repo<T>() where T: In { GetByN(); } <- done"
-
+							"Name": "HttpManager",
+							"What": "handling http requests",
+							"TODO": [
+								"Request content body addition",
+								"Handshake procedure"
+							],
+							"DONE": [
+								"Handling http methods POST,GET,DEL,PUT",
+								"Adding headers",
+								"Add request body",
+								"Orient DB cookie authorization"
+							],
+							"How": [
+								"c# http"
+							]
+						},
+						{
+							"Name": "JSONmanager",
+							"What": "Round aboud Newtonsoft JSON",
+							"DONE": [
+								"Parsing to/from objects/strings to/from JSON string"
+							],
+							"TODO": [
+								"Clatrify parsing to string",
+								"make generic"
+							],
+							"How": [
+								"c#"
+							]
+						},
+						{
+							"neo4jAPI": [{
+								"Name": "Boilerplate",
+								"What": ["script for neo4j builderplate"],
+								"TODO": ["script"]
+							}, {
+								"Name": "CRUD",
+								"What": ["script for neo4j crud operations"],
+								"DONE": ["crud"]
+							}]
 						}
 					]
-				}, {
-					"Name": "Northwind",
-					"DONE": [
-						"change login employee get from TempData to model",
-						"add complex model"
-					]
-				}]
-			}
-		]
+				}
+
+				,
+				{
+					"Presentation site": [{
+						"Name": "WCF",
+						"What": "Between UOW  and Presentation site",
+						"How": [
+							"POCOs instead of data contracts"
+						],
+						"Comments": "move to REST API most likely due to unclear configuration while mooving",
+						"TODO": [
+							"ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)",
+							"Add BLL Business logic layer between POCOs and UOW",
+							"Add JS multiple model items update at one time"
+						]
+					}, {
+						"Name": "WebApi",
+						"What": "Between UOW  and Presentation site",
+						"TODO": [
+							"Add"
+						]
+					}, {
+						"Name": "Excel parser",
+						"What": "parsing excel file to objects method",
+						"TODO": [
+							"decompose to several projects"
+						],
+						"How": [
+							"parse file mask",
+							"Sector type from filename",
+							"Fist file input determines merchant sector"
+						]
+					}, {
+						"Name": "Excel exporter",
+						"What": "Export to excel",
+						"How": [
+							"For collection of POCO objects Read properties of PCOO object",
+							"Every property to column, every object to row"
+						]
+					}, {
+						"Name": "SQL SLR Type converter",
+						"What": "Type converter for migration",
+						"How": [
+							"Add SQL to CLR type conversion",
+							"SQLEntity to DWH entity converter",
+							"Converter logic to string name or type name"
+						]
+					}, {
+						"Name": "WCF",
+						"What": "Add WCF between Repo and Site",
+						"Comments": "bad idea WCF diff to config. REST API instead"
+					}, {
+						"Name": "UOW",
+						"DONE": [
+							"bind repo to generic with as and type conversion",
+							"bind context to every"
+						]
+					}, {
+						"Name": "Repository",
+						"Test": [{
+							"Integration": "Tables migration"
+						}],
+						"TODO": [
+							"against SQL base and Northwind base",
+							"Chaining IRepo implementation for Date + list filter"
+
+						],
+						"DONE": [{
+								"Name": "IRpository",
+								"DONE": [
+									"CRUD operations"
+								]
+							},
+							{
+								"Name": "Explicit Repository",
+								"What": "Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}"
+
+							},
+							{
+								"Name": "Implicit Repository",
+								"What": "Repo<T>() where T: IOne { GetByOne(); } ... Repo<T>() where T: In { GetByN(); } <- done"
+
+							}
+						]
+					}, {
+						"Name": "Northwind",
+						"DONE": [
+							"change login employee get from TempData to model",
+							"add complex model"
+						]
+					}]
+				}
+			]
 
 		}]
-		
-	}
-		
+  
+  }
+  ]
+  }
+  
+  ]
+	
 		public Utility
 		{
-				
+			
 			public NSQL 
 			{
 			
@@ -715,7 +749,66 @@
 		_uow.Create<IorientObject>(Iobj)
 
 				}
-			
+				
+        public Node reference shemas
+        {
+          
+       Node reference shemas. Minimum and explicit[
+	
+	[Simplified overall
+	()-[]->()
+	Node type,reference types, reference types, directions, node type
+	(Nd){-|=|..+}[Rf]-{<|>}(Nd)
+	],	
+	[Detailed Minimal possible 
+	{
+	Node)-[Ref]->(Node)
+	One type reference to same type Node
+	}
+	0->0
+	],
+	[Detailed Minimal explicit 
+	(cannot be complexed with quality only with quantity of directions and types, which leads to pattern)
+	{
+	[NodeB]=[Ref2]=>NodeO)-[Ref1]->(NodeA)
+	one type reference r1 from one type node O 
+	to other type node A 
+	and other type reference r2 to other type node B 
+	with other direction
+	}
+
+	0
+	-[r1]->A
+	<=[r2]=B
+	]
+
+]  
+        
+        }
+        
+				public actual{
+					
+//select news
+select expand(
+outE('Authorship').inV('Note').inE('Comment').outV('Note')
+)from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
+
+//select comments
+select  from (
+select expand(
+  outE('Authorship').inV('Note')
+)from Person where @rid=#73:1 )
+where 1=1 and inE('Comment')[0].@rid!=''
+
+Check comment class -> inE('Comment').@size[0] != ''
+Post,Delete, Put, Get Notes by person, Get Author by Note
+(person)-[author]->(Note)
+
+Post,Delete,Put, Get Comments By Person,Comments by News
+(person)-[author]->(Note)-[comment]->(Note)
+
+				}
+				
 			}
 		
 		}
@@ -736,8 +829,6 @@ II:Mastery
 	IV:Miscellaneous ˌmɪs(ə)'leɪnɪəs
 Actual:
 TODO to JSON;
-JdeveloperInstall;
-Check .NET Core2;
 Revise:
 	equality, string, default null init, inheritance, events
 	
@@ -752,25 +843,115 @@ Revise:
 		
 		{GitLab
 
-repository withot ".git"
-http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
+			repository withot ".git"
+			http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
 
 		},
 		
-		public GIT hub{
-			https://git-scm.com/book/en/v2
+		public GIT hub
+		{https://git-scm.com/book/en/v2
 			
 			public InitializeNewRepo()
 			{
 				
-	echo "# NSQLmanager" >> README.md
-	git init
-	git add README.md
-	git commit -m "first commit"
-	git remote add origin https://github.com/imp908/NSQLmanager.git
-	git push -u origin master
+echo "# NSQLmanager" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/imp908/NSQLmanager.git
+git push -u origin master
 				
 			}
+			
+			
+			public BranchMerge()
+			{// Master->br1. stage 1 master+ stage 2 master+ br1--
+
+Short:
+https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
+
+Long:
+
+stage1
+inital deploy
+short: {
+create
+commit
+push
+}
+\\\\\\
+detailed
+//Initial deploy
+
+>>Create repo
+
+cd PATH
+git init
+git commit –m "initial commit"
+git remote add origin GITPATH
+git push origin master
+
+stage2
+//////
+get cahnges from master to br1
+short: {
+pull br want to update,
+checkout branch want to update,
+pull branch(master) from what to get
+}
+\\\\\\
+//Pull changes from master to branch (changes in master were made,commited and pushed)
+>>branch git project
+
+cd PATH_branch1
+git init
+//(if not set) 
+git remote add origin GITPATH
+//+ if no branch1 files are in direcory
+git pull origin br1
+git checkout gm br1
+//get changes from master to br branch
+git pull origin master
+git push origin br1
+
+stage3
+added method in master file
+deleted file in br
+deleted method in br
+changed method in br
+//////
+
+ repeat Stage2: 
+{
+pull br1
+checkout br1,
+pull master
+}
+
+CONFLICT: automatic merge failed
+
+Resolve conflicts in web or descktop or cmd
+
+
+
+stage4:
+///////
+added files to master
+
+repeat stage2:
+{
+	//if no files in 
+	pull br1
+	checkout br1
+	pull master
+	//added files added
+	push br1
+}
+
+
+
+			}
+			
 			
 			public DeleteMaster()
 			{ //not working
@@ -778,7 +959,6 @@ http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
 				git symbolic-ref HEAD refs/heads/another-branch
 				http://matthew-brett.github.io/pydagogue/gh_delete_master.html
 			}
-			
 			
 			MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
 			git pull origin branchname --allow-unrelated-histories			
@@ -1990,7 +2170,8 @@ StringBuilder.
 
 				//build v14.0
 				C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe "C:\workflow\projects\Dev\Intranet Development\AddressBook_News2\AddressBook_News2-branch1\AddressBook_News.sln" /p:Configuration=Debug  /p:VisualStudioVersion=14.0;BaseOutputPath=bin\res
-				
+			
+			}
 				
 			public class Unsorted
 			{
@@ -3148,22 +3329,22 @@ StringBuilder.
 	
 	}
 
-		public class External_Libraries()
-		{
-					
-		//reading excel
-		http://epplus.codeplex.com/
-		//Entity Framework extensions
-		http://entityframework-extensions.net/
-		//nUnit
-		https://github.com/nunit/nunit
-		
-		
-		
-		}
+	public class External_Libraries()
+	{
+				
+	//reading excel
+	http://epplus.codeplex.com/
+	//Entity Framework extensions
+	http://entityframework-extensions.net/
+	//nUnit
+	https://github.com/nunit/nunit
+	
+	
+	
+	}
 
-		public class IssuesErrors()
-		{
+	public class IssuesErrors()
+	{
 
 		//Issues\Errors
 		public void .NET()
@@ -3322,8 +3503,7 @@ access, please check that you have enabled metadata publishing at the specified 
 		
 	}
 	
-	}
-	
+		
 	#endregion 	
 	
 	#region C++ 
@@ -3391,12 +3571,10 @@ access, please check that you have enabled metadata publishing at the specified 
 
 				*(*(arr+i)+j)
 			}
-							
+									
 			
-			
-		}
 
-		
+		}
 		
 	}
 
@@ -3685,7 +3863,121 @@ access, please check that you have enabled metadata publishing at the specified 
 
 			}
 			
+			sharefolder\Files\Repo\Mercurial\SBbr\MainBr\SB3_new_output
 		}
+		
+		[class boilerplates
+
+	[rectangle class
+
+		///CLass in code check
+		class Rectangle{
+		private:
+			int height,width;
+			void set_Values(int,int);
+		public:
+			Rectangle();
+			Rectangle(int,int);
+			int Area();
+		};
+		void Rectangle::set_Values(int x,int y)
+		{
+			width=x;
+			height=y;
+		}
+		Rectangle::Rectangle()
+		{
+			width=0;
+			height=0;
+		}
+
+		Rectangle::Rectangle(int a,int b)
+		{
+			set_Values(a,b);
+		}
+
+		int Rectangle::Area(){
+			return width*height;
+		}
+		void ClassCheck()
+		{
+			Rectangle recta(2,3),rectb(4,5);
+			Rectangle rectc;
+			std::cout << "Rect area a: " << recta.Area() << "\n";
+			std::cout << "Rect area b: " << rectb.Area() << "\n";
+			std::cout << "Rect area c: " << rectc.Area() << "\n";
+			std::cout << "\n";
+		}
+
+
+		Circle crcl0 (11.0); //functional not calls default contrl
+		Circle crcl1 = 12.0; //assignment calls
+		Circle crcl2 {13.0}; //uniform	 
+		Circle crcl3 = {14.0}; //POD like calls
+
+	]
+
+	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+	[cirlce class
+
+	class Circle
+	{
+	private:
+		double radius;
+		double area;
+		double circumference;
+		void countArea();
+		void countCircum();
+	public:
+		Circle();
+		Circle(double radius);
+		void print();
+		double Area();
+		double Circum();
+	};
+
+	Circle::Circle()
+	{
+		area=0.0;
+	}
+	Circle::Circle(double r)
+	{
+		radius=r;
+		countArea();
+		countCircum();
+	}
+	void Circle::countArea(){
+		area=radius*radius*2.14159265;
+	}
+	void Circle::countCircum()
+	{
+		circumference=2*radius*2.14159265;
+	}
+	double Circle::Area()
+	{
+		return area;
+	}
+	double Circle::Circum()
+	{
+		return circumference;
+	}
+	void Circle::print()
+	{
+		std::cout << "Radius= " << radius << std::endl;
+		std::cout << "Area= " << Area() << std::endl;
+		std::cout << "Circumference= " << Circum() << std::endl;
+	}
+	void CircleCheck()
+	{
+		Circle cr(10);
+		cr.print();
+	}
+
+	]
+	
+	
+		]
 		
 	}
 
@@ -7041,7 +7333,8 @@ AVG( [Target]) for [UserID] in ([1],[1112])
 		{
 			
 			public void REST_API()
-			{			
+			{
+				
 
 Orient_REST_API(){
 
@@ -7128,9 +7421,10 @@ Orient_REST_API(){
 Orient_REST_FIDDLER(){
 		
 	POST/DELETE
-	http://localhost:2480/database/demo/plocal	
+	http://localhost:2480/database/demo/plocal
 	//delete response
 	{"result":[{"@type":"d","@version":0,"value":0}]}
+
 
 	http://localhost:2480/connect/test_db1
 	User-Agent: Fiddler
@@ -7152,8 +7446,8 @@ Orient_REST_FIDDLER(){
 	{"command": "CREATE class  Person extends V;"}
 	{"command": "CREATE class  Unit extends V;"}
 	{"command": "CREATE class MainAssignment extends E;"}
-	{"command": "CREATE vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"}
-	{"transaction":true,"operations":[{"type":"script","language":"sql","script":["Create Vertex Person content {"Name":"0","GUID":"1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}"]}]}   
+	{"command":"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"1\", \"Name\": \"0\"}"}
+	{   "transaction":true,"operations":[   {"type":"script","language":"sql","script":[   "Create Vertex Person content {"Name":"0","GUID":"1","Created":"2017-01-01 00:00:00","Changed":"2017-01-01 00:00:00"}"   ]}]}   
   
   
 	
@@ -7452,10 +7746,10 @@ host:port/batch/dbname ;
 ]
 
 
-//command formats
+///command formats
 ///Property foreach prop of class, with type convert, nullable,
 ///pregen foramat for small token collections, then aggregate them, in command token collections
-//{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
+///{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
 format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
 create class [V/E] <extends [V/E]>
 
@@ -7484,12 +7778,9 @@ format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1}
 		vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
 
 		
-		
-
 					}
-			}
-		
-		}
+			
+			}							
 			
 			public void Maintenance()
 			{
@@ -7499,7 +7790,7 @@ format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1}
 select expand(classes) from metadata:schema
 //get properties for classes
 select expand(properties) from (select expand(classes) from metadata:schema)
-	
+
 	public CreateFunctQuery()
 	{
 		
@@ -7517,12 +7808,13 @@ PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
 	public void Initial_NewsApi_Queries()
 	{
 
+
 CREATE CLASS VSC extends V;
 
-CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE,NOTNULL TRUE);
-CREATE PROPERTY VSC.GUID STRING (MANDATORY TRUE,NOTNULL TRUE);
-CREATE PROPERTY VSC.Created DATETIME (MANDATORY TRUE,NOTNULL TRUE);
-CREATE PROPERTY VSC.Changed DATETIME (MANDATORY TRUE,NOTNULL TRUE);
+CREATE PROPERTY VSC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.GUID STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.Created DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY VSC.Changed DATETIME (MANDATORY TRUE, NOTNULL TRUE);
 CREATE PROPERTY VSC.PGUID STRING;
 CREATE PROPERTY VSC.Disabled DATETIME;
 
@@ -7530,12 +7822,13 @@ ALTER PROPERTY VSC.GUID DEFAULT uuid();
 ALTER PROPERTY VSC.Created DEFAULT "sysdate()";
 ALTER PROPERTY VSC.Changed DEFAULT "sysdate()";
 
+
 CREATE CLASS ESC extends E;
 
-CREATE PROPERTY ESC.Name STRING (MANDATORY TRUE,NOTNULL TRUE);
-CREATE PROPERTY ESC.GUID STRING (MANDATORY TRUE,NOTNULL TRUE);
-CREATE PROPERTY ESC.Created DATETIME (MANDATORY TRUE,NOTNULL TRUE);
-CREATE PROPERTY ESC.Changed DATETIME (MANDATORY TRUE,NOTNULL TRUE);
+CREATE PROPERTY ESC.Name STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.GUID STRING (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.Created DATETIME (MANDATORY TRUE, NOTNULL TRUE);
+CREATE PROPERTY ESC.Changed DATETIME (MANDATORY TRUE, NOTNULL TRUE);
 CREATE PROPERTY ESC.PGUID STRING;
 CREATE PROPERTY ESC.Disabled DATETIME;
 
@@ -7687,7 +7980,6 @@ update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник 
 update MainAssignment set HierarhyWeight = 150 where Name = 'Начальник отдела технического администрирования'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника отдела'
 update MainAssignment set HierarhyWeight = 151 where Name = 'Заместитель начальника Отдела взаимоотношений с поставщиками'
-
 	}
 
 	public void Initial_PersonApi_Functions()
@@ -8144,26 +8436,26 @@ metadata {
 	SearchPersonExactly : var g=orient.getGraph(); var b=g.command(""sql"",""select GUID as id, ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").Name[0],Name[0]) ,'0' ) as division , ifnull( if( eval(\""@class = 'Person'\""),in(\""MainAssignment\"").GUID[0],PGUID[0]) ,'0' ) as parent, ifnull(telephoneNumber, ' ') as phone, ifnull( mail,'&nbsp')as mail, Name as title, Name as label, LastName.append(' ').append(FirstName.substring( 0, 1 )).append('. ').append(MiddleName.substring( 0, 1 )).append('.') as shortFName, ifnull((inE('MainAssignment').Name[0]), Name) as description , GetDepartmentColor(GUID)[color][0] as itemTitleColor , if( eval(\""@class = 'Person'\""),'PersonTemplate','UnitTemplate' ) as templateName , if(eval('inE().ExpDate[0] is not null'), inE().State[0],null) as state, if( eval('inE().ExpDate[0] is not null'),inE().ExpDate[0].format('dd.MM.YYYY'),null) as expDate, GetPositionBar(InE().Name[0].replace('\\\""',''))['groupTitle'][0] as groupTitle , Birthday.format('dd.MM') as birthday , GetDepartmentColorClass(GUID)[colorClass][0] as colorClass, GetDepartmentName(GUID)[departmentName][0] as departmentName, sAMAccountName as login from Person WHERE sAMAccountName = '""+userLogin+""' and (inE(\""MainAssignment\"")[0].Disabled is null or inE(\""MainAssignment\"")[0].Disabled >= sysdate() ) and (Disabled is null) and (inE().State != \'Отпуск по уходу за ребенком\' and inE().State != \'Отпуск по беременности и родам\' )""); return b; 
 	}
 		
-	}
-	
-	public FunctionsTest(){
+  public FunctionsTest(){
 		
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1b0ff45-5cb1-11e7-8117-005056813668
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1a4c984-a00e-11e6-80db-005056813668
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByPersonGUID/c1b0ff45-5cb1-11e7-8117-00505681366
 http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentLevel/c1b0ff45-5cb1-11e7-8117-005056813668
 	
-	}
+						}																	
+	
 	
 			}
-
+			
+			}
+			
 			public void Queries()
 			{
 
 
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
-
 
 public DateTimeRearrangeGet(){
 	
@@ -8279,9 +8571,7 @@ select name, notNull as nullable from (
 	
 }
 
-
-public BatchCreateFromSQL()
-{
+public BatchCreateFromSQL(){
 	
 	let $a = insert into UserSettings content {"showBirthday":true}
 create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;
@@ -9305,13 +9595,11 @@ return b;
 	
 //<< I (try it out)
 //inverted V E In Out
-{
 (v)-[e]->(v)
 out e in 
 
 [e]->(v)->[e]
 in v out
-}
 
 //<< II
 //Traverse out -> shows nested Nodes but select from (traverse ) =< not
@@ -9346,18 +9634,18 @@ in v out
 
 //<< IX (stink it)
 //unpredicable commenaries
-//Exmpl: delete class with double gap throws error
 
 //<<X (i pee on you)
 //insert create from sql throught let absolutely fucked up syntax
 //http://orientdb.com/docs/last/Sequences-and-auto-increment.html
 //and this is described in docs Voila!
 
-//XI (surpise motherfucker!!)
+
+//XI (surpise motherfuc.er!!)
 //not all properties seen in schema
 //maybe cause script classses creation
 
-//XII (basic maths problems - developer not accounter)
+//XII (basic maths problems - developer not counter)
 //How the fuck does this even works (..<2..>1..)?
 //match {class:Person }.in("MainAssignment").out("SubUnit"){as: u, while: ($depth < 2),where: ($depth > 1)} return u
 //More fucks with (..=2..<2..)
@@ -9368,7 +9656,7 @@ in v out
 // \\" solves " but intrevals disappear
 
 //XIV
-//some functions not visible from OFunction class
+//functions not visible from OFunction class
 
 //XV
 //batch not indeponent, class and property creeation onl from command or batch with let
@@ -9379,15 +9667,14 @@ in v out
 //XVIII
 //GUID command unpredictable 
 //ALTER PROPERTY CALSS.PROP DEFAULT uuid(); -> always same value
-//ALTER PROPERTY CALSS.PROP DEFAULT "uuid()"; -> new guid every create
-
+//ALTER PROPERTY CALSS.PROP DEFAULT "uuid()"; -> new guid every create															 
 //XIX
 //batch adtetime if not esaped \"\" read as iso 8061, while database format  DATEtime is date time
-
-			}
 			
 		}
 					
+		}
+		
 		public void Neo4J()
 		{
 			neo4j:root
@@ -10065,13 +10352,54 @@ RAW JSON
 		}
 
 		}
-	
+    
+    public void MongoDb()
+    {
+      Maintenance:[
+        //install
+        https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
+        //initial start with custom data path
+        "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath d:\test\mongodb\data
+        
+        ]
+        ,BoilerPlate[
+          //insert doucment
+          use test
+          db.users.insertOne({name:"sue",age:26,_id=1})
+          //from CMD command shell, cd to server files folder
+          mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
+          //select from
+          db.restaurants.find( {} )
+          //where
+          db.restaurants.find({"address.building": "10807"})
+          db.restaurants.find({"address.zipcode": "11694"})
+          //and
+          db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
+          //or
+          db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
+          //sort
+          db.restaurants.find().sort( { "address.zipcode": 1 } )
+          //where sort
+          db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
+          //where in
+          db.restaurants.find({"address.building": {$in:["10807","23059"]}})
+           
+          //greater then
+          db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
+          db.inventory.find( { status: "A", qty: { $lt: 30 } } )
+          //in
+          db.inventory.find( { status: { $in: [ "A", "D" ] } } )
+          db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
+          SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+          
+        ]
+    }
 	}
 		
 	#endregion
 		
-	#region OS
-	
+	#region OS		
+		
 		public Windows
 		{
 			public CMD
@@ -10182,7 +10510,8 @@ RAW JSON
 				}
 				
 				public TerminalCommands
-				{				
+				{	
+					systemctl suspend -> suspend
 					sudo apt-get update && sudo apt-get upgrade
 					sudo apt-get -f install
 					sudo dpkg --purge --force-depends libpowerdevilcore0 libtaskmanager4b
@@ -10231,6 +10560,31 @@ RAW JSON
 			
 				public Pakets
 				{
+					public Samba
+					{
+						
+https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20(Command-line%20interface/Linux%20Terminal)%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way!
+sudo apt-get update
+sudo apt-get install samba
+sudo smbpasswd -a <user_name>.
+mkdir /home/<user_name>/<folder_name>
+sudo cp /etc/samba/smb.conf ~
+sudo nano /etc/samba/smb.conf
+
+Once "smb.conf" has loaded, add this to the very end of the file:
+
+[<folder_name>]
+path = /home/<user_name>/<folder_name>
+valid users = <user_name>
+read only = no
+
+sudo service smbd restart
+
+//in windows file explorere
+\\192.168.0.103\sharefolder
+
+					}
+					
 					public Mercurial
 					{
 						sudo add-apt-repository universse
@@ -10251,10 +10605,11 @@ RAW JSON
 						sudo pip install psutil logutils bottle batinfo https://bitbucket.org/gleb_zhulik/py3sensors/get/tip.tar.gz zeroconf netifaces pymdstat influxdb elasticsearch potsdb statsd pystache docker-py pysnmp pika py-cpuinfo bernhard
 						sudo pip install glances
 					}
+				
 				}
 			}
+			
 		}
 	
 	#endregion
-	
 	
