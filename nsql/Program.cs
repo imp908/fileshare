@@ -41,10 +41,12 @@ namespace NSQLManager
           RepoCheck rc=new RepoCheck();
           RepoCheck.startcond sc=RepoCheck.startcond.MNL;
 
+
+
       //CREATE DB
-//rc.ManagerCheck(false);
+rc.GenDB(false);
       //GENERATE NEWS,COMMENTS
-//rc.UOWRealCheck(true);
+rc.GenNewsComments(true);
 
       //check absent person insert
       //rc.UOWCheckPersonCreation();
@@ -145,18 +147,18 @@ new MainAssignment() { GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00),
           string login = ConfigurationManager.AppSettings["orient_login"];
           string password = ConfigurationManager.AppSettings["orient_pswd"];
           string dbHost = string.Format("{0}:{1}"
-              , ConfigurationManager.AppSettings["ParentHost"]
-              , ConfigurationManager.AppSettings["ParentPort"]);
+              , ConfigurationManager.AppSettings["OrientDevUrl"]
+              , ConfigurationManager.AppSettings["OrientPort"]);
           if (databaseName == null)
           {
-              dbName = ConfigurationManager.AppSettings["ParentDB"];
+              dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
           }
           else { dbName = databaseName; }
           if (hostPort_ == null)
           {
               dbHost = string.Format("{0}:{1}"
-              , ConfigurationManager.AppSettings["ParentHost"]
-              , ConfigurationManager.AppSettings["ParentPort"]);
+              , ConfigurationManager.AppSettings["OrientDevUrl"]
+              , ConfigurationManager.AppSettings["OrientPort"]);
           }
           else { dbName = hostPort_; }
 
@@ -471,7 +473,7 @@ List<string> bullshitComments = new List<string>
 //select expand(outE('Authorship').inV('Note')) from Person
 //traverse both() from (select expand(outE('Authorship').inV('Note')) from Person)
     
-NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings["TestDBname"]);
+NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings["OrientUnitTestDB"]);
 
             List<Note> newsCreated = new List<Note>();
             List<Note> commentsCreated = new List<Note>();
@@ -653,10 +655,10 @@ NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings
 
             //CHECK CONTENT
             News ns=new News();
-            ns.contentBase64 = contenstr;
+            //ns.contentBase64 = contenstr;
             string nsCont = uow.UOWserialize<News>(ns);
             News nesAdd2=uow.CreateNews(person1, ns);
-            string cntDes = nesAdd2.contentBase64;
+            string cntDes = nesAdd2.content;
 
             string newsStr="{\"PGUID\":\"\",\"authAcc\":\"\",\"authGUID\":\"\",\"authName\":\"\",\"pic\":\"\",\"name\":\"\",\"content_\":\"cnt1\",\"description\":\"\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"Created\":\"2017-12-19 13:43:04\"}";
             News newsGen0 = uow.UOWdeserialize<News>(newsStr);
@@ -664,7 +666,7 @@ NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings
             addedNews.Add(nesAdd);
 
             //UPDATEs        
-            addedNews[0].contentBase64="updated content";
+            addedNews[0].content="updated content";
             string strDes = uow.UOWserialize<News>(addedNews[0]);
             Note updatedNews=uow.UpdateNews(testPerson,addedNews[0]);
             Note updatedNewsGet = uow.GetNewsByGUID(updatedNews.GUID);
@@ -713,15 +715,15 @@ TestNews n0=rp.OrientStringToObject<TestNews>(txt);
         }
         
         //DATABASE BOILERPLATE
-        public void ManagerCheck(bool cleanUpAter = true)
+        public void GenDB(bool cleanUpAter = true)
         {
             
             string login = ConfigurationManager.AppSettings["orient_login"];
             string password = ConfigurationManager.AppSettings["orient_pswd"];
             string dbHost = string.Format("{0}:{1}" 
-                ,ConfigurationManager.AppSettings["ParentHost"]
-                , ConfigurationManager.AppSettings["ParentPort"]);
-            string dbName = "test_db";//ConfigurationManager.AppSettings["TestDBname"];
+                ,ConfigurationManager.AppSettings["OrientDevUrl"]
+                , ConfigurationManager.AppSettings["OrientPort"]);
+            string dbName = ConfigurationManager.AppSettings["OrientDevDB"];
 
             TypeConverter typeConverter = new TypeConverter();
             JsonManagers.JSONManager jsonMnager = new JSONManager();
@@ -864,7 +866,7 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
 
         }
         //GENERATE NEWS,COMMENTS
-        public void UOWRealCheck(bool newsGen=false)
+        public void GenNewsComments(bool newsGen=false)
         {
 
           List<Person> personsAdded = new List<Person>();          
@@ -873,18 +875,19 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
 
           List<V> nodes = new List<V>();
 
-          NewsUOWs.NewsRealUow uow = new NewsUOWs.NewsRealUow("test_db");        
+          NewsUOWs.NewsRealUow uow = new NewsUOWs.NewsRealUow(ConfigurationManager.AppSettings["OrientDevDB"]);        
 
           string dtStr="{\"transaction\":true,\"operations\":[{\"type\":\"script\",\"language\":\"sql\",\"script\":[\" create Vertex Person content {\"Seed\":1005911,\"FirstName\":\"Илья\",\"LastName\":\"Непринцев\",\"MiddleName\":\"Александрович\",\"Birthday\":\"1987-03-09 00:00:00\",\"mail\":\"Neprintsevia@nspk.ru\",\"telephoneNumber\":1312,\"userAccountControl\":512,\"objectGUID\":\"7E3E2C99-E53B-4265-B959-95B26CA939C8\",\"sAMAccountName\":\"Neprintsevia\",\"OneSHash\":\"5de9dfe2c74b5eef8e13f4f43163f445\",\"Hash\":\"f202a15b6dac384aecbd2424dcca10a7\",\"@class\":\"Person\",\"Name\":\"Непринцев Илья Александрович\",\"GUID\":\"ba124b8e-9857-11e7-8119-005056813668\",\"Created\":\"2017-09-13 07:15:29\",\"Changed\":\"2017-12-05 10:07:19\"} \"]}]}";
           byte[] bt=Encoding.UTF8.GetBytes(dtStr);
           string dtStrRegen = Encoding.UTF8.GetString(bt, 0, bt.Count());
           bool res = dtStr.Equals(dtStrRegen);
         
-          PersonUOWs.PersonUOW puow = new PersonUOW("news_test5","http://msk1-vm-ovisp02:2480");
+          PersonUOWs.PersonUOW puow = new PersonUOW(ConfigurationManager.AppSettings["OrientSourceDB"]
+          ,"http://msk1-vm-ovisp02:2480");
           Person person_ = puow.GetPersonByAccount("Neprintsevia");
           string str=uow.UOWserialize<Person>(person_);
           OrientRepo mng = DefaultManagerInit();
-          Person pr=mng.CreateVertex<Person>(str,"test_db");
+          Person pr=mng.CreateVertex<Person>(str,ConfigurationManager.AppSettings["OrientDevDB"]);
 
           personsAdded=uow.GetOrientObjects<Person>(null).ToList();         
        
@@ -975,10 +978,10 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
         public void UOWFunctionalCheck()
         {
           
-          PersonUOWs.PersonUOW pu = new PersonUOWs.PersonUOW("test_db");
-          NewsUOWs.NewsRealUow nu = new NewsUOWs.NewsRealUow("test_db");
+          PersonUOWs.PersonUOW pu = new PersonUOWs.PersonUOW(ConfigurationManager.AppSettings["OrientUnitTestDB"]);
+          NewsUOWs.NewsRealUow nu = new NewsUOWs.NewsRealUow(ConfigurationManager.AppSettings["OrientUnitTestDB"]);
 
-          PersonUOWs.PersonUOW personToGetUOW = new PersonUOWs.PersonUOW("news_test5");
+          PersonUOWs.PersonUOW personToGetUOW = new PersonUOWs.PersonUOW(ConfigurationManager.AppSettings["OrientSourceDB"]);
 
           //PersonsWith news
           List<Person> persons=nu.GetOrientObjects<Person>().ToList();
@@ -986,7 +989,7 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
           Person personUpdatesNews=persons[0];
           Person personNewsUpdated=persons[1];
 
-          News newToupdate = nu.CreateNews(personNewsUpdated, new News() { content = "content created" });
+          News newToupdate=nu.CreateNews(personNewsUpdated,new News(){content="content created"});
 
           
           if(newToupdate!=null)

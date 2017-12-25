@@ -590,37 +590,40 @@ namespace WebManagers
         public static string UserAcc(IPrincipal principal=null)
         {
             string result = String.Empty;
-
+            bool ok = false;
             if (principal != null)
             {
-                //net NTLM auth
-                try
-                {
-                    result = principal.Identity.Name.Split('\\')[1];
-                }
-                catch (Exception e) { }
+              //net NTLM auth
+              try
+              {
+                result = principal.Identity.Name.Split('\\')[1];
+                ok = true;
+              }
+              catch (Exception e) { result += "Ipincipal no found;" + e.Message + "\r\n"; }
             }
 
             //Environment auth
-            if (result == null || result == string.Empty)
+            if (!ok)
             {
-                try
-                {
-                    result = HttpContext.Current.User.Identity.Name.ToString().Split('\\')[1];
-                }
-                catch (Exception e) { }
+              try
+              {
+                result = HttpContext.Current.User.Identity.Name.ToString().Split('\\')[1];
+                ok = true;
+              }
+              catch (Exception e) { result += "Current.User no found;"+ e.Message + "\r\n"; }
             }
 
             //context auth
-            if (result == null || result==string.Empty)
+            if (!ok)
             {
-                try
-                {
-                    result = Environment.UserName;
-                }
-                catch (Exception e) { }
-                if (result == null || result == string.Empty) { result = "Welcome Guest!"; }
-            }
+              try
+              {
+                result = Environment.UserName;
+                ok = true;
+              }
+              catch (Exception e) { result += " Environment.UserName no found;"+ e.Message + "\r\n"; }
+            }            
+            
             return result;
         }
     }

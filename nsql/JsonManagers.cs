@@ -31,7 +31,9 @@ namespace JsonManagers
         public IJEnumerable<JToken> ExtractFromParentChildren(string input,  string childNodeName)
         {
             IJEnumerable<JToken> result=null;
+            try{
             result=JToken.Parse(input).Children()[childNodeName];
+            }catch(Exception e){}
             return result;
         }
         public IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName, string childNodeName)

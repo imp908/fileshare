@@ -283,28 +283,28 @@ namespace POCO
       public bool? liked { get; set; }
     }
     public class News:Note{
-      [JsonProperty("content_")]
-      public override string content { get; set; }
-      [Updatable(false)]
-      public override Person author_ { get; set; }
+      //[JsonProperty("content_")]
+      //public override string content { get; set; }
+      //[Updatable(false)]
+      //public override Person author_ { get; set; }
       
-      [JsonIgnore]
-      [Updatable(false)]
-      public string contentBase64 {
-        get{
-        if(content!=null){
-        System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(content));
-        }return null;}
+      //[JsonIgnore]
+      //[Updatable(false)]
+      //public string contentBase64 {
+      //  get{
+      //  if(content!=null){
+      //  System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(content));
+      //  }return null;}
 
-        set{content =
-        System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(value));
-        }}
+      //  set{content =
+      //  System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(value));
+      //  }}
     }
     public class Commentary:Note{
-      [JsonProperty("content_")]
-      public override string content { get; set; }
-      [JsonConverter(typeof(OrientDateTime))]
-      public new DateTime? published { get; set; }=DateTime.Now;
+      //[JsonProperty("content_")]
+      //public override string content { get; set; }
+      //[JsonConverter(typeof(OrientDateTime))]
+      //public new DateTime? published { get; set; }=DateTime.Now;
       [Updatable(false)]
       public override Person author_ { get; set; }
     }

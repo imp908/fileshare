@@ -2153,10 +2153,24 @@ StringBuilder.
 				public void ConfigurationManager()
 				{
 					reference 
-					FRAMEWORKS -> System.Configuration
-					
+					FRAMEWORKS -> System.Configuration					
 				}
-			
+				
+				public void WebDeploy()
+				{
+					Web Deploy
+					//host name without urls or ports
+					//http://server-name-1:8182 ->
+					server-name-1
+					//Iis sitename 
+					sitename1
+					//Credentials with domen
+					DOMN\user
+					password
+					//site url with protocol and port
+					http://newstest2:8184
+				}
+				
 			}
 			
 			public void MSbuild()
@@ -10479,6 +10493,7 @@ RAW JSON
 				//ps 32
 				
 			}
+						
 		}
 		
 		public UNIX

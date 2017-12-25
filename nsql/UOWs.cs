@@ -38,18 +38,18 @@ namespace UOW
         string login = ConfigurationManager.AppSettings["orient_login"];
         string password = ConfigurationManager.AppSettings["orient_pswd"];
         string dbHost = string.Format("{0}:{1}"
-            , ConfigurationManager.AppSettings["ParentHost"]
-            , ConfigurationManager.AppSettings["ParentPort"]);
+            , ConfigurationManager.AppSettings["OrientDevUrl"]
+            , ConfigurationManager.AppSettings["OrientPort"]);
         if (databaseName == null)
         {
-            dbName = ConfigurationManager.AppSettings["ParentDB"];
+            dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
         }
         else { dbName = databaseName; }
         if (hostPort_ == null)
         {
             dbHost = string.Format("{0}:{1}"
-            , ConfigurationManager.AppSettings["ParentHost"]
-            , ConfigurationManager.AppSettings["ParentPort"]);
+            , ConfigurationManager.AppSettings["OrientDevUrl"]
+            , ConfigurationManager.AppSettings["OrientPort"]);
         }
         else { dbHost = hostPort_; }
 
@@ -251,13 +251,13 @@ namespace AdinTce
         AdinTceExplicitTokenBuilder tokenBuilder;
 
         AdinTcePOCO adp=new AdinTcePOCO();
-        List<Holiday> holidays=null;
-        List<Vacation> vacations=null;
-        IEnumerable<GraphRead> graphs=null;
-        IEnumerable<GUIDPOCO> guidpocos=null;
+        List<Holiday> holidays=new List<Holiday>();
+        List<Vacation> vacations=new List<Vacation>();
+        IEnumerable<GraphRead> graphs=new List<GraphRead>();
+        IEnumerable<GUIDPOCO> guidpocos=new List<GUIDPOCO>();
 
         string holidayCommand, vacationCommand, graphCommand,
-             holidaysResp=string.Empty, vacationsResp=string.Empty, graphResp=string.Empty;
+             holidaysResp=null, vacationsResp=null, graphResp=null;
 
         public AdinTceRepo(
             IQueryManagers.ICommandBuilder CommandBuilder_,
@@ -317,23 +317,20 @@ namespace AdinTce
             {
                 adp=new AdinTcePOCO();
             }
-
-            if (guidpocos==null)
+        
+            if (guidpocos.Count()==0&&(holidaysResp!=null||holidaysResp!=string.Empty))
             {
                 guidpocos=_jsonManager.DeserializeFromParentNode<GUIDPOCO>(holidaysResp);
-            }
-            if (holidays==null)
+            }           
+            if (holidays.Count()==0&&(holidaysResp!=null||holidaysResp!=string.Empty))
             {
-
-                IEnumerable<List<AdinTce.Holiday>> hl = _jsonManager.DeserializeFromParentChildren<List<Holiday>>(holidaysResp, "Holidays");
-                holidays = new List<Holiday>();
+                IEnumerable<List<AdinTce.Holiday>> hl = _jsonManager.DeserializeFromParentChildren<List<Holiday>>(holidaysResp, "Holidays");                
                 foreach (List<Holiday> lt_ in hl)
                 {                   
                     holidays.AddRange(lt_);                                      
-                }
-                
+                }                
             }
-            if (vacations == null)
+            if (vacations.Count()==0&&(vacationsResp!=null&&vacationsResp!=string.Empty))
             {
 
                 IEnumerable<List<AdinTce.Vacation>> hl = _jsonManager.DeserializeFromParentChildren<List<Vacation>>(vacationsResp, "Holidays");
@@ -371,7 +368,7 @@ namespace AdinTce
         void ParseResponseTry()
         {
 
-            if (holidaysResp != null && holidaysResp != string.Empty)
+            if (holidaysResp != null && (holidaysResp != null ||holidaysResp!=string.Empty))
             {
                 AdpCheck();
                 try
@@ -381,7 +378,7 @@ namespace AdinTce
                 catch (Exception e) {}
             }
 
-            if (vacationsResp != null && vacationsResp != string.Empty)
+            if (vacationsResp != null && (vacationsResp!=null||vacationsResp != string.Empty))
             {
                 AdpCheck();
                 try
@@ -391,7 +388,7 @@ namespace AdinTce
                 catch (Exception e) {}
             }
 
-            if (graphResp != null && graphResp != string.Empty)
+            if (graphResp != null && (graphResp!=null|| graphResp != string.Empty))
             {
 
                 AdpCheck();
@@ -669,12 +666,12 @@ namespace Quizes
             jm=new JSONManager();
 
             orientHost=string.Format("{0}:{1}/{2}"
-            ,ConfigurationManager.AppSettings["ParentHost"]
-            ,ConfigurationManager.AppSettings["ParentPort"]
+            ,ConfigurationManager.AppSettings["OrientDevUrl"]
+            ,ConfigurationManager.AppSettings["OrientPort"]
             ,ConfigurationManager.AppSettings["CommandURL"]
             );
 
-            orientDbName=ConfigurationManager.AppSettings["ParentDB"];
+            orientDbName=ConfigurationManager.AppSettings["IntranetDB"];
 
             if (nonConfigDb==null)
             {
@@ -918,11 +915,11 @@ namespace NewsUOWs
           string login = ConfigurationManager.AppSettings["orient_login"];
           string password = ConfigurationManager.AppSettings["orient_pswd"];
           string dbHost = string.Format("{0}:{1}"
-              , ConfigurationManager.AppSettings["ParentHost"]
-              , ConfigurationManager.AppSettings["ParentPort"]);
+              , ConfigurationManager.AppSettings["OrientDevUrl"]
+              , ConfigurationManager.AppSettings["OrientPort"]);
           if (databaseName == null)
           {
-              dbName = ConfigurationManager.AppSettings["ParentDB"];
+              dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
           }
           else { dbName = databaseName; }
 
@@ -1241,51 +1238,51 @@ namespace NewsUOWs
       public NewsRealUow(string databaseName = null, string host_ = null)
       {
 
-          string login = ConfigurationManager.AppSettings["orient_login"];
-          string password = ConfigurationManager.AppSettings["orient_pswd"];
-          string dbHost = string.Format("{0}:{1}"
-              , ConfigurationManager.AppSettings["ParentHost"]
-              , ConfigurationManager.AppSettings["ParentPort"]);
-          if (databaseName == null)
-          {
-              dbName = ConfigurationManager.AppSettings["ParentDB"];
-          }
-          else { dbName = databaseName; }
-          if (host_ == null)
-          {
-              dbHost = string.Format("{0}:{1}"
-              , ConfigurationManager.AppSettings["ParentHost"]
-              , ConfigurationManager.AppSettings["ParentPort"]);
-          }
-          else { dbName = host_; }
+        string login = ConfigurationManager.AppSettings["orient_login"];
+        string password = ConfigurationManager.AppSettings["orient_pswd"];
+        string dbHost = string.Format("{0}:{1}"
+            , ConfigurationManager.AppSettings["OrientDevUrl"]
+            , ConfigurationManager.AppSettings["OrientPort"]);
+        if (databaseName == null)
+        {
+            dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
+        }
+        else { dbName = databaseName; }
+        if (host_ == null)
+        {
+            dbHost = string.Format("{0}:{1}"
+            , ConfigurationManager.AppSettings["OrientDevUrl"]
+            , ConfigurationManager.AppSettings["OrientPort"]);
+        }
+        else { dbName = host_; }
 
-          TypeConverter typeConverter = new TypeConverter();
-          JsonManagers.JSONManager jsonMnager = new JSONManager();
-          TokenMiniFactory tokenFactory = new TokenMiniFactory();
-          UrlShemasExplicit UrlShema = new UrlShemasExplicit(
-              new CommandBuilder(tokenFactory, new FormatFactory())
-              , new FormatFromListGenerator(new TokenMiniFactory())
-              , tokenFactory, new OrientBodyFactory());
+        TypeConverter typeConverter = new TypeConverter();
+        JsonManagers.JSONManager jsonMnager = new JSONManager();
+        TokenMiniFactory tokenFactory = new TokenMiniFactory();
+        UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+            new CommandBuilder(tokenFactory, new FormatFactory())
+            , new FormatFromListGenerator(new TokenMiniFactory())
+            , tokenFactory, new OrientBodyFactory());
 
-          BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
-              new OrientBodyFactory());
+        BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
+            new OrientBodyFactory());
 
-          UrlShema.AddHost(dbHost);
-          WebResponseReader webResponseReader = new WebResponseReader();
-          WebRequestManager webRequestManager = new WebRequestManager();
-          webRequestManager.SetCredentials(new NetworkCredential(login, password));
-          CommandFactory commandFactory = new CommandFactory();
-          FormatFactory formatFactory = new FormatFactory();
-          OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
-          OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
+        UrlShema.AddHost(dbHost);
+        WebResponseReader webResponseReader = new WebResponseReader();
+        WebRequestManager webRequestManager = new WebRequestManager();
+        webRequestManager.SetCredentials(new NetworkCredential(login, password));
+        CommandFactory commandFactory = new CommandFactory();
+        FormatFactory formatFactory = new FormatFactory();
+        OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
+        OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
 
-          CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
-          new TokenMiniFactory(), new OrientQueryFactory());
+        CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+        new TokenMiniFactory(), new OrientQueryFactory());
 
-          manager = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
-          , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+        manager = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+        , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
 
-          manager.BindDbName(dbName);
+        manager.BindDbName(dbName);
       }
      
       public Note GetNoteByGUID(string GUID_)
@@ -1421,13 +1418,13 @@ namespace NewsUOWs
 
           int? depth=IsCommentToComment(newsId_);
           //is comment to comment
-          if (depth!=null)
-          {             
-              commentaryTochange_.commentDepth=depth;               
+          if (depth==null)
+          {            
+            commentaryTochange_.commentDepth=0;               
           }
           else
-          {
-              newsToComment_.hasComments=true;
+          {           
+            commentaryTochange_.commentDepth=depth+1;;
           }
           //commentary Node created and relation from person created
           commentaryToAdd_=CreateCommentary(from,commentaryTochange_);
@@ -1436,6 +1433,7 @@ namespace NewsUOWs
           {               
               if (newsToComment_!=null)
               {
+                  newsToComment_.hasComments=true;
                   //create relation from commment to news Nodes
                   manager.CreateEdge<Comment>(commented,newsToComment_, commentaryToAdd_);
               }
@@ -1458,15 +1456,15 @@ namespace NewsUOWs
           from=CheckPerson(from);
 
           int? depth = IsCommentToComment(newsId_.id);
-          if(depth!=null)
+          if(depth==null)
           {
-              //comment to comment
-              comment_.commentDepth=depth;
+            //comment to news
+            comment_.commentDepth=0;          
           }
           else
           {
-              //comment to news
-              comment_.commentDepth=comment_.commentDepth+1;
+            //comment to comment
+            comment_.commentDepth=depth+1;
           }
           
           if(from!=null){
@@ -1749,3 +1747,200 @@ namespace NewsUOWs
     }
 
 }
+
+namespace Managers
+{
+  using NewsUOWs;
+  using PersonUOWs;
+
+  public class Manager
+  {
+    IOrientRepo _repo;
+    NewsRealUow _newsUOW;
+    PersonUOW _personUOW;
+    
+    string _dbName;
+    string _url;
+
+    public Manager(string dbName_=null,string url_=null)
+    {
+      _repo=initializeManager();
+      
+      _dbName=dbName_;
+      if(string.IsNullOrEmpty(dbName_)){
+      _dbName=ConfigurationManager.AppSettings["OrientUnitTestDB"];}
+
+      _url=url_;
+      if(string.IsNullOrEmpty(url_)){
+      _url=ConfigurationManager.AppSettings["OrientUnitTestDB"];}
+
+      _newsUOW = new NewsRealUow(_dbName,_url);
+      _personUOW = new PersonUOW(_dbName,_url);
+
+    }
+    string UserAcc()
+    {
+      return WebManagers.UserAuthenticationMultiple.UserAcc();
+    }
+
+    IOrientRepo initializeManager()
+    {
+      IOrientRepo manager = null;
+      string login = ConfigurationManager.AppSettings["orient_login"];
+      string password = ConfigurationManager.AppSettings["orient_pswd"];
+      string dbHost = string.Format("{0}:{1}" 
+          ,ConfigurationManager.AppSettings["OrientDevUrl"]
+          , ConfigurationManager.AppSettings["OrientPort"]);
+      string dbName = ConfigurationManager.AppSettings["OrientDevDB"];
+
+      TypeConverter typeConverter = new TypeConverter();
+      JsonManagers.JSONManager jsonMnager = new JSONManager();
+      TokenMiniFactory tokenFactory = new TokenMiniFactory();
+      UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+          new CommandBuilder(tokenFactory,new FormatFactory()) 
+          ,new FormatFromListGenerator(new TokenMiniFactory())
+          , tokenFactory, new OrientBodyFactory());
+      BodyShemas bodyShema = new BodyShemas(new CommandFactory(),new FormatFactory(),new TokenMiniFactory(),
+          new OrientBodyFactory());
+         
+      UrlShema.AddHost(dbHost);
+      WebResponseReader webResponseReader=new WebResponseReader();
+      WebRequestManager webRequestManager=new WebRequestManager();
+      webRequestManager.SetCredentials(new NetworkCredential(login,password));
+      CommandFactory commandFactory=new CommandFactory();
+      FormatFactory formatFactory=new FormatFactory();
+      OrientQueryFactory orientQueryFactory=new OrientQueryFactory();
+      OrientCLRconverter orientCLRconverter=new OrientCLRconverter();
+
+      CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+      new TokenMiniFactory(), new OrientQueryFactory());
+
+      manager = new OrientRepo(typeConverter, jsonMnager,tokenFactory,UrlShema,bodyShema, commandShema_
+      ,webRequestManager,webResponseReader,commandFactory,formatFactory,orientQueryFactory,orientCLRconverter);
+
+      return manager;
+    }
+    
+    //DATABASE BOILERPLATE
+        public void GenDB(bool cleanUpAter = true)
+        {                      
+            //ManagerCheck(manager);
+
+            //node objects for insertion
+            Person personOne =
+new Person(){Seed=123,Name="0",GUID="000",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)};
+            Person personTwo=
+new Person(){Seed=456,Name="0",GUID="001",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)};
+            MainAssignment mainAssignment=new MainAssignment();
+            string pone = _repo.ObjectToContentString<Person>(personOne);
+            List<Person> personsToAdd = new List<Person>() {
+new Person(){
+Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
+,changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)
+}
+//,new Person(){Seed =123,Name="YablokovAE",sAMAccountName="YablokovAE",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)}      
+    };
+
+            Unit u = new Unit() { Name = "Unit1" };
+
+            for(int i=0;i<=10;i++)
+            {
+                personsToAdd.Add(
+                    new Person() { sAMAccountName="Person"+i, Name="Person"+i, GUID="GUID"+i }
+                    );
+            }                 
+
+            //db delete
+            _repo.DeleteDb();
+
+            //db crete
+            _repo.CreateDb();
+
+            _repo.DbPredefinedParameters();
+
+            //create class
+            Type oE=_repo.CreateClass<OrientEdge,E>();
+            Type maCl=_repo.CreateClass<MainAssignment,E>();
+            Type obc=_repo.CreateClass<Object_SC, V>();
+            Type tp=_repo.CreateClass<Unit, V>();
+            //Type tpp = manager.CreateClass<Note, V>("news_test5");
+            Type nt=_repo.CreateClass<Note, V>();
+            
+            Type cmt=_repo.CreateClass<Commentary,Note>();
+            Type nws=_repo.CreateClass<News,Note>();
+            Type auCl=_repo.CreateClass<Authorship,E>();
+            Type cmCl=_repo.CreateClass<Comment,E>();
+
+            Note ntCl=new Note();
+            Note ntCl0=new Note(){name = "test name",content = "test content"};
+            Object_SC obs = new Object_SC() { GUID = "1", changed = DateTime.Now, created = DateTime.Now, disabled = DateTime.Now };
+            News ns = new News() {name ="Real news"};
+            Commentary cm = new Commentary() {name ="Real comment"};         
+
+            _repo.CreateClass("Person","V",null);
+            MainAssignment ma = new MainAssignment() { };
+
+            //create property
+            //will not create properties - not initialized object all property types anonimous.
+            _repo.CreateProperty<OrientEdge>(null, null);
+            //create all properties even if all null.
+            _repo.CreateProperty<MainAssignment>( new MainAssignment(), null);
+            _repo.CreateProperty<Unit>( new Unit(), null);
+            _repo.CreateProperty<Note>( new Note(), null);
+            _repo.CreateProperty<Authorship>( new Authorship(), null);
+            _repo.CreateProperty<Comment>( new Comment(), null);
+            _repo.CreateProperty<Commentary>( new Commentary(), null);
+            _repo.CreateProperty<News>( new News(), null);
+            _repo.CreateProperty<Person>(personOne, null);
+            //create single property from names
+            //manager.CreateProperty("Unit", "Name", typeof(string), false, false);
+
+            _repo.CreateVertex<Note>(ntCl,null );
+            _repo.CreateVertex<Object_SC>(obs,null );
+
+            _repo.CreateVertex<News>(ns,null);
+            _repo.CreateVertex<Commentary>(cm,null);
+
+            //add node
+            Person p0 = _repo.CreateVertex<Person>(personTwo,null );        
+            _repo.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
+            Unit u0 = _repo.CreateVertex<Unit>(u,null );
+
+            //add test person
+            foreach (Person prs in personsToAdd)
+            {
+                Person p = _repo.CreateVertex<Person>(prs, null);                
+            }
+
+
+            //add relation
+            MainAssignment maA = _repo.CreateEdge<MainAssignment>(mainAssignment,p0, u0,null );
+            
+            //select from relation
+            IEnumerable<MainAssignment> a = _repo.SelectFromType<MainAssignment>("1=1",null );
+
+            Note ntCr=_repo.CreateVertex<Note>(ntCl0, null);            
+            Authorship aut=new Authorship();
+            Authorship aCr=_repo.CreateEdge<Authorship>(aut,p0,ntCr,null);         
+
+            IEnumerable<Note> notes=_repo.SelectFromTraverseWithOffset<Note, Comment, Commentary, Authorship, Comment>(ntCr.id,"commentDepth",0,2, "test_db");
+
+            if (cleanUpAter)
+            {
+                //delete edge
+                string res = _repo.DeleteEdge<Authorship, Person, Note>(p0, ntCr).GetResult();
+                //Delete concrete node
+                res = _repo.Delete<Unit>(u0).GetResult();
+                //delete all nodes of type
+                res = _repo.Delete<Person>().GetResult();
+
+                //db delete
+                _repo.DeleteDb();
+            }
+
+        }
+
+  }
+
+}
+
