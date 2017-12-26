@@ -98,7 +98,7 @@ namespace OrientRealization
     //Tokens for Orient Comamnd and Authenticate URLs
     public class OrientHost : ITypeToken
     {
-        public string Text {get; set;}=ConfigurationManager.AppSettings["OrientDevUrl"];
+        public string Text {get; set;}=ConfigurationManager.AppSettings["OrientDevHost"];
     }
     public class OrientDatabaseNameToken : ITypeToken
     {
@@ -646,19 +646,19 @@ namespace OrientRealization
 
         public ITypeToken In()
         {
-            return new OrientInToken();
+          return new OrientInToken();
         }
         public ITypeToken Out()
         {
-            return new OrientOutToken();
+          return new OrientOutToken();
         }
         public ITypeToken E()
         {
-            return new OrientEToken();
+          return new OrientEToken();
         }
         public ITypeToken V()
         {
-            return new OrientVToken();
+          return new OrientVToken();
         }
 
         public ITypeToken As()
@@ -808,576 +808,7 @@ namespace OrientRealization
 
     #endregion
 
-
-    /// <summary>
-    /// Chains cmmand with parameters.
-    /// </summary>
-    public class CommandsChain
-    {
-
-        //contains basic syntax factory
-        ITokenMiniFactory _tokenMiniFactory;
-        //contains specific orient syntax factory
-        IOrientQueryFactory _tokenOrientFactory;
-        //format generators factory
-        IFormatFactory _formatFactory;
-        //commandBuilder factory
-        ICommandFactory _commandFactory;
-
-        //commandbuilder for chaining        
-        ICommandBuilder _commandBuilder;
-
-        List<ICommandBuilder> _commands;
-        IFormatFromListGenerator _formatGenerator;
-        
-        CommandShemasExplicit _commandShemas;
-
-        public CommandsChain(
-            ITokenMiniFactory tokenMiniFactory_,
-            IOrientQueryFactory tokenQueryFactory_,
-            IFormatFactory formatFactory_,
-            ICommandFactory commandFactory_)
-        {
-            
-            this._tokenMiniFactory=tokenMiniFactory_;
-            this._tokenOrientFactory=tokenQueryFactory_;
-            this._formatFactory=formatFactory_;
-            this._commandFactory=commandFactory_;
-
-            this._commandBuilder=this._commandFactory.CommandBuilder(this._tokenMiniFactory, this._formatFactory);
-            this._formatGenerator=_formatFactory.FormatGenerator(this._tokenMiniFactory);
-
-            _commands=new List<ICommandBuilder>();
-            
-            _commandShemas=
-                new CommandShemasExplicit(
-                    this._commandFactory
-                    ,this._formatFactory
-                    ,this._tokenMiniFactory
-                    ,this._tokenOrientFactory
-                    );
-        }
-
-        public IFormatFromListGenerator GetGenerator()
-        {
-            return this._formatGenerator;
-        }
-        public string GetCommand()
-        {
-            if(this._commandBuilder.Text==null)
-            {
-                this._commandBuilder.Build();
-            }
-            return this._commandBuilder.Text.Text;
-        }
-        public ICommandBuilder GetBuilder()
-        {
-            return this._commandBuilder;
-        }
-              
-        
-        public CommandsChain NestSq()
-        {
-            this._commandBuilder=_commandShemas.Nest(this._commandBuilder, _tokenOrientFactory.LeftSquareBraket(), _tokenOrientFactory.RightSquareBraket());
-            return this;
-        }
-        public CommandsChain NestRnd()
-        {
-
-            this._commandBuilder=_commandShemas.Nest(this._commandBuilder, _tokenOrientFactory.LeftRoundBraket(), _tokenOrientFactory.RightRoundBraket());
-            return this;
-        }
-        public CommandsChain Nest(ITypeToken leftToken, ITypeToken rightToken)
-        {
-            this._commandBuilder=_commandShemas.Nest(this._commandBuilder, leftToken, rightToken);
-            return this;
-        }
-        public CommandsChain Nest(ITypeToken leftToken_=null,ITypeToken rightToken_=null,ITypeToken format=null)
-        {
-            this._commands.Clear();
-            this._commands.Add(this._commandShemas.Nest(this._commandBuilder, leftToken_, rightToken_, format));
-            this._commandBuilder.BindBuilders(this._commands);
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain Where(ICommandBuilder param=null)
-        {
-            if (param != null)
-            {
-                this._commands=new List<ICommandBuilder>();
-
-                if (this._commandBuilder.Tokens != null)
-                {
-                    this._commands.Add(this._commandBuilder);
-                }
-                    
-                this._commands.Add(_commandShemas.Where(param));                  
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.Gap()));
-            }
-            return this;
-        }        
-        public CommandsChain Where(ITypeToken param_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.Where(param_));
-            this._commandBuilder.BindBuilders(this._commands
-                , this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-
-            return this;
-        }        
-
-        public CommandsChain Between(ITypeToken param_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.Between(param_));
-
-            this._commandBuilder.BindBuilders(this._commands
-                , this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-
-            return this;
-        }
-
-        public CommandsChain And(ITypeToken param_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.And(param_));
-
-            this._commandBuilder.BindBuilders(this._commands
-                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-
-            return this;
-        }
-
-        public CommandsChain From(ITypeToken param_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            this._commands.Add(_commandShemas.From(param_));
-           
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        public CommandsChain FromV(ITypeToken param_=null)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-            if (param_ != null)
-            {
-                this._commands.Add(_commandShemas.From(param_));
-            }
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        
-        public CommandsChain ToV(ITypeToken param_=null)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-            if (param_ != null)
-            {
-                this._commands.Add(_commandShemas.To(param_));
-            }
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain Select(ICommandBuilder columns_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            this._commands.Add( this._commandShemas.Select());
-            this._commands.Add(columns_);
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-           }
-            this._commandBuilder.BindBuilders(this._commands,this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-
-            return this;
-        }
-        public CommandsChain Traverse(ICommandBuilder columns_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            this._commands.Add( this._commandShemas.Traverse());
-            this._commands.Add(columns_);
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-           }
-            this._commandBuilder.BindBuilders(this._commands,this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-
-            return this;
-        }
-        
-        public CommandsChain Create(ITypeToken param_=null)
-        {
-
-            this._commands=new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.Create(param_));
-
-            this._commandBuilder.BindBuilders(this._commands
-                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-
-            return this;
-        }
-        public CommandsChain Class(ITypeToken param_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.Class(param_));
-
-            this._commandBuilder.BindBuilders(this._commands
-                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        public CommandsChain Vertex(ITypeToken param_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.Vertex(param_));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        public CommandsChain Extends(ITypeToken param_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.Extends(param_));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain Edge(ITypeToken param_=null)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.Edge(param_));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain Content(ICommandBuilder param_=null)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-            if (param_ != null)
-            {
-                this._commands.Add(_commandShemas.Content(param_));
-            }
-            this._commandBuilder.BindBuilders(this._commands);
-            return this;
-        }
-
-        public CommandsChain Content(ITypeToken param_=null)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-            if (param_ != null)
-            {
-                this._commands.Add(_commandShemas.Content(param_));
-            }
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain Property(ITypeToken class_,ITypeToken property_,ITypeToken type_,ITypeToken mandatory_,ITypeToken notnull_)
-        {
-            this._commands=new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.Property(class_,property_,type_,mandatory_,notnull_));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain Delete(ITypeToken param_=null)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            if (param_ != null && param_.Text != null)
-            {
-                this._commands.Add(_commandShemas.Delete(param_));
-            }
-            else {this._commands.Add(_commandShemas.Delete());}
-
-            this._commandBuilder.BindBuilders(this._commands
-                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-
-            return this;
-        }
-
-        public CommandsChain InV(ITypeToken param_)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.InV(param_));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        public CommandsChain InE(ITypeToken param_)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.InE(param_));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        public CommandsChain OutV(ITypeToken param_)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.OutV(param_));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        public CommandsChain OutE(ITypeToken param_)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.OutE(param_));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        public CommandsChain Dot()
-        {
-            this._commands = new List<ICommandBuilder>();
-            List<ITypeToken> tl = new List<ITypeToken>() { _tokenMiniFactory.Dot() };
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandFactory.CommandBuilder(_tokenMiniFactory, _formatFactory, tl, _tokenMiniFactory.EmptyString()));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        public CommandsChain Gap()
-        {
-            this._commands = new List<ICommandBuilder>();
-            List<ITypeToken> tl = new List<ITypeToken>() { _tokenMiniFactory.Gap() };
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandFactory.CommandBuilder(_tokenMiniFactory, _formatFactory, tl, _tokenMiniFactory.EmptyString()));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain Coma()
-        {
-            this._commands = new List<ICommandBuilder>();
-            List<ITypeToken> tl = new List<ITypeToken>(){_tokenMiniFactory.Coma()};
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandFactory.CommandBuilder(_tokenMiniFactory, _formatFactory, tl, _tokenMiniFactory.EmptyString()));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain ClassCheck(ITypeToken param_)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.ClassCheck(param_));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain Expand(ITypeToken aliace_)
-        {
-            this._commands = new List<ICommandBuilder>();
-            this._commands.Add(this._commandShemas.Expand(this._commandBuilder, aliace_));                
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-        public CommandsChain As(ITypeToken aliace_)
-        {
-            this._commands = new List<ICommandBuilder>();
-            List<ITypeToken> tl = new List<ITypeToken>();
-
-            tl.Add(_tokenMiniFactory.Gap());
-            tl.Add(_tokenOrientFactory.As());        
-            tl.Add(aliace_);
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandFactory.CommandBuilder(_tokenMiniFactory, _formatFactory, tl, _tokenMiniFactory.EmptyString()));
-
-            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-            return this;
-        }
-
-        public CommandsChain Update(ITypeToken param_ = null)
-        {
-            this._commands = new List<ICommandBuilder>();
-
-            if (this._commandBuilder.Tokens != null)
-            {
-                this._commands.Add(this._commandBuilder);
-            }
-
-            this._commands.Add(_commandShemas.Update(param_));
-
-            this._commandBuilder.BindBuilders(this._commands
-                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-            this._commandBuilder.Build();
-
-            return this;
-        }
-
-    }
-
+    
     #region Schemas
 
     /// <summary>
@@ -2227,7 +1658,9 @@ namespace OrientRealization
             List<ITypeToken> tokens_ = new List<ITypeToken>();
                  
             tokens_.Add(dir_);
-            tokens_.Add(type_);
+            if(type_!=null){
+              tokens_.Add(type_);
+            }
             tokens_.Add(_queryFactory.LeftRoundBraket());
           
             if(param_!=null){
@@ -2257,6 +1690,14 @@ namespace OrientRealization
         {
             return InVformat(_queryFactory.In(),_queryFactory.E(),param_);
         }
+        public ICommandBuilder In(ITypeToken param_=null)
+        {
+            return InVformat(_queryFactory.In(),null,param_);
+        }
+        public ICommandBuilder Out(ITypeToken param_=null)
+        {
+            return InVformat(_queryFactory.Out(),null,param_);
+        }
 
         public ICommandBuilder As(ITypeToken aliace_)
         {
@@ -2270,7 +1711,7 @@ namespace OrientRealization
             return GetBuilder();
         }
 
-        public ICommandBuilder Expand(ICommandBuilder param_,ITypeToken aliace)
+        public ICommandBuilder Expand(ICommandBuilder param_,ITypeToken alias)
         {
             List<ITypeToken> tokens_ = new List<ITypeToken>();
             List<ICommandBuilder> builders_ = new List<ICommandBuilder>();
@@ -2280,7 +1721,7 @@ namespace OrientRealization
             tokens_.Add(_miniFactory.Gap());
             tokens_.Add(_queryFactory.Expand());
             tokens_.Add(_queryFactory.LeftRoundBraket());
-            tokens_.Add(aliace);
+            tokens_.Add(alias);
             tokens_.Add(_queryFactory.RightRoundBraket());
             tokens_.Add(_miniFactory.Gap());
             tokens_.Add(_queryFactory.FromToken());
@@ -2702,6 +2143,608 @@ namespace OrientRealization
     }
     
     #endregion
+
+
+    /// <summary>
+    /// Chains cmmand with parameters.
+    /// </summary>
+    public class CommandsChain
+    {
+
+        //contains basic syntax factory
+        ITokenMiniFactory _tokenMiniFactory;
+        //contains specific orient syntax factory
+        IOrientQueryFactory _tokenOrientFactory;
+        //format generators factory
+        IFormatFactory _formatFactory;
+        //commandBuilder factory
+        ICommandFactory _commandFactory;
+
+        //commandbuilder for chaining        
+        ICommandBuilder _commandBuilder;
+
+        List<ICommandBuilder> _commands;
+        IFormatFromListGenerator _formatGenerator;
+        
+        CommandShemasExplicit _commandShemas;
+
+        public CommandsChain(
+            ITokenMiniFactory tokenMiniFactory_,
+            IOrientQueryFactory tokenQueryFactory_,
+            IFormatFactory formatFactory_,
+            ICommandFactory commandFactory_)
+        {
+            
+            this._tokenMiniFactory=tokenMiniFactory_;
+            this._tokenOrientFactory=tokenQueryFactory_;
+            this._formatFactory=formatFactory_;
+            this._commandFactory=commandFactory_;
+
+            this._commandBuilder=this._commandFactory.CommandBuilder(this._tokenMiniFactory, this._formatFactory);
+            this._formatGenerator=_formatFactory.FormatGenerator(this._tokenMiniFactory);
+
+            _commands=new List<ICommandBuilder>();
+            
+            _commandShemas=
+                new CommandShemasExplicit(
+                    this._commandFactory
+                    ,this._formatFactory
+                    ,this._tokenMiniFactory
+                    ,this._tokenOrientFactory
+                    );
+        }
+
+        public IFormatFromListGenerator GetGenerator()
+        {
+            return this._formatGenerator;
+        }
+        public string GetCommand()
+        {
+            if(this._commandBuilder.Text==null)
+            {
+                this._commandBuilder.Build();
+            }
+            return this._commandBuilder.Text.Text;
+        }
+        public ICommandBuilder GetBuilder()
+        {
+            return this._commandBuilder;
+        }
+              
+        
+        public CommandsChain NestSq()
+        {
+            this._commandBuilder=_commandShemas.Nest(this._commandBuilder, _tokenOrientFactory.LeftSquareBraket(), _tokenOrientFactory.RightSquareBraket());
+            return this;
+        }
+        public CommandsChain NestRnd()
+        {
+
+            this._commandBuilder=_commandShemas.Nest(this._commandBuilder, _tokenOrientFactory.LeftRoundBraket(), _tokenOrientFactory.RightRoundBraket());
+            return this;
+        }
+        public CommandsChain Nest(ITypeToken leftToken, ITypeToken rightToken)
+        {
+            this._commandBuilder=_commandShemas.Nest(this._commandBuilder, leftToken, rightToken);
+            return this;
+        }
+        public CommandsChain Nest(ITypeToken leftToken_=null,ITypeToken rightToken_=null,ITypeToken format=null)
+        {
+            this._commands.Clear();
+            this._commands.Add(this._commandShemas.Nest(this._commandBuilder, leftToken_, rightToken_, format));
+            this._commandBuilder.BindBuilders(this._commands);
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain Where(ICommandBuilder param=null)
+        {
+            if (param != null)
+            {
+                this._commands=new List<ICommandBuilder>();
+
+                if (this._commandBuilder.Tokens != null)
+                {
+                    this._commands.Add(this._commandBuilder);
+                }
+                    
+                this._commands.Add(_commandShemas.Where(param));                  
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.Gap()));
+            }
+            return this;
+        }        
+        public CommandsChain Where(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Where(param_));
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }        
+
+        public CommandsChain Between(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Between(param_));
+
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+
+        public CommandsChain And(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.And(param_));
+
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+
+        public CommandsChain From(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            this._commands.Add(_commandShemas.From(param_));
+           
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        public CommandsChain FromV(ITypeToken param_=null)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+            if (param_ != null)
+            {
+                this._commands.Add(_commandShemas.From(param_));
+            }
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        
+        public CommandsChain ToV(ITypeToken param_=null)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+            if (param_ != null)
+            {
+                this._commands.Add(_commandShemas.To(param_));
+            }
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain Select(ICommandBuilder columns_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            this._commands.Add( this._commandShemas.Select());
+            this._commands.Add(columns_);
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+           }
+            this._commandBuilder.BindBuilders(this._commands,this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+        public CommandsChain Traverse(ICommandBuilder columns_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            this._commands.Add( this._commandShemas.Traverse());
+            this._commands.Add(columns_);
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+           }
+            this._commandBuilder.BindBuilders(this._commands,this._formatGenerator.FromatFromTokenArray(this._commands,_tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+        
+        public CommandsChain Create(ITypeToken param_=null)
+        {
+
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Create(param_));
+
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+        public CommandsChain Class(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Class(param_));
+
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        public CommandsChain Vertex(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Vertex(param_));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        public CommandsChain Extends(ITypeToken param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Extends(param_));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain Edge(ITypeToken param_=null)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Edge(param_));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain Content(ICommandBuilder param_=null)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+            if (param_ != null)
+            {
+                this._commands.Add(_commandShemas.Content(param_));
+            }
+            this._commandBuilder.BindBuilders(this._commands);
+            return this;
+        }
+
+        public CommandsChain Content(ITypeToken param_=null)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+            if (param_ != null)
+            {
+                this._commands.Add(_commandShemas.Content(param_));
+            }
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain Property(ITypeToken class_,ITypeToken property_,ITypeToken type_,ITypeToken mandatory_,ITypeToken notnull_)
+        {
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Property(class_,property_,type_,mandatory_,notnull_));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain Delete(ITypeToken param_=null)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            if (param_ != null && param_.Text != null)
+            {
+                this._commands.Add(_commandShemas.Delete(param_));
+            }
+            else {this._commands.Add(_commandShemas.Delete());}
+
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+
+        public CommandsChain InV(ITypeToken param_)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.InV(param_));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        public CommandsChain InE(ITypeToken param_)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.InE(param_));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        public CommandsChain OutV(ITypeToken param_)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.OutV(param_));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        public CommandsChain OutE(ITypeToken param_)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.OutE(param_));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        public CommandsChain In(ITypeToken param_)
+        {
+          this._commands = new List<ICommandBuilder>();
+
+          if (this._commandBuilder.Tokens != null)
+          {
+              this._commands.Add(this._commandBuilder);
+          }
+
+          this._commands.Add(_commandShemas.In(param_));
+
+          this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+          this._commandBuilder.Build();
+          return this;
+        }
+        public CommandsChain Out(ITypeToken param_)
+        {
+          this._commands = new List<ICommandBuilder>();
+
+          if (this._commandBuilder.Tokens != null)
+          {
+              this._commands.Add(this._commandBuilder);
+          }
+
+          this._commands.Add(_commandShemas.Out(param_));
+
+          this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+          this._commandBuilder.Build();
+          return this;
+        }
+        
+
+        public CommandsChain Dot()
+        {
+            this._commands = new List<ICommandBuilder>();
+            List<ITypeToken> tl = new List<ITypeToken>() { _tokenMiniFactory.Dot() };
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandFactory.CommandBuilder(_tokenMiniFactory, _formatFactory, tl, _tokenMiniFactory.EmptyString()));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        public CommandsChain Gap()
+        {
+            this._commands = new List<ICommandBuilder>();
+            List<ITypeToken> tl = new List<ITypeToken>() { _tokenMiniFactory.Gap() };
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandFactory.CommandBuilder(_tokenMiniFactory, _formatFactory, tl, _tokenMiniFactory.EmptyString()));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain Coma()
+        {
+            this._commands = new List<ICommandBuilder>();
+            List<ITypeToken> tl = new List<ITypeToken>(){_tokenMiniFactory.Coma()};
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandFactory.CommandBuilder(_tokenMiniFactory, _formatFactory, tl, _tokenMiniFactory.EmptyString()));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain ClassCheck(ITypeToken param_)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.ClassCheck(param_));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain Expand(ITypeToken aliace_)
+        {
+            this._commands = new List<ICommandBuilder>();
+            this._commands.Add(this._commandShemas.Expand(this._commandBuilder, aliace_));                
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+        public CommandsChain As(ITypeToken aliace_)
+        {
+            this._commands = new List<ICommandBuilder>();
+            List<ITypeToken> tl = new List<ITypeToken>();
+
+            tl.Add(_tokenMiniFactory.Gap());
+            tl.Add(_tokenOrientFactory.As());        
+            tl.Add(aliace_);
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandFactory.CommandBuilder(_tokenMiniFactory, _formatFactory, tl, _tokenMiniFactory.EmptyString()));
+
+            this._commandBuilder.BindBuilders(this._commands, this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+            return this;
+        }
+
+        public CommandsChain Update(ITypeToken param_ = null)
+        {
+            this._commands = new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Update(param_));
+
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+
+    }
 
     //<<<
     /// <summary>
@@ -3590,17 +3633,17 @@ namespace OrientRealization
            
             foreach (PropertyInfo ps in psc)
             {
-                Type pt = null;
+              Type pt = null;
 
-                try
-                {
-                    pt = typeof(T).GetType().GetProperty(ps.Name).GetType();
-                }
-                catch (Exception e) { }
+              try
+              {
+                pt = typeof(T).GetType().GetProperty(ps.Name).GetType();
+              }
+              catch (Exception e) { }
 
-                if (pt != null)
-                {
-                }
+              if (pt != null)
+              {
+              }
             }
 
             return psc;
@@ -3615,19 +3658,29 @@ namespace OrientRealization
         {
           string name_ = ConfigurationManager.AppSettings["OrientDevDB"];
           if(string.IsNullOrEmpty(input_)){
-            if(string.IsNullOrEmpty(name_)){throw new Exception("No db name passed");}
-            BindDbName(name_);
+            if(string.IsNullOrEmpty(this.dbName)){
+              if(string.IsNullOrEmpty(name_)){
+                throw new Exception("No db name passed");
+              }
+              BindDbName(name_);
+            }
+            BindDbName(this.dbName);
           }else{
             BindDbName(input_);
           }
         }
         void CheckUrl(string input_)
         {
-          string name_ = ConfigurationManager.AppSettings["OrientDevUrl"];
+          string name_ = ConfigurationManager.AppSettings["OrientDevHost"];
 
           if(string.IsNullOrEmpty(input_)){
-            if(string.IsNullOrEmpty(name_)){throw new Exception("No url passed");}
-            BindUrlName(name_);
+            if(string.IsNullOrEmpty(this.urlStr)){
+              if(string.IsNullOrEmpty(name_)){
+                throw new Exception("No db name passed");
+              }
+              BindUrlName(name_);
+            }
+            BindUrlName(this.urlStr);
           }else{
             BindUrlName(input_);
           }
@@ -4057,9 +4110,7 @@ namespace OrientRealization
           .Replace("\"", "\\\""));
 
           T ret_=null;
-
            
-
           if (clTk != null && prsTk != null)
           {
               //_commandFactory.CommandBuilder(_miniFactory, _formatFactory, prsTk, _miniFactory.NewToken("{0}"));
@@ -4487,7 +4538,7 @@ if(toUpdate){
           ITypeToken inVtk=null;
           ITypeToken intETk=null;
           IEnumerable<T> ret_=null;
-          ITypeToken aliace=_miniFactory.NewToken("a1");
+          ITypeToken alias=_miniFactory.NewToken("a1");
 
           inVtk =_typeConverter.Get(typeof(T));
           intETk=_typeConverter.Get(typeof(InE));
@@ -4496,8 +4547,8 @@ if(toUpdate){
           {
 
               this.commandBody =
-              NewChain().Select().InE(intETk).As(aliace).FromV(inVtk)
-              .Expand(aliace)
+              NewChain().Select().InE(intETk).As(alias).FromV(inVtk)
+              .Expand(alias)
               .GetBuilder().Build();
 
           }
@@ -4509,9 +4560,9 @@ if(toUpdate){
               , _miniFactory.EmptyString());
 
               this.commandBody =
-              NewChain().Select().InE(intETk).As(aliace).FromV(inVtk)
+              NewChain().Select().InE(intETk).As(alias).FromV(inVtk)
               .Where(cb)
-              .Expand(aliace)
+              .Expand(alias)
               .GetBuilder().Build();
 
           }
@@ -4545,7 +4596,7 @@ if(toUpdate){
             ITypeToken inVtk = null;
             ITypeToken fromEtk = null;
             IEnumerable<InV> ret_ = null;
-            ITypeToken aliace=_miniFactory.NewToken("a1");
+            ITypeToken alias=_miniFactory.NewToken("a1");
 
             outEtk=_typeConverter.Get(typeof(OutE));
             inVtk=_typeConverter.Get(typeof(InV));
@@ -4555,8 +4606,8 @@ if(toUpdate){
             {
 
 this.commandBody =
-NewChain().Select().OutE(outEtk).InV(inVtk).As(aliace).FromV(fromEtk)
-.Expand(aliace)
+NewChain().Select().OutE(outEtk).InV(inVtk).As(alias).FromV(fromEtk)
+.Expand(alias)
 .GetBuilder().Build();
 
             }
@@ -4568,10 +4619,10 @@ new List<ITypeToken>(){_miniFactory.NewToken("@rid="+vertexFrom_.id)}
 ,_miniFactory.EmptyString());
 
 this.commandBody =
-NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
+NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(alias).FromV(fromEtk)
 .Where(cb)
 .And().Gap().OutE(outEtk).Dot().InV(null).Dot().ClassCheck(inVtk)
-.Expand(aliace)
+.Expand(alias)
 .GetBuilder().Build();
 
             }
@@ -4604,7 +4655,7 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
             ITypeToken inVtk = null;
             ITypeToken fromEtk = null;
             IEnumerable<InV> ret_ = null;
-            ITypeToken aliace = _miniFactory.NewToken("a1");
+            ITypeToken alias = _miniFactory.NewToken("a1");
 
             inEtk = _typeConverter.Get(typeof(InE));
             inVtk = _typeConverter.Get(typeof(InV));
@@ -4614,8 +4665,8 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
             {
 
                 this.commandBody =
-                NewChain().Select().InE(inEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
-                .Expand(aliace)
+                NewChain().Select().InE(inEtk).Dot().InV(inVtk).As(alias).FromV(fromEtk)
+                .Expand(alias)
                 .GetBuilder().Build();
 
             }
@@ -4627,9 +4678,9 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
                 , _miniFactory.EmptyString());
 
                 this.commandBody =
-                NewChain().Select().InE(inEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
+                NewChain().Select().InE(inEtk).Dot().InV(inVtk).As(alias).FromV(fromEtk)
                 .Where(cb)
-                .Expand(aliace)
+                .Expand(alias)
                 .GetBuilder().Build();
 
             }
@@ -4794,7 +4845,7 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
           ITypeToken outVtk = null;
           ITypeToken fromVtk = null;
           IEnumerable<OutV> ret_ = null;
-          ITypeToken aliace = _miniFactory.NewToken("a1");
+          ITypeToken alias = _miniFactory.NewToken("a1");
 
           inEtk=_typeConverter.Get(typeof(InE));
           outVtk=_typeConverter.Get(typeof(OutV));
@@ -4803,8 +4854,8 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
           if (vertexFrom_ == null)
           {
             this.commandBody =
-            NewChain().Select().InE(inEtk).Dot().OutV(outVtk).As(aliace).FromV(fromVtk)
-            .Expand(aliace)
+            NewChain().Select().InE(inEtk).Dot().OutV(outVtk).As(alias).FromV(fromVtk)
+            .Expand(alias)
             .GetBuilder().Build();
           }
           else
@@ -4814,9 +4865,9 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
             , _miniFactory.EmptyString());
 
             this.commandBody =
-            NewChain().Select().InE(inEtk).Dot().OutV(outVtk).As(aliace).FromV(fromVtk)
+            NewChain().Select().InE(inEtk).Dot().OutV(outVtk).As(alias).FromV(fromVtk)
             .Where(cb)
-            .Expand(aliace)
+            .Expand(alias)
             .GetBuilder().Build();
           }
 
@@ -4838,6 +4889,7 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
           }
           return ret_;
         }
+
 
         //converting objects,strings and orients
         public T OrientStringToObject<T>(string item_)
@@ -4931,6 +4983,8 @@ NewChain().Select().OutE(outEtk).Dot().InV(inVtk).As(aliace).FromV(fromEtk)
 
     public interface IOrientRepo
     {
+    void BindDbName(string dbName_);
+    void BindUrlName(string input_);
     void AlterProperty(ITypeToken class_, ITypeToken prop_, ITypeToken func_);    
     IOrientRepo CreateClass(string class_, string extends_, string dbName_ = null);
     Type CreateClass<T, K>(string dbName_=null)
@@ -4981,7 +5035,6 @@ IEnumerable<T> TraverseFrom<T,outE,inV,inE,inE2>(string ID_,string dbName_=null)
     T ContentStringToObject<T>(string item_) where T : class, IorientDefaultObject;
     T UpdateEntity<T>(T item_, string dbName_ = null) where T : class,IorientDefaultObject;
     T UpdateEntity<T>(string item_, string dbName_ = null) where T : class,IorientDefaultObject;
-
     }
 
 }

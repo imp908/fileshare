@@ -35,30 +35,27 @@ namespace NSQLManager
 
         static void Main(string[] args)
         {
-
-          Trash.FormatRearrange.StringsCheck();
-
+          
+          //mng.GenDB();
+          //mng.GenNewsComments();
+          
           RepoCheck rc=new RepoCheck();
-          RepoCheck.startcond sc=RepoCheck.startcond.MNL;
+          rc.GenTestDB();
 
-
-
-      //CREATE DB
-rc.GenDB(false);
-      //GENERATE NEWS,COMMENTS
-rc.GenNewsComments(true);
+      //QUIZ CHECK
+      //rc.QuizCheck();
 
       //check absent person insert
       //rc.UOWCheckPersonCreation();
 
       //MIGRATING PERSON, UPDATING NOTES
-      rc.UOWFunctionalCheck();
+      //rc.UOWFunctionalCheck();
 
 //check structural or generated obj createion
+      //RepoCheck.startcond sc=RepoCheck.startcond.MNL;
       //rc.UOWRandomcheck(sc);
 //check manual object behaviour
       //rc.UOWstringobjectCheck();
-
 
         }
 
@@ -147,7 +144,7 @@ new MainAssignment() { GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00),
           string login = ConfigurationManager.AppSettings["orient_login"];
           string password = ConfigurationManager.AppSettings["orient_pswd"];
           string dbHost = string.Format("{0}:{1}"
-              , ConfigurationManager.AppSettings["OrientDevUrl"]
+              , ConfigurationManager.AppSettings["OrientDevHost"]
               , ConfigurationManager.AppSettings["OrientPort"]);
           if (databaseName == null)
           {
@@ -157,7 +154,7 @@ new MainAssignment() { GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00),
           if (hostPort_ == null)
           {
               dbHost = string.Format("{0}:{1}"
-              , ConfigurationManager.AppSettings["OrientDevUrl"]
+              , ConfigurationManager.AppSettings["OrientDevHost"]
               , ConfigurationManager.AppSettings["OrientPort"]);
           }
           else { dbName = hostPort_; }
@@ -473,7 +470,7 @@ List<string> bullshitComments = new List<string>
 //select expand(outE('Authorship').inV('Note')) from Person
 //traverse both() from (select expand(outE('Authorship').inV('Note')) from Person)
     
-NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings["OrientUnitTestDB"]);
+NewsUOWs.NewsUowOld newsUOW = new NewsUOWs.NewsUowOld(ConfigurationManager.AppSettings["OrientUnitTestDB"]);
 
             List<Note> newsCreated = new List<Note>();
             List<Note> commentsCreated = new List<Note>();
@@ -681,299 +678,61 @@ NewsUOWs.NewsUow newsUOW = new NewsUOWs.NewsUow(ConfigurationManager.AppSettings
         public void ManagerCheck(OrientRepo rp)
         {
 
-      NewsUOWs.NewsRealUow nu=new NewsUOWs.NewsRealUow("test_db");
-      Person authFrom = new Person() { Name = "nameFrom" };
-      Person authTo = new Person() { Name = "nameTo" };
+  NewsUOWs.NewsRealUow nu=new NewsUOWs.NewsRealUow("test_db");
+  Person authFrom = new Person() { Name = "nameFrom" };
+  Person authTo = new Person() { Name = "nameTo" };
 
-      Commentary commentFrom = new Commentary(){author_=authFrom,name="nameFrom",content="contentfrom",published=new DateTime(2011,01,01), GUID="abc-01"};
-      Commentary commentTo= new Commentary(){author_=authTo,name="nameTo",content="ontentTo"};
-      commentTo=rp.UpdateProperties<Commentary>(commentFrom, commentTo);
+  Commentary commentFrom = new Commentary(){author_=authFrom,name="nameFrom",content="contentfrom",published=new DateTime(2011,01,01), GUID="abc-01"};
+  Commentary commentTo= new Commentary(){author_=authTo,name="nameTo",content="ontentTo"};
+  commentTo=rp.UpdateProperties<Commentary>(commentFrom, commentTo);
 
-      IEnumerable<TestNews> ien=nu.GetByOffsetTest("654170c0-c913-42db-87ef-a0de4dd40e6c", 3);
+  IEnumerable<TestNews> ien=nu.GetByOffsetTest("654170c0-c913-42db-87ef-a0de4dd40e6c", 3);
 
-      //rp.BindDbName("test_db");
-      //News n=rp.SelectSingle<News>("GUID='"+"2370b972-48d4-4e49-95ad-b99ba5382042"+"'");
+  //rp.BindDbName("test_db");
+  //News n=rp.SelectSingle<News>("GUID='"+"2370b972-48d4-4e49-95ad-b99ba5382042"+"'");
 
-      string txt =
-"{\"result\":[{\"@type\":\"d\",\"@rid\":\"#25:50\",\"@version\":2,\"@class\":\"News\",\"GUID\":\"2370b972-48d4-4e49-95ad-b99ba5382042\",\"content_\":\"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pretium nibh dolor, ac ornare dui malesuada sed. Nam congue suscipit lectus in dapibus. Fusce pharetra urna a vehicula sollicitudin. Ut vel elit dolor. In hac habitasse platea dictumst. Proin tristique sem quis neque vehicula pellentesque. Ut magna tellus, condimentum ut sodales sit amet, efficitur eu magna.</p><figure class=\\\"imageimgNews\\\" style=\\\"float:left\\\"><img alt=\\\"\\\" height=\\\"123\\\" src=\\\"http://static.nspk.ru/files/42e65b812d1d4735c2d44528837c24b542408fb12eac9b10086d021a0f091f222e372f4ffe20e3c02703ce9a7698e02a55280a257b5876315cf5714204241302/1(1).jpg\\\" width=\\\"274\\\" /><figcaption>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435</figcaption></figure><p>&nbsp;</p><p>Donec lectus nibh, aliquam vitae semper vel, interdum et dolor. Donec vel metus vitae magna scelerisque varius sit amet sed elit. Vivamus lacinia accumsan lectus sit amet commodo. Sed porttitor ullamcorper fermentum. Donec ut facilisis purus. Nullam tempor, risus id maximus posuere, odio nibh suscipit ante, eget semper eros quam consectetur tellus. Nullam aliquam volutpat blandit. Nulla pharetra ultricies aliquam. Integer in tortor a quam imperdiet venenatis id eu sapien. Aenean nec eros arcu. Maecenas ac consequat justo. Proin quis aliquam justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque posuere libero et orci ornare vestibulum. Mauris ut varius odio. Nullam sed pulvinar felis.</p><p>Nulla facilisi. Etiam quis nisl libero. Integer eu porta mi. Sed a iaculis enim. Praesent pharetra odio ipsum, ac tempus ligula bibendum id. Nam aliquet odio ac erat mattis, quis commodo tellus posuere. Etiam congue ex at est dignissim, eget lacinia purus aliquet. Morbi in vehicula mauris. Sed eu vulputate mauris, varius porttitor purus. Duis placerat sed nisl a tempor. In congue lacus in orci convallis, vel aliquam arcu tincidunt. Nullam eleifend efficitur purus, id fermentum lectus semper at. Fusce dapibus arcu eget est dignissim porttitor.</p><p>Phasellus in mauris quis felis maximus euismod at vel urna. Vivamus sit amet malesuada ligula. Aliquam erat volutpat. Nunc suscipit bibendum interdum. Etiam cursus ligula eu dictum malesuada. Donec quis libero ac purus porttitor maximus in non orci. Vestibulum dictum eros dolor, et commodo libero tempor a. Integer viverra faucibus scelerisque. Etiam fermentum arcu non diam vulputate,</p><figure class=\\\"imageimgNews\\\" style=\\\"float:left\\\"><img alt=\\\"\\\" height=\\\"156\\\" src=\\\"http://static.nspk.ru/files/0c2af2d09824cdf5649115cfd33399d15d19ef4d974e1a182051ba5034e5e9594432d71fc5286ec70a3e4477d067df089fbeb5369cd11a35f090a1db64f55b34/3.jpg\\\" width=\\\"206\\\" /><figcaption>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435</figcaption></figure><p>&nbsp;</p><p>nec pellentesque dolor commodo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque malesuada facilisis erat quis aliquet.</p><p>Nullam dapibus orci ac vehicula suscipit. Sed at lectus condimentum, scelerisque nulla eu, vehicula neque. Praesent nec massa sagittis massa blandit vehicula quis eget sem. Sed porta vitae purus nec facilisis. Praesent sed lectus id eros elementum placerat nec quis mauris. Quisque eget orci eget odio efficitur elementum eu non orci. Ut orci nunc, congue ut nibh non, molestie tincidunt eros. Quisque vel sagittis nisl. Aliquam volutpat efficitur enim, a congue lectus euismod vel. Maecenas porta orci vel arcu semper, sed ullamcorper arcu rutrum. Donec dignissim sem nec sagittis finibus. Nulla vitae mauris eu urna facilisis rutrum. Nunc elementum magna quis nisl aliquet commodo. Vivamus vel tempor lectus. Fusce ac odio commodo, rutrum lorem id, blandit lectus.</p><p>Sed mollis ex quam, interdum porta eros tincidunt non. Sed sagittis cursus ligula, eu ultrices quam eleifend eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non commodo quam. Integer at lorem gravida, consectetur mauris sit amet, tincidunt massa. Pellentesque ac velit justo. Nulla facilisi. Maecenas eu nisi rutrum, convallis nisi sit amet, tincidunt dui. Suspendisse facilisis ornare venenatis. Nam porttitor tellus at mauris hendrerit gravida. Maecenas quis quam eget orci ullamcorper lacinia id id dui. Sed eget sagittis diam. Vestibulum pharetra est nec pretium euismod.</p><p>Ut ullamcorper, odio eu tempor lobortis, lectus nisi molestie leo, quis accumsan felis nisi sed ligula. Aliquam vitae quam a lorem accumsan tempus vel ac sem. Proin pulvinar ornare sagittis. Nulla vitae dictum purus. Vivamus rutrum auctor tincidunt. Curabitur nec eros leo. Morbi ullamcorper dictum elit, in sodales nisl lobortis vitae. Donec vitae odio dapibus, dignissim augue sed, accumsan nunc. Morbi at neque velit. Suspendisse potenti. Quisque consectetur, sem faucibus luctus scelerisque, justo ipsum venenatis tortor, sed ullamcorper risus ante non diam. Vivamus et tortor sed est imperdiet condimentum id eget sapien. Morbi in nulla vel mi dignissim vulputate. Vivamus erat lectus, laoreet non quam sed, aliquam tempus eros. Suspendisse in justo quis nisi dictum blandit. Vestibulum interdum, turpis non placerat ultricies, purus ipsum faucibus ipsum, id venenatis ex diam eget nunc.</p><p>Mauris diam lectus, bibendum in sapien nec, tempor malesuada odio. In rhoncus ornare purus, vitae facilisis orci iaculis in. Suspendisse potenti. Proin pharetra ut risus eget ullamcorper. Curabitur sit amet interdum magna. Sed fringilla lobortis ex, vel maximus quam semper eu. Nullam pretium sapien sit amet ex posuere luctus. Etiam condimentum tellus vel metus luctus dignissim. Donec et felis id leo convallis auctor vitae tincidunt nisl. Fusce dignissim varius orci vel hendrerit. Fusce gravida turpis odio, non sed.</p>\",\"PGUID\":\"c1a4c984-a00e-11e6-80db-005056813668\",\"authAcc\":\"YablokovAE\",\"authGUID\":\"c1a4c984-a00e-11e6-80db-005056813668\",\"authName\":\"\u042f\u0431\u043b\u043e\u043a\u043e\u0432 \u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440 \u0415\u0432\u0433\u0435\u043d\u044c\u0435\u0432\u0438\u0447\",\"pic\":\"http://static.nspk.ru/img/news.stub.jpg\",\"name\":\"Lorem ipsum\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"created\":\"2017-12-20 16:26:48\",\"in_Authorship\":[\"#27:133\"],\"@fieldTypes\":\"created=t,in_Authorship=g\"}]}";
-//= "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#25:50\",\"@version\":2,\"@class\":\"News\",\"GUID\":\"2370b972-48d4-4e49-95ad-b99ba5382042\",\"content_\":\"abc\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"created\":\"2017-12-20 16:26:48\",\"in_Authorship\":[\"#27:133\"],\"@fieldTypes\":\"created=t,in_Authorship=g\"}]}";
-//= "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#25:50\",\"@version\":2,\"@class\":\"News\",\"GUID\":\"2370b972-48d4-4e49-95ad-b99ba5382042\",\"content_\":\"abc\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"in_Authorship\":[\"#27:133\"],\"@fieldTypes\":\"created=t,in_Authorship=g\"}]}";
-var jt=JToken.Parse(txt)["result"];
-List<TestNews> lt = new List<TestNews>();
-TestNews nt;
-try{
-foreach (JToken jt_ in jt){
+  string txt =
+  "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#25:50\",\"@version\":2,\"@class\":\"News\",\"GUID\":\"2370b972-48d4-4e49-95ad-b99ba5382042\",\"content_\":\"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pretium nibh dolor, ac ornare dui malesuada sed. Nam congue suscipit lectus in dapibus. Fusce pharetra urna a vehicula sollicitudin. Ut vel elit dolor. In hac habitasse platea dictumst. Proin tristique sem quis neque vehicula pellentesque. Ut magna tellus, condimentum ut sodales sit amet, efficitur eu magna.</p><figure class=\\\"imageimgNews\\\" style=\\\"float:left\\\"><img alt=\\\"\\\" height=\\\"123\\\" src=\\\"http://static.nspk.ru/files/42e65b812d1d4735c2d44528837c24b542408fb12eac9b10086d021a0f091f222e372f4ffe20e3c02703ce9a7698e02a55280a257b5876315cf5714204241302/1(1).jpg\\\" width=\\\"274\\\" /><figcaption>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435</figcaption></figure><p>&nbsp;</p><p>Donec lectus nibh, aliquam vitae semper vel, interdum et dolor. Donec vel metus vitae magna scelerisque varius sit amet sed elit. Vivamus lacinia accumsan lectus sit amet commodo. Sed porttitor ullamcorper fermentum. Donec ut facilisis purus. Nullam tempor, risus id maximus posuere, odio nibh suscipit ante, eget semper eros quam consectetur tellus. Nullam aliquam volutpat blandit. Nulla pharetra ultricies aliquam. Integer in tortor a quam imperdiet venenatis id eu sapien. Aenean nec eros arcu. Maecenas ac consequat justo. Proin quis aliquam justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque posuere libero et orci ornare vestibulum. Mauris ut varius odio. Nullam sed pulvinar felis.</p><p>Nulla facilisi. Etiam quis nisl libero. Integer eu porta mi. Sed a iaculis enim. Praesent pharetra odio ipsum, ac tempus ligula bibendum id. Nam aliquet odio ac erat mattis, quis commodo tellus posuere. Etiam congue ex at est dignissim, eget lacinia purus aliquet. Morbi in vehicula mauris. Sed eu vulputate mauris, varius porttitor purus. Duis placerat sed nisl a tempor. In congue lacus in orci convallis, vel aliquam arcu tincidunt. Nullam eleifend efficitur purus, id fermentum lectus semper at. Fusce dapibus arcu eget est dignissim porttitor.</p><p>Phasellus in mauris quis felis maximus euismod at vel urna. Vivamus sit amet malesuada ligula. Aliquam erat volutpat. Nunc suscipit bibendum interdum. Etiam cursus ligula eu dictum malesuada. Donec quis libero ac purus porttitor maximus in non orci. Vestibulum dictum eros dolor, et commodo libero tempor a. Integer viverra faucibus scelerisque. Etiam fermentum arcu non diam vulputate,</p><figure class=\\\"imageimgNews\\\" style=\\\"float:left\\\"><img alt=\\\"\\\" height=\\\"156\\\" src=\\\"http://static.nspk.ru/files/0c2af2d09824cdf5649115cfd33399d15d19ef4d974e1a182051ba5034e5e9594432d71fc5286ec70a3e4477d067df089fbeb5369cd11a35f090a1db64f55b34/3.jpg\\\" width=\\\"206\\\" /><figcaption>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435</figcaption></figure><p>&nbsp;</p><p>nec pellentesque dolor commodo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque malesuada facilisis erat quis aliquet.</p><p>Nullam dapibus orci ac vehicula suscipit. Sed at lectus condimentum, scelerisque nulla eu, vehicula neque. Praesent nec massa sagittis massa blandit vehicula quis eget sem. Sed porta vitae purus nec facilisis. Praesent sed lectus id eros elementum placerat nec quis mauris. Quisque eget orci eget odio efficitur elementum eu non orci. Ut orci nunc, congue ut nibh non, molestie tincidunt eros. Quisque vel sagittis nisl. Aliquam volutpat efficitur enim, a congue lectus euismod vel. Maecenas porta orci vel arcu semper, sed ullamcorper arcu rutrum. Donec dignissim sem nec sagittis finibus. Nulla vitae mauris eu urna facilisis rutrum. Nunc elementum magna quis nisl aliquet commodo. Vivamus vel tempor lectus. Fusce ac odio commodo, rutrum lorem id, blandit lectus.</p><p>Sed mollis ex quam, interdum porta eros tincidunt non. Sed sagittis cursus ligula, eu ultrices quam eleifend eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non commodo quam. Integer at lorem gravida, consectetur mauris sit amet, tincidunt massa. Pellentesque ac velit justo. Nulla facilisi. Maecenas eu nisi rutrum, convallis nisi sit amet, tincidunt dui. Suspendisse facilisis ornare venenatis. Nam porttitor tellus at mauris hendrerit gravida. Maecenas quis quam eget orci ullamcorper lacinia id id dui. Sed eget sagittis diam. Vestibulum pharetra est nec pretium euismod.</p><p>Ut ullamcorper, odio eu tempor lobortis, lectus nisi molestie leo, quis accumsan felis nisi sed ligula. Aliquam vitae quam a lorem accumsan tempus vel ac sem. Proin pulvinar ornare sagittis. Nulla vitae dictum purus. Vivamus rutrum auctor tincidunt. Curabitur nec eros leo. Morbi ullamcorper dictum elit, in sodales nisl lobortis vitae. Donec vitae odio dapibus, dignissim augue sed, accumsan nunc. Morbi at neque velit. Suspendisse potenti. Quisque consectetur, sem faucibus luctus scelerisque, justo ipsum venenatis tortor, sed ullamcorper risus ante non diam. Vivamus et tortor sed est imperdiet condimentum id eget sapien. Morbi in nulla vel mi dignissim vulputate. Vivamus erat lectus, laoreet non quam sed, aliquam tempus eros. Suspendisse in justo quis nisi dictum blandit. Vestibulum interdum, turpis non placerat ultricies, purus ipsum faucibus ipsum, id venenatis ex diam eget nunc.</p><p>Mauris diam lectus, bibendum in sapien nec, tempor malesuada odio. In rhoncus ornare purus, vitae facilisis orci iaculis in. Suspendisse potenti. Proin pharetra ut risus eget ullamcorper. Curabitur sit amet interdum magna. Sed fringilla lobortis ex, vel maximus quam semper eu. Nullam pretium sapien sit amet ex posuere luctus. Etiam condimentum tellus vel metus luctus dignissim. Donec et felis id leo convallis auctor vitae tincidunt nisl. Fusce dignissim varius orci vel hendrerit. Fusce gravida turpis odio, non sed.</p>\",\"PGUID\":\"c1a4c984-a00e-11e6-80db-005056813668\",\"authAcc\":\"YablokovAE\",\"authGUID\":\"c1a4c984-a00e-11e6-80db-005056813668\",\"authName\":\"\u042f\u0431\u043b\u043e\u043a\u043e\u0432 \u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440 \u0415\u0432\u0433\u0435\u043d\u044c\u0435\u0432\u0438\u0447\",\"pic\":\"http://static.nspk.ru/img/news.stub.jpg\",\"name\":\"Lorem ipsum\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"created\":\"2017-12-20 16:26:48\",\"in_Authorship\":[\"#27:133\"],\"@fieldTypes\":\"created=t,in_Authorship=g\"}]}";
+  //= "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#25:50\",\"@version\":2,\"@class\":\"News\",\"GUID\":\"2370b972-48d4-4e49-95ad-b99ba5382042\",\"content_\":\"abc\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"created\":\"2017-12-20 16:26:48\",\"in_Authorship\":[\"#27:133\"],\"@fieldTypes\":\"created=t,in_Authorship=g\"}]}";
+  //= "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#25:50\",\"@version\":2,\"@class\":\"News\",\"GUID\":\"2370b972-48d4-4e49-95ad-b99ba5382042\",\"content_\":\"abc\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"in_Authorship\":[\"#27:133\"],\"@fieldTypes\":\"created=t,in_Authorship=g\"}]}";
+  var jt=JToken.Parse(txt)["result"];
+  List<TestNews> lt = new List<TestNews>();
+  TestNews nt;
+  try{
+  foreach (JToken jt_ in jt){
   nt=jt_.ToObject<TestNews>();
-}
-}catch(Exception e){ }
+  }
+  }catch(Exception e){ }
 
 
-var a=rp.TestDeserialize<TestNews>(txt);
-News a2=rp.TestDeserialize<News>(txt);
-TestNews n0=rp.OrientStringToObject<TestNews>(txt);
+  var a=rp.TestDeserialize<TestNews>(txt);
+  News a2=rp.TestDeserialize<News>(txt);
+  TestNews n0=rp.OrientStringToObject<TestNews>(txt);
 
         }
         
         //DATABASE BOILERPLATE
-        public void GenDB(bool cleanUpAter = true)
-        {
-            
-            string login = ConfigurationManager.AppSettings["orient_login"];
-            string password = ConfigurationManager.AppSettings["orient_pswd"];
-            string dbHost = string.Format("{0}:{1}" 
-                ,ConfigurationManager.AppSettings["OrientDevUrl"]
-                , ConfigurationManager.AppSettings["OrientPort"]);
-            string dbName = ConfigurationManager.AppSettings["OrientDevDB"];
-
-            TypeConverter typeConverter = new TypeConverter();
-            JsonManagers.JSONManager jsonMnager = new JSONManager();
-            TokenMiniFactory tokenFactory = new TokenMiniFactory();
-            UrlShemasExplicit UrlShema = new UrlShemasExplicit(
-                new CommandBuilder(tokenFactory,new FormatFactory()) 
-                ,new FormatFromListGenerator(new TokenMiniFactory())
-                , tokenFactory, new OrientBodyFactory());
-            BodyShemas bodyShema = new BodyShemas(new CommandFactory(),new FormatFactory(),new TokenMiniFactory(),
-                new OrientBodyFactory());
-         
-            UrlShema.AddHost(dbHost);
-            WebResponseReader webResponseReader=new WebResponseReader();
-            WebRequestManager webRequestManager=new WebRequestManager();
-            webRequestManager.SetCredentials(new NetworkCredential(login,password));
-            CommandFactory commandFactory=new CommandFactory();
-            FormatFactory formatFactory=new FormatFactory();
-            OrientQueryFactory orientQueryFactory=new OrientQueryFactory();
-            OrientCLRconverter orientCLRconverter=new OrientCLRconverter();
-
-            CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
-            new TokenMiniFactory(), new OrientQueryFactory());
-
-            OrientRepo manager = new OrientRepo(typeConverter, jsonMnager,tokenFactory,UrlShema,bodyShema, commandShema_
-            ,webRequestManager,webResponseReader,commandFactory,formatFactory,orientQueryFactory,orientCLRconverter);
-
-      //ManagerCheck(manager);
-
-            //node objects for insertion
-            Person personOne =
-new Person(){Seed=123,Name="0",GUID="000",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)};
-            Person personTwo=
-new Person(){Seed=456,Name="0",GUID="001",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)};
-            MainAssignment mainAssignment=new MainAssignment();
-            string pone = manager.ObjectToContentString<Person>(personOne);
-            List<Person> personsToAdd = new List<Person>() {
-new Person(){
-Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
-,changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)
-}
-//,new Person(){Seed =123,Name="YablokovAE",sAMAccountName="YablokovAE",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)}      
-    };            
-
-            for(int i=0;i<=10;i++)
-            {
-                personsToAdd.Add(
-                    new Person() { sAMAccountName="Person"+i, Name="Person"+i, GUID="GUID"+i }
-                    );
-            }
-
-            manager.BindDbName(dbName);            
-
-            //db delete
-            manager.DeleteDb(dbName, dbHost);
-
-            //db crete
-            manager.CreateDb(dbName,dbHost);
-
-            manager.DbPredefinedParameters();
-
-            //create class
-            Type oE=manager.CreateClass<OrientEdge,E>(dbName);
-            Type maCl=manager.CreateClass<MainAssignment,E>(dbName);
-            Type obc=manager.CreateClass<Object_SC, V>(dbName);
-            Type tp=manager.CreateClass<Unit, V>(dbName);
-            //Type tpp = manager.CreateClass<Note, V>("news_test5");
-            Type nt=manager.CreateClass<Note, V>(dbName);
-            
-            Type cmt=manager.CreateClass<Commentary,Note>(dbName);
-            Type nws=manager.CreateClass<News,Note>(dbName);
-            Type auCl=manager.CreateClass<Authorship,E>(dbName);
-            Type cmCl=manager.CreateClass<Comment,E>(dbName);
-
-            Note ntCl=new Note();
-            Note ntCl0=new Note(){name = "test name",content = "test content"};
-            Object_SC obs = new Object_SC() { GUID = "1", changed = DateTime.Now, created = DateTime.Now, disabled = DateTime.Now };
-            News ns = new News() {name ="Real news"};
-            Commentary cm = new Commentary() {name ="Real comment"};         
-
-            manager.CreateClass("Person","V",dbName);
-            MainAssignment ma = new MainAssignment() { };
-
-            //create property
-            //will not create properties - not initialized object all property types anonimous.
-            manager.CreateProperty<OrientEdge>(null, null);
-            //create all properties even if all null.
-            manager.CreateProperty<MainAssignment>( new MainAssignment(), null);
-            manager.CreateProperty<Unit>( new Unit(), null);
-            manager.CreateProperty<Note>( new Note(), null);
-            manager.CreateProperty<Authorship>( new Authorship(), null);
-            manager.CreateProperty<Comment>( new Comment(), null);
-            manager.CreateProperty<Commentary>( new Commentary(), null);
-            manager.CreateProperty<News>( new News(), null);
-            manager.CreateProperty<Person>(personOne, null);
-            //create single property from names
-            //manager.CreateProperty("Unit", "Name", typeof(string), false, false);
-
-            manager.CreateVertex<Note>(ntCl, dbName);
-            manager.CreateVertex<Object_SC>(obs, dbName);
-
-            manager.CreateVertex<News>(ns,dbName);
-            manager.CreateVertex<Commentary>(cm,dbName);
-
-            //add node
-            Person p0 = manager.CreateVertex<Person>(personTwo, dbName);        
-            manager.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
-            Unit u0 = manager.CreateVertex<Unit>(u, dbName);
-
-            //add test person
-            foreach (Person prs in personsToAdd)
-            {
-                Person p = manager.CreateVertex<Person>(prs, null);                
-            }
-
-
-            //add relation
-            MainAssignment maA = manager.CreateEdge<MainAssignment>(mainAssignment,p0, u0, dbName);
-            
-            //select from relation
-            IEnumerable<MainAssignment> a = manager.SelectFromType<MainAssignment>("1=1", dbName);
-
-            Note ntCr=manager.CreateVertex<Note>(ntCl0, dbName);            
-            Authorship aut=new Authorship();
-            Authorship aCr=manager.CreateEdge<Authorship>(aut,p0,ntCr,dbName);         
-
-            IEnumerable<Note> notes=manager.SelectFromTraverseWithOffset<Note, Comment, Commentary, Authorship, Comment>(ntCr.id,"commentDepth",0,2, "test_db");
-
-            if (cleanUpAter)
-            {
-                //delete edge
-                string res = manager.DeleteEdge<Authorship, Person, Note>(p0, ntCr).GetResult();
-                //Delete concrete node
-                res = manager.Delete<Unit>(u0).GetResult();
-                //delete all nodes of type
-                res = manager.Delete<Person>().GetResult();
-
-                //db delete
-                manager.DeleteDb(dbName, dbHost);
-            }
-
-        }
-        //GENERATE NEWS,COMMENTS
-        public void GenNewsComments(bool newsGen=false)
+        public void GenDevDB(bool cleanUpAter=false,bool newsGen=true)
         {
 
-          List<Person> personsAdded = new List<Person>();          
-          List<News> newsAdded = new List<News>();          
-          List<Commentary> commentaryAdded = new List<Commentary>();          
+Managers.Manager mng = new Managers.Manager("dev_db");
+//CREATE DB
+mng.GenDB(cleanUpAter);
+//GENERATE NEWS,COMMENTS
+mng.GenNewsComments(newsGen);
 
-          List<V> nodes = new List<V>();
-
-          NewsUOWs.NewsRealUow uow = new NewsUOWs.NewsRealUow(ConfigurationManager.AppSettings["OrientDevDB"]);        
-
-          string dtStr="{\"transaction\":true,\"operations\":[{\"type\":\"script\",\"language\":\"sql\",\"script\":[\" create Vertex Person content {\"Seed\":1005911,\"FirstName\":\"Илья\",\"LastName\":\"Непринцев\",\"MiddleName\":\"Александрович\",\"Birthday\":\"1987-03-09 00:00:00\",\"mail\":\"Neprintsevia@nspk.ru\",\"telephoneNumber\":1312,\"userAccountControl\":512,\"objectGUID\":\"7E3E2C99-E53B-4265-B959-95B26CA939C8\",\"sAMAccountName\":\"Neprintsevia\",\"OneSHash\":\"5de9dfe2c74b5eef8e13f4f43163f445\",\"Hash\":\"f202a15b6dac384aecbd2424dcca10a7\",\"@class\":\"Person\",\"Name\":\"Непринцев Илья Александрович\",\"GUID\":\"ba124b8e-9857-11e7-8119-005056813668\",\"Created\":\"2017-09-13 07:15:29\",\"Changed\":\"2017-12-05 10:07:19\"} \"]}]}";
-          byte[] bt=Encoding.UTF8.GetBytes(dtStr);
-          string dtStrRegen = Encoding.UTF8.GetString(bt, 0, bt.Count());
-          bool res = dtStr.Equals(dtStrRegen);
-        
-          PersonUOWs.PersonUOW puow = new PersonUOW(ConfigurationManager.AppSettings["OrientSourceDB"]
-          ,"http://msk1-vm-ovisp02:2480");
-          Person person_ = puow.GetPersonByAccount("Neprintsevia");
-          string str=uow.UOWserialize<Person>(person_);
-          OrientRepo mng = DefaultManagerInit();
-          Person pr=mng.CreateVertex<Person>(str,ConfigurationManager.AppSettings["OrientDevDB"]);
-
-          personsAdded=uow.GetOrientObjects<Person>(null).ToList();         
-       
-          Random rnd=new Random();
-          int persCnt=(int)rnd.Next(5,10);
-          int newsCnt=(int)rnd.Next(5,10);
-          int commentaryCnt=(int)rnd.Next(5,10);
-
-          //get news with commentaries
-          //news + comments
-          //comment + coments
-          //IEnumerable<Note> notes_=uow.GetByOffset("82f83601-d5cd-4108-b1b7-d27ac5a3933a",3);
-
-          IEnumerable<News> news_=uow.GetNews(10);
-          
-          if(newsGen) {
-            //news add
-            for(int i=0;i<personsAdded.Count()-1;i++)
-            {
-              
-              newsCnt=(int)rnd.Next(0,3);
-              for(int i2=0;i2<newsCnt;i2++)
-              {
-                newsAdded.Add(
-                  uow.CreateNews(personsAdded[i],new News(){name="News"+i2,content="fucking interesting news"})
-                );
-              }
-            }
-          }
-          
-
-
-          //commentaries gen
-          nodes.AddRange(
-            uow.GetOrientObjects<News>(null).ToList()
-          );
-
-          //rand, comments gen
-          for(int i=0;i<personsAdded.Count()-1;i++)
-          {
-            commentaryCnt=(int)rnd.Next(8,15);
-            for(int i2=0;i2<commentaryCnt;i2++){
-              int nodeToCommentId=(int)rnd.Next(0,nodes.Count()-1);
-              Note nodeToComment=uow.GetNoteByID(nodes[nodeToCommentId].id);
-              nodes.Add(
-                uow.CreateCommentary(personsAdded[i],new Commentary(){name="Commentary"+i2,content="fucking bullshit comentary"},nodeToComment)
-              );
-            }
-
-          }
-
-
-
-          //crazy gen
-          nodes.Clear();
-
-          string crazyComment=
-          "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pretium nibh dolor, ac ornare dui malesuada sed. Nam congue suscipit lectus in dapibus. Fusce pharetra urna a vehicula sollicitudin. Ut vel elit dolor. In hac habitasse platea dictumst. Proin tristique sem quis neque vehicula pellentesque. Ut magna tellus, condimentum ut sodales sit amet, efficitur eu magna.</p><figure class=\"imageimgNews\" style=\"float:left\"><img alt=\"\" height=\"123\" src=\"http://static.nspk.ru/files/42e65b812d1d4735c2d44528837c24b542408fb12eac9b10086d021a0f091f222e372f4ffe20e3c02703ce9a7698e02a55280a257b5876315cf5714204241302/1(1).jpg\" width=\"274\" /><figcaption>Название</figcaption></figure><p>&nbsp;</p><p>Donec lectus nibh, aliquam vitae semper vel, interdum et dolor. Donec vel metus vitae magna scelerisque varius sit amet sed elit. Vivamus lacinia accumsan lectus sit amet commodo. Sed porttitor ullamcorper fermentum. Donec ut facilisis purus. Nullam tempor, risus id maximus posuere, odio nibh suscipit ante, eget semper eros quam consectetur tellus. Nullam aliquam volutpat blandit. Nulla pharetra ultricies aliquam. Integer in tortor a quam imperdiet venenatis id eu sapien. Aenean nec eros arcu. Maecenas ac consequat justo. Proin quis aliquam justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque posuere libero et orci ornare vestibulum. Mauris ut varius odio. Nullam sed pulvinar felis.</p><p>Nulla facilisi. Etiam quis nisl libero. Integer eu porta mi. Sed a iaculis enim. Praesent pharetra odio ipsum, ac tempus ligula bibendum id. Nam aliquet odio ac erat mattis, quis commodo tellus posuere. Etiam congue ex at est dignissim, eget lacinia purus aliquet. Morbi in vehicula mauris. Sed eu vulputate mauris, varius porttitor purus. Duis placerat sed nisl a tempor. In congue lacus in orci convallis, vel aliquam arcu tincidunt. Nullam eleifend efficitur purus, id fermentum lectus semper at. Fusce dapibus arcu eget est dignissim porttitor.</p><p>Phasellus in mauris quis felis maximus euismod at vel urna. Vivamus sit amet malesuada ligula. Aliquam erat volutpat. Nunc suscipit bibendum interdum. Etiam cursus ligula eu dictum malesuada. Donec quis libero ac purus porttitor maximus in non orci. Vestibulum dictum eros dolor, et commodo libero tempor a. Integer viverra faucibus scelerisque. Etiam fermentum arcu non diam vulputate,</p><figure class=\"imageimgNews\" style=\"float:left\"><img alt=\"\" height=\"156\" src=\"http://static.nspk.ru/files/0c2af2d09824cdf5649115cfd33399d15d19ef4d974e1a182051ba5034e5e9594432d71fc5286ec70a3e4477d067df089fbeb5369cd11a35f090a1db64f55b34/3.jpg\" width=\"206\" /><figcaption>Название</figcaption></figure><p>&nbsp;</p><p>nec pellentesque dolor commodo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque malesuada facilisis erat quis aliquet.</p><p>Nullam dapibus orci ac vehicula suscipit. Sed at lectus condimentum, scelerisque nulla eu, vehicula neque. Praesent nec massa sagittis massa blandit vehicula quis eget sem. Sed porta vitae purus nec facilisis. Praesent sed lectus id eros elementum placerat nec quis mauris. Quisque eget orci eget odio efficitur elementum eu non orci. Ut orci nunc, congue ut nibh non, molestie tincidunt eros. Quisque vel sagittis nisl. Aliquam volutpat efficitur enim, a congue lectus euismod vel. Maecenas porta orci vel arcu semper, sed ullamcorper arcu rutrum. Donec dignissim sem nec sagittis finibus. Nulla vitae mauris eu urna facilisis rutrum. Nunc elementum magna quis nisl aliquet commodo. Vivamus vel tempor lectus. Fusce ac odio commodo, rutrum lorem id, blandit lectus.</p><p>Sed mollis ex quam, interdum porta eros tincidunt non. Sed sagittis cursus ligula, eu ultrices quam eleifend eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non commodo quam. Integer at lorem gravida, consectetur mauris sit amet, tincidunt massa. Pellentesque ac velit justo. Nulla facilisi. Maecenas eu nisi rutrum, convallis nisi sit amet, tincidunt dui. Suspendisse facilisis ornare venenatis. Nam porttitor tellus at mauris hendrerit gravida. Maecenas quis quam eget orci ullamcorper lacinia id id dui. Sed eget sagittis diam. Vestibulum pharetra est nec pretium euismod.</p><p>Ut ullamcorper, odio eu tempor lobortis, lectus nisi molestie leo, quis accumsan felis nisi sed ligula. Aliquam vitae quam a lorem accumsan tempus vel ac sem. Proin pulvinar ornare sagittis. Nulla vitae dictum purus. Vivamus rutrum auctor tincidunt. Curabitur nec eros leo. Morbi ullamcorper dictum elit, in sodales nisl lobortis vitae. Donec vitae odio dapibus, dignissim augue sed, accumsan nunc. Morbi at neque velit. Suspendisse potenti. Quisque consectetur, sem faucibus luctus scelerisque, justo ipsum venenatis tortor, sed ullamcorper risus ante non diam. Vivamus et tortor sed est imperdiet condimentum id eget sapien. Morbi in nulla vel mi dignissim vulputate. Vivamus erat lectus, laoreet non quam sed, aliquam tempus eros. Suspendisse in justo quis nisi dictum blandit. Vestibulum interdum, turpis non placerat ultricies, purus ipsum faucibus ipsum, id venenatis ex diam eget nunc.</p><p>Mauris diam lectus, bibendum in sapien nec, tempor malesuada odio. In rhoncus ornare purus, vitae facilisis orci iaculis in. Suspendisse potenti. Proin pharetra ut risus eget ullamcorper. Curabitur sit amet interdum magna. Sed fringilla lobortis ex, vel maximus quam semper eu. Nullam pretium sapien sit amet ex posuere luctus. Etiam condimentum tellus vel metus luctus dignissim. Donec et felis id leo convallis auctor vitae tincidunt nisl. Fusce dignissim varius orci vel hendrerit. Fusce gravida turpis odio, non sed.</p>";
-          Person yab=puow.GetPersonByAccount("YablokovAE");
-                List<News> crazyNews = new List<News>();
-          for(int i=0;i<30;i++){
-            nodes.Add(
-              uow.CreateNews(yab, new News() { name = "News" + i, content = crazyComment })
-            );
- 
-          }
-
-          //rand, comments gen
-          for(int i2=0;i2<personsAdded.Count()-1;i2++)
-          {
-            commentaryCnt=(int)rnd.Next(8,15);
-            for(int i3=0;i3<commentaryCnt;i3++){
-              int nodeToCommentId=(int)rnd.Next(0,nodes.Count()-1);
-              Note nodeToComment=uow.GetNoteByID(nodes[nodeToCommentId].id);
-              nodes.Add(
-                uow.CreateCommentary(personsAdded[i2],new Commentary(){name="Commentary"+i3,content="fucking bullshit comentary"},nodeToComment)
-              );
-            }
-
-          }
-
-          string location_ = Assembly.GetExecutingAssembly().Location;
-          string path_ = Directory.GetParent(location_).ToString() + "\\nodes.json";
-          File.WriteAllText(path_, JsonConvert.SerializeObject(nodes,Formatting.Indented));
-        
         }
+        public void GenTestDB(bool cleanUpAter=false,bool newsGen=true)
+        {
+
+Managers.Manager mng = new Managers.Manager("test_db");
+//CREATE DB
+mng.GenDB(cleanUpAter);
+//GENERATE NEWS,COMMENTS
+mng.GenNewsComments(newsGen);
+
+        }
+      
         //FUNCTIONAL TESTS
         public void UOWFunctionalCheck()
         {
@@ -1035,7 +794,7 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
           Person personFromTest=personToGetUOW.GetPersonByAccount("Neprintsevia");
           News newsAdded2=nu.CreateNews(personFromTest, newsToinsert);
           string personFromStr = nu.UOWserialize<Person>(personFromTest);
-          string newsCreatedStr = nu.UOWserialize<News>(newsAdded2);        
+          string newsCreatedStr = nu.UOWserialize<News>(newsAdded2);
 
           //COMMENTARY CREATION CHECK
           Commentary commentToAdd = nu.UOWdeserialize<Commentary>(newsContent);
@@ -1052,13 +811,7 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
           IEnumerable <Note> notes=nu.GetByOffset(newsAdded2.GUID, null);
           IEnumerable<Note> news=nu.GetNews(null);
         
-        }
-        
-        public void UOWfromStringObjectsCreate()
-        {
-          NewsUOWs.NewsRealUow nu = ActualNewsUOW();                    
-        }
-     
+        }            
     
     }
 

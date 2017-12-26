@@ -14,17 +14,17 @@ using IJsonManagers;
 using WebManagers;
 using Repos;
 
-
 using Newtonsoft.Json;
 using System.Configuration;
 using System.Threading.Tasks;
 
-
 using System.Net;
 using System.Text;
 
+using System.Reflection;
+using System.IO;
 
-namespace UOW
+namespace UOWs
 {
 
   public class UOW
@@ -32,203 +32,246 @@ namespace UOW
     internal OrientRepo manager;
     internal string dbName;
         
-    public UOW(string databaseName = null, string hostPort_ = null)
+    public UOW(string databaseName = null, string host_ = null)
     {
+      string login = ConfigurationManager.AppSettings["orient_login"];
+      string password = ConfigurationManager.AppSettings["orient_pswd"];
 
-        string login = ConfigurationManager.AppSettings["orient_login"];
-        string password = ConfigurationManager.AppSettings["orient_pswd"];
-        string dbHost = string.Format("{0}:{1}"
-            , ConfigurationManager.AppSettings["OrientDevUrl"]
-            , ConfigurationManager.AppSettings["OrientPort"]);
-        if (databaseName == null)
-        {
-            dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
-        }
-        else { dbName = databaseName; }
-        if (hostPort_ == null)
-        {
-            dbHost = string.Format("{0}:{1}"
-            , ConfigurationManager.AppSettings["OrientDevUrl"]
-            , ConfigurationManager.AppSettings["OrientPort"]);
-        }
-        else { dbHost = hostPort_; }
+      string dbHost = string.Format("{0}:{1}"
+        , ConfigurationManager.AppSettings["OrientDevHost"]
+        , ConfigurationManager.AppSettings["OrientPort"]);
+      if (databaseName==null)
+      {
+        dbName=ConfigurationManager.AppSettings["OrientUnitTestDB"];
+      }
+      else {dbName = databaseName;}
+      if (host_==null)
+      {
+        dbHost = string.Format("{0}:{1}"
+        ,ConfigurationManager.AppSettings["OrientDevHost"]
+        ,ConfigurationManager.AppSettings["OrientPort"]);
+      }
+      else {dbHost = host_;}
 
-        TypeConverter typeConverter = new TypeConverter();
-        JsonManagers.JSONManager jsonMnager = new JSONManager();
-        TokenMiniFactory tokenFactory = new TokenMiniFactory();
-        UrlShemasExplicit UrlShema = new UrlShemasExplicit(
-            new CommandBuilder(tokenFactory, new FormatFactory())
-            , new FormatFromListGenerator(new TokenMiniFactory())
-            , tokenFactory, new OrientBodyFactory());
+      TypeConverter typeConverter = new TypeConverter();
+      JsonManagers.JSONManager jsonMnager = new JSONManager();
+      TokenMiniFactory tokenFactory = new TokenMiniFactory();
+      UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+          new CommandBuilder(tokenFactory, new FormatFactory())
+          , new FormatFromListGenerator(new TokenMiniFactory())
+          , tokenFactory, new OrientBodyFactory());
 
-        BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
-            new OrientBodyFactory());
+      BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
+          new OrientBodyFactory());
 
-        UrlShema.AddHost(dbHost);
-        WebResponseReader webResponseReader = new WebResponseReader();
-        WebRequestManager webRequestManager = new WebRequestManager();
-        webRequestManager.SetCredentials(new NetworkCredential(login, password));
-        CommandFactory commandFactory = new CommandFactory();
-        FormatFactory formatFactory = new FormatFactory();
-        OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
-        OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
+      UrlShema.AddHost(dbHost);
+      WebResponseReader webResponseReader = new WebResponseReader();
+      WebRequestManager webRequestManager = new WebRequestManager();
+      webRequestManager.SetCredentials(new NetworkCredential(login, password));
+      CommandFactory commandFactory = new CommandFactory();
+      FormatFactory formatFactory = new FormatFactory();
+      OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
+      OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
 
-        CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
-        new TokenMiniFactory(), new OrientQueryFactory());
+      CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+      new TokenMiniFactory(), new OrientQueryFactory());
 
-        manager = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
-        , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+      manager = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+      , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
 
-        manager.BindDbName(dbName);
+      manager.BindDbName(dbName);
     }
     
+      public string UserAcc()
+      {
+          return WebManagers.UserAuthenticationMultiple.UserAcc();
+      }
+
+      public string UOWserialize<T>(T item_)
+          where T:class,IOrientObjects.IorientDefaultObject
+      {
+          string result = null;
+          result = manager.ObjectToContentString<T>(item_);
+          return result;
+      }
+      
+      public string UOWserialize<T>(IEnumerable<T> item_)
+          where T:class,IOrientObjects.IorientDefaultObject
+      {
+          string result = null;
+          result = manager.ObjectToContentString<T>(item_);
+          return result;
+      }
+      public T UOWdeserialize<T>(string item_)
+          where T : class, IOrientObjects.IorientDefaultObject
+      {
+          T result = null;
+          result = manager.ContentStringToObject<T>(item_);
+          return result;
+      }
+
+      string ConvertToBase64(string input)
+      {
+        return System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(input));
+      }
+      string ConvertFromBase64(string input)
+      {
+        return System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(input));
+      }
+           
   }
 
 }
 
 namespace PersonUOWs
 {
-    
-    public class PersonUOWold : IPersonUOW
-    {
-        IRepo_v1 _repo;
-        OreintNewsTokenBuilder ob=new OreintNewsTokenBuilder();
-        ITypeTokenConverter _typeConverter;
-        ICommandBuilder _CommandBuilder;
-        IJsonManger _jsonManager;
-        ITokenBuilder _tokenAggregator;
-        IWebManager wm;
-        IResponseReader wr;
+  
+  public class PersonUOWold : IPersonUOW
+  {
+      IRepo_v1 _repo;
+      OreintNewsTokenBuilder ob=new OreintNewsTokenBuilder();
+      ITypeTokenConverter _typeConverter;
+      ICommandBuilder _CommandBuilder;
+      IJsonManger _jsonManager;
+      ITokenBuilder _tokenAggregator;
+      IWebManager wm;
+      IResponseReader wr;
 
-        public PersonUOWold()
-        {
-            _jsonManager=new JSONManager();
-            _tokenAggregator=new OrientTokenBuilder();
-            _typeConverter=new TypeConverter();
-            _CommandBuilder=new OrientCommandBuilder(new TokenMiniFactory(), new FormatFactory());
-            wm=new OrientWebManager();
-            wr=new WebResponseReader();
+      public PersonUOWold()
+      {
+          _jsonManager=new JSONManager();
+          _tokenAggregator=new OrientTokenBuilder();
+          _typeConverter=new TypeConverter();
+          _CommandBuilder=new OrientCommandBuilder(new TokenMiniFactory(), new FormatFactory());
+          wm=new OrientWebManager();
+          wr=new WebResponseReader();
 
-            _repo=new Repo(_jsonManager, _tokenAggregator, _typeConverter, _CommandBuilder, wm, wr);
-       }
+          _repo=new Repo(_jsonManager, _tokenAggregator, _typeConverter, _CommandBuilder, wm, wr);
+      }
 
 
-        public IEnumerable<Person> GetObjByGUID(string GUID)
-        {
-            IEnumerable<Person> result=null;
-            TextToken condition_=new TextToken() {Text="1=1 and GUID ='" + GUID + "'"};
-            try
-            {
-                result=_repo.Select<Person>(typeof(Person), condition_);
-            }
-            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+      public IEnumerable<Person> GetObjByGUID(string GUID)
+      {
+          IEnumerable<Person> result=null;
+          TextToken condition_=new TextToken() {Text="1=1 and GUID ='" + GUID + "'"};
+          try
+          {
+              result=_repo.Select<Person>(typeof(Person), condition_);
+          }
+          catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
-            return result;
-        }
-        public string GetByGUID(string GUID)
-        {
-            string result=string.Empty;
-            IEnumerable<Person> persons=null;
-            TextToken condition_=new TextToken() {Text="1=1 and GUID ='" + GUID + "'"};
-            try
-            {
-                persons=_repo.Select<Person>(typeof(Person), condition_);
-                result=_jsonManager.SerializeObject(persons);
-            }
-            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+          return result;
+      }
+      public string GetByGUID(string GUID)
+      {
+          string result=string.Empty;
+          IEnumerable<Person> persons=null;
+          TextToken condition_=new TextToken() {Text="1=1 and GUID ='" + GUID + "'"};
+          try
+          {
+              persons=_repo.Select<Person>(typeof(Person), condition_);
+              result=_jsonManager.SerializeObject(persons);
+          }
+          catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
-            return result;
-        }
-        public IEnumerable<Person> GetAll()
-        {
+          return result;
+      }
+      public IEnumerable<Person> GetAll()
+      {
 
-            IEnumerable<Person> result=null;
-            TextToken condition_=new TextToken() {Text="1=1"};
-            try
-            {
-                result=_repo.Select<Person>(typeof(Person), condition_);
+          IEnumerable<Person> result=null;
+          TextToken condition_=new TextToken() {Text="1=1"};
+          try
+          {
+              result=_repo.Select<Person>(typeof(Person), condition_);
 
-            }
-            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+          }
+          catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
-            return result;
-        }
+          return result;
+      }
 
-        public string GetTrackedBirthday(string GUID)
-        {
-            string result=string.Empty;
-            IEnumerable<Person> persons=null;
-            TextToken condition_=new TextToken() {Text="1=1 and GUID ='" + GUID + "'"};
-            List<ITypeToken> tokens=ob.outEinVExp(new OrientSelectToken(),
-                _typeConverter.Get(typeof(Person)), _typeConverter.Get(typeof(TrackBirthdays)), condition_);
+      public string GetTrackedBirthday(string GUID)
+      {
+          string result=string.Empty;
+          IEnumerable<Person> persons=null;
+          TextToken condition_=new TextToken() {Text="1=1 and GUID ='" + GUID + "'"};
+          List<ITypeToken> tokens=ob.outEinVExp(new OrientSelectToken(),
+              _typeConverter.Get(typeof(Person)), _typeConverter.Get(typeof(TrackBirthdays)), condition_);
 
-            _CommandBuilder.AddTokens(tokens);
-            _CommandBuilder.AddFormat(new OrientOutEinVFormat() {});
-            string command=_CommandBuilder.Build().GetText();
+          _CommandBuilder.AddTokens(tokens);
+          _CommandBuilder.AddFormat(new OrientOutEinVFormat() {});
+          string command=_CommandBuilder.Build().GetText();
 
-            persons=_repo.Select<Person>(command);
-            result=_jsonManager.SerializeObject(persons);
-            return result;
-        }
+          persons=_repo.Select<Person>(command);
+          result=_jsonManager.SerializeObject(persons);
+          return result;
+      }
 
-        public string AddTrackBirthday(E edge_, string guidFrom, string guidTo)
-        {
-            string result=null;
-            Person from=GetObjByGUID(guidFrom).FirstOrDefault();
-            Person to=GetObjByGUID(guidTo).FirstOrDefault();
+      public string AddTrackBirthday(E edge_, string guidFrom, string guidTo)
+      {
+          string result=null;
+          Person from=GetObjByGUID(guidFrom).FirstOrDefault();
+          Person to=GetObjByGUID(guidTo).FirstOrDefault();
 
-            if (from != null && to != null)
-            {
-                result=_repo.Add(edge_, from, to);
-           }
-            return result;
-        }
-        public string DeleteTrackedBirthday(E edge_, string guidFrom, string guidTo)
-        {
-            string result=null;
-            Person from=GetObjByGUID(guidFrom).FirstOrDefault();
-            Person to=GetObjByGUID(guidTo).FirstOrDefault();
+          if (from != null && to != null)
+          {
+              result=_repo.Add(edge_, from, to);
+          }
+          return result;
+      }
+      public string DeleteTrackedBirthday(E edge_, string guidFrom, string guidTo)
+      {
+          string result=null;
+          Person from=GetObjByGUID(guidFrom).FirstOrDefault();
+          Person to=GetObjByGUID(guidTo).FirstOrDefault();
 
-            List<ITypeToken> condTokens_=ob.outVinVcnd(typeof(Person), new TextToken() {Text="GUID"},
-                new TextToken() {Text=from.GUID}, new TextToken() {Text=to.GUID});
+          List<ITypeToken> condTokens_=ob.outVinVcnd(typeof(Person), new TextToken() {Text="GUID"},
+              new TextToken() {Text=from.GUID}, new TextToken() {Text=to.GUID});
 
-            _CommandBuilder.AddTokens(condTokens_);
-            _CommandBuilder.AddFormat(new OrientOutVinVFormat() {});
-            string command=_CommandBuilder.Build().GetText();
+          _CommandBuilder.AddTokens(condTokens_);
+          _CommandBuilder.AddFormat(new OrientOutVinVFormat() {});
+          string command=_CommandBuilder.Build().GetText();
       
 
-            if (from != null && to != null)
-            {
-                result=_repo.Delete(edge_.GetType(), new TextToken() {Text=command});
-           }
-            return result;
-        }
+          if (from != null && to != null)
+          {
+              result=_repo.Delete(edge_.GetType(), new TextToken() {Text=command});
+          }
+          return result;
+      }
 
-    }
+  }
 
-    public class PersonUOW : UOW.UOW
-    {
+  public class PersonUOW : UOWs.UOW
+  {
       
-      public PersonUOW(string databaseName = null, string hostPort_ = null)
-      : base(databaseName, hostPort_)
-      {
-      }
-
-      public Person GetPersonByAccount(string accountName_)
-      {
-        Person result=null;
-        var a=from s in manager.Props<Person>().ToList() where s.Name=="sAMAccountName" select s;
-        result=manager.SelectSingle<Person>("sAMAccountName='" + accountName_+"'", dbName);
-        return result;
-      }
-      public Person GetPersonByGUID(string GUID_)
-      {
-        Person result = null;            
-        result = manager.SelectSingle<Person>("GUID='" + GUID_ + "'", dbName);
-        return result;
-      }
-
+    public PersonUOW(string databaseName = null, string host_ = null)
+    : base(databaseName, host_)
+    {
     }
+
+    public Person GetPersonByAccount(string accountName_)
+    {
+      Person result=null;
+      var a=from s in manager.Props<Person>().ToList() where s.Name=="sAMAccountName" select s;
+      result=manager.SelectSingle<Person>("sAMAccountName='" + accountName_+"'", dbName);
+      return result;
+    }
+    public Person GetPersonByGUID(string GUID_)
+    {
+      Person result = null;            
+      result = manager.SelectSingle<Person>("GUID='" + GUID_ + "'", dbName);
+      return result;
+    }
+    public Person GetPersonByID(string ID_)
+    {
+      Person result = null;            
+      result = manager.SelectSingle<Person>("@rid='" + ID_ + "'", dbName);
+      return result;
+    }
+
+  }
 
 }
 
@@ -666,7 +709,7 @@ namespace Quizes
             jm=new JSONManager();
 
             orientHost=string.Format("{0}:{1}/{2}"
-            ,ConfigurationManager.AppSettings["OrientDevUrl"]
+            ,ConfigurationManager.AppSettings["OrientDevHost"]
             ,ConfigurationManager.AppSettings["OrientPort"]
             ,ConfigurationManager.AppSettings["CommandURL"]
             );
@@ -903,19 +946,19 @@ qL=from s in quizList
 namespace NewsUOWs
 {
 
-    public class NewsUow
+    public class NewsUowOld
     {
 
       OrientRepo manager;
       string dbName;
 
-      public NewsUow(string databaseName=null)
+      public NewsUowOld(string databaseName=null)
       {
 
           string login = ConfigurationManager.AppSettings["orient_login"];
           string password = ConfigurationManager.AppSettings["orient_pswd"];
           string dbHost = string.Format("{0}:{1}"
-              , ConfigurationManager.AppSettings["OrientDevUrl"]
+              , ConfigurationManager.AppSettings["OrientDevHost"]
               , ConfigurationManager.AppSettings["OrientPort"]);
           if (databaseName == null)
           {
@@ -1229,80 +1272,32 @@ namespace NewsUOWs
 
   }
 
-    public class NewsRealUow
+    public class NewsRealUow:UOWs.UOW
     {
-
-      OrientRepo manager;
-      string dbName;
-
-      public NewsRealUow(string databaseName = null, string host_ = null)
+        
+      public NewsRealUow(string databaseName = null,string host_ = null)
+      : base(databaseName, host_)
       {
-
-        string login = ConfigurationManager.AppSettings["orient_login"];
-        string password = ConfigurationManager.AppSettings["orient_pswd"];
-        string dbHost = string.Format("{0}:{1}"
-            , ConfigurationManager.AppSettings["OrientDevUrl"]
-            , ConfigurationManager.AppSettings["OrientPort"]);
-        if (databaseName == null)
-        {
-            dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
-        }
-        else { dbName = databaseName; }
-        if (host_ == null)
-        {
-            dbHost = string.Format("{0}:{1}"
-            , ConfigurationManager.AppSettings["OrientDevUrl"]
-            , ConfigurationManager.AppSettings["OrientPort"]);
-        }
-        else { dbName = host_; }
-
-        TypeConverter typeConverter = new TypeConverter();
-        JsonManagers.JSONManager jsonMnager = new JSONManager();
-        TokenMiniFactory tokenFactory = new TokenMiniFactory();
-        UrlShemasExplicit UrlShema = new UrlShemasExplicit(
-            new CommandBuilder(tokenFactory, new FormatFactory())
-            , new FormatFromListGenerator(new TokenMiniFactory())
-            , tokenFactory, new OrientBodyFactory());
-
-        BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
-            new OrientBodyFactory());
-
-        UrlShema.AddHost(dbHost);
-        WebResponseReader webResponseReader = new WebResponseReader();
-        WebRequestManager webRequestManager = new WebRequestManager();
-        webRequestManager.SetCredentials(new NetworkCredential(login, password));
-        CommandFactory commandFactory = new CommandFactory();
-        FormatFactory formatFactory = new FormatFactory();
-        OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
-        OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
-
-        CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
-        new TokenMiniFactory(), new OrientQueryFactory());
-
-        manager = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
-        , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
-
-        manager.BindDbName(dbName);
       }
      
       public Note GetNoteByGUID(string GUID_)
       {
-          Note result = null;
-          result = manager.SelectSingle<Note>("GUID='" + GUID_ + "'", dbName);
-          return result;
+        Note result = null;
+        result = manager.SelectSingle<Note>("GUID='" + GUID_ + "'", dbName);
+        return result;
       }     
 
       public News GetNewsByGUID(string GUID_)
       {      
-          News result = null;
-          result = manager.SelectSingle<News>("GUID='" + GUID_ + "'", dbName);
-          return result;
+        News result = null;
+        result = manager.SelectSingle<News>("GUID='" + GUID_ + "'", dbName);
+        return result;
       }     
       public News GetNewsById(string id_)
       {
-          News result = null;
-          result = manager.SelectFromType<News>("@rid=" + id_ , dbName).FirstOrDefault();
-          return result;
+        News result = null;
+        result = manager.SelectFromType<News>("@rid=" + id_ , dbName).FirstOrDefault();
+        return result;
       }
       
       public IEnumerable<Note> GetByOffset(string guid_, int? offset_=3)
@@ -1371,12 +1366,12 @@ namespace NewsUOWs
 
       public IEnumerable<Person> SearchByName(string Name_)
       {
-          IEnumerable<Person> result=null;
-          Name_ = Name_.ToLower();
-          result=manager
-              .SelectFromType<Person>("Name.toLowerCase() like '%"+Name_+"%' or sAMAccountName.toLowerCase() like '%"+Name_+"%'or mail.toLowerCase() like '%"+Name_+"%'"
-              ,dbName);
-          return result;
+        IEnumerable<Person> result=null;
+        Name_ = Name_.ToLower();
+        result=manager
+            .SelectFromType<Person>("Name.toLowerCase() like '%"+Name_+"%' or sAMAccountName.toLowerCase() like '%"+Name_+"%'or mail.toLowerCase() like '%"+Name_+"%'"
+            ,dbName);
+        return result;
       }        
 
       public IEnumerable<T> GetOrientObjects<T>(string cond_=null)
@@ -1407,104 +1402,102 @@ namespace NewsUOWs
 
       public Commentary CreateCommentary(Person from,string newsId_,string comment_)
       {
-          Authorship auth=new Authorship(){};
-          Comment commented=new Comment(){};
-          Commentary commentaryTochange_=null;
-          Commentary commentaryToAdd_=null;
-          News newsToComment_=manager.SelectSingle<News>("@rid="+newsId_,dbName);
-          from=CheckPerson(from);
+        Authorship auth=new Authorship(){};
+        Comment commented=new Comment(){};
+        Commentary commentaryTochange_=null;
+        Commentary commentaryToAdd_=null;
+        News newsToComment_=manager.SelectSingle<News>("@rid="+newsId_,dbName);
+        from=CheckPerson(from);
 
-          commentaryTochange_=manager.OrientStringToObject<Commentary>(comment_);
+        commentaryTochange_=manager.OrientStringToObject<Commentary>(comment_);
 
-          int? depth=IsCommentToComment(newsId_);
-          //is comment to comment
-          if (depth==null)
-          {            
-            commentaryTochange_.commentDepth=0;               
-          }
-          else
-          {           
-            commentaryTochange_.commentDepth=depth+1;;
-          }
-          //commentary Node created and relation from person created
-          commentaryToAdd_=CreateCommentary(from,commentaryTochange_);
+        int? depth=IsCommentToComment(newsId_);
+        //is comment to comment
+        if (depth==null)
+        {            
+          commentaryTochange_.commentDepth=0;               
+        }
+        else
+        {           
+          commentaryTochange_.commentDepth=depth+1;;
+        }
+        //commentary Node created and relation from person created
+        commentaryToAdd_=CreateCommentary(from,commentaryTochange_);
 
-          if (commentaryToAdd_!=null)
-          {               
-              if (newsToComment_!=null)
-              {
-                  newsToComment_.hasComments=true;
-                  //create relation from commment to news Nodes
-                  manager.CreateEdge<Comment>(commented,newsToComment_, commentaryToAdd_);
-              }
-              else
-              {
-                  //unsuccesfull news search
-                  //manager.Delete<Note>(commentary_);
-                  //check if has comments if no then hasComments=false;
-              }
-          }
+        if (commentaryToAdd_!=null)
+        {               
+            if (newsToComment_!=null)
+            {
+                newsToComment_.hasComments=true;
+                //create relation from commment to news Nodes
+                manager.CreateEdge<Comment>(commented,newsToComment_, commentaryToAdd_);
+            }
+            else
+            {
+                //unsuccesfull news search
+                //manager.Delete<Note>(commentary_);
+                //check if has comments if no then hasComments=false;
+            }
+        }
 
-          return commentaryToAdd_;
+        return commentaryToAdd_;
       }
       public Commentary CreateCommentary(Person from,Commentary comment_,Note newsId_)
       {
-          Authorship auth = new Authorship(){};
-          Comment commented = new Comment(){};
-          Commentary commentary_ = null;
+      Authorship auth = new Authorship(){};
+      Comment commented = new Comment(){};
+      Commentary commentary_ = null;
 
-          from=CheckPerson(from);
+      from=CheckPerson(from);
 
-          int? depth = IsCommentToComment(newsId_.id);
-          if(depth==null)
+      int? depth = IsCommentToComment(newsId_.id);
+      if(depth==null)
+      {
+        //comment to news
+        comment_.commentDepth=0;          
+      }
+      else
+      {
+        //comment to comment
+        comment_.commentDepth=depth+1;
+      }
+
+      if(from!=null){
+
+      Note newsToComment_=manager.SelectByIDWithCondition<Note>(newsId_.id,null,dbName).FirstOrDefault();
+          
+      if(newsToComment_!=null){
+              
+        comment_.PGUID=newsToComment_.GUID;
+        comment_.authAcc=from.sAMAccountName;
+        comment_.authGUID=from.GUID;
+        comment_.authName=from.Name;
+
+        //commentary Node created and relation from person created
+        commentary_=CreateCommentary(from, comment_);
+        commentary_.author_=from;
+
+        //UpdateNews(from,commentary_);
+        if (commentary_!=null)
+        {          
+          if (newsToComment_!=null)
           {
-            //comment to news
-            comment_.commentDepth=0;          
+            //create relation from commment to news Nodes
+            Comment commentedCr=manager.CreateEdge<Comment>(commented,newsToComment_,commentary_);
+            newsToComment_.hasComments=true;
+
+            UpdateNote(newsToComment_);
           }
           else
           {
-            //comment to comment
-            comment_.commentDepth=depth+1;
+            //unsuccesfull news search
+            //manager.Delete<Note>(commentary_);
           }
           
-          if(from!=null){
+        }}}
 
-            Note newsToComment_ = manager.SelectByIDWithCondition<Note>(newsId_.id,null,dbName).FirstOrDefault();
-          
-            if(newsToComment_!=null){
-              
-
-              comment_.PGUID=newsToComment_.GUID;
-              comment_.authAcc=from.sAMAccountName;
-              comment_.authGUID=from.GUID;
-              comment_.authName=from.Name;
-
-              //commentary Node created and relation from person created
-              commentary_=CreateCommentary(from, comment_);
-              commentary_.author_=from;
-
-              //UpdateNews(from,commentary_);
-
-            if (commentary_!=null)
-            {          
-                if (newsToComment_!=null)
-                {
-                    //create relation from commment to news Nodes
-                    Comment commentedCr=manager.CreateEdge<Comment>(commented,newsToComment_,commentary_);
-                    newsToComment_.hasComments=true;
-
-                    UpdateNote(from,newsToComment_);
-                }
-                else
-                {
-                    //unsuccesfull news search
-                    //manager.Delete<Note>(commentary_);
-                }
-          
-          }}}
-
-          return commentary_;
-      }    
+      return commentary_;
+      }
       public Commentary CreateCommentary(Person from,Commentary note_)
       {
         Authorship auth=new Authorship();
@@ -1534,7 +1527,7 @@ namespace NewsUOWs
           News created=CreateNews(from, note_);
           return created;
       }
-      public News CreateNews(Person from_,News note_)
+      public News CreateNews(Person from_,Note note_)
       {
         News nt_=null;
         if(from_!=null ) {
@@ -1553,7 +1546,7 @@ namespace NewsUOWs
             //if unsucceced clean created objects
             if(auth==null||note_==null)
             {         
-              manager.Delete<News>(note_,null,dbName);
+              manager.Delete<Note>(note_,null,dbName);
               manager.Delete<Authorship>(auth,null,dbName);
             }
           }
@@ -1629,6 +1622,13 @@ namespace NewsUOWs
   Note nt=manager.SelectSingle<Note>("GUID='"+noteFrom.GUID+"'",dbName);
   return nt;
       }
+      public Note UpdateNote(Note noteFrom)
+      { 
+  Note noteTo = manager.SelectSingle<Note>("GUID='"+noteFrom.GUID+"'");  
+  Note updatedEntity=manager.UpdateEntity<Note>(noteTo, dbName);
+  Note nt=manager.SelectSingle<Note>("GUID='"+noteFrom.GUID+"'",dbName);
+  return nt;
+      }
 
       public News PublishNews(string newsGUID_)
       {
@@ -1660,10 +1660,12 @@ namespace NewsUOWs
         IEnumerable<News> result = null;
         int endDepth=offset==null?20:(int)offset;
           result = manager.SelectByGUIDfromType<News>(typeof(News),null, dbName);
-          DateTime? mindate = (from s in result select s.created).Min();
-          DateTime? maxdate = (from s in result select s.created).Max();
-          result = result.OrderByDescending(s => s.created);
-          result = result.Take(endDepth);
+          if(result!=null){
+            DateTime? mindate = (from s in result select s.created).Min();
+            DateTime? maxdate = (from s in result select s.created).Max();
+            result = result.OrderByDescending(s => s.created);
+            result = result.Take(endDepth);
+          }
         return result;
       }   
       public IEnumerable<News> GetPersonNews(Person p_=null)
@@ -1705,44 +1707,7 @@ namespace NewsUOWs
             depth=nt.commentDepth+1;
           }else {depth=null;}
           return depth;
-      }
-    
-      public string UserAcc()
-      {
-          return WebManagers.UserAuthenticationMultiple.UserAcc();
-      }
-
-      public string UOWserialize<T>(T item_)
-          where T:class,IOrientObjects.IorientDefaultObject
-      {
-          string result = null;
-          result = manager.ObjectToContentString<T>(item_);
-          return result;
-      }
-      
-      public string UOWserialize<T>(IEnumerable<T> item_)
-          where T:class,IOrientObjects.IorientDefaultObject
-      {
-          string result = null;
-          result = manager.ObjectToContentString<T>(item_);
-          return result;
-      }
-      public T UOWdeserialize<T>(string item_)
-          where T : class, IOrientObjects.IorientDefaultObject
-      {
-          T result = null;
-          result = manager.ContentStringToObject<T>(item_);
-          return result;
-      }
-
-      string ConvertToBase64(string input)
-      {
-        return System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(input));
-      }
-      string ConvertFromBase64(string input)
-      {
-        return System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(input));
-      }
+      }   
            
     }
 
@@ -1750,6 +1715,7 @@ namespace NewsUOWs
 
 namespace Managers
 {
+
   using NewsUOWs;
   using PersonUOWs;
 
@@ -1772,11 +1738,17 @@ namespace Managers
 
       _url=url_;
       if(string.IsNullOrEmpty(url_)){
-      _url=ConfigurationManager.AppSettings["OrientUnitTestDB"];}
+        _url = string.Format("{0}:{1}", ConfigurationManager.AppSettings["OrientDevHost"]
+        , ConfigurationManager.AppSettings["OrientPort"]
+      );
+      }
+
+      _repo.BindDbName(_dbName);
+      _repo.BindUrlName(_url);
 
       _newsUOW = new NewsRealUow(_dbName,_url);
-      _personUOW = new PersonUOW(_dbName,_url);
-
+      _personUOW = new PersonUOW(ConfigurationManager.AppSettings["OrientSourceDB"],_url);
+      
     }
     string UserAcc()
     {
@@ -1789,7 +1761,7 @@ namespace Managers
       string login = ConfigurationManager.AppSettings["orient_login"];
       string password = ConfigurationManager.AppSettings["orient_pswd"];
       string dbHost = string.Format("{0}:{1}" 
-          ,ConfigurationManager.AppSettings["OrientDevUrl"]
+          ,ConfigurationManager.AppSettings["OrientDevHost"]
           , ConfigurationManager.AppSettings["OrientPort"]);
       string dbName = ConfigurationManager.AppSettings["OrientDevDB"];
 
@@ -1822,123 +1794,229 @@ namespace Managers
     }
     
     //DATABASE BOILERPLATE
-        public void GenDB(bool cleanUpAter = true)
-        {                      
-            //ManagerCheck(manager);
+    public void GenDB(bool cleanUpAter=false)
+    {                      
+        //ManagerCheck(manager);
 
-            //node objects for insertion
-            Person personOne =
+        //node objects for insertion
+        Person personOne =
 new Person(){Seed=123,Name="0",GUID="000",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)};
-            Person personTwo=
+        Person personTwo=
 new Person(){Seed=456,Name="0",GUID="001",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)};
-            MainAssignment mainAssignment=new MainAssignment();
-            string pone = _repo.ObjectToContentString<Person>(personOne);
-            List<Person> personsToAdd = new List<Person>() {
+        MainAssignment mainAssignment=new MainAssignment();
+        string pone=_repo.ObjectToContentString<Person>(personOne);
+        List<Person> personsToAdd = new List<Person>() {
 new Person(){
 Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
 ,changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)
 }
 //,new Person(){Seed =123,Name="YablokovAE",sAMAccountName="YablokovAE",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)}      
-    };
+};
 
-            Unit u = new Unit() { Name = "Unit1" };
+        Unit u = new Unit() { Name = "Unit1" };
 
-            for(int i=0;i<=10;i++)
-            {
-                personsToAdd.Add(
-                    new Person() { sAMAccountName="Person"+i, Name="Person"+i, GUID="GUID"+i }
-                    );
-            }                 
+        for(int i=0;i<=10;i++)
+        {
+          personsToAdd.Add(
+            new Person(){sAMAccountName="Person"+i,Name="Person"+i,GUID="GUID"+i}
+            );
+        }                 
 
-            //db delete
-            _repo.DeleteDb();
+        //db delete
+        _repo.DeleteDb();
 
-            //db crete
-            _repo.CreateDb();
+        //db crete
+        _repo.CreateDb();
 
-            _repo.DbPredefinedParameters();
+        _repo.DbPredefinedParameters();
 
-            //create class
-            Type oE=_repo.CreateClass<OrientEdge,E>();
-            Type maCl=_repo.CreateClass<MainAssignment,E>();
-            Type obc=_repo.CreateClass<Object_SC, V>();
-            Type tp=_repo.CreateClass<Unit, V>();
-            //Type tpp = manager.CreateClass<Note, V>("news_test5");
-            Type nt=_repo.CreateClass<Note, V>();
+        //create class
+        Type oE=_repo.CreateClass<OrientEdge,E>();
+        Type maCl=_repo.CreateClass<MainAssignment,E>();
+        Type obc=_repo.CreateClass<Object_SC, V>();
+        Type tp=_repo.CreateClass<Unit, V>();
+        //Type tpp = manager.CreateClass<Note, V>("news_test5");
+        Type nt=_repo.CreateClass<Note, V>();
             
-            Type cmt=_repo.CreateClass<Commentary,Note>();
-            Type nws=_repo.CreateClass<News,Note>();
-            Type auCl=_repo.CreateClass<Authorship,E>();
-            Type cmCl=_repo.CreateClass<Comment,E>();
+        Type cmt=_repo.CreateClass<Commentary,Note>();
+        Type nws=_repo.CreateClass<News,Note>();
+        Type auCl=_repo.CreateClass<Authorship,E>();
+        Type cmCl=_repo.CreateClass<Comment,E>();
 
-            Note ntCl=new Note();
-            Note ntCl0=new Note(){name = "test name",content = "test content"};
-            Object_SC obs = new Object_SC() { GUID = "1", changed = DateTime.Now, created = DateTime.Now, disabled = DateTime.Now };
-            News ns = new News() {name ="Real news"};
-            Commentary cm = new Commentary() {name ="Real comment"};         
+        Note ntCl=new Note();
+        Note ntCl0=new Note(){name = "test name",content = "test content"};
+        Object_SC obs = new Object_SC() { GUID = "1", changed = DateTime.Now, created = DateTime.Now, disabled = DateTime.Now };
+        News ns = new News() {name ="Real news"};
+        Commentary cm = new Commentary() {name ="Real comment"};         
 
-            _repo.CreateClass("Person","V",null);
-            MainAssignment ma = new MainAssignment() { };
+        _repo.CreateClass("Person","V",null);
+        MainAssignment ma = new MainAssignment() { };
 
-            //create property
-            //will not create properties - not initialized object all property types anonimous.
-            _repo.CreateProperty<OrientEdge>(null, null);
-            //create all properties even if all null.
-            _repo.CreateProperty<MainAssignment>( new MainAssignment(), null);
-            _repo.CreateProperty<Unit>( new Unit(), null);
-            _repo.CreateProperty<Note>( new Note(), null);
-            _repo.CreateProperty<Authorship>( new Authorship(), null);
-            _repo.CreateProperty<Comment>( new Comment(), null);
-            _repo.CreateProperty<Commentary>( new Commentary(), null);
-            _repo.CreateProperty<News>( new News(), null);
-            _repo.CreateProperty<Person>(personOne, null);
-            //create single property from names
-            //manager.CreateProperty("Unit", "Name", typeof(string), false, false);
+        //create property
+        //will not create properties - not initialized object all property types anonimous.
+        _repo.CreateProperty<OrientEdge>(null, null);
+        //create all properties even if all null.
+        _repo.CreateProperty<MainAssignment>( new MainAssignment(), null);
+        _repo.CreateProperty<Unit>( new Unit(), null);
+        _repo.CreateProperty<Note>( new Note(), null);
+        _repo.CreateProperty<Authorship>( new Authorship(), null);
+        _repo.CreateProperty<Comment>( new Comment(), null);
+        _repo.CreateProperty<Commentary>( new Commentary(), null);
+        _repo.CreateProperty<News>( new News(), null);
+        _repo.CreateProperty<Person>(personOne, null);
+        //create single property from names
+        //manager.CreateProperty("Unit", "Name", typeof(string), false, false);
 
-            _repo.CreateVertex<Note>(ntCl,null );
-            _repo.CreateVertex<Object_SC>(obs,null );
+        _repo.CreateVertex<Note>(ntCl,null );
+        _repo.CreateVertex<Object_SC>(obs,null );
 
-            _repo.CreateVertex<News>(ns,null);
-            _repo.CreateVertex<Commentary>(cm,null);
+        _repo.CreateVertex<News>(ns,null);
+        _repo.CreateVertex<Commentary>(cm,null);
 
-            //add node
-            Person p0 = _repo.CreateVertex<Person>(personTwo,null );        
-            _repo.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
-            Unit u0 = _repo.CreateVertex<Unit>(u,null );
+        //add node
+        Person p0 = _repo.CreateVertex<Person>(personTwo,null );        
+        _repo.CreateVertex("Unit", "{\"Name\":\"TestName\"}",null);
+        Unit u0 = _repo.CreateVertex<Unit>(u,null );
 
-            //add test person
-            foreach (Person prs in personsToAdd)
-            {
-                Person p = _repo.CreateVertex<Person>(prs, null);                
-            }
-
-
-            //add relation
-            MainAssignment maA = _repo.CreateEdge<MainAssignment>(mainAssignment,p0, u0,null );
-            
-            //select from relation
-            IEnumerable<MainAssignment> a = _repo.SelectFromType<MainAssignment>("1=1",null );
-
-            Note ntCr=_repo.CreateVertex<Note>(ntCl0, null);            
-            Authorship aut=new Authorship();
-            Authorship aCr=_repo.CreateEdge<Authorship>(aut,p0,ntCr,null);         
-
-            IEnumerable<Note> notes=_repo.SelectFromTraverseWithOffset<Note, Comment, Commentary, Authorship, Comment>(ntCr.id,"commentDepth",0,2, "test_db");
-
-            if (cleanUpAter)
-            {
-                //delete edge
-                string res = _repo.DeleteEdge<Authorship, Person, Note>(p0, ntCr).GetResult();
-                //Delete concrete node
-                res = _repo.Delete<Unit>(u0).GetResult();
-                //delete all nodes of type
-                res = _repo.Delete<Person>().GetResult();
-
-                //db delete
-                _repo.DeleteDb();
-            }
-
+        //add test person
+        foreach (Person prs in personsToAdd)
+        {
+          Person p = _repo.CreateVertex<Person>(prs, null);                
         }
+
+
+        //add relation
+        MainAssignment maA=_repo.CreateEdge<MainAssignment>(mainAssignment,p0, u0,null );
+            
+        //select from relation
+        IEnumerable<MainAssignment> a = _repo.SelectFromType<MainAssignment>("1=1",null );
+
+        Note ntCr=_repo.CreateVertex<Note>(ntCl0, null);
+        Authorship aut=new Authorship();
+        Authorship aCr=_repo.CreateEdge<Authorship>(aut,p0,ntCr,null);
+
+        IEnumerable<Note> notes=
+        _repo.SelectFromTraverseWithOffset<Note, Comment, Commentary, Authorship, Comment>
+        (ntCr.id,"commentDepth",0,2);
+
+        if (cleanUpAter)
+        {
+          //delete edge
+          string res = _repo.DeleteEdge<Authorship, Person, Note>(p0, ntCr).GetResult();
+          //Delete concrete node
+          res = _repo.Delete<Unit>(u0).GetResult();
+          //delete all nodes of type
+          res = _repo.Delete<Person>().GetResult();
+
+          //db delete
+          _repo.DeleteDb();
+        }
+    }
+    //GENERATE NEWS,COMMENTS
+    public void GenNewsComments(bool newsGen=false)
+    {
+
+      List<Person> personsAdded = new List<Person>();          
+      List<News> newsAdded = new List<News>();          
+      List<Commentary> commentaryAdded = new List<Commentary>();          
+
+      List<V> nodes = new List<V>();
+
+      string dtStr="{\"transaction\":true,\"operations\":[{\"type\":\"script\",\"language\":\"sql\",\"script\":[\" create Vertex Person content {\"Seed\":1005911,\"FirstName\":\"Илья\",\"LastName\":\"Непринцев\",\"MiddleName\":\"Александрович\",\"Birthday\":\"1987-03-09 00:00:00\",\"mail\":\"Neprintsevia@nspk.ru\",\"telephoneNumber\":1312,\"userAccountControl\":512,\"objectGUID\":\"7E3E2C99-E53B-4265-B959-95B26CA939C8\",\"sAMAccountName\":\"Neprintsevia\",\"OneSHash\":\"5de9dfe2c74b5eef8e13f4f43163f445\",\"Hash\":\"f202a15b6dac384aecbd2424dcca10a7\",\"@class\":\"Person\",\"Name\":\"Непринцев Илья Александрович\",\"GUID\":\"ba124b8e-9857-11e7-8119-005056813668\",\"Created\":\"2017-09-13 07:15:29\",\"Changed\":\"2017-12-05 10:07:19\"} \"]}]}";
+      byte[] bt=Encoding.UTF8.GetBytes(dtStr);
+      string dtStrRegen = Encoding.UTF8.GetString(bt, 0, bt.Count());
+      bool res = dtStr.Equals(dtStrRegen);
+      
+      
+
+      Person person_=_personUOW.GetPersonByAccount("Neprintsevia");
+      string str=_newsUOW.UOWserialize<Person>(person_);
+
+      Person pr=_repo.CreateVertex<Person>(str);
+
+      personsAdded=_newsUOW.GetOrientObjects<Person>(null).ToList();         
+       
+      Random rnd=new Random();
+      int persCnt=(int)rnd.Next(5,10);
+      int newsCnt=(int)rnd.Next(5,10);
+      int commentaryCnt=(int)rnd.Next(5,10);
+
+      //get news with commentaries
+      //news + comments
+      //comment + coments
+      //IEnumerable<Note> notes_=uow.GetByOffset("82f83601-d5cd-4108-b1b7-d27ac5a3933a",3);
+
+      IEnumerable<News> news_=_newsUOW.GetNews(10);
+          
+      if(newsGen) {
+        //news add
+        for(int i=0;i<personsAdded.Count()-1;i++)
+        {
+              
+          newsCnt=(int)rnd.Next(0,3);
+          for(int i2=0;i2<newsCnt;i2++)
+          {
+            newsAdded.Add(
+              _newsUOW.CreateNews(personsAdded[i],new News(){name="News"+i2,content="fucking interesting news"})
+            );
+          }
+        }
+      }          
+
+      //commentaries gen
+      nodes.AddRange(
+        _newsUOW.GetOrientObjects<News>(null).ToList()
+      );
+
+      //rand, comments gen
+      for(int i=0;i<personsAdded.Count()-1;i++)
+      {
+        commentaryCnt=(int)rnd.Next(8,15);
+        for(int i2=0;i2<commentaryCnt;i2++){
+          int nodeToCommentId=(int)rnd.Next(0,nodes.Count()-1);
+          Note nodeToComment=_newsUOW.GetNoteByID(nodes[nodeToCommentId].id);
+          nodes.Add(
+            _newsUOW.CreateCommentary(personsAdded[i],new Commentary(){name="Commentary"+i2,content="fucking bullshit comentary"},nodeToComment)
+          );
+        }
+
+      }
+
+
+      //crazy gen
+      nodes.Clear();
+
+      string crazyComment=
+      "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pretium nibh dolor, ac ornare dui malesuada sed. Nam congue suscipit lectus in dapibus. Fusce pharetra urna a vehicula sollicitudin. Ut vel elit dolor. In hac habitasse platea dictumst. Proin tristique sem quis neque vehicula pellentesque. Ut magna tellus, condimentum ut sodales sit amet, efficitur eu magna.</p><figure class=\"imageimgNews\" style=\"float:left\"><img alt=\"\" height=\"123\" src=\"http://static.nspk.ru/files/42e65b812d1d4735c2d44528837c24b542408fb12eac9b10086d021a0f091f222e372f4ffe20e3c02703ce9a7698e02a55280a257b5876315cf5714204241302/1(1).jpg\" width=\"274\" /><figcaption>Название</figcaption></figure><p>&nbsp;</p><p>Donec lectus nibh, aliquam vitae semper vel, interdum et dolor. Donec vel metus vitae magna scelerisque varius sit amet sed elit. Vivamus lacinia accumsan lectus sit amet commodo. Sed porttitor ullamcorper fermentum. Donec ut facilisis purus. Nullam tempor, risus id maximus posuere, odio nibh suscipit ante, eget semper eros quam consectetur tellus. Nullam aliquam volutpat blandit. Nulla pharetra ultricies aliquam. Integer in tortor a quam imperdiet venenatis id eu sapien. Aenean nec eros arcu. Maecenas ac consequat justo. Proin quis aliquam justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque posuere libero et orci ornare vestibulum. Mauris ut varius odio. Nullam sed pulvinar felis.</p><p>Nulla facilisi. Etiam quis nisl libero. Integer eu porta mi. Sed a iaculis enim. Praesent pharetra odio ipsum, ac tempus ligula bibendum id. Nam aliquet odio ac erat mattis, quis commodo tellus posuere. Etiam congue ex at est dignissim, eget lacinia purus aliquet. Morbi in vehicula mauris. Sed eu vulputate mauris, varius porttitor purus. Duis placerat sed nisl a tempor. In congue lacus in orci convallis, vel aliquam arcu tincidunt. Nullam eleifend efficitur purus, id fermentum lectus semper at. Fusce dapibus arcu eget est dignissim porttitor.</p><p>Phasellus in mauris quis felis maximus euismod at vel urna. Vivamus sit amet malesuada ligula. Aliquam erat volutpat. Nunc suscipit bibendum interdum. Etiam cursus ligula eu dictum malesuada. Donec quis libero ac purus porttitor maximus in non orci. Vestibulum dictum eros dolor, et commodo libero tempor a. Integer viverra faucibus scelerisque. Etiam fermentum arcu non diam vulputate,</p><figure class=\"imageimgNews\" style=\"float:left\"><img alt=\"\" height=\"156\" src=\"http://static.nspk.ru/files/0c2af2d09824cdf5649115cfd33399d15d19ef4d974e1a182051ba5034e5e9594432d71fc5286ec70a3e4477d067df089fbeb5369cd11a35f090a1db64f55b34/3.jpg\" width=\"206\" /><figcaption>Название</figcaption></figure><p>&nbsp;</p><p>nec pellentesque dolor commodo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque malesuada facilisis erat quis aliquet.</p><p>Nullam dapibus orci ac vehicula suscipit. Sed at lectus condimentum, scelerisque nulla eu, vehicula neque. Praesent nec massa sagittis massa blandit vehicula quis eget sem. Sed porta vitae purus nec facilisis. Praesent sed lectus id eros elementum placerat nec quis mauris. Quisque eget orci eget odio efficitur elementum eu non orci. Ut orci nunc, congue ut nibh non, molestie tincidunt eros. Quisque vel sagittis nisl. Aliquam volutpat efficitur enim, a congue lectus euismod vel. Maecenas porta orci vel arcu semper, sed ullamcorper arcu rutrum. Donec dignissim sem nec sagittis finibus. Nulla vitae mauris eu urna facilisis rutrum. Nunc elementum magna quis nisl aliquet commodo. Vivamus vel tempor lectus. Fusce ac odio commodo, rutrum lorem id, blandit lectus.</p><p>Sed mollis ex quam, interdum porta eros tincidunt non. Sed sagittis cursus ligula, eu ultrices quam eleifend eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non commodo quam. Integer at lorem gravida, consectetur mauris sit amet, tincidunt massa. Pellentesque ac velit justo. Nulla facilisi. Maecenas eu nisi rutrum, convallis nisi sit amet, tincidunt dui. Suspendisse facilisis ornare venenatis. Nam porttitor tellus at mauris hendrerit gravida. Maecenas quis quam eget orci ullamcorper lacinia id id dui. Sed eget sagittis diam. Vestibulum pharetra est nec pretium euismod.</p><p>Ut ullamcorper, odio eu tempor lobortis, lectus nisi molestie leo, quis accumsan felis nisi sed ligula. Aliquam vitae quam a lorem accumsan tempus vel ac sem. Proin pulvinar ornare sagittis. Nulla vitae dictum purus. Vivamus rutrum auctor tincidunt. Curabitur nec eros leo. Morbi ullamcorper dictum elit, in sodales nisl lobortis vitae. Donec vitae odio dapibus, dignissim augue sed, accumsan nunc. Morbi at neque velit. Suspendisse potenti. Quisque consectetur, sem faucibus luctus scelerisque, justo ipsum venenatis tortor, sed ullamcorper risus ante non diam. Vivamus et tortor sed est imperdiet condimentum id eget sapien. Morbi in nulla vel mi dignissim vulputate. Vivamus erat lectus, laoreet non quam sed, aliquam tempus eros. Suspendisse in justo quis nisi dictum blandit. Vestibulum interdum, turpis non placerat ultricies, purus ipsum faucibus ipsum, id venenatis ex diam eget nunc.</p><p>Mauris diam lectus, bibendum in sapien nec, tempor malesuada odio. In rhoncus ornare purus, vitae facilisis orci iaculis in. Suspendisse potenti. Proin pharetra ut risus eget ullamcorper. Curabitur sit amet interdum magna. Sed fringilla lobortis ex, vel maximus quam semper eu. Nullam pretium sapien sit amet ex posuere luctus. Etiam condimentum tellus vel metus luctus dignissim. Donec et felis id leo convallis auctor vitae tincidunt nisl. Fusce dignissim varius orci vel hendrerit. Fusce gravida turpis odio, non sed.</p>";
+      Person yab=_personUOW.GetPersonByAccount("YablokovAE");
+            List<News> crazyNews = new List<News>();
+      for(int i=0;i<30;i++){
+        nodes.Add(
+          _newsUOW.CreateNews(yab, new News() { name = "News" + i, content = crazyComment })
+        );
+ 
+      }
+
+      //rand, comments gen
+      for(int i2=0;i2<personsAdded.Count()-1;i2++)
+      {
+        commentaryCnt=(int)rnd.Next(8,15);
+        for(int i3=0;i3<commentaryCnt;i3++){
+          int nodeToCommentId=(int)rnd.Next(0,nodes.Count()-1);
+          Note nodeToComment=_newsUOW.GetNoteByID(nodes[nodeToCommentId].id);
+          nodes.Add(
+            _newsUOW.CreateCommentary(personsAdded[i2],new Commentary(){name="Commentary"+i3,content="fucking bullshit comentary"},nodeToComment)
+          );
+        }
+
+      }
+
+      string location_ = Assembly.GetExecutingAssembly().Location;
+      string path_ = Directory.GetParent(location_).ToString() + "\\nodes.json";
+      File.WriteAllText(path_, JsonConvert.SerializeObject(nodes,Formatting.Indented));
+        
+    }
+
 
   }
 

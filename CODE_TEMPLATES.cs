@@ -3155,8 +3155,7 @@ StringBuilder.
 			var a = sl.Application.ActiveWindow.Selection;
 			}
 
-		}
-		
+		}		
 		
 		}
 			
@@ -10367,47 +10366,48 @@ RAW JSON
 
 		}
     
-    public void MongoDb()
-    {
-      Maintenance:[
-        //install
-        https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
-        //initial start with custom data path
-        "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath d:\test\mongodb\data
-        
-        ]
-        ,BoilerPlate[
-          //insert doucment
-          use test
-          db.users.insertOne({name:"sue",age:26,_id=1})
-          //from CMD command shell, cd to server files folder
-          mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
-          //select from
-          db.restaurants.find( {} )
-          //where
-          db.restaurants.find({"address.building": "10807"})
-          db.restaurants.find({"address.zipcode": "11694"})
-          //and
-          db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
-          //or
-          db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
-          //sort
-          db.restaurants.find().sort( { "address.zipcode": 1 } )
-          //where sort
-          db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
-          //where in
-          db.restaurants.find({"address.building": {$in:["10807","23059"]}})
-           
-          //greater then
-          db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
-          db.inventory.find( { status: "A", qty: { $lt: 30 } } )
-          //in
-          db.inventory.find( { status: { $in: [ "A", "D" ] } } )
-          db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
-          SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
-          
-        ]
-    }
+		public void MongoDb()
+		{
+		  Maintenance:[
+			//install
+			https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
+			//initial start with custom data path
+			"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath d:\test\mongodb\data
+			
+			]
+			,BoilerPlate[
+			  //insert doucment
+			  use test
+			  db.users.insertOne({name:"sue",age:26,_id=1})
+			  //from CMD command shell, cd to server files folder
+			  mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
+			  //select from
+			  db.restaurants.find( {} )
+			  //where
+			  db.restaurants.find({"address.building": "10807"})
+			  db.restaurants.find({"address.zipcode": "11694"})
+			  //and
+			  db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
+			  //or
+			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
+			  //sort
+			  db.restaurants.find().sort( { "address.zipcode": 1 } )
+			  //where sort
+			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
+			  //where in
+			  db.restaurants.find({"address.building": {$in:["10807","23059"]}})
+			   
+			  //greater then
+			  db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
+			  db.inventory.find( { status: "A", qty: { $lt: 30 } } )
+			  //in
+			  db.inventory.find( { status: { $in: [ "A", "D" ] } } )
+			  db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
+			  SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+			  
+			]
+		}
+	
 	}
 		
 	#endregion

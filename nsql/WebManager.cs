@@ -433,7 +433,7 @@ namespace WebManagers
         public WebResponse GetResponse64(string method)
         {
            
-            CheckReq();            
+            CheckReq();
             SetBase64AuthHeader();                    
             bindTimeout();                
             SwapMethod(method);
