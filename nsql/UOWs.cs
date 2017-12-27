@@ -418,7 +418,7 @@ namespace AdinTce
                 {
                     adp.holidays=holidays.ToList();
                 }
-                catch (Exception e) {}
+                catch (Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
             }
 
             if (vacationsResp != null && (vacationsResp!=null||vacationsResp != string.Empty))
@@ -428,7 +428,7 @@ namespace AdinTce
                 {
                     adp.vacations=vacations.ToList();
                 }
-                catch (Exception e) {}
+                catch (Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
             }
 
             if (graphResp != null && (graphResp!=null|| graphResp != string.Empty))
@@ -440,15 +440,14 @@ namespace AdinTce
                     graphs=_jsonManager.DeserializeFromParentChildren<GraphRead>(graphResp, "Holidays");
                     adp.Graphs=GrapthReadToWriteDateCheck(graphs.ToList());
                 }
-                catch (Exception e) {}
+                catch (Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
             }
         }
         public List<GraphWrite> GrapthReadToWriteDateCheck(List<GraphRead> ghl_)
         {
             List<GraphWrite> gw=new List<GraphWrite>();
             foreach (GraphRead gr in ghl_)
-            {
-                DateTime? a;
+            {                
                 GraphWrite gfw=new GraphWrite();
                 if (gr.DateFinish==new DateTime()) {gfw.DateFinish=null;} else {gfw.DateFinish=gr.DateFinish;}
                 if (gr.DateStart==new DateTime()) {gfw.DateStart=null;} else {gfw.DateStart=gr.DateStart;}
@@ -1307,7 +1306,7 @@ namespace NewsUOWs
         if(nt!=null) {
           int startDepth=nt.commentDepth == null ? 0 : (int)nt.commentDepth;
           int endDepth=offset_==null?startDepth:startDepth+(int)offset_;        
-          IEnumerable<Note> temRes = manager.TraverseFrom<Note, Comment, Commentary, Authorship, Comment>(nt.id, dbName);
+          IEnumerable<Note> temRes = manager.SelectRelationIn<Note>(nt.id, new List<Type>(){typeof(Comment)},null,dbName);
           if(temRes!=null){
             result_ = temRes.Where(s => (s.class_ == "Commentary" || s.class_ == "News")&&(s.commentDepth>=startDepth&&s.commentDepth<=endDepth));
           }
@@ -1415,11 +1414,11 @@ namespace NewsUOWs
         //is comment to comment
         if (depth==null)
         {            
-          commentaryTochange_.commentDepth=0;               
+          commentaryTochange_.commentDepth=1;               
         }
         else
-        {           
-          commentaryTochange_.commentDepth=depth+1;;
+        {
+          commentaryTochange_.commentDepth=(depth+1);
         }
         //commentary Node created and relation from person created
         commentaryToAdd_=CreateCommentary(from,commentaryTochange_);
@@ -1444,57 +1443,52 @@ namespace NewsUOWs
       }
       public Commentary CreateCommentary(Person from,Commentary comment_,Note newsId_)
       {
-      Authorship auth = new Authorship(){};
-      Comment commented = new Comment(){};
-      Commentary commentary_ = null;
+        Authorship auth = new Authorship(){};
+        Comment commented = new Comment(){};
+        Commentary commentary_ = null;
 
-      from=CheckPerson(from);
+        from=CheckPerson(from);        
 
-      int? depth = IsCommentToComment(newsId_.id);
-      if(depth==null)
-      {
-        //comment to news
-        comment_.commentDepth=0;          
-      }
-      else
-      {
-        //comment to comment
-        comment_.commentDepth=depth+1;
-      }
+        int? depth = IsCommentToComment(newsId_.id);
+        if(depth==null)
+        {
+          //comment to news
+          comment_.commentDepth=1;          
+        }
+        else
+        {
+          //comment to comment
+          comment_.commentDepth=(depth+1);
+        }
 
-      if(from!=null){
+        if(from!=null){
 
-      Note newsToComment_=manager.SelectByIDWithCondition<Note>(newsId_.id,null,dbName).FirstOrDefault();
+        Note newsToComment_=manager.SelectByIDWithCondition<Note>(newsId_.id,null,dbName).FirstOrDefault();
           
-      if(newsToComment_!=null){
-              
-        comment_.PGUID=newsToComment_.GUID;
-        comment_.authAcc=from.sAMAccountName;
-        comment_.authGUID=from.GUID;
-        comment_.authName=from.Name;
-
-        //commentary Node created and relation from person created
-        commentary_=CreateCommentary(from, comment_);
-        commentary_.author_=from;
-
-        //UpdateNews(from,commentary_);
-        if (commentary_!=null)
-        {          
-          if (newsToComment_!=null)
-          {
-            //create relation from commment to news Nodes
-            Comment commentedCr=manager.CreateEdge<Comment>(commented,newsToComment_,commentary_);
-            newsToComment_.hasComments=true;
-
-            UpdateNote(newsToComment_);
-          }
-          else
-          {
-            //unsuccesfull news search
-            //manager.Delete<Note>(commentary_);
-          }
+        if(newsToComment_!=null){
           
-        }}}
+          comment_.PGUID=newsToComment_.GUID;
+          //commentary Node created and relation from person created
+          commentary_=CreateCommentary(from, comment_);
+        
+          //UpdateNews(from,commentary_);
+          if (commentary_!=null)
+          {          
+            if (newsToComment_!=null)
+            {
+              //create relation from commment to news Nodes
+              Comment commentedCr=manager.CreateEdge<Comment>(commented,newsToComment_,commentary_);
+              newsToComment_.hasComments=true;
+
+              UpdateNote(newsToComment_);
+            }
+            else
+            {
+              //unsuccesfull news search
+              //manager.Delete<Note>(commentary_);
+            }
+          
+          }}}
 
       return commentary_;
       }
@@ -1505,13 +1499,18 @@ namespace NewsUOWs
         Authorship newAuth = null;
 
         if(from!=null){
-        
+              
+          note_.authAcc=from.sAMAccountName;
+          note_.authGUID=from.GUID;
+          note_.authName=from.Name;
+          note_.author_=from;
+
           nt_=manager.CreateVertex<Commentary>(note_,dbName);
           newAuth=manager.CreateEdge<Authorship>(auth,from,nt_);
           from=CheckPerson(from);
 
           //if unsucceced clean created objects
-          if(auth==null||note_==null)
+          if(newAuth==null||nt_==null)
           {
             manager.Delete<Commentary>(note_,null,dbName);
             manager.Delete<Authorship>(auth,null,dbName);
@@ -1543,6 +1542,8 @@ namespace NewsUOWs
             nt_=manager.CreateVertex<News>(note_, dbName);
             Authorship newAuth=manager.CreateEdge<Authorship>(auth,personfrom_,nt_);
             nt_.author_=personfrom_;
+            nt_.commentDepth = 0;
+            UpdateNote(nt_);
             //if unsucceced clean created objects
             if(auth==null||note_==null)
             {         
@@ -1623,9 +1624,8 @@ namespace NewsUOWs
   return nt;
       }
       public Note UpdateNote(Note noteFrom)
-      { 
-  Note noteTo = manager.SelectSingle<Note>("GUID='"+noteFrom.GUID+"'");  
-  Note updatedEntity=manager.UpdateEntity<Note>(noteTo, dbName);
+      {
+  Note updatedEntity=manager.UpdateEntity<Note>(noteFrom, dbName);
   Note nt=manager.SelectSingle<Note>("GUID='"+noteFrom.GUID+"'",dbName);
   return nt;
       }
@@ -1700,13 +1700,13 @@ namespace NewsUOWs
       /// <returns></returns>
       public int? IsCommentToComment(string NewsId)
       {
-          int? depth=null;
-          Note nt=manager.SelectByIDWithCondition<Note>(NewsId,null,dbName).FirstOrDefault();
-          if (nt.class_=="Commentary")
-          {
-            depth=nt.commentDepth+1;
-          }else {depth=null;}
-          return depth;
+        int? depth=null;
+        Note nt=manager.SelectByIDWithCondition<Note>(NewsId,null,dbName).FirstOrDefault();
+        if (nt.class_=="Commentary")
+        {
+          depth=nt.commentDepth;
+        }else {depth=null;}
+        return depth;
       }   
            
     }
@@ -1750,6 +1750,7 @@ namespace Managers
       _personUOW = new PersonUOW(ConfigurationManager.AppSettings["OrientSourceDB"],_url);
       
     }
+    
     string UserAcc()
     {
       return WebManagers.UserAuthenticationMultiple.UserAcc();
@@ -2016,7 +2017,16 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
       File.WriteAllText(path_, JsonConvert.SerializeObject(nodes,Formatting.Indented));
         
     }
+    
+    public void GetNews()
+    {
+      
+    }
 
+    public void DeleteDB()
+    {
+      _repo.DeleteDb(_dbName);
+    }
 
   }
 

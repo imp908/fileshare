@@ -245,7 +245,7 @@ namespace WebManagers
             try
             {
                 header=this._request.Headers.Get(name);
-            } catch (Exception e) {}
+            } catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
             return header;
         }
@@ -278,7 +278,7 @@ namespace WebManagers
                       str.Write(_content, 0, _content.Length);                       
                     }
                 }
-                catch(Exception e){}
+                catch(Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
 
             }
         }
@@ -451,7 +451,8 @@ namespace WebManagers
               return e.Response;              
             }
             catch (Exception e){
-                return null;
+                System.Diagnostics.Trace.WriteLine(e.Message);
+              return null;
             }
         }
         public WebResponse GetResponse64(string url_, string method)

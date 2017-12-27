@@ -15,7 +15,7 @@ using IQueryManagers;
 using OrientRealization;
 using Repos;
 using PersonUOWs;
-using POCO;
+
 
 using System.Net;
 using System.Text;
@@ -40,6 +40,8 @@ namespace NSQLManager
           //mng.GenNewsComments();
           
           RepoCheck rc=new RepoCheck();
+          //rc.UOWFunctionalCheck();
+          rc.GenDevDB();
           rc.GenTestDB();
 
       //QUIZ CHECK
@@ -218,9 +220,8 @@ new MainAssignment() { GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00),
 
         public void JsonManagerCheck()
         {
-            string holidaysResp =
-"{ \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Holidays\": [{ \"Position\": \"Главный специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }, { \"Position\": \"Ведущий специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }] } ";
-            string hs =
+            string hs ="{ \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Holidays\": [{ \"Position\": \"Главный специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }, { \"Position\": \"Ведущий специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }] } ";
+            hs =
 "[ { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Главный специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 13 } ] }, { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Ведущий специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 0 } ] } ] ";
             JSONManager jm = new JSONManager();
 
@@ -256,7 +257,7 @@ new MainAssignment() { GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00),
             {
                 var a=(HttpWebResponse)request.GetResponse();
             }
-            catch (Exception e) {}
+            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
         }    
         public void APItester_sngltnCheck()
@@ -702,7 +703,7 @@ NewsUOWs.NewsUowOld newsUOW = new NewsUOWs.NewsUowOld(ConfigurationManager.AppSe
   foreach (JToken jt_ in jt){
   nt=jt_.ToObject<TestNews>();
   }
-  }catch(Exception e){ }
+  }catch(Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
 
 
   var a=rp.TestDeserialize<TestNews>(txt);
@@ -739,8 +740,12 @@ mng.GenNewsComments(newsGen);
           
           PersonUOWs.PersonUOW pu = new PersonUOWs.PersonUOW(ConfigurationManager.AppSettings["OrientUnitTestDB"]);
           NewsUOWs.NewsRealUow nu = new NewsUOWs.NewsRealUow(ConfigurationManager.AppSettings["OrientUnitTestDB"]);
-
           PersonUOWs.PersonUOW personToGetUOW = new PersonUOWs.PersonUOW(ConfigurationManager.AppSettings["OrientSourceDB"]);
+
+          //GET check
+          IEnumerable <Note> notes=nu.GetByOffset("558d95f3-964e-45f3-9708-2ee964aa2854", 2);
+          IEnumerable<Note> news=nu.GetNews(null);
+
 
           //PersonsWith news
           List<Person> persons=nu.GetOrientObjects<Person>().ToList();
@@ -749,7 +754,6 @@ mng.GenNewsComments(newsGen);
           Person personNewsUpdated=persons[1];
 
           News newToupdate=nu.CreateNews(personNewsUpdated,new News(){content="content created"});
-
           
           if(newToupdate!=null)
           {
@@ -807,9 +811,7 @@ mng.GenNewsComments(newsGen);
           commentAdded.content="Updated comment";
           Commentary commentUpdated2=nu.UpdateCommentary(personFromTest,commentAdded);
 
-          //GET check
-          IEnumerable <Note> notes=nu.GetByOffset(newsAdded2.GUID, null);
-          IEnumerable<Note> news=nu.GetNews(null);
+    
         
         }            
     

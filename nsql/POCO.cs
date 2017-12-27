@@ -23,39 +23,39 @@ namespace POCO
     }
     public class OrientClass : IOrientClass
     {
-        public string type { get; set; }
+      public string type { get; set; }
 
-        public string name { get; set; }
+      public string name { get; set; }
 
     }
     public class OrientProperty : IOrientProperty
     {
-        public string type { get; set; }
+      public string type { get; set; }
 
-        public string name { get; set; }
+      public string name { get; set; }
 
     }
     public class OrientEntity : IOrientEntity
     {
     
-        [JsonProperty("@rid", Order = 1)]
-        public virtual string id { get; set; }
-        [JsonProperty("@type")]
-        public string type {get; set; }   
+      [JsonProperty("@rid", Order = 1)]
+      public virtual string id { get; set; }
+      [JsonProperty("@type")]
+      public string type {get; set; }   
          
-        [JsonProperty("@version")]
-        public virtual string version {get;  set;}   
-        [JsonProperty("@class")]
-        public string class_ {get; set;} 
+      [JsonProperty("@version")]
+      public virtual string version {get;  set;}   
+      [JsonProperty("@class")]
+      public string class_ {get; set;} 
         
-        public bool ShouldSerializeclass_()
-        {
-          return false;
-        }
-        public bool ShouldSerializetype()
-        {
-          return false;
-        }
+      public bool ShouldSerializeclass_()
+      {
+        return false;
+      }
+      public bool ShouldSerializetype()
+      {
+        return false;
+      }
     }
     
     public class OrientDefaultObject :OrientEntity,IorientDefaultObject
@@ -72,12 +72,12 @@ namespace POCO
     }
     public class OrientEdge :OrientDefaultObject, IOrientEdge
     {
-        [JsonIgnore]
-        [JsonProperty("out")]
-        string Out {get; set;}
-        [JsonIgnore]
-        [JsonProperty("in")]
-        string In {get; set;}
+      [JsonIgnore]
+      [JsonProperty("out")]
+      string Out {get; set;}
+      [JsonIgnore]
+      [JsonProperty("in")]
+      string In {get; set;}
     }
 
 
@@ -139,88 +139,88 @@ namespace POCO
     //Vertexes      
     public class Person : V
     {
-        [JsonProperty("Seed")]
-        public long? Seed { get; set; }      
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string MiddleName { get; set; }
-        [JsonConverter(typeof(OrientDateTime))]
-        public DateTime? Birthday { get; set; }
-        public string mail { get; set; }
-        public int? telephoneNumber { get; set; }
-        public int? userAccountControl { get; set; }
-        public string objectGUID { get; set; }
-        public string sAMAccountName { get; set; }
-        [JsonProperty("Name", Order = 1)]
-        public string Name { get; set; }
-        public string OneSHash { get; set; }
-        [JsonProperty("Hash")]
-        public string Hash { get; set; }
+      [JsonProperty("Seed")]
+      public long? Seed { get; set; }      
+      public string FirstName { get; set; }
+      public string LastName { get; set; }
+      public string MiddleName { get; set; }
+      [JsonConverter(typeof(OrientDateTime))]
+      public DateTime? Birthday { get; set; }
+      public string mail { get; set; }
+      public int? telephoneNumber { get; set; }
+      public int? userAccountControl { get; set; }
+      public string objectGUID { get; set; }
+      public string sAMAccountName { get; set; }
+      [JsonProperty("Name", Order = 1)]
+      public string Name { get; set; }
+      public string OneSHash { get; set; }
+      [JsonProperty("Hash")]
+      public string Hash { get; set; }
 
-        [JsonConverter(typeof(OrientDateTime))]
-        public override DateTime? changed{get;set;}
-        [JsonConverter(typeof(OrientDateTime))]
-        public override DateTime? created{get;set;}
+      [JsonConverter(typeof(OrientDateTime))]
+      public override DateTime? changed{get;set;}
+      [JsonConverter(typeof(OrientDateTime))]
+      public override DateTime? created{get;set;}
 
-        /*
-        [JsonProperty("id")]
-        public new string id {get; set;}
+      /*
+      [JsonProperty("id")]
+      public new string id {get; set;}
 
         
-        public List<string> in_MainAssignment {get; set;}
-        public List<string> out_MainAssignment {get; set;}
-        */
+      public List<string> in_MainAssignment {get; set;}
+      public List<string> out_MainAssignment {get; set;}
+      */
 
-        [JsonProperty("fieldTypes")]
-        public string @fieldTypes { get; set; }
+      [JsonProperty("fieldTypes")]
+      public string @fieldTypes { get; set; }
         
-        //Excluding fields from serializing to string
-        public bool ShouldSerializeSeed()
-        {
-          return false;
-        }
-        public bool ShouldSerializeuserAccountControl()
-        {
-          return false;
-        }
-        public bool ShouldSerializeOneSHash()
-        {
-          return false;
-        }
-        public bool ShouldSerializeHash()
-        {
-          return false;
-        }
-        public bool ShouldSerializecreated()
-        {
-          return false;
-        }
-        public bool ShouldSerializechanged()
-        {
-          return false;
-        }
-        public bool ShouldSerializeBirthday()
-        {
-          return false;
-        }
+      //Excluding fields from serializing to string
+      public bool ShouldSerializeSeed()
+      {
+        return false;
+      }
+      public bool ShouldSerializeuserAccountControl()
+      {
+        return false;
+      }
+      public bool ShouldSerializeOneSHash()
+      {
+        return false;
+      }
+      public bool ShouldSerializeHash()
+      {
+        return false;
+      }
+      public bool ShouldSerializecreated()
+      {
+        return false;
+      }
+      public bool ShouldSerializechanged()
+      {
+        return false;
+      }
+      public bool ShouldSerializeBirthday()
+      {
+        return false;
+      }
 
     }
     public class Unit : V
     {
                
-        public long? Seed { get; set; }      
-        public string PGUID { get; set; }
-        public string DepartmentColorRGB { get; set; }
-        public string DepartmentColorClass { get; set; }
-        [JsonConverter(typeof(OrientDateTime))]
-        public DateTime? Disabled { get; set; }
-        public string Hash { get; set; }
-        public string Name { get; set; }
+      public long? Seed { get; set; }      
+      public string PGUID { get; set; }
+      public string DepartmentColorRGB { get; set; }
+      public string DepartmentColorClass { get; set; }
+      [JsonConverter(typeof(OrientDateTime))]
+      public DateTime? Disabled { get; set; }
+      public string Hash { get; set; }
+      public string Name { get; set; }
 
     }
     public class UserSettings : V
     {
-        public bool? showBirthday { get; set; }
+      public bool? showBirthday { get; set; }
     }
 
     //Edges
@@ -276,6 +276,7 @@ namespace POCO
       [JsonConverter(typeof(OrientDateTime))]
       public DateTime? published { get; set; }
 
+      [Updatable(true)]
       public int? commentDepth { get; set; }
       public bool? hasComments { get; set; }
 
@@ -305,7 +306,7 @@ namespace POCO
       //public override string content { get; set; }
       //[JsonConverter(typeof(OrientDateTime))]
       //public new DateTime? published { get; set; }=DateTime.Now;
-      [Updatable(false)]
+      [JsonProperty("author_"),Updatable(false)]
       public override Person author_ { get; set; }
     }
 
@@ -460,9 +461,9 @@ namespace POCO
         [JsonProperty("id",Order=1)]
         internal string @rid { get; set; }
         [JsonProperty("@version",Order=2)]
-        internal string @version { get; set; }
+        internal new string @version { get; set; }
         public string @class { get; set; }
-        public string @type { get; set; }
+        public new string @type { get; set; }
 
         [Updatable(true)]
         public string UpdatableField  { get; set; }
@@ -487,7 +488,7 @@ namespace POCO
     
     public class TestOreintDefaultObject:TestOrientNodeObject
     {
-        public string GUID{get;set;}
+        public new string GUID{get;set;}
         public string ID{get;set;}
     } 
     public class TestPersonPOCO:TestOrientNodeObject

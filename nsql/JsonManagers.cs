@@ -33,7 +33,7 @@ namespace JsonManagers
             IJEnumerable<JToken> result=null;
             try{
             result=JToken.Parse(input).Children()[childNodeName];
-            }catch(Exception e){}
+            }catch(Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
             return result;
         }
         public IJEnumerable<JToken> ExtractFromParentChildNode(string input, string parentNodeName, string childNodeName)

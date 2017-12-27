@@ -283,7 +283,7 @@ namespace QueryManagers
 
                     };
                 }
-                catch (Exception e) {}
+                catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
             }
         }
@@ -394,7 +394,7 @@ namespace QueryManagers
                         if (formatGenerator == null) {throw new Exception("No ForamtPattern no FormatGenerator not binded");}
                         FormatPattern=formatGenerator.FromatFromTokenArray(str, null);
                     }
-                    catch (Exception e) {}
+                    catch (Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
 
                 //}             
             }
@@ -406,7 +406,7 @@ namespace QueryManagers
                 this.Tokens=tempTokens;
                 this.FormatPattern=newFromat;
             }
-            catch (Exception e) {}
+            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
             
         }
      
