@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
 using POCO;
+using IOrientObjects;
 
 
 namespace IUOWs
 {
+   
+
     public interface IPersonUOW
     {
         IEnumerable<Person> GetAll();

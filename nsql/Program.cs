@@ -14,7 +14,6 @@ using APItesting;
 using IQueryManagers;
 using OrientRealization;
 using Repos;
-using PersonUOWs;
 
 
 using System.Net;
@@ -41,7 +40,7 @@ namespace NSQLManager
           
           RepoCheck rc=new RepoCheck();
           //rc.UOWFunctionalCheck();
-          rc.GenDevDB();
+          
           rc.GenTestDB();
 
       //QUIZ CHECK
@@ -190,32 +189,30 @@ new MainAssignment() { GUID="0", changed=new DateTime(2017, 01, 01, 00, 00, 00),
         }
         public NewsUOWs.NewsRealUow ActualNewsUOW()
         {
-          NewsUOWs.NewsRealUow newsUow = new NewsUOWs.NewsRealUow("test_db");
+          NewsUOWs.NewsRealUow newsUow = new NewsUOWs.NewsRealUow(DefaultManagerInit("test_db"));
           return newsUow;
         }
         
         public void PropCheck()
         {
-            propSearch<Person>(new Person() { Seed = 123  });
-
+          propSearch<Person>(new Person() { Seed = 123  });
         }
         public void propSearch<T>(T item)
         {
-            var pc = item.GetType().GetProperties();
-            var pc2 = typeof(T).GetProperties();
+          var pc = item.GetType().GetProperties();
+          var pc2 = typeof(T).GetProperties();
      
-            foreach (PropertyInfo ps in pc)
-            {
-                MethodInfo[] mi = ps.GetAccessors(true);
-                Type pt = ps.PropertyType.GetType();
-                Type t = ps.PropertyType;
-                TypeInfo ti = ps.PropertyType.GetTypeInfo();
-                Type ptt = item.GetType().GetProperty(ps.Name).GetType();
-                var a = typeof(T).GetProperty(ps.Name).GetValue(item).GetType();
-                Type tt = a.GetType();
-            }
+          foreach (PropertyInfo ps in pc)
+          {
+            MethodInfo[] mi = ps.GetAccessors(true);
+            Type pt = ps.PropertyType.GetType();
+            Type t = ps.PropertyType;
+            TypeInfo ti = ps.PropertyType.GetTypeInfo();
+            Type ptt = item.GetType().GetProperty(ps.Name).GetType();
+            var a = typeof(T).GetProperty(ps.Name).GetValue(item).GetType();
+            Type tt = a.GetType();
+          }
         }
-
 
 
         public void JsonManagerCheck()
@@ -381,7 +378,7 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
                 , ConfigurationManager.AppSettings["ParentPassword"]
                 );
 
-            PersonUOWold pUOW=new PersonUOWold();
+            PersonUOWs.PersonUOWold pUOW=new PersonUOWs.PersonUOWold();
             TrackBirthdays tb=new TrackBirthdays();
 
             Person fromPerson=pUOW.GetObjByGUID(guid_).FirstOrDefault();
@@ -403,7 +400,7 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
                 , ConfigurationManager.AppSettings["orient_pswd"]
                 );
 
-            PersonUOWold pUOW=new PersonUOWold();
+            PersonUOWs.PersonUOWold pUOW=new PersonUOWs.PersonUOWold();
             TrackBirthdays tb=new TrackBirthdays();
             List<Person> personsTo=pUOW.GetAll().Take(3).ToList();
             string personsfrom=null;
@@ -445,7 +442,7 @@ ls.Add(new CommandBuilder(new TokenMiniFactory(), new FormatFactory(), lt, new T
               , ConfigurationManager.AppSettings["ParentPassword"]
               );
 
-            PersonUOWold pUOW=new PersonUOWold();
+            PersonUOWs.PersonUOWold pUOW=new PersonUOWs.PersonUOWold();
             TrackBirthdays tb=new TrackBirthdays();
 
         }
@@ -602,115 +599,7 @@ NewsUOWs.NewsUowOld newsUOW = new NewsUOWs.NewsUowOld(ConfigurationManager.AppSe
             }        
 
         }
-        public void UOWstringobjectCheck()
-        {
-            NewsUOWs.NewsRealUow uow=new NewsUOWs.NewsRealUow("test_db");
-            PersonUOW pUow=new PersonUOW("test_db");
-            List<News> addedNews=new List<News>();
-
-             string pStr1=
-            "{\"Seed\":0,\"FirstName\":null,\"LastName\":null,\"MiddleName\":null,\"Birthday\":null,\"mail\":null,\"telephoneNumber\":null,\"userAccountControl\":null,\"objectGUID\":null,\"sAMAccountName\":\"acc1\",\"OneSHash\":null,\"Hash\":null,\"fieldTypes\":null,\"@class\":null,\"Name\":\"N10\",\"GUID\":\"g10\",\"Created\":\"2017-12-17 03:18:12\",\"Changed\":null,\"Disabled\":null}";
-            Person p2=new Person() {GUID="g10",Name="N10",sAMAccountName="acc1",id="id1"};
-            
-            //SERIALIZATIONs
-            string pStr2=JsonConvert.SerializeObject(p2);
-
-            Person pGen2=JsonConvert.DeserializeObject<Person>(pStr2);
-            Person pGen1=JsonConvert.DeserializeObject<Person>(pStr1);
-
-            Person testPerson = pUow.GetPersonByAccount("YablokovAV");
-
-            Person person1=uow.UOWdeserialize<Person>(pStr1);
-            string strperson1=uow.UOWserialize<Person>(person1);
-
-
-            //FIELD HIDING CHECK
-            OrientDefaultObject v1=new OrientDefaultObject() {GUID="g10",id="id1"};
-
-            string v1Str = JsonConvert.SerializeObject(v1);
-
-            OrientDefaultObject v2 = JsonConvert.DeserializeObject<OrientDefaultObject>(v1Str);
-            OrientDefaultObject v3 =JsonConvert.DeserializeObject<OrientDefaultObject>(pStr1);
-
-            TestPersonPOCO tp1 = new TestPersonPOCO() { Name="person1", Acc="acc1",rid="#54:7", version="v1"};
-            string tpStr=JsonConvert.SerializeObject(tp1);
-            TestPersonPOCO tp1Gen=JsonConvert.DeserializeObject<TestPersonPOCO>(tpStr);
-            string tpStr2="{\"Name\":\"person1\",\"Acc\":\"acc1\",\"class\":null,\"type\":null,\"version\":\"v1\"}";
-            TestPersonPOCO tp2Gen=JsonConvert.DeserializeObject<TestPersonPOCO>(tpStr2);
-
-
-
-            //GET
-            //content byte convert check
-            string contenstr ="<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">С понедельника планируется работа по переводу сервисов RFC на новые типы заявок и бизнес-процессы, работа продлится до окончания фриза по изменениям в ОПКЦ системах.</span></span></p>↵↵<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">На сколько мне известно, у нас есть ряд доработок работающих в этих сервисах (например почтовое уведомление о недоступности сервиса при установке соответствующего чекбокса).</span></span></p>↵↵<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">Пришлите мне пожалуйста список этих доработок и что с моей стороны необходимо делать при переводе сервисов на другие типы заявок и БП, чтобы у нас ничего не отвалилось и весь дополнительный функционал продолжал работать в полном объеме без прерываний.</span></span></p>↵↵<p><img alt=\"\" height=\"223\" src=\"http://static.nspk.ru/files/a260252d4ed0b5c9fd29fdedab3ab817910c076f2b9cfc7d774ecda33369857d18736e48f6adfaf4b57332ac7329d46aa91488a63e8ddad43a831ddfb96c6fa9/1.jpg\" width=\"223\" /></p>↵↵<p>&nbsp;</p>↵↵<p>&nbsp;</p>↵";
-            //contenstr = "<p>1</p>\n\n<p>gugjhgch</p>\n";
-            //contenstr="<p style=\\\"margin-left:0cm; margin-right:0cm\\\">";
-            contenstr="<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">С понедельника планируется работа по переводу сервисов RFC на новые типы заявок и бизнес-процессы, работа продлится до окончания фриза по изменениям в ОПКЦ системах.</span></span></p>↵↵<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">На сколько мне известно, у нас есть ряд доработок работающих в этих сервисах (например почтовое уведомление о недоступности сервиса при установке соответствующего чекбокса).</span></span></p>↵↵<p style=\"margin-left:0cm; margin-right:0cm\"><span style=\"font-size:11pt\"><span style=\"font-family:Calibri,sans-serif\">Пришлите мне пожалуйста список этих доработок и что с моей стороны необходимо делать при переводе сервисов на другие типы заявок и БП, чтобы у нас ничего не отвалилось и весь дополнительный функционал продолжал работать в полном объеме без прерываний.</span></span></p>↵↵<p><img alt=\"\" height=\"223\" src=\"http://static.nspk.ru/files/a260252d4ed0b5c9fd29fdedab3ab817910c076f2b9cfc7d774ecda33369857d18736e48f6adfaf4b57332ac7329d46aa91488a63e8ddad43a831ddfb96c6fa9/1.jpg\" width=\"223\" /></p>↵↵<p>&nbsp;</p>↵↵<p>&nbsp;</p>↵";
-
-
-            string enc = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(contenstr));
-
-
-            //CHECK CONTENT
-            News ns=new News();
-            //ns.contentBase64 = contenstr;
-            string nsCont = uow.UOWserialize<News>(ns);
-            News nesAdd2=uow.CreateNews(person1, ns);
-            string cntDes = nesAdd2.content;
-
-            string newsStr="{\"PGUID\":\"\",\"authAcc\":\"\",\"authGUID\":\"\",\"authName\":\"\",\"pic\":\"\",\"name\":\"\",\"content_\":\"cnt1\",\"description\":\"\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"Created\":\"2017-12-19 13:43:04\"}";
-            News newsGen0 = uow.UOWdeserialize<News>(newsStr);
-            News nesAdd=uow.CreateNews(person1, newsGen0);
-            addedNews.Add(nesAdd);
-
-            //UPDATEs        
-            addedNews[0].content="updated content";
-            string strDes = uow.UOWserialize<News>(addedNews[0]);
-            Note updatedNews=uow.UpdateNews(testPerson,addedNews[0]);
-            Note updatedNewsGet = uow.GetNewsByGUID(updatedNews.GUID);
-
-            //CHECK BASE64
-            string ctr = System.Convert.ToBase64String(System.Text.Encoding.UTF8.GetBytes(contenstr));         
-            byte[] bts = System.Convert.FromBase64String(ctr);
-            string contenstrDec=System.Text.Encoding.UTF8.GetString(System.Convert.FromBase64String(ctr));
-
-        }
-       
-        public void ManagerCheck(OrientRepo rp)
-        {
-
-  NewsUOWs.NewsRealUow nu=new NewsUOWs.NewsRealUow("test_db");
-  Person authFrom = new Person() { Name = "nameFrom" };
-  Person authTo = new Person() { Name = "nameTo" };
-
-  Commentary commentFrom = new Commentary(){author_=authFrom,name="nameFrom",content="contentfrom",published=new DateTime(2011,01,01), GUID="abc-01"};
-  Commentary commentTo= new Commentary(){author_=authTo,name="nameTo",content="ontentTo"};
-  commentTo=rp.UpdateProperties<Commentary>(commentFrom, commentTo);
-
-  IEnumerable<TestNews> ien=nu.GetByOffsetTest("654170c0-c913-42db-87ef-a0de4dd40e6c", 3);
-
-  //rp.BindDbName("test_db");
-  //News n=rp.SelectSingle<News>("GUID='"+"2370b972-48d4-4e49-95ad-b99ba5382042"+"'");
-
-  string txt =
-  "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#25:50\",\"@version\":2,\"@class\":\"News\",\"GUID\":\"2370b972-48d4-4e49-95ad-b99ba5382042\",\"content_\":\"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pretium nibh dolor, ac ornare dui malesuada sed. Nam congue suscipit lectus in dapibus. Fusce pharetra urna a vehicula sollicitudin. Ut vel elit dolor. In hac habitasse platea dictumst. Proin tristique sem quis neque vehicula pellentesque. Ut magna tellus, condimentum ut sodales sit amet, efficitur eu magna.</p><figure class=\\\"imageimgNews\\\" style=\\\"float:left\\\"><img alt=\\\"\\\" height=\\\"123\\\" src=\\\"http://static.nspk.ru/files/42e65b812d1d4735c2d44528837c24b542408fb12eac9b10086d021a0f091f222e372f4ffe20e3c02703ce9a7698e02a55280a257b5876315cf5714204241302/1(1).jpg\\\" width=\\\"274\\\" /><figcaption>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435</figcaption></figure><p>&nbsp;</p><p>Donec lectus nibh, aliquam vitae semper vel, interdum et dolor. Donec vel metus vitae magna scelerisque varius sit amet sed elit. Vivamus lacinia accumsan lectus sit amet commodo. Sed porttitor ullamcorper fermentum. Donec ut facilisis purus. Nullam tempor, risus id maximus posuere, odio nibh suscipit ante, eget semper eros quam consectetur tellus. Nullam aliquam volutpat blandit. Nulla pharetra ultricies aliquam. Integer in tortor a quam imperdiet venenatis id eu sapien. Aenean nec eros arcu. Maecenas ac consequat justo. Proin quis aliquam justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque posuere libero et orci ornare vestibulum. Mauris ut varius odio. Nullam sed pulvinar felis.</p><p>Nulla facilisi. Etiam quis nisl libero. Integer eu porta mi. Sed a iaculis enim. Praesent pharetra odio ipsum, ac tempus ligula bibendum id. Nam aliquet odio ac erat mattis, quis commodo tellus posuere. Etiam congue ex at est dignissim, eget lacinia purus aliquet. Morbi in vehicula mauris. Sed eu vulputate mauris, varius porttitor purus. Duis placerat sed nisl a tempor. In congue lacus in orci convallis, vel aliquam arcu tincidunt. Nullam eleifend efficitur purus, id fermentum lectus semper at. Fusce dapibus arcu eget est dignissim porttitor.</p><p>Phasellus in mauris quis felis maximus euismod at vel urna. Vivamus sit amet malesuada ligula. Aliquam erat volutpat. Nunc suscipit bibendum interdum. Etiam cursus ligula eu dictum malesuada. Donec quis libero ac purus porttitor maximus in non orci. Vestibulum dictum eros dolor, et commodo libero tempor a. Integer viverra faucibus scelerisque. Etiam fermentum arcu non diam vulputate,</p><figure class=\\\"imageimgNews\\\" style=\\\"float:left\\\"><img alt=\\\"\\\" height=\\\"156\\\" src=\\\"http://static.nspk.ru/files/0c2af2d09824cdf5649115cfd33399d15d19ef4d974e1a182051ba5034e5e9594432d71fc5286ec70a3e4477d067df089fbeb5369cd11a35f090a1db64f55b34/3.jpg\\\" width=\\\"206\\\" /><figcaption>\u041d\u0430\u0437\u0432\u0430\u043d\u0438\u0435</figcaption></figure><p>&nbsp;</p><p>nec pellentesque dolor commodo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque malesuada facilisis erat quis aliquet.</p><p>Nullam dapibus orci ac vehicula suscipit. Sed at lectus condimentum, scelerisque nulla eu, vehicula neque. Praesent nec massa sagittis massa blandit vehicula quis eget sem. Sed porta vitae purus nec facilisis. Praesent sed lectus id eros elementum placerat nec quis mauris. Quisque eget orci eget odio efficitur elementum eu non orci. Ut orci nunc, congue ut nibh non, molestie tincidunt eros. Quisque vel sagittis nisl. Aliquam volutpat efficitur enim, a congue lectus euismod vel. Maecenas porta orci vel arcu semper, sed ullamcorper arcu rutrum. Donec dignissim sem nec sagittis finibus. Nulla vitae mauris eu urna facilisis rutrum. Nunc elementum magna quis nisl aliquet commodo. Vivamus vel tempor lectus. Fusce ac odio commodo, rutrum lorem id, blandit lectus.</p><p>Sed mollis ex quam, interdum porta eros tincidunt non. Sed sagittis cursus ligula, eu ultrices quam eleifend eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non commodo quam. Integer at lorem gravida, consectetur mauris sit amet, tincidunt massa. Pellentesque ac velit justo. Nulla facilisi. Maecenas eu nisi rutrum, convallis nisi sit amet, tincidunt dui. Suspendisse facilisis ornare venenatis. Nam porttitor tellus at mauris hendrerit gravida. Maecenas quis quam eget orci ullamcorper lacinia id id dui. Sed eget sagittis diam. Vestibulum pharetra est nec pretium euismod.</p><p>Ut ullamcorper, odio eu tempor lobortis, lectus nisi molestie leo, quis accumsan felis nisi sed ligula. Aliquam vitae quam a lorem accumsan tempus vel ac sem. Proin pulvinar ornare sagittis. Nulla vitae dictum purus. Vivamus rutrum auctor tincidunt. Curabitur nec eros leo. Morbi ullamcorper dictum elit, in sodales nisl lobortis vitae. Donec vitae odio dapibus, dignissim augue sed, accumsan nunc. Morbi at neque velit. Suspendisse potenti. Quisque consectetur, sem faucibus luctus scelerisque, justo ipsum venenatis tortor, sed ullamcorper risus ante non diam. Vivamus et tortor sed est imperdiet condimentum id eget sapien. Morbi in nulla vel mi dignissim vulputate. Vivamus erat lectus, laoreet non quam sed, aliquam tempus eros. Suspendisse in justo quis nisi dictum blandit. Vestibulum interdum, turpis non placerat ultricies, purus ipsum faucibus ipsum, id venenatis ex diam eget nunc.</p><p>Mauris diam lectus, bibendum in sapien nec, tempor malesuada odio. In rhoncus ornare purus, vitae facilisis orci iaculis in. Suspendisse potenti. Proin pharetra ut risus eget ullamcorper. Curabitur sit amet interdum magna. Sed fringilla lobortis ex, vel maximus quam semper eu. Nullam pretium sapien sit amet ex posuere luctus. Etiam condimentum tellus vel metus luctus dignissim. Donec et felis id leo convallis auctor vitae tincidunt nisl. Fusce dignissim varius orci vel hendrerit. Fusce gravida turpis odio, non sed.</p>\",\"PGUID\":\"c1a4c984-a00e-11e6-80db-005056813668\",\"authAcc\":\"YablokovAE\",\"authGUID\":\"c1a4c984-a00e-11e6-80db-005056813668\",\"authName\":\"\u042f\u0431\u043b\u043e\u043a\u043e\u0432 \u0410\u043b\u0435\u043a\u0441\u0430\u043d\u0434\u0440 \u0415\u0432\u0433\u0435\u043d\u044c\u0435\u0432\u0438\u0447\",\"pic\":\"http://static.nspk.ru/img/news.stub.jpg\",\"name\":\"Lorem ipsum\",\"description\":\"Lorem ipsum dolor sit amet, consectetur adipiscing elit\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"created\":\"2017-12-20 16:26:48\",\"in_Authorship\":[\"#27:133\"],\"@fieldTypes\":\"created=t,in_Authorship=g\"}]}";
-  //= "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#25:50\",\"@version\":2,\"@class\":\"News\",\"GUID\":\"2370b972-48d4-4e49-95ad-b99ba5382042\",\"content_\":\"abc\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"created\":\"2017-12-20 16:26:48\",\"in_Authorship\":[\"#27:133\"],\"@fieldTypes\":\"created=t,in_Authorship=g\"}]}";
-  //= "{\"result\":[{\"@type\":\"d\",\"@rid\":\"#25:50\",\"@version\":2,\"@class\":\"News\",\"GUID\":\"2370b972-48d4-4e49-95ad-b99ba5382042\",\"content_\":\"abc\",\"commentDepth\":0,\"hasComments\":false,\"likes\":0,\"liked\":false,\"in_Authorship\":[\"#27:133\"],\"@fieldTypes\":\"created=t,in_Authorship=g\"}]}";
-  var jt=JToken.Parse(txt)["result"];
-  List<TestNews> lt = new List<TestNews>();
-  TestNews nt;
-  try{
-  foreach (JToken jt_ in jt){
-  nt=jt_.ToObject<TestNews>();
-  }
-  }catch(Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
-
-
-  var a=rp.TestDeserialize<TestNews>(txt);
-  News a2=rp.TestDeserialize<News>(txt);
-  TestNews n0=rp.OrientStringToObject<TestNews>(txt);
-
-        }
+                     
         
         //DATABASE BOILERPLATE
         public void GenDevDB(bool cleanUpAter=false,bool newsGen=true)
@@ -737,15 +626,26 @@ mng.GenNewsComments(newsGen);
         //FUNCTIONAL TESTS
         public void UOWFunctionalCheck()
         {
-          
-          PersonUOWs.PersonUOW pu = new PersonUOWs.PersonUOW(ConfigurationManager.AppSettings["OrientUnitTestDB"]);
-          NewsUOWs.NewsRealUow nu = new NewsUOWs.NewsRealUow(ConfigurationManager.AppSettings["OrientUnitTestDB"]);
-          PersonUOWs.PersonUOW personToGetUOW = new PersonUOWs.PersonUOW(ConfigurationManager.AppSettings["OrientSourceDB"]);
+           
+          //Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientUnitTestDB"],null);
+          Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientDevDB"],null);
+          PersonUOWs.PersonUOW pu=mng.GetPersonUOW();
+          NewsUOWs.NewsRealUow nu=mng.GetNewsUOW();
+
+          Managers.Manager mngPerson=new Managers.Manager(ConfigurationManager.AppSettings["OrientSourceDB"],null);
+          PersonUOWs.PersonUOW personToGetUOW=mngPerson.GetPersonUOW();
+
+          List<Note> notes0 = nu.GetByOffset("153c2d01-6def-4bcc-97fe-85b051fd8532", 50).ToList();
+
+          Person commenter_ = pu.GetPersonByGUID("88906e68-e697-11e5-80d4-005056813668");
+          News newsTocomment = nu.GetNewsByGUID("153c2d01-6def-4bcc-97fe-85b051fd8532");
+          Commentary comment = new Commentary() { content = "nt_0" };
+          comment=nu.CreateCommentary(commenter_, comment, newsTocomment);
+
 
           //GET check
           IEnumerable <Note> notes=nu.GetByOffset("558d95f3-964e-45f3-9708-2ee964aa2854", 2);
           IEnumerable<Note> news=nu.GetNews(null);
-
 
           //PersonsWith news
           List<Person> persons=nu.GetOrientObjects<Person>().ToList();
@@ -810,9 +710,7 @@ mng.GenNewsComments(newsGen);
           News commentUpdated1=nu.UpdateNews(personFromTest,newsAdded);
           commentAdded.content="Updated comment";
           Commentary commentUpdated2=nu.UpdateCommentary(personFromTest,commentAdded);
-
-    
-        
+            
         }            
     
     }

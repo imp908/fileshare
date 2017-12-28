@@ -3598,7 +3598,7 @@ namespace OrientRealization
     /// <summary>
     /// Manager for generating,sending, parsing commands to Orient db.
     /// </summary>
-    public class OrientRepo:IOrientRepo
+    public class OrientRepo : IOrientRepo
     {
       ICommandBuilder commandBody = null;
       ITypeToken result_;
@@ -3934,53 +3934,52 @@ namespace OrientRealization
       public IOrientRepo DeleteEdge<T,K,C>(K from,C to,string condition_=null,string dbName_=null)
           where T:IOrientEdge where K:IOrientVertex where C:IOrientVertex
       {
-            
-          CheckDbName(dbName_);
+        CheckDbName(dbName_);
 
-          ITypeToken relTypeToken_ = _typeConverter.Get(typeof(T));
-          List<ITypeToken> tt = null;
-          ICommandBuilder where_ = null;
-          Type baseType = typeof(T).BaseType;
-          ITypeToken fromID = null;
-          ITypeToken toID = null;
+        ITypeToken relTypeToken_=_typeConverter.Get(typeof(T));
+        List<ITypeToken> tt=null;
+        ICommandBuilder where_=null;
+        Type baseType=typeof(T).BaseType;
+        ITypeToken fromID=null;
+        ITypeToken toID=null;
 
-          if (from != null)
+        if(from!=null)
+        {
+          fromID=_miniFactory.NewToken(from.id);
+        }
+        if(to!= null)
+        {
+          toID=_miniFactory.NewToken(to.id);
+        }           
+
+        if(condition_!=null)
+        {
+          tt=new List<ITypeToken>(){_miniFactory.NewToken(condition_)};
+        }
+        if(tt!=null)
+        {
+          where_=
+            _commandFactory.CommandBuilder(_miniFactory,_formatFactory,tt,_miniFactory.EmptyString()).Build();
+        }
+
+        if(baseType == typeof(E))
+        {
+          if(from!=null&&to!=null)
           {
-              fromID = _miniFactory.NewToken(from.id);
+            this.commandBody=NewChain().Delete().Edge(relTypeToken_).FromV(fromID).ToV(toID).Where(where_)
+            .GetBuilder().Build();
+          }else{
+            this.commandBody=NewChain().Delete().Edge(relTypeToken_).Where(where_)
+            .GetBuilder().Build();
           }
-          if (to != null)
-          {
-              toID = _miniFactory.NewToken(to.id);
-          }           
+        }
 
-          if (condition_ != null)
-          {
-              tt = new List<ITypeToken>() { _miniFactory.NewToken(condition_) };
-          }
-          if (tt != null)
-          {
-              where_ =
-                  _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
-          }
-
-          if (baseType == typeof(E))
-          {
-              if (from != null && to != null)
-              {
-                  this.commandBody=NewChain().Delete().Edge(relTypeToken_).FromV(fromID).ToV(toID).Where(where_)
-                      .GetBuilder().Build();
-              }else{
-                  this.commandBody=NewChain().Delete().Edge(relTypeToken_).Where(where_)
-                      .GetBuilder().Build();
-              }
-          }
-
-          BindCommandUrl();
-          BindCommandBody();
-          BindWebRequest();
-          ReadResponseStr("POST", _miniFactory.Deleted());
+        BindCommandUrl();
+        BindCommandBody();
+        BindWebRequest();
+        ReadResponseStr("POST", _miniFactory.Deleted());
            
-          return this;
+        return this;
       }
 
       public IOrientRepo CreateClass(string class_,string extends_,string dbName_=null)
@@ -4039,7 +4038,7 @@ namespace OrientRealization
 
           return ret_;
       }
-    
+
       public IOrientRepo CreateProperty(string class_,string property_,Type type_,bool mandatory_,bool notnull_,string dbName_=null)
       {
         CheckDbName(dbName_);
@@ -4297,115 +4296,7 @@ namespace OrientRealization
         return ret_;
       }
 
-      
-      /// <summary>
-      /// selects collection of relations from vertes in In clause
-      /// </summary>
-      /// <typeparam name="T"></typeparam>
-      /// <typeparam name="V"></typeparam>
-      /// <param name="fromId_"></param>
-      /// <param name="types_"></param>
-      /// <param name="cond_"></param>
-      /// <param name="dbName_"></param>
-      /// <returns></returns>
-      public IEnumerable<T> SelectRelationIn<T>(string fromId_,List<Type> types_,string cond_=null,string dbName_=null)
-        where T:class,IOrientVertex  
-      {
-        IEnumerable<T> result=null;
-        List<ITypeToken> tk = new List<ITypeToken>();
-        List<ITypeToken> tt = null;
-        ITypeToken tTk=_miniFactory.NewToken(fromId_);
-        ITypeToken alias=_miniFactory.NewToken("a1");
-        ICommandBuilder where_ = null;
 
-        foreach(Type v_ in types_)
-        {
-          if(_typeConverter.Get(v_)!=null){               
-            tk.Add(_typeConverter.Get(v_));                
-          }
-        }
-        
-        if (cond_ != null)
-        {
-          tt=new List<ITypeToken>(){_miniFactory.NewToken(cond_)};
-
-          where_=
-            _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
-        }       
-        
-        if(tk.Count()>0)
-        {
-          this.commandBody =
-          NewChain().Traverse().Out(tk).FromV(tTk)
-          .Nest().From().Select()
-          .Where(where_)        
-          .GetBuilder().Build();
-
-          BindBatchUrl();
-          BindBatchBody();
-          BindWebRequest();
-          ReadResponseStr("POST", _miniFactory.Created());
-
-          if (this.response_ != null && this.response_ != string.Empty)
-          {
-            try
-            {
-              result=_jsonmanager.DeserializeFromParentNode<T>(this.response_, "result");
-            }
-            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
-          }
-        }
-
-        return result;
-      }
-      /// <summary>
-      /// Searches with any type by Condition. Type not parsed to DB.
-      /// </summary>
-      /// <typeparam name="T"></typeparam>
-      /// <param name="ID_"></param>
-      /// <param name="cond_"></param>
-      /// <param name="dbName_"></param>
-      /// <returns></returns>
-      public IEnumerable<T> SelectByIDWithCondition<T> (string ID_,string cond_=null,string dbName_=null)
-      where T:class,IorientDefaultObject
-      {
-        IEnumerable<T> result=null;
-        CheckDbName(dbName_);
-        List<ITypeToken> tt=null;
-        ICommandBuilder where_=null;
-        ITypeToken id_=_miniFactory.NewToken(ID_);
-
-          if (cond_ != null)
-          {
-              tt=new List<ITypeToken>(){_miniFactory.NewToken(cond_)};
-
-              where_=
-                _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
-          }
-
-          if (id_.Text!= null)
-          {
-              //_commandFactory.CommandBuilder(_miniFactory, _formatFactory, prsTk, _miniFactory.NewToken("{0}"));
-
-              this.commandBody =
-                NewChain().From(id_).Select().Where(where_).GetBuilder().Build();
-
-              BindBatchUrl();
-              BindBatchBody();
-              BindWebRequest();
-              ReadResponseStr("POST", _miniFactory.Created());
-
-              if (this.response_ != null && this.response_ != string.Empty)
-              {
-                  try
-                  {
-                      result=_jsonmanager.DeserializeFromParentNode<T>(this.response_, "result");
-                  }
-                  catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
-              }
-          }
-        return result;
-      }
       /// <summary>
       /// Searchersany type by type name parsed to DB.
       /// </summary>
@@ -4413,7 +4304,8 @@ namespace OrientRealization
       /// <param name="t_"></param>
       /// <param name="dbName_"></param>
       /// <returns></returns>
-      public IEnumerable<T> SelectAll<T>(IorientDefaultObject t_,string dbName_) where T:class,IorientDefaultObject
+      public IEnumerable<T> SelectAll<T>(IorientDefaultObject t_,string dbName_=null) 
+        where T:class,IorientDefaultObject
       {
           CheckDbName(dbName_);
           ITypeToken pTk = _typeConverter.Get(t_);
@@ -4524,46 +4416,6 @@ namespace OrientRealization
           return ret_;
       }
       
-      public IEnumerable<T> SelectByGUIDfromType<T> (Type type_,string cond_=null,string dbName_=null)
-        where T:class,IorientDefaultObject
-      {
-        IEnumerable<T> result=null;
-        CheckDbName(dbName_);
-        List<ITypeToken> tt=null;
-        ICommandBuilder where_=null;
-        ITypeToken id_ = _typeConverter.Get(type_);
-
-          if (cond_ != null)
-          {
-              tt=new List<ITypeToken>(){_miniFactory.NewToken(cond_)};
-
-              where_=
-                _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
-          }
-
-          if (id_.Text!= null)
-          {
-              //_commandFactory.CommandBuilder(_miniFactory, _formatFactory, prsTk, _miniFactory.NewToken("{0}"));
-
-              this.commandBody =
-                NewChain().From(id_).Select().Where(where_).GetBuilder().Build();
-
-              BindBatchUrl();
-              BindBatchBody();
-              BindWebRequest();
-              ReadResponseStr("POST", _miniFactory.Created());
-
-              if (this.response_ != null && this.response_ != string.Empty)
-              {
-                  try
-                  {
-                      result=_jsonmanager.DeserializeFromParentNode<T>(this.response_, "result");
-                  }
-                  catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
-              }
-          }
-        return result;
-      }   
       //T.inE(InE)
       public IEnumerable<T> Select<T,InE>(T vertexFrom_=null,string dbName_=null)
           where T:class,IOrientVertex where InE:class,IOrientEdge
@@ -4831,6 +4683,98 @@ NewChain().Select().OutE(outEtk).InV(inVtk).As(alias).FromV(fromEtk)
 
       return ret_;
       }
+      
+      
+      /// <summary>
+      /// Searches with any type by Condition. Type not parsed to DB.
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <param name="ID_"></param>
+      /// <param name="cond_"></param>
+      /// <param name="dbName_"></param>
+      /// <returns></returns>
+      public IEnumerable<T> SelectByIDWithCondition<T> (string ID_,string cond_=null,string dbName_=null)
+      where T:class,IorientDefaultObject
+      {
+        IEnumerable<T> result=null;
+        CheckDbName(dbName_);
+        List<ITypeToken> tt=null;
+        ICommandBuilder where_=null;
+        ITypeToken id_=_miniFactory.NewToken(ID_);
+
+          if (cond_ != null)
+          {
+            tt=new List<ITypeToken>(){_miniFactory.NewToken(cond_)};
+
+            where_=
+              _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
+          }
+
+          if (id_.Text!= null)
+          {
+            //_commandFactory.CommandBuilder(_miniFactory, _formatFactory, prsTk, _miniFactory.NewToken("{0}"));
+
+            this.commandBody =
+              NewChain().From(id_).Select().Where(where_).GetBuilder().Build();
+
+            BindBatchUrl();
+            BindBatchBody();
+            BindWebRequest();
+            ReadResponseStr("POST", _miniFactory.Created());
+
+            if (this.response_ != null && this.response_ != string.Empty)
+            {
+              try
+              {
+                result=_jsonmanager.DeserializeFromParentNode<T>(this.response_, "result");
+              }
+              catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+            }
+          }
+        return result;
+      }
+      public IEnumerable<T> SelectByGUIDfromType<T> (Type type_,string cond_=null,string dbName_=null)
+        where T:class,IorientDefaultObject
+      {
+        IEnumerable<T> result=null;
+        CheckDbName(dbName_);
+        List<ITypeToken> tt=null;
+        ICommandBuilder where_=null;
+        ITypeToken id_=_typeConverter.Get(type_);
+
+          if (cond_ != null)
+          {
+            tt=new List<ITypeToken>(){_miniFactory.NewToken(cond_)};
+
+            where_=
+              _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
+          }
+
+          if (id_.Text!= null)
+          {
+            //_commandFactory.CommandBuilder(_miniFactory, _formatFactory, prsTk, _miniFactory.NewToken("{0}"));
+
+            this.commandBody =
+              NewChain().From(id_).Select().Where(where_).GetBuilder().Build();
+
+            BindBatchUrl();
+            BindBatchBody();
+            BindWebRequest();
+            ReadResponseStr("POST", _miniFactory.Created());
+
+            if (this.response_ != null && this.response_ != string.Empty)
+            {
+              try
+              {
+                result=_jsonmanager.DeserializeFromParentNode<T>(this.response_, "result");
+              }
+              catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+            }
+          }
+        return result;
+      }            
+
+
       public IEnumerable<T> TraverseFrom<T,outE,inV,inE,inE2>(string ID_,string dbName_=null)
         where T:class,IorientDefaultObject
       {
@@ -4868,8 +4812,68 @@ NewChain().Select().OutE(outEtk).InV(inVtk).As(alias).FromV(fromEtk)
         }
 
       return ret_;
-      }
+      }      
+      /// <summary>
+      /// selects collection of relations from vertes in In clause
+      /// </summary>
+      /// <typeparam name="T"></typeparam>
+      /// <typeparam name="V"></typeparam>
+      /// <param name="fromId_"></param>
+      /// <param name="types_"></param>
+      /// <param name="cond_"></param>
+      /// <param name="dbName_"></param>
+      /// <returns></returns>
+      public IEnumerable<T> TraverseInID<T>(string fromId_,List<Type> types_,string cond_=null,string dbName_=null)
+        where T:class,IOrientVertex  
+      {
+        IEnumerable<T> result=null;
+        List<ITypeToken> tk = new List<ITypeToken>();
+        List<ITypeToken> tt = null;
+        ITypeToken tTk=_miniFactory.NewToken(fromId_);
+        ITypeToken alias=_miniFactory.NewToken("a1");
+        ICommandBuilder where_ = null;
+
+        foreach(Type v_ in types_)
+        {
+          if(_typeConverter.Get(v_)!=null){               
+            tk.Add(_typeConverter.Get(v_));                
+          }
+        }
         
+        if (cond_ != null)
+        {
+          tt=new List<ITypeToken>(){_miniFactory.NewToken(cond_)};
+
+          where_=
+            _commandFactory.CommandBuilder(_miniFactory,_formatFactory,tt,_miniFactory.EmptyString()).Build();
+        }       
+        
+        if(tk.Count()>0)
+        {
+          this.commandBody =
+          NewChain().Traverse().Out(tk).FromV(tTk)
+          .Nest().From().Select()
+          .Where(where_)        
+          .GetBuilder().Build();
+
+          BindBatchUrl();
+          BindBatchBody();
+          BindWebRequest();
+          ReadResponseStr("POST", _miniFactory.Created());
+
+          if (this.response_!=null&&this.response_!=string.Empty)
+          {
+            try
+            {
+              result=_jsonmanager.DeserializeFromParentNode<T>(this.response_,"result");
+            }
+            catch(Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
+          }
+        }
+
+        return result;
+      }
+
       //T.InE().OutV()
       public IEnumerable<OutV> SelectInEOutV<T,InE,OutV>(T vertexFrom_=null,string dbName_=null)
           where T:class,IorientDefaultObject where InE:class,IOrientEdge where OutV:class,IOrientVertex
@@ -5043,7 +5047,6 @@ propertiesTo[i2].SetValue(result, propertiesFrom[i].GetValue(fromObject, null), 
         return result;
       }
 
-
       
       public T PropertyTryReturnAttribute<T>(PropertyInfo p_) 
         where T:System.Attribute
@@ -5145,61 +5148,68 @@ propertiesTo[i2].SetValue(result, propertiesFrom[i].GetValue(fromObject, null), 
       }
         
     }
-
+   
     public interface IOrientRepo
     {
-    void BindDbName(string dbName_);
-    void BindUrlName(string input_);
-    void AlterProperty(ITypeToken class_, ITypeToken prop_, ITypeToken func_);    
-    IOrientRepo CreateClass(string class_, string extends_, string dbName_ = null);
-    Type CreateClass<T, K>(string dbName_=null)
-      where T : IOrientEntity
-      where K : IOrientEntity;
-    IOrientRepo CreateDb(string name=null,string host=null);
-    T CreateEdge<T>(IOrientEdge edge_, IOrientVertex vFrom, IOrientVertex vTo, string dbName_ = null) where T : class, IOrientEdge; 
-    IOrientRepo CreateProperty(string class_, string property_, Type type_, bool mandatory_, bool notnull_, string dbName_ = null);
-    T CreateProperty<T>(T item, string dbName_ = null) where T : class, IorientDefaultObject;
-    IOrientRepo CreateVertex(string vertex, string content_ = null, string dbName_ = null);
-    T CreateVertex<T>(string content_, string dbName_ = null) where T : class, IOrientVertex;
-    T CreateVertex<T>(IOrientVertex vertex, string dbName_ = null) where T : class, IOrientVertex;
-    void DbPredefinedParameters();
-    IOrientRepo Delete<T>(T item = null, string condition_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
-    IOrientRepo DeleteDb(string name=null, string host=null);
-    IOrientRepo DeleteEdge<T>(string from, string to, string condition_ = null, string dbName_ = null) where T : class, IOrientEdge;
-    IOrientRepo DeleteEdge<T, K, C>(K from, C to, string condition_ = null, string dbName_ = null)
-      where T : IOrientEdge
-      where K : IOrientVertex
-      where C : IOrientVertex;
-    string GetResult();
-    CommandsChain NewChain();
-    string ObjectToContentString<T>(T item_) where T : class, IorientDefaultObject;
-    T OrientStringToObject<T>(string item_) where T : class, IorientDefaultObject;
-    PropertyInfo[] Props<T>() where T :IOrientObject;
-    IEnumerable<T> SelectFromType<T>(string cond_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
-    IEnumerable<T> Select<T, InE>(T vertexFrom_ = default(T), string dbName_ = null)
-      where T : class,IOrientVertex
-      where InE :  class,IOrientEdge;
-    IEnumerable<InV> Select<T, OutE, InV>(T vertexFrom_ = default(T), string dbName_ = null)
-      where T :  class,IOrientVertex
-      where OutE :  class,IOrientEdge
-      where InV :  class,IOrientVertex;
-    IEnumerable<T> SelectAll<T>(IorientDefaultObject t_, string dbName_) where T : class, IorientDefaultObject;
-    IEnumerable<InV> SelectCommentToComment<T, InE, InV>(T vertexFrom_ = default(T), string dbName_ = null)
-      where T :  class,IOrientVertex
-      where InE :  class,IOrientEdge
-      where InV :  class,IOrientVertex;
-
-IEnumerable<T> SelectFromTraverseWithOffset<T,outE,inV,inE,inE2>(string ID_,string depthPropName_,int depthFrom_,int? depthOfset_=null,string dbName_=null)
-    where T:class,IorientDefaultObject;
-IEnumerable<T> SelectTraverseWithOffset<T,outE,inV,inE,inE2>(string ID_,string depthPropName_,int depthFrom_,int? depthOfset_=null,string dbName_=null)
-    where T:class,IorientDefaultObject;
-IEnumerable<T> TraverseFrom<T,outE,inV,inE,inE2>(string ID_,string dbName_=null)
-    where T:class,IorientDefaultObject;
-
-    T SelectSingle<T>(string cond_, string dbName_ = null) where T : class, IorientDefaultObject;
-    T ContentStringToObject<T>(string item_) where T : class, IorientDefaultObject;
-    T UpdateEntity<T>(T item_, string dbName_ = null) where T : class,IorientDefaultObject;
-    T UpdateEntity<T>(string item_, string dbName_ = null) where T : class,IorientDefaultObject;
+      void AlterProperty(ITypeToken class_, ITypeToken prop_, ITypeToken func_);
+      void BindDbName(string dbName_);
+      void BindUrlName(string input_);
+      T ContentStringToObject<T>(string item_) where T : class, IorientDefaultObject;
+      IOrientRepo CreateClass(string class_, string extends_, string dbName_ = null);
+      Type CreateClass<T, K>(string dbName_ = null)
+        where T : IOrientEntity
+        where K : IOrientEntity;
+      IOrientRepo CreateDb(string dbName_ = null, string host = null);
+      T CreateEdge<T>(IOrientEdge edge_, IOrientVertex vFrom, IOrientVertex vTo, string dbName_ = null) where T : class, IOrientEdge;
+      IOrientRepo CreateProperty(string class_, string property_, Type type_, bool mandatory_, bool notnull_, string dbName_ = null);
+      T CreateProperty<T>(T item = null, string dbName_ = null) where T : class, IorientDefaultObject;
+      IOrientRepo CreateVertex(string vertex, string content_ = null, string dbName_ = null);
+      T CreateVertex<T>(IOrientVertex vertex, string dbName_ = null) where T : class, IOrientVertex;
+      T CreateVertex<T>(string content_, string dbName_ = null) where T : class, IOrientVertex;
+      void DbPredefinedParameters();
+      IOrientRepo Delete<T>(T item = null, string condition_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
+      IOrientRepo DeleteDb(string dbName_ = null, string host = null);
+      IOrientRepo DeleteEdge<T, K, C>(K from, C to, string condition_ = null, string dbName_ = null)
+        where T : IOrientEdge
+        where K : IOrientVertex
+        where C : IOrientVertex;
+      IOrientRepo DeleteEdge<T>(string from, string to, string condition_ = null, string dbName_ = null) where T : class, IOrientEdge;
+      string GetResult();
+      CommandsChain NewChain();
+      string ObjectToContentString<T>(IEnumerable<T> item_) where T : class, IorientDefaultObject;
+      string ObjectToContentString<T>(T item_) where T : class, IorientDefaultObject;
+      T OrientStringToObject<T>(string item_) where T : class, IorientDefaultObject;
+      T PropertyTryReturnAttribute<T>(PropertyInfo p_) where T : Attribute;
+      PropertyInfo[] Props<T>() where T : IOrientObject;
+      IEnumerable<T> Select<T, InE>(T vertexFrom_ = null, string dbName_ = null)
+        where T : class, IOrientVertex
+        where InE : class, IOrientEdge;
+      IEnumerable<InV> Select<T, OutE, InV>(T vertexFrom_ = null, string dbName_ = null)
+        where T : class, IOrientVertex
+        where OutE : class, IOrientEdge
+        where InV : class, IOrientVertex;
+      IEnumerable<T> SelectAll<T>(IorientDefaultObject t_, string dbName_ = null) where T : class, IorientDefaultObject;
+      IEnumerable<T> SelectByGUIDfromType<T>(Type type_, string cond_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
+      IEnumerable<T> SelectByIDWithCondition<T>(string ID_, string cond_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
+      IEnumerable<InV> SelectCommentToComment<T, InE, InV>(T vertexFrom_ = null, string dbName_ = null)
+        where T : class, IOrientVertex
+        where InE : class, IOrientEdge
+        where InV : class, IOrientVertex;
+      IEnumerable<T> SelectFromTraverseWithOffset<T, outE, inV, inE, inE2>(string ID_, string depthPropName_, int depthFrom_, int? depthOfset_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
+      IEnumerable<T> SelectFromType<T>(string cond_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
+      IEnumerable<OutV> SelectInEOutV<T, InE, OutV>(T vertexFrom_ = null, string dbName_ = null)
+        where T : class, IorientDefaultObject
+        where InE : class, IOrientEdge
+        where OutV : class, IOrientVertex;
+      T SelectSingle<T>(string cond_, string dbName_ = null) where T : class, IorientDefaultObject;
+      IEnumerable<T> SelectTraverseWithOffset<T, outE, inV, inE, inE2>(string ID_, string depthPropName_, int depthFrom_, int? depthOfset_ = null, string dbName_ = null) where T : class, IorientDefaultObject;
+      T TestDeserialize<T>(string item_) where T : class;
+      IEnumerable<T> TraverseFrom<T, outE, inV, inE, inE2>(string ID_, string dbName_ = null) where T : class, IorientDefaultObject;
+      IEnumerable<T> TraverseInID<T>(string fromId_, List<Type> types_, string cond_ = null, string dbName_ = null) where T : class, IOrientVertex;
+      T UpdateEntity<T>(string item_, string dbName_ = null) where T : class, IorientDefaultObject;
+      T UpdateEntity<T>(T item_, string dbName_ = null) where T : class, IorientDefaultObject;
+      T UpdateProperties<T>(T fromObject, T toObject) where T : class, IorientDefaultObject;
     }
+
 
 }

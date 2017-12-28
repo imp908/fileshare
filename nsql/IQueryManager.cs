@@ -211,4 +211,6 @@ namespace IQueryManagers
         List<ITypeToken> Command(ITypeToken command_, IOrientObject orientClass_,IOrientObject orientProperty_, ITypeToken orientType_, bool mandatory =false, bool notnull=false);
     }
    
+
+    
 }
