@@ -138,8 +138,8 @@ namespace JsonManagers
                 {                   
                     t=jt_.ToObject<T>();
                     result.Add(t);
-               }
-                catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+                }
+                catch (Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
            }
          
             return result;

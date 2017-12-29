@@ -1028,7 +1028,7 @@ namespace Managers
     //Base functionality
     IOrientRepo _repo;
     NewsRealUow _newsUOW;
-    PersonUOW _personUOW,_personSource;
+    PersonUOW _personUOW;
 
     /// <summary>
     /// Dictionary for storing new UOWs
@@ -1038,13 +1038,13 @@ namespace Managers
     string _dbName;
     string _dbHost;
     
-    public Manager(string dbName_ = null, string url_ = null)
+    public Manager(string dbName_=null,string url_=null,string login_=null,string password_=null)
     {   
     
-      string login = ConfigurationManager.AppSettings["orient_login"];
-      string password = ConfigurationManager.AppSettings["orient_pswd"];
+      string login =string.IsNullOrEmpty(login_)?ConfigurationManager.AppSettings["orient_login"]:login_;
+      string password=string.IsNullOrEmpty(password_)?ConfigurationManager.AppSettings["orient_pswd"]:password_;
 
-      if(string.IsNullOrEmpty(login)||string.IsNullOrEmpty(password)){throw new Exception("Database name is not defined");}
+      if(string.IsNullOrEmpty(login)||string.IsNullOrEmpty(password)){throw new Exception("Credentials not passed");}
 
       try{
 
@@ -1052,15 +1052,15 @@ namespace Managers
         ?ConfigurationManager.AppSettings["OrientUnitTestDB"]
         :dbName_ ;
             
-        _dbHost = string.IsNullOrEmpty(url_)
+        _dbHost=string.IsNullOrEmpty(url_)
         ?string.Format("{0}:{1}",ConfigurationManager.AppSettings["OrientDevHost"],ConfigurationManager.AppSettings["OrientPort"])
         :url_;
       
         if(string.IsNullOrEmpty(_dbName)){throw new Exception("Database name is not defined");}
         if(string.IsNullOrEmpty(_dbHost)){throw new Exception("Host is not defined");}
 
-        _repo=NewRepo(_dbName, _dbHost, login, password);
-        initializeUOWs();        
+        _repo=RepoFactory.NewOrientRepo(_dbName, _dbHost, login, password);
+        initializeUOWs();      
 
       }catch(Exception e){
         System.Diagnostics.Trace.WriteLine(e.Message);
@@ -1083,42 +1083,8 @@ namespace Managers
 
     void initializeRepo(string dbName_,string url_,string login,string password)
     {
-      _repo=NewRepo(dbName_, url_, login, password);
-      initializeUOWs();    
-    }
-    
-    public IOrientRepo NewRepo(string dbName_,string host_,string login,string password)
-    {
-    
-      TypeConverter typeConverter = new TypeConverter();
-      JsonManagers.JSONManager jsonMnager = new JSONManager();
-      TokenMiniFactory tokenFactory = new TokenMiniFactory();
-      UrlShemasExplicit UrlShema = new UrlShemasExplicit(
-        new CommandBuilder(tokenFactory, new FormatFactory())
-        , new FormatFromListGenerator(new TokenMiniFactory())
-        , tokenFactory, new OrientBodyFactory());
-
-      BodyShemas bodyShema = new BodyShemas(new CommandFactory(),new FormatFactory(),new TokenMiniFactory(),new OrientBodyFactory());
-
-      UrlShema.AddHost(host_);
-      WebResponseReader webResponseReader = new WebResponseReader();
-      WebRequestManager webRequestManager = new WebRequestManager();
-      webRequestManager.SetCredentials(new NetworkCredential(login, password));
-      CommandFactory commandFactory = new CommandFactory();
-      FormatFactory formatFactory = new FormatFactory();
-      OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
-      OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
-
-      CommandShemasExplicit commandShema_=new CommandShemasExplicit(commandFactory, formatFactory,
-      new TokenMiniFactory(), new OrientQueryFactory()); 
-      
-      IOrientRepo repo=new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
-      , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
-
-      repo.BindDbName(dbName_);
-      repo.BindUrlName(host_);
-
-      return repo;
+      _repo=RepoFactory.NewOrientRepo(dbName_, url_, login, password);
+      initializeUOWs();
     }
     void initializeUOWs()
     {
@@ -1143,7 +1109,7 @@ namespace Managers
         uows.TryGetValue(name_, out res);
       }
       return res;
-    }
+    }    
 
     /// <summary>
     /// External repository binding
@@ -1161,7 +1127,7 @@ namespace Managers
       return WebManagers.UserAuthenticationMultiple.UserAcc();
     }
     
-    string GetNotes(string GUID_,int offset)
+    public string GetNotes(string GUID_,int offset)
     {
       string res_ = null;
       IEnumerable<POCO.Note> pn=_newsUOW.GetByOffset(GUID_,offset);            
@@ -1216,15 +1182,14 @@ namespace Managers
       return res_;
     }
 
-    public string PutCommentary(POCO.Note note_)
+    public string PutNote(POCO.Note note_)
     {
-      string res_ = null;
-      
+      string res_ = null;      
       string acc=_newsUOW.UserAcc();
 
-      Person person_ = _personUOW.GetPersonByAccount(acc);
-      POCO.Note pn = _newsUOW.UpdateNotePersonal(person_,note_);
-      res_ = _newsUOW.UOWserialize<POCO.Note>(pn);
+      Person person_=_personUOW.GetPersonByAccount(acc);
+      POCO.Note pn=_newsUOW.UpdateNotePersonal(person_,note_);
+      res_=_newsUOW.UOWserialize<POCO.Note>(pn);
 
       return res_;
     }
@@ -1280,10 +1245,10 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
         Type cmCl=_repo.CreateClass<Comment,E>();
 
         Note ntCl=new Note();
-        Note ntCl0=new Note(){name = "test name",content = "test content"};
-        Object_SC obs = new Object_SC() { GUID = "1", changed = DateTime.Now, created = DateTime.Now, disabled = DateTime.Now };
-        News ns = new News() {name ="Real news"};
-        Commentary cm = new Commentary() {name ="Real comment"};         
+        Note ntCl0=new Note(){name="test name",content="test content"};
+        Object_SC obs = new Object_SC() { GUID="1", changed=DateTime.Now, created=DateTime.Now, disabled=DateTime.Now };
+        News ns = new News() {name="Real news"};
+        Commentary cm = new Commentary() {name="Real comment"};         
 
         _repo.CreateClass("Person","V",null);
         MainAssignment ma = new MainAssignment() { };
@@ -1362,10 +1327,20 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
       byte[] bt=Encoding.UTF8.GetBytes(dtStr);
       string dtStrRegen = Encoding.UTF8.GetString(bt, 0, bt.Count());
       bool res = dtStr.Equals(dtStrRegen);
-      
-      
 
-      Person person_=_personUOW.GetPersonByAccount("Neprintsevia");
+      string sourceHost = string.Format("{0}:{1}"
+      ,ConfigurationManager.AppSettings["OrientDevHost"],ConfigurationManager.AppSettings["OrientPort"]);
+
+      //Add custom Unit of work for receiving news_test5 users from dev db.
+      PersonUOWs.PersonUOW _sourceUOW=
+      new PersonUOWs.PersonUOW(RepoFactory.NewOrientRepo(
+      ConfigurationManager.AppSettings["OrientSourceDB"]
+      ,sourceHost
+      ,ConfigurationManager.AppSettings["orient_login"]
+      ,ConfigurationManager.AppSettings["orient_pswd"]));    
+
+
+      Person person_=_sourceUOW.GetPersonByAccount("Neprintsevia");
       string str=_newsUOW.UOWserialize<Person>(person_);
 
       Person pr=_repo.CreateVertex<Person>(str);
@@ -1424,7 +1399,7 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
 
       string crazyComment=
       "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur pretium nibh dolor, ac ornare dui malesuada sed. Nam congue suscipit lectus in dapibus. Fusce pharetra urna a vehicula sollicitudin. Ut vel elit dolor. In hac habitasse platea dictumst. Proin tristique sem quis neque vehicula pellentesque. Ut magna tellus, condimentum ut sodales sit amet, efficitur eu magna.</p><figure class=\"imageimgNews\" style=\"float:left\"><img alt=\"\" height=\"123\" src=\"http://static.nspk.ru/files/42e65b812d1d4735c2d44528837c24b542408fb12eac9b10086d021a0f091f222e372f4ffe20e3c02703ce9a7698e02a55280a257b5876315cf5714204241302/1(1).jpg\" width=\"274\" /><figcaption>Название</figcaption></figure><p>&nbsp;</p><p>Donec lectus nibh, aliquam vitae semper vel, interdum et dolor. Donec vel metus vitae magna scelerisque varius sit amet sed elit. Vivamus lacinia accumsan lectus sit amet commodo. Sed porttitor ullamcorper fermentum. Donec ut facilisis purus. Nullam tempor, risus id maximus posuere, odio nibh suscipit ante, eget semper eros quam consectetur tellus. Nullam aliquam volutpat blandit. Nulla pharetra ultricies aliquam. Integer in tortor a quam imperdiet venenatis id eu sapien. Aenean nec eros arcu. Maecenas ac consequat justo. Proin quis aliquam justo. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque posuere libero et orci ornare vestibulum. Mauris ut varius odio. Nullam sed pulvinar felis.</p><p>Nulla facilisi. Etiam quis nisl libero. Integer eu porta mi. Sed a iaculis enim. Praesent pharetra odio ipsum, ac tempus ligula bibendum id. Nam aliquet odio ac erat mattis, quis commodo tellus posuere. Etiam congue ex at est dignissim, eget lacinia purus aliquet. Morbi in vehicula mauris. Sed eu vulputate mauris, varius porttitor purus. Duis placerat sed nisl a tempor. In congue lacus in orci convallis, vel aliquam arcu tincidunt. Nullam eleifend efficitur purus, id fermentum lectus semper at. Fusce dapibus arcu eget est dignissim porttitor.</p><p>Phasellus in mauris quis felis maximus euismod at vel urna. Vivamus sit amet malesuada ligula. Aliquam erat volutpat. Nunc suscipit bibendum interdum. Etiam cursus ligula eu dictum malesuada. Donec quis libero ac purus porttitor maximus in non orci. Vestibulum dictum eros dolor, et commodo libero tempor a. Integer viverra faucibus scelerisque. Etiam fermentum arcu non diam vulputate,</p><figure class=\"imageimgNews\" style=\"float:left\"><img alt=\"\" height=\"156\" src=\"http://static.nspk.ru/files/0c2af2d09824cdf5649115cfd33399d15d19ef4d974e1a182051ba5034e5e9594432d71fc5286ec70a3e4477d067df089fbeb5369cd11a35f090a1db64f55b34/3.jpg\" width=\"206\" /><figcaption>Название</figcaption></figure><p>&nbsp;</p><p>nec pellentesque dolor commodo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Quisque malesuada facilisis erat quis aliquet.</p><p>Nullam dapibus orci ac vehicula suscipit. Sed at lectus condimentum, scelerisque nulla eu, vehicula neque. Praesent nec massa sagittis massa blandit vehicula quis eget sem. Sed porta vitae purus nec facilisis. Praesent sed lectus id eros elementum placerat nec quis mauris. Quisque eget orci eget odio efficitur elementum eu non orci. Ut orci nunc, congue ut nibh non, molestie tincidunt eros. Quisque vel sagittis nisl. Aliquam volutpat efficitur enim, a congue lectus euismod vel. Maecenas porta orci vel arcu semper, sed ullamcorper arcu rutrum. Donec dignissim sem nec sagittis finibus. Nulla vitae mauris eu urna facilisis rutrum. Nunc elementum magna quis nisl aliquet commodo. Vivamus vel tempor lectus. Fusce ac odio commodo, rutrum lorem id, blandit lectus.</p><p>Sed mollis ex quam, interdum porta eros tincidunt non. Sed sagittis cursus ligula, eu ultrices quam eleifend eu. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam non commodo quam. Integer at lorem gravida, consectetur mauris sit amet, tincidunt massa. Pellentesque ac velit justo. Nulla facilisi. Maecenas eu nisi rutrum, convallis nisi sit amet, tincidunt dui. Suspendisse facilisis ornare venenatis. Nam porttitor tellus at mauris hendrerit gravida. Maecenas quis quam eget orci ullamcorper lacinia id id dui. Sed eget sagittis diam. Vestibulum pharetra est nec pretium euismod.</p><p>Ut ullamcorper, odio eu tempor lobortis, lectus nisi molestie leo, quis accumsan felis nisi sed ligula. Aliquam vitae quam a lorem accumsan tempus vel ac sem. Proin pulvinar ornare sagittis. Nulla vitae dictum purus. Vivamus rutrum auctor tincidunt. Curabitur nec eros leo. Morbi ullamcorper dictum elit, in sodales nisl lobortis vitae. Donec vitae odio dapibus, dignissim augue sed, accumsan nunc. Morbi at neque velit. Suspendisse potenti. Quisque consectetur, sem faucibus luctus scelerisque, justo ipsum venenatis tortor, sed ullamcorper risus ante non diam. Vivamus et tortor sed est imperdiet condimentum id eget sapien. Morbi in nulla vel mi dignissim vulputate. Vivamus erat lectus, laoreet non quam sed, aliquam tempus eros. Suspendisse in justo quis nisi dictum blandit. Vestibulum interdum, turpis non placerat ultricies, purus ipsum faucibus ipsum, id venenatis ex diam eget nunc.</p><p>Mauris diam lectus, bibendum in sapien nec, tempor malesuada odio. In rhoncus ornare purus, vitae facilisis orci iaculis in. Suspendisse potenti. Proin pharetra ut risus eget ullamcorper. Curabitur sit amet interdum magna. Sed fringilla lobortis ex, vel maximus quam semper eu. Nullam pretium sapien sit amet ex posuere luctus. Etiam condimentum tellus vel metus luctus dignissim. Donec et felis id leo convallis auctor vitae tincidunt nisl. Fusce dignissim varius orci vel hendrerit. Fusce gravida turpis odio, non sed.</p>";
-      Person yab=_personUOW.GetPersonByAccount("YablokovAE");
+      Person yab=_sourceUOW.GetPersonByAccount("YablokovAE");
             List<News> crazyNews = new List<News>();
       for(int i=0;i<30;i++){
         nodes.Add(
@@ -1451,7 +1426,7 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
       string path_ = Directory.GetParent(location_).ToString() + "\\nodes.json";
       File.WriteAllText(path_, JsonConvert.SerializeObject(nodes,Formatting.Indented));
         
-    }    
+    }
 
     public void DeleteDB()
     {
