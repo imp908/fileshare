@@ -1,0 +1,29 @@
+{"menu" : [
+         {"title":"Сотруднику", "href":{"link":0, "target":"_self"} ,"id":1, "parentid" : 0}
+        ,{"title":"Скидки",  "href":{"link":"http://list.nspk.ru/sale/", "target":"_blank"} ,"id":11, "parentid" : 1}
+        ,{"title":"Фотоальбом",  "href":{"link":"https://photo.nspk.ru/", "target":"_blank"} ,"id":12, "parentid" : 1}
+        ,{"title":"Tutor",  "href":{"link":"http://tutor.nspk.ru/", "target":"_blank"} ,"id":10, "parentid" : 1}
+        ,{"title":"Мировое радио",  "href":{"link":"http://nspk.online/", "target":"_blank"} ,"id":17, "parentid" : 1}
+        ,{"title":"MyBook",  "href":{"link":"http://nspk.mybook.ru/", "target":"_blank"} ,"id":16, "parentid" : 1}
+        ,{"title":"Оргструктура",  "href":{"link":"chart/", "target":"_blank"} ,"id":13, "parentid" : 1}
+        ,{"title":"FAQ",  "href":{"link":"http://list.nspk.ru/faq/", "target":"_blank"} ,"id":15, "parentid" : 1}
+        ,{"title":"Список сотрудников",  "href":{"link":"files/list.xlsx", "target":"_blank"} ,"id":14, "parentid" : 1}
+        ,{"title":"Листок достижений",  "href":{"link":0, "target":"_self"} ,"id":18, "parentid" : 1}
+        ,{"title":"Май",  "href":{"link":"http://list.nspk.ru/may/", "target":"_blank"} ,"id":181, "parentid" : 18}
+        ,{"title":"Июнь",  "href":{"link":"http://list.nspk.ru/june/", "target":"_blank"} ,"id":182, "parentid" : 18}
+        ,{"title":"Июль",  "href":{"link":"http://list.nspk.ru/july/", "target":"_blank"} ,"id":183, "parentid" : 18}
+        ,{"title":"Август",  "href":{"link":"http://list.nspk.ru/august/", "target":"_blank"} ,"id":184, "parentid" : 18}
+        ,{"title":"Сентябрь",  "href":{"link":"http://list.nspk.ru/september/", "target":"_blank"} ,"id":185, "parentid" : 18}
+        ,{"title":"Системы",  "href":{"link":0, "target":"_self"} ,"id":2, "parentid" : 0}
+        ,{"title":"Help",  "href":{"link":"http://help.nspk.ru/", "target":"_blank"} ,"id":21, "parentid" : 2}
+        ,{"title":"Jira",  "href":{"link":"http://jira.nspk.ru/", "target":"_blank"} ,"id":22, "parentid" : 2}
+        ,{"title":"Confluence",  "href":{"link":"http://confluence.nspk.ru/", "target":"_blank"} ,"id":23, "parentid" : 2}
+        ,{"title":"RealTimeFeadback",  "href":{"link":"https://go-only.com/", "target":"_blank"} ,"id":24, "parentid" : 2}
+        ,{"title":"МИР НСПК - Узнай первым",  "href":{"link":"https://t.me/joinchat/ANiZ5z8Ovkz0DcDtzG_nng/", "target":"_blank"} ,"id":25, "parentid" : 1}
+        ,{"title":"В рабочем порядке",  "href":{"link":0, "target":"_self"} ,"id":19, "parentid" : 1}
+        ,{"title":"02.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/02.10.17.pdf", "target":"_blank"} ,"id":191, "parentid" : 19}
+        ,{"title":"09.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/09.10.17.pdf", "target":"_blank"} ,"id":192, "parentid" : 19}
+        ,{"title":"16.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/16.10.17.pdf", "target":"_blank"} ,"id":193, "parentid" : 19}
+        ,{"title":"23.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/23.10.17.pdf", "target":"_blank"} ,"id":194, "parentid" : 19}
+        ,{"title":"30.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/30.10.17.pdf", "target":"_blank"} ,"id":195, "parentid" : 19}
+]}

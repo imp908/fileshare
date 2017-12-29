@@ -1,0 +1,46 @@
+.card.contact-mini{
+    width: 333px;
+    padding: 15px;
+    float: left;
+    /* position: static !important; */
+  }
+  
+  .card.contact-mini .title{
+    color: #aaa !important;
+  }
+
+  .img-img-mini{
+    background-size: cover;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    width: 80px;
+    height: 80px;
+    margin: auto;
+    box-shadow: 1px 1px 8px 0px #4c4c4c; 
+  }
+  
+  .card.contact-mini span.ico{
+      font-size: 1.1rem;
+      vertical-align: -25%;
+      color: #616161 !important;
+      line-height: 1.5;
+  }
+  
+  .card.contact-mini span.text{
+      font-size: 0.8rem;
+      vertical-align: middle;
+      color: #616161 !important;
+      /* line-height: 1.5; */
+  }  
+  
+  .card.contact-mini span.title{
+      font-size: 0.8rem;
+      vertical-align: middle;
+      color: #2086bf !important;
+      /* line-height: 1.5; */
+  }
+  
+  .card.contact-mini .grid{
+       margin: 0 !important;
+  }

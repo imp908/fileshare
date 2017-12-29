@@ -1,0 +1,62 @@
+{
+	"GUID": "18222799-602e-11e4-ad69-00c2c66d13b0",
+	"Position": "Заместитель директора департамента ИТ",
+	"Holidays": [{
+		"LeaveType": "Основной",
+		"Days": 3.33
+	}, {
+		"LeaveType": "За ненормированный рабочий день",
+		"Days": 6.25
+	}],
+	"Vacations": [{
+		"LeaveType": "Отпуск основной",
+		"DateStart": "03.08.2015",
+		"DateFinish": "23.08.2015",
+		"DaysSpent": 21
+	}, {
+		"LeaveType": "Отпуск основной",
+		"DateStart": "31.12.2015",
+		"DateFinish": "31.12.2015",
+		"DaysSpent": 1
+	}, {
+		"LeaveType": "Отпуск основной",
+		"DateStart": "01.02.2016",
+		"DateFinish": "14.02.2016",
+		"DaysSpent": 14
+	}, {
+		"LeaveType": "Отпуск основной",
+		"DateStart": "18.07.2016",
+		"DateFinish": "22.07.2016",
+		"DaysSpent": 5
+	}, {
+		"LeaveType": "Командировка",
+		"DateStart": "24.09.2016",
+		"DateFinish": "01.10.2016",
+		"DaysSpent": 8
+	}, {
+		"LeaveType": "Отпуск основной",
+		"DateStart": "06.12.2016",
+		"DateFinish": "19.12.2016",
+		"DaysSpent": 14
+	}, {
+		"LeaveType": "Отпуск основной",
+		"DateStart": "03.04.2017",
+		"DateFinish": "16.04.2017",
+		"DaysSpent": 14
+	}, {
+		"LeaveType": "Дополнительный отпуск",
+		"DateStart": "17.04.2017",
+		"DateFinish": "19.04.2017",
+		"DaysSpent": 3
+	}, {
+		"LeaveType": "Отпуск основной",
+		"DateStart": "13.06.2017",
+		"DateFinish": "23.06.2017",
+		"DaysSpent": 11
+	}, {
+		"LeaveType": "Отпуск основной",
+		"DateStart": "25.09.2017",
+		"DateFinish": "27.09.2017",
+		"DaysSpent": 3
+	}]
+}
