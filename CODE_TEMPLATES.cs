@@ -34,7 +34,6 @@ namespace Parts{
 	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
 	//JS
 	https://eloquentjavascript.net/index.html										  
-
 	//chart vis	
 	http://js.cytoscape.org/#getting-started/including-cytoscape.js
 	http://graphalchemist.github.io/Alchemy/#/
@@ -52,7 +51,7 @@ namespace Parts{
 	http://bl.ocks.org/robschmuecker/7880033
 	http://mbostock.github.io/d3/talk/20111116/force-collapsible.html
 	http://mbostock.github.io/d3/talk/20111018/tree.html
-	http://www.coppelia.io/2014/07/an-a-to-z-of-extra-features-for-the-d3-force-layout/
+	http://www.coppelia.io/2014/07/an-a-to-z-of-extra-features-for-the-d3-force-layout/                                                                
 	
 	//SERIAL PROGRAMMING 	
 	//RS-232
@@ -132,7 +131,7 @@ namespace Parts{
 	//correct d3 charts addition
 	//<script type="application/javascript" charset="utf-8" src="http://d3js.org/d3.v3.js"></script>
 
-	//charts from excel to powerpoint copy
+	//charts from excel to poweerpoint copy
 	https://social.msdn.microsoft.com/Forums/ru-RU/b00e1da3-908d-4ae1-8c68-2ea5108d1cd0/-excel-powerpoint-vba?forum=programminglanguageru
 
 	//codplex library addres for excel files read
@@ -211,8 +210,6 @@ namespace Parts{
 	https://blog.codinghorror.com/
 	//CodeNames
 	http://blog.codenamed.nl/
-	//
-	https://tattoocoder.com/
 	
 	
 	//CONTINUOUS INTEGRATION
@@ -434,414 +431,1302 @@ namespace Parts{
 	intraservise
 	elma
 	
-	//code gen
+  //code gen
 	https://swagger.io/
 	//tizen
 	https://www.tizen.org/
-	
+	              	
 	}
 	
 	#region TODO
-	
-  
- [
- 
-  {"C++":[
-  {"TODO": [
-      "Employee class",
-      "OpenGltutorials"
+	 
+  [TODO
+   
+    {"C++":[
+    {"TODO": [
+        "Employee class",
+        "OpenGltutorials"
+      ]
+    }]
+    },
+    {"C#":[
+    {"TODO": [{
+        "Infrastructure": [{
+            "Correct decoupling of projects": []
+          }, {
+            "Build automate": []
+          },
+          {
+            "Testng automate": [{
+              "Name": "Test localhost server",
+              "What": "starts localhost for methods testing",
+              "How": ["Python localhost server"],
+              "TODO": ["add responses on 8001"],
+              "DONE": ["Starts localhost on 8000", "handles GET,POST,DELETE"]
+            }, {
+              "Name": "API tester",
+              "What": "runs config file with aprameters for URL response check with WebManager,WebResponseReader",
+              "TODO": [
+                "POST,PUT,DELETE methods",
+                "request body and format type"
+              ],
+              "DONE": [
+                "Config export/import",
+                "Exeption expected",
+                "Null expected",
+                "Ok not OK to config print"
+              ]
+            }]
+          }
+        ]
+      }, {
+        "Utility": [{
+            "Js hacks": [{
+              "Name": "JS hacks",
+              "What": "Js scripts to load on page and change functionality",
+              "TODO": [
+                "New API drop box above textbox add. Textbox no ovewrite"
+              ],
+              "DONE": [
+                "Select2 Js To site"
+              ]
+            }]
+          }, {
+            "PersonAPI": [{
+
+                "Name": "NSQLmanager",
+                "What": "OreintDb command builder,REST API executor and parser",
+
+                "TODO": [{
+                  "simplify repo": [
+                    "clean string methods",
+                    "change T types to base interfaces",
+                    "add universal Node reference"
+                  ]
+                }, {
+                  "refactor UOW": [
+                    "split Persons and News api",
+                    "move current UOW logic to Manager"
+                  ]
+                }, {
+                  "web part": [
+                    "choose framework"
+                  ]
+                }],
+                "DONE": [
+                  "Query manager",
+                  "TokenBuilder",
+                  "Token,Orient,URL factories",
+                  "Command shema base with factories with Build from collections of tokens and commandbuilders",
+                  "Rewrite old shemas for new base shema methods",
+                  "Check fire working request"
+                ]
+              },
+              {
+                "Name": "WebAPI",
+                "What": "Apis for person,addressbook,news,birthdays",
+                "How": [
+                  "c# web api"
+                ]
+              },
+              {
+                "Name": "HttpManager",
+                "What": "handling http requests",
+                "TODO": [
+                  "Request content body addition",
+                  "Handshake procedure"
+                ],
+                "DONE": [
+                  "Handling http methods POST,GET,DEL,PUT",
+                  "Adding headers",
+                  "Add request body",
+                  "Orient DB cookie authorization"
+                ],
+                "How": [
+                  "c# http"
+                ]
+              },
+              {
+                "Name": "JSONmanager",
+                "What": "Round aboud Newtonsoft JSON",
+                "DONE": [
+                  "Parsing to/from objects/strings to/from JSON string"
+                ],
+                "TODO": [
+                  "Clatrify parsing to string",
+                  "make generic"
+                ],
+                "How": [
+                  "c#"
+                ]
+              },
+              {
+                "neo4jAPI": [{
+                  "Name": "Boilerplate",
+                  "What": ["script for neo4j builderplate"],
+                  "TODO": ["script"]
+                }, {
+                  "Name": "CRUD",
+                  "What": ["script for neo4j crud operations"],
+                  "DONE": ["crud"]
+                }]
+              }
+            ]
+          }
+
+          ,
+          {
+            "Presentation site": [{
+              "Name": "WCF",
+              "What": "Between UOW  and Presentation site",
+              "How": [
+                "POCOs instead of data contracts"
+              ],
+              "Comments": "move to REST API most likely due to unclear configuration while mooving",
+              "TODO": [
+                "ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)",
+                "Add BLL Business logic layer between POCOs and UOW",
+                "Add JS multiple model items update at one time"
+              ]
+            }, {
+              "Name": "WebApi",
+              "What": "Between UOW  and Presentation site",
+              "TODO": [
+                "Add"
+              ]
+            }, {
+              "Name": "Excel parser",
+              "What": "parsing excel file to objects method",
+              "TODO": [
+                "decompose to several projects"
+              ],
+              "How": [
+                "parse file mask",
+                "Sector type from filename",
+                "Fist file input determines merchant sector"
+              ]
+            }, {
+              "Name": "Excel exporter",
+              "What": "Export to excel",
+              "How": [
+                "For collection of POCO objects Read properties of PCOO object",
+                "Every property to column, every object to row"
+              ]
+            }, {
+              "Name": "SQL SLR Type converter",
+              "What": "Type converter for migration",
+              "How": [
+                "Add SQL to CLR type conversion",
+                "SQLEntity to DWH entity converter",
+                "Converter logic to string name or type name"
+              ]
+            }, {
+              "Name": "WCF",
+              "What": "Add WCF between Repo and Site",
+              "Comments": "bad idea WCF diff to config. REST API instead"
+            }, {
+              "Name": "UOW",
+              "DONE": [
+                "bind repo to generic with as and type conversion",
+                "bind context to every"
+              ]
+            }, {
+              "Name": "Repository",
+              "Test": [{
+                "Integration": "Tables migration"
+              }],
+              "TODO": [
+                "against SQL base and Northwind base",
+                "Chaining IRepo implementation for Date + list filter"
+
+              ],
+              "DONE": [{
+                  "Name": "IRpository",
+                  "DONE": [
+                    "CRUD operations"
+                  ]
+                },
+                {
+                  "Name": "Explicit Repository",
+                  "What": "Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}"
+
+                },
+                {
+                  "Name": "Implicit Repository",
+                  "What": "Repo<T>() where T: IOne { GetByOne(); } ... Repo<T>() where T: In { GetByN(); } <- done"
+
+                }
+              ]
+            }, {
+              "Name": "Northwind",
+              "DONE": [
+                "change login employee get from TempData to model",
+                "add complex model"
+              ]
+            }]
+          }
+        ]
+
+      }]
+    
+    }
     ]
-  }]
-  },
-  {"C#":[
-  {"TODO": [{
-			"Infrastructure": [{
-					"Correct decoupling of projects": []
-				}, {
-					"Build automate": []
-				},
-				{
-					"Testng automate": [{
-						"Name": "Test localhost server",
-						"What": "starts localhost for methods testing",
-						"How": ["Python localhost server"],
-						"TODO": ["add responses on 8001"],
-						"DONE": ["Starts localhost on 8000", "handles GET,POST,DELETE"]
-					}, {
-						"Name": "API tester",
-						"What": "runs config file with aprameters for URL response check with WebManager,WebResponseReader",
-						"TODO": [
-							"POST,PUT,DELETE methods",
-							"request body and format type"
-						],
-						"DONE": [
-							"Config export/import",
-							"Exeption expected",
-							"Null expected",
-							"Ok not OK to config print"
-						]
-					}]
-				}
-			]
-		}, {
-			"Utility": [{
-					"Js hacks": [{
-						"Name": "JS hacks",
-						"What": "Js scripts to load on page and change functionality",
-						"TODO": [
-							"New API drop box above textbox add. Textbox no ovewrite"
-						],
-						"DONE": [
-							"Select2 Js To site"
-						]
-					}]
-				}, {
-					"PersonAPI": [{
+    }
+    
+  ]	
+ 
+  [TODO
 
-							"Name": "NSQLmanager",
-							"What": "OreintDb command builder,REST API executor and parser",
-
-							"TODO": [{
-								"simplify repo": [
-									"clean string methods",
-									"change T types to base interfaces",
-									"add universal Node reference"
-								]
-							}, {
-								"refactor UOW": [
-									"split Persons and News api",
-									"move current UOW logic to Manager"
-								]
-							}, {
-								"web part": [
-									"choose framework"
-								]
-							}],
-							"DONE": [
-								"Query manager",
-								"TokenBuilder",
-								"Token,Orient,URL factories",
-								"Command shema base with factories with Build from collections of tokens and commandbuilders",
-								"Rewrite old shemas for new base shema methods",
-								"Check fire working request"
-							]
-						},
-						{
-							"Name": "WebAPI",
-							"What": "Apis for person,addressbook,news,birthdays",
-							"How": [
-								"c# web api"
-							]
-						},
-						{
-							"Name": "HttpManager",
-							"What": "handling http requests",
-							"TODO": [
-								"Request content body addition",
-								"Handshake procedure"
-							],
-							"DONE": [
-								"Handling http methods POST,GET,DEL,PUT",
-								"Adding headers",
-								"Add request body",
-								"Orient DB cookie authorization"
-							],
-							"How": [
-								"c# http"
-							]
-						},
-						{
-							"Name": "JSONmanager",
-							"What": "Round aboud Newtonsoft JSON",
-							"DONE": [
-								"Parsing to/from objects/strings to/from JSON string"
-							],
-							"TODO": [
-								"Clatrify parsing to string",
-								"make generic"
-							],
-							"How": [
-								"c#"
-							]
-						},
-						{
-							"neo4jAPI": [{
-								"Name": "Boilerplate",
-								"What": ["script for neo4j builderplate"],
-								"TODO": ["script"]
-							}, {
-								"Name": "CRUD",
-								"What": ["script for neo4j crud operations"],
-								"DONE": ["crud"]
-							}]
-						}
-					]
-				}
-
-				,
-				{
-					"Presentation site": [{
-						"Name": "WCF",
-						"What": "Between UOW  and Presentation site",
-						"How": [
-							"POCOs instead of data contracts"
-						],
-						"Comments": "move to REST API most likely due to unclear configuration while mooving",
-						"TODO": [
-							"ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)",
-							"Add BLL Business logic layer between POCOs and UOW",
-							"Add JS multiple model items update at one time"
-						]
-					}, {
-						"Name": "WebApi",
-						"What": "Between UOW  and Presentation site",
-						"TODO": [
-							"Add"
-						]
-					}, {
-						"Name": "Excel parser",
-						"What": "parsing excel file to objects method",
-						"TODO": [
-							"decompose to several projects"
-						],
-						"How": [
-							"parse file mask",
-							"Sector type from filename",
-							"Fist file input determines merchant sector"
-						]
-					}, {
-						"Name": "Excel exporter",
-						"What": "Export to excel",
-						"How": [
-							"For collection of POCO objects Read properties of PCOO object",
-							"Every property to column, every object to row"
-						]
-					}, {
-						"Name": "SQL SLR Type converter",
-						"What": "Type converter for migration",
-						"How": [
-							"Add SQL to CLR type conversion",
-							"SQLEntity to DWH entity converter",
-							"Converter logic to string name or type name"
-						]
-					}, {
-						"Name": "WCF",
-						"What": "Add WCF between Repo and Site",
-						"Comments": "bad idea WCF diff to config. REST API instead"
-					}, {
-						"Name": "UOW",
-						"DONE": [
-							"bind repo to generic with as and type conversion",
-							"bind context to every"
-						]
-					}, {
-						"Name": "Repository",
-						"Test": [{
-							"Integration": "Tables migration"
-						}],
-						"TODO": [
-							"against SQL base and Northwind base",
-							"Chaining IRepo implementation for Date + list filter"
-
-						],
-						"DONE": [{
-								"Name": "IRpository",
-								"DONE": [
-									"CRUD operations"
-								]
-							},
-							{
-								"Name": "Explicit Repository",
-								"What": "Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}"
-
-							},
-							{
-								"Name": "Implicit Repository",
-								"What": "Repo<T>() where T: IOne { GetByOne(); } ... Repo<T>() where T: In { GetByN(); } <- done"
-
-							}
-						]
-					}, {
-						"Name": "Northwind",
-						"DONE": [
-							"change login employee get from TempData to model",
-							"add complex model"
-						]
-					}]
-				}
-			]
-
-		}]
-  
-  }
-  ]
-  }
-  
-  ]
-	
-		public Utility
-		{
-			
-			public NSQL 
-			{
-			
-				public ClassSegregation 
-				{
-
-				
-		//shema
-		.select()=>select+gap
-		.from()=>from+ITk
-		.batch()
-
-				
-		//command
-		.select(T,V)=>shema.select(T)+shema from(V) LEFTINTEND
-
-
-		//context
-		<< host,dbname
-		new Context(string host,string dbname
-		,webRequestManager wm
-		,webResponseReader wr
-		,UrlShemasExplicit urlShemas_){
-			webRequestManager.SetBase64AuthHeader(string orientAuth);
-		}
-
-		Context.CreateDb(){
-			createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-		}
-		Context.DropDb(){
-			dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
-		}
-		Context.Command(ICommandBuilder cmd){
-			urlCommand=_urlShemas.Command(dbName).Build().GetText();
-			buildRequest();
-			createClass=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-		}
-		Context.Batch(ICommandBuilder cmd){
-			urlCommand=_urlShemas.Batch(dbName).Build().GetText();
-			buildRequest();
-			insertPerson=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-		}
-		internal buildRequest(){
-			urlDatabase=_urlShemas.Database(dbName).GetText();
-			webRequestManager.AddRequest(urlDatabase);
-			webRequestManager.SetCredentials(nc);
-		}
-		string fireRequest(){
-			webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-		}
-
-
-		//Repo
-		<< Context _context,T<Vertex|Edge>
-		new Repo<T>(Context _context)
-		_repo.ChangeContext(Context context_){this._context=context_;}
-		//create class
-		<class> _repo.Create<class>(ITypeToken T);
-		//create class extends
-		<class> _repo.Create<class,extendes>(ITypeToken T,ITypeToken V);
-		//create Vertex or property
-		<Vertex|Property> _repo.Create<Vertex|Property>(T type_,ICommandBuilder _content=null);
-		//create Edge
-		<Edge> _repo.Create<Edge,fromID,toId>(ITypeToken Edge,ITypeToken idfrom,ITypeToken idTo,ICommandBuilder _content=null);
-		//delete Vertex or Edge
-		<string> _repo.Delete(ITypeToken id);
-		//delete property 
-		<string> _repo.Delete<Property>(ITypeToken id);
-		//select Vertex or Edge [where]
-		<Vertex|Edge> _repo.Select<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-		//update Vertex or Edge [where]
-		<Vertex|Edge> _repo.Update<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-
-
-		//Type converter
-		(UOW)-[TypeConverter{Type->ITtypeToken}]->(Repo)
-
-
-		//UOW
-		//IUOW
-		new UOW(ContextFactory_,RepoFactory_,TypeConverter tc,string host_,string dbName_);
-		//UOW
-		new UOW(context_,repo_,_typeConverter,string host_,string dbName_);
-		_uow.ChangeHost(string host_){}; => recreate context
-		_uow.ChangeDb(string dbName_){}; => recreate context
-
-		//for vertex creation
-		_uow.Create<IorientObject>(Iobj) => convert to vertex ItypeToken, if  and to content if not null
-		//for vertex creation
-		_uow.Create<IorientObject>(Iobj)
-
-				}
-				
-        public Node reference shemas
-        {
-          
-       Node reference shemas. Minimum and explicit[
-	
-	[Simplified overall
-	()-[]->()
-	Node type,reference types, reference types, directions, node type
-	(Nd){-|=|..+}[Rf]-{<|>}(Nd)
-	],	
-	[Detailed Minimal possible 
-	{
-	Node)-[Ref]->(Node)
-	One type reference to same type Node
-	}
-	0->0
-	],
-	[Detailed Minimal explicit 
-	(cannot be complexed with quality only with quantity of directions and types, which leads to pattern)
-	{
-	[NodeB]=[Ref2]=>NodeO)-[Ref1]->(NodeA)
-	one type reference r1 from one type node O 
-	to other type node A 
-	and other type reference r2 to other type node B 
-	with other direction
-	}
-
-	0
-	-[r1]->A
-	<=[r2]=B
-	]
-
-]  
+    Global[
+      
+      Repo 
+        -> finish <- done 
+      UOW 
+        -> finish <- done 
+      Manager 
+        -> finish <- done
+      
+      Quiz 
+        -> finish <- done 
+        -> refactor
         
+      AdinTce store
+        -> finish
+        News store 
+        -> finish
+      
+      Birthday
+        ->
+      News
+        ->
+        
+    ]
+    
+    ,Structured[
+    
+      {Intraservice
+      
+        То, что называется "JS хаки" это, например файлы из папки /js/ на inter02
+        alertmessage.js
+        autoexecutorpick.js
+        IB_auto_pick_date.js
+        select2.js
+      
+        Все местоположения http://10.31.14.76/cleverence_ui/hs/IntraService/location/full
+        Частичные местоположения (215) http://10.31.14.76/cleverence_ui/hs/IntraService/location/part/215
+        это не GUID Person,Unit и MainAssignment из orientDB.
+        новые положения UI
+        http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/full
+        
+        ?Масленникова - заказчик
+        завялов - по Intraservice
+        Селиверстов - по Intraservice2 1135
+        Акшарумов  1335
+        завялов 
+          ? -> карточки в is учёт миущества 1C
+          ? -> добавление тестовых форм
+          авторизации от админов - вопрос
+        
+        OrientFunction - rewrite GetPerson, return GUID exclude Disabled  persons
+        JS hack - to fill IS form with values from			
+          
+          1)	У Завъялова - > форма intraservice взаимодействующая с 1C<> Cleverence
+          2)	На сайт JS обёртка, подключающая к полям вьюхи 
+            o ФИО и GUID должности из OrientDB по вводимому ФИО
+            o Адресс местоположения по вводимомму адресу с :
+              Все местоположения http://10.31.14.76/cleverence_ui/hs/IntraService/location/full
+                [
+                  переносы в конце строки: \n"
+                  незакрытые кавычки: \"НСПК, 4 этаж, рм. 4.10-061 Кладовая"
+                  обе красоты в одной: \"Голден Гейт\"\n\nРезервный офис АО \"НСПК"
+                  и фиальная, адресс тока: "Адрес": "."
+                  
+                ]
+              Частичные местоположения (215) http://10.31.14.76/cleverence_ui/hs/IntraService/location/part/215
+
+          {
+            HelpDeskTestAPI:
+            [
+              http://msk1-vm-inter02.nspk.ru/api/Task/
+              http://msk1-vm-inter02.nspk.ru/api/Task/53883
+              http://msk1-vm-inter02.nspk.ru/api/Service
+            ]
+            
+          }
+          
+          {checkbox for text input
+            
+          }
+          
+      }
+      
+      ,{Intraservice structure
+        
+        [
+          {
+          "FILE":"IntraService.Domain.dll",
+          "Description":"Entity models. Entity + model in one huge block"
+          }
+        ]
+      
+      }
+      
+      ,{ElMA:26.10.17
+        
+        [
+          {
+          
+          }
+        ]
+      
+      }
+      
+      ,{News Site
+      
+     
+          
+        [API
+        
+  User-Agent: Fiddler
+  Authorization: Basic cm9vdDptUiVtekpVR3ExRQ==
+  Host: msk1-vm-ovisp01:8184
+  Content-Length: 112
+  Content-Type: application/json
+
+  POST
+  http://msk1-vm-ovisp01:8184/api/News
+
+  POST,PUT
+  http://msk1-vm-ovisp01:8184/api/News/174
+
+  {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "1", "Name": "0"}
+
+
+        ]
+
+        ,[user settings 
+          
+  (Person)-[CommonSettings]->(UserSettings{"showBirthday":"true"})
+          
+          ,{check serverside filter <- done
+          
+            add to all orient functions if to publish birthdate according to condition for birthday on/of
+            return all birthdays for those who on
+            
+          }
+          
+          ,{Birthdays
+          post -> receive GUID
+          add edge (seeBirthdays) from authenticated person to guided
+          return edge collection (Person auth)-[seeBirthday]->(Persons selected)
+            
+          ,add birthday objects Creation to ETL
+              
+            
+          }			
+              
+        ]
+                      
+        ,[AdinTce
+            
+          {AdinTce URLS
+  "Source":
+
+
+  http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/graph/full
+  http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/full
+  http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/full
+  /part/592a863e-8642-11e7-8119-005056813668
+
+  http://msk1-vm-ovisp01:8184/api/Person/Acc
+  http://msk1-vm-ovisp01:8184/api/Person/HoliVation/kpa
+  http://msk1-vm-ovisp01:8184/api/Person/HoliVationAcc
+
+  http://msk1-vm-ovisp01:8085/api/Person/Acc
+  http://msk1-vm-ovisp01:8085/api/Person/HoliVation/kpa
+  http://msk1-vm-ovisp01:8085/api/Person/HoliVationAcc
+
+  http://msk1-vm-inapp01:8081/api/Person/Acc
+  http://msk1-vm-inapp01:8081/api/Person/HoliVation/kpa
+  http://msk1-vm-inapp01:8081/api/Person/HoliVationAcc
+        
+          [test
+
+          ]
+
+          }
+          
+          ,{Preliminary
+        
+  intranet backend
+  NTLM -> orient - > GUID ->  1C api -> result
+
+  UI
+  УИ (чёт активов)
+  (password from 1c batch)
+  http://msk1-vm-onesweb01/nspk_ui/ws/ExchangeInv.1cws?wsdl
+
+  http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/full
+  Ok {GUID,Адресс} old cleverence
+  http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/part/215
+
+  ZUP
+  ЗУП (1c batch) (WS:12345qweQWE!@#)
+  V1M6MTIzNDVxd2VRV0UhQCM=
+
+  http://msk1-vm-onesweb01/nspk_zup/ws/ExportData.1cws?wsdl
+  GET
+  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/holiday/full
+  "GUID": "cc109057-39aa-11e4-95f3-00c2c66d1ae5",
+  "ВидОтпуска": "Основной",
+  "Должность": "Начальник Управления бухгалтерского учета и отчетности - Главный бухгалтер",
+  "Дни": 14.67
+
+  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/holiday/part/18a14516-cbb4-11e4-b849-f80f41d3dd35
+  {HTTPСервис._Portal_Holiday.Модуль(109)}: Ошибка при вызове метода контекста (ПолучитьСсылку)
+
+  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/graph/full
+  [
+  {
+  "GUID": "0629685d-7e6b-11e7-8119-005056813668",
+  "ВидОтпуска": "Основной",
+  "Должность": "Руководитель направления",
+  "ДатаНачала": "20180409",
+  "ДатаОкончания": "20180422",
+  "Дни": 0
+  },
+  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/graph/part/215
+  {HTTPСервис._Portal_Holiday.Модуль(253)}: Ошибка при вызове метода контекста (ПолучитьСсылку)
+
+  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/vacation/full
+  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/vacation/part/88906e68-e697-11e5-80d4-005056813668
+
+
+  УХ
+
+  http://msk1-vm-onesweb01/nspk_uh/ws/ExchangeClev.1cws?wsdl
+  http://msk1-vm-onesweb01/nspk_uh/ws/DocsVision.1cws?wsdl
+
+  Так же как я понимаю вам еще нужны доп данные для подключения..
+  Этих будет достаточно? Могу переназвать если надо..
+  Если все устроит могу в рабочую поместить..
+  Корневой URL: Portal_Holiday
+  Остатки отпусков по физ лицу - /location/holiday/{ФизЛицо}
+  Остатки отпусков - /location/holiday/full
+  График отпусков по физ лицу - /location/graph/{ФизЛицо}
+  График отпусков - /location/graph/full
+  Отпуска по физ лицу - /location/vacation/{ФизЛицо}
+  Отпуска  - /location/vacation/full
+
         }
         
-				public actual{
-					
-//select news
-select expand(
-outE('Authorship').inV('Note').inE('Comment').outV('Note')
-)from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
+        
+      ]
+        
+        ]
+        
+        ,[Person API
+      
+  Сейчас, похожи на вес две функции
 
-//select comments
-select  from (
-select expand(
-  outE('Authorship').inV('Note')
-)from Person where @rid=#73:1 )
-where 1=1 and inE('Comment')[0].@rid!=''
+  GetWeight
 
-Check comment class -> inE('Comment').@size[0] != ''
-Post,Delete, Put, Get Notes by person, Get Author by Note
-(person)-[author]->(Note)
+  На вход передается Position
 
-Post,Delete,Put, Get Comments By Person,Comments by News
-(person)-[author]->(Note)-[comment]->(Note)
+  возвращает
+  isManager 0 
+  isZam 1000000
+  others 2000000
 
-				}
-				
-			}
+  GetPositionBar
+
+  На вход передается Position
+
+  возвращает
+  isManager Руководитель
+  isZam Заместитель
+  others null
+
+  как я понимаю seed рассчитывается из JS и именно от него иерархия строится.
+  Для perosn API нужно больше весов.
+
+      ]
+                            
+        ,[MyNspk URLs from
+
+  http://msk1-vm-inapp01.nspk.ru:81/api/Photo/?email={{cnt.mail}}
+  var GetStructureByUnitGUID = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetStructureByUnitGUID/'
+  var GetStructureByPersonGUID = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetStructureByPersonGUID/'
+  var GetStructureByUnitGUIDAtCurrentLevel = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetStructureByUnitGUIDAtCurrentLevel/'
+  var SearchPersonUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchPerson/'
+  //var NewsFeedUrl = 'http://nspk.online/api/news.php?list=0&num=25'
+  var AccountUrl = 'http://msk1-vm-inapp01:8081/api/Account/'
+  var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'
+  //var MenuUrl = 'static.data/static.menu.json'
+  //var GalUrl = 'static.data/gal.json'
+  var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last';
+  var PersonalSettingsUrl = "http://msk1-vm-ovisp01:8084/api/UserSettings/";
+  // var NewsFeedUrl = 'http://nspk.online/api/news.php?list=0&num=25'
+  // var AccountUrl = 'http://msk1-vm-inapp01:8081/api/Account/'
+  // var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'
+  // var MenuUrl = 'static.data/static.menu.json'
+  // var GalUrl = 'static.data/gal.json'
+  // // var VacationsUrl = 'http://msk1-vm-ovisp01:8085/api/Person/HoliVationAcc'
+  // var VacationsUrl = 'http://msk1-vm-ovisp01:8085/api/Person/HoliVation/saa'
+  // var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last'
+  // var UserSettingsUrl = 'http://msk1-vm-ovisp01:8084/api/UserSettings/'
+  // var FavoritesUrl = 'http://msk1-vm-ovisp01:8084/api/PersonRelation/'
+  // var PersonBirthdays = 'http://msk1-vm-ovisp01:8084/api/PersonBirthdays'
+  var NewsFeedUrl = 'http://nspk.online/api/news.php?list=0&num=25'
+  var AccountUrl = 'http://msk1-vm-inapp01.nspk.ru:8081/api/Account/'
+  var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'
+  var MenuUrl = 'static.data/static.menu.json'
+  var GalUrl = 'static.data/gal.json'
+  var VacationsUrl = 'http://msk1-vm-inapp01:8081/api/Person/HoliVationAcc'
+  var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last'
+  var UserSettingsUrl = 'http://msk1-vm-inapp01:8081/api/UserSettings/'
+  var FavoritesUrl = 'http://msk1-vm-inapp01:8081/api/PersonRelation/'
+  var PersonBirthdays = 'http://msk1-vm-inapp01:8081/api/PersonBirthdays'
+  //var VacationsUrl = 'http://msk1-vm-ovisp01:8085/api/Person/HoliVationAcc'
+    
+        ]
+        
+        ,[JSON exmpls
+  {"result":[{"A":"B"},{"A":"B"},{"A":"B"}]}
+  {"result":[{"A":"B","A2":"B2","A3":"B3"},{"A":"B"},{"A":"B"}]}
+  {"A":"B","A2":"B2","A3":"B3","result":[{"A":"B"},{"A":"B"},{"A":"B"}]}
+
+        ]
+        
+        ,[NewsAPI
+
+  //Traverse Commentaries to News
+  traverse outE('Comment'),inV('Commentary'),inE('Authorship','Comment') from 26:3
+  traverse out('Comment'),in('Comment') from 25:4
+
+  //traverse comments to comment
+  select from (traverse out('Comment') from 26:5)
+  where commentDepth >=0 and commentDepth <=3
+
+  //traverse up fromcomment to news
+  traverse in('Authorshp','Comment') from (select from 24:53)
+
+  //Get persons from news
+  Select expand(a1) from(Select inE('Authorship').outV('Person')  as a1 from 26:1 )
+
+  //Person authorships
+  traverse out() from 31:6
+  //Author find
+  select expand(in('Authorship')) from 23:1
+
+  //Check Notes without authorship
+  select from Note where in('Authorship').@class!='Person'
+
+
+  //Select from News with depth
+  select from (traverse outE('Comment'),inV('Commentary'),inE('Authorship','Comment') from 26:2)
+  where commentDepth >=2 and commentDepth <=2 
+
+  //
+  traverse out('Comment','Authorship'),in('Comment') from 32:7
+
+        ]
+        
+        ,[Shema
+        
+        //--------------------------------
+
+        //Class  model <- done
+
+        (Person) - [Authorship] -> (Commentary) <- [Comment] - (Person)
+        (Person) - [Authorship] -> (News) <- [Comment] - (Person)
+         
+        //Relations model -> obsolette
+
+        Post new tag by name, post tag id news id
+        person to like
+
+        (Person) - [Authorship] -> (Object{pinned:true})
+        News //editable by hardcode string acc group to every tag
+        (Person) - [Authorship] -> (Object{"pinned":"true";"published":"true"})
+        Commentary
+        (Person) - [Authorship] -> (Object) - [Comment{CommentLevel:0+1}] -> (Object)
+        
+        //All note fields
+        Note
+        {
+
+          public override string id { get; set; }       	
+          public override string @version {get; set;} 
+          
+          public Person author_ { get; set; }
+
+          public string PGUID { get; set; }=string.Empty;
+
+          public string authAcc { get; set; }=string.Empty;
+          public string authGUID { get; set; }=string.Empty;
+          public string authName { get; set; }=string.Empty;
+
+          public string pic {get;set;}=string.Empty;
+          public string name {get;set;}=string.Empty;               
+
+          [JsonProperty("content_")]
+          public virtual string content { get; set; }=string.Empty;
+          public string description { get; set; }=string.Empty;
+
+          public DateTime? pinned { get; set; }=null;
+          public DateTime? published { get; set; }=null;
+
+          public int? commentDepth { get; set; }=0;
+          public bool hasComments { get; set; }=false;
+
+          public int likes { get; set; }=0;
+          public bool liked { get; set; }=false;
+
+        }
+
+        //updatable
+        News
+        {
+          
+          public Person author_ { get; set; }
+
+          public string pic {get;set;}=string.Empty;
+          public string name {get;set;}=string.Empty;               
+
+          [JsonProperty("content_")]
+          public virtual string content { get; set; }=string.Empty;
+          public string description { get; set; }=string.Empty;				
+
+          public bool liked { get; set; }=false;
+          
+          public DateTime? pinned { get; set; }=null;
+          public DateTime? published { get; set; }=null;
+
+        }
+        
+        //Author never edited from Edtors
+        //updatable from author
+        Commentary
+        {
+              
+          public string pic {get;set;}=string.Empty;
+          public string name {get;set;}=string.Empty;               
+
+          [JsonProperty("content_")]
+          public virtual string content { get; set; }=string.Empty;
+          public string description { get; set; }=string.Empty;
+          
+          public DateTime? published { get; set; }=null;
+
+          public bool liked { get; set; }=false;
+          
+          public DateTime? pinned { get; set; }=null;
+          public DateTime? published { get; set; }=null;
+
+        }
+
+        if "Name":null -> если null оставляем как в базе
+        if "Name":"" -> если явное "" empty перезаписываем в базе
+        
+        if author_:null or "" -> если пустое или null оставляем как в базе
+        
+        personReturn
+        { 
+          "GUID": "ba124b8e-9857-11e7-8119-005056813668",
+          "division": "Отдел поддержки прикладных систем",
+          "PGUID": "c1b0ff45-5cb1-11e7-8117-005056813668",
+          "phone": "1312",
+          "mail": "Neprintsevia@nspk.ru",
+          "Name": "Непринцев Илья Александрович",  
+          "shortFName": "Непринцев И. А.",
+          "description": "Главный специалист",
+          "itemTitleColor": "rgb(44,50,124)",
+          "templateName": "PersonTemplate",
+          "birthday": "09.03",
+          "colorClass": "c-dit",
+          "departmentName": "Департамент ИТ",
+          "login": "Neprintsevia"
+        }
+        
+        NoteReturn{
+          
+          author personReturn_ {get;set;}
+          
+          note_ {get;set;}
+          
+          commentaryCount {get;set;}
+          likesCount {get;set;}
+          
+        }
+        
+        //--------------------------------
+
+        ]
+        
+        ,Test API[
+          
+          Bulk[
+          
+
+    http://localhost:63282/api/news2/2
+    
+    
+          
+    http://localhost:63282/api/news2/10
+    http://localhost:63282/api/news2/45bdc4fa-5952-475f-a408-9a277b714bcb/2
+    http://localhost:63282/api/Quiz
+
+
+    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
+    http://msk1-vm-ovisp01:8184/api/Person/GetDepartment/kpa
+    http://msk1-vm-ovisp01:8184/api/Person/GetManager/kpa
+    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
+    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
+    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
+    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
+    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
+    http://msk1-vm-ovisp01:8184/api/Person/HoliVation/kpa
+
+    http://msk1-vm-ovisp01:8184/api/Person/HoliVationAcc
+
+    http://msk1-vm-ovisp01:8184/api/Person2/acc
+    http://msk1-vm-ovisp01:8184/api/news2/2
+    http://msk1-vm-ovisp01:8184/api/news2/b71bec8b-ebac-40ff-852b-ba2ba1bc6d81/2
+    http://msk1-vm-ovisp01:8184/api/Quiz
+            ]
+
+          , Api[
+
+    //Person
+    //////////////////////////////////////////////
+    GET
+    http://msk1-vm-ovisp01:8184/api/Person/Acc
+    NTLMAccountName
+
+    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
+    Юридическое управление
+
+    http://msk1-vm-ovisp01:8184/api/Person/GetDepartment/kpa
+    Организационно-правовой департамент
+
+    http://msk1-vm-ovisp01:8184/api/Person/GetManager/kpa
+    tishakovoi
+
+
+    //AdinTce
+    //////////////////////////////////////////////
+    GET
+    http://msk1-vm-ovisp01:8184/api/Person/Holivation/kpa
+    {"GUID":"348f1d6f-58ea-11e4-a7e1-00c2c66d13b0","Position":"Начальник управления","Holidays":[{"LeaveType":"Основной","Days":44.0},{"LeaveType":"За ненормированный рабочий день","Days":1.0}],"Vacations":[{"LeaveType":"Отпуск основной","DateStart":"07.08.2017","DateFinish":"20.08.2017","DaysSpent":14},{"LeaveType":"Отпуск основной","DateStart":"30.10.2017","DateFinish":"03.11.2017","DaysSpent":5}]}
+
+    GET
+    http://msk1-vm-ovisp01:8184/api/Person/HolivationAcc
+    {"GUID":"ba124b8e-9857-11e7-8119-005056813668","Position":"Главный специалист","Holidays":[{"LeaveType":"Основной","Days":7.0}],"Vacations":[]}
+
+
+
+    //Quiz
+    //////////////////////////////////////////////
+    GET
+    http://msk1-vm-ovisp01:8184/api/Quiz
+    [{"title":"Опросы","href":{"link":"http://my.nspk.ru/Quiz/Execute/","target":"_self"},"id":50,"parentid":1},{"title":"Title_500","href":{"link":"http://my.nspk.ru/Quiz/Execute/?#19:43","target":"_self"},"id":500,"parentid":50},{"title":"Title_501","href":{"link":"http://my.nspk.ru/Quiz/Execute/?#19:42","target":"_self"},"id":501,"parentid":50},{"title":"Title_502","href":{"link":"http://my.nspk.ru/Quiz/Execute/?#20:38","target":"_self"},"id":502,"parentid":50},{"title":"Title_503","href":{"link":"http://my.nspk.ru/Quiz/Execute/?#20:39","target":"_self"},"id":503,"parentid":50}]
+
+
+
+    //News
+    //////////////////////////////////////////////
+
+    Post news
+    [METHOD,URL,HEADER,BODY,RESPONSE]
+    POST
+    http://msk1-vm-ovisp01:8184/api/news2
+    Content-Type: application/json
+    {"authAcc":"Neprintsevia","pic":"","name":"TestNews3","content_":"news text","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false}
+    {"PGUID":"000","authAcc":"Neprintsevia","authGUID":"000","authName":"Neprintsevia","pic":"","name":"TestNews","content_":"","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"dac34a61-d01c-487c-8d1e-694f8383a21f","Created":"2017-12-19 09:54:59"}
+
+    Post comment
+    [METHOD,URL,HEADER,BODY,RESPONSE]
+    POST
+    http://msk1-vm-ovisp01:8184/api/news2/{NoteGUID}
+    Content-Type: application/json
+    {"authAcc":"Neprintsevia","pic":"","name":"TestComment1","content_":"comment text","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false}
+    {"pic":"","name":"TestComment1","content_":"comment text","description":"","commentDepth":1,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"0a35caf2-1045-47e2-bb41-46c931b6b1da","Created":"2017-12-19 09:57:09"}
+
+    Put News
+    [METHOD,URL,HEADER,BODY,RESPONSE]
+    PUT
+    http://msk1-vm-ovisp01:8184/api/news2
+    Content-Type: application/json
+    {"GUID":"dac34a61-d01c-487c-8d1e-694f8383a21f","authAcc":"Neprintsevia","pic":"","name":"TestComment2","content_":"comment text updated","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false}
+    {"pic":"","name":"TestComment2","content_":"comment text updated","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"dac34a61-d01c-487c-8d1e-694f8383a21f","Created":"2017-12-19 10:03:11"}
+
+    GET News\Comment with comments with depth
+    /Guid/depthOffset
+    http://msk1-vm-ovisp01:8184/api/news2/{NoteGUID}/2
+    [{"Name":"Commentary0","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":3,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"47eb0894-7fb1-4b24-aabd-77f264537678","Created":"2017-12-18 03:30:10"},{"Name":"Commentary6","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":4,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"288fdabd-66c1-4042-be81-d7ff18d864b2","Created":"2017-12-18 03:30:10"},{"Name":"Commentary4","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":5,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"16f8988e-beb5-419a-bfb3-f00da0e57af2","Created":"2017-12-18 03:30:10"},{"Name":"Commentary8","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":6,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"01396598-0a21-476e-b566-98765f9e2011","Created":"2017-12-18 03:30:10"},{"Name":"Commentary5","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":6,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"0a4d8a0b-b034-4249-a717-0bf32fa22034","Created":"2017-12-18 03:30:11"}]
+
+    GET get News with depth
+    http://msk1-vm-ovisp01:8184/api/news2/5
+    [{"Name":"Real news","pic":"","name":"","content_":"","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"057ba719-bd7e-4827-84b9-33f013765e4a","Created":"2017-12-18 03:28:03"},{"Name":"News1","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"a47a360a-33d7-46fd-8132-0dcdb4aa88fb","Created":"2017-12-18 03:30:09"},{"Name":"News1","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"73e24beb-84bb-4c55-9735-830412a807ea","Created":"2017-12-18 03:30:09"},{"Name":"News0","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"edec4cc2-d66c-4d51-8691-a762e763abf3","Created":"2017-12-18 03:30:09"},{"Name":"News0","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"82f83601-d5cd-4108-b1b7-d27ac5a3933a","Created":"2017-12-18 03:30:09"}]
+
+          ]
+
+        ]
+        
+        ,[TODO
+
+  >> todo
+  add personsource UOW to manager
+  manager generator 
+  << done
+
+  >>
+  Test Repo, UOWs
+  <-integrateion tests added+db boilerplate generate
+  << done
+ 
+  >>
+  Ref repo
+    >>property specific methods.Methods receive only condition in form of string.
+    >>Property specific moove to UOW.Methods with Strings to condition.
+    >>Remove instances where types needed.
+
+
+  >>
+  Like
+  (Person) - [Like] -> (Object)
+  Tags //editable by hardcode string acc group to every tag
+  (Person)->[Tag{Text}]->(News)
+  (Tag{"tagName":""}) - [Tags] -> (Object)
+  Publish,Pinn>>
+  {"Published"=datetime.now,"Pinned"=datetime.now}
+
+  >>
+  new return object from Note and Person
+  >>
+  return object Person card
+
+        ]
+        
+        ,[DONE
+  
+  >>Move repo initialization from UOWs to external. UOW receives Manager  << done
+  >>Move all build repo and requesting bock into methods.  << done
+  
+  TokenBuilder -> rewrite <-done
+  Add patterns for common command signatures in separate class -> rewrite  <-done
+  Command class add chaining -> rewrite  <-done
+      
+  Rspo -> string to URL -> rewrite or depricate  <-done
+  UOW -> tokens and collections to string with typeconverter -> rewrite or depricate  <-done
+        
+  <<Methods >> <- done
+  post
+  published no
+
+  <<new get/news/count/depth>>  <- done
+  published null <=sysdate
+
+
+  <<PUT >> <- done
+  update account author
+  change auth_ person to personAcc
+
+  <<PUT rules <- done
+  public T UpdateObjects<T>()
+        ]
+      
+      }
+        
+      ,{NOSQLmanager
+             
+        
+        {URlbuilder test
+                
+          http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
+
+          { "transaction" : true,
+            "operations" : [
+            {
+              "type" : "script",
+              "language" : "sql",
+              "script" : [ "INSERT INTO Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}",
+                     "INSERT INTO Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+                     ]
+            }
+            ]
+          }
+
+
+          { "transaction" : true,
+            "operations" : [
+            {
+              "type" : "script",
+              "language" : "sql",
+              "script" : [
+               "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+               ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+              ]
+            }
+            ]
+          }
+
+
+          "http://msk1-vm-ovisp02:2480/connect/news_test3"
+          "http://msk1-vm-ovisp02:2480/command/news_test3/sql"
+          "Select from Person"
+          "where 1=1"
+          http://msk1-vm-ovisp02:2480/command/news_test3/sql/Select from Person where 1=1
+
+
+          Create Vertex Person content {"Created":"2017-10-27T14:45:11.3738136+03:00","GUID":"0","Changed":"2017-10-27T14:45:11.3733119+03:00","Name":"0"}
+          Create Vertex Person content {"Created":"2017-10-27 14:55:02","GUID":"0","Changed":"2017-10-27 14:55:02","Name":"0"}
+
+          http://msk1-vm-ovisp02:2480/command/news_test3/sql/Create Vertex Person content 
+          {"Created":"2017-10-27 14:55:02","GUID":"0","Changed":"2017-10-27 14:55:02","Name":"0"}
+
+          Create Vertex Person content {\"Created\":\"2017-01-01 00:00:00\",\"GUID\":\"0\",\"Changed\":\"2017-01-01 00:00:00\",\"Name\":\"0\"
+          }
+          
+          Create Vertex Person content {"Created":"2017-10-27 15:03:08","GUID":"0","Changed":"2017-10-27 15:03:08","Name":"0"}
+                  
+          Delete Vertex Person where "Name" = "0"
+          
+          http://msk1-vm-ovisp02:2480/command/news_test3/sql/Delete Vertex Person where Name = 0
+                                
+        }
+      
+        ,{TODO
+
+  -> RepoFactory add interaface parameters
+  -> extend with ability to load tokens from model class
+  -> add all tokens to tokenlist
+  -> Moove builders and command invokers to Generic
+  -> Tokens to static?
+  -> add authentication timer for orient connection
+  -> add interface segregation for different token types => {IdataType, ICreateType}
+  -> add logging
+
+        }
+        
+        ,{DONE
+  -> manager class added. UOWs splitted. Check for manager to Controller.
+  -> change class inheritance for type converter, only 2 lvl allowed and basetype is used <- done
+  -> move TextBuider Build to new class above TextBuiler? to contain collections of tokens with formats <- done Token+foramt->shcema->builder
+  -> Custom formatter generation, for builder formats, moove from strings to class <-done
+  -> token format generation from string rewrite <-done
+  -> extend token format generator for collection and array of delimeters
+  signature: tg(Ienumerable<Tokens> tk,string[] delimeters) <- done
+        }
+          
+        
+      }
+
+      ,{Servers
+            
+        лицухи tfs 2017
+
+        васильев 
+        максимов
+
+        заказ сервера helpdesk
+
+      }
+            
+      ,{Quiz:
+      
+        {Overall
+      
+
+  {"menu" : [
+           {"title":"Сотруднику", "href":{"link":0, "target":"_self"} ,"id":1, "parentid" : 0}
+          ,{"title":"Скидки",  "href":{"link":"http://list.nspk.ru/sale/", "target":"_blank"} ,"id":11, "parentid" : 1}
+          ,{"title":"Фотоальбом",  "href":{"link":"https://photo.nspk.ru/", "target":"_blank"} ,"id":12, "parentid" : 1}
+          ,{"title":"Tutor",  "href":{"link":"http://tutor.nspk.ru/", "target":"_blank"} ,"id":10, "parentid" : 1}
+          ,{"title":"Мировое радио",  "href":{"link":"http://nspk.online/", "target":"_blank"} ,"id":17, "parentid" : 1}
+          ,{"title":"MyBook",  "href":{"link":"http://nspk.mybook.ru/", "target":"_blank"} ,"id":16, "parentid" : 1}
+          ,{"title":"Оргструктура",  "href":{"link":"chart/", "target":"_blank"} ,"id":13, "parentid" : 1}
+          ,{"title":"FAQ",  "href":{"link":"http://list.nspk.ru/faq/", "target":"_blank"} ,"id":15, "parentid" : 1}
+          ,{"title":"Список сотрудников",  "href":{"link":"files/list.xlsx", "target":"_blank"} ,"id":14, "parentid" : 1}
+          ,{"title":"Листок достижений",  "href":{"link":0, "target":"_self"} ,"id":18, "parentid" : 1}
+          ,{"title":"Май",  "href":{"link":"http://list.nspk.ru/may/", "target":"_blank"} ,"id":181, "parentid" : 18}
+          ,{"title":"Июнь",  "href":{"link":"http://list.nspk.ru/june/", "target":"_blank"} ,"id":182, "parentid" : 18}
+          ,{"title":"Июль",  "href":{"link":"http://list.nspk.ru/july/", "target":"_blank"} ,"id":183, "parentid" : 18}
+          ,{"title":"Август",  "href":{"link":"http://list.nspk.ru/august/", "target":"_blank"} ,"id":184, "parentid" : 18}
+          ,{"title":"Сентябрь",  "href":{"link":"http://list.nspk.ru/september/", "target":"_blank"} ,"id":185, "parentid" : 18}
+          ,{"title":"Системы",  "href":{"link":0, "target":"_self"} ,"id":2, "parentid" : 0}
+          ,{"title":"Help",  "href":{"link":"http://help.nspk.ru/", "target":"_blank"} ,"id":21, "parentid" : 2}
+          ,{"title":"Jira",  "href":{"link":"http://jira.nspk.ru/", "target":"_blank"} ,"id":22, "parentid" : 2}
+          ,{"title":"Confluence",  "href":{"link":"http://confluence.nspk.ru/pages/viewpage.action?pageId=10380689", "target":"_blank"} ,"id":23, "parentid" : 2}
+          ,{"title":"RealTimeFeadback",  "href":{"link":"https://go-only.com/", "target":"_blank"} ,"id":24, "parentid" : 2}
+          ,{"title":"МИР НСПК - Узнай первым",  "href":{"link":"https://t.me/joinchat/ANiZ5z8Ovkz0DcDtzG_nng/", "target":"_blank"} ,"id":25, "parentid" : 1}
+          ,{"title":"В рабочем порядке",  "href":{"link":0, "target":"_self"} ,"id":19, "parentid" : 1}
+          ,{"title":"02.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/02.10.17.pdf", "target":"_blank"} ,"id":191, "parentid" : 19}
+          ,{"title":"09.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/09.10.17.pdf", "target":"_blank"} ,"id":192, "parentid" : 19}
+          ,{"title":"16.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/16.10.17.pdf", "target":"_blank"} ,"id":193, "parentid" : 19}
+          ,{"title":"23.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/23.10.17.pdf", "target":"_blank"} ,"id":194, "parentid" : 19}
+          ,{"title":"30.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/30.10.17.pdf", "target":"_blank"} ,"id":195, "parentid" : 19}
+          ,{"title":"13.11.17",  "href":{"link":"http://list.nspk.ru/wa/13.11.17/", "target":"_blank"} ,"id":196, "parentid" : 19}
+          ,{"title":"27.11.17",  "href":{"link":"http://list.nspk.ru/wa/27.11.17/", "target":"_blank"} ,"id":197, "parentid" : 19}
+          ,{"title":"04.12.17",  "href":{"link":"http://list.nspk.ru/wa/04.12.17/", "target":"_blank"} ,"id":198, "parentid" : 19}
+      ,{"title":"Благотворительность",  "href":{"link":"http://list.nspk.ru/charity/", "target":"_blank"} ,"id":110, "parentid" : 1}
+      
+  ]}
+
+
+
+  mR%mzJUG1qE
+  I9grekVmk5g
+
+  http://msk1-vm-ovisp01:443/api/Quiz/Execute/?id=20:60
+  http://msk1-vm-ovisp01:80/api/Quiz/Execute/?id=20:60
+  http://msk1-vm-ovisp01:443/Quiz/Execute/?id=20:60
+  http://msk1-vm-ovisp01:80/Quiz/Execute/?id=20:60
+
+  http://msk1-vm-indb01:2480
+  http://msk1-vm-ovisp02:2480
+  Intranet
+  Quiz
+
+
+  [
+
+  {"title":"Опросы", "href":{"link":0, "target":"_self"} ,"id":50, "parentid" : 1}
+
+
+  [
+  {"href":{"target":"_self"},"ID":500,"parentID":50}
+  ,{"title":"Опросы","href":{"link":"","target":"_self"},"ID":50,"parentID":1}
+  ,{"title":"","href":{"target":"_self"},"ID":50,"parentID":0}
+  ]
+
+
+  title QuizName (27...)
+  status -> State (!Finished,Published only)
+  data->today StartDate  today
+  href:link http://my.nspk.ru/Quiz/Execute/
+  "target":"_blank"
+  id >= 500
+  parentid 50
+
+  ]
+
+
+  select from Quiz
+  /*where QuizName like '%зрени%'*/
+  where StartDate between '2017-11-10 00:00:00' and '2018-07-11 00:00:00'
+
+  Comment
+  News
+  Question
+  Quiz
+  QuizResult
+  WeatherInformation
+
+  Answers
+  Label
+  Profile
+
+  http://my.nspk.ru/Quiz/Execute/19:5
+
+  http://msk1-vm-ovisp01/nspk.ru
+
+  create index Person.Name_sAMAccountName_mail on Person (Name,sAMAccountName,mail) FULLTEXT ENGINE LUCENE;
+  create index OFunction.name on OFunction (Name) UNIQUE_HASH_INDEX;
+  ALTER PROPERTY VSC.Seed DEFAULT "sequence('intranet_seed').next()";
+
+
+  Get()
+  st <= curdate 
+  fn > curdate
+  Get(-4)
+
+
+        }
+        
+        ,{Db Orient script
+
+  select from Quiz where State ='Published' and StartDate between '2017-12-06 00:00:00' and '2018-07-30 00:00:00'
+  create vertex Quiz content {"StartDate":"2017-12-03 17:01:01","State":"Published","EndDate":"2018-12-04 01:01:01","QuizDescription":"test quiz with large finish date for publishing","Title":"Test quiz title2"}
+
+        }
+        
+      }
+    
+    ]
+    
+    ,draft[
+        public Utility
+          {
+            
+            public NSQL 
+            {
+                      
+              
+              public ClassSegregation 
+              {
+
+              
+          //shema
+          .select()=>select+gap
+          .from()=>from+ITk
+          .batch()
+
+              
+          //command
+          .select(T,V)=>shema.select(T)+shema from(V) LEFTINTEND
+
+
+          //context
+          << host,dbname
+          new Context(string host,string dbname
+          ,webRequestManager wm
+          ,webResponseReader wr
+          ,UrlShemasExplicit urlShemas_){
+            webRequestManager.SetBase64AuthHeader(string orientAuth);
+          }
+
+          Context.CreateDb(){
+            createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+          }
+          Context.DropDb(){
+            dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
+          }
+          Context.Command(ICommandBuilder cmd){
+            urlCommand=_urlShemas.Command(dbName).Build().GetText();
+            buildRequest();
+            createClass=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+          }
+          Context.Batch(ICommandBuilder cmd){
+            urlCommand=_urlShemas.Batch(dbName).Build().GetText();
+            buildRequest();
+            insertPerson=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+          }
+          internal buildRequest(){
+            urlDatabase=_urlShemas.Database(dbName).GetText();
+            webRequestManager.AddRequest(urlDatabase);
+            webRequestManager.SetCredentials(nc);
+          }
+          string fireRequest(){
+            webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
+          }
+
+
+          //Repo
+          << Context _context,T<Vertex|Edge>
+          new Repo<T>(Context _context)
+          _repo.ChangeContext(Context context_){this._context=context_;}
+          //create class
+          <class> _repo.Create<class>(ITypeToken T);
+          //create class extends
+          <class> _repo.Create<class,extendes>(ITypeToken T,ITypeToken V);
+          //create Vertex or property
+          <Vertex|Property> _repo.Create<Vertex|Property>(T type_,ICommandBuilder _content=null);
+          //create Edge
+          <Edge> _repo.Create<Edge,fromID,toId>(ITypeToken Edge,ITypeToken idfrom,ITypeToken idTo,ICommandBuilder _content=null);
+          //delete Vertex or Edge
+          <string> _repo.Delete(ITypeToken id);
+          //delete property 
+          <string> _repo.Delete<Property>(ITypeToken id);
+          //select Vertex or Edge [where]
+          <Vertex|Edge> _repo.Select<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
+          //update Vertex or Edge [where]
+          <Vertex|Edge> _repo.Update<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
+
+
+          //Type converter
+          (UOW)-[TypeConverter{Type->ITtypeToken}]->(Repo)
+
+
+          //UOW
+          //IUOW
+          new UOW(ContextFactory_,RepoFactory_,TypeConverter tc,string host_,string dbName_);
+          //UOW
+          new UOW(context_,repo_,_typeConverter,string host_,string dbName_);
+          _uow.ChangeHost(string host_){}; => recreate context
+          _uow.ChangeDb(string dbName_){}; => recreate context
+
+          //for vertex creation
+          _uow.Create<IorientObject>(Iobj) => convert to vertex ItypeToken, if  and to content if not null
+          //for vertex creation
+          _uow.Create<IorientObject>(Iobj)
+
+              }
+              
+              public Node reference shemas
+              {
+                
+             Node reference shemas. Minimum and explicit[
+
+        [Simplified overall
+        ()-[]->()
+        Node type,reference types, reference types, directions, node type
+        (Nd){-|=|..+}[Rf]-{<|>}(Nd)
+        ],	
+        [Detailed Minimal possible 
+        {
+        (Node)-[Ref]->(Node)
+        One type reference to same type Node
+        }
+        0->0
+        ],
+        [Detailed Minimal explicit 
+        (cannot be complexed with quality only with quantity of directions and types, which leads to pattern)
+        {
+        [NodeB]=[Ref2]=>NodeO)-[Ref1]->(NodeA)
+        one type reference r1 from one type node O 
+        to other type node A 
+        and other type reference r2 to other type node B 
+        with other direction
+        }
+
+        0
+        -[r1]->A
+        <=[r2]=B
+        ]
+
+        ]  
+              
+              }
+              
+              public Select{
+                
+        //select news
+        select expand(
+        outE('Authorship').inV('Note').inE('Comment').outV('Note')
+        )from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
+
+        //select comments
+        select  from (
+        select expand(
+        outE('Authorship').inV('Note')
+        )from Person where @rid=#73:1 )
+        where 1=1 and inE('Comment')[0].@rid!=''
+
+        Check comment class -> inE('Comment').@size[0] != ''
+        Post,Delete, Put, Get Notes by person, Get Author by Note
+        (person)-[author]->(Note)
+
+        Post,Delete,Put, Get Comments By Person,Comments by News
+        (person)-[author]->(Note)-[comment]->(Note)
+
+              }
+              
+            }
+          
+          }
+    ]
+
+  ]
 		
-		}
 
 		public class Mastery
 		{
-II:Mastery
-0 Polinom Parse -> parse *^/ to expressions and add priorities for exprs
+
+0 Polinom Parse {
+    parse *^/ to expressions and add priorities for exprs
+  },
 0 Command line Console parameters parse app dll -> to SB
 0 Multithread socket message ping pong -> to SB
 0 CollectionsComparison -> to SB
@@ -850,8 +1735,9 @@ II:Mastery
 		
 		public class Miscellaneous
 		{
-			
-public EmtityFrameworkClassShema{
+				
+
+public EntityFrameworkClassShema{
 	
 	Tests{
 FunctionalTests{
@@ -887,7 +1773,6 @@ DbContext.cs{]
 }
 
 }			
-
 	IV:Miscellaneous ˌmɪs(ə)'leɪnɪəs
 Actual:
 TODO to JSON;
@@ -905,8 +1790,8 @@ Revise:
 		
 		{GitLab
 
-		repository withot ".git"
-		http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
+			repository withot ".git"
+			http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
 
 		},
 		
@@ -916,110 +1801,112 @@ Revise:
 			public InitializeNewRepo()
 			{
 				
-	echo "# NSQLmanager" >> README.md
-	git init
-	git add README.md
-	git commit -m "first commit"
-	git remote add origin https://github.com/imp908/NSQLmanager.git
-	git push -u origin master
+echo "# NSQLmanager" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin https://github.com/imp908/NSQLmanager.git
+git push -u origin master
 				
-			}			
+			}
+			
 			
 			public BranchMerge()
 			{// Master->br1. stage 1 master+ stage 2 master+ br1--
 
-	Short:
-	https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
+Short:
+https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
 
-	Long:
+Long:
 
-	stage1
-	inital deploy
-	short: {
-	create
-	commit
-	push
-	}
-	\\\\\\
-	detailed
-	//Initial deploy
+stage1
+inital deploy
+short: {
+create
+commit
+push
+}
+\\\\\\
+detailed
+//Initial deploy
 
-	>>Create repo
+>>Create repo
 
-	cd PATH
-	git init
-	git commit –m "initial commit"
-	git remote add origin GITPATH
-	git push origin master
+cd PATH
+git init
+git commit –m "initial commit"
+git remote add origin GITPATH
+git push origin master
 
-	stage2
-	//////
-	get cahnges from master to br1
-	short: {
-	pull br want to update,
-	checkout branch want to update,
-	pull branch(master) from what to get
-	}
-	\\\\\\
-	//Pull changes from master to branch (changes in master were made,commited and pushed)
-	>>branch git project
+stage2
+//////
+get cahnges from master to br1
+short: {
+pull br want to update,
+checkout branch want to update,
+pull branch(master) from what to get
+}
+\\\\\\
+//Pull changes from master to branch (changes in master were made,commited and pushed)
+>>branch git project
 
-	cd PATH_branch1
-	git init
-	//(if not set) 
-	git remote add origin GITPATH
-	//+ if no branch1 files are in direcory
-	git pull origin br1
-	git checkout gm br1
-	//get changes from master to br branch
-	git pull origin master
-	git push origin br1
+cd PATH_branch1
+git init
+//(if not set) 
+git remote add origin GITPATH
+//+ if no branch1 files are in direcory
+git pull origin br1
+git checkout gm br1
+//get changes from master to br branch
+git pull origin master
+git push origin br1
 
-	stage3
-	added method in master file
-	deleted file in br
-	deleted method in br
-	changed method in br
-	//////
+stage3
+added method in master file
+deleted file in br
+deleted method in br
+changed method in br
+//////
 
-	repeat Stage2: 
-	{
-	pull br1
-	checkout br1,
-	pull master
-	}
+ repeat Stage2: 
+{
+pull br1
+checkout br1,
+pull master
+}
 
-	CONFLICT: automatic merge failed
+CONFLICT: automatic merge failed
 
-	Resolve conflicts in web or descktop or cmd
+Resolve conflicts in web or descktop or cmd
 
 
 
-	stage4:
-	///////
-	added files to master
+stage4:
+///////
+added files to master
 
-	repeat stage2:
-	{
+repeat stage2:
+{
 	//if no files in 
 	pull br1
 	checkout br1
 	pull master
 	//added files added
 	push br1
-	}
+}
 
 
 
-			}
-						
-			public DeleteMaster()
-			{ //not working
-			https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
-			git symbolic-ref HEAD refs/heads/another-branch
-			http://matthew-brett.github.io/pydagogue/gh_delete_master.html
 			}
 			
+			
+			public DeleteMaster()
+			{ //not working
+				https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
+				git symbolic-ref HEAD refs/heads/another-branch
+				http://matthew-brett.github.io/pydagogue/gh_delete_master.html
+      }
+      
 			PullProgects
 			{
 				
@@ -1038,8 +1925,10 @@ Revise:
 				
 			}
 			
+      
 			overall 
 			{
+			
 			MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
 			git pull origin branchname --allow-unrelated-histories			
 			//recommended
@@ -1070,8 +1959,7 @@ Revise:
 			
 			REMOVE REPO
 			git remote rm origin
-				
-			//filemanager
+      //filemanager
 			gitk
 			
 			//log commits
@@ -1083,8 +1971,7 @@ Revise:
 			
 			git-ls-tree 
 			git-ls-remote
-			}
-		
+      }
 		}
 
 	}
@@ -2212,7 +3099,7 @@ StringBuilder.
 				public void ConsoleManager()
 				{https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
 				
-					//install all projects
+          //install all projects
 					Get-Project -All | Install-Package packageName
 				
 					//install in project subset
@@ -2235,11 +3122,6 @@ StringBuilder.
 					Install-Package xunit.runner.console
 					Install-Package xunit.runner.visualstudio
 					
-Get-Project -All | Install-Package xunit.assert
-Get-Project -All | Install-Package xunit.core
-Get-Project -All | Install-Package xunit.extensibility.core
-Get-Project -All | Install-Package xunit.extensibility.execution
-
 					Update-Package -Reinstall
 					
 					//system.web.hhtp
@@ -2253,20 +3135,18 @@ Install-Package moq -ProjectName NSQLManagerIntegrationTests
 Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
 Install-Package Microsoft.AspNet.WebApi -ProjectName NSQLManagerIntegrationTests
 
-Install-Package NUnit -ProjectName NSQLManagerTests
-Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerTests
-Install-Package NUnit.Console -ProjectName NSQLManagerTests
-Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerTests
-
-				}
-				
+Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 				public void ConfigurationManager()
 				{
 					reference 
-					FRAMEWORKS -> System.Configuration					
+					FRAMEWORKS -> System.Configuration
+					
 				}
-				
-				public void WebDeploy()
+			
+        public void WebDeploy()
 				{
 					Web Deploy
 					//host name without urls or ports
@@ -2280,7 +3160,6 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerTests
 					//site url with protocol and port
 					http://newstest2:8184
 				}
-				
 			}
 			
 			public void MSbuild()
@@ -2299,972 +3178,976 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerTests
 				
 			public class Unsorted
 			{
-					
-				//delete from oracle table and link parametrized insert command to connection
-				public class oracle_queries(){
-				oracleConnection.Open();
-				oracleDeleteCommand.Connection = oracleConnection;
-				oracleDeleteCommand.CommandText = oracleQueriesBank.unparametrizedDelete;
-				oracleDeleteCommand.ExecuteNonQuery();
-
-				OracleCommand oracleInsertCommand = new OracleCommand();
-				oracleInsertCommand.Connection = oracleConnection;
-				oracleInsertCommand.CommandText = oracleQueriesBank.parametrizedInsert;
-
-				oracleConnection.Open();
-				oracleTablePresence.Connection = oracleConnection;
-				oracleTablePresence.CommandText = oracleQueriesBank.tablePresenceTest;
-				oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
-				tablecount = oracleTablePresence.ExecuteScalar().ToString();
-
-				oracleTablePresence.CommandText = oracleQueriesBank.tableColumnTest;
-				oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
-				oracleTablePresence.Parameters.Add(new OracleParameter("columnname", "ID_MERCHANT"));
-				columncount = oracleTablePresence.ExecuteScalar().ToString();
-
-				connectionInitialize(oracleConnection);
-				OracleCommand oracleTableCount = new OracleCommand();
-				oracleConnection.Open();
-				oracleTableCount.Connection = oracleConnection;
-				oracleTableCount.CommandText = oracleQueriesBank.unparametrizedRowCount;
-
-				oracleTableCount.CommandText = oracleQueriesBank.tableColumnTest;
-				rowcount = oracleTableCount.ExecuteScalar().ToString();
-				}
-
-				//oracle service query texts
-				public class servise_queries(){
-				//used for parametrized insert from import datagridview to oracle table
-				//occurs in dataGridView_Import_DoubleClick throught OracleQueryExecutor class
-				sampleInsert = "insert into merchant_list (ID_MERCHANT) values ('test_val')";
-
-				unparametrizedDelete = "delete from merchant_list";
-				parametrizedInsert = "insert into merchant_list values (:value)";
-				unparametrizedRowCount = "select max(rownum) from merchant_list";
-
-				//used for detecting marchant_list table presence and it's creation
-				tablePresenceTest = "select max(rownum) from user_tables where table_name = (:tablename)";
-				//detecting rownumbers in table
-				tableColumnTest = "select max(rownum) from user_tab_columns where table_name = (:tablename) and column_name = (:columnname)";
-				createTable = "create table MERCHANT_LIST (ID_MERCHANT varchar(50))";
-				}
-
-				//SERIALIZE DESERIALIZE
-				public class serealization_deserialization(){
-				public void Serialize(String path, List<OracleQueriesListClass> myArray)
-				{
-				BinaryFormatter formatter = new BinaryFormatter();
-				using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.Write))
-				{
-				formatter.Serialize(stream, myArray);
-				}
-				}
-
-				public List<OracleQueriesListClass> DeserializeList(String path)
-				{
-				BinaryFormatter formatter = new BinaryFormatter();
-				using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
-				{
-				List<OracleQueriesListClass> myList = (List<OracleQueriesListClass>)formatter.Deserialize(stream);
-				return myList;
-				}
-				}
-				}
-
-				//app setting connstrings example
-				public class connstrings(){
-
-				//requesting connString from appsettings
-				System.Configuration.ConfigurationSettings.AppSettings["ConnectionString"];
-				System.Configuration.ConfigurationManager.ConnectionStrings["connectionStringName"].ConnectionString;
-				</startup>
-				<appSettings>
-				<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch" />
-				<add key="ClientSettingsProvider.ServiceUri" value="" />
-				<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;" />
-				</appSettings>
-				}
-
-				public class ExcelIntegration(){
-					
-
-				//create excel xlsx with OPEN xml
-				private void OPENxmlCreate(){
-				string fileName = @"C:\111\test.xlsx";
-				using (SpreadsheetDocument document = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook))
-				{
-				WorkbookPart workbookPart = document.AddWorkbookPart();
-				workbookPart.Workbook = new Workbook();
-
-				WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-				worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-				Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
-
-				Sheet sheet = new Sheet() { Id = workbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Test Sheet" };
-
-				sheets.Append(sheet);
-
-				workbookPart.Workbook.Save();
-				}
-				}
-
-				}
-
-				/////
-
-				//connection strings
-				public void connectionStrings()
-				{
-
-				//connection to local SQL express from MVC
-				//<add name="BookContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=text_db;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
-
-				//<add name="SoocerContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=tempdb;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
-
-				//connection from console app
-				//string connectionString = @"Initial Catalog=tempdb;Data Source=.\SQLEXPRESS2;Integrated Security=SSPI;";
-
-				//string connectionStringORCL = @"User Id=neprintsev_ia; password = awsedrDRSEAW; Data Source = dwh.rs.ru; Pooling=false;";
-				//string connectionStringSQL = @"Data Source=.\SQLEXPRESS;Initial Catalog=DWH_replica;Integrated Security=SSPI;";
-
-				}
-
-				//----------------------------------------------
-				public void MVC_templates()
-				{
-
-				//view add button with rediraect
-				<input type="button" value="ClickMe" onclick="location.href='@Url.Action("Migrate","Home")'"
-
-				//view submit button
-				<input type="submit" value="Save" class="btn btn-default" />
-
-				//view actionlink
-				@Html.ActionLink("Back to List", "Index")
-
-				// Refresh model in controller if passing values after changes in layer
-				if(ModelState.IsValid)
-				{
-				ModelState.Clear();
-				}
-
-				//start wcf service async
-				Task.Run(() => migrateService.migrate_((DateTime)DateFrom, (DateTime)DateTo));
-
-				//one of multiple buttons
-				//controller part
-				[HttpPost]
-				[MultipleButton(Name = "action", Argument = "Stop")]
-				public ActionResult Stop(int ID, DateTime? DateFrom, DateTime? DateTo)
-				{}
-
-				//view part
-				<td>
-				<input type="submit" value="Stop" name="action:Stop" />
-				</td>
-
-				//pass multiple parameters to controller from view
-				<td>
-				<input type="text" id="DateTo" name="DateTo" value="@tab.DateTo" />
-				</td>
-
-				//parametrized groupping linq to entity
-				var a = from s in db.FD_ACQ_D
-				where DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month,01,0,0,0) ==
-				DbFunctions.CreateDateTime(fromDate.Year, fromDate.Month, 01, 0, 0, 0)
-				group s by new { DT_REG= DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month, 01, 0, 0, 0), TYPE_TRANSACTION=s.TYPE_TRANSACTION, PAY_SYSTEM=s.PAY_SYS} into g
-				select new
-				{
-				DT_REG = g.Key.DT_REG,
-				TYPE_TRANSACTION = g.Key.TYPE_TRANSACTION,
-				PAY_SYSTEM=g.Key.PAY_SYSTEM,
-				AMT = g.Sum(s => s.AMT)
-				};
-				foreach(var b in a)
-				{
-				this.FD_ACQ_D.Add(new FD_RES { DT_REG = b.DT_REG, TYPE_TRANSACTION = b.TYPE_TRANSACTION, AMT = b.AMT, PAY_SYS=b.PAY_SYSTEM });
-				}
-
-
-				//return json from controller public string GetJson()
-				{
-				ml.GetACQ(db);
-				string jsn = JsonConvert.SerializeObject(ml.FD_ACQ_D);
-				return jsn;
-				}
-
-				}
-
-				//json serialization with newtonsoft dll
-				public void jsonserialization()
-				{
-
-				string json2 = JsonConvert.SerializeObject(jst1, Formatting.Indented);
-				File.WriteAllText(@"C:\test\insert\json.json", json2);
-
-				string json3 = "";
-				json3 = File.ReadAllText(@"C:\test\insert\json.json");
-				json_tst_par jDes = JsonConvert.DeserializeObject<json_tst_par>(json3);
-
-				}
-
-				public void StoreValuesToSettings()
-				{
-
-				//storing values to settings
-				WindowsFormsApplication2.Properties.Settings.Default.Upgrade();
-				//changes
-				WindowsFormsApplication2.Properties.Settings.Default.Save();
-
-				//Initializing Form Elements in form methods
-				TextBox tb = (TextBox)sender;
-
-				//datetime defenition
-				DateTime dt = new DateTime(1, 1, 1, 0, 0, 0)
-				}
-
-				//default connection strings for oracle and excel
-				public void connectionStrings()
-				{
-				<appSettings>
-				<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch;" />
-				<add key="ClientSettingsProvider.ServiceUri" value="" />
-				<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;Pooling=false;" />
-				</appSettings>
-				}
-
-				//List object on excel list REFRESH
-				if (lob.Name == liobName)
-				{
-				lob.QueryTable.CommandText = queryText__;
-				lob.QueryTable.Connection = connectionString;
-				lob.QueryTable.BackgroundQuery = true;
-				lob.QueryTable.SaveData = true;
-				lob.QueryTable.EnableRefresh = true;
-				//lob.QueryTable.Refresh(false);
-				try
-				{
-				lob.QueryTable.Refresh(false);
-				}
-				catch (Exception e)
-				{
-
-				}
-				}
-
-				//List object on excel list PLACE
-				if (ws.Name==wsName)
-				{
-
-				ExcelInterop.Range worksheetRange = ws.get_Range("A1");
-				string tableName=Path.GetRandomFileName().Replace(".","");
-				tableName = Regex.Replace(tableName, @"\d", "");
-
-
-				ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
-				((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
-
-				//ListObject.QueryTable.CommandText = ((object)excelCommand);
-				ListObject.QueryTable.CommandText = ((object)queryText__);
-				ListObject.QueryTable.RowNumbers = false;
-				ListObject.QueryTable.FillAdjacentFormulas = false;
-				ListObject.QueryTable.PreserveFormatting = true;
-				ListObject.QueryTable.RefreshOnFileOpen = false;
-				ListObject.QueryTable.BackgroundQuery = true;
-				ListObject.QueryTable.SavePassword = false;
-				ListObject.QueryTable.SaveData = true;
-				ListObject.QueryTable.AdjustColumnWidth = true;
-				ListObject.QueryTable.RefreshPeriod = 10;
-				ListObject.QueryTable.PreserveColumnInfo = true;
-				ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
-				ListObject.QueryTable.EnableRefresh = true;
-				ListObject.QueryTable.Refresh(false);
-
-				}
-
-				//searchs all processes and finds id for passed main window title
-				//apl.Caption for excell aplications
-				public int GetProcessIdByWindowTitle(string windowTitle)
-				{
-
-				int processID;
-				processID = 0;
-				foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
-				{
-				if (proc.MainWindowTitle == windowTitle)
-				processID = proc.Id;
-				}
-				return processID;
-				}
-
-				//kills process with current ID
-				public void processKill(int ID)
-				{
-				foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
-				{
-				if (proc.Id == ID)
-				proc.Kill();
-				}
-				}
-
-				//creates file for current excel workbook with path
-				public void fileSave(ExcelInterop.Workbook wb, string OutputFileName)
-				{
-				if (!Directory.Exists(Path.GetDirectoryName(OutputFileName)))
-				{
-				Directory.CreateDirectory(Path.GetDirectoryName(OutputFileName));
-				}
-
-				wb.SaveAs(OutputFileName, ExcelInterop.XlFileFormat.xlWorkbookDefault,
-				Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-				ExcelInterop.XlSaveAsAccessMode.xlExclusive,
-				Missing.Value, Missing.Value, Missing.Value,
-				Missing.Value, Missing.Value);
-				wb.Close();
-				}
-
-				//correct excel application killing
-				public void ExcelApplicationTest()
-				{
-				xlNS.Application apl2;
-				apl2 = new xlNS.Application();
-
-				xlNS.Workbooks wbs2;
-				wbs2 = apl2.Workbooks;
-
-				xlNS.Workbook wb2;
-				xlNS.Worksheet ws2;
-
-				 
-
-				if(!File.Exists(ExcelPath))
-				{
-				wb2 = wbs2.Add(xlNS.XlWBATemplate.xlWBATWorksheet);
-				//ws2 = (xlNS.Worksheet)wb2.Worksheets[1];
-				wb2.SaveAs(ExcelPath);
-				}
-				else
-				{
-				wb2 = wbs2.Open(ExcelPath);
-				}
-
-				wb2.Close();
-				apl2.Quit();
-				wbs2.Close();
-
-				Marshal.ReleaseComObject(wb2);
-				Marshal.ReleaseComObject(wbs2);
-				Marshal.ReleaseComObject(apl2);
-
-				wb2 = null;
-				apl2 = null;
-				wbs2 = null;
-
-				}
-
-				//Opens filedialog and inserts results from excel to datagrid view
-				public void dataGridSelectedFill(DataGridView dg, FilePath FilePath_)
-				{
-				OpenFileDialog ofd = new OpenFileDialog();
-				Stream stream = null;
-
-				ofd.Filter = "excel files (*.xls)|*.xls|excel files (*.xlsx)|*.xlsx";
-				ofd.FilterIndex = 2;
-				ofd.RestoreDirectory = true;
-
-				if (ofd.ShowDialog() == DialogResult.OK)
-				{
-				if (File.Exists(ofd.FileName))
-				{
-				FilePath_.inputFilePath = ofd.FileName;
-
-				try
-				{
-				ofd.InitialDirectory = FilePath_.inputFileFolder;
-
-				try
-				{
-				if ((stream = ofd.OpenFile()) != null)
-				{
-				WindowsFormsApplication2.Properties.Settings.Default.InputFilePath = ofd.FileName;
-				WindowsFormsApplication2.Properties.Settings.Default.Save();
-
-				using (stream)
-				{
-				//calls main method for excel file from filedialog open and dataset to datagrid bnding
-				dg.DataSource = StreamToGrid(stream, ofd.FileName);
-				//new BindingSource(result.Tables[0], null);
-				}
-
-				}
-				}
-				catch (Exception ex)
-				{
-				MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-				}
-
-				}
-				catch (Exception ex)
-				{
-				MessageBox.Show("Error: no file folder exists!" + ex.Message);
-				}
-				}
-				}
-				}
-
-				//converts stream of file to datagrid for xls,xlsx
-				//with CodePlex data reader http://exceldatareader.codeplex.com/
-				public DataTable StreamToGrid(Stream stream, string ofd)
-				{
-				IExcelDataReader excelReader = null;
-				DataSet result = new DataSet();
-
-				string ExcelExtension= Path.GetExtension(ofd);
-
-
-				if (ExcelExtension == ".xls")
-				{
-				excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
-				result = excelReader.AsDataSet();
-				}
-
-				if (ExcelExtension == ".xlsx")
-				{
-				excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-				excelReader.IsFirstRowAsColumnNames = true;
-				result = excelReader.AsDataSet();
-				}
-
-
-				//6. Free resources (IExcelDataReader is IDisposable)
-				excelReader.Close();
-
-				return result.Tables[0];
-
-				}
-
-				 
-
-				//Initializes and starts new form from another one (for excel worksheet selection)
-				private void wsSelectShow(ExcelInterop.Workbook wb, ExcelExport ee, string connectionString)
-				{
-				ListObjects_ liob = new ListObjects_();
-				wsSelect wsSelect_ = new wsSelect(wb, ee, connectionString);
-				wsSelect_.Show();
-				}
-
-				//publishing of excel list object
-				public void listObjectPublish(){
-
-				ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
-				((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
-
-				//ListObject.QueryTable.CommandText = ((object)excelCommand);
-				ListObject.QueryTable.CommandText = ((object)queryText__);
-				ListObject.QueryTable.RowNumbers = false;
-				ListObject.QueryTable.FillAdjacentFormulas = false;
-				ListObject.QueryTable.PreserveFormatting = true;
-				ListObject.QueryTable.RefreshOnFileOpen = false;
-				ListObject.QueryTable.BackgroundQuery = true;
-				ListObject.QueryTable.SavePassword = false;
-				ListObject.QueryTable.SaveData = true;
-				ListObject.QueryTable.AdjustColumnWidth = true;
-				ListObject.QueryTable.RefreshPeriod = 10;
-				ListObject.QueryTable.PreserveColumnInfo = true;
-				ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
-				ListObject.QueryTable.EnableRefresh = true;
-				ListObject.QueryTable.Refresh(false);
-				}
-
-				//refreshing of list objects on excel
-				public void ListObject refresh()
-				{
-				lob.QueryTable.CommandText = queryText__;
-				lob.QueryTable.Connection = connectionString;
-				lob.QueryTable.BackgroundQuery = true;
-				lob.QueryTable.SaveData = true;
-				lob.QueryTable.EnableRefresh = true;
-				lob.QueryTable.Refresh(false);
-				}
-
-				//Connection string and query for reading excel files with OLEDB and storing to datatable to excel
-				public void readExcelOledbStoreDTtoExcel()
-				{
-				//string for oledb to excel query
-				string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
-
-				OleDbConnection oleCon = new OleDbConnection(conString);
-				OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
-				DataTable dt = new DataTable("Output");
-
-				oleCon.Open();
-				dt.Load(oleCmd.ExecuteReader());
-
-				//save dt as xml
-				dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
-
-				Excel.Application excel_ = new Excel.Application();
-				Excel.Workbook wb_ = excel_.Workbooks.Add(true);
-				Excel.Worksheet ws_ = wb_.Worksheets[1];
-
-				ws_ = wb_.Worksheets[1];
-
-
-				//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
-
-
-				//passing datatable to array of objects dim to dim
-				var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
-				int drC = 0;
-				int drR = 0;
-
-				foreach(DataRow dr in dt.Rows)
-				{
-				drR = drR + 1;
-				foreach(DataColumn dc in dt.Columns)
-				{
-				drC = drC + 1;
-				data[drR, drC] = dt.Rows[drR-1][drC-1];
-				}
-				drC = 0;
-				}
-
-				var startCell = (Excel.Range)ws_.Cells[1, 1];
-				var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
-				var writeRange = ws_.Range[startCell, endCell];
-
-				//passing array of objects to excel list
-				writeRange.Value2 = data;
-				wb_.SaveAs(folder + @"\" + @"output.xlsx");
-
-				wb_.Close();
-
-				//read stored xml to datatable increases values if datatable not empty
-				dt.ReadXml(folder + @"\" + @"output.xml");
-				dt.WriteXml(folder + @"\" + @"output2.xml", XmlWriteMode.WriteSchema, false);
-
-				oleCon.Close();
-
-				}
-
-				//Get current application folder console
-				public void ApplicationFolder()
-				{
-				Application.StartupPath
-				System.IO.Path.GetDirectoryName(
-				System.Reflection.Assembly.GetExecutingAssembly().Location)
-				AppDomain.CurrentDomain.BaseDirectory //Priority
-				System.IO.Directory.GetCurrentDirectory()
-				Environment.CurrentDirectory
-				System.IO.Path.GetDirectoryName(
-				System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)
-				System.IO.Path.GetDirectory(Application.ExecutablePath)
-				}
-
-				//Get current application folder models
-				public void Application folder()
-				{
-				AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-				}
-
-				//Get current application folder view
-				public void Application_view()
-				{
-				HttpContext.Server.MapPath("~/App_Date/");
-				}
-
-				//using Interface IENUMERABLE for looping throught dates in list
-				public void loopThroughDates()
-				{
-
-				public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
-				{
-				for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
-				yield return day;
-				}
-
-				foreach(DateTime date in EachDay(startDate,finishDate))
-				{
-				DatesRequested.Add(date);
-				}
-				}
-
-				//reads excel contents into datatable and stores it as xml
-				public void readExceloledb()
-				{
-
-				public string oledbRequest = "SELECT F2,sum(F3) FROM [????1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
-
-				string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
-
-				OleDbConnection oleCon = new OleDbConnection(conString);
-				OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
-				DataTable dt = new DataTable("Output");
-
-				oleCon.Open();
-
-				//dt is datatable
-				dt.Load(oleCmd.ExecuteReader());
-
-				//save dt as xml
-				dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
-
-				}
-
-				//reads datatable , convets it to excel array on worksheet and saves xlsx
-				public void storeDatatableAsXLSX()
-				{
-
-				Excel.Application excel_ = new Excel.Application();
-				Excel.Workbook wb_ = excel_.Workbooks.Add(true);
-				Excel.Worksheet ws_ = wb_.Worksheets[1];
-
-				ws_ = wb_.Worksheets[1];
-
-
-				//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
-
-
-				//passing datatable to array of objects dim to dim
-				var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
-				int drC = 0;
-				int drR = 0;
-
-				foreach(DataRow dr in dt.Rows)
-				{
-				drR = drR + 1;
-				foreach(DataColumn dc in dt.Columns)
-				{
-				drC = drC + 1;
-				data[drR, drC] = dt.Rows[drR-1][drC-1];
-				}
-				drC = 0;
-				}
-
-
-				var startCell = (Excel.Range)ws_.Cells[1, 1];
-				var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
-				var writeRange = ws_.Range[startCell, endCell];
-
-				//passing array of objects to excel list
-				writeRange.Value2 = data;
-				wb_.SaveAs(folder + @"\" + @"output.xlsx");
-
-				}
-
-
-
-				//openXMLread
-				public void openXML()
-				{
-				// open the document read-only
-				SpreadsheetDocument document = SpreadsheetDocument.Open(fileName, false);
-				SharedStringTable sharedStringTable = document.WorkbookPart.SharedStringTablePart.SharedStringTable;
-				string cellValue = null;
-
-				foreach (WorksheetPart worksheetPart in document.WorkbookPart.WorksheetParts)
-				{
-				foreach (SheetData sheetData in worksheetPart.Worksheet.Elements<SheetData>())
-				{
-				if (sheetData.HasChildren)
-				{
-				foreach (Row row in sheetData.Elements<Row>())
-				{
-				foreach (Cell cell in row.Elements<Cell>())
-				{
-				cellValue = cell.InnerText;
-
-				/*
-				try
-				{
-				if (cell.DataType == CellValues.SharedString)
-				{
-				Console.WriteLine("cell val: " + sharedStringTable.ElementAt(Int32.Parse(cellValue)).InnerText);
-				}
-				else
-				{
-				Console.WriteLine("cell val: " + cellValue);
-				}
-				}
-				catch(Exception e)
-				{
-				if(e.Message=="Error in implicit conversion. Cannot convert null object.")
-				{
-				MessageBox.Show(e.Message);
-				}
-				}
-				* */
-				}
-				}
-				}
-				}
-				}
-				document.Close();
-
-				}
-
-
-				//select max ID from list of classes
-				public void LINQlogic()
-				{
-				//add list of objects to ienumerable
-				IEnumerable<QueryTextNew> Queries =
-				from QueryTextNew in querytextList
-				select QueryTextNew;
-
-				//select max ID catching empty element exception
-				int itemsMax;
-
-				try
-				{
-				itemsMax = Queries.Max(x => x.ID);
-				}
-				catch(Exception e )
-				{
-				itemsMax = 0;
-				}
-
-				}
-
-				//creating procedure for dataset return
-				public void oracleprocedurefordataset()
-				{
-				create or replace
-				procedure get_daily(out_dt out SYS_REFCURSOR)
-				AS
-				BEGIN
-				OPEN out_dt FOR SELECT * FROM neprintsev_ia.temp_acq_d where rownum <=10;
-				END get_daily;
-				}
-
-				//get dataset from oracle procedure and store result datatable in xml
-				public void datasetget()
-				{
-
-				string fileToParse = @"C:\test\daily\output\01022015report + fee2.xlsx";
-				string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [????1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
-				string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
-
-				string connString = @"Data Source=dwh.rs.ru;User ID=neprintsev_ia;Password=awsedrRDESWA;";
-				string oracleQuery = "get_daily";
-
-				OracleConnection oracleConn = new OracleConnection(connString);
-
-				OracleCommand oracleComm = new OracleCommand(oracleQuery, oracleConn);
-				oracleComm.CommandType = CommandType.StoredProcedure;
-				DataSet orads = new DataSet();
-				oracleComm.Parameters.Add("out_dt", OracleType.Cursor).Direction=ParameterDirection.Output;
-
-				oracleConn.Open();
-				oracleComm.ExecuteNonQuery();
-
-				OracleDataReader reader =
-				oracleComm.Parameters["out_dt"].Value as OracleDataReader;
-
-				OracleDataAdapter oracleAdapt = new OracleDataAdapter(oracleComm);
-
-				oracleAdapt.Fill(orads);
-
-				foreach (DataTable dtt in orads.Tables)
-				{
-				dtt.WriteXml(Path.GetDirectoryName(fileToParse) + @"\" + @"f_output.xml", XmlWriteMode.WriteSchema, false);
-				}
-
-
-				}
-
-				//populate datatable to excel for current rowcolumn number
-				public void populatedatatble to excel()
-				{
-
-				public void populateDataTable(DataTable dt,Excel.Worksheet ws_,int x,int y )
-				{
-				var data = new object[dt.Rows.Count , dt.Columns.Count ];
-				int drC = -1;
-				int drR = -1;
-
-				foreach (DataRow drr in dt.Rows)
-				{
-				drR = drR + 1;
-				foreach (DataColumn dcc in dt.Columns)
-				{
-				drC = drC + 1;
-				data[drR, drC] = dt.Rows[drR ][drC];
-				}
-				drC = -1;
-				}
-
-
-				var startCell = (Excel.Range)ws_.Cells[x, y];
-				var endCell = (Excel.Range)ws_.Cells[x+dt.Rows.Count-1, y+dt.Columns.Count-1];
-				var writeRange = ws_.Range[startCell, endCell];
-
-				writeRange.Value2 = data;
-
-				}
-
-				}
-
-				//copy as embedded cahrt to powerpoint (editable) with smoexecute
-				public void copytopowerpoiny(){
-				pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
-				}
-
-
-				//copy as ambeded and select object in powerpoint
-				public void powerPoint(){
-				//chartobject
-				ch.Copy();
-
-				pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
-				Thread.Sleep(1000);
-				var a = pptSlide.Application.ActiveWindow.Selection;
-
-				a.ShapeRange.Left = 10;
-				a.ShapeRange.Top = 10;
-				a.ShapeRange.Height = 200;
-				a.ShapeRange.Width = 200;
-				}
-
-
-				//JSON serialization
-				//Read write to filestream using memorystream
-				public void JSONserialize(){
-
-				MemoryStream ms = new MemoryStream();
-				DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(rQueries_ih));
-				ser.WriteObject(ms, q);
-
-				ms.Position = 0;
-
-				using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
-				FileMode.Create, System.IO.FileAccess.Write))
-				{
-				ms.WriteTo(fs);
-				ms.Close();
-				}
-
-				using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
-				FileMode.Open, System.IO.FileAccess.Read))
-				{
-				MemoryStream ms2 = new MemoryStream();
-				byte[] bytes = new byte[fs.Length];
-				fs.Read(bytes, 0, (int)fs.Length);
-				ms2.Write(bytes, 0, (int)fs.Length);
-
-				ms2.Position = 0;
-				q2 = (rQueries_ih)ser.ReadObject(ms2);
-				ms2.Close();
-				}
-
-				}
-
-
-				//inheritance
-				public Inheritance()
-				{
-				A:B:C:D
-				void -> new (virtual)-> virtual -> override
-				void -> virtual-> override -> override
-				A : D(C) => A
-
-				virtual -> new virtual -> override
-				A:C(D) =>A
-
-				A:B:C:D
-				virtual -> override-> virtual -> override
-				A(B):D => B, C(D):D => D
-
-				A,B:A,C:A
-				virtual -> new
-				B:B => A
-				virtual -> override
-				C:C => C
-
-
-				}
-
-				//copy past excel range to powwerpoint
-				public void CopyRangeEmbeded(xlNS.Range rn_, pptNS.Slide ptSld, pptNS.Shape sh)
-				{
-
-				rn_.Application.Visible = true;
-				rn_.Worksheet.Activate();
-				rn_.Select();
-				rn_.Copy();
-				ptSld.Select();
-				sh.Select();
-
-				//needs thread sleep activation - unstable
-				/*
-				Thread.Sleep(500);
-				sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-				Application.DoEvents();
-				*/
-
-				//copy but with standart format
-				//ptSld.Application.ActiveWindow.View.PasteSpecial();
-				//ptSld.Application.ActiveWindow.View.Paste();
-
-
-				//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
-				//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault,,,,,);
-
-				//ptSld.Application.ActiveWindow.View.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault);
-
-
-				//PasteDestinationTheme
-				//PasteAsEmbedded
-				//PasteSourceFormatting
-				//PasteExcelTableSourceFormatting
-
-
-				//powerpointApplication.ActiveWindow.View.PasteSpecial();
-
-				//only working example with correct shape and format
-				//worked after first type commenting
-				try
-				{
-				sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-				}
-				catch (Exception e)
-				{
-				Logger.LogAddDebug(e.Message);
-				}
-
-				//sh.Application.ActiveWindow.Selection.Unselect();
-				//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-				}
-
-				//copy pasy excel sheet to powwerpoint
-				public void CopyChartEmbeded(xlNS.Shape ch, pptNS.Slide sl, pptNS.Shape sh)
-				{
-				ch.Copy();
-				sl.Select();
-				sh.Select();
-
-				//paste as link
-				//pptSlide.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
-				//sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-				//sh.Application.ActiveWindow.Selection.Unselect();
-				//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-
-				try
-				{
-				sl.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
-				}
-				catch (Exception e)
-				{
-				Logger.LogAddDebug(e.Message);
-				}
-				//Thread.Sleep(1000);
-				var a = sl.Application.ActiveWindow.Selection;
-				}
-
 				
-			
+			//delete from oracle table and link parametrized insert command to connection
+			public class oracle_queries(){
+			oracleConnection.Open();
+			oracleDeleteCommand.Connection = oracleConnection;
+			oracleDeleteCommand.CommandText = oracleQueriesBank.unparametrizedDelete;
+			oracleDeleteCommand.ExecuteNonQuery();
+
+			OracleCommand oracleInsertCommand = new OracleCommand();
+			oracleInsertCommand.Connection = oracleConnection;
+			oracleInsertCommand.CommandText = oracleQueriesBank.parametrizedInsert;
+
+			oracleConnection.Open();
+			oracleTablePresence.Connection = oracleConnection;
+			oracleTablePresence.CommandText = oracleQueriesBank.tablePresenceTest;
+			oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
+			tablecount = oracleTablePresence.ExecuteScalar().ToString();
+
+			oracleTablePresence.CommandText = oracleQueriesBank.tableColumnTest;
+			oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
+			oracleTablePresence.Parameters.Add(new OracleParameter("columnname", "ID_MERCHANT"));
+			columncount = oracleTablePresence.ExecuteScalar().ToString();
+
+			connectionInitialize(oracleConnection);
+			OracleCommand oracleTableCount = new OracleCommand();
+			oracleConnection.Open();
+			oracleTableCount.Connection = oracleConnection;
+			oracleTableCount.CommandText = oracleQueriesBank.unparametrizedRowCount;
+
+			oracleTableCount.CommandText = oracleQueriesBank.tableColumnTest;
+			rowcount = oracleTableCount.ExecuteScalar().ToString();
 			}
+
+			//oracle service query texts
+			public class servise_queries(){
+			//used for parametrized insert from import datagridview to oracle table
+			//occurs in dataGridView_Import_DoubleClick throught OracleQueryExecutor class
+			sampleInsert = "insert into merchant_list (ID_MERCHANT) values ('test_val')";
+
+			unparametrizedDelete = "delete from merchant_list";
+			parametrizedInsert = "insert into merchant_list values (:value)";
+			unparametrizedRowCount = "select max(rownum) from merchant_list";
+
+			//used for detecting marchant_list table presence and it's creation
+			tablePresenceTest = "select max(rownum) from user_tables where table_name = (:tablename)";
+			//detecting rownumbers in table
+			tableColumnTest = "select max(rownum) from user_tab_columns where table_name = (:tablename) and column_name = (:columnname)";
+			createTable = "create table MERCHANT_LIST (ID_MERCHANT varchar(50))";
+			}
+
+			//SERIALIZE DESERIALIZE
+			public class serealization_deserialization(){
+			public void Serialize(String path, List<OracleQueriesListClass> myArray)
+			{
+			BinaryFormatter formatter = new BinaryFormatter();
+			using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.Write))
+			{
+			formatter.Serialize(stream, myArray);
+			}
+			}
+
+			public List<OracleQueriesListClass> DeserializeList(String path)
+			{
+			BinaryFormatter formatter = new BinaryFormatter();
+			using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+			{
+			List<OracleQueriesListClass> myList = (List<OracleQueriesListClass>)formatter.Deserialize(stream);
+			return myList;
+			}
+			}
+			}
+
+			//app setting connstrings example
+			public class connstrings(){
+
+			//requesting connString from appsettings
+			System.Configuration.ConfigurationSettings.AppSettings["ConnectionString"];
+			System.Configuration.ConfigurationManager.ConnectionStrings["connectionStringName"].ConnectionString;
+			</startup>
+			<appSettings>
+			<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch" />
+			<add key="ClientSettingsProvider.ServiceUri" value="" />
+			<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;" />
+			</appSettings>
+			}
+
+			public class ExcelIntegration(){
+				
+
+			//create excel xlsx with OPEN xml
+			private void OPENxmlCreate(){
+			string fileName = @"C:\111\test.xlsx";
+			using (SpreadsheetDocument document = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook))
+			{
+			WorkbookPart workbookPart = document.AddWorkbookPart();
+			workbookPart.Workbook = new Workbook();
+
+			WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+			worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+			Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
+
+			Sheet sheet = new Sheet() { Id = workbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Test Sheet" };
+
+			sheets.Append(sheet);
+
+			workbookPart.Workbook.Save();
+			}
+			}
+
+			}
+
+			/////
+
+			//connection strings
+			public void connectionStrings()
+			{
+
+			//connection to local SQL express from MVC
+			//<add name="BookContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=text_db;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
+
+			//<add name="SoocerContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=tempdb;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
+
+			//connection from console app
+			//string connectionString = @"Initial Catalog=tempdb;Data Source=.\SQLEXPRESS2;Integrated Security=SSPI;";
+
+			//string connectionStringORCL = @"User Id=neprintsev_ia; password = awsedrDRSEAW; Data Source = dwh.rs.ru; Pooling=false;";
+			//string connectionStringSQL = @"Data Source=.\SQLEXPRESS;Initial Catalog=DWH_replica;Integrated Security=SSPI;";
+
+			}
+
+			//----------------------------------------------
+
+
+			//mvc tempaltes
+			public void MVC_templates()
+			{
+
+			//view add button with rediraect
+			<input type="button" value="ClickMe" onclick="location.href='@Url.Action("Migrate","Home")'"
+
+			//view submit button
+			<input type="submit" value="Save" class="btn btn-default" />
+
+			//view actionlink
+			@Html.ActionLink("Back to List", "Index")
+
+			// Refresh model in controller if passing values after changes in layer
+			if(ModelState.IsValid)
+			{
+			ModelState.Clear();
+			}
+
+			//start wcf service async
+			Task.Run(() => migrateService.migrate_((DateTime)DateFrom, (DateTime)DateTo));
+
+			//one of multiple buttons
+			//controller part
+			[HttpPost]
+			[MultipleButton(Name = "action", Argument = "Stop")]
+			public ActionResult Stop(int ID, DateTime? DateFrom, DateTime? DateTo)
+			{}
+
+			//view part
+			<td>
+			<input type="submit" value="Stop" name="action:Stop" />
+			</td>
+
+			//pass multiple parameters to controller from view
+			<td>
+			<input type="text" id="DateTo" name="DateTo" value="@tab.DateTo" />
+			</td>
+
+			//parametrized groupping linq to entity
+			var a = from s in db.FD_ACQ_D
+			where DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month,01,0,0,0) ==
+			DbFunctions.CreateDateTime(fromDate.Year, fromDate.Month, 01, 0, 0, 0)
+			group s by new { DT_REG= DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month, 01, 0, 0, 0), TYPE_TRANSACTION=s.TYPE_TRANSACTION, PAY_SYSTEM=s.PAY_SYS} into g
+			select new
+			{
+			DT_REG = g.Key.DT_REG,
+			TYPE_TRANSACTION = g.Key.TYPE_TRANSACTION,
+			PAY_SYSTEM=g.Key.PAY_SYSTEM,
+			AMT = g.Sum(s => s.AMT)
+			};
+			foreach(var b in a)
+			{
+			this.FD_ACQ_D.Add(new FD_RES { DT_REG = b.DT_REG, TYPE_TRANSACTION = b.TYPE_TRANSACTION, AMT = b.AMT, PAY_SYS=b.PAY_SYSTEM });
+			}
+
+
+			//return json from controller public string GetJson()
+			{
+			ml.GetACQ(db);
+			string jsn = JsonConvert.SerializeObject(ml.FD_ACQ_D);
+			return jsn;
+			}
+
+			}
+
+			//json serialization with newtonsoft dll
+			public void jsonserialization()
+			{
+
+			string json2 = JsonConvert.SerializeObject(jst1, Formatting.Indented);
+			File.WriteAllText(@"C:\test\insert\json.json", json2);
+
+			string json3 = "";
+			json3 = File.ReadAllText(@"C:\test\insert\json.json");
+			json_tst_par jDes = JsonConvert.DeserializeObject<json_tst_par>(json3);
+
+			}
+
+			public void StoreValuesToSettings()
+			{
+
+			//storing values to settings
+			WindowsFormsApplication2.Properties.Settings.Default.Upgrade();
+			//changes
+			WindowsFormsApplication2.Properties.Settings.Default.Save();
+
+			//Initializing Form Elements in form methods
+			TextBox tb = (TextBox)sender;
+
+			//datetime defenition
+			DateTime dt = new DateTime(1, 1, 1, 0, 0, 0)
+			}
+
+			//default connection strings for oracle and excel
+			public void connectionStrings()
+			{
+			<appSettings>
+			<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch;" />
+			<add key="ClientSettingsProvider.ServiceUri" value="" />
+			<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;Pooling=false;" />
+			</appSettings>
+			}
+
+			//List object on excel list REFRESH
+			if (lob.Name == liobName)
+			{
+			lob.QueryTable.CommandText = queryText__;
+			lob.QueryTable.Connection = connectionString;
+			lob.QueryTable.BackgroundQuery = true;
+			lob.QueryTable.SaveData = true;
+			lob.QueryTable.EnableRefresh = true;
+			//lob.QueryTable.Refresh(false);
+			try
+			{
+			lob.QueryTable.Refresh(false);
+			}
+			catch (Exception e)
+			{
+
+			}
+			}
+
+			//List object on excel list PLACE
+			if (ws.Name==wsName)
+			{
+
+			ExcelInterop.Range worksheetRange = ws.get_Range("A1");
+			string tableName=Path.GetRandomFileName().Replace(".","");
+			tableName = Regex.Replace(tableName, @"\d", "");
+
+
+			ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
+			((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
+
+			//ListObject.QueryTable.CommandText = ((object)excelCommand);
+			ListObject.QueryTable.CommandText = ((object)queryText__);
+			ListObject.QueryTable.RowNumbers = false;
+			ListObject.QueryTable.FillAdjacentFormulas = false;
+			ListObject.QueryTable.PreserveFormatting = true;
+			ListObject.QueryTable.RefreshOnFileOpen = false;
+			ListObject.QueryTable.BackgroundQuery = true;
+			ListObject.QueryTable.SavePassword = false;
+			ListObject.QueryTable.SaveData = true;
+			ListObject.QueryTable.AdjustColumnWidth = true;
+			ListObject.QueryTable.RefreshPeriod = 10;
+			ListObject.QueryTable.PreserveColumnInfo = true;
+			ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
+			ListObject.QueryTable.EnableRefresh = true;
+			ListObject.QueryTable.Refresh(false);
+
+			}
+
+			//searchs all processes and finds id for passed main window title
+			//apl.Caption for excell aplications
+			public int GetProcessIdByWindowTitle(string windowTitle)
+			{
+
+			int processID;
+			processID = 0;
+			foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
+			{
+			if (proc.MainWindowTitle == windowTitle)
+			processID = proc.Id;
+			}
+			return processID;
+			}
+
+			//kills process with current ID
+			public void processKill(int ID)
+			{
+			foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
+			{
+			if (proc.Id == ID)
+			proc.Kill();
+			}
+			}
+
+			//creates file for current excel workbook with path
+			public void fileSave(ExcelInterop.Workbook wb, string OutputFileName)
+			{
+			if (!Directory.Exists(Path.GetDirectoryName(OutputFileName)))
+			{
+			Directory.CreateDirectory(Path.GetDirectoryName(OutputFileName));
+			}
+
+			wb.SaveAs(OutputFileName, ExcelInterop.XlFileFormat.xlWorkbookDefault,
+			Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+			ExcelInterop.XlSaveAsAccessMode.xlExclusive,
+			Missing.Value, Missing.Value, Missing.Value,
+			Missing.Value, Missing.Value);
+			wb.Close();
+			}
+
+			//correct excel application killing
+			public void ExcelApplicationTest()
+			{
+			xlNS.Application apl2;
+			apl2 = new xlNS.Application();
+
+			xlNS.Workbooks wbs2;
+			wbs2 = apl2.Workbooks;
+
+			xlNS.Workbook wb2;
+			xlNS.Worksheet ws2;
+
+			 
+
+			if(!File.Exists(ExcelPath))
+			{
+			wb2 = wbs2.Add(xlNS.XlWBATemplate.xlWBATWorksheet);
+			//ws2 = (xlNS.Worksheet)wb2.Worksheets[1];
+			wb2.SaveAs(ExcelPath);
+			}
+			else
+			{
+			wb2 = wbs2.Open(ExcelPath);
+			}
+
+			wb2.Close();
+			apl2.Quit();
+			wbs2.Close();
+
+			Marshal.ReleaseComObject(wb2);
+			Marshal.ReleaseComObject(wbs2);
+			Marshal.ReleaseComObject(apl2);
+
+			wb2 = null;
+			apl2 = null;
+			wbs2 = null;
+
+			}
+
+			//Opens filedialog and inserts results from excel to datagrid view
+			public void dataGridSelectedFill(DataGridView dg, FilePath FilePath_)
+			{
+			OpenFileDialog ofd = new OpenFileDialog();
+			Stream stream = null;
+
+			ofd.Filter = "excel files (*.xls)|*.xls|excel files (*.xlsx)|*.xlsx";
+			ofd.FilterIndex = 2;
+			ofd.RestoreDirectory = true;
+
+			if (ofd.ShowDialog() == DialogResult.OK)
+			{
+			if (File.Exists(ofd.FileName))
+			{
+			FilePath_.inputFilePath = ofd.FileName;
+
+			try
+			{
+			ofd.InitialDirectory = FilePath_.inputFileFolder;
+
+			try
+			{
+			if ((stream = ofd.OpenFile()) != null)
+			{
+			WindowsFormsApplication2.Properties.Settings.Default.InputFilePath = ofd.FileName;
+			WindowsFormsApplication2.Properties.Settings.Default.Save();
+
+			using (stream)
+			{
+			//calls main method for excel file from filedialog open and dataset to datagrid bnding
+			dg.DataSource = StreamToGrid(stream, ofd.FileName);
+			//new BindingSource(result.Tables[0], null);
+			}
+
+			}
+			}
+			catch (Exception ex)
+			{
+			MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+			}
+
+			}
+			catch (Exception ex)
+			{
+			MessageBox.Show("Error: no file folder exists!" + ex.Message);
+			}
+			}
+			}
+			}
+
+			//converts stream of file to datagrid for xls,xlsx
+			//with CodePlex data reader http://exceldatareader.codeplex.com/
+			public DataTable StreamToGrid(Stream stream, string ofd)
+			{
+			IExcelDataReader excelReader = null;
+			DataSet result = new DataSet();
+
+			string ExcelExtension= Path.GetExtension(ofd);
+
+
+			if (ExcelExtension == ".xls")
+			{
+			excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+			result = excelReader.AsDataSet();
+			}
+
+			if (ExcelExtension == ".xlsx")
+			{
+			excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+			excelReader.IsFirstRowAsColumnNames = true;
+			result = excelReader.AsDataSet();
+			}
+
+
+			//6. Free resources (IExcelDataReader is IDisposable)
+			excelReader.Close();
+
+			return result.Tables[0];
+
+			}
+
+			 
+
+			//Initializes and starts new form from another one (for excel worksheet selection)
+			private void wsSelectShow(ExcelInterop.Workbook wb, ExcelExport ee, string connectionString)
+			{
+			ListObjects_ liob = new ListObjects_();
+			wsSelect wsSelect_ = new wsSelect(wb, ee, connectionString);
+			wsSelect_.Show();
+			}
+
+			//publishing of excel list object
+			public void listObjectPublish(){
+
+			ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
+			((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
+
+			//ListObject.QueryTable.CommandText = ((object)excelCommand);
+			ListObject.QueryTable.CommandText = ((object)queryText__);
+			ListObject.QueryTable.RowNumbers = false;
+			ListObject.QueryTable.FillAdjacentFormulas = false;
+			ListObject.QueryTable.PreserveFormatting = true;
+			ListObject.QueryTable.RefreshOnFileOpen = false;
+			ListObject.QueryTable.BackgroundQuery = true;
+			ListObject.QueryTable.SavePassword = false;
+			ListObject.QueryTable.SaveData = true;
+			ListObject.QueryTable.AdjustColumnWidth = true;
+			ListObject.QueryTable.RefreshPeriod = 10;
+			ListObject.QueryTable.PreserveColumnInfo = true;
+			ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
+			ListObject.QueryTable.EnableRefresh = true;
+			ListObject.QueryTable.Refresh(false);
+			}
+
+			//refreshing of list objects on excel
+			public void ListObject refresh()
+			{
+			lob.QueryTable.CommandText = queryText__;
+			lob.QueryTable.Connection = connectionString;
+			lob.QueryTable.BackgroundQuery = true;
+			lob.QueryTable.SaveData = true;
+			lob.QueryTable.EnableRefresh = true;
+			lob.QueryTable.Refresh(false);
+			}
+
+			//Connection string and query for reading excel files with OLEDB and storing to datatable to excel
+			public void readExcelOledbStoreDTtoExcel()
+			{
+			//string for oledb to excel query
+			string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
+
+			OleDbConnection oleCon = new OleDbConnection(conString);
+			OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
+			DataTable dt = new DataTable("Output");
+
+			oleCon.Open();
+			dt.Load(oleCmd.ExecuteReader());
+
+			//save dt as xml
+			dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
+
+			Excel.Application excel_ = new Excel.Application();
+			Excel.Workbook wb_ = excel_.Workbooks.Add(true);
+			Excel.Worksheet ws_ = wb_.Worksheets[1];
+
+			ws_ = wb_.Worksheets[1];
+
+
+			//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
+
+
+			//passing datatable to array of objects dim to dim
+			var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
+			int drC = 0;
+			int drR = 0;
+
+			foreach(DataRow dr in dt.Rows)
+			{
+			drR = drR + 1;
+			foreach(DataColumn dc in dt.Columns)
+			{
+			drC = drC + 1;
+			data[drR, drC] = dt.Rows[drR-1][drC-1];
+			}
+			drC = 0;
+			}
+
+			var startCell = (Excel.Range)ws_.Cells[1, 1];
+			var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
+			var writeRange = ws_.Range[startCell, endCell];
+
+			//passing array of objects to excel list
+			writeRange.Value2 = data;
+			wb_.SaveAs(folder + @"\" + @"output.xlsx");
+
+			wb_.Close();
+
+			//read stored xml to datatable increases values if datatable not empty
+			dt.ReadXml(folder + @"\" + @"output.xml");
+			dt.WriteXml(folder + @"\" + @"output2.xml", XmlWriteMode.WriteSchema, false);
+
+			oleCon.Close();
+
+			}
+
+			//Get current application folder console
+			public void ApplicationFolder()
+			{
+			Application.StartupPath
+			System.IO.Path.GetDirectoryName(
+			System.Reflection.Assembly.GetExecutingAssembly().Location)
+			AppDomain.CurrentDomain.BaseDirectory //Priority
+			System.IO.Directory.GetCurrentDirectory()
+			Environment.CurrentDirectory
+			System.IO.Path.GetDirectoryName(
+			System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)
+			System.IO.Path.GetDirectory(Application.ExecutablePath)
+			}
+
+			//Get current application folder models
+			public void Application folder()
+			{
+			AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+			}
+
+			//Get current application folder view
+			public void Application_view()
+			{
+			HttpContext.Server.MapPath("~/App_Date/");
+			}
+
+			//using Interface IENUMERABLE for looping throught dates in list
+			public void loopThroughDates()
+			{
+
+			public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+			{
+			for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+			yield return day;
+			}
+
+			foreach(DateTime date in EachDay(startDate,finishDate))
+			{
+			DatesRequested.Add(date);
+			}
+			}
+
+			//reads excel contents into datatable and stores it as xml
+			public void readExceloledb()
+			{
+
+			public string oledbRequest = "SELECT F2,sum(F3) FROM [????1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
+
+			string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
+
+			OleDbConnection oleCon = new OleDbConnection(conString);
+			OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
+			DataTable dt = new DataTable("Output");
+
+			oleCon.Open();
+
+			//dt is datatable
+			dt.Load(oleCmd.ExecuteReader());
+
+			//save dt as xml
+			dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
+
+			}
+
+			//reads datatable , convets it to excel array on worksheet and saves xlsx
+			public void storeDatatableAsXLSX()
+			{
+
+			Excel.Application excel_ = new Excel.Application();
+			Excel.Workbook wb_ = excel_.Workbooks.Add(true);
+			Excel.Worksheet ws_ = wb_.Worksheets[1];
+
+			ws_ = wb_.Worksheets[1];
+
+
+			//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
+
+
+			//passing datatable to array of objects dim to dim
+			var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
+			int drC = 0;
+			int drR = 0;
+
+			foreach(DataRow dr in dt.Rows)
+			{
+			drR = drR + 1;
+			foreach(DataColumn dc in dt.Columns)
+			{
+			drC = drC + 1;
+			data[drR, drC] = dt.Rows[drR-1][drC-1];
+			}
+			drC = 0;
+			}
+
+
+			var startCell = (Excel.Range)ws_.Cells[1, 1];
+			var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
+			var writeRange = ws_.Range[startCell, endCell];
+
+			//passing array of objects to excel list
+			writeRange.Value2 = data;
+			wb_.SaveAs(folder + @"\" + @"output.xlsx");
+
+			}
+
+
+
+			//openXMLread
+			public void openXML()
+			{
+			// open the document read-only
+			SpreadsheetDocument document = SpreadsheetDocument.Open(fileName, false);
+			SharedStringTable sharedStringTable = document.WorkbookPart.SharedStringTablePart.SharedStringTable;
+			string cellValue = null;
+
+			foreach (WorksheetPart worksheetPart in document.WorkbookPart.WorksheetParts)
+			{
+			foreach (SheetData sheetData in worksheetPart.Worksheet.Elements<SheetData>())
+			{
+			if (sheetData.HasChildren)
+			{
+			foreach (Row row in sheetData.Elements<Row>())
+			{
+			foreach (Cell cell in row.Elements<Cell>())
+			{
+			cellValue = cell.InnerText;
+
+			/*
+			try
+			{
+			if (cell.DataType == CellValues.SharedString)
+			{
+			Console.WriteLine("cell val: " + sharedStringTable.ElementAt(Int32.Parse(cellValue)).InnerText);
+			}
+			else
+			{
+			Console.WriteLine("cell val: " + cellValue);
+			}
+			}
+			catch(Exception e)
+			{
+			if(e.Message=="Error in implicit conversion. Cannot convert null object.")
+			{
+			MessageBox.Show(e.Message);
+			}
+			}
+			* */
+			}
+			}
+			}
+			}
+			}
+			document.Close();
+
+			}
+
+
+			//select max ID from list of classes
+			public void LINQlogic()
+			{
+			//add list of objects to ienumerable
+			IEnumerable<QueryTextNew> Queries =
+			from QueryTextNew in querytextList
+			select QueryTextNew;
+
+			//select max ID catching empty element exception
+			int itemsMax;
+
+			try
+			{
+			itemsMax = Queries.Max(x => x.ID);
+			}
+			catch(Exception e )
+			{
+			itemsMax = 0;
+			}
+
+			}
+
+			//creating procedure for dataset return
+			public void oracleprocedurefordataset()
+			{
+			create or replace
+			procedure get_daily(out_dt out SYS_REFCURSOR)
+			AS
+			BEGIN
+			OPEN out_dt FOR SELECT * FROM neprintsev_ia.temp_acq_d where rownum <=10;
+			END get_daily;
+			}
+
+			//get dataset from oracle procedure and store result datatable in xml
+			public void datasetget()
+			{
+
+			string fileToParse = @"C:\test\daily\output\01022015report + fee2.xlsx";
+			string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [????1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
+			string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
+
+			string connString = @"Data Source=dwh.rs.ru;User ID=neprintsev_ia;Password=awsedrRDESWA;";
+			string oracleQuery = "get_daily";
+
+			OracleConnection oracleConn = new OracleConnection(connString);
+
+			OracleCommand oracleComm = new OracleCommand(oracleQuery, oracleConn);
+			oracleComm.CommandType = CommandType.StoredProcedure;
+			DataSet orads = new DataSet();
+			oracleComm.Parameters.Add("out_dt", OracleType.Cursor).Direction=ParameterDirection.Output;
+
+			oracleConn.Open();
+			oracleComm.ExecuteNonQuery();
+
+			OracleDataReader reader =
+			oracleComm.Parameters["out_dt"].Value as OracleDataReader;
+
+			OracleDataAdapter oracleAdapt = new OracleDataAdapter(oracleComm);
+
+			oracleAdapt.Fill(orads);
+
+			foreach (DataTable dtt in orads.Tables)
+			{
+			dtt.WriteXml(Path.GetDirectoryName(fileToParse) + @"\" + @"f_output.xml", XmlWriteMode.WriteSchema, false);
+			}
+
+
+			}
+
+			//populate datatable to excel for current rowcolumn number
+			public void populatedatatble to excel()
+			{
+
+			public void populateDataTable(DataTable dt,Excel.Worksheet ws_,int x,int y )
+			{
+			var data = new object[dt.Rows.Count , dt.Columns.Count ];
+			int drC = -1;
+			int drR = -1;
+
+			foreach (DataRow drr in dt.Rows)
+			{
+			drR = drR + 1;
+			foreach (DataColumn dcc in dt.Columns)
+			{
+			drC = drC + 1;
+			data[drR, drC] = dt.Rows[drR ][drC];
+			}
+			drC = -1;
+			}
+
+
+			var startCell = (Excel.Range)ws_.Cells[x, y];
+			var endCell = (Excel.Range)ws_.Cells[x+dt.Rows.Count-1, y+dt.Columns.Count-1];
+			var writeRange = ws_.Range[startCell, endCell];
+
+			writeRange.Value2 = data;
+
+			}
+
+			}
+
+			//copy as embedded cahrt to powerpoint (editable) with smoexecute
+			public void copytopowerpoiny(){
+			pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
+			}
+
+
+			//copy as ambeded and select object in powerpoint
+			public void powerPoint(){
+			//chartobject
+			ch.Copy();
+
+			pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
+			Thread.Sleep(1000);
+			var a = pptSlide.Application.ActiveWindow.Selection;
+
+			a.ShapeRange.Left = 10;
+			a.ShapeRange.Top = 10;
+			a.ShapeRange.Height = 200;
+			a.ShapeRange.Width = 200;
+			}
+
+
+			//JSON serialization
+			//Read write to filestream using memorystream
+			public void JSONserialize(){
+
+			MemoryStream ms = new MemoryStream();
+			DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(rQueries_ih));
+			ser.WriteObject(ms, q);
+
+			ms.Position = 0;
+
+			using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
+			FileMode.Create, System.IO.FileAccess.Write))
+			{
+			ms.WriteTo(fs);
+			ms.Close();
+			}
+
+			using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
+			FileMode.Open, System.IO.FileAccess.Read))
+			{
+			MemoryStream ms2 = new MemoryStream();
+			byte[] bytes = new byte[fs.Length];
+			fs.Read(bytes, 0, (int)fs.Length);
+			ms2.Write(bytes, 0, (int)fs.Length);
+
+			ms2.Position = 0;
+			q2 = (rQueries_ih)ser.ReadObject(ms2);
+			ms2.Close();
+			}
+
+			}
+
+
+			//inheritance
+			public Inheritance()
+			{
+			A:B:C:D
+			void -> new (virtual)-> virtual -> override
+			void -> virtual-> override -> override
+			A : D(C) => A
+
+			virtual -> new virtual -> override
+			A:C(D) =>A
+
+			A:B:C:D
+			virtual -> override-> virtual -> override
+			A(B):D => B, C(D):D => D
+
+			A,B:A,C:A
+			virtual -> new
+			B:B => A
+			virtual -> override
+			C:C => C
+
+
+			}
+
+			//copy past excel range to powwerpoint
+			public void CopyRangeEmbeded(xlNS.Range rn_, pptNS.Slide ptSld, pptNS.Shape sh)
+			{
+
+			rn_.Application.Visible = true;
+			rn_.Worksheet.Activate();
+			rn_.Select();
+			rn_.Copy();
+			ptSld.Select();
+			sh.Select();
+
+			//needs thread sleep activation - unstable
+			/*
+			Thread.Sleep(500);
+			sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			Application.DoEvents();
+			*/
+
+			//copy but with standart format
+			//ptSld.Application.ActiveWindow.View.PasteSpecial();
+			//ptSld.Application.ActiveWindow.View.Paste();
+
+
+			//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
+			//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault,,,,,);
+
+			//ptSld.Application.ActiveWindow.View.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault);
+
+
+			//PasteDestinationTheme
+			//PasteAsEmbedded
+			//PasteSourceFormatting
+			//PasteExcelTableSourceFormatting
+
+
+			//powerpointApplication.ActiveWindow.View.PasteSpecial();
+
+			//only working example with correct shape and format
+			//worked after first type commenting
+			try
+			{
+			sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			}
+			catch (Exception e)
+			{
+			Logger.LogAddDebug(e.Message);
+			}
+
+			//sh.Application.ActiveWindow.Selection.Unselect();
+			//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			}
+
+			//copy pasy excel sheet to powwerpoint
+			public void CopyChartEmbeded(xlNS.Shape ch, pptNS.Slide sl, pptNS.Shape sh)
+			{
+			ch.Copy();
+			sl.Select();
+			sh.Select();
+
+			//paste as link
+			//pptSlide.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
+			//sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			//sh.Application.ActiveWindow.Selection.Unselect();
+			//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+
+			try
+			{
+			sl.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
+			}
+			catch (Exception e)
+			{
+			Logger.LogAddDebug(e.Message);
+			}
+			//Thread.Sleep(1000);
+			var a = sl.Application.ActiveWindow.Selection;
+			}
+
+		}
+		
+		
+		}
 			
 			public void SB()
 			{
@@ -3449,181 +4332,181 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerTests
 	
 	}
 
-	public class External_Libraries()
-	{
-				
-	//reading excel
-	http://epplus.codeplex.com/
-	//Entity Framework extensions
-	http://entityframework-extensions.net/
-	//nUnit
-	https://github.com/nunit/nunit
-	
-	
-	
-	}
+    public class External_Libraries()
+    {
+          
+    //reading excel
+    http://epplus.codeplex.com/
+    //Entity Framework extensions
+    http://entityframework-extensions.net/
+    //nUnit
+    https://github.com/nunit/nunit
+    
+    
+    
+    }
 
-	public class IssuesErrors()
-	{
+    public class IssuesErrors()
+    {
 
-		//Issues\Errors
-		public void .NET()
-		{
-		
-			public CannotFindObject()
-			{
-			WHEN:
-			incorrect connection string in : DbContext initialization parameters
+      //Issues\Errors
+      public void .NET()
+      {
+      
+        public CannotFindObject()
+        {
+        WHEN:
+        incorrect connection string in : DbContext initialization parameters
 
-			WHAT:
-			Cannot find the object because it does not exist or you do not have permissions
+        WHAT:
+        Cannot find the object because it does not exist or you do not have permissions
 
-			HOW:
-			correct DbContext initialization
-			}
+        HOW:
+        correct DbContext initialization
+        }
 
-			public ReferencePermissionWasDenied()
-			{
-			WHEN:
-			migrating with code first model, with navigation properties and collection.
-			Creating foreign key, constraint.
+        public ReferencePermissionWasDenied()
+        {
+        WHEN:
+        migrating with code first model, with navigation properties and collection.
+        Creating foreign key, constraint.
 
-			WHAT:
-			error:
-			the reference permission was denied on the object '' database '', schema ''
-			Cannot find the object '' because it does not exist or you do not have permissions
-			could not create constraint.
+        WHAT:
+        error:
+        the reference permission was denied on the object '' database '', schema ''
+        Cannot find the object '' because it does not exist or you do not have permissions
+        could not create constraint.
 
-			HOW:
-			simle:
-			(trying to migrate one after another commenting out not works - migrates both simultaneosly )
-			create table with primary key. In sql manager give to users pemission rights
-			Create table with collection.
+        HOW:
+        simle:
+        (trying to migrate one after another commenting out not works - migrates both simultaneosly )
+        create table with primary key. In sql manager give to users pemission rights
+        Create table with collection.
 
-			correct:
-			change model to correct collection - navigation property. Collection in parent,
-			foreign key with patent item property in child
-			grant privilages
-			use DWH_REPLICA;
-			grant references To guest;
-			go
-			}
+        correct:
+        change model to correct collection - navigation property. Collection in parent,
+        foreign key with patent item property in child
+        grant privilages
+        use DWH_REPLICA;
+        grant references To guest;
+        go
+        }
 
-			public MethodFunctionNotFound()
-			{
-			WHEN:
-			no EF in project referencing repository project
+        public MethodFunctionNotFound()
+        {
+        WHEN:
+        no EF in project referencing repository project
 
-			WHAT: update EF
-			}
+        WHAT: update EF
+        }
 
-			public System.Security.SecurityException()
-			{
-				WHEN:
-				while windows service with InstallUtil.exe installation
-				
-				WHAT:
-				Syste.Security.SecurityException
-				
-				WHOW:
-				start console with administrative
-			}
-			
-			public WCFhttpREGerror()
-			{
-				
-				WHAT:
-Протоколу HTTP не удалось зарегистрировать URL-адрес http://+:8000/Service1/. Текущий процесс не имеет прав доступа к этому 
-пространству имен (подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353)
-				
-				WHEN:
-WCF service under console host
-					
-				HOW:
-recommended to register port:
-netsh http add urlacl url=http://+:8000/ServiceModelSamples/Service user=mylocaluser
-				OR 
-				start VS under admin 
-			}
-			
-			public WCFCannot_btain_etadata_rom()
-			{
-				WHAT:
-				Error: Cannot obtain Metadata from http://localhost:57495/WCF2.svc If this is a Windows (R) Communication Foundation service to which you have 
-access, please check that you have enabled metadata publishing at the specified address.
-				WHEN:
-					testing wcf.svc from VS
-				HOW:
-					NOT enough memory free 
-				OR: 
-					
-				
-			}
-		
-			public sgen_exe()
-			{
-				sgen.exe exited with code 1
-				//xml serialization turn off project options->build->xml 
+        public System.Security.SecurityException()
+        {
+          WHEN:
+          while windows service with InstallUtil.exe installation
+          
+          WHAT:
+          Syste.Security.SecurityException
+          
+          WHOW:
+          start console with administrative
+        }
+        
+        public WCFhttpREGerror()
+        {
+          
+          WHAT:
+  Протоколу HTTP не удалось зарегистрировать URL-адрес http://+:8000/Service1/. Текущий процесс не имеет прав доступа к этому 
+  пространству имен (подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353)
+          
+          WHEN:
+  WCF service under console host
+            
+          HOW:
+  recommended to register port:
+  netsh http add urlacl url=http://+:8000/ServiceModelSamples/Service user=mylocaluser
+          OR 
+          start VS under admin 
+        }
+        
+        public WCFCannot_btain_etadata_rom()
+        {
+          WHAT:
+          Error: Cannot obtain Metadata from http://localhost:57495/WCF2.svc If this is a Windows (R) Communication Foundation service to which you have 
+  access, please check that you have enabled metadata publishing at the specified address.
+          WHEN:
+            testing wcf.svc from VS
+          HOW:
+            NOT enough memory free 
+          OR: 
+            
+          
+        }
+      
+        public sgen_exe()
+        {
+          sgen.exe exited with code 1
+          //xml serialization turn off project options->build->xml 
 
-				}
+          }
 
-			public void SSAS()
-			{
-				
-				///Installation
-				///Donload instal SSDT from MS VS
-				///Create Analysis services projects from VS templates
-			
-				public void Impersonation()
-				{
-					
-					WHEN:
-					While trying to proccess any item of olap cube from VS to create new database
-					
-					WHAT:
-					Severity	Code	Description	Project	File	Line	Suppression State
-					Error		?????????????? ??????????: ???????? ????????? ??? ??????? ImpersonationInfo. ???? ???????? ImpersonateAccount ???????????? ?????? ImpersonationInfo, ???????? Account ?? ????? ???? ??????.			0	
-					
-					HOW:
-					in datasourses name rightclick ViewDesigner, in Impersonation Information input credentials
-								
-				}
-			
-				public void Database NameChange()
-				{
-					
-					WHEN:
-					
-					WHAT:
-					change olap database name
-					
-					WHOW:
-					rtclck project properties - > deployment
-					
-				}
-				
-				public void DimensionProcessError()
-				{
-					
-					WHEN:
-					connecting via wrong login (Datasource base login instead of OLAP base)
-					
-					WHAT:
-					cannot connect to database while login 
-					
-					WHOW:
-					change credentials
-					
-				}
-							
-			}
-			
-		}	
-	
-		
-	}
-	
-	}
+        public void SSAS()
+        {
+          
+          ///Installation
+          ///Donload instal SSDT from MS VS
+          ///Create Analysis services projects from VS templates
+        
+          public void Impersonation()
+          {
+            
+            WHEN:
+            While trying to proccess any item of olap cube from VS to create new database
+            
+            WHAT:
+            Severity	Code	Description	Project	File	Line	Suppression State
+            Error		?????????????? ??????????: ???????? ????????? ??? ??????? ImpersonationInfo. ???? ???????? ImpersonateAccount ???????????? ?????? ImpersonationInfo, ???????? Account ?? ????? ???? ??????.			0	
+            
+            HOW:
+            in datasourses name rightclick ViewDesigner, in Impersonation Information input credentials
+                  
+          }
+        
+          public void Database NameChange()
+          {
+            
+            WHEN:
+            
+            WHAT:
+            change olap database name
+            
+            WHOW:
+            rtclck project properties - > deployment
+            
+          }
+          
+          public void DimensionProcessError()
+          {
+            
+            WHEN:
+            connecting via wrong login (Datasource base login instead of OLAP base)
+            
+            WHAT:
+            cannot connect to database while login 
+            
+            WHOW:
+            change credentials
+            
+          }
+                
+        }
+        
+      }	
+    
+      
+    }
+    
+  }
 		
 	#endregion 	
 	
@@ -7271,11 +8154,6 @@ pip install ipython
 				
 				public datetime()
 				{
-					--date -m st
-					select dateadd (MONTH,DATEDIFF(MONTH, 0,GETDATE())-1,0)
-					--date -m finish
-					select dateadd(SECOND,-1,dateadd(MONTH,DATEDIFF(MONTH,0,getdate()),0))
-					
 					
 					--trunc by month
 					select dateadd (yy,DATEDIFF(yy, 0,GETDATE()),0)
@@ -7910,7 +8788,7 @@ format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1}
 			
 			public void Maintenance()
 			{
-
+				
 //Query metadata
 //get calsess
 select expand(classes) from metadata:schema
@@ -10479,53 +11357,52 @@ RAW JSON
 
 		}
     
-		public void MongoDb()
-		{
-		  Maintenance:[
-			//install
-			https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
-			//initial start with custom data path
-			"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath d:\test\mongodb\data
-			
-			]
-			,BoilerPlate[
-			  //insert doucment
-			  use test
-			  db.users.insertOne({name:"sue",age:26,_id=1})
-			  //from CMD command shell, cd to server files folder
-			  mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
-			  //select from
-			  db.restaurants.find( {} )
-			  //where
-			  db.restaurants.find({"address.building": "10807"})
-			  db.restaurants.find({"address.zipcode": "11694"})
-			  //and
-			  db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
-			  //or
-			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
-			  //sort
-			  db.restaurants.find().sort( { "address.zipcode": 1 } )
-			  //where sort
-			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
-			  //where in
-			  db.restaurants.find({"address.building": {$in:["10807","23059"]}})
-			   
-			  //greater then
-			  db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
-			  db.inventory.find( { status: "A", qty: { $lt: 30 } } )
-			  //in
-			  db.inventory.find( { status: { $in: [ "A", "D" ] } } )
-			  db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
-			  SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
-			  
-			]
-		}
-	
+    public void MongoDb()
+    {
+      Maintenance:[
+        //install
+        https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
+        //initial start with custom data path
+        "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath d:\test\mongodb\data
+        
+        ]
+        ,BoilerPlate[
+          //insert doucment
+          use test
+          db.users.insertOne({name:"sue",age:26,_id=1})
+          //from CMD command shell, cd to server files folder
+          mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
+          //select from
+          db.restaurants.find( {} )
+          //where
+          db.restaurants.find({"address.building": "10807"})
+          db.restaurants.find({"address.zipcode": "11694"})
+          //and
+          db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
+          //or
+          db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
+          //sort
+          db.restaurants.find().sort( { "address.zipcode": 1 } )
+          //where sort
+          db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
+          //where in
+          db.restaurants.find({"address.building": {$in:["10807","23059"]}})
+           
+          //greater then
+          db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
+          db.inventory.find( { status: "A", qty: { $lt: 30 } } )
+          //in
+          db.inventory.find( { status: { $in: [ "A", "D" ] } } )
+          db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
+          SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+          
+        ]
+    }
 	}
 		
 	#endregion
 		
-	#region OS
+	#region OS		
 		
 		public Windows
 		{
@@ -10606,7 +11483,6 @@ RAW JSON
 				//ps 32
 				
 			}
-						
 		}
 		
 		public UNIX
