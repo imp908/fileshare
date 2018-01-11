@@ -34,6 +34,25 @@ namespace Parts{
 	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
 	//JS
 	https://eloquentjavascript.net/index.html										  
+
+	//chart vis	
+	http://js.cytoscape.org/#getting-started/including-cytoscape.js
+	http://graphalchemist.github.io/Alchemy/#/
+	https://neo4j.com/developer/guide-data-visualization/
+	http://sigmajs.org/
+	//with images
+	http://bl.ocks.org/eesur/be2abfb3155a38be4de4
+	
+	http://leaverou.github.io/awesomplete/
+	https://primitive.lol/
+	
+	
+	//d3 
+	//layouts
+	http://bl.ocks.org/robschmuecker/7880033
+	http://mbostock.github.io/d3/talk/20111116/force-collapsible.html
+	http://mbostock.github.io/d3/talk/20111018/tree.html
+	http://www.coppelia.io/2014/07/an-a-to-z-of-extra-features-for-the-d3-force-layout/
 	
 	//SERIAL PROGRAMMING 	
 	//RS-232
@@ -192,6 +211,8 @@ namespace Parts{
 	https://blog.codinghorror.com/
 	//CodeNames
 	http://blog.codenamed.nl/
+	//
+	https://tattoocoder.com/
 	
 	
 	//CONTINUOUS INTEGRATION
@@ -829,7 +850,44 @@ II:Mastery
 		
 		public class Miscellaneous
 		{
-				
+			
+public EmtityFrameworkClassShema{
+	
+	Tests{
+FunctionalTests{
+ProductivitiApi{
+	DatabaseInitializationTests.cs
+}
+query{LinqToEntities{
+	ContainsTests.cs{}
+	}}
+}
+},
+EF{
+core{
+Metadata{
+Edm{
+	PrimitiveTypeKind.cs{primitive types}
+	,EntityType.cs{fundamental type }
+	,ClrEntityType.cs{}
+}
+}
+}
+Query{
+	InternalTrees{
+	Node.cs
+	,Command.cs
+	}
+	PlainCompiler{CodeGen.cs}
+}
+
+QueryableExtensions.cs{7763 GetMethod}
+DbContext.cs{]
+
+}
+
+}			
+
 	IV:Miscellaneous ˌmɪs(ə)'leɪnɪəs
 Actual:
 TODO to JSON;
@@ -847,8 +905,8 @@ Revise:
 		
 		{GitLab
 
-			repository withot ".git"
-			http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
+		repository withot ".git"
+		http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
 
 		},
 		
@@ -858,112 +916,130 @@ Revise:
 			public InitializeNewRepo()
 			{
 				
-echo "# NSQLmanager" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/imp908/NSQLmanager.git
-git push -u origin master
+	echo "# NSQLmanager" >> README.md
+	git init
+	git add README.md
+	git commit -m "first commit"
+	git remote add origin https://github.com/imp908/NSQLmanager.git
+	git push -u origin master
 				
-			}
-			
+			}			
 			
 			public BranchMerge()
 			{// Master->br1. stage 1 master+ stage 2 master+ br1--
 
-Short:
-https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
+	Short:
+	https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
 
-Long:
+	Long:
 
-stage1
-inital deploy
-short: {
-create
-commit
-push
-}
-\\\\\\
-detailed
-//Initial deploy
+	stage1
+	inital deploy
+	short: {
+	create
+	commit
+	push
+	}
+	\\\\\\
+	detailed
+	//Initial deploy
 
->>Create repo
+	>>Create repo
 
-cd PATH
-git init
-git commit –m "initial commit"
-git remote add origin GITPATH
-git push origin master
+	cd PATH
+	git init
+	git commit –m "initial commit"
+	git remote add origin GITPATH
+	git push origin master
 
-stage2
-//////
-get cahnges from master to br1
-short: {
-pull br want to update,
-checkout branch want to update,
-pull branch(master) from what to get
-}
-\\\\\\
-//Pull changes from master to branch (changes in master were made,commited and pushed)
->>branch git project
+	stage2
+	//////
+	get cahnges from master to br1
+	short: {
+	pull br want to update,
+	checkout branch want to update,
+	pull branch(master) from what to get
+	}
+	\\\\\\
+	//Pull changes from master to branch (changes in master were made,commited and pushed)
+	>>branch git project
 
-cd PATH_branch1
-git init
-//(if not set) 
-git remote add origin GITPATH
-//+ if no branch1 files are in direcory
-git pull origin br1
-git checkout gm br1
-//get changes from master to br branch
-git pull origin master
-git push origin br1
+	cd PATH_branch1
+	git init
+	//(if not set) 
+	git remote add origin GITPATH
+	//+ if no branch1 files are in direcory
+	git pull origin br1
+	git checkout gm br1
+	//get changes from master to br branch
+	git pull origin master
+	git push origin br1
 
-stage3
-added method in master file
-deleted file in br
-deleted method in br
-changed method in br
-//////
+	stage3
+	added method in master file
+	deleted file in br
+	deleted method in br
+	changed method in br
+	//////
 
- repeat Stage2: 
-{
-pull br1
-checkout br1,
-pull master
-}
+	repeat Stage2: 
+	{
+	pull br1
+	checkout br1,
+	pull master
+	}
 
-CONFLICT: automatic merge failed
+	CONFLICT: automatic merge failed
 
-Resolve conflicts in web or descktop or cmd
+	Resolve conflicts in web or descktop or cmd
 
 
 
-stage4:
-///////
-added files to master
+	stage4:
+	///////
+	added files to master
 
-repeat stage2:
-{
+	repeat stage2:
+	{
 	//if no files in 
 	pull br1
 	checkout br1
 	pull master
 	//added files added
 	push br1
-}
+	}
 
 
 
 			}
-			
-			
+						
 			public DeleteMaster()
 			{ //not working
-				https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
-				git symbolic-ref HEAD refs/heads/another-branch
-				http://matthew-brett.github.io/pydagogue/gh_delete_master.html
+			https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
+			git symbolic-ref HEAD refs/heads/another-branch
+			http://matthew-brett.github.io/pydagogue/gh_delete_master.html
 			}
 			
+			PullProgects
+			{
+				
+	git remote rm nsm
+	git remote rm napi
+	git remote add nsm http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git 
+	git remote add napi http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+	cd C:\workflow\projects\Dev\gitLab\manager_split
+	git init
+	git pull nsm manager_split
+	git checkout manager_split
+	cd C:\workflow\projects\Dev\gitLab\PersonNews
+	git init
+	git pull napi nsql_mng
+	git checkout nsql_mng
+				
+			}
+			
+			overall 
+			{
 			MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
 			git pull origin branchname --allow-unrelated-histories			
 			//recommended
@@ -1007,6 +1083,8 @@ repeat stage2:
 			
 			git-ls-tree 
 			git-ls-remote
+			}
+		
 		}
 
 	}
@@ -2157,6 +2235,11 @@ StringBuilder.
 					Install-Package xunit.runner.console
 					Install-Package xunit.runner.visualstudio
 					
+Get-Project -All | Install-Package xunit.assert
+Get-Project -All | Install-Package xunit.core
+Get-Project -All | Install-Package xunit.extensibility.core
+Get-Project -All | Install-Package xunit.extensibility.execution
+
 					Update-Package -Reinstall
 					
 					//system.web.hhtp
@@ -2170,10 +2253,10 @@ Install-Package moq -ProjectName NSQLManagerIntegrationTests
 Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
 Install-Package Microsoft.AspNet.WebApi -ProjectName NSQLManagerIntegrationTests
 
-Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
-Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
-Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
-Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit -ProjectName NSQLManagerTests
+Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerTests
+Install-Package NUnit.Console -ProjectName NSQLManagerTests
+Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerTests
 
 				}
 				
@@ -7188,6 +7271,11 @@ pip install ipython
 				
 				public datetime()
 				{
+					--date -m st
+					select dateadd (MONTH,DATEDIFF(MONTH, 0,GETDATE())-1,0)
+					--date -m finish
+					select dateadd(SECOND,-1,dateadd(MONTH,DATEDIFF(MONTH,0,getdate()),0))
+					
 					
 					--trunc by month
 					select dateadd (yy,DATEDIFF(yy, 0,GETDATE()),0)
@@ -7822,7 +7910,7 @@ format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1}
 			
 			public void Maintenance()
 			{
-				
+
 //Query metadata
 //get calsess
 select expand(classes) from metadata:schema
@@ -10437,7 +10525,7 @@ RAW JSON
 		
 	#endregion
 		
-	#region OS		
+	#region OS
 		
 		public Windows
 		{

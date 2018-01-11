@@ -32,6 +32,473 @@
 	
 }
 
+//Links
+[
+
+	{Passes
+
+http://msk1-vm-inter03.nspk.ru/
+http://msk1-vm-inter01.nspk.ru/
+sa:1Qaz2wsx 
+http://msk1-vm-ovisp01
+8085 :newstest2 (persons,1c,birthdays,Acc)
+8084 :newstest2 (persons,1c,birthdays,Acc)
+http://msk1-vm-ovisp02
+orient test
+http://msk1-vm-indb01
+orgchart_prod
+http://msk1-vm-indb02
+http://msk1-vm-inapp01
+accountService
+newstest2
+
+http://msk1-vm-indb01
+Orient prod
+root
+mR%mzJUGq1E
+cm9vdDptUiVtekpVR3ExRQ==
+
+http://msk1-vm-ovisp01
+Intravision Dev
+admin  
+Q1w2e3r4
+admin:11551053
+apiuser:12345
+
+
+
+root:I9grekVmk5g
+Authorization: Basic cm9vdDpJOWdyZWtWbWs1Zw==
+
+root:root
+Authorization: Basic cm9vdDpyb290
+
+http://msk1-vm-inapp01.nspk.ru:81/
+http://msk1-vm-inapp01.nspk.ru:8081/
+
+UI
+http://msk1-vm-onesweb01/nspk_ui/ws/ExchangeInv.1cws?wsdl
+http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/full
+http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/part/215
+UH
+http://msk1-vm-onesweb01/nspk_uh/ws/ExchangeClev.1cws?wsdl
+http://msk1-vm-onesweb01/nspk_uh/ws/DocsVision.1cws?wsdl
+zup
+
+Остатки отпусков по физ лицу
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/full
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/part/215
+График отпусков по физ лицу
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/graph/full
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/graph/part/215
+Отпуска по физ лицу
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/full
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/part/215
+
+//location
+http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/full
+
+WS:12345qweQWE!@#)
+Authorization: Basic V1M6MTIzNDVxd2VRV0UhQCM=
+
+
+ZUP TEST
+NOT OK
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/part/c1a4c984-a00e-11e6-80db-005056813668
+
+
+ostatki
+NOT OK
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/part/c1a4c984-a00e-11e6-80db-005056813668
+
+OK
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/part/ba124b8e-9857-11e7-8119-005056813668
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/part/ed53c8ea-c179-11e4-8edf-f80f41d3dd35
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/part/88906e68-e697-11e5-80d4-005056813668
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/part/592a863e-8642-11e7-8119-005056813668
+
+
+NOT OK
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/part/c1a4c984-a00e-11e6-80db-005056813668
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/part/ba124b8e-9857-11e7-8119-005056813668
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/part/ed53c8ea-c179-11e4-8edf-f80f41d3dd35
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/part/88906e68-e697-11e5-80d4-005056813668
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/part/592a863e-8642-11e7-8119-005056813668
+
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/graph/part/0629685d-7e6b-11e7-8119-005056813668
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/graph/part/592a863e-8642-11e7-8119-005056813668
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/graph/part/c1a4c984-a00e-11e6-80db-005056813668
+
+neprintsevia@nspk.ru
+
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/part/c1a4c984-a00e-11e6-80db-005056813668
+
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/part/c1a4c984-a00e-11e6-80db-005056813668
+
+http://msk1-vm-ovisp01:8084/api/Person/HoliVationAcc
+http://msk1-vm-ovisp01:8085/api/Person/HoliVationAcc
+http://msk1-vm-ovisp01:8084/api/Person/Acc
+http://msk1-vm-ovisp01:8085/api/Person/Acc
+/api/Person/HoliVationAcc
+
+YablokovAE
+c1a4c984-a00e-11e6-80db-005056813668
+
+http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/graph/part/c1a4c984-a00e-11e6-80db-005056813668
+C:\workflow\projects\TEST\NSQLmanager-dev2\NSQLManager\WebManager.cs
+	}
+
+	,{Overall
+
+(ОПКЦ)-[internet]->(КЦОД)
+	
+//staic
+http://static.nspk.ru
+\\msk1-vm-ovisp01\e$
+http://msk1-vm-ovisp01/v9/
+
+//tfs
+http://msk1-vm-tfs01.nspk.ru:8080/tfs/DefaultCollection/_versionControl?path=%24%2FNSPK%20DevTeam%2FOVISPO%20MD%2Findex.md&_a=compare
+//Jira
+http://jira.nspk.ru
+//Address book
+http://my.nspk.ru/
+http://my.nspk.ru/chart/
+//Helpdesk
+http://help.nspk.ru/Task
+//orientDB admin
+http://msk1-vm-ovisp02:2480/studio/index.html#/database/news_test2/functions
+//orientDB test
+http://msk1-vm-ovisp02:2480/studio/index.html#/database/news_test1
+//orientDB copy
+http://msk1-vm-ovisp02:2480/studio/index.html#/database/news_test3
+//Orient FUNCTIONS for API
+https://orientdb.com/docs/2.2/Functions-DB-Access.html
+//Orient prod
+10.31.25.155:2424 OrientDB Front2
+
+http://msk1-vm-indb01:2480/studio/index.html#/database/Orgchart_prod/functions
+//not prod
+cm9vdDpJOWdyZWtWbWs1Zw==
+http://msk1-vm-indb02
+//news deploy
+http://msk1-vm-inter02.nspk.ru/
+//MY nspk prod
+msk1-vm-inapp01
+//
+http://msk1-vm-inapp01.nspk.ru:81/api/structure/searchperson/seve
+//path
+C:\inetpub\wwwroot\Intranet
+//Person API
+http://msk1-vm-ovisp01:8085/api/Person/GetManger/PodolskayaNI
+//Account 
+http://msk1-vm-inapp01:8085/api/Account/Get
+
+
+
+OrientDb exportimport
+connect plocal:C:/OrientDB/databases/news_test root I9grekVmk5g
+
+DFAULT:
+console.bat
+connect remote:127.0.0.1/news_test* root I9grekVmk5g
+import database C:/import/news_test*.gz
+
+//restore from backup
+restore database C:/backup/news_test2.zip
+
+alter database validation false
+import database C:/import/news_test*.gz -preserveClusterIDs=true -deleteRIDMapping=false
+alter database validation true
+
+in orient parent folder
+import database C:/OrientDB/bin/import/news_test2.gz
+DROP DATABASE PLOCAL:/orientdb/databases/news_test4 root i9grekVmk5g
+
+sh C:/OrientDB/bin/backup.sh plocal:/127.0.0.1/database/news_test2 root I9grekVmk5g C:/export/bck.zip
+
+release DB
+https://github.com/orientechnologies/orientdb/issues/4484
+
+connect remote:127.0.0.1/news_test2 root I9grekVmk5g
+connect remote:127.0.0.1/news_test3 root I9grekVmk5g
+}
+	
+	,{MyNspk 
+	
+	//staic
+http://static.nspk.ru
+\\msk1-vm-ovisp01\e$
+http://msk1-vm-ovisp01/v9/
+http://my.nspk.ru/chart/
+  
+  
+	}
+	
+	,{GUIDs
+	
+pguid
+c1a4c984-a00e-11e6-80db-005056813668
+uguid
+c1b0ff45-5cb1-11e7-8117-005056813668
+
+	}
+	
+	,PROXY{
+	
+У меня пошло с  такой конфигой:
+
+npm set strict-ssl false –g
+npm config set registry "http://registry.npmjs.org/" -g
+npm config set proxy http://msk1-vm-proxy01.unix.nspk.ru:3128 –g
+
+npm --registry http://nexus.nspk.ru:8081/nexus/content/repositories/npmjs/ install -g react react-dom
+
+	}
+	
+]
+
+//Description
+[
+
+
+
+Кратко:
+===========================================
+
+-------------------------------------------
+Batch_1C_Orientdb ->
+{
+Прод. Версия my.nspk.ru, проект POST используестя для наполнения данными новой базы, если такая возможность возникает. Проект PUT скомпилирован в .exe приложение, которео 
+по расписанию запускается на msk1-vm-inapp01 для поддержания адресной книги в актуальном состоянии
+}
+	содержит основные комманды и методы по работе с Orient.
+	OrientClassesHelper через OrientREST кидает собранный batch query, к URL.
+	десереализует orient JSON response непосредственно в POCO класс моделей, без форматирования JSON,
+	И возвращает коллекцию объектов модели.
+	POST инициализирует объекты Orient, заливает первоначальные данные.
+	PUT тянет с 1C, привеодит из объектов к 1С в комманды к orientDB, проверяет актуальность по AD апдейтит/добавляет(отсутсвтующих в апдейт листе) в Orient.
+ActiveDirectoryOrientDbEtl ->
+{
+для отчетов по скуду. По крайней мере эта его часть не используется, т.к. не актуально
+}
+	тянет работников Person с сервиса 1C тем же способом как и в Batch_1C_Orientdb. Названия Edge, странные, но посмотреть, не конфиг ли это нельзя,
+	на сервис OCreate нет ссылки.
+	заливает в SQLserver msk1-vm-ovisp01 SKUD. Приведение типов через через dynamic, есть модель POCO для всех иточников.
+	Helper ExcelToDb содержит заливку данных из Excel через ExcelReaderFactory в базу SKUD, чтением xml схемы, наполнением Datarow иприведением
+	к объекту Модели, с дальнейшей загрузкой в базу. сначала первый файл (Floor,event,location), затем второй(Visitor) из зардкод Excel.
+	Добавление везде закоменчено.
+	AdHelper, чето нигде не используется.
+ADBook_API ->
+{
+будет использоваться для News
+будет использоваться в адресной книге позже. Пока не располагается нигде
+}
+	Формирование списка из хешей SHA512 (в Batch_1C_Orientdb MD5) файлов. Сравнение хеш входящего потока и существующих в папке файлов.
+	Переразмеривание картинок, архивирование.
+AddressBook_News ->
+{
+orientDB test: http://msk1-vm-ovisp02:2480/studio/index.html#/database/news_test(4)
+orientDB prod: http://msk1-vm-indb01
+build deploy: http://msk1-vm-ovisp01
+newstest: http://msk1-vm-ovisp01:8081/api/News/Person
+newstest2: http://msk1-vm-ovisp01:8083/api/News/Person
+result: http://my.nspk.ru/
+Это дев. Версия будущего нашего внутреннего портала. Здесь будет реализована работа с новостями, форумами, статьями, блогами и проч. 
+Пока располагается на ovisp01, на нормальном IIS сервере и там его можно потестить
+}
+	Тянется к Orient возвращает строки результатов.
+	абстракция с шаблонами команд к базе CRUD в OrientNews (через BatchBuiler строит OrientBatch ), часть комманд c бизнеслогикой в OrientNewsHelper.
+AddressBook_backend ->
+{
+Саша утверждает, что это используется для возврата фотографий и при ее отсутствии – дефолтной картинки. Если Саша прав, то это используется для прома адресной книги и 
+располалагестя на ovisp01
+}
+	Авторизуется в OrientdDb, возвращает фотку из url от почты.
+Intranet ->
+{
+Ныне ушедшего из нспк Сереги Сидельникова работа – это опросник Quiz, который используется все еще в компании. И старая версия новостей, которая была переписана полностью 
+в проекте AddressBook_News
+}
+	MVC под что-то похожее на http://list.nspk.ru/monh/
+	в IntranetHelper генерик абстракция с методами репозитория, для работы с базой.
+	ValidateAtLeastOneCheckedAttribute custom validation attribute
+	Несколько POCO для Quiz, Result, Question, News.
+	Взаимодействие с Orient через дравйвер. ДесериализацияJSON в POCO классы моделей.
+	CRUD частичной подстановкой комманд через хелперы
+AccessGateRequestAutomation ->
+{Распологается в ОПКЦ  сегменте. (dc01-agwusr01.win.nspk.ru)
+Требуется для завеления учетных записей из заявки Банков в домен  Шлюза Доступа.( ТРХ \ СИОМ \ Диспут)}
+	FTPHelper использует fluentFTP, но на часть методов нигде нет ссылок. Загружает список с файла excel, парсится IXlsReader
+	ADHelper так сказать CRUD для AD. Путь к списку заявителей из excel, и параметры пользователя с привилегиями тянет с конфигов.
+	Ищет, создает, удаляет, права, группы, OU,
+	ConsoleProcessorXLSData обертка вокруг ADHelper, с логированием, успешные резултаты через FileResultHelper имплементацию IResult пишутся в файл.
+NoificationToRadio ->
+{
+Ежедневная выгрузка списка сотрудников с логинами для подрядчика, который процессит корпоративное радио. Располагается на ovisp01
+}
+рассылка на другой адресс чем в LOR	
+	
+	
+	
+проекты, которые скорее, похожи, на концепции:
+-------------------------------------------	
+LOR ->
+{
+archive
+}
+	POC для рассылки запроса к MSK1-VM-INTER01 Database=is4_32_5, распарсенного через datatable в html таблицу, через exchange.
+HomebrewMainDev ->
+{
+Сашины какие-то изыскания в коде, нигде не используется, хранится должно в архиве скриптов
+archive
+}
+	шифрование
+cmdb ->
+{
+archive
+}
+	проверка концепций OrientDb и VMwareVim в одну строчку.
+OADimport ->
+{
+Сашины наработки с прошлой работы, который мы используем в других проектах за основу обращения к AD. В архив скриптов как пример
+archive
+}
+	POC обращения к AD через LDAP.
+OrientDriver ->
+{
+Не используется, предпочтение отдано REST запросам, примеров которых куча в актуальных проектах, из которых самый актуальный на данный момент это AddressBook_News
+}
+	исходник драйвера Orient
+	OrientConsole закомменченные методы работы с базой через драйвер
+Сreate_Unit_Unit_Edge ->
+{
+Старьё, на основе которого строились актуальные нормальные проекты. Создавался как альтернатива драйверу Orient. Больше не используется, в треш
+}
+	не собирается чего то, но нутри проверка коннекта к Orient
+
+	
+	
+Полно:
+===========================================
+
+Непонятки
+-------------------------------------------
+>>
+ADBook_API -> FileHelper AddFile( ...compressing )
+: if compressing {  выполнть проверку и охранить архив} ?
+в коде поток сравнивается с неархиваированными, архивируется и добавляется к хешу, хэш от архива не проверяется.
+а в предыдущем блоке .zip -> ищется хешь архива.
+Какая имено логика предполагается при проверке потока для разных форматов?
+Из кода предполагаю так:
+if(picture) - > if(!checkhash){resize();save();moveToHashFolder();addHash();;}
+if(.zip) - > if(!checkhashForCompressed)){save();moveToHashFolder();addHash();}
+if(.zip,compressed=true) - > if(!checkhashForNOTCompressed){Compress();save();moveToHashFolder();addHash();}
+if(.zip,compressed=false) - > if(!checkhashForNOTCompressed){save();moveToHashFolder();addHash();}
+
+>>
+ADBook_API.Controllers -> не понятно, как в контроллер попадают файлы, т.е. почему только поток, ведь если пользователю выкидывается окошко с
+FileBrowser, удобнее всего получить сразу коллекцию файлов ччерез IEnumerable<HttpPostedFileBase>.
+
+>>
+Batch_1C_Orientdb.Intranet_POST.OneSHelper.GetData()
+не осознал вот этот кусок:
+
+foreach (int data in Enum.GetValues(typeof(OneSData)))
+switch (data)
+{
+	case (int)OneSData.Person:
+		oneSDbSet.Persons.AddRange(GetDataFromOneS(DataHelper.GetStringValue((OneSData)data),
+			new Person(), new DateTime(2014, 08, 04)));
+		break;
+	case (int)OneSData.Unit:
+		oneSDbSet.Units.AddRange(GetDataFromOneS(DataHelper.GetStringValue((OneSData)data), new Unit(), new DateTime(2014, 08, 04)));
+		break;
+	case (int)OneSData.Employee:
+		oneSDbSet.Employees.AddRange(GetDataFromOneS(DataHelper.GetStringValue((OneSData)data), new Employee(), DateTime.Now));
+		break;
+}
+Приведенный номер типа OneSData, сравнивается с приведенными к целому StringValueAttribute а затем передается приведенный к типу OneSData параметр в 
+GetDataFromOneS, который принимает просто тип StringValueAttribute, для последующего стучания к сервису , стучаземуся в  1"спаси и сохрани"С.
+Как я понимаю это работает :  в любом случае запустим все три метода, создадутся стандартные инстансы объектов, 
+при этом приведение к целому оказывается излишне. 
+
+
+
+>>
+Batch_1C_Orientdb.Intranet_POST и Batch_1C_Orientdb.Intranet_PUT ->
+intranet_POST как создающий/инициализирующий 1С
+intranet_PUT обновление из 1C,AD 
+Сравниваются хеш записи Orient vs  1C ,апдейт найденных в Orient, запись новых из ненайденных
+
+
+
+Различия
+-------------------------------------------
+ActiveDirectoryOrientDbEtl - > Ninject
+AddressBook_News -> AutoFac
+
+
+
+По общей логике
+-------------------------------------------
+
+ActiveDirectoryOrientDbEtl ->
+	ActiveDirectoryOrientDBEtl.Contexts
+		OrientDbContext ->
+			1) претендент на отдельный проект можно вкрячить в нескоьлких проектах :
+				[ActiveDirectoryOrientDbEtl,AddressBook_News, Batch_1C_Orientdb]
+			2) далее , вокруг контекста можно накидать
+За основу можно взять уже реализованую структуру из ActiveDirectoryOrientDbEtl (Person->PersonHelper->Context) 
+и в AddressBook_backend.OrientHttpRestHelper
+и в Batch_1C_Orientdb.Intranet_POST.OrientREST (это проекте, вообще уже почти модель и часть методов Repo готовы в Helpers)
+а блок с batch можно напряму
+а модель по принципу из AddressBook_backend.Models
+
+/*
+Repository {
+	...
+string OrientDbContext.Get<T>(int ID); where T: IOrientPOCO{...}
+	...
+}
+*/
+
+включив в него методы, которые частично пойдут из
+	AddressBook_News.News_API.NewsAPI.Helpers.OrientNewsHelper,
+	AddressBook_News.News_API.NewsAPI.Helpers.OrientDB_HttpManager,
+	AddressBook_News.News_API.NewsAPI.Helpers.OrientDB_HttpManager
+	ADBook_API.Helpers.OrientHelper.cs
+Наиболее похожая аналогия Intranet.Models.IntranetHelper
+так как не зависимо от приложения, в итоге мы кидаем в orient,
+или команду sql  или параметр к процедуре черз API или те же параметры через драйвер.
+Репозиторий оборачивается в UnitOfWork со всей бизнеслогикой.
+
+/*
+UnitOfWork {	
+	...
+Repository<Person>() EmployeeRepo;
+Repository<Unit>() WorkPlaceRepo;
+	...	
+	sring GetAllPersonManagers(string AccountName_)
+	{
+		...
+string EmployeeRepo.GetManagerByAccountName(AccountName_){...}
+		...
+	}
+	...
+}
+*/
+
+Общая линия сменится с
+DB->(OrientNews)->(OrientDB_HttpManager/OrientNewsHelper/)->(ControllerWebAPI + Logic)
+на 
+DB->Repository->UnitOfWork->Model->(CntrollerWebAPI no Logic)
+
+	OrientNewsHelper подозрительно движется к суперклассу)
+	Уже можно начинать разносить ччасть методов в формировалку функций часть в возвращалку контента от response
+
+]
+
 //OrientFuncts
 [
 
@@ -404,7 +871,8 @@ others null
 		]
 													
 			,[MyNspk URLs from
-
+			
+http://msk1-vm-inapp01.nspk.ru:81/api/Photo/?email=Neprintsevia@nspk.ru
 http://msk1-vm-inapp01.nspk.ru:81/api/Photo/?email={{cnt.mail}}
 var GetStructureByUnitGUID = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetStructureByUnitGUID/'
 var GetStructureByPersonGUID = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetStructureByPersonGUID/'
@@ -483,7 +951,7 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 
 			]
 			
-			,[ Shema
+			,[Shema
 			
 			//--------------------------------
 
@@ -733,7 +1201,7 @@ manager generator
 
 >>
 Test Repo, UOWs
-<-integrateion tests added+db boilerplate generate
+<-integrateion tests added + db boilerplate generate
 
 >>
 Ref repo
