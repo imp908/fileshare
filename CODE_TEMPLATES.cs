@@ -41,9 +41,10 @@ namespace Parts{
 	http://sigmajs.org/
 	//with images
 	http://bl.ocks.org/eesur/be2abfb3155a38be4de4
-	
 	http://leaverou.github.io/awesomplete/
 	https://primitive.lol/
+	//ECMAScript 6
+	http://exploringjs.com/es6/index.html#toc_ch_modules
 	
 	
 	//d3 
@@ -5637,6 +5638,23 @@ $(document).ready(function(){
 
 	//----------------------------------------------
 	#endregion
+	
+	public void Angular_2()
+	{
+		public void Descriptions()
+		{
+
+component {}
+metadata ...
+emplate <>
+
+{}-{{values}}-><>
+{}-[className]=""-><{}>
+<>-(event)="value"->{}
+
+		}
+	
+	}
 	
 	#endregion	
 	

@@ -1,0 +1,10 @@
+<p>  selected</p>
+<div *ngIf="heroDetails">
+  from selected
+  {{heroDetails.name}}
+  <div>
+    <label>name:
+     <input [(ngModel)]="heroDetails.name" placeholder="name"/>
+   </label>
+  </div>
+</div>

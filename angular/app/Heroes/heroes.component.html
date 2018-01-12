@@ -1,0 +1,14 @@
+
+<h3>Heroes</h3>
+<li *ngFor="let hero of heroes"
+  (click)="clicked(hero)">
+  <span></span>{{hero.name}}
+  {{hero.birthdate | date: 'd MMM y' }}
+</li>
+
+<p *ngIf="heroSelected">
+  from hero
+  {{heroSelected.name}}
+</p>
+
+<app-selected [heroDetails]="heroSelected"><app-selected>
