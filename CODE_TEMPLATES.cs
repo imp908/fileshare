@@ -437,7 +437,10 @@ namespace Parts{
 	https://swagger.io/
 	//tizen
 	https://www.tizen.org/
-	              	
+	
+	//ORACLE
+	http://www.f-notes.info/oracle:what_where
+		
 	}
 	
 	#region SourceControl
@@ -4743,6 +4746,7 @@ pip install ipython
 					}
 				
 				}
+				
 				public internal class Selection()
 				{
 					
@@ -5339,7 +5343,7 @@ pip install ipython
 											
 				}
 				
-				public internal class PLsql()
+				public internal class Functions()
 				{
 					
 					public P_TEMPLATE()
@@ -5583,617 +5587,13 @@ pip install ipython
 						end ;
 
 					}
+				
 				}
 				
 				public internal class UNSORTED()
 				{
 				
-
-		with t1 as
-		(
-		select 
-		b.slip_count sCnt,
-		b.department dep
-		from tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND b.batch_date>='08.07.2013'
-		AND b.batch_date <='14.07.2013'
-		and b.department=9293963112
-		)
-		,
-		t2 as (
-		select 
-		m.merchant merch
-		from tms.merchants m
-		join temp2 t on m.merchant=t.c1
-		--where m.merchant=9290575240
-		)
-
-		select 
-		t2.merch,
-		sum(t1.sCnt) 
-		from t1
-		join t2 on t1.dep=t2.merch
-
-		group by 
-		t2.merch
-
-
-
-		with t1 as
-		(
-		select 
-		b.slip_count sCnt,
-		b.department dep
-		from tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND to_char(b.batch_date,'IW')='28'
-		and b.department=9293963112
-		)
-		,
-		t2 as (
-		select 
-		m.merchant merch,
-		m.street address
-		from tms.merchants m
-		join temp2 t on m.merchant=t.c1
-		--where m.merchant=9290575240
-		)
-
-		select 
-		t2.merch,
-		t2.address,
-		sum(t1.sCnt) 
-		from t1
-		join t2 on t1.dep=t2.merch
-
-		group by 
-		t2.merch,
-		t2.address
-
-
-
-		select * from (
-		with t1 as
-		(
-		select 
-		b.slip_count sCnt,
-		b.department dep,
-		to_char(b.batch_date,'IW') wCnt
-		from tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND to_char(b.batch_date,'IW') between '27' and '30'
-		and to_char(b.batch_date,'yyyy') = '2013'
-		and b.department=9293963112
-		),t2 as (
-		select 
-		m.merchant merch,
-		m.street address
-		from tms.merchants m
-		join temp2 t on m.merchant=t.c1
-		--where m.merchant=9290575240
-		)
-
-		select 
-		t2.merch,
-		t2.address,
-		t1.wCnt wCnt ,
-		sum(t1.sCnt)  sCnt
-		from t1
-		join t2 on t1.dep=t2.merch
-
-		group by 
-		t2.merch,
-		t2.address,
-		t1.wCnt
-		)
-		pivot 
-		(
-		sum(sCnt) for wCnt in ('27','28','29','30')
-		)
-
-
-
-		/*disaster*/
-		select  * from (
-		with t1 as
-		(
-		select 
-		b.slip_count sCnt,
-		b.department dep,
-		to_char(b.batch_date,'IW') wCnt
-		from tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND to_char(b.batch_date,'IW') between '27' and '32'
-		and to_char(b.batch_date,'yyyy') = '2013'
-		--and b.department=9293963112
-		)
-		,
-		t2 as (
-		select 
-		m.merchant merch,
-		m.street address
-		from tms.merchants m
-		join temp2 t on m.merchant=t.c1
-		--where m.merchant=9290575240
-		)
-
-		select 
-		t2.merch,
-		t2.address,
-		t1.wCnt wCnt ,
-		sum(t1.sCnt)  sCnt
-		from t1
-		join t2 on t1.dep=t2.merch
-
-		group by 
-		t2.merch,
-		t2.address,
-		t1.wCnt
-		)
-		pivot 
-		(
-		sum(sCnt) for wCnt in ('27','28','29','30','31','32')
-		)
-
-
-
-
-		create table disaster2  as
-
-		select
-		t.merchant merch,
-		sum(sCnt) sCnt,
-		t1.yYear || '_' || t1.wWeek wekkYear
-
-		from 
-		reg_journal_merchants t
-
-		left join 
-		(select 
-		substr(p.chr1,instr(p.chr1,'#')+1, length(p.chr1)-instr(p.chr1,'#')) men_aqu,
-		o.main_industry ind,
-		m.merchant merch,
-		m.street address,
-		b.slip_count sCnt,
-		b.department dep,
-		to_char(b.batch_date,'IW') wWeek,
-		to_char(b.batch_date,'yyyy') yYear
-
-		from tms.merchants m
-
-		join tms.batches b on b.department=m.merchant
-		join orabis1.industry_code o on o.mcc=m.mcc
-		join tms.merchant_par p on p.merchant=m.merchant
-
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		--where m.merchant=9290575240
-		and to_char(b.batch_date,'IW')= '30'
-		and to_char(b.batch_date,'yyyy') ='2013'
-		)t1 on t.merchant=t1.merch
-
-		group by 
-		t.merchant,
-		t1.yYear || '_' || t1.wWeek 
-
-
-		select
-		us.segment_name tName
-		,to_char(us.bytes/us.max_size*100,'999.999') "AMT_RATE"
-		,to_char((us.bytes/1024)/1024,'9999') "AMT_MBs"
-		,to_char((us.max_size/1024)/1024 ,'9999') "mMax_(Mbs)"
-		from
-		user_segments us
-		order by "AMT_MBs" desc
-		;
-
-
-		"
-		"select
-		us.segment_name tName
-		,to_char(us.bytes/us.max_size*100,'90.99') "amount_%"
-		,to_char((us.bytes/1024)/1024,'9999') "iIs_(Mbs)"
-		,to_char((us.max_size/1024)/1024 ,'9999') "mMax_(Mbs)"
-		from
-		user_segments us
-
-		union all 
-
-		select 
-		'All',
-		to_char(sum(us2.bytes)/us2.max_size*100,'90,99')
-		,to_char(sum(us2.bytes)/1024/1024,'9999')
-		,to_char(us2.max_size/1024/1024,'9999')
-		from user_segments us2
-		group by 
-		'all',us2.max_size
-		"
-		"select
-		us.segment_name,
-		to_char(us.bytes/1024/1024,'999990.99') "MB",
-		to_char(us.max_size/1024/1024,'9999') "MD",
-		to_char((us.bytes/1024/1024)/(us.max_size/1024/1024)*100,'9.99')
-		from 
-		user_segments us
-		"
-		"select * from temp4 
-		select * from user_jobs;
-		select * from user_procedures;
-
-
-
-
-		execute  send_mail('ia-neprintsev@rsb.ru','ia-neprintsev@rsb.ru','EX-MB-05.rs.ru',25)
-
-		create table disaster_tst
-		as 
-
-		select 
-		t1.ind industry,t1.merch merchant,t2.yCnt || '_' || t2.wCnt week,sum(t2.sCnt) sCnt
-		from 
-		(
-		select
-		substr(p.chr1,instr(p.chr1,'#')+1, length(p.chr1)-instr(p.chr1,'#')) men_aqu,
-		o.main_industry ind,
-		m.merchant merch,
-		m.street address
-		from 
-		tms.merchants m
-		join reg_Journal_merchants t on m.merchant=t.merchant
-		join orabis1.industry_code o on o.mcc=m.mcc
-		join tms.merchant_par p on p.merchant=m.merchant
-		where
-		M.REGION='082' AND (M.MERCHANT LIKE '929%' OR M.MERCHANT LIKE '959%')
-		) t1
-
-		left join
-
-		(
-		select
-		b.slip_count sCnt,
-		b.department dep,
-		to_char(b.batch_date,'IW') wCnt,
-		to_char(b.batch_date,'yyyy') yCnt
-		from
-		tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND to_char(b.batch_date,'IW') between '29' and '29'
-		and to_char(b.batch_date,'yyyy') = '2013'
-		)t2
-
-		on t1.merch=t2.dep
-
-		group by
-
-		t1.ind,t1.merch,t2.yCnt || '_' || t2.wCnt"
-		"insert into DC_hash (mMonth,dt_reg , pay_sys,  type_transaction
-		, abrv_name ,main_industry , merchant, issuer_type ,rc 
-		,dbv_rub ,merchant_fee ,cnt_trans )
-
-		SELECT /*+  ordered parallel(s,8) full(T) */ 
-		to_char(s.dt_reg,'yyyy') || '_' || to_char(s.dt_reg,'mm') ,
-			   s.dt_reg,
-			   s.pay_sys pay_sys,      
-			   s.type_transaction,     
-			   m.abrv_name,
-			   nvl(MC.main_industry,'Lodging') MAIN_INDUSTRY,
-			   m.merchant,
-			   s.issuer_type,
-			   decode(rc.center,'??????','?????????????',rc.center) RC, 
-			   SUM (-s.vl_rub) dbv_rub,
-			   SUM (s.fee_merchant) merchant_fee,
-			   SUM(s.cnt) cnt_trans 
-		FROM vitr.V$SLIP_ACQ_D@db_link S
-		LEFT JOIN TMS.MERCHANTS M ON (S.merchant=m.merchant)
-		LEFT JOIN PRIV_DRR.ACQUIRING_REGION RC ON RC.REG_ID=M.REGION
-		LEFT JOIN orabis1.industry_code MC ON (m.mcc = mc.MCC)
-		where (s.type_transaction in ('Goods and service','Returns'))
-		and s.merchant not in (9900000003, 9900000005, 9292121431, 9292296399, 9292434867, 9292886660, 9293471306) 
-		AND nvl (s.acquire_bank, 'RS_RUS') != 'RS_UKR'      
-		AND m.abrv_name NOT LIKE 'IB %'                                                     
-		AND M.FULL_NAME NOT LIKE '%?????????%'
-		AND M.FULL_NAME  != '??? ?? ???????'
-		AND m.full_name  != '??? ??? ????????? ??????? ??????'  
-		AND s.is_linked = 'N'
-		AND s.dt_reg BETWEEN 
-		TO_DATE('01.08.2013'||' 00:00:00','dd.mm.yyyy hh24:mi:ss') 
-		AND 
-		TO_DATE('24.08.2013'||' 23:59:59','dd.mm.yyyy hh24:mi:ss')
-
-		GROUP BY  
-		to_char(s.dt_reg,'yyyy') || '_' || to_char(s.dt_reg,'mm') ,
-		s.dt_reg,
-		s.pay_sys,      
-		s.type_transaction,     
-		m.abrv_name,
-		nvl(MC.main_industry,'Lodging'),
-		m.merchant,
-		s.issuer_type,
-		decode(rc.center,'??????','?????????????',rc.center) 
-		  "
-		"create table temp (c1 varchar(50),c2 varchar(50))
-
-		insert into dc_base (merchant,create_date,year_num,week_num)
-
-		select 
-		t.c1,to_date(t.c2,'mm.dd.yyyy'),'2013','2'
-		from
-		temp t
-		"
-		"select * from temp4 
-		select * from user_jobs;
-		select * from user_procedures;
-
-
-		DECLARE
-		  l_job NUMBER := 0;
-		BEGIN
-		  DBMS_JOB.SUBMIT( l_job,what=>'P_CONTACTLESS;', 
-		   next_date=>trunc(sysdate,'dd')+1, -- start next hour 
-		   interval=>'trunc(sysdate,' || '''' || 'dd' || '''' ||')+1+1/24' );
-		   commit;
-		END;
-
-
-		exec dbms_job.run(163038);commit;
-
-		BEGIN
-		   DBMS_JOB.REMOVE(131572);
-		   COMMIT;
-		END;
-
-		begin 
-		dbms_job.change(158018, null,to_date('12.09.2014 18:00:00','dd.mm.yyyy hh24:mi:ss'), 'trunc(sysdate+2,' || '''' ||  'dd' || '''' ||  ')+18/24');
-		end;
-
-
-		select to_char ( 'trunc(sysdate,' || '''' || 'dd' || '''' ||'+1/24' ) from dual 
-
-		"
-		"
-		--jobs
-		DECLARE
-		  l_job NUMBER := 0;
-		BEGIN
-		  DBMS_JOB.SUBMIT( l_job,what=>'procedure1;',
-		   next_date=>SYSDATE, -- start next hour 
-		   interval=>'SYSDATE+5/1440');
-		   commit;
-		END;
-
-		'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+2'
-
-		exec dbms_job.interval(131622, 'sysdate+1/86400'); --every second
-		exec dbms_job.interval(131622, 'trunc(sysdate)+24/24+6/24');
-
-		select * from user_jobs;
-
-		exec dbms_job.run(131634);commit;
-		--11:15:43 11:17:49
-
-		BEGIN
-		   DBMS_JOB.REMOVE(131623);
-		   COMMIT;
-		END;
-		"
-		"select
-		us.segment_name tName
-		,to_char(us.bytes/us.max_size*100,'90.99') "amount_%"
-		,to_char((us.bytes/1024)/1024,'9999') "iIs_(Mbs)"
-		,to_char((us.max_size/1024)/1024 ,'9999') "mMax_(Mbs)"
-		from
-		user_segments us
-
-		union all 
-
-		select 
-		'All',
-		to_char(sum(us2.bytes)/us2.max_size*100,'90,99')
-		,to_char(sum(us2.bytes)/1024/1024,'9999')
-		,to_char(us2.max_size/1024/1024,'9999')
-		from user_segments us2
-		group by 
-		'all',us2.max_size
-		"
-		"select
-		us.segment_name,
-		to_char(us.bytes/1024/1024,'999990.99') "MB",
-		to_char(us.max_size/1024/1024,'9999') "MD",
-		to_char((us.bytes/1024/1024)/(us.max_size/1024/1024)*100,'9.99')
-		from 
-		user_segments us
-		"
-		"create or replace
-		PROCEDURE P_CONTACTLESS
-		IS
-
-		T_START VARCHAR2(256);
-		T_END VARCHAR2(256);
-
-
-		BEGIN
 		  
-		  T_START := TO_CHAR(sysdate, 'DD-MON-YYYY HH24:MI:SS');
-		  
-		 
-		  DELETE T_CONTACTLESS
-		  WHERE  TR_DATETIME >= TO_DATE(TO_CHAR(TRUNC(SYSDATE-7),'dd.mm.yyyy')||' 00:00:00','dd.mm.yyyy hh24:mi:ss');
-		  
-		  COMMIT;
-		  
-		  
-		  
-		  insert into T_CONTACTLESS ( IDMERCHANT,
-									  TERM_ID,
-									  TR_DATETIME,
-									  REG_DATETIME,
-									  CARD,
-									  PROC_CODE,
-									  TR_AMOUNT_RUR,
-									  TR_COMMISSION_RUR,
-									  FULL_NAME,
-									  ABRV_NAME,
-									  PAY_SYSTEM,
-									  STREET,
-									  DIVISION,
-									  RC  
-									)                 
-		  WITH MSTR_F_SL AS (SELECT /*+ parallel(T,4) full(T) full(M) full(RC) */
-											 T.IDMERCHANT,
-											 T.TERM_ID,
-											 T.BATCH_NR,
-											 T.SLIP,
-											 T.TR_DATE AS TR_DATETIME, -- ???? ? ????? ??????????
-											 T.REG_DATE AS REG_DATETIME, -- ???? ? ????? ???????????
-											 T.CARD,
-											 T.BIN,
-											 CASE WHEN T.PROC_CODE='20'
-												  THEN 'Returns'
-												  WHEN T.PROC_CODE='00'
-												  THEN 'Goods and service'
-											 END AS PROC_CODE,                                       
-											 T.AMOUNT_RUR AS TR_AMOUNT_RUR,
-											 T.COMMISSION_RUR AS TR_COMMISSION_RUR,
-											 M.FULL_NAME,
-											 M.ABRV_NAME,
-											 M.CITY,
-											 M.STREET,
-										  CASE WHEN T.PAY_SYSTEM_ID=1
-											   THEN 'A'
-											   WHEN T.PAY_SYSTEM_ID=2
-											   THEN 'V'
-											   WHEN T.PAY_SYSTEM_ID IN (3,4) AND T.CARD_TYPE NOT IN ('85','80','60','70')
-											   THEN 'M'
-											   ELSE 'OTHER'
-										  END AS PAY_SYSTEM,
-										  RC.DIVISION,
-										  DECODE(RC.CENTER,'??????','?????????????',RC.CENTER) RC 
-										FROM MART.STG_MPCS_SLIPS_FACT T
-										 LEFT JOIN TMS.MERCHANTS M ON TO_CHAR(T.IDMERCHANT)=M.MERCHANT
-										 LEFT JOIN PRIV_DRR.ACQUIRING_REGION RC ON RC.REG_ID=M.REGION
-							  WHERE T.TR_DATE>=TO_DATE(TO_CHAR(TRUNC(SYSDATE-30),'dd.mm.yyyy')||' 00:00:00','dd.mm.yyyy hh24:mi:ss')
-								AND T.TR_DATE<=TO_DATE(TO_CHAR(TRUNC(SYSDATE),'dd.mm.yyyy')||' 23:59:59','dd.mm.yyyy hh24:mi:ss')
-								AND 
-								   (
-									  (    T.PROC_CODE IN ('20')
-										  AND T.TR_TYPE = '06'
-									  )
-									 OR (    T.PROC_CODE IN ('00')
-											 AND T.TR_TYPE = '05'
-										)
-									)
-						   )
-		  SELECT /*+ parallel(A12,4) full(a11) full(a12) */
-		  A11.IDMERCHANT,
-		  A11.TERM_ID,
-		  A11.TR_DATETIME,
-		  A11.REG_DATETIME,
-		  A11.CARD,
-		  A11.PROC_CODE,
-		  A11.TR_AMOUNT_RUR,
-		  A11.TR_COMMISSION_RUR,
-		  A11.FULL_NAME,
-		  A11.ABRV_NAME,
-		  A11.PAY_SYSTEM,
-		  A11.STREET,
-		  A11.DIVISION,
-		  A11.RC
-		  FROM MSTR_F_SL A11 
-		  JOIN   MART.V_MSTR_SLIPS_FEATURES A12 ON  A11.BATCH_NR = A12.BATCH_NR  
-												AND A11.SLIP = A12.SLIP 
-												AND A12.POINT_CODE_7='M'
-												AND A12.TR_DATE>=TO_DATE(TO_CHAR(TRUNC(SYSDATE-7),'dd.mm.yyyy')||' 00:00:00','dd.mm.yyyy hh24:mi:ss')
-												AND A12.TR_DATE<=TO_DATE(TO_CHAR(TRUNC(SYSDATE),'dd.mm.yyyy')||' 23:59:59','dd.mm.yyyy hh24:mi:ss');
-
-		  COMMIT;
-
-		  T_END := TO_CHAR(sysdate, 'DD-MON-YYYY HH24:MI:SS');
-		  
-		END P_CONTACTLESS;"
-		SELECT * FROM V$VERSION
-		" select
-		   r.row_numb as "1_UTRNNO",
-		   'POS' as "2_TERMINAL_TYPE",
-		   r.FLD_041 as "3_ORGDEV",
-		   to_char(r.request_date,'ddmmyyyy') "4_UDATE",
-		   to_char(r.request_date,'hh24:mi:ss') "5_TIME",
-		   r.FLD_039 as "6_RESPCODE",
-		   r.FLD_004/100 as "7_REQAMT",
-		   
-		   case
-			  when FLD_039 <> '000'  and FLD_039 <> '400' then  r.FLD_004/100 
-			  else 0
-		   end 
-		   as "8_ACTAMT",
-		   
-		   case 
-			  when fld_003 like '00%' then 'purchase'
-			  when fld_003 like '20%'then 'refund'
-			  else 'other_value'
-		   end 
-		   as "9_TRANS_TYPE",
-		   
-		   case
-			  when msg_type_in='1420' then 1
-			  else   0
-		   end
-		   as "10_REVERSAL",
-		   
-		   FLD_026 as "11_MERCHANT",
-		   
-		   FLD_042 as "12_MERCHANT_ID",
-		   
-		   m.city,m.p_street,fld_043, --15-17 for columns
-		   
-		   case
-			  when  cast(bg.bank_name as varchar2 (30 byte)) = '??????? ????????' then 47
-			  else 0
-			  end 
-		   as "16_NWINDICATOR",
-
-		case
-		when substr(fld_022,7,1) = '9' then '2'
-		when substr(fld_022,7,1) = '5' then '5'
-		when substr(fld_022,7,1) = '6' then '6'
-		when substr(fld_022,7,1) = 'M' then 'I'
-		when substr(fld_022,7,1) = 'A' then 'B'
-		else 'Z'
-		end as "17_POS_DATA_CODE",
-
-		case
-		when substr(fld_022,8,1) = '0' then 0
-		when substr(fld_022,8,1) = '1' then 1
-		when substr(fld_022,8,1) = '5' then 5
-		else 999
-		end as "18_POS_DATA_CODE2",
-
-		case 
-		when substr(fld_022,8,1) = '1' then 0
-		else 1
-		end as "19_PINBLK",
-
-		case 
-		when substr(fld_022,9,1) = '1' then 3
-		when substr(fld_022,9,1) = '1' then 0
-		end as "20_PINBLK2"
-
-		   from tms.RTPS_MESSAGES_LOG partition (P_20140101) r 
-		   join tms.merchants m on cast(m.merchant as char(15 byte)) = r.fld_042
-		   
-		   left join MART.DQ_VITR_bin_guide bg 
-		   on cast( bg.bin as VARCHAR2(30 BYTE)) =substr( r.fld_002,1,6)
-		   
-		   where FLD_042 
-		   in (
-			  select  cast(m.merchant as CHAR(15 BYTE) ) from tms.merchants m where abrv_name like '%MCDONALD%'
-		   )
-			   
 		"
 		"set serveroutput on
 		"
@@ -6270,8 +5670,7 @@ pip install ipython
 		join t2 on t2.c1=t1.c1
 
 
-
-		"/*GRANT OVERAL*/
+		/*GRANT OVERAL*/
 		begin 
 		for temp_name in (
 		  select table_name from user_tables 
@@ -6280,13 +5679,8 @@ pip install ipython
 		  execute immediate 'grant select,insert,delete  on neprintsev_ia.' || temp_name.table_name || ' to neprintsev_ia';
 		  end loop;
 		  end ;
-		  "
-		"/*REPORT TABLE*/
-		select  
-		finished,name_,to_char(started,'dd.mm.yyyy hh24:mi:ss'),to_char(finished,'dd.mm.yyyy hh24:mi:ss'),execution_time,date_from,date_to,rows_count
-		from report_table 
-		"
-		"/*DISTINCT LEFT JOIN SELECT FOR SEVERAL LISTS*/
+	
+		/*DISTINCT LEFT JOIN SELECT FOR SEVERAL LISTS*/
 		create table test1(c1 varchar(10),c2 date,c3 number);
 		create table test2(c1 varchar(10),c2 date,c3 number);
 		create table test3(c1 varchar(10),c2 date,c3 number);
@@ -6318,7 +5712,6 @@ pip install ipython
 		insert into test3 (c1) values ('D');
 
 
-
 		with t3 as (select t3.c1 "C1" from test3 t3 ),
 		t2 as(
 		select t1.c1 "C1",sum(t2.c3*t1.c3) "C3" from test1 t1
@@ -6335,31 +5728,9 @@ pip install ipython
 		select * from ORAWH.IB_QNA_MV where user_id = '3576169'
 		select * from ORAWH.IB_USERS_MV where user_id = '3576169'
 
-		--client person user
-		'3595559' '3595802' '3576169'
-		3595802
-
-
-		select * from ORAWH.IB_ACCOUNT_MV
-		select * from ORAWH.IB_USER_LOCK_MV
-		select * from ORAWH.MB_ABONENT_LIST
-		select * from ORAWH.V_IB_CLIENT_ID
-		select * from ORAWH.IB_INTERNAL_PMT_REQ_MV
-		select * from ORAWH.IB_DEP_REQ_MV
-		select * from ORAWH.IB_DOMESTIC_PMT_MV
-		select * from ORAWH.IB_PUBLIC_SERVICE_REPMT_REQ_MV
-		select * from ORAWH.IB_PUBLIC_SRV_REPMT_REQ_PAR_MV
-		select * from ORAWH.IB_BEN_PHONE_PMT_MV
-		select * from ORAWH.IB_BANK_CARD_ISSUE_REQ_MV
-		select * from ORAWH.IB_REQ_TMPL_MV
-		select * from ORAWH.IB_REQ_SIGN_MV
-		select * from ORAWH.IB_SERVICE_ENABLE_REQ_MV
-		select * from ORAWH.IB_BANK_CARD_OD_LIMIT_REQ_MV
-		select * from ORAWH.IB_AGR_LIM_REQ_LIM_MV
-		select * from ORAWH.IB_CARD_PMT_REQ_MV
-		select * from ORAWH.IB_REGUL_ORDER_MV
-		"
-		"create or replace
+		
+		/*REGEX proc*/
+		create or replace
 		PROCEDURE P_REGEX
 		AUTHID CURRENT_USER
 		IS
@@ -6375,8 +5746,9 @@ pip install ipython
 			--insert into neprintsev_ia.ref_regex_ent(ENTITY,REGEX_PATTERN) select m.merchant,C1.REGEX_PATTERN from neprintsev_ia.ref_merchants m;--regexp_like(upper(m.street),upper(C1.C3));
 			DBMS_OUTPUT.PUT_LINE(C1.REGEX_PATTERN);    
 		  end loop;  
-		END P_REGEX;"
-		"set serveroutput on
+		END P_REGEX;
+		
+		set serveroutput on
 		DECLARE
 		   TYPE EmpCurTyp IS REF CURSOR;
 		   emp_cv   EmpCurTyp;
@@ -6397,7 +5769,7 @@ pip install ipython
 		   CLOSE emp_cv;
 		END;
 
-		"
+		
 		"define fnRegDate = trunc(sysdate,'dd')-1/24/60/60
 		define stRegDate = trunc(&fnRegDate,'mm')
 
@@ -6411,8 +5783,8 @@ pip install ipython
 		to_char(&fnSLDate,'dd.mm.yyyy hh24:mi:ss') "FNSL",
 		to_char(&stSLDate,'dd.mm.yyyy hh24:mi:ss') "STSL"
 		from dual;
-		"
-		"create type emp_obj is object (empno number, ename varchar2(10));
+		
+		create type emp_obj is object (empno number, ename varchar2(10));
 		create type emp_tab is table of emp_obj;
 
 		create or replace function all_emps return emp_tab
@@ -6432,8 +5804,8 @@ pip install ipython
 			  return l_emp_tab;
 		   end;
 		   
-		select * from table (all_emps);"
-		"CREATE OR REPLACE function get_daily
+		select * from table (all_emps);
+		CREATE OR REPLACE function get_daily
 		  RETURN SYS_REFCURSOR
 		AS
 		  my_cursor SYS_REFCURSOR;
@@ -6443,37 +5815,6 @@ pip install ipython
 		END get_daily;
 
 
-		begin 
-		select get_daily from dual;
-		end ;
-		"
-		"create or replace
-		procedure get_daily(out_dt out SYS_REFCURSOR)
-		 AS
-		BEGIN
-		  OPEN out_dt FOR SELECT * FROM neprintsev_ia.temp_acq_d where rownum <=10;
-		END get_daily;"
-		CREATE USER 'test_user3'@'localhost' IDENTIFIED BY 'QwErT234';
-		GRANT create,select ON temp_db.* TO 'test_user2'@'10.14.16.48' IDENTIFIED BY 'QwErT234';
-		"insert into temp2 (c1,c2,c3) values ('1',to_date('01.01.2015','dd.mm.yyyy'),'3');
-		insert into temp2 (c1,c2,c3) values ('1',to_date('02.01.2015','dd.mm.yyyy'),'0');
-		insert into temp2 (c1,c2,c3) values ('2',to_date('01.01.2015','dd.mm.yyyy'),'0');
-		insert into temp2 (c1,c2,c3) values ('3',to_date('01.01.2015','dd.mm.yyyy'),'0');
-		insert into temp2 (c1,c2,c3) values ('4',to_date('03.01.2015','dd.mm.yyyy'),'0');
-		insert into temp2 (c1,c2,c3) values ('4',to_date('04.01.2015','dd.mm.yyyy'),'3');
-
-
-		with t as (
-		select c1,max(c2) c2 from temp2 group by c1
-		) ,
-		t2 as (
-		select t.c1,t.c2,t.c3 from temp2 t
-		)
-
-		select t2.* from t2 
-		join t on t2.c1=t.c1 and t2.c2=t.c2
-		"
-		"//------------------------------------
 
 		create table t_daily_d
 		(
@@ -7011,8 +6352,7 @@ AVG( [Target]) for [UserID] in ([1],[1112])
 		{
 			
 			public void REST_API()
-			{
-				
+			{				
 
 Orient_REST_API(){
 
@@ -7219,244 +6559,6 @@ Orient_REST_FIDDLER(){
 	}
 
 }
-
-adbn_db_exmpls(){
-	
-host:port/ApiType/dbName/
-host:port/ApiType/dbName/FunctionName/Params
-host:port/ApiType/dbName/sql/commandText
-
-
-//get database
-http://msk1-vm-ovisp02:2480/database/news_test3
-//geet class
-http://msk1-vm-ovisp02:2480/class/news_test3/Entity
-http://msk1-vm-ovisp02:2480/class/news_test3/Person
-http://msk1-vm-ovisp02:2480/class/news_test3/Authorship
-//execute indeponent function
-http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
-
-//GET sql
-http://msk1-vm-ovisp02:2480/query/news_test3/sql/select * from Entity
-//POST sql
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/select * from Person where Name = '0'
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0')
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0'),( '2017-10-19 18:00:09', '2015-02-02 12:43:56',  '0',  '0')
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/delete vertex Person where Name = '0'
-//Fucntion (indeponent)
-http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
-//call to HW API
-api/Orient/GetByID/1
-
-
-
-//batch
-
-http://msk1-vm-ovisp02:2480/batch/news_test3/
-
-//body1
-{ "transaction" : true,
-  "operations" : [
-    {
-      "type" : "script",
-      "language" : "sql",
-      "script" : [
-		  "create vertex Object set Content=\"A\""
-		  ,"create vertex Object set Content=\"A\""
-	  ]
-    }
-  ]
-}
-
-//body1
-{ "transaction" : true,
-  "operations" : [
-    {
-      "type" : "script",
-      "language" : "sql",
-      "script" : [
-		 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-		 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-	  ]
-    }
-  ]
-}
-
-
-	//add from batch
- http://msk1-vm-ovisp02:2480/batch/news_test2/
- 
- { "transaction" : true,
-  "operations" : [
-    {
-      "type" : "script",
-      "language" : "sql",
-      "script" : [
-		"let $a = insert into UserSettings content {\"showBirthday\":true};"
-	,"let $b = create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;"
-	  ]
-    }
-  ]
-}
-
-
-//bad command quotes no intervals
-delete vertex from  object where Content="A"
-
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/
-{"command":"CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\\"sql\\",\\" select r.ToLowerCase() as r from (select '\\"+input+\\"' as r) \\"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;"}
-			
-}
-
-CommandsConcatenate(){
-
-URI,Method,Header,content
-.CreateDb(Name db,host = null) -> 
-createHost<=dbname[<=host],POST,AuthHeader
-store DbName,Host,created (true|false)
-
-.createClass(typeof(Person)).extend(typeof(Object));
-.createClass<Person>().extend<Object>();
-.createClass<Person>();
-commandHost,POST,AuthHeader | OSSESSIONID cookie header , content <-
-command json + createproperty command
-//just after class created OK
-.create(PropertyObject,type,mandatory=null,notnull=null) -> 
-commandHost,POST,AuthHeader | OSSESSIONID cookie header , content <-
-command json + createproperty command
-{add or test existing type converter from POCO to ITypeToken}
-
-.create(Vertex Instance)
-stored host,batch,dbname,POST,AuthHeander,
-batchJson insert create vertex command from object with content generated
-.batchCreate(..)...
-batchJson insert ',' 
-
-
-.create(Edge Instance).from(Vertex instance).to(Vertex instance)
-stored host,batch,dbname,POST,AuthHeander,
-batchJson insert create vertex command object with content generated
-.batchCreate(..)...
-batchJson insert ',' create edge command object with content generated from to objects
-{ids try}
-
-.createSequences
-//in command body OK
-
-
-Shema:
-//token concatenation strategy
-List<ItypeToken> tokens,ItypeToken format
-List<ItypeToken> tokens,formatgen
-List<ItypeToken> tokens,ItypeToken delimeter (format generate with deimeter)
-
-List<ICommandBuilder> commands,ItypeToken format (concatenate format arrays of command builders)
-List<ICommandBuilder> commands,formatgen
-List<ICommandBuilder> commands,ItypeToken delimeter (format generate with deimeter)
-
-
-CommandChain:
-
-	chain above command builer
->> add commandbuilder into bodyshema concatenation
-	>> start all shemas + builder into query object aggregation
-	
-		
-		>1) from what source, which format using string to build 
-		build(List<ITypeTokens>, tokens_ ItypeToken format)
-		build(List<ITypeTokens>, tokens_ ItypeToken delimeter)
-			format = foramtGen(delimeter)
-		build(List<IcommandBuilders>, tokens_ ItypeToken format)
-			foramt = commandbuilders.foramts.concatenate9format)
-		build(List<IcommandBuilders>, tokens_ ItypeToken delimeter)
-			format = foramtGen(delimeter)
-		
-		2) how to concatenate with existing string
-		addright,addLeft,rewrite
-		3) add gap or not
-		add gap before,after
-		
-		
-		
-//Rest paramters strategy
-Type = IOrientDatabase => 
-host:port/database/{dbname}/plocal | POST,DELETE
-host:port/connect/{dbname} | GET
-
-Type = IorientVertex,IorientEdge => 
-host:port/command/{dbname}/sql | POST
-host:port/batch/{dbname} | POST
-
-Content != null => + content
-{"command":"query"}
-{ "transaction" : true,
-	  "operations" : [
-		{
-		  "type" : "script",
-		  "language" : "sql",
-		  "script" : [{0}]
-		}
-	  ]
-	} -> {0} ,..,{n}
-
-	
-//command signatures
-delete/Add(Idb);
-delete/Add(Idb,host);
-delete/Add(Type,ItypeToken content);
-{classes}
-delete/Add(IorientObject);
-{objects}
-
-
-//url formats
-format  define {0}:{1} => host:port
-format  gen {0}{*}..{*}{n} => 
-host:port /dbname/plocal ; 
-host:port/connect/dbname ;
-host:port/command/dbname/sql ;
-host:port/batch/dbname ;
-[examples
-{0} {1} .. {n}
-{0}/{1}/../{n}
-]
-
-
-///command formats
-///Property foreach prop of class, with type convert, nullable,
-///pregen foramat for small token collections, then aggregate them, in command token collections
-///{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
-format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
-create class [V/E] <extends [V/E]>
-
-format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1} {2}
-	   property {V/E}.{Property} type ( mandatory = bool , notnull = bool )
-
-	   
-																			{0}[1p]{2} => 0
-																			cond 'param'
-																			
-																			format gen {0}{1} +{0}{1}[2p]{3}{4} +{0}[1p] +[0p] {1} => {0}{1}{2} {3}
-																			inE['[class]'] .Property cond 'param'
-																			in|out/E|V
-
-																			[0p].[1p] [0p] {0}[1p]{2} => {0} {1} {2}
-																			class.property cond 'param'
-																			GUID/ID/@class.size = ''
-	
-																format gen[0] .. [n]
-																where 1=1 
-
-											format gen{0} {1} [2p]<{3} .. [] ..[n]> => {0} {0} .. {n} => {0} {1}
-											select from [V/E] < where 1=1 .. connd1 .. condN>
-
-format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1} {2} {3} => {0} {1}
-		vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
-
-		
-					}
 			
 			}							
 			
@@ -8135,6 +7237,22 @@ http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentL
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
 
+public SelectNews(){
+	//select news
+	select expand(
+	outE('Authorship').inV('Note').inE('Comment').outV('Note')
+	)from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
+}
+
+public SelectComments(){
+	//select comments
+	select  from (
+	select expand(
+	outE('Authorship').inV('Note')
+	)from Person where @rid=#73:1 )
+	where 1=1 and inE('Comment')[0].@rid!=''
+}
+	
 public DateTimeRearrangeGet(){
 	
 ALTER DATABASE DATETIMEFORMAT "yyyy.MM.dd HH:mm:ss GG"
@@ -9258,13 +8376,6 @@ return b;
 					
 				}
 			
-			}
-
-			public void DriverNotes()
-			{
-				Connection:Connect:IOperation{Request,Response}-
-				Request.MemoryStream.Send;IOperation(Response.Receive(NetworkStream.ReadByte()))->
-				Document
 			}
 
 			public void FU()

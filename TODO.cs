@@ -1,7 +1,8 @@
 
 	#region TODO
-	 
-  rewrite[TODO
+
+	  
+JsonTODO[
    
     {"C++":[
     {"TODO": [
@@ -234,10 +235,9 @@
     ]
     }
     
-  ]	
- 
-  [TODO
-	
+] 
+
+, TODO [
 	
 	ACTUAL[
 
@@ -263,38 +263,113 @@
 	  overall
 	->Neo4j and Mongo repos add
 	->Plugin arhiteckture
+	-> Add BLL Business logic layer above UOW
+	-> Add JS multiple model items update at one time
+	-> to DLL
+	
+	NSQLUOW
+	-> move current UOW logic to Manager <- done
+	-> split Persons and News api <- done
+	
+	ApiTester	
+	-> POST with NTLM	
+	-> Config export/import <- done
+	-> Exeption expected <- done
+	-> Null expected <- done
+	-> Ok not OK to config print <- done
+	
+	
+SQLRepo
+-> Repo (against SQL base and Northwind base)
+-> Repo (Chaining IRepo implementation for Date + list filter)
 
+SQLUOW
+-> Finilize for Nowthwind, Neo4j,mongo
+
+SQLWebAPI
+-> between repo and MVC site
+
+SQLPresentationSite
+-> parsing excel file to objects method decompose to several	
+-> Export to excel
+-> Type converter for migration (
+-> SQL to CLR type conversion ; 
+-> SQLEntity to DWH entity converter; 
+-> Converter logic to string name or type name;)
+
+jsHacks
+-> New API drop box above textbox add. Textbox no ovewrite
+-> Select2 Js To site <- done
 	]
+	
 	,DONE[
 
+	PersonAPI
+	-> HttpManager <- done
+	-> JSONmanager <- done
+	-> PersonManager <- done
+	-> WebApiConfig <- done
+	
+	HTTP,JSON,Orient Managers <- done
+	
 	NewsAPI
 	->add controller with methods from manager <-done
+
+	
+	PresentationSite	
+-> POCO to DataContract converter <- done
+-> Add WCF between Repo and Site <- done
+->  UOW bind repo to generic with as and type conversion <- done
+->  UOW bind context to every repo  <- done
+-> Specific repository for every entity <- done
+-> IRepository<T> with CRUD operations lightweight  <- done
+-> SB , Repo and UOF to different projects  <- done
+-> Emplicit implicit repos
+1-explicit repo (mostly type by merchant)
+Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}
+2-implicit repo (mostly one type by repo instance)
+Repo<T>() where T: IOne { GetByOne(); }
+...
+Repo<T>() where T: In { GetByN(); } <- done
+
+Northwind
+-> change login employee get from TempData to model  <- done
+-> add complex model add  <- done
+->  Tables migration - test with repo <- done
 
 	]
 	
 	,Global[
       
-      Repo 
+      NSQLRepo 
         -> finish <- done 
-      UOW 
+      NSQLUOW 
         -> finish <- done 
-      Manager 
+      NSQLManager 
         -> finish <- done
-      
-      Quiz 
-        -> finish <- done 
-        -> refactor
-        
-      AdinTce store
-        -> finish
-        News store 
-        -> finish
-      
-      Birthday
-        ->
-      News
-        ->
-        
+		Birthday
+		->
+		News
+		->
+		            		
+	SQLrepo
+		-> finish <- done 
+	SQLUOW
+		-> finish <- done 
+	SQLwebApi
+		-> finish
+	SQLpresentationsite
+		-> finish
+		
+	Quiz 
+		-> finish <- done 
+		-> refactor
+
+	AdinTce store
+		-> finish
+	News store 
+		-> finish
+	
     ]
     
     ,Descriptions[
@@ -1149,108 +1224,34 @@
         
       }
     
-    ]
-    
-    ,draft[
+    ]       
+
+  ]
+		
+
+	public class ProofOfConcept
+	{
+
+0 Polinom Parse {
+parse *^/ to expressions and add priorities for exprs
+},
+0 Command line Console parameters parse app dll -> to SB
+0 Multithread socket message ping pong -> to SB
+0 CollectionsComparison -> to SB
+0 Pluggin/addon architecture -> to SB
+	}
 	
-        public Utility
-          {
-            
-            public NSQL 
-            {
-                      
-              
-              public ClassSegregation 
-              {
-
-              
-          //shema
-          .select()=>select+gap
-          .from()=>from+ITk
-          .batch()
-
-              
-          //command
-          .select(T,V)=>shema.select(T)+shema from(V) LEFTINTEND
-
-
-          //context
-          << host,dbname
-          new Context(string host,string dbname
-          ,webRequestManager wm
-          ,webResponseReader wr
-          ,UrlShemasExplicit urlShemas_){
-            webRequestManager.SetBase64AuthHeader(string orientAuth);
-          }
-
-          Context.CreateDb(){
-            createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-          }
-          Context.DropDb(){
-            dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
-          }
-          Context.Command(ICommandBuilder cmd){
-            urlCommand=_urlShemas.Command(dbName).Build().GetText();
-            buildRequest();
-            createClass=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-          }
-          Context.Batch(ICommandBuilder cmd){
-            urlCommand=_urlShemas.Batch(dbName).Build().GetText();
-            buildRequest();
-            insertPerson=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-          }
-          internal buildRequest(){
-            urlDatabase=_urlShemas.Database(dbName).GetText();
-            webRequestManager.AddRequest(urlDatabase);
-            webRequestManager.SetCredentials(nc);
-          }
-          string fireRequest(){
-            webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-          }
-
-
-          //Repo
-          << Context _context,T<Vertex|Edge>
-          new Repo<T>(Context _context)
-          _repo.ChangeContext(Context context_){this._context=context_;}
-          //create class
-          <class> _repo.Create<class>(ITypeToken T);
-          //create class extends
-          <class> _repo.Create<class,extendes>(ITypeToken T,ITypeToken V);
-          //create Vertex or property
-          <Vertex|Property> _repo.Create<Vertex|Property>(T type_,ICommandBuilder _content=null);
-          //create Edge
-          <Edge> _repo.Create<Edge,fromID,toId>(ITypeToken Edge,ITypeToken idfrom,ITypeToken idTo,ICommandBuilder _content=null);
-          //delete Vertex or Edge
-          <string> _repo.Delete(ITypeToken id);
-          //delete property 
-          <string> _repo.Delete<Property>(ITypeToken id);
-          //select Vertex or Edge [where]
-          <Vertex|Edge> _repo.Select<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-          //update Vertex or Edge [where]
-          <Vertex|Edge> _repo.Update<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-
-
-          //Type converter
-          (UOW)-[TypeConverter{Type->ITtypeToken}]->(Repo)
-
-
-          //UOW
-          //IUOW
-          new UOW(ContextFactory_,RepoFactory_,TypeConverter tc,string host_,string dbName_);
-          //UOW
-          new UOW(context_,repo_,_typeConverter,string host_,string dbName_);
-          _uow.ChangeHost(string host_){}; => recreate context
-          _uow.ChangeDb(string dbName_){}; => recreate context
-
-          //for vertex creation
-          _uow.Create<IorientObject>(Iobj) => convert to vertex ItypeToken, if  and to content if not null
-          //for vertex creation
-          _uow.Create<IorientObject>(Iobj)
-
-              }
-              
-              public Node reference shemas
+	public class StrategicDirections
+	{			
+Testing automate
+Build automate
+Correct decoupling of projects
+	}
+	
+	public class CodeShemas
+	{
+				
+ public Node reference shemas
               {
                 
              Node reference shemas. Minimum and explicit[
@@ -1286,54 +1287,7 @@
               
               }
               
-              public Select{
-                
-        //select news
-        select expand(
-        outE('Authorship').inV('Note').inE('Comment').outV('Note')
-        )from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
-
-        //select comments
-        select  from (
-        select expand(
-        outE('Authorship').inV('Note')
-        )from Person where @rid=#73:1 )
-        where 1=1 and inE('Comment')[0].@rid!=''
-
-        Check comment class -> inE('Comment').@size[0] != ''
-        Post,Delete, Put, Get Notes by person, Get Author by Note
-        (person)-[author]->(Note)
-
-        Post,Delete,Put, Get Comments By Person,Comments by News
-        (person)-[author]->(Note)-[comment]->(Note)
-
-              }
-              
-            }
-          
-          }
-    
-	]
-
-  ]
-		
-
-		public class Mastery
-		{
-
-0 Polinom Parse {
-    parse *^/ to expressions and add priorities for exprs
-  },
-0 Command line Console parameters parse app dll -> to SB
-0 Multithread socket message ping pong -> to SB
-0 CollectionsComparison -> to SB
-0 Pluggin/addon architecture -> to SB
-		}
-		
-		public class Miscellaneous
-		{
-				
-
+			  
 public EntityFrameworkClassShema{
 	
 	Tests{
