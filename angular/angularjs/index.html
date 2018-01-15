@@ -1,0 +1,39 @@
+<!doctype html>
+<html ng-app="myApp">
+<head>
+	<script type="text/javascript" src="C:\workflow\projects\common\js\angular.min.js"></script>
+	<script type="text/javascript" src="C:\workflow\projects\common\js\jquery-3.2.1.min.js"></script>
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>-->
+	<script type="text/javascript" src="C:\workflow\projects\JS\angularjs\js.js"></script>
+
+</head>
+<body>
+
+	<h3>Todo</h3>
+	<div ng-controller="GreetingController">
+		{{ greeting }}
+	</div>
+
+	<h3>ToCount</h3>
+	<div ng-controller="CountController">
+	Two times <input ng-model="num"> equals {{ double(num) }}
+	</div>
+
+	<h3>ToLog</h3>
+	<div ng-controller="LogController">
+	[ <a href="" ng-click="log_()">Log</a> ]
+	</div>
+
+	<h3>ToList</h3>
+	<div ng-controller="ListController">
+	URL body<br>
+	<input size="80" ng-model="url" ng-change="bindURL_(url)"> <br>
+	Input body<br>
+	<textarea  rows="6" cols="81" ng-model="data_">Input body here</textarea ><br>
+		[<a href="" ng-click="POST_(data_)">POST_</a>]
+		[<a href="" ng-click="PUT_(data_)">PUT_</a>]
+		[<a href="" ng-click="GET_(data_)">GET_</a>]
+	</div>
+
+</body>
+</html>
