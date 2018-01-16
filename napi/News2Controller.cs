@@ -86,7 +86,7 @@ namespace NewsAPI.Controllers
           _response = new WebManagers.ReturnEntities(res_, Request);
         } catch (Exception e){ _response = new WebManagers.ReturnEntities(e.Message, Request);}
         return _response;
-      }
+      }     
         
       //POST comment
       [HttpPost]
@@ -131,7 +131,7 @@ namespace NewsAPI.Controllers
       public IHttpActionResult GetParam([FromBody] POCO.GETparameters params_)
       {
         IHttpActionResult _response=null;
-        string res_ = mng.GetNews(params_.offest,params_.published,params_.pinned);
+        string res_ = mng.GetNewsHC(params_);
         _response = new WebManagers.ReturnEntities(res_, Request);
 
         return _response;
