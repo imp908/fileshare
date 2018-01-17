@@ -41,11 +41,11 @@ namespace NSQLManager
       //EFcheck.EFqueryCheck();
 
       //GENERATING DATABASES
-      ManagerCheck.GenTestDB();
+      //ManagerCheck.GenTestDB();
       //ManagerCheck.GenDevDB();
 
       //FUCNTIONAL CHECK
-      //ManagerCheck.UOWFunctionalCheck();
+      ManagerCheck.UOWFunctionalCheck();
       
       //START API TEST
       ManagerCheck.APItester_sngltnCheck();
@@ -211,14 +211,27 @@ mng.GenNewsComments(newsGen);
     //FUNCTIONAL TESTS
     public static void UOWFunctionalCheck()
     {
-           
+      
       //Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientUnitTestDB"],null);
-      Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientDevDB"],null);
+      Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientUnitTestDB"],null);
       PersonUOWs.PersonUOW pu=mng.GetPersonUOW();
       NewsUOWs.NewsRealUow nu=mng.GetNewsUOW();
 
       Managers.Manager mngPerson=new Managers.Manager(ConfigurationManager.AppSettings["OrientSourceDB"],null);
       PersonUOWs.PersonUOW personToGetUOW=mngPerson.GetPersonUOW();
+     
+      POCO.News newsToAdd0 = new News() { GUID = "119", content = "s \"a \"a  t " };
+      POCO.Person newsMaker = nu.SearchByName("Neprintsevia").FirstOrDefault();
+
+      GETparameters gp = new GETparameters() {offest=5,published=true,pinned=true,asc=true,author=newsMaker };
+      JSONManager jm = new JSONManager();
+      string gps = jm.SerializeObject(gp);
+      string res =mng.GetNewsHC(gp);
+
+      gp = new GETparameters() {offest=5,published=true};
+      res =mng.GetNewsHC(gp);
+
+      string newsToAdded0=mng.PostNews(newsToAdd0, null);
 
       List<Note> notes0 = nu.GetByOffset("153c2d01-6def-4bcc-97fe-85b051fd8532", 50).ToList();
 
@@ -227,6 +240,8 @@ mng.GenNewsComments(newsGen);
       Commentary comment = new Commentary() { content = "nt_0" };
       comment=nu.CreateCommentary(commenter_, comment, newsTocomment);
 
+
+    
 
       //GET check
       IEnumerable <Note> notes=nu.GetByOffset("558d95f3-964e-45f3-9708-2ee964aa2854", 2);

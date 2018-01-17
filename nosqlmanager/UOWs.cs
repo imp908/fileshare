@@ -191,7 +191,7 @@ namespace NewsUOWs
     public IEnumerable<TestNews> GetByOffsetTest(string guid_, int? offset_=3)
     {
       IEnumerable<TestNews> result_=null;
-      TestNews nt=_repo.SelectByGUIDfromType<TestNews>(typeof(News),"GUID='"+guid_+"'",null).FirstOrDefault();
+      TestNews nt=_repo.SelectByCondFromType<TestNews>(typeof(News),"GUID='"+guid_+"'",null).FirstOrDefault();
       if(nt!=null) {
         int startDepth=nt.commentDepth == null ? 0 : (int)nt.commentDepth;
         int endDepth=offset_==null?startDepth:startDepth+(int)offset_;        
@@ -536,11 +536,12 @@ return nt;
         return nt;
     } 
 
+    //<<<rewrite to getnewsHC
     public IEnumerable<News> GetNews(int? offset,bool? published_,bool? pinned_)
     {
       IEnumerable<News> result = null;
       int endDepth=offset==null?20:(int)offset;
-        result = _repo.SelectByGUIDfromType<News>(typeof(News),null,null);
+        result = _repo.SelectByCondFromType<News>(typeof(News),null,null);
         
         if(published_!=null)
         {
@@ -563,6 +564,26 @@ return nt;
     {
         return _repo.Select<Person,Authorship, News>(p_);
     }
+    public IEnumerable<News> GetPersonNewsHC(int? offset,bool? published_,bool? pinned_,bool? asc,Person p_=null)
+    {
+      string cond_=null;
+      
+      if(published_!=null){ cond_ += " and published.isTrue=" + published_; }
+      if(pinned_!=null){ cond_ += " and pinned.isTrue=" + pinned_; }
+      if(p_!=null){ cond_ += " and in('Authorship')[0].GUID='"+ p_.GUID +"'"; }
+      if(asc==null || asc==true ){ cond_ += " order by Changed asc "; }else{cond_ += " order by Changed desc";}
+
+      int val = 0;
+      int.TryParse(offset.ToString(), out val);
+      if(val>0){
+        if(offset!=null){ cond_ += " limit " + val; }
+      }
+
+      return _repo.SelectByCondFromType<News>(typeof(News),cond_,null);
+
+    }
+
+    
     public Note GetNoteByID(string NewsId)
     {
         Note ret_=null;
@@ -733,6 +754,16 @@ namespace Managers
 
       return res_;
     }
+    public string GetNewsHC(GETparameters gp)
+    {
+      string res_ = null;
+            
+      IEnumerable<POCO.News> pn=_newsUOW.GetPersonNewsHC(gp.offest,gp.published,gp.pinned,gp.asc,gp.author);            
+      res_ = _newsUOW.UOWserialize<POCO.News>(pn);
+
+      return res_;
+    }
+
     public string GetNews(int? offset,bool? published_,bool? pinned_)
     {
       string res_ = null;
@@ -743,11 +774,11 @@ namespace Managers
       return res_;
     }
 
-    public string PostNews(POCO.News note_)
+    public string PostNews(POCO.News note_,string acc_=null)
     {
       string res_ = null;
         
-        string acc = UserAcc();
+        string acc =acc_==null?UserAcc():acc_;
         
         Person person_=_personUOW.GetPersonByAccount(acc);
       

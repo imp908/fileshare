@@ -349,6 +349,8 @@ namespace POCO
       public int? offest {get;set;}
       public bool? published {get;set;}
       public bool? pinned {get;set;}
+      public bool? asc {get;set;}
+      public Person author {get;set;}
     }
 
     //for spagetty check
