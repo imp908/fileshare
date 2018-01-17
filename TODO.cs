@@ -241,65 +241,93 @@ JsonTODO[
 	
 	ACTUAL[
 
-	  c++
-	  overall
-	->Employee class
-	->OpenGltutorials
-	->linked list reference graph
+	c++
+		overall
+			->Employee class
+			->OpenGltutorials
+			->linked list reference graph
 
-	  c#
-		v9
-	->functional prototype newsApi
-		ember, angular2 or other mvc framework
-	->tree chart
-
+	c#
+	
+		ProofOfConcept
+			-> Linq from custom object to custom string
+			-> Polinom Parse {
+				parse *^/ to expressions and add priorities for exprs
+			},
+			-> Command line Console parameters parse app dll -> to SB
+			-> Multithread socket message ping pong -> to SB
+			-> CollectionsComparison -> to SB
+			-> Pluggin/addon architecture -> to SB
+			
+			
 		NSQLmanager
-	->add new models for person and note return (?author for every object)
-	->new object inheritance for boolean properties Prop{string Name,bool cond, datetime changed}
-	->tags,like,pinned,published
-	->new db model for (company)<-[UnitOf]-(Unit)<-[Working,WorkedIn,Fired,Assigned]-(Person)
-	,(Person)-[Comments,Likes,Reads,Searches]->(Person)
-	->rewrite old functions for birthdays, working, structure, management
-	  overall
-	->Neo4j and Mongo repos add
-	->Plugin arhiteckture
-	-> Add BLL Business logic layer above UOW
-	-> Add JS multiple model items update at one time
-	-> to DLL
-	
-	NSQLUOW
-	-> move current UOW logic to Manager <- done
-	-> split Persons and News api <- done
-	
-	ApiTester	
-	-> POST with NTLM	
-	-> Config export/import <- done
-	-> Exeption expected <- done
-	-> Null expected <- done
-	-> Ok not OK to config print <- done
-	
-	
-SQLRepo
--> Repo (against SQL base and Northwind base)
--> Repo (Chaining IRepo implementation for Date + list filter)
+			->tags,like.
+				methodsAndResults[
+					Like(Note,Person=null) <-done
+					Dislike(Note,Person=null) check person like
+					Getparameters{..,bool? liked=null,string tag=null} -> [
+						-> split <Note> object from DB 
+						-> for every Note reference fields (Likes,Tabs,Author) to NoteReturn add 
+						-> return aggr <NoteReturn> to client
+					]
+					Like reference created <-done
+					Liked notes select add <-done
+					
+					Tag(Tag tg_)
+					TagNews(Note nt)
+					Tag object creation,Tagged reference creation
+				]
+			->clean commentary creation
+			->new db model for (company)<-[UnitOf]-(Unit)<-[Working,WorkedIn,Fired,Assigned]-(Person)
+			,(Person)-[Comments,Likes,Reads,Searches]->(Person)
+			-> rewrite old Person functions for birthdays, working structure, management roles		  
+			-> Neo4j and Mongo repos add
+			-> Plugin arhiteckture			
+			-> to DLL <- done
+			-> pinned,published <- done
+			->new object inheritance for toggled properties ToggledProperty <- done
+		
+		NSQLUOW
+			-> move current UOW logic to Manager <- done
+			-> split Persons and News api <- done
+		
+		ApiTester	
+			-> POST with NTLM	
+			-> Config export/import <- done
+			-> Exeption expected <- done
+			-> Null expected <- done
+			-> Ok not OK to config print <- done
 
-SQLUOW
--> Finilize for Nowthwind, Neo4j,mongo
+		SQLRepo
+			-> Repo (against SQL base and Northwind base)
+			-> Repo (Chaining IRepo implementation for Date + list filter)
 
-SQLWebAPI
--> between repo and MVC site
-
-SQLPresentationSite
--> parsing excel file to objects method decompose to several	
--> Export to excel
--> Type converter for migration (
--> SQL to CLR type conversion ; 
--> SQLEntity to DWH entity converter; 
--> Converter logic to string name or type name;)
-
-jsHacks
--> New API drop box above textbox add. Textbox no ovewrite
--> Select2 Js To site <- done
+		SQLUOW
+		-	> Finilize for Nowthwind, Neo4j,mongo
+			
+		SQLWebAPI
+			-> between repo and MVC site
+			-> Add BLL Business logic layer above UOW
+			
+		SQLPresentationSite
+			-> parsing excel file to objects method decompose to several	
+			-> Export to excel
+			-> Type converter for migration (
+			-> SQL to CLR type conversion ; 
+			-> SQLEntity to DWH entity converter; 
+			-> Converter logic to string name or type name;)
+			-> Add JS multiple model items update at one time
+		
+	JS
+		nsql presentation
+			->functional prototype newsApi
+				ember, angular2 or other mvc framework
+			->tree chart
+			
+		jsHacks
+			-> New API drop box above textbox add. Textbox no ovewrite
+			-> Select2 Js To site <- done
+		
 	]
 	
 	,DONE[
@@ -1226,113 +1254,93 @@ Northwind
     
     ]       
 
-  ]
-		
-
-	public class ProofOfConcept
-	{
-
-0 Polinom Parse {
-parse *^/ to expressions and add priorities for exprs
-},
-0 Command line Console parameters parse app dll -> to SB
-0 Multithread socket message ping pong -> to SB
-0 CollectionsComparison -> to SB
-0 Pluggin/addon architecture -> to SB
-	}
-	
-	public class StrategicDirections
-	{			
-Testing automate
-Build automate
-Correct decoupling of projects
-	}
+  ]			
 	
 	public class CodeShemas
 	{
 				
- public Node reference shemas
-              {
-                
-             Node reference shemas. Minimum and explicit[
+	public Node reference shemas
+	{
+			
+	Node reference shemas. Minimum and explicit[
 
-        [Simplified overall
-        ()-[]->()
-        Node type,reference types, reference types, directions, node type
-        (Nd){-|=|..+}[Rf]-{<|>}(Nd)
-        ],	
-        [Detailed Minimal possible 
-        {
-        (Node)-[Ref]->(Node)
-        One type reference to same type Node
-        }
-        0->0
-        ],
-        [Detailed Minimal explicit 
-        (cannot be complexed with quality only with quantity of directions and types, which leads to pattern)
-        {
-        [NodeB]=[Ref2]=>NodeO)-[Ref1]->(NodeA)
-        one type reference r1 from one type node O 
-        to other type node A 
-        and other type reference r2 to other type node B 
-        with other direction
-        }
+		[Simplified overall
+		()-[]->()
+		Node type,reference types, reference types, directions, node type
+		(Nd){-|=|..+}[Rf]-{<|>}(Nd)
+		],	
+		[Detailed Minimal possible 
+		{
+		(Node)-[Ref]->(Node)
+		One type reference to same type Node
+		}
+		0->0
+		],
+		[Detailed Minimal explicit 
+		(cannot be complexed with quality only with quantity of directions and types, which leads to pattern)
+		{
+		[NodeB]=[Ref2]=>NodeO)-[Ref1]->(NodeA)
+		one type reference r1 from one type node O 
+		to other type node A 
+		and other type reference r2 to other type node B 
+		with other direction
+		}
 
-        0
-        -[r1]->A
-        <=[r2]=B
-        ]
+		0
+		-[r1]->A
+		<=[r2]=B
+		]
 
-        ]  
-              
-              }
+	]  
+		  
+	}
               
 			  
-public EntityFrameworkClassShema{
-	
-	Tests{
-FunctionalTests{
-ProductivitiApi{
-	DatabaseInitializationTests.cs
-}
-query{LinqToEntities{
-	ContainsTests.cs{}
-	}}
-}
-},
-EF{
-core{
-Metadata{
-Edm{
-	PrimitiveTypeKind.cs{primitive types}
-	,EntityType.cs{fundamental type }
-	,ClrEntityType.cs{}
-}
-}
-}
-Query{
-	InternalTrees{
-	Node.cs
-	,Command.cs
+	public EntityFrameworkClassShema{
+		
+		Tests{
+	FunctionalTests{
+	ProductivitiApi{
+		DatabaseInitializationTests.cs
 	}
-	PlainCompiler{CodeGen.cs}
-}
-
-QueryableExtensions.cs{7763 GetMethod}
-DbContext.cs{
-
-}
-
-}
-
-	IV:Miscellaneous ˌmɪs(ə)'leɪnɪəs
-Actual:
-TODO to JSON;
-Revise:
-	equality, string, default null init, inheritance, events
-}
-
+	query{LinqToEntities{
+		ContainsTests.cs{}
+		}}
+	}
+	},
+	EF{
+	core{
+	Metadata{
+	Edm{
+		PrimitiveTypeKind.cs{primitive types}
+		,EntityType.cs{fundamental type }
+		,ClrEntityType.cs{}
+	}
+	}
+	}
+	Query{
+		InternalTrees{
+		Node.cs
+		,Command.cs
 		}
+		PlainCompiler{CodeGen.cs}
+	}
+
+	QueryableExtensions.cs{7763 GetMethod}
+	DbContext.cs{
+
+	}
+
+	}
+
+		IV:Miscellaneous ˌmɪs(ə)'leɪnɪəs
+	Actual:
+	TODO to JSON;
+	Revise:
+		equality, string, default null init, inheritance, events
+	}
+
+	}
 					
 	#endregion
 		

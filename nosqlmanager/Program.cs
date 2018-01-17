@@ -212,36 +212,45 @@ mng.GenNewsComments(newsGen);
     public static void UOWFunctionalCheck()
     {
       
+      Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientDevDB"],null);
       //Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientUnitTestDB"],null);
-      Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientUnitTestDB"],null);
       PersonUOWs.PersonUOW pu=mng.GetPersonUOW();
       NewsUOWs.NewsRealUow nu=mng.GetNewsUOW();
 
       Managers.Manager mngPerson=new Managers.Manager(ConfigurationManager.AppSettings["OrientSourceDB"],null);
       PersonUOWs.PersonUOW personToGetUOW=mngPerson.GetPersonUOW();
-     
+      
       POCO.News newsToAdd0 = new News() { GUID = "119", content = "s \"a \"a  t " };
       POCO.Person newsMaker = nu.SearchByName("Neprintsevia").FirstOrDefault();
-
+      
       GETparameters gp = new GETparameters() {offest=5,published=true,pinned=true,asc=true,author=newsMaker };
       JSONManager jm = new JSONManager();
+
+      List<Note> notesCreated=(from s in nu.GetOrientObjects<Note>() where s.authGUID!=null select s).ToList();
+      if(notesCreated.Count()>0)
+      {
+        Note noteToLike=notesCreated[0];
+        Liked lk=nu.LikeNote(noteToLike,newsMaker);
+        IEnumerable<Note> notesLiked=nu.GetPersonNewsHCSelectCond(5, null, null,true, true, null);
+      }
+
+      //PARAMS OBJ CHECK
       string gps = jm.SerializeObject(gp);
       string res =mng.GetNewsHC(gp);
-
       gp = new GETparameters() {offest=5,published=true};
       res =mng.GetNewsHC(gp);
 
+      //NEWS POSTE CHECK
       string newsToAdded0=mng.PostNews(newsToAdd0, null);
 
+      //GET BY OFFSET CHECK
       List<Note> notes0 = nu.GetByOffset("153c2d01-6def-4bcc-97fe-85b051fd8532", 50).ToList();
+
 
       Person commenter_ = pu.GetPersonByGUID("88906e68-e697-11e5-80d4-005056813668");
       News newsTocomment = nu.GetNewsByGUID("153c2d01-6def-4bcc-97fe-85b051fd8532");
       Commentary comment = new Commentary() { content = "nt_0" };
-      comment=nu.CreateCommentary(commenter_, comment, newsTocomment);
-
-
-    
+      comment=nu.CreateCommentary(commenter_, comment, newsTocomment);    
 
       //GET check
       IEnumerable <Note> notes=nu.GetByOffset("558d95f3-964e-45f3-9708-2ee964aa2854", 2);
@@ -305,9 +314,10 @@ mng.GenNewsComments(newsGen);
       Commentary commentAdded = nu.CreateCommentary(personFromTest, commentToAdd, newsAdded2);
       string CommentaryCreatedStr = nu.UOWserialize<Commentary>(commentAdded);
 
-      //COMMENTARY UPDATE CHECK
+      //NEWS UPDATE CHECK
       newsAdded.content="Updated news";
       News commentUpdated1=nu.UpdateNews(personFromTest,newsAdded);
+      //COMMENT UPDATE CHECK
       commentAdded.content="Updated comment";
       Commentary commentUpdated2=nu.UpdateCommentary(personFromTest,commentAdded);
             

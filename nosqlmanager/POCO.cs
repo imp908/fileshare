@@ -38,7 +38,7 @@ namespace POCO
     public class OrientEntity : IOrientEntity
     {
     
-      [JsonProperty("@rid", Order = 1)]
+      [JsonProperty("@rid", Order=1)]
       public virtual string id { get; set; }
       [JsonProperty("@type")]
       public string type {get; set; }   
@@ -69,6 +69,11 @@ namespace POCO
       public virtual DateTime? changed { get; set; }
       [JsonProperty("Disabled", Order = 5),JsonConverter(typeof(OrientDateTime))]
       public DateTime? disabled { get; set; }
+      
+      public bool ShouldSerializeGUID()
+      {
+        return true;
+      }
     }
     public class OrientEdge :OrientDefaultObject, IOrientEdge
     {
@@ -281,12 +286,13 @@ namespace POCO
       public ToggledProperty pinned { get; set; } = new ToggledProperty();
       public ToggledProperty published  { get; set; } = new ToggledProperty();
 
+      public int? Likes {get;set;}
+      public Tag taggs {get;set;}
+
       [Updatable(true)]
       public int? commentDepth { get; set; }
       public bool? hasComments { get; set; }
-
-      public int? likes { get; set; }
-      public bool? liked { get; set; }
+    
     }
     public class News:Note{
       //[JsonProperty("content_")]
@@ -315,6 +321,21 @@ namespace POCO
       public override Person author_ { get; set; }
     }
 
+    [Obsolete]
+    public class NoteReturn: Note
+    {
+      [JsonProperty("author_"),Updatable(false)]
+      public override Person author_ { get; set; }
+
+      public int? Likes { get; set; } 
+      public int? Tagged { get; set; } 
+
+      public bool ShouldSerializeauthor_()
+      {
+        return false;
+      }
+    }
+
     public class Comment : E
     {
       [JsonConverter(typeof(OrientDateTime))]
@@ -324,7 +345,7 @@ namespace POCO
     {
       string strField { get; set; }
     }
-    public class Like : E
+    public class Liked : E
     {
       int cnt { get; set; }
     }
@@ -342,7 +363,7 @@ namespace POCO
       public bool isTrue { get; set; } = false;
       [JsonConverter(typeof(OrientDateTime)), Updatable(false)]
       public DateTime? dateChanged { get; set; } = null;
-    }
+    }   
 
     public class GETparameters
     {
@@ -350,6 +371,7 @@ namespace POCO
       public bool? published {get;set;}
       public bool? pinned {get;set;}
       public bool? asc {get;set;}
+      public bool? liked {get;set;}
       public Person author {get;set;}
     }
 

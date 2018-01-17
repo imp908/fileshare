@@ -80,6 +80,8 @@ namespace IQueryManagers
       ITypeToken As();
 
       ITypeToken Expand();
+      
+      ITypeToken Size();
 
       ITypeToken Dog();
     }

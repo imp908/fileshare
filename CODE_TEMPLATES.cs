@@ -41,10 +41,25 @@ namespace Parts{
 	http://sigmajs.org/
 	//with images
 	http://bl.ocks.org/eesur/be2abfb3155a38be4de4
+	
 	http://leaverou.github.io/awesomplete/
 	https://primitive.lol/
 	//ECMAScript 6
 	http://exploringjs.com/es6/index.html#toc_ch_modules
+												 
+	
+	
+	//BLOGS
+	//Jon Skeet's
+	https://codeblog.jonskeet.uk/
+	//CoddingHorror
+	https://blog.codinghorror.com/
+	//CodeNames
+	http://blog.codenamed.nl/
+	https://prateekvjoshi.com/	
+	//CONTINUOUS INTEGRATION
+	http://www.eugeneduvenage.com/2011/11/continuous-integration-basics-part-1/
+	
 	
 	
 	//d3 
@@ -200,21 +215,7 @@ namespace Parts{
 	https://blogs.msdn.microsoft.com/meek/2008/05/02/linq-to-entities-combining-predicates/
 	
 	//Sample plugin
-	https://code.msdn.microsoft.com/windowsdesktop/Creating-a-simple-plugin-b6174b62
-	
-	
-	
-	//BLOGS
-	//Jon Skeet's
-	https://codeblog.jonskeet.uk/
-	//CoddingHorror
-	https://blog.codinghorror.com/
-	//CodeNames
-	http://blog.codenamed.nl/
-	
-	
-	//CONTINUOUS INTEGRATION
-	http://www.eugeneduvenage.com/2011/11/continuous-integration-basics-part-1/
+	https://code.msdn.microsoft.com/windowsdesktop/Creating-a-simple-plugin-b6174b62	
 	
 	
 	
@@ -436,1368 +437,52 @@ namespace Parts{
 	https://swagger.io/
 	//tizen
 	https://www.tizen.org/
-	              	
+	
+	//ORACLE
+	http://www.f-notes.info/oracle:what_where
+		
 	}
 	
-	#region TODO
-	 
-  [TODO
-   
-    {"C++":[
-    {"TODO": [
-        "Employee class",
-        "OpenGltutorials"
-      ]
-    }]
-    },
-    {"C#":[
-    {"TODO": [{
-        "Infrastructure": [{
-            "Correct decoupling of projects": []
-          }, {
-            "Build automate": []
-          },
-          {
-            "Testng automate": [{
-              "Name": "Test localhost server",
-              "What": "starts localhost for methods testing",
-              "How": ["Python localhost server"],
-              "TODO": ["add responses on 8001"],
-              "DONE": ["Starts localhost on 8000", "handles GET,POST,DELETE"]
-            }, {
-              "Name": "API tester",
-              "What": "runs config file with aprameters for URL response check with WebManager,WebResponseReader",
-              "TODO": [
-                "POST,PUT,DELETE methods",
-                "request body and format type"
-              ],
-              "DONE": [
-                "Config export/import",
-                "Exeption expected",
-                "Null expected",
-                "Ok not OK to config print"
-              ]
-            }]
-          }
-        ]
-      }, {
-        "Utility": [{
-            "Js hacks": [{
-              "Name": "JS hacks",
-              "What": "Js scripts to load on page and change functionality",
-              "TODO": [
-                "New API drop box above textbox add. Textbox no ovewrite"
-              ],
-              "DONE": [
-                "Select2 Js To site"
-              ]
-            }]
-          }, {
-            "PersonAPI": [{
-
-                "Name": "NSQLmanager",
-                "What": "OreintDb command builder,REST API executor and parser",
-
-                "TODO": [{
-                  "simplify repo": [
-                    "clean string methods",
-                    "change T types to base interfaces",
-                    "add universal Node reference"
-                  ]
-                }, {
-                  "refactor UOW": [
-                    "split Persons and News api",
-                    "move current UOW logic to Manager"
-                  ]
-                }, {
-                  "web part": [
-                    "choose framework"
-                  ]
-                }],
-                "DONE": [
-                  "Query manager",
-                  "TokenBuilder",
-                  "Token,Orient,URL factories",
-                  "Command shema base with factories with Build from collections of tokens and commandbuilders",
-                  "Rewrite old shemas for new base shema methods",
-                  "Check fire working request"
-                ]
-              },
-              {
-                "Name": "WebAPI",
-                "What": "Apis for person,addressbook,news,birthdays",
-                "How": [
-                  "c# web api"
-                ]
-              },
-              {
-                "Name": "HttpManager",
-                "What": "handling http requests",
-                "TODO": [
-                  "Request content body addition",
-                  "Handshake procedure"
-                ],
-                "DONE": [
-                  "Handling http methods POST,GET,DEL,PUT",
-                  "Adding headers",
-                  "Add request body",
-                  "Orient DB cookie authorization"
-                ],
-                "How": [
-                  "c# http"
-                ]
-              },
-              {
-                "Name": "JSONmanager",
-                "What": "Round aboud Newtonsoft JSON",
-                "DONE": [
-                  "Parsing to/from objects/strings to/from JSON string"
-                ],
-                "TODO": [
-                  "Clatrify parsing to string",
-                  "make generic"
-                ],
-                "How": [
-                  "c#"
-                ]
-              },
-              {
-                "neo4jAPI": [{
-                  "Name": "Boilerplate",
-                  "What": ["script for neo4j builderplate"],
-                  "TODO": ["script"]
-                }, {
-                  "Name": "CRUD",
-                  "What": ["script for neo4j crud operations"],
-                  "DONE": ["crud"]
-                }]
-              }
-            ]
-          }
-
-          ,
-          {
-            "Presentation site": [{
-              "Name": "WCF",
-              "What": "Between UOW  and Presentation site",
-              "How": [
-                "POCOs instead of data contracts"
-              ],
-              "Comments": "move to REST API most likely due to unclear configuration while mooving",
-              "TODO": [
-                "ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)",
-                "Add BLL Business logic layer between POCOs and UOW",
-                "Add JS multiple model items update at one time"
-              ]
-            }, {
-              "Name": "WebApi",
-              "What": "Between UOW  and Presentation site",
-              "TODO": [
-                "Add"
-              ]
-            }, {
-              "Name": "Excel parser",
-              "What": "parsing excel file to objects method",
-              "TODO": [
-                "decompose to several projects"
-              ],
-              "How": [
-                "parse file mask",
-                "Sector type from filename",
-                "Fist file input determines merchant sector"
-              ]
-            }, {
-              "Name": "Excel exporter",
-              "What": "Export to excel",
-              "How": [
-                "For collection of POCO objects Read properties of PCOO object",
-                "Every property to column, every object to row"
-              ]
-            }, {
-              "Name": "SQL SLR Type converter",
-              "What": "Type converter for migration",
-              "How": [
-                "Add SQL to CLR type conversion",
-                "SQLEntity to DWH entity converter",
-                "Converter logic to string name or type name"
-              ]
-            }, {
-              "Name": "WCF",
-              "What": "Add WCF between Repo and Site",
-              "Comments": "bad idea WCF diff to config. REST API instead"
-            }, {
-              "Name": "UOW",
-              "DONE": [
-                "bind repo to generic with as and type conversion",
-                "bind context to every"
-              ]
-            }, {
-              "Name": "Repository",
-              "Test": [{
-                "Integration": "Tables migration"
-              }],
-              "TODO": [
-                "against SQL base and Northwind base",
-                "Chaining IRepo implementation for Date + list filter"
-
-              ],
-              "DONE": [{
-                  "Name": "IRpository",
-                  "DONE": [
-                    "CRUD operations"
-                  ]
-                },
-                {
-                  "Name": "Explicit Repository",
-                  "What": "Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}"
-
-                },
-                {
-                  "Name": "Implicit Repository",
-                  "What": "Repo<T>() where T: IOne { GetByOne(); } ... Repo<T>() where T: In { GetByN(); } <- done"
-
-                }
-              ]
-            }, {
-              "Name": "Northwind",
-              "DONE": [
-                "change login employee get from TempData to model",
-                "add complex model"
-              ]
-            }]
-          }
-        ]
-
-      }]
-    
-    }
-    ]
-    }
-    
-  ]	
- 
-  [TODO
-
-    Global[
-      
-      Repo 
-        -> finish <- done 
-      UOW 
-        -> finish <- done 
-      Manager 
-        -> finish <- done
-      
-      Quiz 
-        -> finish <- done 
-        -> refactor
-        
-      AdinTce store
-        -> finish
-        News store 
-        -> finish
-      
-      Birthday
-        ->
-      News
-        ->
-        
-    ]
-    
-    ,Structured[
-    
-      {Intraservice
-      
-        То, что называется "JS хаки" это, например файлы из папки /js/ на inter02
-        alertmessage.js
-        autoexecutorpick.js
-        IB_auto_pick_date.js
-        select2.js
-      
-        Все местоположения http://10.31.14.76/cleverence_ui/hs/IntraService/location/full
-        Частичные местоположения (215) http://10.31.14.76/cleverence_ui/hs/IntraService/location/part/215
-        это не GUID Person,Unit и MainAssignment из orientDB.
-        новые положения UI
-        http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/full
-        
-        ?Масленникова - заказчик
-        завялов - по Intraservice
-        Селиверстов - по Intraservice2 1135
-        Акшарумов  1335
-        завялов 
-          ? -> карточки в is учёт миущества 1C
-          ? -> добавление тестовых форм
-          авторизации от админов - вопрос
-        
-        OrientFunction - rewrite GetPerson, return GUID exclude Disabled  persons
-        JS hack - to fill IS form with values from			
-          
-          1)	У Завъялова - > форма intraservice взаимодействующая с 1C<> Cleverence
-          2)	На сайт JS обёртка, подключающая к полям вьюхи 
-            o ФИО и GUID должности из OrientDB по вводимому ФИО
-            o Адресс местоположения по вводимомму адресу с :
-              Все местоположения http://10.31.14.76/cleverence_ui/hs/IntraService/location/full
-                [
-                  переносы в конце строки: \n"
-                  незакрытые кавычки: \"НСПК, 4 этаж, рм. 4.10-061 Кладовая"
-                  обе красоты в одной: \"Голден Гейт\"\n\nРезервный офис АО \"НСПК"
-                  и фиальная, адресс тока: "Адрес": "."
-                  
-                ]
-              Частичные местоположения (215) http://10.31.14.76/cleverence_ui/hs/IntraService/location/part/215
-
-          {
-            HelpDeskTestAPI:
-            [
-              http://msk1-vm-inter02.nspk.ru/api/Task/
-              http://msk1-vm-inter02.nspk.ru/api/Task/53883
-              http://msk1-vm-inter02.nspk.ru/api/Service
-            ]
-            
-          }
-          
-          {checkbox for text input
-            
-          }
-          
-      }
-      
-      ,{Intraservice structure
-        
-        [
-          {
-          "FILE":"IntraService.Domain.dll",
-          "Description":"Entity models. Entity + model in one huge block"
-          }
-        ]
-      
-      }
-      
-      ,{ElMA:26.10.17
-        
-        [
-          {
-          
-          }
-        ]
-      
-      }
-      
-      ,{News Site
-      
-     
-          
-        [API
-        
-  User-Agent: Fiddler
-  Authorization: Basic cm9vdDptUiVtekpVR3ExRQ==
-  Host: msk1-vm-ovisp01:8184
-  Content-Length: 112
-  Content-Type: application/json
-
-  POST
-  http://msk1-vm-ovisp01:8184/api/News
-
-  POST,PUT
-  http://msk1-vm-ovisp01:8184/api/News/174
-
-  {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "1", "Name": "0"}
-
-
-        ]
-
-        ,[user settings 
-          
-  (Person)-[CommonSettings]->(UserSettings{"showBirthday":"true"})
-          
-          ,{check serverside filter <- done
-          
-            add to all orient functions if to publish birthdate according to condition for birthday on/of
-            return all birthdays for those who on
-            
-          }
-          
-          ,{Birthdays
-          post -> receive GUID
-          add edge (seeBirthdays) from authenticated person to guided
-          return edge collection (Person auth)-[seeBirthday]->(Persons selected)
-            
-          ,add birthday objects Creation to ETL
-              
-            
-          }			
-              
-        ]
-                      
-        ,[AdinTce
-            
-          {AdinTce URLS
-  "Source":
-
-
-  http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/graph/full
-  http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/holiday/full
-  http://msk1-vm-onesweb01/nspk_zup/hs/Portal_Holiday/location/vacation/full
-  /part/592a863e-8642-11e7-8119-005056813668
-
-  http://msk1-vm-ovisp01:8184/api/Person/Acc
-  http://msk1-vm-ovisp01:8184/api/Person/HoliVation/kpa
-  http://msk1-vm-ovisp01:8184/api/Person/HoliVationAcc
-
-  http://msk1-vm-ovisp01:8085/api/Person/Acc
-  http://msk1-vm-ovisp01:8085/api/Person/HoliVation/kpa
-  http://msk1-vm-ovisp01:8085/api/Person/HoliVationAcc
-
-  http://msk1-vm-inapp01:8081/api/Person/Acc
-  http://msk1-vm-inapp01:8081/api/Person/HoliVation/kpa
-  http://msk1-vm-inapp01:8081/api/Person/HoliVationAcc
-        
-          [test
-
-          ]
-
-          }
-          
-          ,{Preliminary
-        
-  intranet backend
-  NTLM -> orient - > GUID ->  1C api -> result
-
-  UI
-  УИ (чёт активов)
-  (password from 1c batch)
-  http://msk1-vm-onesweb01/nspk_ui/ws/ExchangeInv.1cws?wsdl
-
-  http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/full
-  Ok {GUID,Адресс} old cleverence
-  http://msk1-vm-onesweb01/nspk_ui/hs/IntraService/location/part/215
-
-  ZUP
-  ЗУП (1c batch) (WS:12345qweQWE!@#)
-  V1M6MTIzNDVxd2VRV0UhQCM=
-
-  http://msk1-vm-onesweb01/nspk_zup/ws/ExportData.1cws?wsdl
-  GET
-  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/holiday/full
-  "GUID": "cc109057-39aa-11e4-95f3-00c2c66d1ae5",
-  "ВидОтпуска": "Основной",
-  "Должность": "Начальник Управления бухгалтерского учета и отчетности - Главный бухгалтер",
-  "Дни": 14.67
-
-  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/holiday/part/18a14516-cbb4-11e4-b849-f80f41d3dd35
-  {HTTPСервис._Portal_Holiday.Модуль(109)}: Ошибка при вызове метода контекста (ПолучитьСсылку)
-
-  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/graph/full
-  [
-  {
-  "GUID": "0629685d-7e6b-11e7-8119-005056813668",
-  "ВидОтпуска": "Основной",
-  "Должность": "Руководитель направления",
-  "ДатаНачала": "20180409",
-  "ДатаОкончания": "20180422",
-  "Дни": 0
-  },
-  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/graph/part/215
-  {HTTPСервис._Portal_Holiday.Модуль(253)}: Ошибка при вызове метода контекста (ПолучитьСсылку)
-
-  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/vacation/full
-  http://msk1-vm-onesweb01/test3/hs/Portal_Holiday/location/vacation/part/88906e68-e697-11e5-80d4-005056813668
-
-
-  УХ
-
-  http://msk1-vm-onesweb01/nspk_uh/ws/ExchangeClev.1cws?wsdl
-  http://msk1-vm-onesweb01/nspk_uh/ws/DocsVision.1cws?wsdl
-
-  Так же как я понимаю вам еще нужны доп данные для подключения..
-  Этих будет достаточно? Могу переназвать если надо..
-  Если все устроит могу в рабочую поместить..
-  Корневой URL: Portal_Holiday
-  Остатки отпусков по физ лицу - /location/holiday/{ФизЛицо}
-  Остатки отпусков - /location/holiday/full
-  График отпусков по физ лицу - /location/graph/{ФизЛицо}
-  График отпусков - /location/graph/full
-  Отпуска по физ лицу - /location/vacation/{ФизЛицо}
-  Отпуска  - /location/vacation/full
-
-        }
-        
-        
-      ]
-        
-        ]
-        
-        ,[Person API
-      
-  Сейчас, похожи на вес две функции
-
-  GetWeight
-
-  На вход передается Position
-
-  возвращает
-  isManager 0 
-  isZam 1000000
-  others 2000000
-
-  GetPositionBar
-
-  На вход передается Position
-
-  возвращает
-  isManager Руководитель
-  isZam Заместитель
-  others null
-
-  как я понимаю seed рассчитывается из JS и именно от него иерархия строится.
-  Для perosn API нужно больше весов.
-
-      ]
-                            
-        ,[MyNspk URLs from
-
-  http://msk1-vm-inapp01.nspk.ru:81/api/Photo/?email={{cnt.mail}}
-  var GetStructureByUnitGUID = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetStructureByUnitGUID/'
-  var GetStructureByPersonGUID = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetStructureByPersonGUID/'
-  var GetStructureByUnitGUIDAtCurrentLevel = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetStructureByUnitGUIDAtCurrentLevel/'
-  var SearchPersonUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchPerson/'
-  //var NewsFeedUrl = 'http://nspk.online/api/news.php?list=0&num=25'
-  var AccountUrl = 'http://msk1-vm-inapp01:8081/api/Account/'
-  var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'
-  //var MenuUrl = 'static.data/static.menu.json'
-  //var GalUrl = 'static.data/gal.json'
-  var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last';
-  var PersonalSettingsUrl = "http://msk1-vm-ovisp01:8084/api/UserSettings/";
-  // var NewsFeedUrl = 'http://nspk.online/api/news.php?list=0&num=25'
-  // var AccountUrl = 'http://msk1-vm-inapp01:8081/api/Account/'
-  // var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'
-  // var MenuUrl = 'static.data/static.menu.json'
-  // var GalUrl = 'static.data/gal.json'
-  // // var VacationsUrl = 'http://msk1-vm-ovisp01:8085/api/Person/HoliVationAcc'
-  // var VacationsUrl = 'http://msk1-vm-ovisp01:8085/api/Person/HoliVation/saa'
-  // var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last'
-  // var UserSettingsUrl = 'http://msk1-vm-ovisp01:8084/api/UserSettings/'
-  // var FavoritesUrl = 'http://msk1-vm-ovisp01:8084/api/PersonRelation/'
-  // var PersonBirthdays = 'http://msk1-vm-ovisp01:8084/api/PersonBirthdays'
-  var NewsFeedUrl = 'http://nspk.online/api/news.php?list=0&num=25'
-  var AccountUrl = 'http://msk1-vm-inapp01.nspk.ru:8081/api/Account/'
-  var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'
-  var MenuUrl = 'static.data/static.menu.json'
-  var GalUrl = 'static.data/gal.json'
-  var VacationsUrl = 'http://msk1-vm-inapp01:8081/api/Person/HoliVationAcc'
-  var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last'
-  var UserSettingsUrl = 'http://msk1-vm-inapp01:8081/api/UserSettings/'
-  var FavoritesUrl = 'http://msk1-vm-inapp01:8081/api/PersonRelation/'
-  var PersonBirthdays = 'http://msk1-vm-inapp01:8081/api/PersonBirthdays'
-  //var VacationsUrl = 'http://msk1-vm-ovisp01:8085/api/Person/HoliVationAcc'
-    
-        ]
-        
-        ,[JSON exmpls
-  {"result":[{"A":"B"},{"A":"B"},{"A":"B"}]}
-  {"result":[{"A":"B","A2":"B2","A3":"B3"},{"A":"B"},{"A":"B"}]}
-  {"A":"B","A2":"B2","A3":"B3","result":[{"A":"B"},{"A":"B"},{"A":"B"}]}
-
-        ]
-        
-        ,[NewsAPI
-
-  //Traverse Commentaries to News
-  traverse outE('Comment'),inV('Commentary'),inE('Authorship','Comment') from 26:3
-  traverse out('Comment'),in('Comment') from 25:4
-
-  //traverse comments to comment
-  select from (traverse out('Comment') from 26:5)
-  where commentDepth >=0 and commentDepth <=3
-
-  //traverse up fromcomment to news
-  traverse in('Authorshp','Comment') from (select from 24:53)
-
-  //Get persons from news
-  Select expand(a1) from(Select inE('Authorship').outV('Person')  as a1 from 26:1 )
-
-  //Person authorships
-  traverse out() from 31:6
-  //Author find
-  select expand(in('Authorship')) from 23:1
-
-  //Check Notes without authorship
-  select from Note where in('Authorship').@class!='Person'
-
-
-  //Select from News with depth
-  select from (traverse outE('Comment'),inV('Commentary'),inE('Authorship','Comment') from 26:2)
-  where commentDepth >=2 and commentDepth <=2 
-
-  //
-  traverse out('Comment','Authorship'),in('Comment') from 32:7
-
-        ]
-        
-        ,[Shema
-        
-        //--------------------------------
-
-        //Class  model <- done
-
-        (Person) - [Authorship] -> (Commentary) <- [Comment] - (Person)
-        (Person) - [Authorship] -> (News) <- [Comment] - (Person)
-         
-        //Relations model -> obsolette
-
-        Post new tag by name, post tag id news id
-        person to like
-
-        (Person) - [Authorship] -> (Object{pinned:true})
-        News //editable by hardcode string acc group to every tag
-        (Person) - [Authorship] -> (Object{"pinned":"true";"published":"true"})
-        Commentary
-        (Person) - [Authorship] -> (Object) - [Comment{CommentLevel:0+1}] -> (Object)
-        
-        //All note fields
-        Note
-        {
-
-          public override string id { get; set; }       	
-          public override string @version {get; set;} 
-          
-          public Person author_ { get; set; }
-
-          public string PGUID { get; set; }=string.Empty;
-
-          public string authAcc { get; set; }=string.Empty;
-          public string authGUID { get; set; }=string.Empty;
-          public string authName { get; set; }=string.Empty;
-
-          public string pic {get;set;}=string.Empty;
-          public string name {get;set;}=string.Empty;               
-
-          [JsonProperty("content_")]
-          public virtual string content { get; set; }=string.Empty;
-          public string description { get; set; }=string.Empty;
-
-          public DateTime? pinned { get; set; }=null;
-          public DateTime? published { get; set; }=null;
-
-          public int? commentDepth { get; set; }=0;
-          public bool hasComments { get; set; }=false;
-
-          public int likes { get; set; }=0;
-          public bool liked { get; set; }=false;
-
-        }
-
-        //updatable
-        News
-        {
-          
-          public Person author_ { get; set; }
-
-          public string pic {get;set;}=string.Empty;
-          public string name {get;set;}=string.Empty;               
-
-          [JsonProperty("content_")]
-          public virtual string content { get; set; }=string.Empty;
-          public string description { get; set; }=string.Empty;				
-
-          public bool liked { get; set; }=false;
-          
-          public DateTime? pinned { get; set; }=null;
-          public DateTime? published { get; set; }=null;
-
-        }
-        
-        //Author never edited from Edtors
-        //updatable from author
-        Commentary
-        {
-              
-          public string pic {get;set;}=string.Empty;
-          public string name {get;set;}=string.Empty;               
-
-          [JsonProperty("content_")]
-          public virtual string content { get; set; }=string.Empty;
-          public string description { get; set; }=string.Empty;
-          
-          public DateTime? published { get; set; }=null;
-
-          public bool liked { get; set; }=false;
-          
-          public DateTime? pinned { get; set; }=null;
-          public DateTime? published { get; set; }=null;
-
-        }
-
-        if "Name":null -> если null оставляем как в базе
-        if "Name":"" -> если явное "" empty перезаписываем в базе
-        
-        if author_:null or "" -> если пустое или null оставляем как в базе
-        
-        personReturn
-        { 
-          "GUID": "ba124b8e-9857-11e7-8119-005056813668",
-          "division": "Отдел поддержки прикладных систем",
-          "PGUID": "c1b0ff45-5cb1-11e7-8117-005056813668",
-          "phone": "1312",
-          "mail": "Neprintsevia@nspk.ru",
-          "Name": "Непринцев Илья Александрович",  
-          "shortFName": "Непринцев И. А.",
-          "description": "Главный специалист",
-          "itemTitleColor": "rgb(44,50,124)",
-          "templateName": "PersonTemplate",
-          "birthday": "09.03",
-          "colorClass": "c-dit",
-          "departmentName": "Департамент ИТ",
-          "login": "Neprintsevia"
-        }
-        
-        NoteReturn{
-          
-          author personReturn_ {get;set;}
-          
-          note_ {get;set;}
-          
-          commentaryCount {get;set;}
-          likesCount {get;set;}
-          
-        }
-        
-        //--------------------------------
-
-        ]
-        
-        ,Test API[
-          
-          Bulk[
-          
-
-    http://localhost:63282/api/news2/2
-    
-    
-          
-    http://localhost:63282/api/news2/10
-    http://localhost:63282/api/news2/45bdc4fa-5952-475f-a408-9a277b714bcb/2
-    http://localhost:63282/api/Quiz
-
-
-    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
-    http://msk1-vm-ovisp01:8184/api/Person/GetDepartment/kpa
-    http://msk1-vm-ovisp01:8184/api/Person/GetManager/kpa
-    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
-    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
-    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
-    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
-    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
-    http://msk1-vm-ovisp01:8184/api/Person/HoliVation/kpa
-
-    http://msk1-vm-ovisp01:8184/api/Person/HoliVationAcc
-
-    http://msk1-vm-ovisp01:8184/api/Person2/acc
-    http://msk1-vm-ovisp01:8184/api/news2/2
-    http://msk1-vm-ovisp01:8184/api/news2/b71bec8b-ebac-40ff-852b-ba2ba1bc6d81/2
-    http://msk1-vm-ovisp01:8184/api/Quiz
-            ]
-
-          , Api[
-
-    //Person
-    //////////////////////////////////////////////
-    GET
-    http://msk1-vm-ovisp01:8184/api/Person/Acc
-    NTLMAccountName
-
-    http://msk1-vm-ovisp01:8184/api/Person/GetUnit/kpa
-    Юридическое управление
-
-    http://msk1-vm-ovisp01:8184/api/Person/GetDepartment/kpa
-    Организационно-правовой департамент
-
-    http://msk1-vm-ovisp01:8184/api/Person/GetManager/kpa
-    tishakovoi
-
-
-    //AdinTce
-    //////////////////////////////////////////////
-    GET
-    http://msk1-vm-ovisp01:8184/api/Person/Holivation/kpa
-    {"GUID":"348f1d6f-58ea-11e4-a7e1-00c2c66d13b0","Position":"Начальник управления","Holidays":[{"LeaveType":"Основной","Days":44.0},{"LeaveType":"За ненормированный рабочий день","Days":1.0}],"Vacations":[{"LeaveType":"Отпуск основной","DateStart":"07.08.2017","DateFinish":"20.08.2017","DaysSpent":14},{"LeaveType":"Отпуск основной","DateStart":"30.10.2017","DateFinish":"03.11.2017","DaysSpent":5}]}
-
-    GET
-    http://msk1-vm-ovisp01:8184/api/Person/HolivationAcc
-    {"GUID":"ba124b8e-9857-11e7-8119-005056813668","Position":"Главный специалист","Holidays":[{"LeaveType":"Основной","Days":7.0}],"Vacations":[]}
-
-
-
-    //Quiz
-    //////////////////////////////////////////////
-    GET
-    http://msk1-vm-ovisp01:8184/api/Quiz
-    [{"title":"Опросы","href":{"link":"http://my.nspk.ru/Quiz/Execute/","target":"_self"},"id":50,"parentid":1},{"title":"Title_500","href":{"link":"http://my.nspk.ru/Quiz/Execute/?#19:43","target":"_self"},"id":500,"parentid":50},{"title":"Title_501","href":{"link":"http://my.nspk.ru/Quiz/Execute/?#19:42","target":"_self"},"id":501,"parentid":50},{"title":"Title_502","href":{"link":"http://my.nspk.ru/Quiz/Execute/?#20:38","target":"_self"},"id":502,"parentid":50},{"title":"Title_503","href":{"link":"http://my.nspk.ru/Quiz/Execute/?#20:39","target":"_self"},"id":503,"parentid":50}]
-
-
-
-    //News
-    //////////////////////////////////////////////
-
-    Post news
-    [METHOD,URL,HEADER,BODY,RESPONSE]
-    POST
-    http://msk1-vm-ovisp01:8184/api/news2
-    Content-Type: application/json
-    {"authAcc":"Neprintsevia","pic":"","name":"TestNews3","content_":"news text","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false}
-    {"PGUID":"000","authAcc":"Neprintsevia","authGUID":"000","authName":"Neprintsevia","pic":"","name":"TestNews","content_":"","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"dac34a61-d01c-487c-8d1e-694f8383a21f","Created":"2017-12-19 09:54:59"}
-
-    Post comment
-    [METHOD,URL,HEADER,BODY,RESPONSE]
-    POST
-    http://msk1-vm-ovisp01:8184/api/news2/{NoteGUID}
-    Content-Type: application/json
-    {"authAcc":"Neprintsevia","pic":"","name":"TestComment1","content_":"comment text","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false}
-    {"pic":"","name":"TestComment1","content_":"comment text","description":"","commentDepth":1,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"0a35caf2-1045-47e2-bb41-46c931b6b1da","Created":"2017-12-19 09:57:09"}
-
-    Put News
-    [METHOD,URL,HEADER,BODY,RESPONSE]
-    PUT
-    http://msk1-vm-ovisp01:8184/api/news2
-    Content-Type: application/json
-    {"GUID":"dac34a61-d01c-487c-8d1e-694f8383a21f","authAcc":"Neprintsevia","pic":"","name":"TestComment2","content_":"comment text updated","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false}
-    {"pic":"","name":"TestComment2","content_":"comment text updated","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"dac34a61-d01c-487c-8d1e-694f8383a21f","Created":"2017-12-19 10:03:11"}
-
-    GET News\Comment with comments with depth
-    /Guid/depthOffset
-    http://msk1-vm-ovisp01:8184/api/news2/{NoteGUID}/2
-    [{"Name":"Commentary0","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":3,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"47eb0894-7fb1-4b24-aabd-77f264537678","Created":"2017-12-18 03:30:10"},{"Name":"Commentary6","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":4,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"288fdabd-66c1-4042-be81-d7ff18d864b2","Created":"2017-12-18 03:30:10"},{"Name":"Commentary4","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":5,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"16f8988e-beb5-419a-bfb3-f00da0e57af2","Created":"2017-12-18 03:30:10"},{"Name":"Commentary8","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":6,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"01396598-0a21-476e-b566-98765f9e2011","Created":"2017-12-18 03:30:10"},{"Name":"Commentary5","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":6,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"0a4d8a0b-b034-4249-a717-0bf32fa22034","Created":"2017-12-18 03:30:11"}]
-
-    GET get News with depth
-    http://msk1-vm-ovisp01:8184/api/news2/5
-    [{"Name":"Real news","pic":"","name":"","content_":"","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"057ba719-bd7e-4827-84b9-33f013765e4a","Created":"2017-12-18 03:28:03"},{"Name":"News1","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"a47a360a-33d7-46fd-8132-0dcdb4aa88fb","Created":"2017-12-18 03:30:09"},{"Name":"News1","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"73e24beb-84bb-4c55-9735-830412a807ea","Created":"2017-12-18 03:30:09"},{"Name":"News0","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"edec4cc2-d66c-4d51-8691-a762e763abf3","Created":"2017-12-18 03:30:09"},{"Name":"News0","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"82f83601-d5cd-4108-b1b7-d27ac5a3933a","Created":"2017-12-18 03:30:09"}]
-
-          ]
-
-        ]
-        
-        ,[TODO
-
-  >> todo
-  add personsource UOW to manager
-  manager generator 
-  << done
-
-  >>
-  Test Repo, UOWs
-  <-integrateion tests added+db boilerplate generate
-  << done
- 
-  >>
-  Ref repo
-    >>property specific methods.Methods receive only condition in form of string.
-    >>Property specific moove to UOW.Methods with Strings to condition.
-    >>Remove instances where types needed.
-
-
-  >>
-  Like
-  (Person) - [Like] -> (Object)
-  Tags //editable by hardcode string acc group to every tag
-  (Person)->[Tag{Text}]->(News)
-  (Tag{"tagName":""}) - [Tags] -> (Object)
-  Publish,Pinn>>
-  {"Published"=datetime.now,"Pinned"=datetime.now}
-
-  >>
-  new return object from Note and Person
-  >>
-  return object Person card
-
-        ]
-        
-        ,[DONE
-  
-  >>Move repo initialization from UOWs to external. UOW receives Manager  << done
-  >>Move all build repo and requesting bock into methods.  << done
-  
-  TokenBuilder -> rewrite <-done
-  Add patterns for common command signatures in separate class -> rewrite  <-done
-  Command class add chaining -> rewrite  <-done
-      
-  Rspo -> string to URL -> rewrite or depricate  <-done
-  UOW -> tokens and collections to string with typeconverter -> rewrite or depricate  <-done
-        
-  <<Methods >> <- done
-  post
-  published no
-
-  <<new get/news/count/depth>>  <- done
-  published null <=sysdate
-
-
-  <<PUT >> <- done
-  update account author
-  change auth_ person to personAcc
-
-  <<PUT rules <- done
-  public T UpdateObjects<T>()
-        ]
-      
-      }
-        
-      ,{NOSQLmanager
-             
-        
-        {URlbuilder test
-                
-          http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
-
-          { "transaction" : true,
-            "operations" : [
-            {
-              "type" : "script",
-              "language" : "sql",
-              "script" : [ "INSERT INTO Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}",
-                     "INSERT INTO Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-                     ]
-            }
-            ]
-          }
-
-
-          { "transaction" : true,
-            "operations" : [
-            {
-              "type" : "script",
-              "language" : "sql",
-              "script" : [
-               "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-               ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-              ]
-            }
-            ]
-          }
-
-
-          "http://msk1-vm-ovisp02:2480/connect/news_test3"
-          "http://msk1-vm-ovisp02:2480/command/news_test3/sql"
-          "Select from Person"
-          "where 1=1"
-          http://msk1-vm-ovisp02:2480/command/news_test3/sql/Select from Person where 1=1
-
-
-          Create Vertex Person content {"Created":"2017-10-27T14:45:11.3738136+03:00","GUID":"0","Changed":"2017-10-27T14:45:11.3733119+03:00","Name":"0"}
-          Create Vertex Person content {"Created":"2017-10-27 14:55:02","GUID":"0","Changed":"2017-10-27 14:55:02","Name":"0"}
-
-          http://msk1-vm-ovisp02:2480/command/news_test3/sql/Create Vertex Person content 
-          {"Created":"2017-10-27 14:55:02","GUID":"0","Changed":"2017-10-27 14:55:02","Name":"0"}
-
-          Create Vertex Person content {\"Created\":\"2017-01-01 00:00:00\",\"GUID\":\"0\",\"Changed\":\"2017-01-01 00:00:00\",\"Name\":\"0\"
-          }
-          
-          Create Vertex Person content {"Created":"2017-10-27 15:03:08","GUID":"0","Changed":"2017-10-27 15:03:08","Name":"0"}
-                  
-          Delete Vertex Person where "Name" = "0"
-          
-          http://msk1-vm-ovisp02:2480/command/news_test3/sql/Delete Vertex Person where Name = 0
-                                
-        }
-      
-        ,{TODO
-
-  -> RepoFactory add interaface parameters
-  -> extend with ability to load tokens from model class
-  -> add all tokens to tokenlist
-  -> Moove builders and command invokers to Generic
-  -> Tokens to static?
-  -> add authentication timer for orient connection
-  -> add interface segregation for different token types => {IdataType, ICreateType}
-  -> add logging
-
-        }
-        
-        ,{DONE
-  -> manager class added. UOWs splitted. Check for manager to Controller.
-  -> change class inheritance for type converter, only 2 lvl allowed and basetype is used <- done
-  -> move TextBuider Build to new class above TextBuiler? to contain collections of tokens with formats <- done Token+foramt->shcema->builder
-  -> Custom formatter generation, for builder formats, moove from strings to class <-done
-  -> token format generation from string rewrite <-done
-  -> extend token format generator for collection and array of delimeters
-  signature: tg(Ienumerable<Tokens> tk,string[] delimeters) <- done
-        }
-          
-        
-      }
-
-      ,{Servers
-            
-        лицухи tfs 2017
-
-        васильев 
-        максимов
-
-        заказ сервера helpdesk
-
-      }
-            
-      ,{Quiz:
-      
-        {Overall
-      
-
-  {"menu" : [
-           {"title":"Сотруднику", "href":{"link":0, "target":"_self"} ,"id":1, "parentid" : 0}
-          ,{"title":"Скидки",  "href":{"link":"http://list.nspk.ru/sale/", "target":"_blank"} ,"id":11, "parentid" : 1}
-          ,{"title":"Фотоальбом",  "href":{"link":"https://photo.nspk.ru/", "target":"_blank"} ,"id":12, "parentid" : 1}
-          ,{"title":"Tutor",  "href":{"link":"http://tutor.nspk.ru/", "target":"_blank"} ,"id":10, "parentid" : 1}
-          ,{"title":"Мировое радио",  "href":{"link":"http://nspk.online/", "target":"_blank"} ,"id":17, "parentid" : 1}
-          ,{"title":"MyBook",  "href":{"link":"http://nspk.mybook.ru/", "target":"_blank"} ,"id":16, "parentid" : 1}
-          ,{"title":"Оргструктура",  "href":{"link":"chart/", "target":"_blank"} ,"id":13, "parentid" : 1}
-          ,{"title":"FAQ",  "href":{"link":"http://list.nspk.ru/faq/", "target":"_blank"} ,"id":15, "parentid" : 1}
-          ,{"title":"Список сотрудников",  "href":{"link":"files/list.xlsx", "target":"_blank"} ,"id":14, "parentid" : 1}
-          ,{"title":"Листок достижений",  "href":{"link":0, "target":"_self"} ,"id":18, "parentid" : 1}
-          ,{"title":"Май",  "href":{"link":"http://list.nspk.ru/may/", "target":"_blank"} ,"id":181, "parentid" : 18}
-          ,{"title":"Июнь",  "href":{"link":"http://list.nspk.ru/june/", "target":"_blank"} ,"id":182, "parentid" : 18}
-          ,{"title":"Июль",  "href":{"link":"http://list.nspk.ru/july/", "target":"_blank"} ,"id":183, "parentid" : 18}
-          ,{"title":"Август",  "href":{"link":"http://list.nspk.ru/august/", "target":"_blank"} ,"id":184, "parentid" : 18}
-          ,{"title":"Сентябрь",  "href":{"link":"http://list.nspk.ru/september/", "target":"_blank"} ,"id":185, "parentid" : 18}
-          ,{"title":"Системы",  "href":{"link":0, "target":"_self"} ,"id":2, "parentid" : 0}
-          ,{"title":"Help",  "href":{"link":"http://help.nspk.ru/", "target":"_blank"} ,"id":21, "parentid" : 2}
-          ,{"title":"Jira",  "href":{"link":"http://jira.nspk.ru/", "target":"_blank"} ,"id":22, "parentid" : 2}
-          ,{"title":"Confluence",  "href":{"link":"http://confluence.nspk.ru/pages/viewpage.action?pageId=10380689", "target":"_blank"} ,"id":23, "parentid" : 2}
-          ,{"title":"RealTimeFeadback",  "href":{"link":"https://go-only.com/", "target":"_blank"} ,"id":24, "parentid" : 2}
-          ,{"title":"МИР НСПК - Узнай первым",  "href":{"link":"https://t.me/joinchat/ANiZ5z8Ovkz0DcDtzG_nng/", "target":"_blank"} ,"id":25, "parentid" : 1}
-          ,{"title":"В рабочем порядке",  "href":{"link":0, "target":"_self"} ,"id":19, "parentid" : 1}
-          ,{"title":"02.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/02.10.17.pdf", "target":"_blank"} ,"id":191, "parentid" : 19}
-          ,{"title":"09.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/09.10.17.pdf", "target":"_blank"} ,"id":192, "parentid" : 19}
-          ,{"title":"16.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/16.10.17.pdf", "target":"_blank"} ,"id":193, "parentid" : 19}
-          ,{"title":"23.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/23.10.17.pdf", "target":"_blank"} ,"id":194, "parentid" : 19}
-          ,{"title":"30.10.17",  "href":{"link":"http://list.nspk.ru/pdf/1/30.10.17.pdf", "target":"_blank"} ,"id":195, "parentid" : 19}
-          ,{"title":"13.11.17",  "href":{"link":"http://list.nspk.ru/wa/13.11.17/", "target":"_blank"} ,"id":196, "parentid" : 19}
-          ,{"title":"27.11.17",  "href":{"link":"http://list.nspk.ru/wa/27.11.17/", "target":"_blank"} ,"id":197, "parentid" : 19}
-          ,{"title":"04.12.17",  "href":{"link":"http://list.nspk.ru/wa/04.12.17/", "target":"_blank"} ,"id":198, "parentid" : 19}
-      ,{"title":"Благотворительность",  "href":{"link":"http://list.nspk.ru/charity/", "target":"_blank"} ,"id":110, "parentid" : 1}
-      
-  ]}
-
-
-
-  mR%mzJUG1qE
-  I9grekVmk5g
-
-  http://msk1-vm-ovisp01:443/api/Quiz/Execute/?id=20:60
-  http://msk1-vm-ovisp01:80/api/Quiz/Execute/?id=20:60
-  http://msk1-vm-ovisp01:443/Quiz/Execute/?id=20:60
-  http://msk1-vm-ovisp01:80/Quiz/Execute/?id=20:60
-
-  http://msk1-vm-indb01:2480
-  http://msk1-vm-ovisp02:2480
-  Intranet
-  Quiz
-
-
-  [
-
-  {"title":"Опросы", "href":{"link":0, "target":"_self"} ,"id":50, "parentid" : 1}
-
-
-  [
-  {"href":{"target":"_self"},"ID":500,"parentID":50}
-  ,{"title":"Опросы","href":{"link":"","target":"_self"},"ID":50,"parentID":1}
-  ,{"title":"","href":{"target":"_self"},"ID":50,"parentID":0}
-  ]
-
-
-  title QuizName (27...)
-  status -> State (!Finished,Published only)
-  data->today StartDate  today
-  href:link http://my.nspk.ru/Quiz/Execute/
-  "target":"_blank"
-  id >= 500
-  parentid 50
-
-  ]
-
-
-  select from Quiz
-  /*where QuizName like '%зрени%'*/
-  where StartDate between '2017-11-10 00:00:00' and '2018-07-11 00:00:00'
-
-  Comment
-  News
-  Question
-  Quiz
-  QuizResult
-  WeatherInformation
-
-  Answers
-  Label
-  Profile
-
-  http://my.nspk.ru/Quiz/Execute/19:5
-
-  http://msk1-vm-ovisp01/nspk.ru
-
-  create index Person.Name_sAMAccountName_mail on Person (Name,sAMAccountName,mail) FULLTEXT ENGINE LUCENE;
-  create index OFunction.name on OFunction (Name) UNIQUE_HASH_INDEX;
-  ALTER PROPERTY VSC.Seed DEFAULT "sequence('intranet_seed').next()";
-
-
-  Get()
-  st <= curdate 
-  fn > curdate
-  Get(-4)
-
-
-        }
-        
-        ,{Db Orient script
-
-  select from Quiz where State ='Published' and StartDate between '2017-12-06 00:00:00' and '2018-07-30 00:00:00'
-  create vertex Quiz content {"StartDate":"2017-12-03 17:01:01","State":"Published","EndDate":"2018-12-04 01:01:01","QuizDescription":"test quiz with large finish date for publishing","Title":"Test quiz title2"}
-
-        }
-        
-      }
-    
-    ]
-    
-    ,draft[
-        public Utility
-          {
-            
-            public NSQL 
-            {
-                      
-              
-              public ClassSegregation 
-              {
-
-              
-          //shema
-          .select()=>select+gap
-          .from()=>from+ITk
-          .batch()
-
-              
-          //command
-          .select(T,V)=>shema.select(T)+shema from(V) LEFTINTEND
-
-
-          //context
-          << host,dbname
-          new Context(string host,string dbname
-          ,webRequestManager wm
-          ,webResponseReader wr
-          ,UrlShemasExplicit urlShemas_){
-            webRequestManager.SetBase64AuthHeader(string orientAuth);
-          }
-
-          Context.CreateDb(){
-            createDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-          }
-          Context.DropDb(){
-            dropDb=webResponseReader.ReadResponse(webRequestManager.GetResponse64("DELETE"));
-          }
-          Context.Command(ICommandBuilder cmd){
-            urlCommand=_urlShemas.Command(dbName).Build().GetText();
-            buildRequest();
-            createClass=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-          }
-          Context.Batch(ICommandBuilder cmd){
-            urlCommand=_urlShemas.Batch(dbName).Build().GetText();
-            buildRequest();
-            insertPerson=webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-          }
-          internal buildRequest(){
-            urlDatabase=_urlShemas.Database(dbName).GetText();
-            webRequestManager.AddRequest(urlDatabase);
-            webRequestManager.SetCredentials(nc);
-          }
-          string fireRequest(){
-            webResponseReader.ReadResponse(webRequestManager.GetResponse64("POST"));
-          }
-
-
-          //Repo
-          << Context _context,T<Vertex|Edge>
-          new Repo<T>(Context _context)
-          _repo.ChangeContext(Context context_){this._context=context_;}
-          //create class
-          <class> _repo.Create<class>(ITypeToken T);
-          //create class extends
-          <class> _repo.Create<class,extendes>(ITypeToken T,ITypeToken V);
-          //create Vertex or property
-          <Vertex|Property> _repo.Create<Vertex|Property>(T type_,ICommandBuilder _content=null);
-          //create Edge
-          <Edge> _repo.Create<Edge,fromID,toId>(ITypeToken Edge,ITypeToken idfrom,ITypeToken idTo,ICommandBuilder _content=null);
-          //delete Vertex or Edge
-          <string> _repo.Delete(ITypeToken id);
-          //delete property 
-          <string> _repo.Delete<Property>(ITypeToken id);
-          //select Vertex or Edge [where]
-          <Vertex|Edge> _repo.Select<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-          //update Vertex or Edge [where]
-          <Vertex|Edge> _repo.Update<Vertex|Edge>(ITypeToken id,ICommandBuilder _condition=null);
-
-
-          //Type converter
-          (UOW)-[TypeConverter{Type->ITtypeToken}]->(Repo)
-
-
-          //UOW
-          //IUOW
-          new UOW(ContextFactory_,RepoFactory_,TypeConverter tc,string host_,string dbName_);
-          //UOW
-          new UOW(context_,repo_,_typeConverter,string host_,string dbName_);
-          _uow.ChangeHost(string host_){}; => recreate context
-          _uow.ChangeDb(string dbName_){}; => recreate context
-
-          //for vertex creation
-          _uow.Create<IorientObject>(Iobj) => convert to vertex ItypeToken, if  and to content if not null
-          //for vertex creation
-          _uow.Create<IorientObject>(Iobj)
-
-              }
-              
-              public Node reference shemas
-              {
-                
-             Node reference shemas. Minimum and explicit[
-
-        [Simplified overall
-        ()-[]->()
-        Node type,reference types, reference types, directions, node type
-        (Nd){-|=|..+}[Rf]-{<|>}(Nd)
-        ],	
-        [Detailed Minimal possible 
-        {
-        (Node)-[Ref]->(Node)
-        One type reference to same type Node
-        }
-        0->0
-        ],
-        [Detailed Minimal explicit 
-        (cannot be complexed with quality only with quantity of directions and types, which leads to pattern)
-        {
-        [NodeB]=[Ref2]=>NodeO)-[Ref1]->(NodeA)
-        one type reference r1 from one type node O 
-        to other type node A 
-        and other type reference r2 to other type node B 
-        with other direction
-        }
-
-        0
-        -[r1]->A
-        <=[r2]=B
-        ]
-
-        ]  
-              
-              }
-              
-              public Select{
-                
-        //select news
-        select expand(
-        outE('Authorship').inV('Note').inE('Comment').outV('Note')
-        )from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
-
-        //select comments
-        select  from (
-        select expand(
-        outE('Authorship').inV('Note')
-        )from Person where @rid=#73:1 )
-        where 1=1 and inE('Comment')[0].@rid!=''
-
-        Check comment class -> inE('Comment').@size[0] != ''
-        Post,Delete, Put, Get Notes by person, Get Author by Note
-        (person)-[author]->(Note)
-
-        Post,Delete,Put, Get Comments By Person,Comments by News
-        (person)-[author]->(Note)-[comment]->(Note)
-
-              }
-              
-            }
-          
-          }
-    ]
-
-  ]
-		
-
-		public class Mastery
-		{
-
-0 Polinom Parse {
-    parse *^/ to expressions and add priorities for exprs
-  },
-0 Command line Console parameters parse app dll -> to SB
-0 Multithread socket message ping pong -> to SB
-0 CollectionsComparison -> to SB
-0 Pluggin/addon architecture -> to SB
-		}
-		
-		public class Miscellaneous
-		{
-				
-
-public EntityFrameworkClassShema{
-	
-	Tests{
-FunctionalTests{
-ProductivitiApi{
-	DatabaseInitializationTests.cs
-}
-query{LinqToEntities{
-	ContainsTests.cs{}
-	}}
-}
-},
-EF{
-core{
-Metadata{
-Edm{
-	PrimitiveTypeKind.cs{primitive types}
-	,EntityType.cs{fundamental type }
-	,ClrEntityType.cs{}
-}
-}
-}
-Query{
-	InternalTrees{
-	Node.cs
-	,Command.cs
-	}
-	PlainCompiler{CodeGen.cs}
-}
-
-QueryableExtensions.cs{7763 GetMethod}
-DbContext.cs{]
-
-}
-
-}			
-	IV:Miscellaneous ˌmɪs(ə)'leɪnɪəs
-Actual:
-TODO to JSON;
-Revise:
-	equality, string, default null init, inheritance, events
-	
-		}
-					
-	#endregion
-		
 	#region SourceControl
 
 	public Bug Trackers
 	{
 		
-		{GitLab
+		GitLab{
 
 			repository withot ".git"
 			http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
-
+			
+			http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
+			
+			git remote rm nsm
+			git remote rm napi
+			
+			git remote add nsm http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
+			git remote add napi http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+			
+			cd C:\workflow\projects\Dev\gitLab\PersonNews
+			git init 
+			git add .
+			git commit -m "slash escape repair. post with spaces."
+			
+			cd C:\workflow\projects\Dev\gitLab\manager_split\NSQLManager
+			git init 
+			git add .
+			git commit -m "slash escape repair. post with spaces."
+			
 		},
 		
 		public GIT hub
 		{https://git-scm.com/book/en/v2
+			
+			public ProxyAdd
+			{
+				
+git config http.sslVerify false
+git config --global http.proxy http://proxypath:proxyport
+				
+			}
 			
 			public InitializeNewRepo()
 			{
@@ -5639,6 +4324,179 @@ $(document).ready(function(){
 	//----------------------------------------------
 	#endregion
 	
+	public void AngularJS()
+	{
+		public SampleAjaxPrototype()
+		{
+				
+			index.html{
+				<!doctype html>
+<html ng-app="myApp">
+<head>
+	<script type="text/javascript" src="C:\workflow\projects\common\js\angular.min.js"></script>
+	<script type="text/javascript" src="C:\workflow\projects\common\js\jquery-3.2.1.min.js"></script>
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>-->
+	<script type="text/javascript" src="C:\workflow\projects\JS\angularjs\js.js"></script>
+
+</head>
+<body>
+
+	<h3>Todo</h3>
+	<div ng-controller="GreetingController">
+		{{ greeting }}
+	</div>
+
+	<h3>ToCount</h3>
+	<div ng-controller="CountController">
+	Two times <input ng-model="num"> equals {{ double(num) }}
+	</div>
+
+	<h3>ToLog</h3>
+	<div ng-controller="LogController">
+	[ <a href="" ng-click="log_()">Log</a> ]
+	</div>
+
+	<h3>ToList</h3>
+	<div ng-controller="ListController">
+	URL body<br>
+	<input size="80" ng-model="url" ng-change="bindURL_(url)"> <br>
+	Input body<br>
+	<textarea  rows="6" cols="81" ng-model="data_">Input body here</textarea ><br>
+		[<a href="" ng-click="POST_(data_)">POST_</a>]
+		[<a href="" ng-click="PUT_(data_)">PUT_</a>]
+		[<a href="" ng-click="GET_(data_)">GET_</a>]
+	</div>
+
+</body>
+</html>
+
+				}
+				
+			js.js{
+				var myApp = angular.module('myApp',[]);
+
+myApp.controller('GreetingController', ['$scope', function($scope) {
+	$scope.greeting = 'Hola!';
+}]);
+
+myApp.controller('CountController', ['$scope', function($scope) {
+	$scope.double = function(value) { return value * 2; };
+}]);
+
+myApp.controller('LogController', function($scope){
+
+	$scope.customer = {
+	  address1 : 'address1',
+	  address2 : 'address2',
+	  city:'city'
+	};
+
+	$scope.log_=function(){	console.log($scope.customer);}
+});
+
+myApp.controller('ListController', function($scope){
+
+	$scope.list_ = [
+		{GUID:"0",content_:"ct1"},
+		{GUID:"1",content_:"ct2"}
+	];
+
+	testUrl="http://msk1-vm-ovisp01:8184/api/news2";
+
+	$scope.bindURL_= function(url_){
+		this.testUrl=url_;
+	}
+
+	testPOST={GUID:"123",content_:"ct"};
+	testPUT={GUID:"123",content_:"ct2"};
+	/*
+	$scope.POST_=function(){console.log($scope.list_); AJQ(testUrl,"POST",testPOST); }
+	$scope.PUT_=function(){console.log($scope.list_); AJQ(testUrl,"PUT",testPUT); }
+	*/
+
+	var testObj=testPOST;
+	var depth=2;
+
+	$scope.POST_=function(testObj){console.log($scope.list_); AJQ(this.testUrl,"POST",testObj); }
+	$scope.PUT_=function(testObj){console.log($scope.list_); AJQ(this.testUrl,"PUT",testObj); }
+	$scope.GET_=function(depth){console.log($scope.list_); AJQGet(this.testUrl,depth); }
+
+});
+
+
+$.ajaxSetup({
+    contentType : 'application/json',
+    processData : false
+});
+
+$.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
+    if (options.data){
+        //options.data=JSON.stringify(options.data);
+    }
+});
+
+
+function AJQ(restServerURL,method_,obj_)
+{
+	//var objAJ=JSON.stringify(obj_);
+	var objAJ=obj_;
+	console.log("stringified object:" + objAJ);
+
+	$.ajax({
+	type:method_,
+	url: restServerURL ,
+	accepts: "application/json",
+	dataType:"json",
+	data:objAJ,
+	xhrFields: {
+		withCredentials: true
+	},
+	//beforeSend: function (xhr) {        xhr.setRequestHeader('Authorization', make_base_auth("neo4j", "root"));},
+	success: function(data, xhr, textStatus){
+				  //alert("query success!");
+		  //process query results here
+
+		 //alert(JSON.stringify(data, null, 4));
+		 console.log(data);
+	},
+	error:function(jqXHR, textStatus, errorThrown){
+				   alert(errorThrown);
+	}
+	});
+}
+
+function AJQGet(URL_,depth_)
+{
+	restServerURL=URL_+"/"+depth_;
+
+	$.ajax({
+	type:'GET',
+	url: restServerURL ,
+	accepts: "application/json",
+	dataType:"json",
+	xhrFields: {
+		withCredentials: true
+	},
+	//beforeSend: function (xhr) {xhr.setRequestHeader('Authorization', make_base_auth("neo4j", "root"));},
+	success: function(data, xhr, textStatus){
+				  //alert("query success!");
+		  //process query results here
+
+		 //alert(JSON.stringify(data, null, 4));
+		 console.log(data);
+	},
+	error:function(jqXHR, textStatus, errorThrown){
+				   alert(errorThrown);
+	}
+	});
+}
+
+					}
+				
+		}
+		
+	}
+	
 	public void Angular_2()
 	{
 		public void Descriptions()
@@ -6087,6 +4945,7 @@ pip install ipython
 					}
 				
 				}
+				
 				public internal class Selection()
 				{
 					
@@ -6683,7 +5542,7 @@ pip install ipython
 											
 				}
 				
-				public internal class PLsql()
+				public internal class Functions()
 				{
 					
 					public P_TEMPLATE()
@@ -6927,617 +5786,13 @@ pip install ipython
 						end ;
 
 					}
+				
 				}
 				
 				public internal class UNSORTED()
 				{
 				
-
-		with t1 as
-		(
-		select 
-		b.slip_count sCnt,
-		b.department dep
-		from tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND b.batch_date>='08.07.2013'
-		AND b.batch_date <='14.07.2013'
-		and b.department=9293963112
-		)
-		,
-		t2 as (
-		select 
-		m.merchant merch
-		from tms.merchants m
-		join temp2 t on m.merchant=t.c1
-		--where m.merchant=9290575240
-		)
-
-		select 
-		t2.merch,
-		sum(t1.sCnt) 
-		from t1
-		join t2 on t1.dep=t2.merch
-
-		group by 
-		t2.merch
-
-
-
-		with t1 as
-		(
-		select 
-		b.slip_count sCnt,
-		b.department dep
-		from tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND to_char(b.batch_date,'IW')='28'
-		and b.department=9293963112
-		)
-		,
-		t2 as (
-		select 
-		m.merchant merch,
-		m.street address
-		from tms.merchants m
-		join temp2 t on m.merchant=t.c1
-		--where m.merchant=9290575240
-		)
-
-		select 
-		t2.merch,
-		t2.address,
-		sum(t1.sCnt) 
-		from t1
-		join t2 on t1.dep=t2.merch
-
-		group by 
-		t2.merch,
-		t2.address
-
-
-
-		select * from (
-		with t1 as
-		(
-		select 
-		b.slip_count sCnt,
-		b.department dep,
-		to_char(b.batch_date,'IW') wCnt
-		from tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND to_char(b.batch_date,'IW') between '27' and '30'
-		and to_char(b.batch_date,'yyyy') = '2013'
-		and b.department=9293963112
-		),t2 as (
-		select 
-		m.merchant merch,
-		m.street address
-		from tms.merchants m
-		join temp2 t on m.merchant=t.c1
-		--where m.merchant=9290575240
-		)
-
-		select 
-		t2.merch,
-		t2.address,
-		t1.wCnt wCnt ,
-		sum(t1.sCnt)  sCnt
-		from t1
-		join t2 on t1.dep=t2.merch
-
-		group by 
-		t2.merch,
-		t2.address,
-		t1.wCnt
-		)
-		pivot 
-		(
-		sum(sCnt) for wCnt in ('27','28','29','30')
-		)
-
-
-
-		/*disaster*/
-		select  * from (
-		with t1 as
-		(
-		select 
-		b.slip_count sCnt,
-		b.department dep,
-		to_char(b.batch_date,'IW') wCnt
-		from tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND to_char(b.batch_date,'IW') between '27' and '32'
-		and to_char(b.batch_date,'yyyy') = '2013'
-		--and b.department=9293963112
-		)
-		,
-		t2 as (
-		select 
-		m.merchant merch,
-		m.street address
-		from tms.merchants m
-		join temp2 t on m.merchant=t.c1
-		--where m.merchant=9290575240
-		)
-
-		select 
-		t2.merch,
-		t2.address,
-		t1.wCnt wCnt ,
-		sum(t1.sCnt)  sCnt
-		from t1
-		join t2 on t1.dep=t2.merch
-
-		group by 
-		t2.merch,
-		t2.address,
-		t1.wCnt
-		)
-		pivot 
-		(
-		sum(sCnt) for wCnt in ('27','28','29','30','31','32')
-		)
-
-
-
-
-		create table disaster2  as
-
-		select
-		t.merchant merch,
-		sum(sCnt) sCnt,
-		t1.yYear || '_' || t1.wWeek wekkYear
-
-		from 
-		reg_journal_merchants t
-
-		left join 
-		(select 
-		substr(p.chr1,instr(p.chr1,'#')+1, length(p.chr1)-instr(p.chr1,'#')) men_aqu,
-		o.main_industry ind,
-		m.merchant merch,
-		m.street address,
-		b.slip_count sCnt,
-		b.department dep,
-		to_char(b.batch_date,'IW') wWeek,
-		to_char(b.batch_date,'yyyy') yYear
-
-		from tms.merchants m
-
-		join tms.batches b on b.department=m.merchant
-		join orabis1.industry_code o on o.mcc=m.mcc
-		join tms.merchant_par p on p.merchant=m.merchant
-
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		--where m.merchant=9290575240
-		and to_char(b.batch_date,'IW')= '30'
-		and to_char(b.batch_date,'yyyy') ='2013'
-		)t1 on t.merchant=t1.merch
-
-		group by 
-		t.merchant,
-		t1.yYear || '_' || t1.wWeek 
-
-
-		select
-		us.segment_name tName
-		,to_char(us.bytes/us.max_size*100,'999.999') "AMT_RATE"
-		,to_char((us.bytes/1024)/1024,'9999') "AMT_MBs"
-		,to_char((us.max_size/1024)/1024 ,'9999') "mMax_(Mbs)"
-		from
-		user_segments us
-		order by "AMT_MBs" desc
-		;
-
-
-		"
-		"select
-		us.segment_name tName
-		,to_char(us.bytes/us.max_size*100,'90.99') "amount_%"
-		,to_char((us.bytes/1024)/1024,'9999') "iIs_(Mbs)"
-		,to_char((us.max_size/1024)/1024 ,'9999') "mMax_(Mbs)"
-		from
-		user_segments us
-
-		union all 
-
-		select 
-		'All',
-		to_char(sum(us2.bytes)/us2.max_size*100,'90,99')
-		,to_char(sum(us2.bytes)/1024/1024,'9999')
-		,to_char(us2.max_size/1024/1024,'9999')
-		from user_segments us2
-		group by 
-		'all',us2.max_size
-		"
-		"select
-		us.segment_name,
-		to_char(us.bytes/1024/1024,'999990.99') "MB",
-		to_char(us.max_size/1024/1024,'9999') "MD",
-		to_char((us.bytes/1024/1024)/(us.max_size/1024/1024)*100,'9.99')
-		from 
-		user_segments us
-		"
-		"select * from temp4 
-		select * from user_jobs;
-		select * from user_procedures;
-
-
-
-
-		execute  send_mail('ia-neprintsev@rsb.ru','ia-neprintsev@rsb.ru','EX-MB-05.rs.ru',25)
-
-		create table disaster_tst
-		as 
-
-		select 
-		t1.ind industry,t1.merch merchant,t2.yCnt || '_' || t2.wCnt week,sum(t2.sCnt) sCnt
-		from 
-		(
-		select
-		substr(p.chr1,instr(p.chr1,'#')+1, length(p.chr1)-instr(p.chr1,'#')) men_aqu,
-		o.main_industry ind,
-		m.merchant merch,
-		m.street address
-		from 
-		tms.merchants m
-		join reg_Journal_merchants t on m.merchant=t.merchant
-		join orabis1.industry_code o on o.mcc=m.mcc
-		join tms.merchant_par p on p.merchant=m.merchant
-		where
-		M.REGION='082' AND (M.MERCHANT LIKE '929%' OR M.MERCHANT LIKE '959%')
-		) t1
-
-		left join
-
-		(
-		select
-		b.slip_count sCnt,
-		b.department dep,
-		to_char(b.batch_date,'IW') wCnt,
-		to_char(b.batch_date,'yyyy') yCnt
-		from
-		tms.batches b
-		where 
-		b.card_type IN ('32','01','02','10','21','95','99','50')
-		AND to_char(b.batch_date,'IW') between '29' and '29'
-		and to_char(b.batch_date,'yyyy') = '2013'
-		)t2
-
-		on t1.merch=t2.dep
-
-		group by
-
-		t1.ind,t1.merch,t2.yCnt || '_' || t2.wCnt"
-		"insert into DC_hash (mMonth,dt_reg , pay_sys,  type_transaction
-		, abrv_name ,main_industry , merchant, issuer_type ,rc 
-		,dbv_rub ,merchant_fee ,cnt_trans )
-
-		SELECT /*+  ordered parallel(s,8) full(T) */ 
-		to_char(s.dt_reg,'yyyy') || '_' || to_char(s.dt_reg,'mm') ,
-			   s.dt_reg,
-			   s.pay_sys pay_sys,      
-			   s.type_transaction,     
-			   m.abrv_name,
-			   nvl(MC.main_industry,'Lodging') MAIN_INDUSTRY,
-			   m.merchant,
-			   s.issuer_type,
-			   decode(rc.center,'??????','?????????????',rc.center) RC, 
-			   SUM (-s.vl_rub) dbv_rub,
-			   SUM (s.fee_merchant) merchant_fee,
-			   SUM(s.cnt) cnt_trans 
-		FROM vitr.V$SLIP_ACQ_D@db_link S
-		LEFT JOIN TMS.MERCHANTS M ON (S.merchant=m.merchant)
-		LEFT JOIN PRIV_DRR.ACQUIRING_REGION RC ON RC.REG_ID=M.REGION
-		LEFT JOIN orabis1.industry_code MC ON (m.mcc = mc.MCC)
-		where (s.type_transaction in ('Goods and service','Returns'))
-		and s.merchant not in (9900000003, 9900000005, 9292121431, 9292296399, 9292434867, 9292886660, 9293471306) 
-		AND nvl (s.acquire_bank, 'RS_RUS') != 'RS_UKR'      
-		AND m.abrv_name NOT LIKE 'IB %'                                                     
-		AND M.FULL_NAME NOT LIKE '%?????????%'
-		AND M.FULL_NAME  != '??? ?? ???????'
-		AND m.full_name  != '??? ??? ????????? ??????? ??????'  
-		AND s.is_linked = 'N'
-		AND s.dt_reg BETWEEN 
-		TO_DATE('01.08.2013'||' 00:00:00','dd.mm.yyyy hh24:mi:ss') 
-		AND 
-		TO_DATE('24.08.2013'||' 23:59:59','dd.mm.yyyy hh24:mi:ss')
-
-		GROUP BY  
-		to_char(s.dt_reg,'yyyy') || '_' || to_char(s.dt_reg,'mm') ,
-		s.dt_reg,
-		s.pay_sys,      
-		s.type_transaction,     
-		m.abrv_name,
-		nvl(MC.main_industry,'Lodging'),
-		m.merchant,
-		s.issuer_type,
-		decode(rc.center,'??????','?????????????',rc.center) 
-		  "
-		"create table temp (c1 varchar(50),c2 varchar(50))
-
-		insert into dc_base (merchant,create_date,year_num,week_num)
-
-		select 
-		t.c1,to_date(t.c2,'mm.dd.yyyy'),'2013','2'
-		from
-		temp t
-		"
-		"select * from temp4 
-		select * from user_jobs;
-		select * from user_procedures;
-
-
-		DECLARE
-		  l_job NUMBER := 0;
-		BEGIN
-		  DBMS_JOB.SUBMIT( l_job,what=>'P_CONTACTLESS;', 
-		   next_date=>trunc(sysdate,'dd')+1, -- start next hour 
-		   interval=>'trunc(sysdate,' || '''' || 'dd' || '''' ||')+1+1/24' );
-		   commit;
-		END;
-
-
-		exec dbms_job.run(163038);commit;
-
-		BEGIN
-		   DBMS_JOB.REMOVE(131572);
-		   COMMIT;
-		END;
-
-		begin 
-		dbms_job.change(158018, null,to_date('12.09.2014 18:00:00','dd.mm.yyyy hh24:mi:ss'), 'trunc(sysdate+2,' || '''' ||  'dd' || '''' ||  ')+18/24');
-		end;
-
-
-		select to_char ( 'trunc(sysdate,' || '''' || 'dd' || '''' ||'+1/24' ) from dual 
-
-		"
-		"
-		--jobs
-		DECLARE
-		  l_job NUMBER := 0;
-		BEGIN
-		  DBMS_JOB.SUBMIT( l_job,what=>'procedure1;',
-		   next_date=>SYSDATE, -- start next hour 
-		   interval=>'SYSDATE+5/1440');
-		   commit;
-		END;
-
-		'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+2'
-
-		exec dbms_job.interval(131622, 'sysdate+1/86400'); --every second
-		exec dbms_job.interval(131622, 'trunc(sysdate)+24/24+6/24');
-
-		select * from user_jobs;
-
-		exec dbms_job.run(131634);commit;
-		--11:15:43 11:17:49
-
-		BEGIN
-		   DBMS_JOB.REMOVE(131623);
-		   COMMIT;
-		END;
-		"
-		"select
-		us.segment_name tName
-		,to_char(us.bytes/us.max_size*100,'90.99') "amount_%"
-		,to_char((us.bytes/1024)/1024,'9999') "iIs_(Mbs)"
-		,to_char((us.max_size/1024)/1024 ,'9999') "mMax_(Mbs)"
-		from
-		user_segments us
-
-		union all 
-
-		select 
-		'All',
-		to_char(sum(us2.bytes)/us2.max_size*100,'90,99')
-		,to_char(sum(us2.bytes)/1024/1024,'9999')
-		,to_char(us2.max_size/1024/1024,'9999')
-		from user_segments us2
-		group by 
-		'all',us2.max_size
-		"
-		"select
-		us.segment_name,
-		to_char(us.bytes/1024/1024,'999990.99') "MB",
-		to_char(us.max_size/1024/1024,'9999') "MD",
-		to_char((us.bytes/1024/1024)/(us.max_size/1024/1024)*100,'9.99')
-		from 
-		user_segments us
-		"
-		"create or replace
-		PROCEDURE P_CONTACTLESS
-		IS
-
-		T_START VARCHAR2(256);
-		T_END VARCHAR2(256);
-
-
-		BEGIN
 		  
-		  T_START := TO_CHAR(sysdate, 'DD-MON-YYYY HH24:MI:SS');
-		  
-		 
-		  DELETE T_CONTACTLESS
-		  WHERE  TR_DATETIME >= TO_DATE(TO_CHAR(TRUNC(SYSDATE-7),'dd.mm.yyyy')||' 00:00:00','dd.mm.yyyy hh24:mi:ss');
-		  
-		  COMMIT;
-		  
-		  
-		  
-		  insert into T_CONTACTLESS ( IDMERCHANT,
-									  TERM_ID,
-									  TR_DATETIME,
-									  REG_DATETIME,
-									  CARD,
-									  PROC_CODE,
-									  TR_AMOUNT_RUR,
-									  TR_COMMISSION_RUR,
-									  FULL_NAME,
-									  ABRV_NAME,
-									  PAY_SYSTEM,
-									  STREET,
-									  DIVISION,
-									  RC  
-									)                 
-		  WITH MSTR_F_SL AS (SELECT /*+ parallel(T,4) full(T) full(M) full(RC) */
-											 T.IDMERCHANT,
-											 T.TERM_ID,
-											 T.BATCH_NR,
-											 T.SLIP,
-											 T.TR_DATE AS TR_DATETIME, -- ???? ? ????? ??????????
-											 T.REG_DATE AS REG_DATETIME, -- ???? ? ????? ???????????
-											 T.CARD,
-											 T.BIN,
-											 CASE WHEN T.PROC_CODE='20'
-												  THEN 'Returns'
-												  WHEN T.PROC_CODE='00'
-												  THEN 'Goods and service'
-											 END AS PROC_CODE,                                       
-											 T.AMOUNT_RUR AS TR_AMOUNT_RUR,
-											 T.COMMISSION_RUR AS TR_COMMISSION_RUR,
-											 M.FULL_NAME,
-											 M.ABRV_NAME,
-											 M.CITY,
-											 M.STREET,
-										  CASE WHEN T.PAY_SYSTEM_ID=1
-											   THEN 'A'
-											   WHEN T.PAY_SYSTEM_ID=2
-											   THEN 'V'
-											   WHEN T.PAY_SYSTEM_ID IN (3,4) AND T.CARD_TYPE NOT IN ('85','80','60','70')
-											   THEN 'M'
-											   ELSE 'OTHER'
-										  END AS PAY_SYSTEM,
-										  RC.DIVISION,
-										  DECODE(RC.CENTER,'??????','?????????????',RC.CENTER) RC 
-										FROM MART.STG_MPCS_SLIPS_FACT T
-										 LEFT JOIN TMS.MERCHANTS M ON TO_CHAR(T.IDMERCHANT)=M.MERCHANT
-										 LEFT JOIN PRIV_DRR.ACQUIRING_REGION RC ON RC.REG_ID=M.REGION
-							  WHERE T.TR_DATE>=TO_DATE(TO_CHAR(TRUNC(SYSDATE-30),'dd.mm.yyyy')||' 00:00:00','dd.mm.yyyy hh24:mi:ss')
-								AND T.TR_DATE<=TO_DATE(TO_CHAR(TRUNC(SYSDATE),'dd.mm.yyyy')||' 23:59:59','dd.mm.yyyy hh24:mi:ss')
-								AND 
-								   (
-									  (    T.PROC_CODE IN ('20')
-										  AND T.TR_TYPE = '06'
-									  )
-									 OR (    T.PROC_CODE IN ('00')
-											 AND T.TR_TYPE = '05'
-										)
-									)
-						   )
-		  SELECT /*+ parallel(A12,4) full(a11) full(a12) */
-		  A11.IDMERCHANT,
-		  A11.TERM_ID,
-		  A11.TR_DATETIME,
-		  A11.REG_DATETIME,
-		  A11.CARD,
-		  A11.PROC_CODE,
-		  A11.TR_AMOUNT_RUR,
-		  A11.TR_COMMISSION_RUR,
-		  A11.FULL_NAME,
-		  A11.ABRV_NAME,
-		  A11.PAY_SYSTEM,
-		  A11.STREET,
-		  A11.DIVISION,
-		  A11.RC
-		  FROM MSTR_F_SL A11 
-		  JOIN   MART.V_MSTR_SLIPS_FEATURES A12 ON  A11.BATCH_NR = A12.BATCH_NR  
-												AND A11.SLIP = A12.SLIP 
-												AND A12.POINT_CODE_7='M'
-												AND A12.TR_DATE>=TO_DATE(TO_CHAR(TRUNC(SYSDATE-7),'dd.mm.yyyy')||' 00:00:00','dd.mm.yyyy hh24:mi:ss')
-												AND A12.TR_DATE<=TO_DATE(TO_CHAR(TRUNC(SYSDATE),'dd.mm.yyyy')||' 23:59:59','dd.mm.yyyy hh24:mi:ss');
-
-		  COMMIT;
-
-		  T_END := TO_CHAR(sysdate, 'DD-MON-YYYY HH24:MI:SS');
-		  
-		END P_CONTACTLESS;"
-		SELECT * FROM V$VERSION
-		" select
-		   r.row_numb as "1_UTRNNO",
-		   'POS' as "2_TERMINAL_TYPE",
-		   r.FLD_041 as "3_ORGDEV",
-		   to_char(r.request_date,'ddmmyyyy') "4_UDATE",
-		   to_char(r.request_date,'hh24:mi:ss') "5_TIME",
-		   r.FLD_039 as "6_RESPCODE",
-		   r.FLD_004/100 as "7_REQAMT",
-		   
-		   case
-			  when FLD_039 <> '000'  and FLD_039 <> '400' then  r.FLD_004/100 
-			  else 0
-		   end 
-		   as "8_ACTAMT",
-		   
-		   case 
-			  when fld_003 like '00%' then 'purchase'
-			  when fld_003 like '20%'then 'refund'
-			  else 'other_value'
-		   end 
-		   as "9_TRANS_TYPE",
-		   
-		   case
-			  when msg_type_in='1420' then 1
-			  else   0
-		   end
-		   as "10_REVERSAL",
-		   
-		   FLD_026 as "11_MERCHANT",
-		   
-		   FLD_042 as "12_MERCHANT_ID",
-		   
-		   m.city,m.p_street,fld_043, --15-17 for columns
-		   
-		   case
-			  when  cast(bg.bank_name as varchar2 (30 byte)) = '??????? ????????' then 47
-			  else 0
-			  end 
-		   as "16_NWINDICATOR",
-
-		case
-		when substr(fld_022,7,1) = '9' then '2'
-		when substr(fld_022,7,1) = '5' then '5'
-		when substr(fld_022,7,1) = '6' then '6'
-		when substr(fld_022,7,1) = 'M' then 'I'
-		when substr(fld_022,7,1) = 'A' then 'B'
-		else 'Z'
-		end as "17_POS_DATA_CODE",
-
-		case
-		when substr(fld_022,8,1) = '0' then 0
-		when substr(fld_022,8,1) = '1' then 1
-		when substr(fld_022,8,1) = '5' then 5
-		else 999
-		end as "18_POS_DATA_CODE2",
-
-		case 
-		when substr(fld_022,8,1) = '1' then 0
-		else 1
-		end as "19_PINBLK",
-
-		case 
-		when substr(fld_022,9,1) = '1' then 3
-		when substr(fld_022,9,1) = '1' then 0
-		end as "20_PINBLK2"
-
-		   from tms.RTPS_MESSAGES_LOG partition (P_20140101) r 
-		   join tms.merchants m on cast(m.merchant as char(15 byte)) = r.fld_042
-		   
-		   left join MART.DQ_VITR_bin_guide bg 
-		   on cast( bg.bin as VARCHAR2(30 BYTE)) =substr( r.fld_002,1,6)
-		   
-		   where FLD_042 
-		   in (
-			  select  cast(m.merchant as CHAR(15 BYTE) ) from tms.merchants m where abrv_name like '%MCDONALD%'
-		   )
-			   
 		"
 		"set serveroutput on
 		"
@@ -7614,8 +5869,7 @@ pip install ipython
 		join t2 on t2.c1=t1.c1
 
 
-
-		"/*GRANT OVERAL*/
+		/*GRANT OVERAL*/
 		begin 
 		for temp_name in (
 		  select table_name from user_tables 
@@ -7624,13 +5878,8 @@ pip install ipython
 		  execute immediate 'grant select,insert,delete  on neprintsev_ia.' || temp_name.table_name || ' to neprintsev_ia';
 		  end loop;
 		  end ;
-		  "
-		"/*REPORT TABLE*/
-		select  
-		finished,name_,to_char(started,'dd.mm.yyyy hh24:mi:ss'),to_char(finished,'dd.mm.yyyy hh24:mi:ss'),execution_time,date_from,date_to,rows_count
-		from report_table 
-		"
-		"/*DISTINCT LEFT JOIN SELECT FOR SEVERAL LISTS*/
+	
+		/*DISTINCT LEFT JOIN SELECT FOR SEVERAL LISTS*/
 		create table test1(c1 varchar(10),c2 date,c3 number);
 		create table test2(c1 varchar(10),c2 date,c3 number);
 		create table test3(c1 varchar(10),c2 date,c3 number);
@@ -7662,7 +5911,6 @@ pip install ipython
 		insert into test3 (c1) values ('D');
 
 
-
 		with t3 as (select t3.c1 "C1" from test3 t3 ),
 		t2 as(
 		select t1.c1 "C1",sum(t2.c3*t1.c3) "C3" from test1 t1
@@ -7679,31 +5927,9 @@ pip install ipython
 		select * from ORAWH.IB_QNA_MV where user_id = '3576169'
 		select * from ORAWH.IB_USERS_MV where user_id = '3576169'
 
-		--client person user
-		'3595559' '3595802' '3576169'
-		3595802
-
-
-		select * from ORAWH.IB_ACCOUNT_MV
-		select * from ORAWH.IB_USER_LOCK_MV
-		select * from ORAWH.MB_ABONENT_LIST
-		select * from ORAWH.V_IB_CLIENT_ID
-		select * from ORAWH.IB_INTERNAL_PMT_REQ_MV
-		select * from ORAWH.IB_DEP_REQ_MV
-		select * from ORAWH.IB_DOMESTIC_PMT_MV
-		select * from ORAWH.IB_PUBLIC_SERVICE_REPMT_REQ_MV
-		select * from ORAWH.IB_PUBLIC_SRV_REPMT_REQ_PAR_MV
-		select * from ORAWH.IB_BEN_PHONE_PMT_MV
-		select * from ORAWH.IB_BANK_CARD_ISSUE_REQ_MV
-		select * from ORAWH.IB_REQ_TMPL_MV
-		select * from ORAWH.IB_REQ_SIGN_MV
-		select * from ORAWH.IB_SERVICE_ENABLE_REQ_MV
-		select * from ORAWH.IB_BANK_CARD_OD_LIMIT_REQ_MV
-		select * from ORAWH.IB_AGR_LIM_REQ_LIM_MV
-		select * from ORAWH.IB_CARD_PMT_REQ_MV
-		select * from ORAWH.IB_REGUL_ORDER_MV
-		"
-		"create or replace
+		
+		/*REGEX proc*/
+		create or replace
 		PROCEDURE P_REGEX
 		AUTHID CURRENT_USER
 		IS
@@ -7719,8 +5945,9 @@ pip install ipython
 			--insert into neprintsev_ia.ref_regex_ent(ENTITY,REGEX_PATTERN) select m.merchant,C1.REGEX_PATTERN from neprintsev_ia.ref_merchants m;--regexp_like(upper(m.street),upper(C1.C3));
 			DBMS_OUTPUT.PUT_LINE(C1.REGEX_PATTERN);    
 		  end loop;  
-		END P_REGEX;"
-		"set serveroutput on
+		END P_REGEX;
+		
+		set serveroutput on
 		DECLARE
 		   TYPE EmpCurTyp IS REF CURSOR;
 		   emp_cv   EmpCurTyp;
@@ -7741,7 +5968,7 @@ pip install ipython
 		   CLOSE emp_cv;
 		END;
 
-		"
+		
 		"define fnRegDate = trunc(sysdate,'dd')-1/24/60/60
 		define stRegDate = trunc(&fnRegDate,'mm')
 
@@ -7755,8 +5982,8 @@ pip install ipython
 		to_char(&fnSLDate,'dd.mm.yyyy hh24:mi:ss') "FNSL",
 		to_char(&stSLDate,'dd.mm.yyyy hh24:mi:ss') "STSL"
 		from dual;
-		"
-		"create type emp_obj is object (empno number, ename varchar2(10));
+		
+		create type emp_obj is object (empno number, ename varchar2(10));
 		create type emp_tab is table of emp_obj;
 
 		create or replace function all_emps return emp_tab
@@ -7776,8 +6003,8 @@ pip install ipython
 			  return l_emp_tab;
 		   end;
 		   
-		select * from table (all_emps);"
-		"CREATE OR REPLACE function get_daily
+		select * from table (all_emps);
+		CREATE OR REPLACE function get_daily
 		  RETURN SYS_REFCURSOR
 		AS
 		  my_cursor SYS_REFCURSOR;
@@ -7787,37 +6014,6 @@ pip install ipython
 		END get_daily;
 
 
-		begin 
-		select get_daily from dual;
-		end ;
-		"
-		"create or replace
-		procedure get_daily(out_dt out SYS_REFCURSOR)
-		 AS
-		BEGIN
-		  OPEN out_dt FOR SELECT * FROM neprintsev_ia.temp_acq_d where rownum <=10;
-		END get_daily;"
-		CREATE USER 'test_user3'@'localhost' IDENTIFIED BY 'QwErT234';
-		GRANT create,select ON temp_db.* TO 'test_user2'@'10.14.16.48' IDENTIFIED BY 'QwErT234';
-		"insert into temp2 (c1,c2,c3) values ('1',to_date('01.01.2015','dd.mm.yyyy'),'3');
-		insert into temp2 (c1,c2,c3) values ('1',to_date('02.01.2015','dd.mm.yyyy'),'0');
-		insert into temp2 (c1,c2,c3) values ('2',to_date('01.01.2015','dd.mm.yyyy'),'0');
-		insert into temp2 (c1,c2,c3) values ('3',to_date('01.01.2015','dd.mm.yyyy'),'0');
-		insert into temp2 (c1,c2,c3) values ('4',to_date('03.01.2015','dd.mm.yyyy'),'0');
-		insert into temp2 (c1,c2,c3) values ('4',to_date('04.01.2015','dd.mm.yyyy'),'3');
-
-
-		with t as (
-		select c1,max(c2) c2 from temp2 group by c1
-		) ,
-		t2 as (
-		select t.c1,t.c2,t.c3 from temp2 t
-		)
-
-		select t2.* from t2 
-		join t on t2.c1=t.c1 and t2.c2=t.c2
-		"
-		"//------------------------------------
 
 		create table t_daily_d
 		(
@@ -8355,8 +6551,7 @@ AVG( [Target]) for [UserID] in ([1],[1112])
 		{
 			
 			public void REST_API()
-			{
-				
+			{				
 
 Orient_REST_API(){
 
@@ -8561,246 +6756,36 @@ Orient_REST_FIDDLER(){
 		}
 	  ]
 	}
-
-}
-
-adbn_db_exmpls(){
 	
-host:port/ApiType/dbName/
-host:port/ApiType/dbName/FunctionName/Params
-host:port/ApiType/dbName/sql/commandText
-
-
-//get database
-http://msk1-vm-ovisp02:2480/database/news_test3
-//geet class
-http://msk1-vm-ovisp02:2480/class/news_test3/Entity
-http://msk1-vm-ovisp02:2480/class/news_test3/Person
-http://msk1-vm-ovisp02:2480/class/news_test3/Authorship
-//execute indeponent function
-http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
-
-//GET sql
-http://msk1-vm-ovisp02:2480/query/news_test3/sql/select * from Entity
-//POST sql
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/select * from Person where Name = '0'
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0')
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/INSERT INTO Person (Changed,Created,GUID,Name) values ( '2017-10-19 18:00:09', '2015-02-02 12:43:56', '0', '0'),( '2017-10-19 18:00:09', '2015-02-02 12:43:56',  '0',  '0')
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/delete vertex Person where Name = '0'
-//Fucntion (indeponent)
-http://msk1-vm-ovisp02:2480/function/news_test3/GetEntity/100
-//call to HW API
-api/Orient/GetByID/1
-
-
-
-//batch
-
-http://msk1-vm-ovisp02:2480/batch/news_test3/
-
-//body1
-{ "transaction" : true,
-  "operations" : [
-    {
-      "type" : "script",
-      "language" : "sql",
-      "script" : [
-		  "create vertex Object set Content=\"A\""
-		  ,"create vertex Object set Content=\"A\""
-	  ]
-    }
-  ]
-}
-
-//body1
-{ "transaction" : true,
-  "operations" : [
-    {
-      "type" : "script",
-      "language" : "sql",
-      "script" : [
-		 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-		 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
-	  ]
-    }
-  ]
-}
-
-
-	//add from batch
- http://msk1-vm-ovisp02:2480/batch/news_test2/
- 
- { "transaction" : true,
-  "operations" : [
-    {
-      "type" : "script",
-      "language" : "sql",
-      "script" : [
-		"let $a = insert into UserSettings content {\"showBirthday\":true};"
-	,"let $b = create edge E from (select from Person where sAMAccountName = 'ignatenkofi') to $a;"
-	  ]
-    }
-  ]
-}
-
-
-//bad command quotes no intervals
-delete vertex from  object where Content="A"
-
-http://msk1-vm-ovisp02:2480/command/news_test3/sql/
-{"command":"CREATE FUNCTION GetLowerCase "var g=orient.getGraph(); var b=g.command(\\"sql\\",\\" select r.ToLowerCase() as r from (select '\\"+input+\\"' as r) \\"); return b;" PARAMETERS [input] IDEMPOTENT true LANGUAGE JAVASCRIPT ;"}
-			
-}
-
-CommandsConcatenate(){
-
-URI,Method,Header,content
-.CreateDb(Name db,host = null) -> 
-createHost<=dbname[<=host],POST,AuthHeader
-store DbName,Host,created (true|false)
-
-.createClass(typeof(Person)).extend(typeof(Object));
-.createClass<Person>().extend<Object>();
-.createClass<Person>();
-commandHost,POST,AuthHeader | OSSESSIONID cookie header , content <-
-command json + createproperty command
-//just after class created OK
-.create(PropertyObject,type,mandatory=null,notnull=null) -> 
-commandHost,POST,AuthHeader | OSSESSIONID cookie header , content <-
-command json + createproperty command
-{add or test existing type converter from POCO to ITypeToken}
-
-.create(Vertex Instance)
-stored host,batch,dbname,POST,AuthHeander,
-batchJson insert create vertex command from object with content generated
-.batchCreate(..)...
-batchJson insert ',' 
-
-
-.create(Edge Instance).from(Vertex instance).to(Vertex instance)
-stored host,batch,dbname,POST,AuthHeander,
-batchJson insert create vertex command object with content generated
-.batchCreate(..)...
-batchJson insert ',' create edge command object with content generated from to objects
-{ids try}
-
-.createSequences
-//in command body OK
-
-
-Shema:
-//token concatenation strategy
-List<ItypeToken> tokens,ItypeToken format
-List<ItypeToken> tokens,formatgen
-List<ItypeToken> tokens,ItypeToken delimeter (format generate with deimeter)
-
-List<ICommandBuilder> commands,ItypeToken format (concatenate format arrays of command builders)
-List<ICommandBuilder> commands,formatgen
-List<ICommandBuilder> commands,ItypeToken delimeter (format generate with deimeter)
-
-
-CommandChain:
-
-	chain above command builer
->> add commandbuilder into bodyshema concatenation
-	>> start all shemas + builder into query object aggregation
 	
-		
-		>1) from what source, which format using string to build 
-		build(List<ITypeTokens>, tokens_ ItypeToken format)
-		build(List<ITypeTokens>, tokens_ ItypeToken delimeter)
-			format = foramtGen(delimeter)
-		build(List<IcommandBuilders>, tokens_ ItypeToken format)
-			foramt = commandbuilders.foramts.concatenate9format)
-		build(List<IcommandBuilders>, tokens_ ItypeToken delimeter)
-			format = foramtGen(delimeter)
-		
-		2) how to concatenate with existing string
-		addright,addLeft,rewrite
-		3) add gap or not
-		add gap before,after
-		
-		
-		
-//Rest paramters strategy
-Type = IOrientDatabase => 
-host:port/database/{dbname}/plocal | POST,DELETE
-host:port/connect/{dbname} | GET
+//quotes correct excape in body to batch
 
-Type = IorientVertex,IorientEdge => 
-host:port/command/{dbname}/sql | POST
-host:port/batch/{dbname} | POST
-
-Content != null => + content
-{"command":"query"}
+//with gap insert
 { "transaction" : true,
-	  "operations" : [
-		{
-		  "type" : "script",
+	"operations" : [
+	{
+		  "type" : "cmd",
 		  "language" : "sql",
-		  "script" : [{0}]
+"command" : "create vertex News content {\"GUID\": \"119\", \"Created\":\"2015-02-02 12:43:56\",\"content_\":\"c \\\"a a\\\" t\"}"
 		}
-	  ]
-	} -> {0} ,..,{n}
-
+	]
+	}
 	
-//command signatures
-delete/Add(Idb);
-delete/Add(Idb,host);
-delete/Add(Type,ItypeToken content);
-{classes}
-delete/Add(IorientObject);
-{objects}
-
-
-//url formats
-format  define {0}:{1} => host:port
-format  gen {0}{*}..{*}{n} => 
-host:port /dbname/plocal ; 
-host:port/connect/dbname ;
-host:port/command/dbname/sql ;
-host:port/batch/dbname ;
-[examples
-{0} {1} .. {n}
-{0}/{1}/../{n}
-]
-
-
-///command formats
-///Property foreach prop of class, with type convert, nullable,
-///pregen foramat for small token collections, then aggregate them, in command token collections
-///{}- token, []-parameter tokenised, <>-optional part, / - vertex edge scenary
-format gen {0} {1} +format gen [2p] <{3} [4p]> => {0} {1}
-create class [V/E] <extends [V/E]>
-
-format gen{0} {1} +format def {0}.{1} +format gen {0} .. 4p .. 9p {10} => {0} {1} {2}
-	   property {V/E}.{Property} type ( mandatory = bool , notnull = bool )
-
-	   
-																			{0}[1p]{2} => 0
-																			cond 'param'
-																			
-																			format gen {0}{1} +{0}{1}[2p]{3}{4} +{0}[1p] +[0p] {1} => {0}{1}{2} {3}
-																			inE['[class]'] .Property cond 'param'
-																			in|out/E|V
-
-																			[0p].[1p] [0p] {0}[1p]{2} => {0} {1} {2}
-																			class.property cond 'param'
-																			GUID/ID/@class.size = ''
 	
-																format gen[0] .. [n]
-																where 1=1 
+//no gap insert	
+	{ "transaction" : true,
+	"operations" : [
+	{
+		  "type" : "cmd",
+		  "language" : "sql",
+"command" : "create vertex News content {\"GUID\": \"119\", \"Created\":\"2015-02-02 12:43:56\",\"content_\":\"c \\"a \\"a t\"}"
+		}
+	]
+	}
+	
+	
 
-											format gen{0} {1} [2p]<{3} .. [] ..[n]> => {0} {0} .. {n} => {0} {1}
-											select from [V/E] < where 1=1 .. connd1 .. condN>
-
-format gen{0} {1} +format gen [3p] <{4} [5p] / {4} [5p] {6} [7p]> => {0} {0} {1} {2} {3} => {0} {1}
-		vertex/edge [V/E] < content [jModel] / from [select/id] to [select/id] >
-
-		
-					}
+}
 			
 			}							
 			
@@ -9479,6 +7464,44 @@ http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentL
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
 
+public GroupByCountEdges()
+{
+	select out('Authorship').size(),Name,GUID from Person group by Name,GUID
+}
+select CommentsCountAndLikes()
+{
+select in('Authorship').GUID[0] as AuthGUID, * from Note
+select in('Authorship').GUID[0] as AuthGUID,out('Comment').size() as CommentsCount, * from News
+}
+public SelectConditionsHC()
+{
+	
+select from Note
+where 1=1
+and in('Authorship')[0].@rid!='25:27'
+and published.isTrue=true
+and pinned.isTrue=true
+order by Changed desc
+limit 2
+
+}
+
+public SelectNews(){
+	//select news
+	select expand(
+	outE('Authorship').inV('Note').inE('Comment').outV('Note')
+	)from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
+}
+
+public SelectComments(){
+	//select comments
+	select  from (
+	select expand(
+	outE('Authorship').inV('Note')
+	)from Person where @rid=#73:1 )
+	where 1=1 and inE('Comment')[0].@rid!=''
+}
+	
 public DateTimeRearrangeGet(){
 	
 ALTER DATABASE DATETIMEFORMAT "yyyy.MM.dd HH:mm:ss GG"
@@ -10604,13 +8627,6 @@ return b;
 			
 			}
 
-			public void DriverNotes()
-			{
-				Connection:Connect:IOperation{Request,Response}-
-				Request.MemoryStream.Send;IOperation(Response.Receive(NetworkStream.ReadByte()))->
-				Document
-			}
-
 			public void FU()
 			{
 
@@ -11375,47 +9391,48 @@ RAW JSON
 
 		}
     
-    public void MongoDb()
-    {
-      Maintenance:[
-        //install
-        https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
-        //initial start with custom data path
-        "C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath d:\test\mongodb\data
-        
-        ]
-        ,BoilerPlate[
-          //insert doucment
-          use test
-          db.users.insertOne({name:"sue",age:26,_id=1})
-          //from CMD command shell, cd to server files folder
-          mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
-          //select from
-          db.restaurants.find( {} )
-          //where
-          db.restaurants.find({"address.building": "10807"})
-          db.restaurants.find({"address.zipcode": "11694"})
-          //and
-          db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
-          //or
-          db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
-          //sort
-          db.restaurants.find().sort( { "address.zipcode": 1 } )
-          //where sort
-          db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
-          //where in
-          db.restaurants.find({"address.building": {$in:["10807","23059"]}})
-           
-          //greater then
-          db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
-          db.inventory.find( { status: "A", qty: { $lt: 30 } } )
-          //in
-          db.inventory.find( { status: { $in: [ "A", "D" ] } } )
-          db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
-          SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
-          
-        ]
-    }
+		public void MongoDb()
+		{
+		  Maintenance:[
+			//install
+			https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
+			//initial start with custom data path
+			"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath d:\test\mongodb\data
+			
+			]
+			,BoilerPlate[
+			  //insert doucment
+			  use test
+			  db.users.insertOne({name:"sue",age:26,_id=1})
+			  //from CMD command shell, cd to server files folder
+			  mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
+			  //select from
+			  db.restaurants.find( {} )
+			  //where
+			  db.restaurants.find({"address.building": "10807"})
+			  db.restaurants.find({"address.zipcode": "11694"})
+			  //and
+			  db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
+			  //or
+			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
+			  //sort
+			  db.restaurants.find().sort( { "address.zipcode": 1 } )
+			  //where sort
+			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
+			  //where in
+			  db.restaurants.find({"address.building": {$in:["10807","23059"]}})
+			   
+			  //greater then
+			  db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
+			  db.inventory.find( { status: "A", qty: { $lt: 30 } } )
+			  //in
+			  db.inventory.find( { status: { $in: [ "A", "D" ] } } )
+			  db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
+			  SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+			  
+			]
+		}
+		
 	}
 		
 	#endregion
