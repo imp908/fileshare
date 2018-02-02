@@ -29,16 +29,57 @@ namespace Parts{
 	public void mostUsefullLinks()
 	{
 	
+	//Generate mvc and razor from json
+	https://stackoverflow.com/questions/12876865/is-there-anyway-to-generate-razor-views-cshtml-based-on-a-template-beside-t4
+	http://www.umbraworks.net/bl0g/rebuildall/2009/11/17/ASP_NET_MVC_and_virtual_views
+	
+	//C
+	//TCC compiler
+	https://bellard.org/tcc/
+	
 	//Books
 	//The Art of Unit Testing: with Examples in .NET
 	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
-	//JS
-	https://eloquentjavascript.net/index.html										  
+	//JS	
+	//Json to html
+	http://www.json2html.com/
+	//c#
+	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
+	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708
+	
+	//Angular + React
+	https://www.packtpub.com/books/content/integrating-angular-2-react
+	https://eloquentjavascript.net/index.html
+					   
+	https://blog.rapid7.com/2016/02/03/combining-angularjs-and-reactjs-for-better-applications/
+	https://stackoverflow.com/questions/44117390/angular-4-mixed-with-react
+	https://www.quora.com/Can-I-use-React-for-UI-along-with-Angular-2
+	//LinqInAction
+	https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
+															   
+	https://eloquentjavascript.net/index.html	
+	//bulletproof wrappers
+	https://blog.sentry.io/2016/02/03/wrap-javascript-functions
+	//tests
+	https://www.sitepoint.com/proper-error-handling-javascript/
+	//error handling
+	https://javascript.info/try-catch
+	
 	//chart vis	
 	http://js.cytoscape.org/#getting-started/including-cytoscape.js
 	http://graphalchemist.github.io/Alchemy/#/
 	https://neo4j.com/developer/guide-data-visualization/
 	http://sigmajs.org/
+	//with images
+	http://bl.ocks.org/eesur/be2abfb3155a38be4de4
+	//chart libs
+	//with json shema change
+	https://gojs.net/latest/index.html
+	//tree draw
+	http://fperucic.github.io/treant-js/
+	//comparison names
+	https://modeling-languages.com/javascript-drawing-libraries-diagrams/
+	
 	//with images
 	http://bl.ocks.org/eesur/be2abfb3155a38be4de4
 	
@@ -47,6 +88,13 @@ namespace Parts{
 	//ECMAScript 6
 	http://exploringjs.com/es6/index.html#toc_ch_modules
 												 
+	//web components
+	https://hackernoon.com/the-wonderful-world-of-web-components-e4c1675c6901
+	//HAML jade sass less
+	https://softwareengineering.stackexchange.com/questions/225400/pros-and-cons-of-facebooks-react-vs-web-components-polymer
+	
+	//FLUX
+	https://facebook.github.io/flux/docs/dispatcher.html#content			
 	
 	
 	//BLOGS
@@ -59,15 +107,34 @@ namespace Parts{
 	https://prateekvjoshi.com/	
 	//CONTINUOUS INTEGRATION
 	http://www.eugeneduvenage.com/2011/11/continuous-integration-basics-part-1/
+	//web components
+	https://dmitriid.com/blog/2017/03/the-broken-promise-of-web-components/
+	//equality + hashoe
+	http://www.aaronstannard.com/overriding-equality-in-dotnet/
+	//hashs
+	https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode/263416#263416
+	//Chart visualization/
+	https://stackoverflow.com/questions/21893401/big-data-visualization-using-search-show-context-and-expand-on-demand-concep
+	//MSDN linq, expressions
+	https://weblogs.asp.net/dixin					  
 	
-	
-	
-	//d3 
+	//D3.js
+	//essentials v4
+	http://rajapradhan.com/blogs/d3-js-v4-essentials/axes/
+	//indepth v4
+	http://d3indepth.com/
 	//layouts
 	http://bl.ocks.org/robschmuecker/7880033
 	http://mbostock.github.io/d3/talk/20111116/force-collapsible.html
 	http://mbostock.github.io/d3/talk/20111018/tree.html
 	http://www.coppelia.io/2014/07/an-a-to-z-of-extra-features-for-the-d3-force-layout/                                                                
+	//generated v4
+	https://bl.ocks.org/shimizu/e6209de87cdddde38dadbb746feaf3a3
+	//labeld
+	https://bl.ocks.org/mbostock/950642
+	
+	//d3 + react
+	http://www.adeveloperdiary.com/react-js/integrate-react-and-d3/
 	
 	//SERIAL PROGRAMMING 	
 	//RS-232
@@ -131,6 +198,10 @@ namespace Parts{
 	
 	
 	
+	 //C#
+	//Expression trees
+	https://weblogs.asp.net/dixin/functional-csharp-function-as-data-and-expression-tree
+		
 	//dev guide
 	https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
 
@@ -217,7 +288,11 @@ namespace Parts{
 	//Sample plugin
 	https://code.msdn.microsoft.com/windowsdesktop/Creating-a-simple-plugin-b6174b62	
 	
-	
+	//active directory integration
+	https://www.codeproject.com/Articles/18102/Howto-Almost-Everything-In-Active-Directory-via-C
+																					 	
+	//Type comparison
+	https://stackoverflow.com/questions/983030/type-checking-typeof-gettype-or-is
 	
 	//KATAs
 	http://osherove.com/tdd-kata-1/
@@ -240,7 +315,11 @@ namespace Parts{
 	//Reactive Extensions for JavaScript
 	https://www.nuget.org/packages/RxJS-Main/1.0.10621
 
-
+	
+	//DATA BINDING FRAMEWORKS/
+	//FLUX
+	https://facebook.github.io/flux/docs/dispatcher.html#content
+	
 
 	//Security
 	http://www.adambarth.com/papers/2008/barth-jackson-mitchell-b.pdf
@@ -414,8 +493,8 @@ namespace Parts{
 
 	//C# Delegates, Actions, Funcs, Lambdas?Keeping it super simple
 	https://blogs.msdn.microsoft.com/brunoterkaly/2012/03/02/c-delegates-actions-funcs-lambdaskeeping-it-super-simple/
-
-
+	//Generic parameters vs type 
+	https://stackoverflow.com/questions/10955579/passing-just-a-type-as-a-parameter-in-c-sharp
 
 	/*
 	filtering inherited types classes in base class list of classes
@@ -1758,6 +1837,31 @@ StringBuilder.
 					Assert.AreEqual(clientsL.Count(), clientsAfterListDeleteCount);
 				}				
 							
+				public void xUnit(){
+					public xUnitInitializeCode{
+
+						public class DatabaseFixture : IDisposable
+						{
+						  public DatabaseFixture()
+						  {
+							GenDb();
+
+							// ... initialize data in the test database ...
+						  }
+
+						  public void Dispose()
+						  {
+							mng.DeleteDB();
+						  }
+
+						  public void GenDb()
+						  {
+
+						  } 
+
+						}
+					}
+				}
 			}					
 					
 			public class Deploy()
@@ -1825,14 +1929,14 @@ Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
 Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
 Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
 Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
+				
+				}
 				public void ConfigurationManager()
 				{
 					reference 
-					FRAMEWORKS -> System.Configuration
-					
-				}
-			
-        public void WebDeploy()
+					FRAMEWORKS -> System.Configuration					
+				}			
+				public void WebDeploy()
 				{
 					Web Deploy
 					//host name without urls or ports
@@ -1846,7 +1950,7 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 					//site url with protocol and port
 					http://newstest2:8184
 				}
-			}
+			
 			
 			public void MSbuild()
 			{
@@ -2831,7 +2935,16 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 			}
 
 		}
-		
+			
+			}
+			public SystemReflectionEmit()
+			{
+using System.Reflection.Emit;
+namespace NS
+{
+DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
+}
+			}
 		
 		}
 			
@@ -3123,18 +3236,67 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
           WHEN:
             testing wcf.svc from VS
           HOW:
-            NOT enough memory free 
-          OR: 
-            
-          
+            NOT enough memory free
         }
       
-        public sgen_exe()
-        {
-          sgen.exe exited with code 1
-          //xml serialization turn off project options->build->xml 
+       
+			public MethodFunctionNotFound()
+			{
+			WHEN:
+			no EF in project referencing repository project
 
-          }
+			WHAT: update EF
+			}
+
+			public System.Security.SecurityException()
+			{
+			  WHEN:
+			  while windows service with InstallUtil.exe installation
+			  
+			  WHAT:
+			  Syste.Security.SecurityException
+			  
+			  WHOW:
+			  start console with administrative
+			}
+			
+			public WCFhttpREGerror()
+			{
+			  
+			  WHAT:
+		Протоколу HTTP не удалось зарегистрировать URL-адрес http://+:8000/Service1/. Текущий процесс не имеет прав доступа к этому 
+		пространству имен (подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353)
+			  
+			  WHEN:
+		WCF service under console host
+				
+			  HOW:
+		recommended to register port:
+		netsh http add urlacl url=http://+:8000/ServiceModelSamples/Service user=mylocaluser
+			  OR 
+			  start VS under admin 
+			}
+			
+			public WCFCannot_btain_etadata_rom()
+			{
+			  WHAT:
+			  Error: Cannot obtain Metadata from http://localhost:57495/WCF2.svc If this is a Windows (R) Communication Foundation service to which you have 
+		access, please check that you have enabled metadata publishing at the specified address.
+			  WHEN:
+				testing wcf.svc from VS
+			  HOW:
+				NOT enough memory free 
+			  OR: 
+				
+			  
+			}
+		  
+			public sgen_exe()
+			{
+			  sgen.exe exited with code 1
+			  //xml serialization turn off project options->build->xml 
+
+			  }
 
         public void SSAS()
         {
@@ -3187,12 +3349,23 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
                 
         }
         
-      }	
+		public XunitTestDebugNotThrowsException()
+		{
+			WHAT;
+				files .cs not found thrown bu Xunit
+			WHEN:
+				while code under test throws error for Xunit, when
+				exception must be thrown , some files .cs not found thrown instead
+			HOW:
+				Tolos->Import And export settings-> reset all settings
+		}
+      
+	  }
     
       
     }
     
-  }
+  
 		
 	#endregion 	
 	
@@ -3691,7 +3864,7 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 
 		}
 		public void Unsorted(){
-	$(document).ready(function () {
+	$(document).ready(function(){
 
 	$(function () {
 	var data = [50, 90, 30, 10, 70, 20];
@@ -3751,7 +3924,7 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 
 	});
 
-	function tabulate(data, columns) {
+	function tabulate(data, columns){
 	console.log('Started tabulate for ', data);
 	var table = d3.select('body').append('table').attr('id', 'tabulated').attr('class', 'table table-hover');
 	var thead = table.append('thead');
@@ -3907,8 +4080,7 @@ $(document).ready(function(){
 			}
 			
 			public void CallBackSample1(){
-				
-							
+											
 				function f1(a,b){
 					console.log("F1 " + a);
 					b(a);
@@ -3926,7 +4098,11 @@ $(document).ready(function(){
 					console.log("F4 cb");
 				};
 
-				
+function callbk(a,b){b(a);}
+function cl(a){console.log(a);}
+function fnameToPrint(){}
+//>>>callbk(fnameToPrint,cl);
+
 			}
 			
 			public void CallBackSample2(){
@@ -4320,9 +4496,9 @@ $(document).ready(function(){
 	-->
 	}
 
-
+	}
 	//----------------------------------------------
-	#endregion
+	
 	
 	public void AngularJS()
 	{
@@ -6739,7 +6915,49 @@ Orient_REST_FIDDLER(){
 		}
 	]
 	}
+	//Multibatch create
+	{ "transaction" : true,
+	"operations" : [
+	{
+		"type" : "script",
+		"language" : "sql",
+		"script" : [
 
+		"let a=create vertex Unit content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"5\", \"Name\": \"0\"}"
+		,"let b=create vertex Unit content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"6\", \"Name\": \"0\"}"
+		,"create edge MainAssignment from $a to $b  content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"8\", \"Name\": \"0\"}"
+
+		,"let a=create vertex Unit content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"7\", \"Name\": \"0\"}"
+		,"let b=create vertex Unit content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"8\", \"Name\": \"0\"}"
+		,"create edge MainAssignment from $a to $b  content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"8\", \"Name\": \"0\"}"
+	
+		]
+	}
+	]
+	}
+	
+	//Multibatch select
+	{ "transaction" : true,
+	"operations" : [
+	{
+	  "type" : "script",
+	  "language" : "sql",
+	  "script" : [
+	  
+	"let a = select from Unit where GUID =5"
+	,"let b = select from Unit where GUID =6"
+	," create edge MainAssignment from $a to $b  content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"8\", \"Name\": \"0\"}"
+
+	,"let a = select from Unit where GUID =7"
+	,"let b = select from Unit where GUID =8"
+	," create edge MainAssignment from $a to $b  content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"8\", \"Name\": \"0\"}"
+
+	]
+	}
+	]
+	}
+	
+	
 	//will not work -> only command
 	{ "transaction" : true,
 	  "operations" : [
@@ -6781,13 +6999,18 @@ Orient_REST_FIDDLER(){
 "command" : "create vertex News content {\"GUID\": \"119\", \"Created\":\"2015-02-02 12:43:56\",\"content_\":\"c \\"a \\"a t\"}"
 		}
 	]
-	}
-	
-	
+	}	
 
+POST,DELETE function
+{query bodies for function create delete}
+{POST}
+http://msk1-vm-ovisp02:2480/command/news_prod/sql/
+delete from Ofunction where name = "test";
+CREATE FUNCTION test "var gp= orient.getGraph();var res=gp.command(\"sql\",\"select from \"+var1);return res;"  PARAMETERS [var1] IDEMPOTENT true LANGUAGE JAVASCRIPT
+	
 }
 			
-			}							
+			}
 			
 			public void Maintenance()
 			{
@@ -6809,7 +7032,27 @@ PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
 
 CREATE FUNCTION test "var g=orient.getGraph(); var b=g.command(\"sql\",\"select if(eval(\'1=2\'),2,3) \" ); return b;" 
 PARAMETERS [accountName] IDEMPOTENT true LANGUAGE JAVASCRIPT
+CREATE FUNCTION test "var gp= orient.getGraph();var res=gp.command(\"sql\",\"select in('\"+var1+\"') from \"+var2);return res;"  
+PARAMETERS [var1,var2] IDEMPOTENT true LANGUAGE JAVASCRIPT														 
 		
+	}
+	
+	public TestFunctionQuery()
+	{
+
+select from Ofunction where name = "test";
+delete from Ofunction where name = "test";
+CREATE FUNCTION test "var gp= orient.getGraph();var res=gp.command(\"sql\",\"select in('\"+var1+\"') from \"+var2);return res;"  PARAMETERS [var1,var2] IDEMPOTENT true LANGUAGE JAVASCRIPT
+select test("Authorship","News")
+
+{query bodies for function create delete}
+{POST}
+http://msk1-vm-ovisp02:2480/command/news_prod/sql/
+delete from Ofunction where name = "test";
+CREATE FUNCTION test "var gp= orient.getGraph();var res=gp.command(\"sql\",\"select from \"+var1);return res;"  PARAMETERS [var1] IDEMPOTENT true LANGUAGE JAVASCRIPT
+
+select test("News")
+
 	}
 	
 	public void Initial_NewsApi_Queries()
@@ -7464,6 +7707,18 @@ http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentL
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
 
+public ByDateSelect(){
+	
+select from Quiz where 1=1
+and StartDate.asDate() between '2017-03-05' and '2017-03-10'
+and EndDate.asDate() between '2017-03-05' and '2017-03-10'
+
+select from Quiz where 1=1
+and State ='Published'
+and StartDate.asDate() > '2017-03-30'
+and EndDate.asDate() <  '2017-04-30'
+
+}
 public GroupByCountEdges()
 {
 	select out('Authorship').size(),Name,GUID from Person group by Name,GUID
@@ -8676,6 +8931,7 @@ in v out
 //<<X (i pee on you)
 //insert create from sql throught let absolutely fucked up syntax
 //http://orientdb.com/docs/last/Sequences-and-auto-increment.html
+//inserting in batch is different either
 //and this is described in docs Voila!
 
 
@@ -8683,7 +8939,7 @@ in v out
 //not all properties seen in schema
 //maybe cause script classses creation
 
-//XII (basic maths problems - developer not counter)
+//XII (basic maths problems - developer not accountant)
 //How the fuck does this even works (..<2..>1..)?
 //match {class:Person }.in("MainAssignment").out("SubUnit"){as: u, while: ($depth < 2),where: ($depth > 1)} return u
 //More fucks with (..=2..<2..)
@@ -8697,7 +8953,7 @@ in v out
 //functions not visible from OFunction class
 
 //XV
-//batch not indeponent, class and property creeation onl from command or batch with let
+//batch not indeponent, class and property creation only from command or batch with let
 
 //XVI
 //content property in Nodes or Relations broke batch command
@@ -9549,7 +9805,7 @@ RAW JSON
 				}
 				
 				public TerminalCommands
-				{	
+				{
 					systemctl suspend -> suspend
 					sudo apt-get update && sudo apt-get upgrade
 					sudo apt-get -f install
@@ -9558,7 +9814,8 @@ RAW JSON
 					sudo apt-get install build-essential
 					sudo apt-get autoclean && sudo apt-get clear cache
 					gksu nautilus /etc --open in browser
-					sudo nano  /etc/apt/sources.list				
+					sudo nano /etc/apt/sources.list -> 
+						edit text				
 					
 					http://help.ubuntu.ru/wiki/%D0%B3%D0%BE%D1%80%D1%8F%D1%87%D0%B8%D0%B5_%D0%BA%D0%BB%D0%B0%D0%B2%D0%B8%D1%88%D0%B8_%D0%B2_unity
 					http://help.ubuntu.ru/manual/%D1%82%D0%B5%D1%80%D0%BC%D0%B8%D0%BD%D0%B0%D0%BB
@@ -9582,6 +9839,7 @@ RAW JSON
 					mv /folder /folder -> rename folder
 					command !& -> run command with previous typed parameter
 					^command1^command2 -> run command2 with previous command1 params
+					readlink -f foo.bar -> find path to file
 					
 				}
 			
