@@ -7,6 +7,8 @@ using System;
 
 using IOrientObjects;
 
+using System.Collections.Generic;
+
 namespace POCO
 {
 
@@ -17,37 +19,25 @@ namespace POCO
 
 
     //Orient object
-    public class OrientDatabase : IOrientDatabase
-    {
-
-    }
-    public class OrientClass : IOrientClass
-    {
-      public string type { get; set; }
-
-      public string name { get; set; }
-
-    }
-    public class OrientProperty : IOrientProperty
-    {
-      public string type { get; set; }
-
-      public string name { get; set; }
-
-    }
+  
+   
     public class OrientEntity : IOrientEntity
-    {
-    
-      [JsonProperty("@rid", Order = 1)]
+    {   
+
+      [JsonProperty("@rid", Order=1)]
       public virtual string id { get; set; }
+      
       [JsonProperty("@type")]
-      public string type {get; set; }   
-         
-      [JsonProperty("@version")]
-      public virtual string version {get;  set;}   
+      public string type {get; set; }           
       [JsonProperty("@class")]
       public string class_ {get; set;} 
-        
+      [JsonProperty("value")]
+      public string value_ {get; set;} 
+      
+
+      [JsonProperty("@version")]
+      public virtual string version {get;  set;}   
+
       public bool ShouldSerializeclass_()
       {
         return false;
@@ -56,9 +46,13 @@ namespace POCO
       {
         return false;
       }
+       public bool ShouldSerializevalue_()
+      {
+        return false;
+      }
     }
     
-    public class OrientDefaultObject :OrientEntity,IorientDefaultObject
+    public class OrientDefaultObject:OrientEntity,IOrientDefaultObject
     {
       [Mandatory(true),Updatable(false)]
       [JsonProperty("GUID", Order = 2)]
@@ -66,18 +60,31 @@ namespace POCO
       [JsonProperty("Created", Order = 3),JsonConverter(typeof(OrientDateTime))]
       public virtual DateTime? created { get; set; } = DateTime.Now;
       [JsonProperty("Changed", Order = 4),JsonConverter(typeof(OrientDateTime))]
-      public virtual DateTime? changed { get; set; }
+      public virtual DateTime? changed { get; set; } = DateTime.Now;
       [JsonProperty("Disabled", Order = 5),JsonConverter(typeof(OrientDateTime))]
       public DateTime? disabled { get; set; }
+      
+      public bool ShouldSerializeGUID()
+      {
+        return true;
+      }
     }
     public class OrientEdge :OrientDefaultObject, IOrientEdge
     {
-      [JsonIgnore]
-      [JsonProperty("out")]
-      string Out {get; set;}
-      [JsonIgnore]
-      [JsonProperty("in")]
-      string In {get; set;}
+      
+      [JsonProperty("out"),NOTSynchronisable(true)]
+      public string Out {get; set;}    
+      [JsonProperty("in"),NOTSynchronisable(true)]
+      public string In {get; set;}
+
+      public bool ShouldSerializeOut()
+      {
+        return false;
+      }
+       public bool ShouldSerializeIn()
+      {
+        return false;
+      }
     }
 
 
@@ -137,7 +144,7 @@ namespace POCO
     /// </summary>
 
     //Vertexes      
-    public class Person : V
+    public class Person : V, IEquatable<Person>
     {
       [JsonProperty("Seed")]
       public long? Seed { get; set; }      
@@ -153,8 +160,9 @@ namespace POCO
       public string sAMAccountName { get; set; }
       [JsonProperty("Name", Order = 1)]
       public string Name { get; set; }
+      [IsComparable(false)]
       public string OneSHash { get; set; }
-      [JsonProperty("Hash")]
+      [JsonProperty("Hash"),IsComparable(false)]
       public string Hash { get; set; }
 
       [JsonConverter(typeof(OrientDateTime))]
@@ -169,11 +177,12 @@ namespace POCO
         
       public List<string> in_MainAssignment {get; set;}
       public List<string> out_MainAssignment {get; set;}
-      */
+      
 
       [JsonProperty("fieldTypes")]
       public string @fieldTypes { get; set; }
-        
+      */
+
       //Excluding fields from serializing to string
       public bool ShouldSerializeSeed()
       {
@@ -204,6 +213,62 @@ namespace POCO
         return false;
       }
 
+      public override bool Equals(object obj)
+      {
+        if(obj is Person){
+        return Equals((Person)obj);
+        }else{return false;}
+      }    
+      public bool Equals(Person p_)
+      {
+        return withGUIDcomparer(p_);
+      }
+      public bool NoGUIDcomparer(Person p_)
+      {
+        
+        if(     
+          this.Name==p_.Name
+          &&this.mail==p_.mail
+          &&this.Birthday==p_.Birthday
+          &&this.FirstName==p_.FirstName
+          &&this.LastName==p_.LastName
+          &&this.MiddleName==p_.MiddleName
+          &&this.mail==p_.mail
+          &&this.sAMAccountName==p_.sAMAccountName
+          &&this.telephoneNumber==p_.telephoneNumber     
+        ){ return true; }
+        return false;
+      }
+      public bool withGUIDcomparer(Person p_)
+      {
+        
+        if(     
+          NoGUIDcomparer(p_)==true
+          &&this.GUID==p_.GUID      
+        ){ return true; }
+        return false;
+      }
+      public bool FullComparer(Person p_)
+      {
+        
+        if(     
+          withGUIDcomparer(p_)==true
+          &&this.id==p_.id      
+        ){ return true; }
+        return false;
+      }
+
+      //default hash. Custom not returned.
+      public override int GetHashCode()
+      {        
+        //accidental small prime number. just for fun
+        int hashCode = 17;
+        //"overflow is fine" they said
+        unchecked{
+          hashCode = (hashCode * 397) ^ DateTime.Now.ToString("yyyyMMddHHmmssf").GetHashCode();
+        }
+        return base.GetHashCode();
+      }
     }
     public class Unit : V
     {
@@ -222,7 +287,7 @@ namespace POCO
     {
       public bool? showBirthday { get; set; }
     }
-
+    
     //Edges
     public class MainAssignment : E
     {
@@ -244,44 +309,44 @@ namespace POCO
     {
 
     }
+    public class PersonRelation : E
+    {
 
+    }
 
     public class TrackBirthdays : E
     {
 
     } 
 
-    //Note
+    //Note to front
     public class Note : V
     {
       [JsonProperty("author_")]
       public virtual Person author_ { get; set; }
 
-      public string PGUID { get; set; }
+      public virtual string PGUID { get; set; }
 
-      public string authAcc { get; set; }
-      public string authGUID { get; set; }
-      public string authName { get; set; }
+      public virtual string authAcc { get; set; }
+      public virtual string authGUID { get; set; }
+      public virtual string authName { get; set; }
 
       public string pic {get;set;}
       public string name {get;set;}
 
       [JsonProperty("content_")]
       public virtual string content { get; set; }
-      public string someAbstractFuckingField { get; set; }
-      public string description { get; set; }
-
-      [JsonConverter(typeof(OrientDateTime))]
-      public DateTime? pinned { get; set; }
-      [JsonConverter(typeof(OrientDateTime))]
-      public DateTime? published { get; set; }
+           
+      public virtual ToggledProperty pinned { get; set; } = new ToggledProperty();
+      public virtual ToggledProperty published  { get; set; } = new ToggledProperty();
+    
+      public int? Likes {get;set;} 
+      public Tag taggs {get;set;}
 
       [Updatable(true)]
       public int? commentDepth { get; set; }
       public bool? hasComments { get; set; }
-
-      public int? likes { get; set; }
-      public bool? liked { get; set; }
+    
     }
     public class News:Note{
       //[JsonProperty("content_")]
@@ -308,7 +373,7 @@ namespace POCO
       //public new DateTime? published { get; set; }=DateTime.Now;
       [JsonProperty("author_"),Updatable(false)]
       public override Person author_ { get; set; }
-    }
+    }  
 
     public class Comment : E
     {
@@ -319,19 +384,26 @@ namespace POCO
     {
       string strField { get; set; }
     }
-    public class Like : E
+    public class Liked : E
     {
       int cnt { get; set; }
     }
     public class Tagged : E
     {
-      string tagText { get; set; }
+      
     }
     public class Tag : V
     {
-      string tagText { get; set; }
+      public string tagText { get; set; }
     }
 
+    public class ToggledProperty
+    {
+      public bool isTrue { get; set; } = false;
+      [JsonConverter(typeof(OrientDateTime)), Updatable(false)]
+      public DateTime? dateChanged { get; set; } = null;
+    }
+  
     //for spagetty check
     public class MigrateCollection
     {
@@ -339,11 +411,90 @@ namespace POCO
       public string @class { get; set; }
       public string GUID { get; set; }
     }
-
    
     #endregion
 
+    #region OrientMaintenanceClasses
+    public class OrientDatabase : IOrientDatabase
+    {
+      public List<OrientClass> classes {get;set;}
+      public OrientConfigValues config {get;set;}
+    }
+   
+    public class OrientClass
+    {
+      public string name {get;set;}
+      public string superClass {get;set;}
+      public List<string> superClasses {get;set;}
+      public string alias {get;set;}
+      [JsonProperty("abstract")]
+      public bool? abstract_ {get;set;}
+      public bool? strictmode {get;set;}
+      public List<int> clusters {get;set;}
+      public int? defaultCluster {get;set;}
+      public string clusterSelection {get;set;}
+      public int? records {get;set;}
+      [JsonProperty("properties")]
+      public List<OrientProperty> properties_ {get;set;}
+    }
+    public class OrientProperty{
+      public string name {get;set;}
+      public string type {get;set;}
+      public bool? mandatory {get;set;}
+      [JsonProperty("readonly")]
+      public bool? readonly_ {get;set;}
+      public bool? notNull {get;set;}
+      public int? min {get;set;}
+      public int? max {get;set;}
+      public string regexp {get;set;}
+      public string collate {get;set;}
+      public string defaultValue {get;set;}
+    }
+    
+    public class OrientConfigValues
+    {
+      public List<OrientValue> values {get;set;}
+    }
+    public class OrientValue
+    {
+      public string name {get;set;}
+      public string value {get;set;}
+    }
+    #endregion
+
+    #region ControllerParams
+    public class GETparameters
+    {
+      public int? offest {get;set;}
+      public bool? published {get;set;}
+      public bool? pinned {get;set;}
+      public bool? asc {get;set;}
+      public bool? liked {get;set;}
+      public Tag tagg {get;set;}
+      public Person author {get;set;}
+    }
+    public class PostTags
+    {
+      public News news_ {get;set;}
+      public List<Tag> tags_ {get;set;}
+    }
+    public class StringResult
+    {
+      List<string> results { get; set; }
+    }
+    #endregion
+
     #region Attributes
+
+    [System.AttributeUsage(System.AttributeTargets.Property)]
+    public class ToggleAttribute:System.Attribute
+    {
+      public bool toggledValue=true;
+      public ToggleAttribute(bool val_)
+      {
+        this.toggledValue = val_;        
+      }
+    }    
 
     //Custom attributes
     [System.AttributeUsage(System.AttributeTargets.Property)]
@@ -351,6 +502,15 @@ namespace POCO
     {
       public bool isUpdatable=true;
       public Updatable(bool isUpdatable_)
+      {
+        this.isUpdatable = isUpdatable_;        
+      }
+    }
+     [System.AttributeUsage(System.AttributeTargets.Property)]
+    public class NOTSynchronisable:System.Attribute
+    {
+      public bool isUpdatable=true;
+      public NOTSynchronisable(bool isUpdatable_)
       {
         this.isUpdatable = isUpdatable_;        
       }
@@ -364,7 +524,11 @@ namespace POCO
         this.isMandatory = item_;
       }
     }
-
+    [System.AttributeUsage(System.AttributeTargets.Property)]
+    public class IsComparable:ToggleAttribute
+    {
+      public IsComparable(bool val_) : base(val_){}
+    }
     #endregion
 
     #region BreweryPOCOs
@@ -384,7 +548,7 @@ namespace POCO
 
     #region Quiz
 
-    public class QuizGet : V
+    public class Quiz : V
     {
         [JsonProperty("Author")]
         public string Author { get; set; } = null;
@@ -442,8 +606,7 @@ namespace POCO
     class OrientDateTime : IsoDateTimeConverter
     {
         public OrientDateTime()
-        {
-        
+        {        
             DateTimeFormat = ConfigurationManager.AppSettings["OrientDateTime"];
         }
     }   

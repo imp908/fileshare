@@ -37,8 +37,8 @@ namespace QueryManagers
     /// </summary>
     public class TextToken : ITypeToken
     {
-        public string Text {get; set;}
-   }
+      public string Text {get; set;}
+    }
 
     /// <summary>
     /// Token factory for OrientDb command builders.
@@ -163,71 +163,70 @@ namespace QueryManagers
         }
         public CommandBuilder(List<ITypeToken> tokens_, IFormatFromListGenerator formatGenerator_)
         {           
-            this.formatGenerator=formatGenerator_;
-            this.FormatPattern.Text +=this.formatGenerator.FromatFromTokenArray(this.Tokens).Text;
-            if (this.Tokens == null)
-            {
-                this.Tokens=tokens_;
-           }
-            else {this.Tokens.AddRange(tokens_);}         
-            SetText(this.Tokens, this.FormatPattern);
+          this.formatGenerator=formatGenerator_;
+          this.FormatPattern.Text +=this.formatGenerator.FromatFromTokenArray(this.Tokens).Text;
+          if (this.Tokens == null)
+          {
+            this.Tokens=tokens_;
+          }
+          else {this.Tokens.AddRange(tokens_);}         
+          SetText(this.Tokens, this.FormatPattern);
         }
         public CommandBuilder(List<ICommandBuilder> texts_, IFormatFromListGenerator formatGenerator_)
         {
-
-            this.formatGenerator=formatGenerator_;
-            this.FormatPattern.Text += this.formatGenerator.FromatFromTokenArray(this.Tokens).Text;
-            if (this.Tokens == null)
+          if (this.Tokens == null)
+          {
+            this.Tokens=new List<ITypeToken>();               
+          }
+          this.formatGenerator=formatGenerator_;
+          this.FormatPattern.Text += this.formatGenerator.FromatFromTokenArray(this.Tokens).Text;
+            
+          foreach (ICommandBuilder cb in texts_)
+          {
+            foreach (ITypeToken tp in cb.Tokens)
             {
-                this.Tokens=new List<ITypeToken>();
-               
+              this.Tokens.Add(tp);
             }
-            foreach (ICommandBuilder cb in texts_)
-            {
-                foreach (ITypeToken tp in cb.Tokens)
-                {
-                    this.Tokens.Add(tp);
-                }
-            }
+          }
 
-            TokenFormatConcatenation(texts_, this.FormatPattern);
+          TokenFormatConcatenation(texts_, this.FormatPattern);
 
-            //build new string
-            SetText(this.Tokens, this.FormatPattern);
+          //build new string
+          SetText(this.Tokens, this.FormatPattern);
 
        }
 
         public CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_
           , List<ICommandBuilder> command_, ITypeToken format_)
         {
-            this._tokenMiniFactory=tokenFactory_;
-            this._formatFactory=formatFactory_;
-            formatGenerator=formatFactory_.FormatGenerator(tokenFactory_);
-            TokenFormatConcatenation(command_, format_);       
+          this._tokenMiniFactory=tokenFactory_;
+          this._formatFactory=formatFactory_;
+          formatGenerator=formatFactory_.FormatGenerator(tokenFactory_);
+          TokenFormatConcatenation(command_, format_);       
         }
         public CommandBuilder(ITokenMiniFactory tokenFactory_, IFormatFactory formatFactory_
         , List<ICommandBuilder> command_)
         {
-            this._formatFactory=formatFactory_;
-            TokenFormatConcatenation(command_, formatFactory_.FormatGenerator(tokenFactory_).FromatFromTokenArray(command_,null));
+          this._formatFactory=formatFactory_;
+          TokenFormatConcatenation(command_, formatFactory_.FormatGenerator(tokenFactory_).FromatFromTokenArray(command_,null));
         }
 
         public void BindTokens(List<ITypeToken> tokens_)
         {
-            this.Tokens=new List<ITypeToken>();
-            this.Tokens.AddRange(tokens_);
+          this.Tokens=new List<ITypeToken>();
+          this.Tokens.AddRange(tokens_);
         }
         public void AddTokens(List<ITypeToken> tokens_)
         {
-            if (this.Tokens == null){         
-                this.Tokens=new List<ITypeToken>();              
-           }
-            this.Tokens.AddRange(tokens_);
+          if (this.Tokens == null){         
+            this.Tokens=new List<ITypeToken>();              
+          }
+          this.Tokens.AddRange(tokens_);
         }
         public void BindFormat(ITypeToken formatPatern_)
         {       
-            this.FormatPattern=formatPatern_;           
-            this.FormatPattern.Text=FormatStringReArrange(this.FormatPattern.Text);
+          this.FormatPattern=formatPatern_;           
+          this.FormatPattern.Text=FormatStringReArrange(this.FormatPattern.Text);
         }
         public void AddFormat(ITypeToken formatPatern_)
         {
@@ -235,7 +234,7 @@ namespace QueryManagers
             {
                 if (formatPatern_ != null)
                 {
-                    this.FormatPattern.Text += formatPatern_.Text;
+                  this.FormatPattern.Text += formatPatern_.Text;
                 }
             }
             //<<< change
@@ -244,7 +243,7 @@ namespace QueryManagers
                     this.FormatPattern=formatPatern_;                   
                }else
                 {
-                    this.FormatPattern=this.formatGenerator.FromatFromTokenArray(this.Tokens);
+                  this.FormatPattern=this.formatGenerator.FromatFromTokenArray(this.Tokens);
                 }
             }
 
@@ -429,8 +428,8 @@ namespace QueryManagers
         /// <summary>
         /// Char arrays rearrange (arrays gaps error)
         /// </summary>
+     
       
-
     }
 
     /// <summary>
@@ -652,26 +651,26 @@ namespace QueryManagers
 
         public ITypeToken FromatFromTokenArray(List<ITypeToken> tokens_, ITypeToken delimeter_=null)
         {
-            ITypeToken res=_factory.NewToken();
-            delimeterCheck(delimeter_);
-            if (tokens_!=null)
-            {
+          ITypeToken res=_factory.NewToken();
+          delimeterCheck(delimeter_);
+          if (tokens_!=null)
+          {
                
-                int cnt=tokens_.Where(s => s!=null && s.Text != null).Count();
-                this.elements_=new List<int>(cnt) {};
-                int i2=0;
-                for (int i =0;i<tokens_.Count;i++)
-                {
-                    if(tokens_[i]!=null && tokens_[i].Text!=null)
-                    {
-                        this.elements_.Add( i2);
-                        i2 += 1;
-                    }
-                }
+            int cnt=tokens_.Where(s => s!=null && s.Text != null).Count();
+            this.elements_=new List<int>(cnt) {};
+            int i2=0;
+            for (int i =0;i<tokens_.Count;i++)
+            {
+              if(tokens_[i]!=null && tokens_[i].Text!=null)
+              {
+                this.elements_.Add( i2);
+                i2 += 1;
+              }
             }
+          }
                        
-            res.Text=formatFromArray();
-            return res;
+          res.Text=formatFromArray();
+          return res;
         }
         public ITypeToken FromatFromTokenArray(List<ICommandBuilder> builders_, ITypeToken delimeter_=null)
         {

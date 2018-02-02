@@ -11,7 +11,7 @@ using System;
 
 namespace JsonManagers
 {
-  
+
     /// <summary>
     /// JSON manager revised 
     /// Newtonsoft JSON wrapper
@@ -32,7 +32,7 @@ namespace JsonManagers
         {
             IJEnumerable<JToken> result=null;
             try{
-            result=JToken.Parse(input).Children()[childNodeName];
+                result=JToken.Parse(input).Children()[childNodeName];
             }catch(Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
             return result;
         }
@@ -98,11 +98,11 @@ namespace JsonManagers
             T result = null;
             result = JsonConvert.DeserializeObject<T>(input);
             return result;
-        }
+        }        
 
         public string SerializeObject(object input_, JsonSerializerSettings settings_=null)
         {
-            string result=string.Empty;          
+            string result=string.Empty;
             result=JsonConvert.SerializeObject(input_, settings_);
             return result;
         }
@@ -119,7 +119,7 @@ namespace JsonManagers
                 NullValueHandling=NullValueHandling.Ignore,
                 Formatting=Formatting.None,
                 DateFormatString=@"yyyy-MM-dd HH:mm:ss"
-           };
+            };
 
             string result=string.Empty;
             result=JsonConvert.SerializeObject(input_, settings_);
