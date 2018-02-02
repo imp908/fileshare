@@ -1,243 +1,7 @@
 
-	#region TODO
+#region TODO
 
-	  
-JsonTODO[
-   
-    {"C++":[
-    {"TODO": [
-        "Employee class",
-        "OpenGltutorials"
-      ]
-    }]
-    },
-    {"C#":[
-    {"TODO": [{
-        "Infrastructure": [{
-            "Correct decoupling of projects": []
-          }, {
-            "Build automate": []
-          },
-          {
-            "Testng automate": [{
-              "Name": "Test localhost server",
-              "What": "starts localhost for methods testing",
-              "How": ["Python localhost server"],
-              "TODO": ["add responses on 8001"],
-              "DONE": ["Starts localhost on 8000", "handles GET,POST,DELETE"]
-            }, {
-              "Name": "API tester",
-              "What": "runs config file with aprameters for URL response check with WebManager,WebResponseReader",
-              "TODO": [
-                "POST,PUT,DELETE methods",
-                "request body and format type"
-              ],
-              "DONE": [
-                "Config export/import",
-                "Exeption expected",
-                "Null expected",
-                "Ok not OK to config print"
-              ]
-            }]
-          }
-        ]
-      }, {
-        "Utility": [{
-            "Js hacks": [{
-              "Name": "JS hacks",
-              "What": "Js scripts to load on page and change functionality",
-              "TODO": [
-                "New API drop box above textbox add. Textbox no ovewrite"
-              ],
-              "DONE": [
-                "Select2 Js To site"
-              ]
-            }]
-          }, {
-            "PersonAPI": [{
-
-                "Name": "NSQLmanager",
-                "What": "OreintDb command builder,REST API executor and parser",
-
-                "TODO": [{
-                  "simplify repo": [
-                    "clean string methods",
-                    "change T types to base interfaces",
-                    "add universal Node reference"
-                  ]
-                }, {
-                  "refactor UOW": [
-                    "split Persons and News api",
-                    "move current UOW logic to Manager"
-                  ]
-                }, {
-                  "web part": [
-                    "choose framework"
-                  ]
-                }],
-                "DONE": [
-                  "Query manager",
-                  "TokenBuilder",
-                  "Token,Orient,URL factories",
-                  "Command shema base with factories with Build from collections of tokens and commandbuilders",
-                  "Rewrite old shemas for new base shema methods",
-                  "Check fire working request"
-                ]
-              },
-              {
-                "Name": "WebAPI",
-                "What": "Apis for person,addressbook,news,birthdays",
-                "How": [
-                  "c# web api"
-                ]
-              },
-              {
-                "Name": "HttpManager",
-                "What": "handling http requests",
-                "TODO": [
-                  "Request content body addition",
-                  "Handshake procedure"
-                ],
-                "DONE": [
-                  "Handling http methods POST,GET,DEL,PUT",
-                  "Adding headers",
-                  "Add request body",
-                  "Orient DB cookie authorization"
-                ],
-                "How": [
-                  "c# http"
-                ]
-              },
-              {
-                "Name": "JSONmanager",
-                "What": "Round aboud Newtonsoft JSON",
-                "DONE": [
-                  "Parsing to/from objects/strings to/from JSON string"
-                ],
-                "TODO": [
-                  "Clatrify parsing to string",
-                  "make generic"
-                ],
-                "How": [
-                  "c#"
-                ]
-              },
-              {
-                "neo4jAPI": [{
-                  "Name": "Boilerplate",
-                  "What": ["script for neo4j builderplate"],
-                  "TODO": ["script"]
-                }, {
-                  "Name": "CRUD",
-                  "What": ["script for neo4j crud operations"],
-                  "DONE": ["crud"]
-                }]
-              }
-            ]
-          }
-
-          ,
-          {
-            "Presentation site": [{
-              "Name": "WCF",
-              "What": "Between UOW  and Presentation site",
-              "How": [
-                "POCOs instead of data contracts"
-              ],
-              "Comments": "move to REST API most likely due to unclear configuration while mooving",
-              "TODO": [
-                "ServiceContract Operation contract(implementation utilises repo) - Iservice - Irepo (IUow)",
-                "Add BLL Business logic layer between POCOs and UOW",
-                "Add JS multiple model items update at one time"
-              ]
-            }, {
-              "Name": "WebApi",
-              "What": "Between UOW  and Presentation site",
-              "TODO": [
-                "Add"
-              ]
-            }, {
-              "Name": "Excel parser",
-              "What": "parsing excel file to objects method",
-              "TODO": [
-                "decompose to several projects"
-              ],
-              "How": [
-                "parse file mask",
-                "Sector type from filename",
-                "Fist file input determines merchant sector"
-              ]
-            }, {
-              "Name": "Excel exporter",
-              "What": "Export to excel",
-              "How": [
-                "For collection of POCO objects Read properties of PCOO object",
-                "Every property to column, every object to row"
-              ]
-            }, {
-              "Name": "SQL SLR Type converter",
-              "What": "Type converter for migration",
-              "How": [
-                "Add SQL to CLR type conversion",
-                "SQLEntity to DWH entity converter",
-                "Converter logic to string name or type name"
-              ]
-            }, {
-              "Name": "WCF",
-              "What": "Add WCF between Repo and Site",
-              "Comments": "bad idea WCF diff to config. REST API instead"
-            }, {
-              "Name": "UOW",
-              "DONE": [
-                "bind repo to generic with as and type conversion",
-                "bind context to every"
-              ]
-            }, {
-              "Name": "Repository",
-              "Test": [{
-                "Integration": "Tables migration"
-              }],
-              "TODO": [
-                "against SQL base and Northwind base",
-                "Chaining IRepo implementation for Date + list filter"
-
-              ],
-              "DONE": [{
-                  "Name": "IRpository",
-                  "DONE": [
-                    "CRUD operations"
-                  ]
-                },
-                {
-                  "Name": "Explicit Repository",
-                  "What": "Repo<T>() { GetItem1<T>() where T: IOne{}; ... GetItemn<T>() where T: In{}}"
-
-                },
-                {
-                  "Name": "Implicit Repository",
-                  "What": "Repo<T>() where T: IOne { GetByOne(); } ... Repo<T>() where T: In { GetByN(); } <- done"
-
-                }
-              ]
-            }, {
-              "Name": "Northwind",
-              "DONE": [
-                "change login employee get from TempData to model",
-                "add complex model"
-              ]
-            }]
-          }
-        ]
-
-      }]
-    
-    }
-    ]
-    }
-    
-] 
-
-, TODO [
+TODO [
 	
 	ACTUAL[
 
@@ -250,7 +14,12 @@ JsonTODO[
 	c#
 	
 		ProofOfConcept
-			-> Linq from custom object to custom string
+			-> Linq from custom object to custom string[
+				<- done for equality for sample properties int,bool,string
+				]				
+				-> custom expression from nodes concat
+				-> eliminate brakets from expression binary string result
+				-> complex types expression left chain to string dot concat
 			-> Polinom Parse {
 				parse *^/ to expressions and add priorities for exprs
 			},
@@ -260,39 +29,317 @@ JsonTODO[
 			-> Pluggin/addon architecture -> to SB
 			
 			
-		NSQLmanager
-			->tags,like.
-				methodsAndResults[
-					Like(Note,Person=null) <-done
-					Dislike(Note,Person=null) check person like
-					Getparameters{..,bool? liked=null,string tag=null} -> [
-						-> split <Note> object from DB 
-						-> for every Note reference fields (Likes,Tabs,Author) to NoteReturn add 
-						-> return aggr <NoteReturn> to client
-					]
-					Like reference created <-done
-					Liked notes select add <-done
-					
-					Tag(Tag tg_)
-					TagNews(Note nt)
-					Tag object creation,Tagged reference creation
+		NSQLmanager[
+		
+			Info[
+				
+				Queries[
+
+where_composed[
+select from Note where 1=1
+and GUID='30c7fc2b-696a-499f-bb59-2b53f4a4eb5e' 
+and pinned.isTrue=True 
+and published.isTrue=True 
+and in('Authorship')[0].GUID='477a5bf9-1bec-4959-ae7f-35e08bba33b3' 
+order by changed asc limit 4
+]
+
+
 				]
-			->clean commentary creation
-			->new db model for (company)<-[UnitOf]-(Unit)<-[Working,WorkedIn,Fired,Assigned]-(Person)
-			,(Person)-[Comments,Likes,Reads,Searches]->(Person)
+				
+				,NewsOrientQueries[
+
+//Traverse Commentaries to News
+traverse outE('Comment'),inV('Commentary'),inE('Authorship','Comment') from 26:3
+traverse out('Comment'),in('Comment') from 25:4
+
+//traverse comments to comment
+select from (traverse out('Comment') from 26:5)
+where commentDepth >=0 and commentDepth <=3
+
+//traverse up fromcomment to news
+traverse in('Authorshp','Comment') from (select from 24:53)
+
+//Get persons from news
+Select expand(a1) from(Select inE('Authorship').outV('Person')  as a1 from 26:1 )
+
+//Person authorships
+traverse out() from 31:6
+//Author find
+select expand(in('Authorship')) from 23:1
+
+//Check Notes without authorship
+select from Note where in('Authorship').@class!='Person'
+
+
+//Select from News with depth
+select from (traverse outE('Comment'),inV('Commentary'),inE('Authorship','Comment') from 26:2)
+where commentDepth >=2 and commentDepth <=2 
+
+//
+traverse out('Comment','Authorship'),in('Comment') from 32:7
+
+				]
+									
+				,Shema[
+				
+				//--------------------------------
+
+				//Class  model <- done
+
+				(Person) - [Authorship] -> (Commentary) <- [Comment] - (Person)
+				(Person) - [Authorship] -> (News) <- [Comment] - (Person)
+				 
+				//Relations model -> obsolette
+
+				Post new tag by name, post tag id news id
+				person to like
+
+				(Person) - [Authorship] -> (Object{pinned:true})
+				News //editable by hardcode string acc group to every tag
+				(Person) - [Authorship] -> (Object{"pinned":"true";"published":"true"})
+				Commentary
+				(Person) - [Authorship] -> (Object) - [Comment{CommentLevel:0+1}] -> (Object)
+				
+				//All note fields
+				Note
+				{
+
+					public override string id { get; set; }       	
+					public override string @version {get; set;} 
+					
+					public Person author_ { get; set; }
+
+					public string PGUID { get; set; }=string.Empty;
+
+					public string authAcc { get; set; }=string.Empty;
+					public string authGUID { get; set; }=string.Empty;
+					public string authName { get; set; }=string.Empty;
+
+					public string pic {get;set;}=string.Empty;
+					public string name {get;set;}=string.Empty;               
+
+					[JsonProperty("content_")]
+					public virtual string content { get; set; }=string.Empty;
+					public string description { get; set; }=string.Empty;
+
+					public DateTime? pinned { get; set; }=null;
+					public DateTime? published { get; set; }=null;
+
+					public int? commentDepth { get; set; }=0;
+					public bool hasComments { get; set; }=false;
+
+					public int likes { get; set; }=0;
+					public bool liked { get; set; }=false;
+
+				}
+
+				//updatable
+				News
+				{
+					
+					public Person author_ { get; set; }
+
+					public string pic {get;set;}=string.Empty;
+					public string name {get;set;}=string.Empty;               
+
+					[JsonProperty("content_")]
+					public virtual string content { get; set; }=string.Empty;
+					public string description { get; set; }=string.Empty;				
+
+					public bool liked { get; set; }=false;
+					
+					public DateTime? pinned { get; set; }=null;
+					public DateTime? published { get; set; }=null;
+
+				}
+				
+				//Author never edited from Edtors
+				//updatable from author
+				Commentary
+				{
+							
+					public string pic {get;set;}=string.Empty;
+					public string name {get;set;}=string.Empty;               
+
+					[JsonProperty("content_")]
+					public virtual string content { get; set; }=string.Empty;
+					public string description { get; set; }=string.Empty;
+					
+					public DateTime? published { get; set; }=null;
+
+					public bool liked { get; set; }=false;
+					
+					public DateTime? pinned { get; set; }=null;
+					public DateTime? published { get; set; }=null;
+
+				}
+
+				if "Name":null -> если null оставляем как в базе
+				if "Name":"" -> если явное "" empty перезаписываем в базе
+				
+				if author_:null or "" -> если пустое или null оставляем как в базе
+				
+				personReturn
+				{ 
+				  "GUID": "ba124b8e-9857-11e7-8119-005056813668",
+				  "division": "Отдел поддержки прикладных систем",
+				  "PGUID": "c1b0ff45-5cb1-11e7-8117-005056813668",
+				  "phone": "1312",
+				  "mail": "Neprintsevia@nspk.ru",
+				  "Name": "Непринцев Илья Александрович",  
+				  "shortFName": "Непринцев И. А.",
+				  "description": "Главный специалист",
+				  "itemTitleColor": "rgb(44,50,124)",
+				  "templateName": "PersonTemplate",
+				  "birthday": "09.03",
+				  "colorClass": "c-dit",
+				  "departmentName": "Департамент ИТ",
+				  "login": "Neprintsevia"
+				}
+				
+				NoteReturn{
+					
+					author personReturn_ {get;set;}
+					
+					note_ {get;set;}
+					
+					commentaryCount {get;set;}
+					likesCount {get;set;}
+					
+				}
+				
+				//--------------------------------
+
+				]
+				
+			]
+			
+			,TODO[
+-> no class specific vertex creation
+-> custom expression {Class.prop.value}{condType}{targetValue}
+-> integrate custom expression into class vertex
+	
+			-> property comparer with custom attributes[
+				-> common custom toggled atribute (IsUpdatable)
+				-> passing attribute to method and detecting its toggle value (true,false)]
+			-> split <Note> object from DB [
+				-> for every Note reference fields (Likes,Tabs,Author) to NoteReturn add
+				-> return aggr <NoteReturn> to front client
+			]			
+			-> synch Person from prod[
+				-> Custom comparisors <- done
+			]
+												
+			-> clean commentary creation
+			-> new db model [
+(company)<-[UnitOf]-(Unit)<-[Working,WorkedIn,Fired,Assigned]-(Person)
+,(Person)-[Comments,Likes,Reads,Searches]->(Person)]
 			-> rewrite old Person functions for birthdays, working structure, management roles		  
 			-> Neo4j and Mongo repos add
 			-> Plugin arhiteckture			
+-> RepoFactory add interaface parameters
+-> extend with ability to load tokens from model class
+-> add all tokens to tokenlist
+-> Moove builders and command invokers to Generic
+-> Tokens to static?
+-> add authentication timer for orient connection
+-> add interface segregation for different token types => {IdataType,ICreateType}
+-> add logging
+-> AD synch
+
+
+
+			-> Prod Moove[
+				received: 24.01.2018 estimate 1.5 week
+				detailed: news,quiz?!
+				
+-> timeline[
+
+01.02.2018
+
+13:18
+13:21 база [news_prod] перенесена на http://msk1-vm-indb01.nspk.ru:2480
+13:33 local tested Ok
+13:37 [news_prod] mooved to http://msk1-vm-inapp01:8185
+13:45 mooved
+13:50 tags,likes, tested
+13:48 edge in out properties NOTSynchronised addded
+13:48 test objects deleted
+13:48
+
+
+				-> 05.02.2018 Moove front and finish date
+				-> 01.02.2018 Moove back date
+				
+				-> 01.02.2018 11:23 -> quiz check <- done ovisp02 8185
+				-> 01.02.2018 10:20 -> news check <- done ovisp02 8185
+				-> 25.01.2018 check db moove <- done
+	]
+	
+plan real
+[
+orient db moove->
+crete new orient db news_prod on target host(msk1-vm-indb01 [News_prod])
+synch classes (moove classes from msk1-vm-ovisp02:2480 [news_test5])
+synch objects (moove Person objects from  msk1-vm-ovisp02:2480 [news_test5])
+API moove (No merge scenery)->
+host cntroller proj with NOSQLmanager api lib included on (http://msk1-vm-inapp01:8184 [newstest3] )
+testing ->
+check API from html
+(holivation,getmanager kpa,post news,update news, get news,tag news, untag news, like news dislike news, get news after every change)
+NEWS Front moove ->
+host my.nspk under my.npsk2
+redirect it to http://msk1-vm-inapp01:8184
+
+testing ->
+test front + birthdays + settings + news
+switch->
+replace my.nspk with my.nspk2 to the same host
+]
+						] <- done
+			-> tags,like[
+				-> Getparameters{..,bool? liked=null,string tag=null}[
+					-> Tag(Tag tg_) <-done
+					-> TagNews(Note nt) <-done
+					-> Tag object creation,delete Tagged reference creation, delete <-done
+				
+					Like reference created <-done
+					Liked notes select add <-done
+					Like(Note,Person=null) <-done
+					Dislike(Note,Person=null) check person like <-done
+				] <-done
+			] <-done	
+			-> RepoFactory add interaface parameters <- done
 			-> to DLL <- done
 			-> pinned,published <- done
 			->new object inheritance for toggled properties ToggledProperty <- done
-		
+			-> change class inheritance for type converter, only 2 lvl allowed and basetype is used <- done			
+-> move TextBuider Build to new class above TextBuiler? to contain collections of tokens with formats <- done Token+foramt->shcema->builder
+-> Custom formatter generation, for builder formats, moove from strings to class <-done
+-> token format generation from string rewrite <-done
+-> extend token format generator for collection and array of delimeters
+-> signature: tg(Ienumerable<Tokens> tk,string[] delimeters) <- done
+-> Query manager <- done
+-> TokenBuilder <- done
+-> Token,Orient,URL factories <- done
+-> Command shema base with factories with Build from collections of tokens and commandbuilders <- done
+-> Rewrite old shemas for new base shema methods <- done
+-> Check fire working request <- done
+
+			]
+			
+		]
+
+
 		NSQLUOW
+		
 			-> move current UOW logic to Manager <- done
 			-> split Persons and News api <- done
-		
+
 		ApiTester	
-			-> POST with NTLM	
+			-> POST with NTLM
+			
 			-> Config export/import <- done
 			-> Exeption expected <- done
 			-> Null expected <- done
@@ -303,7 +350,7 @@ JsonTODO[
 			-> Repo (Chaining IRepo implementation for Date + list filter)
 
 		SQLUOW
-		-	> Finilize for Nowthwind, Neo4j,mongo
+			-> Finilize for Nowthwind, Neo4j,mongo
 			
 		SQLWebAPI
 			-> between repo and MVC site
@@ -318,11 +365,41 @@ JsonTODO[
 			-> Converter logic to string name or type name;)
 			-> Add JS multiple model items update at one time
 		
+		
+	WebManager[
+	
+		TODO:[
+			-> NTLM authentication
+			
+			-> Handling http methods POST,GET,DEL,PUT <- done
+			-> Adding headers <- done
+			-> Add request body <- done
+			-> Orient DB cookie authorization <- done
+		]
+			
+	]
+	
+	JsonManager[
+	
+		-> Parsing to/from objects/strings to/from JSON string <- done
+		-> parsing to string <- done
+		-> make generic <- done
+
+	]
+	
 	JS
+			-> Angular2.io chart
+			
+			-> Angular2 ajax <- done			
+			-> Ajax console log function dependency <- done
+			
 		nsql presentation
+			prototype sites{
+				http://nu-today.ru/
+			}
 			->functional prototype newsApi
-				ember, angular2 or other mvc framework
-			->tree chart
+				ember, angular2, react
+			->tree chart d3
 			
 		jsHacks
 			-> New API drop box above textbox add. Textbox no ovewrite
@@ -347,8 +424,8 @@ JsonTODO[
 	PresentationSite	
 -> POCO to DataContract converter <- done
 -> Add WCF between Repo and Site <- done
-->  UOW bind repo to generic with as and type conversion <- done
-->  UOW bind context to every repo  <- done
+-> UOW bind repo to generic with as and type conversion <- done
+-> UOW bind context to every repo  <- done
 -> Specific repository for every entity <- done
 -> IRepository<T> with CRUD operations lightweight  <- done
 -> SB , Repo and UOF to different projects  <- done
@@ -1254,8 +1331,6 @@ Northwind
     
     ]       
 
-  ]			
-	
 	public class CodeShemas
 	{
 				
@@ -1341,6 +1416,5 @@ Northwind
 	}
 
 	}
-					
-	#endregion
-		
+
+#endregion 	
