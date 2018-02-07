@@ -33,7 +33,41 @@ TODO [
 		
 			Info[
 				
-				Queries[
+				VS_ref[
+Install-Package xunit -ProjectName NSQLManagerIntegrationTests
+Install-Package moq -ProjectName NSQLManagerIntegrationTests
+Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
+Install-Package Microsoft.AspNet.WebApi -ProjectName NSQLManagerIntegrationTests
+
+Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
+//OWIN install
+Install-Package Microsoft.Owin.Security.OAuth 
+Install-Package Microsoft.AspNet.Identity.EntityFramework 
+Install-Package Microsoft.Owin.Host.SystemWeb 
+
+//not used
+Install-Package Microsoft.AspNet.Identity.Owin 
+Install-Package Microsoft.AspNet.WebApi.Owin 
+Install-Package Microsoft.Owin.Cors 
+				]
+
+				,GitMoove[
+cd C:\workflow\projects\Dev\gitLab\nsql
+git init
+git remote add ns http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
+git pull ns prod_moove
+
+
+cd C:\workflow\projects\Dev\gitLab\napi
+git init
+git remote add ns http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+git pull ns prod_move
+				]
+				
+				,Queries[
 
 where_composed[
 select from Note where 1=1
@@ -83,13 +117,15 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 									
 				,Shema[
 				
+				
 				//--------------------------------
 
 				//Class  model <- done
-
 				(Person) - [Authorship] -> (Commentary) <- [Comment] - (Person)
 				(Person) - [Authorship] -> (News) <- [Comment] - (Person)
-				 
+				(Person) - [Tagged] -> (Tag)
+				(Person) - [Liked] -> (Note)
+				
 				//Relations model -> obsolette
 
 				Post new tag by name, post tag id news id
@@ -101,84 +137,22 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 				Commentary
 				(Person) - [Authorship] -> (Object) - [Comment{CommentLevel:0+1}] -> (Object)
 				
-				//All note fields
-				Note
-				{
-
-					public override string id { get; set; }       	
-					public override string @version {get; set;} 
-					
-					public Person author_ { get; set; }
-
-					public string PGUID { get; set; }=string.Empty;
-
-					public string authAcc { get; set; }=string.Empty;
-					public string authGUID { get; set; }=string.Empty;
-					public string authName { get; set; }=string.Empty;
-
-					public string pic {get;set;}=string.Empty;
-					public string name {get;set;}=string.Empty;               
-
-					[JsonProperty("content_")]
-					public virtual string content { get; set; }=string.Empty;
-					public string description { get; set; }=string.Empty;
-
-					public DateTime? pinned { get; set; }=null;
-					public DateTime? published { get; set; }=null;
-
-					public int? commentDepth { get; set; }=0;
-					public bool hasComments { get; set; }=false;
-
-					public int likes { get; set; }=0;
-					public bool liked { get; set; }=false;
-
-				}
-
-				//updatable
+				//updatable by person. cerated by Destiny list
 				News
 				{
-					
+					[not updatable from POST,changes while note POST update]
 					public Person author_ { get; set; }
 
-					public string pic {get;set;}=string.Empty;
-					public string name {get;set;}=string.Empty;               
-
-					[JsonProperty("content_")]
-					public virtual string content { get; set; }=string.Empty;
-					public string description { get; set; }=string.Empty;				
-
-					public bool liked { get; set; }=false;
-					
-					public DateTime? pinned { get; set; }=null;
-					public DateTime? published { get; set; }=null;
-
-				}
-				
-				//Author never edited from Edtors
-				//updatable from author
+				}				
+				//Author never edited from POSTs
+				//updatable from UOW
 				Commentary
-				{
-							
-					public string pic {get;set;}=string.Empty;
-					public string name {get;set;}=string.Empty;               
-
-					[JsonProperty("content_")]
-					public virtual string content { get; set; }=string.Empty;
-					public string description { get; set; }=string.Empty;
-					
-					public DateTime? published { get; set; }=null;
-
-					public bool liked { get; set; }=false;
-					
-					public DateTime? pinned { get; set; }=null;
-					public DateTime? published { get; set; }=null;
-
-				}
-
+				
 				if "Name":null -> если null оставляем как в базе
 				if "Name":"" -> если явное "" empty перезаписываем в базе
 				
-				if author_:null or "" -> если пустое или null оставляем как в базе
+				if author_:null or "" -> не обноялем напрямую,
+				только из пользователя при изменнеии объекта
 				
 				personReturn
 				{ 
@@ -213,24 +187,73 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 
 				]
 				
+				, Migration_sceneries[
+
+	 scenery_theoretical[
+	 
+//migration scenery
+
+//collisions check:
+wrtie object no check
+check if exists 
+	-> leave as in target DB
+	-> delete and create as in source DB
+
+sort conditional items -> nodes first
+	detect if list contains references:
+	if contains -> detect referenced classes
+	if referenced classes exist in list -> for referenced Nodes preserve ID to Object
+	
+for each Node item:
+if no objects in Source exist -> mark as processed
+else for each object -> 
+if no chek -> write when finished 
+if exists target leave 
+-> delete Node 
+-> createne wnode 
+if exists source leave -> ignore
+-| mark as processed
+
+foreach Reference item
+GUID objects
+-> Get source Nodes
+-> Get target Nodes by Source Nodes Guid
+-> Create Target Relation between Target Nodes
+NOT GUID objects (id only)
+
+/* ID restoration (too murky):[ */
+(preserve Source ID values to Target created object item,
+check referenced Nodes to created 
+-> if trying to migrate reference but not class it's structural? migrator error)
+],
+
+	GUIDed_Nodes(more realistic):[
+Node always has GUID
+Ref can have no GUID
+take target ref nodes,
+if exist -> allready created
+if not exist -> create relations
+]
+
+				]
+			
 			]
 			
 			,TODO[
+			
+
+
 -> no class specific vertex creation
--> custom expression {Class.prop.value}{condType}{targetValue}
+-> custom expression trees {Class.prop.value}{condType}{targetValue}
 -> integrate custom expression into class vertex
 	
-			-> property comparer with custom attributes[
-				-> common custom toggled atribute (IsUpdatable)
-				-> passing attribute to method and detecting its toggle value (true,false)]
 			-> split <Note> object from DB [
 				-> for every Note reference fields (Likes,Tabs,Author) to NoteReturn add
 				-> return aggr <NoteReturn> to front client
 			]			
 			-> synch Person from prod[
 				-> Custom comparisors <- done
-			]
-												
+			]											
 			-> clean commentary creation
 			-> new db model [
 (company)<-[UnitOf]-(Unit)<-[Working,WorkedIn,Fired,Assigned]-(Person)
@@ -250,7 +273,11 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 
 
 
+			-> property comparer with custom attributes[
+				-> common custom toggled atribute (IsUpdatable)
+				-> passing attribute to method and detecting its toggle value (true,false)]<-done
 			-> Prod Moove[
+			
 				received: 24.01.2018 estimate 1.5 week
 				detailed: news,quiz?!
 				
