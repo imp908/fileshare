@@ -10,6 +10,13 @@ using NewsAPI.Implements;
 
 using System.Configuration;
 
+using System.Web;
+using Microsoft.Owin.Security;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity.EntityFramework;
+//for HttpContext.Current.GetOwinContext();
+using Microsoft.Owin.Host.SystemWeb;
+
 namespace NewsAPI.Controllers
 {
 
@@ -36,10 +43,10 @@ namespace NewsAPI.Controllers
         this.personFunctions = personFunctions_;
 
         string host_= string.Format("{0}:{1}"
-        ,ConfigurationManager.AppSettings["OrientDevHost"],ConfigurationManager.AppSettings["OrientPort"]);
+        ,ConfigurationManager.AppSettings["OrientTargetHost"],ConfigurationManager.AppSettings["OrientPort"]);
 
         mng = new Managers.Manager(
-        ConfigurationManager.AppSettings["OrientUnitTestDB"]
+        ConfigurationManager.AppSettings["OrientDevDB"]
         ,host_
         ,ConfigurationManager.AppSettings["orient_login"]
         ,ConfigurationManager.AppSettings["orient_pswd"]
@@ -62,10 +69,10 @@ namespace NewsAPI.Controllers
       responseReader = new WebManagers.WebResponseReader();
 
       string host_= string.Format("{0}:{1}"
-      ,ConfigurationManager.AppSettings["OrientDevHost"],ConfigurationManager.AppSettings["OrientPort"]);
+      ,ConfigurationManager.AppSettings["OrientTargetHost"],ConfigurationManager.AppSettings["OrientPort"]);
 
       mng = new Managers.Manager(
-      ConfigurationManager.AppSettings["OrientUnitTestDB"]
+      ConfigurationManager.AppSettings["OrientDevDB"]
       ,host_
       ,ConfigurationManager.AppSettings["orient_login"]
       ,ConfigurationManager.AppSettings["orient_pswd"]
@@ -244,7 +251,7 @@ namespace NewsAPI.Controllers
         WebManagers.WebResponseReader wr = new WebManagers.WebResponseReader();
         string name = string.Empty,res = string.Empty;
             
-        name=this._newsUOW.UserAcc();
+        name=this.mng.UserAcc();
 
         if(name==null||name==string.Empty){
 
@@ -300,7 +307,7 @@ namespace NewsAPI.Controllers
             // преобразуем строку в HttpResponseMessage со ReturnEntities с результатом в поле _value
             response = new WebManagers.ReturnEntities(repo.HoliVation(res), Request);
         }
-        catch (Exception e) { response = new WebManagers.ReturnEntities("Welcome guest!", Request);  }
+        catch (Exception e) { response = new WebManagers.ReturnEntities("Welcome guest!", Request); System.Diagnostics.Trace.WriteLine(e.Message); }
         return response;
 
     }
@@ -310,7 +317,7 @@ namespace NewsAPI.Controllers
     public IHttpActionResult Acc()
     {
 
-        string userAcc=_newsUOW.UserAcc();
+        string userAcc=mng.UserAcc();
             
         string patern = "BaseUser:{0};Environment:{1};HttpContext:{2}; AuthType:{3}; IsAuth:{4}; Name:{5}";
         WebManagers.ReturnEntities response = null;

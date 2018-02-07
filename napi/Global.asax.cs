@@ -25,6 +25,8 @@ namespace NewsAPI
             GlobalConfiguration.Configure(WebApiConfig.Register);           
             EnableCorsAttribute ep = new EnableCorsAttribute("*", "*", "*");
             GlobalConfiguration.Configuration.Formatters.Insert(0, new TextMediaTypeFormatter());
+
+
         }
 
         //protected void Application_BeginRequest()

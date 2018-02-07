@@ -22,7 +22,7 @@ namespace NewsAPI.Controllers
         public Person2Controller()
         {
           string host_= string.Format("{0}:{1}"
-        ,ConfigurationManager.AppSettings["OrientDevHost"],ConfigurationManager.AppSettings["OrientPort"]);
+        ,ConfigurationManager.AppSettings["OrientTargetHost"],ConfigurationManager.AppSettings["OrientPort"]);
 
         mng = new Managers.Manager(
         ConfigurationManager.AppSettings["OrientUnitTestDB"]
@@ -37,7 +37,7 @@ namespace NewsAPI.Controllers
         [HttpGet]
         public IHttpActionResult Acc()
         {
-          string result_=_newsUOW.UserAcc();
+          string result_=mng.UserAcc();
           _response = new WebManagers.ReturnEntities(result_, Request);
           return _response;
         }

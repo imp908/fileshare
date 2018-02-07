@@ -5,26 +5,42 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web;
+using System.Configuration;
 
 namespace NewsAPI.Controllers
 {
     public class QuizController : ApiController
     {
+        Managers.Manager quizManager;
 
-        [HttpGet]
+        public class QuizParams{
+          public int? monthDepth { get; set; }
+        }
+
+        [HttpPost]
         [Route("api/Quiz")]
-        public IHttpActionResult Get()
+        public IHttpActionResult Post(QuizParams qp)
         {
+            
+          string host_Quiz= string.Format("{0}:{1}"
+          ,ConfigurationManager.AppSettings["OrientProdHost"],ConfigurationManager.AppSettings["OrientPort"]);
 
-            WebManagers.ReturnEntities response = null;
-            string res = string.Empty;
-            Quizes.QuizRepo qr = new Quizes.QuizRepo();
+          quizManager = new Managers.Manager(
+          ConfigurationManager.AppSettings["IntranetDB"]
+          ,host_Quiz
+          ,ConfigurationManager.AppSettings["orient_dev_login"]
+          ,ConfigurationManager.AppSettings["orient_dev_pswd"]
+          );
+
+          WebManagers.ReturnEntities response = null;
+          string res = string.Empty;
+          Quizes.QuizUOW qu = new Quizes.QuizUOW(quizManager.GetRepo());
 
             try
             {
               // преобразуем строку в HttpResponseMessage со ReturnEntities с результатом в поле _value
-              res = qr.Quiz();
-              response = new WebManagers.ReturnEntities(res, Request);
+              res=qu.GetQuizByMonthGap(qp.monthDepth);
+              response=new WebManagers.ReturnEntities(res, Request);
             }
             catch (Exception e)
             {

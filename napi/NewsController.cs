@@ -57,7 +57,7 @@ namespace NewsAPI.Controllers
                     newsHelper.Authorize();
                     orientAuthOk = true;
                 }
-                catch (Exception e) { result_ = "User not authed;"; }
+                catch (Exception e) { result_ = "User not authed;"; System.Diagnostics.Trace.WriteLine(e.Message); }
             }
 
             if (orientAuthOk)
@@ -70,7 +70,7 @@ namespace NewsAPI.Controllers
                     // Получение id созданного объекта
                     result_ = proxy.ReturnAddedEntityId(response).ExtractEntityId(ConfigurationManager.AppSettings["orient_id_name"]);
                 }
-                catch (Exception e) { result_ = "Id not returned;"; }
+                catch (Exception e) { result_ = "Id not returned;";System.Diagnostics.Trace.WriteLine(e.Message); }
             }
 
             // Получение пользователя из реквеста
@@ -78,14 +78,14 @@ namespace NewsAPI.Controllers
             {
                 name = userAuthenticator.AuthenticateUser(base.User);
             }
-            catch (Exception e) { name = "unknown";  result_ = "User not authed;"; }
+            catch (Exception e) { name = "unknown";  result_ = "User not authed;"; System.Diagnostics.Trace.WriteLine(e.Message); }
 
             try
             {
                 // Создание edge авторства
                 news.CreateAuthorEdge(name, result_).ExecuteAsync(new CancellationToken());
             }
-            catch (Exception e) { result_ = "Edge  not created;"; }
+            catch (Exception e) { result_ = "Edge  not created;"; System.Diagnostics.Trace.WriteLine(e.Message);}
 
             // возврат id созданного объекта                       
             return new TextResult(result_, Request);
