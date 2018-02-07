@@ -72,22 +72,22 @@ namespace POCO
     public class OrientEdge :OrientDefaultObject, IOrientEdge
     {
       
-      [JsonProperty("out"),NOTSynchronisable(true)]
-      public string Out {get; set;}    
-      [JsonProperty("in"),NOTSynchronisable(true)]
-      public string In {get; set;}
+        [JsonProperty("out"),NOTSynchronisable(true)]
+        public string Out {get; set;}    
+        [JsonProperty("in"),NOTSynchronisable(true)]
+        public string In {get; set;}
 
-      public bool ShouldSerializeOut()
-      {
-        return false;
-      }
-       public bool ShouldSerializeIn()
-      {
-        return false;
-      }
+        public bool ShouldSerializeOut()
+        {
+            return false;
+        }
+        public bool ShouldSerializeIn()
+        {
+            return false;
+        }
     }
 
-
+    
     public class V : OrientDefaultObject, IOrientVertex
     {
               
@@ -397,30 +397,33 @@ namespace POCO
       public string tagText { get; set; }
     }
 
+    //Property for conditional values 
     public class ToggledProperty
     {
       public bool isTrue { get; set; } = false;
       [JsonConverter(typeof(OrientDateTime)), Updatable(false)]
       public DateTime? dateChanged { get; set; } = null;
     }
-  
-    //for spagetty check
-    public class MigrateCollection
+    
+    //for database migrations 
+    public class NodeReferenceConditional
     {
-      public string @rid { get; set; }
-      public string @class { get; set; }
-      public string GUID { get; set; }
+        public OrientDefaultObject orientItem { get; set; }
+        public bool processed { get; set;} = false;
     }
-   
     #endregion
 
+    //classes returned by REST HTTP
     #region OrientMaintenanceClasses
+    //returned by Oreint Http while db check
+    //used for migration, classes and db shema contained
     public class OrientDatabase : IOrientDatabase
     {
       public List<OrientClass> classes {get;set;}
       public OrientConfigValues config {get;set;}
     }
-   
+    
+    //from orient Http class shema
     public class OrientClass
     {
       public string name {get;set;}
@@ -451,6 +454,9 @@ namespace POCO
       public string defaultValue {get;set;}
     }
     
+    /// <summary>
+    /// 
+    /// </summary>
     public class OrientConfigValues
     {
       public List<OrientValue> values {get;set;}
@@ -614,8 +620,8 @@ namespace POCO
 
     /// <summary>
     /// Test for checking serialization deserialization rules. 
-    ///  [JsonIgnore] - blocks property in both directions : serialization or deserialization.
-    ///  Conditional property, ShouldSerialize{PropertyName} : hides property while serializing to sting.    
+    /// [JsonIgnore] - blocks property in both directions : serialization or deserialization.
+    /// Conditional property, ShouldSerialize{PropertyName} : hides property while serializing to sting.    
     /// </summary>
     #region TestOrientFieldCleanPOCOS    
     public class TestOrientObjectPOCO : OrientDefaultObject

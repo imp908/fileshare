@@ -31,6 +31,7 @@ namespace IWebManagers
         void SetBase64AuthHeader(string value);
         void SetContent(string value = null);
         void SetCredentials(NetworkCredential credentials);
+        void NtlmAuth(bool swich_);
         bool SetHeader(HttpRequestHeader header, string value);
         void SetMethod(string method_);
         void SetTimeout(int ms);

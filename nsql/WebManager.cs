@@ -79,9 +79,13 @@ namespace WebManagers
        }
         public void SetCredentials(NetworkCredential credentials)
         {
-            _credentials=credentials;
-            CredentialsBind();
-       }
+          _credentials=credentials;
+          CredentialsBind();
+        }
+        public void SetCredentials(ICredentials cred_)
+        {
+          this._request.Credentials=cred_;          
+        }
         public void CredentialsBind()
         {
             if (this._request != null)
@@ -170,8 +174,9 @@ namespace WebManagers
     public class WebRequestManager : IWebRequestManager
     {
 
-        WebRequest _request;
+        public WebRequest _request;
         NetworkCredential _credentials;
+        bool ntlmAuth = false;
 
         string GET="GET";
         string _url=null;
@@ -179,64 +184,69 @@ namespace WebManagers
         int Timeout=0;
         byte[] _content=null;
         string _method=null;
-        Dictionary<HttpRequestHeader, string> _headres 
+        Dictionary<HttpRequestHeader, string> _headers 
            =new Dictionary<HttpRequestHeader, string>();
              
         public WebRequest AddRequest(string url)
         {
 
-            if (url == null) {throw new Exception("String not passed");}
-            SetUrl(url);
-            this._request=WebRequest.Create(url);
-            return this._request;            
+          if (url == null) {throw new Exception("String not passed");}
+          SetUrl(url);
+          this._request=WebRequest.Create(url);
+          if(this._credentials!=null){ this._request.Credentials = this._credentials; }
+          return this._request;            
             
         }
      
         public void SetUrl(string url_)
         {
-            this._url=url_;
+          this._url=url_;
         }
 
         public void SetCredentials(NetworkCredential credentials)
         {        
-            this._credentials=credentials;
+          this._credentials=credentials;
+        }
+        public void NtlmAuth(bool swich_)
+        {
+          this.ntlmAuth = swich_;       
         }
         internal void bindCredentials()
         {
-            CheckReq();
-            if (this._credentials != null)
-            {
-                this._request.Credentials=this._credentials;
-            }            
+          CheckReq();
+          if (this._credentials != null)
+          {
+            this._request.Credentials=this._credentials;
+          }            
         }
      
         public bool SetHeader(HttpRequestHeader header, string value)
         {
-            if (_headres.ContainsKey(header)) {
-                _headres.Remove(header);
-            }
-            _headres.Add(header, value);
-            return true;
+          if (_headers.ContainsKey(header)) {
+            _headers.Remove(header);
+          }
+          _headers.Add(header, value);
+          return true;
         }
         public bool RemoveHeader(HttpRequestHeader header)
         {
-            if (_headres.ContainsKey(header))
-            {
-                _headres.Remove(header);
-            }
-            return true;
+          if (_headers.ContainsKey(header))
+          {
+            _headers.Remove(header);
+          }
+          return true;
         }
         internal bool bindHeaders()
         {                                 
-            foreach (KeyValuePair<HttpRequestHeader, string> pair in _headres)
+          foreach (KeyValuePair<HttpRequestHeader, string> pair in _headers)
+          {
+            this._request.Headers.Clear();
+            if (pair.Value != null)
             {
-                this._request.Headers.Clear();
-                if (pair.Value != null)
-                {
-                    this._request.Headers.Add(pair.Key, pair.Value);
-                }
+              this._request.Headers.Add(pair.Key, pair.Value);
             }
-            return true;
+          }
+          return true;
         }
         public string GetHeader(string name)
         {
@@ -263,36 +273,36 @@ namespace WebManagers
         }
         void bindContent()
         {         
-            if (CheckContent() && this._request.Method != GET)
+          if (CheckContent() && this._request.Method != GET)
+          {
+            try
             {
-                try
-                {
-                    this._request.ContentType="application/json";
-                    this._request.ContentLength=_content.Length;
-                    string tempRes = _content.ToString();
+              this._request.ContentType="application/json";
+              this._request.ContentLength=_content.Length;
+              string tempRes = _content.ToString();
                     
-                    using (Stream str=this._request.GetRequestStream())
-                    {
-                      //StreamWriter strw = new StreamWriter(str, new UTF8Encoding());
-                      //strw.Write(_content);
-                      str.Write(_content, 0, _content.Length);                       
-                    }
-                }
-                catch(Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
-
+              using (Stream str=this._request.GetRequestStream())
+              {
+                //StreamWriter strw = new StreamWriter(str, new UTF8Encoding());
+                //strw.Write(_content);
+                str.Write(_content, 0, _content.Length);                       
+              }
             }
+            catch(Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
+
+          }
         }
 
         public void SetTimeout(int ms)
         {
-            Timeout=ms;
+          Timeout=ms;
         }
         void bindTimeout()
         {
-            if (this._request != null && this.Timeout != 0)
-            {
-                this._request.Timeout=this.Timeout;
-            }
+          if (this._request != null && this.Timeout != 0)
+          {
+            this._request.Timeout=this.Timeout;
+          }
         }
 
         public void SetBase64AuthHeader(string value)
@@ -303,131 +313,142 @@ namespace WebManagers
         }
         public void SetBase64AuthHeader()
         {
-            if (this._credentials == null) {throw new Exception("Credentials not binded");}
-            string value_=string.Format("{0}:{1}", this._credentials.UserName, this._credentials.Password);
-            SetBase64AuthHeader(value_);
+          if (this._credentials == null) {throw new Exception("Credentials not binded");}
+          string value_=string.Format("{0}:{1}", this._credentials.UserName, this._credentials.Password);
+          SetBase64AuthHeader(value_);
         }
 
         internal bool CheckReq()
         {
            
-            if (_url == null) {throw new NoRequestBinded();}
+          if (_url == null) {throw new NoRequestBinded();}
              
-            SwapRequestsURL(_url);
-            return true;
+          SwapRequestsURL(_url);
+          return true;
         }
         internal bool CheckContent()
         {
-            if (this._content == null) {return false;}
-            if (this._content.Length == 0) {return false;}
-            return true;
+          if (this._content == null) {return false;}
+          if (this._content.Length == 0) {return false;}
+          return true;
         }
         internal bool CheckURL(string url_=null)
         {
-            if (url_ == null)
+          if (url_ == null)
+          {
+            if (_url == null) {return false;}
+            return true;
+          }
+          else
+          {
+            if (_url.Equals(url_))
             {
-                if (_url == null) {return false;}
-                return true;
+              return true;
             }
             else
             {
-                if (_url.Equals(url_))
-                {
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }
+              return false;
             }
+          }
         }
 
         public void SetMethod(string method_)
         {
-            if (method_ != null)
-            {
-                _method=method_;                
-                //if (method_ != GET){this._request.ContentLength=0;}
-            }
-            else {this._request.Method=GET;}
+          if (method_ != null)
+          {
+            _method=method_;                
+            //if (method_ != GET){this._request.ContentLength=0;}
+          }
+          else {this._request.Method=GET;}
         }
         internal void bindMethod()
         {                   
-            if (_method!=null)
-            {              
-                this._request.Method=_method;
-            }
+          if (_method!=null)
+          {              
+            this._request.Method=_method;
+          }
         }
 
         internal void SwapMethod(string method_)
         {
-            SetMethod(method_);
-            bindMethod();
-            bindHeaders();
+          SetMethod(method_);
+          bindMethod();
+          bindHeaders();
         }
         public void SwapRequestsURL(string url)
         {
-            AddRequest(url);
-            bindMethod();
-            bindHeaders();
-            //if (this._request.Method != GET)
-            //{
-            //    bindContent();
-            //}                      
+          AddRequest(url);
+          bindMethod();
+          bindHeaders();
+          //if (this._request.Method != GET)
+          //{
+          //    bindContent();
+          //}                      
         }
         internal void SwapContent(string value_)
         {
-            CheckReq();
-            SetContent(value_);
-            bindMethod();
-            bindHeaders();
-            if (this._request.Method != GET)
-            {
-                bindContent();
-            }
+          CheckReq();
+          SetContent(value_);
+          bindMethod();
+          bindHeaders();
+          if (this._request.Method != GET)
+          {
+            bindContent();
+          }
         }
 
         public HttpWebResponse GetHttpResponse(string method_)
         {
-            CheckReq();
-            SwapMethod(method_);          
+          CheckReq();
+          SwapMethod(method_);          
         
-            try
-            {
-                return (HttpWebResponse)this._request.GetResponse();
-            }
-            catch (Exception e) {throw e;}
+          try
+          {
+            return (HttpWebResponse)this._request.GetResponse();
+          }
+          catch (Exception e) {throw e;}
         }
 
-        public WebResponse GetResponse(string method)
+        public WebResponse GetResponse(string method_)
         {
-
-            CheckReq();
-
-            bindTimeout();
-            try
-            {
-                return (HttpWebResponse)this._request.GetResponse();
+          CheckReq();
+          SwapMethod(method_);
+          bindContent();
+          bindTimeout();
+          try
+          {
+            if(this.ntlmAuth){ this._request.Credentials = CredentialCache.DefaultCredentials; }
+            return (HttpWebResponse)this._request.GetResponse();
+          }
+          catch(WebException e)
+          {
+            if(e.Response!=null){
+            var val_=e.Response.Headers.GetValues("WWW-Authenticate");
+              string resp=new StreamReader(e.Response.GetResponseStream()).ReadToEnd();                
             }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return e.Response;              
+          }
+          catch (Exception e)
+          {
+            System.Diagnostics.Trace.WriteLine(e.Message);
+            return null;
+          }
         }
         public WebResponse GetResponse(string url_, string method)
         {
-            CheckReq();
-            SetUrl(url_);
-            SetMethod(method);
-            bindTimeout();
-            try
-            {
-                return (HttpWebResponse)this._request.GetResponse();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+          CheckReq();
+          SetUrl(url_);
+          SetMethod(method);
+          bindTimeout();
+          try
+          {
+            if(this.ntlmAuth){ this._request.Credentials = CredentialCache.DefaultCredentials; }
+            return (HttpWebResponse)this._request.GetResponse();
+          }
+          catch (Exception e)
+          {
+            throw e;
+          }
         }
 
         public WebResponse GetResponse64(string method)
@@ -546,22 +567,22 @@ namespace WebManagers
     /// </summary>
     public class ReturnEntities : IHttpActionResult
     {
-        HttpRequestMessage _returnedTask;
-        public string _result;
+      HttpRequestMessage _returnedTask;
+      public string _result;
 
-        public ReturnEntities(string result_, HttpRequestMessage ar_)
-        {
-            this._returnedTask=ar_;
-            this._result=result_;
-        }
+      public ReturnEntities(string result_, HttpRequestMessage ar_)
+      {
+        this._returnedTask=ar_;
+        this._result=result_;
+      }
 
-        async Task<HttpResponseMessage> IHttpActionResult.ExecuteAsync(CancellationToken cancellationToken)
-        {
-            HttpResponseMessage response=new HttpResponseMessage(HttpStatusCode.OK);
-            response.Content=new StringContent(_result, Encoding.UTF8, "text/plain");
+      async Task<HttpResponseMessage> IHttpActionResult.ExecuteAsync(CancellationToken cancellationToken)
+      {
+        HttpResponseMessage response=new HttpResponseMessage(HttpStatusCode.OK);
+        response.Content=new StringContent(_result, Encoding.UTF8, "text/plain");
 
-            return await Task.FromResult(response);
-        }
+        return await Task.FromResult(response);
+      }
 
     }
 
@@ -628,14 +649,5 @@ namespace WebManagers
             return result;
         }
     }
-
-    public class UserAuthenticator
-    {
-        public string AuthenticateUser(IPrincipal principal)
-        {
-            var name = principal.Identity.Name.Split('\\')[1];
-            return name;
-        }
-    }
-   
+    
 }

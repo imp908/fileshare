@@ -25,17 +25,7 @@ using System.IO;
 
 namespace IUOWs
 {
-  using IOrientObjects;
-
-  public interface IPersonUOW
-  {
-    IEnumerable<Person> GetAll();
-    string GetByGUID(string GUID);
-    IEnumerable<Person> GetObjByGUID(string GUID);
-    string GetTrackedBirthday(string GUID);
-    string AddTrackBirthday(E edge_, string guidFrom, string guidTo);
-    string DeleteTrackedBirthday(E edge_, string guidFrom, string guidTo);
-  }
+  using IOrientObjects;  
 
   public interface IUOW
   {
@@ -198,7 +188,7 @@ namespace IUOWs
 }
 
 namespace PersonUOWs
-{  
+{
 
   public class PersonUOW : IUOWs.UOW
   {
@@ -314,21 +304,6 @@ namespace NewsUOWs
       }
       return result_;
     }
-    public IEnumerable<TestNews> GetByOffsetTest(string guid_, int? offset_=3)
-    {
-      IEnumerable<TestNews> result_=null;
-      TestNews nt=_repo.SelectByCondFromType<TestNews>(typeof(News),"GUID='"+guid_+"'",null).FirstOrDefault();
-      if(nt!=null) {
-        int startDepth=nt.commentDepth == null ? 0 : (int)nt.commentDepth;
-        int endDepth=offset_==null?startDepth:startDepth+(int)offset_;        
-        IEnumerable<TestNews> temRes = _repo.TraverseFrom<TestNews, Comment, Commentary, Authorship, Comment>(nt.id, null);
-        if(temRes!=null){
-          result_ = temRes.Where(s => (s.class_ == "Commentary" || s.class_ == "News")&&(s.commentDepth>=startDepth&&s.commentDepth<=endDepth));
-        }
-      }
-      return result_;
-    }
-
 
     [Obsolete]
     public IEnumerable<News> GetNewsByOffset(int? offset_=20)
@@ -629,6 +604,7 @@ namespace NewsUOWs
       }
       return result;
     }
+
 
     /// <summary>
     /// Updates property by property object to object from. Custom Updatable system attribute true false checked.
@@ -1482,7 +1458,7 @@ Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
     {
       _repo.DeleteDb(_dbName);
     }
-
+    
   }
 
 }
@@ -1581,22 +1557,21 @@ namespace AdinTce
             }           
             if (holidays.Count()==0&&(holidaysResp!=null||holidaysResp!=string.Empty))
             {
-                IEnumerable<List<AdinTce.Holiday>> hl = _jsonManager.DeserializeFromParentChildren<List<Holiday>>(holidaysResp, "Holidays");                
+                IEnumerable<List<AdinTce.Holiday>> hl=_jsonManager.DeserializeFromParentChildren<List<Holiday>>(holidaysResp, "Holidays");                
                 foreach (List<Holiday> lt_ in hl)
-                {                   
-                    holidays.AddRange(lt_);                                      
+                {
+                    holidays.AddRange(lt_);
                 }                
             }
             if (vacations.Count()==0&&(vacationsResp!=null&&vacationsResp!=string.Empty))
             {
 
-                IEnumerable<List<AdinTce.Vacation>> hl = _jsonManager.DeserializeFromParentChildren<List<Vacation>>(vacationsResp, "Holidays");
+                IEnumerable<List<AdinTce.Vacation>> hl=_jsonManager.DeserializeFromParentChildren<List<Vacation>>(vacationsResp, "Holidays");
                 vacations = new List<Vacation>();
                 foreach (List<Vacation> lt_ in hl)
                 {
                     vacations.AddRange(lt_);
-                }
-
+                }         
             }
             if (adp.GUID_==null)
             {
@@ -1640,7 +1615,7 @@ namespace AdinTce
                 AdpCheck();
                 try
                 {
-                    adp.vacations=vacations.ToList();
+                    adp.vacations=vacations.OrderBy(s => s.DateStart).ToList();
                 }
                 catch (Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
             }
@@ -1651,8 +1626,11 @@ namespace AdinTce
                 AdpCheck();
                 try
                 {
-                    graphs=_jsonManager.DeserializeFromParentChildren<GraphRead>(graphResp, "Holidays");
-                    adp.Graphs=GrapthReadToWriteDateCheck(graphs.ToList());
+                    //graphs=_jsonManager.DeserializeFromChildNode<GraphRead>(graphResp, "Holidays");
+                    graphs = _jsonManager.DeserializeFromParentChildren<GraphRead>(graphResp, "Holidays");
+                    //graphs = _jsonManager.DeserializeFromParentNode<GraphRead>(graphResp, "Holidays");
+
+                    adp.Graphs=GrapthReadToWriteDateCheck(graphs.OrderBy(s=>s.DateStart).ToList());
                 }
                 catch (Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
             }
@@ -1678,7 +1656,7 @@ namespace AdinTce
         {
             AdinTceWebManager webManagerAc=new AdinTceWebManager();
             webManagerAc.SetCredentials(new System.Net.NetworkCredential(
-             ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
+            ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
             webManagerAc.AddRequest(holidayCommand);
             holidaysResp=_responseReader.ReadResponse(webManagerAc.GetResponse64("GET"));
 
@@ -1687,7 +1665,7 @@ namespace AdinTce
         {
             AdinTceWebManager webManagerAc=new AdinTceWebManager();
             webManagerAc.SetCredentials(new System.Net.NetworkCredential(
-             ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
+            ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
             webManagerAc.AddRequest(vacationCommand);
             vacationsResp=_responseReader.ReadResponse(webManagerAc.GetResponse64("GET"));
 
@@ -1696,7 +1674,7 @@ namespace AdinTce
         {
             AdinTceWebManager webManagerAc=new AdinTceWebManager();
             webManagerAc.SetCredentials(new System.Net.NetworkCredential(
-             ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
+            ConfigurationManager.AppSettings["AdinTceLogin"], ConfigurationManager.AppSettings["AdinTcePassword"]));
             webManagerAc.AddRequest(graphCommand);
             graphResp=_responseReader.ReadResponse(webManagerAc.GetResponse64("GET"));
         }

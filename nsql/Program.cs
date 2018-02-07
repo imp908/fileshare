@@ -233,17 +233,22 @@ mng.GenNewsComments(newsGen,true);
     //MOOVE DB
     public static void UOWMooveDb()
     {
-      Managers.Manager mngFrom1=new Managers.Manager("dev_db","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
-      Managers.Manager mngFrom2=new Managers.Manager("news_test5","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+        Managers.Manager mngFrom1=new Managers.Manager("dev_db","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+        Managers.Manager mngFrom2=new Managers.Manager("news_test5","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
 
-      //msk1-vm-indb01.nspk.ru
-      //mR%mzJUGq1E
-      Managers.Manager mngTo=new Managers.Manager("news_test_for_prod","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
-      //Managers.Manager mngTo=new Managers.Manager("news_prod","http://msk1-vm-indb01.nspk.ru:2480","root","mR%mzJUGq1E");
+        //msk1-vm-indb01.nspk.ru
+        //mR%mzJUGq1E
+        Managers.Manager mngTo=new Managers.Manager("news_test_for_prod","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+            //Managers.Manager mngTo=new Managers.Manager("news_prod","http://msk1-vm-indb01.nspk.ru:2480","root","mR%mzJUGq1E");
 
-      
-      MooveDB.Migrate(mngTo, mngFrom1,true,true,false, false);
-      MooveDB.Migrate(mngTo, mngFrom2,false,false,true, false);
+        List<IOrientObjects.IOrientDefaultObject> classes_=new List<IOrientObjects.IOrientDefaultObject>();
+        classes_.Add(new Note());
+        classes_.Add(new Authorship());
+
+        //migrate class names and shemas from actual DB
+        MooveDB.Migrate(mngTo,mngFrom2,classes_,null,true,false);
+        //migrate ral persons from actual person DB
+        MooveDB.Migrate(mngTo,mngFrom1,null, classes_, false,false);
     }
     //Exclusive person moove
     public static void UOWMovePersonFromProd()
@@ -260,23 +265,41 @@ mng.GenNewsComments(newsGen,true);
       a.chilinyak
       */
     }
-  
+    
   }
   
     public static class MooveDB
     {
         static TypeConverter tc = new TypeConverter();
         static IOrientRepo targetRepo_,sourceRepo_;
-        public static OrientDatabase Migrate(Managers.Manager to_,Managers.Manager from_,
-        bool dropAndCreateIfExists=false, List<IOrientObjects.IOrientDefaultObject> mooveClasses,bool mooveObjects=false,bool generate=false)
+        static List<NodeReferenceConditional> conditionalItems;
+
+        static void ConditionalItemsInit(List<IOrientObjects.IOrientDefaultObject> mooveClasses)
+        {
+            conditionalItems=new List<NodeReferenceConditional>();
+            foreach (OrientDefaultObject tp_ in mooveClasses.Where(s=>s.GetType().BaseType==typeof(V)))
+            {
+                if(tp_!=null){conditionalItems.Add(new NodeReferenceConditional(){orientItem=tp_,processed=false});}
+            }
+            foreach (OrientDefaultObject tp_ in mooveClasses.Where(s => s.GetType().BaseType==typeof(E)))
+            {
+                if(tp_!=null){conditionalItems.Add(new NodeReferenceConditional(){orientItem=tp_,processed=false});}
+            }
+        }
+        public static List<IOrientObjects.IOrientDefaultObject> GetClasses(List<IOrientObjects.IOrientDefaultObject>  list_)
+        {           
+            return list_;
+        }
+        public static OrientDatabase Migrate(Managers.Manager to_,Managers.Manager from_,List<IOrientObjects.IOrientDefaultObject> mooveClasses
+        ,List<IOrientObjects.IOrientDefaultObject> mooveObjects, bool dropAndCreateIfExists = false,bool generate=false)
         {
         OrientDatabase result=null;
  
         bool allreadyExists=false;
       
-        if(to_==null){ throw new Exception("No from DB passed");}
+        if(to_==null){throw new Exception("No from DB passed");}
         targetRepo_=to_.GetRepo();
-        if(targetRepo_==null){ throw new Exception("No from repo exists");}
+        if(targetRepo_==null){throw new Exception("No from repo exists");}
       
         OrientDatabase dbTo=targetRepo_.GetDb();
 		    		  
@@ -290,7 +313,7 @@ mng.GenNewsComments(newsGen,true);
 	        //moove db
         sourceRepo_=from_.GetRepo();
         if(sourceRepo_==null){throw new Exception("No from repo exists");}
-	        OrientDatabase dbFrom=sourceRepo_.GetDb();
+	    OrientDatabase dbFrom=sourceRepo_.GetDb();
         dbFrom=sourceRepo_.GetDb();
         dbTo=targetRepo_.GetDb();
         if(dbTo==null)
@@ -305,30 +328,36 @@ mng.GenNewsComments(newsGen,true);
                 targetRepo_.CreateProperty<OrientDefaultObject>(oL_,null);
             }
         }
-        if(mooveObjects){
+        if(mooveObjects!=null&&mooveObjects.Count()>0)
+        {
+            ConditionalItemsInit(mooveObjects);
+            MooveObject();
+            
+            /*
             MooveObjectsOfClass<Person>(targetRepo_,sourceRepo_);
             MooveObjectsOfClass<Unit>(targetRepo_,sourceRepo_);       
-         
+
             MooveObjectsOfClass<SubUnit>(targetRepo_,sourceRepo_);
             MooveObjectsOfClass<MainAssignment>(targetRepo_,sourceRepo_);
-            MooveObjectsOfClass<OldMainAssignment>(targetRepo_,sourceRepo_); 
+            MooveObjectsOfClass<OldMainAssignment>(targetRepo_,sourceRepo_);
+            */
         }
-        /*
-        MooveObjectsOfClass<UserSettings>(targetRepo_,sourceRepo_);
-        MooveObjectsOfClass<CommonSettings>(targetRepo_,sourceRepo_);
-        */
+            /*
+            MooveObjectsOfClass<UserSettings>(targetRepo_,sourceRepo_);
+            MooveObjectsOfClass<CommonSettings>(targetRepo_,sourceRepo_);
 
-        MooveObjectsOfClass<PersonRelation>(targetRepo_,sourceRepo_);
 
+            MooveObjectsOfClass<PersonRelation>(targetRepo_,sourceRepo_);
+            */
         }
-        if(generate==true){
-        //generate scenery to existing
-        to_.GenDB(false,false);
-        to_.GenNewsComments(null,null);
+        if (generate==true){
+            //generate scenery to existing
+            to_.GenDB(false,false);
+            to_.GenNewsComments(null,null);
         }
       
-        targetRepo_.StoreDbStatistic(null,null);
-        return result;
+            targetRepo_.StoreDbStatistic(null,null);
+            return result;
         }
    
         static void MooveClasses(IOrientRepo targetRepo,IOrientRepo sourceRepo, List<IOrientObjects.IOrientDefaultObject> mooveClasses){
@@ -409,15 +438,63 @@ mng.GenNewsComments(newsGen,true);
             }
             }
         }
-        static void MooveObject(List<IOrientObjects.IOrientDefaultObject> mooveObjects){
-            if(mooveObjects!=null&&mooveObjects.Count()>0){
-                foreach (OrientDefaultObject do_ in mooveObjects)
+
+        //If object classes list passed, handles object movement from source to target
+        static void MooveObject(){
+            if(conditionalItems != null&& conditionalItems.Count()>0){
+                //Loop throught every assed class
+                foreach(NodeReferenceConditional conditionalreference_ in conditionalItems)
                 {
-                    
+                    IOrientObjects.IOrientDefaultObject objectClass_ = conditionalreference_.orientItem;
+                   
+                    //for Nodes
+                    if (objectClass_.GetType().BaseType.Equals(typeof(V)))
+                    {
+                        //get all objects of class from base
+                        IEnumerable<IOrientObjects.IOrientDefaultObject> tempVert = sourceRepo_.SelectRefl(objectClass_.GetType(), null);
+                        if (tempVert != null && tempVert.Count() > 0)
+                        {
+                            //for every Node just simple create
+                            foreach (V vToInsert in tempVert)
+                            {
+                                Type tp = vToInsert.GetType();
+                                IOrientObjects.IOrientDefaultObject vInserted =targetRepo_.CreateVertexTp(vToInsert, null);
+                                if (vInserted==null){throw new Exception("vertex was not mooved");}
+                            }
+                        }
+                    }
+
+                    //for References
+                    if (objectClass_.GetType().BaseType.Equals(typeof(E)))
+                    {
+                        //get all objects of class from base
+                        IEnumerable<IOrientObjects.IOrientDefaultObject> tempVert = sourceRepo_.SelectRefl(objectClass_.GetType(), null);
+                        //for every Node just simple create
+                        foreach (E eToInsert in tempVert)
+                        {
+                            //get related Nodes from source DB by referenced rIDs
+                            V vFrom=sourceRepo_.SelectByIDWithCondition<V>(eToInsert.In, null, null).FirstOrDefault();
+                            V vTo= sourceRepo_.SelectByIDWithCondition<V>(eToInsert.Out, null, null).FirstOrDefault();
+                            if (vFrom == null || vTo == null) { throw new Exception("no in or out Node in source db"); }
+
+                            //get related Nodes in target DB by GUIDs of source DB Nodes
+                            V vFromToIns=targetRepo_.SelectByCondFromType<V>(typeof(V),"GUID='"+vFrom.GUID+"'",null).FirstOrDefault();
+                            V vToToIns=targetRepo_.SelectByCondFromType<V>(typeof(V),"GUID='"+vTo.GUID+"'",null).FirstOrDefault();
+                            if (vFromToIns == null || vToToIns == null) {throw new Exception("no in or out Node in target db");}
+
+                            //create relation inn target DB between Nodes related in source DB
+                            E eInserted = targetRepo_.CreateEdge<E>(eToInsert, vFromToIns, vToToIns, null);
+                            if (eInserted==null){throw new Exception("no in or out Node in target db");}
+                        }
+                    }
+                  
+                   
                 }
+
             }
         }
     }
+
 
     //check Linq to context
     public static class LinqToContextCheck
