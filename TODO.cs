@@ -1,7 +1,7 @@
 
 #region TODO
 
-TODO [
+TODO[
 	
 	ACTUAL[
 
@@ -16,7 +16,7 @@ TODO [
 		ProofOfConcept
 			-> Linq from custom object to custom string[
 				<- done for equality for sample properties int,bool,string
-				]				
+				]
 				-> custom expression from nodes concat
 				-> eliminate brakets from expression binary string result
 				-> complex types expression left chain to string dot concat
@@ -33,7 +33,6 @@ TODO [
 		
 			Info[
 				
-				VS_ref[
 Install-Package xunit -ProjectName NSQLManagerIntegrationTests
 Install-Package moq -ProjectName NSQLManagerIntegrationTests
 Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
@@ -67,7 +66,7 @@ git remote add ns http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
 git pull ns prod_move
 				]
 				
-				,Queries[
+				Queries[
 
 where_composed[
 select from Note where 1=1
@@ -117,15 +116,14 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 									
 				,Shema[
 				
-				
 				//--------------------------------
 
 				//Class  model <- done
+
 				(Person) - [Authorship] -> (Commentary) <- [Comment] - (Person)
 				(Person) - [Authorship] -> (News) <- [Comment] - (Person)
 				(Person) - [Tagged] -> (Tag)
 				(Person) - [Liked] -> (Note)
-				
 				//Relations model -> obsolette
 
 				Post new tag by name, post tag id news id
@@ -137,17 +135,80 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 				Commentary
 				(Person) - [Authorship] -> (Object) - [Comment{CommentLevel:0+1}] -> (Object)
 				
-				//updatable by person. cerated by Destiny list
-				News
+				//All note fields
+				Note
 				{
-					[not updatable from POST,changes while note POST update]
+
+					public override string id { get; set; }       	
+					public override string @version {get; set;} 
+					
 					public Person author_ { get; set; }
 
-				}				
-				//Author never edited from POSTs
-				//updatable from UOW
-				Commentary
+					public string PGUID { get; set; }=string.Empty;
+
+					public string authAcc { get; set; }=string.Empty;
+					public string authGUID { get; set; }=string.Empty;
+					public string authName { get; set; }=string.Empty;
+
+					public string pic {get;set;}=string.Empty;
+					public string name {get;set;}=string.Empty;               
+
+					[JsonProperty("content_")]
+					public virtual string content { get; set; }=string.Empty;
+					public string description { get; set; }=string.Empty;
+
+					public DateTime? pinned { get; set; }=null;
+					public DateTime? published { get; set; }=null;
+
+					public int? commentDepth { get; set; }=0;
+					public bool hasComments { get; set; }=false;
+
+					public int likes { get; set; }=0;
+					public bool liked { get; set; }=false;
+
+				}
+
+				//updatable
+				News
+				{
+					
+					public Person author_ { get; set; }
+
+					public string pic {get;set;}=string.Empty;
+					public string name {get;set;}=string.Empty;               
+
+					[JsonProperty("content_")]
+					public virtual string content { get; set; }=string.Empty;
+					public string description { get; set; }=string.Empty;				
+
+					public bool liked { get; set; }=false;
+					
+					public DateTime? pinned { get; set; }=null;
+					public DateTime? published { get; set; }=null;
+
+				}
 				
+				//Author never edited from Edtors
+				//updatable from author
+				Commentary
+				{
+							
+					public string pic {get;set;}=string.Empty;
+					public string name {get;set;}=string.Empty;               
+
+					[JsonProperty("content_")]
+					public virtual string content { get; set; }=string.Empty;
+					public string description { get; set; }=string.Empty;
+					
+					public DateTime? published { get; set; }=null;
+
+					public bool liked { get; set; }=false;
+					
+					public DateTime? pinned { get; set; }=null;
+					public DateTime? published { get; set; }=null;
+
+				}
+
 				if "Name":null -> если null оставляем как в базе
 				if "Name":"" -> если явное "" empty перезаписываем в базе
 				
@@ -240,27 +301,26 @@ if not exist -> create relations
 			]
 			
 			,TODO[
-			
-
-
--> no class specific vertex creation
--> custom expression trees {Class.prop.value}{condType}{targetValue}
--> integrate custom expression into class vertex
-	
-			-> split <Note> object from DB [
-				-> for every Note reference fields (Likes,Tabs,Author) to NoteReturn add
-				-> return aggr <NoteReturn> to front client
-			]			
-			-> synch Person from prod[
-				-> Custom comparisors <- done
-			]											
-			-> clean commentary creation
-			-> new db model [
+		-> no class specific vertex creation
+		-> custom expression {Class.prop.value}{condType}{targetValue}
+		-> integrate custom expression into class vertex			
+		-> property comparer with custom attributes[
+			-> common custom toggled atribute (IsUpdatable)
+			-> passing attribute to method and detecting its toggle value (true,false)]
+		-> split <Note> object from DB [
+			-> for every Note reference fields (Likes,Tabs,Author) to NoteReturn add
+			-> return aggr <NoteReturn> to front client
+		]			
+		-> synch Person from prod[
+			-> Custom comparisors <- done
+		]										
+		-> clean commentary creation
+		-> new db model [
 (company)<-[UnitOf]-(Unit)<-[Working,WorkedIn,Fired,Assigned]-(Person)
 ,(Person)-[Comments,Likes,Reads,Searches]->(Person)]
-			-> rewrite old Person functions for birthdays, working structure, management roles		  
-			-> Neo4j and Mongo repos add
-			-> Plugin arhiteckture			
+		-> rewrite old Person functions for birthdays, working structure, management roles		  
+		-> Neo4j and Mongo repos add
+		-> Plugin arhiteckture			
 -> RepoFactory add interaface parameters
 -> extend with ability to load tokens from model class
 -> add all tokens to tokenlist
@@ -273,11 +333,10 @@ if not exist -> create relations
 
 
 
-			-> property comparer with custom attributes[
+		-> property comparer with custom attributes[
 				-> common custom toggled atribute (IsUpdatable)
 				-> passing attribute to method and detecting its toggle value (true,false)]<-done
 			-> Prod Moove[
-			
 				received: 24.01.2018 estimate 1.5 week
 				detailed: news,quiz?!
 				
@@ -1358,8 +1417,7 @@ Northwind
     
     ]       
 
-	public class CodeShemas
-	{
+	public class CodeShemas{
 				
 	public Node reference shemas
 	{
@@ -1444,4 +1502,4 @@ Northwind
 
 	}
 
-#endregion 	
+#endregion

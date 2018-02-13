@@ -43,7 +43,6 @@ namespace Parts{
 	//JS	
 	//Json to html
 	http://www.json2html.com/
-	https://gojs.net/latest/index.html
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
 	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708
@@ -58,7 +57,7 @@ namespace Parts{
 	//LinqInAction
 	https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
 															   
-	https://eloquentjavascript.net/index.html
+	https://eloquentjavascript.net/index.html	
 	//bulletproof wrappers
 	https://blog.sentry.io/2016/02/03/wrap-javascript-functions
 	//tests
@@ -66,7 +65,7 @@ namespace Parts{
 	//error handling
 	https://javascript.info/try-catch
 	
-	//chart vis
+	//chart vis	
 	http://js.cytoscape.org/#getting-started/including-cytoscape.js
 	http://graphalchemist.github.io/Alchemy/#/
 	https://neo4j.com/developer/guide-data-visualization/
@@ -1920,14 +1919,26 @@ StringBuilder.
 					//using System.Web.Http.Cors;
 					Install-Package Microsoft.AspNet.WebApi.Cors
 
+//nsql ref
+Install-Package xunit -ProjectName NSQLManagerIntegrationTests
+Install-Package moq -ProjectName NSQLManagerIntegrationTests
+Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
+Install-Package Microsoft.AspNet.WebApi -ProjectName NSQLManagerIntegrationTests
 
+Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
+				
 				}
 				public void ConfigurationManager()
 				{
 					reference 
-					FRAMEWORKS -> System.Configuration					
-				}			
-				public void WebDeploy()
+					FRAMEWORKS -> System.Configuration
+					
+				}
+			
+        public void WebDeploy()
 				{
 					Web Deploy
 					//host name without urls or ports
@@ -3227,7 +3238,10 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
           WHEN:
             testing wcf.svc from VS
           HOW:
-            NOT enough memory free
+            NOT enough memory free 
+          OR: 
+            
+          
         }
       
        
@@ -3340,18 +3354,7 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
                 
         }
         
-		public XunitTestDebugNotThrowsException()
-		{
-			WHAT;
-				files .cs not found thrown bu Xunit
-			WHEN:
-				while code under test throws error for Xunit, when
-				exception must be thrown , some files .cs not found thrown instead
-			HOW:
-				Tolos->Import And export settings-> reset all settings
-		}
-      
-	  }
+      }	
     
       
     }
