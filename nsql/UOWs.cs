@@ -369,7 +369,7 @@ namespace NewsUOWs
     {
         return _repo.SelectOutEInV<Person,Authorship, News>(p_);
     }    
-    //Get News with parameters to hardcoded query string. hardcoded select    
+    //Get News with parameters to hardcoded query string. hardcoded select
     public IEnumerable<Note> GetPersonNewsHCSelectCond(int? offset,bool? published_,bool? pinned_,bool? asc,bool? liked,Tag tag_,Person p_)
     {
       string cond_=null;
@@ -855,9 +855,9 @@ namespace Managers
     string _dbHost;
     
     public Manager(string dbName_=null,string url_=null,string login_=null,string password_=null)
-    {   
+    {
     
-      string login =string.IsNullOrEmpty(login_)?ConfigurationManager.AppSettings["orient_login"]:login_;
+      string login=string.IsNullOrEmpty(login_)?ConfigurationManager.AppSettings["orient_login"]:login_;
       string password=string.IsNullOrEmpty(password_)?ConfigurationManager.AppSettings["orient_pswd"]:password_;
 
       if(string.IsNullOrEmpty(login)||string.IsNullOrEmpty(password)){throw new Exception("Credentials not passed");}
@@ -904,8 +904,9 @@ namespace Managers
     }
     void initializeUOWs()
     {
-      _newsUOW=new NewsRealUow(this._repo);
-      _personUOW=new PersonUOW(this._repo);
+        _newsUOW=new NewsRealUow(this._repo);
+        _personUOW=new PersonUOW(this._repo);
+        _quizUOW=new QuizUOW(this._repo);
     }
     
     public void BindUOW(IUOW uow_,string UOWname)
@@ -1157,11 +1158,11 @@ new Person(){Seed=456,Name="0",GUID="001",changed=new DateTime(2017,01,01,00,00,
         MainAssignment mainAssignment=new MainAssignment();
         string pone=_repo.ObjectToContentString<Person>(personOne);
         List<Person> personsToAdd = new List<Person>() {
-new Person(){
-Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia"
-,changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)
-}
-,new Person(){Seed =123,Name="YablokovAE",sAMAccountName="YablokovAE",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)}      
+
+new Person(){Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)}
+,new Person(){Seed =124,Name="YablokovAE",sAMAccountName="YablokovAE",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)}
+,new Person(){Seed =125,Name="admin",sAMAccountName="admin",changed=new DateTime(2017,01,01,00,00,00),created=new DateTime(2017,01,01,00,00,00)}
+
 };
 
         Unit u = new Unit() { Name = "Unit1" };
@@ -1884,7 +1885,7 @@ namespace AdinTce
 namespace Quizes
 {
 
-    public class QuizRepo
+    public class QuizRepoOLD
     {
 
         //IWebManager wm;
@@ -1892,7 +1893,7 @@ namespace Quizes
         IJsonManger jm;
         string orientHost, orientDbName;
 
-        public QuizRepo()
+        public QuizRepoOLD()
         {
             string nonConfigDb="Intranet";
             //wm=new WebManager();
@@ -2145,19 +2146,19 @@ namespace Quizes
       }
       JSONManager jm = new JSONManager();
 
-      public IEnumerable<Quiz> QuizGetAll()
+      public IEnumerable<QuizGet> QuizGetAll()
       {
-        IEnumerable<Quiz> quizes = null;
-          quizes=_repo.SelectByCondFromType<Quiz>(typeof(Quiz), " and 1=1", null);
+        IEnumerable<QuizGet> quizes = null;
+          quizes=_repo.SelectByCondFromType<QuizGet>(typeof(Quiz), " and 1=1", null);
         return quizes;
       }           
-      public IEnumerable<Quiz> QuizGetByDate(DateTime st_,DateTime fn_)
+      public IEnumerable<QuizGet> QuizGetByDate(DateTime st_,DateTime fn_)
       {
-        IEnumerable<Quiz> quizes = null;
+        IEnumerable<QuizGet> quizes = null;
           string st = "'" +st_.ToString("yyyy-MM-dd HH:mm:ss")+"'";
           string fn = "'" +fn_.ToString("yyyy-MM-dd HH:mm:ss")+"'";
 
-          quizes=_repo.SelectByCondFromType<Quiz>(typeof(Quiz), " and State ='Published' and StartDate.asDate() >" + st + " and EndDate.asDate() < " +fn, null);
+          quizes=_repo.SelectByCondFromType<QuizGet>(typeof(Quiz), " and State ='Published' and StartDate.asDate() >" + st + " and EndDate.asDate() < " +fn, null);
 
         return quizes;
       }     
@@ -2165,28 +2166,29 @@ namespace Quizes
       public string GetQuizByMonthGap(int? month_)
       {
         string result = string.Empty;
-        IEnumerable<Quiz> quizes = null;
+        IEnumerable<QuizGet> quizes = null;
         List<QuizSend> quizesToSend = null;
         if(month_==null){
-          quizes=QuizGetAll();       
+            quizes=QuizGetAll();
+        }else{
+            DateTime dateSt = DateTime.Now.Date.AddMonths((int)month_);
+            DateTime dateFn = DateTime.Now.Date.AddMonths((int)month_).AddMonths(1).AddMilliseconds(-1);
+            quizes=QuizGetByDate(dateSt, dateFn);
         }
-        else{
-          DateTime dateSt = DateTime.Now.Date.AddMonths((int)month_);
-          DateTime dateFn = DateTime.Now.Date.AddMonths((int)month_).AddMonths(1).AddMilliseconds(-1);
-          quizes=QuizGetByDate(dateSt, dateFn);
+        if(quizes!=null){
+          quizesToSend=ReturnQuizGet(quizes);
+          result=jm.SerializeObject(quizesToSend);
         }
-        quizesToSend=ReturnQuizGet(quizes);
-        result=jm.SerializeObject(quizesToSend);
         return result;
       }
 
-      public List<QuizSend> ReturnQuizGet(IEnumerable<Quiz> quizes_)
+      public List<QuizSend> ReturnQuizGet(IEnumerable<QuizGet> quizes_)
       {
-        List<QuizSend> _quizes = new List<QuizSend>();
-        foreach(Quiz qg in quizes_)
+        List<QuizSend> _quizes=new List<QuizSend>();
+        foreach(QuizGet qg in quizes_)
         {
           if(qg!=null){
-            QuizSend qs = QuizGetToSendConvert(qg);
+            QuizSend qs=QuizGetToSendConvert(qg);
             if(qs!=null){ _quizes.Add(qs); }
           }
         }
@@ -2198,7 +2200,7 @@ namespace Quizes
       /// </summary>
       /// <param name="qr"></param>
       /// <returns></returns>
-      public QuizSend QuizGetToSendConvert(Quiz qr)
+      public QuizSend QuizGetToSendConvert(QuizGet qr)
       {
           QuizSend qs=new QuizSend();
           qs.title=qr.Name;
@@ -2208,19 +2210,5 @@ namespace Quizes
           return qs;
       }
     }
-
-    public static class QuizUOWTest
-    {
-      public static void GO()
-      {
-        Managers.Manager mng=new Managers.Manager("Intranet","http://msk1-vm-indb01.nspk.ru:2480","root","mR%mzJUGq1E");
-        IOrientRepo repo = mng.GetRepo();
-        if(repo.GetDb()!=null){
-          QuizUOW qu = new QuizUOW(repo);
-          string quizAll=qu.GetQuizByMonthGap(null);
-          string quizByDate = qu.GetQuizByMonthGap(-9);
-        }
-
-      }
-    }
+   
 }

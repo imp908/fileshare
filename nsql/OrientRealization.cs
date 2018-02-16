@@ -3329,7 +3329,7 @@ namespace OrientRealization
     }
     void CheckUrl(string input_)
     {
-      string name_ = ConfigurationManager.AppSettings["OrientTargetHost"];
+      string name_ = ConfigurationManager.AppSettings["OrientDevDB"];
 
       if(string.IsNullOrEmpty(input_)){
         if(string.IsNullOrEmpty(this.urlStr)){
@@ -3676,7 +3676,7 @@ namespace OrientRealization
 
         if (this.response_ != null)
         {                   
-          this.result_ = _miniFactory.Deleted();
+          this.result_ = _miniFactory.Created();
         }
       }
       catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}                
@@ -3788,15 +3788,19 @@ namespace OrientRealization
         foreach (PropertyInfo ps in poperties_){
             this.response_=null;
             Type pt=null;
-               
-            try{
-                pt = item.GetType().GetProperty(ps.Name).GetValue(item).GetType();
+            
+            if(item!=null && (ps.Name!="In"||ps.Name!="Out"))
+            {
+              try{
+                  pt = item.GetType().GetProperty(ps.Name).GetValue(item).GetType();
+              }
+              catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+              if(pt==null) {
+                  pt=ps.PropertyType;
+              }
             }
-            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
-            if(pt==null) {
-                pt=ps.PropertyType;
-            }
-            if (pt != null && (ps.Name!="In"||ps.Name!="Out")){
+
+            if (pt != null ){
 
             ITypeToken clTk = _typeConverter.Get(item.GetType());
             ITypeToken propTk = _miniFactory.NewToken(ps.Name);
@@ -3846,7 +3850,7 @@ namespace OrientRealization
             }
         }
         return ret_;
-    }        
+    }
 
     public IOrientDefaultObject CreateVertexTp(IOrientDefaultObject vertex_ =null,string dbName_=null)
     {

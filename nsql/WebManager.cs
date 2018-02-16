@@ -209,7 +209,7 @@ namespace WebManagers
         }
         public void NtlmAuth(bool swich_)
         {
-          this.ntlmAuth = swich_;       
+          this.ntlmAuth = swich_;
         }
         internal void bindCredentials()
         {
@@ -387,26 +387,26 @@ namespace WebManagers
         }
         internal void SwapContent(string value_)
         {
-          CheckReq();
-          SetContent(value_);
-          bindMethod();
-          bindHeaders();
-          if (this._request.Method != GET)
-          {
-            bindContent();
-          }
+            CheckReq();
+            SetContent(value_);
+            bindMethod();
+            bindHeaders();
+            if (this._request.Method != GET)
+            {
+                bindContent();
+            }
         }
 
         public HttpWebResponse GetHttpResponse(string method_)
         {
-          CheckReq();
-          SwapMethod(method_);          
+            CheckReq();
+            SwapMethod(method_);          
         
-          try
-          {
-            return (HttpWebResponse)this._request.GetResponse();
-          }
-          catch (Exception e) {throw e;}
+            try
+            {
+                return (HttpWebResponse)this._request.GetResponse();
+            }
+            catch (Exception e) {throw e;}
         }
 
         public WebResponse GetResponse(string method_)
@@ -417,7 +417,10 @@ namespace WebManagers
           bindTimeout();
           try
           {
-            if(this.ntlmAuth){ this._request.Credentials = CredentialCache.DefaultCredentials; }
+              if(this.ntlmAuth){
+                  this._request.Credentials = CredentialCache.DefaultCredentials;
+                  WindowsIdentity wc=WindowsIdentity.GetCurrent();
+              }
             return (HttpWebResponse)this._request.GetResponse();
           }
           catch(WebException e)
@@ -442,7 +445,10 @@ namespace WebManagers
           bindTimeout();
           try
           {
-            if(this.ntlmAuth){ this._request.Credentials = CredentialCache.DefaultCredentials; }
+              if(this.ntlmAuth){ 
+                  this._request.Credentials = CredentialCache.DefaultCredentials;
+                  this._request.PreAuthenticate = true;
+              }
             return (HttpWebResponse)this._request.GetResponse();
           }
           catch (Exception e)
@@ -518,12 +524,12 @@ namespace WebManagers
         public string ReadResponse(HttpWebResponse response)
         {
             string result=string.Empty;
-			try
+			      try
             {
-				Stream sm=response.GetResponseStream();
-				StreamReader sr=new StreamReader(sm);
-				result=sr.ReadToEnd();
-			}
+				        Stream sm=response.GetResponseStream();
+				        StreamReader sr=new StreamReader(sm);
+				        result=sr.ReadToEnd();
+			      }
             catch(Exception e){System.Diagnostics.Trace.WriteLine(e.Message);}
             return result;
         }

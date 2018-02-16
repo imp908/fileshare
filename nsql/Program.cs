@@ -30,244 +30,243 @@ using System.Text.RegularExpressions;
 namespace NSQLManager
 {
 
-  class OrientDriverConnnect
-  {
-
-    static void Main(string[] args)
+    class OrientDriverConnnect
     {
 
-      //EFcheck.EFqueryCheck();
+        static void Main(string[] args)
+        {
 
-      //GENERATING DATABASES
-      //ManagerCheck.GenTestDB();
-      //ManagerCheck.GenDevDB();
+            //EFcheck.EFqueryCheck();
 
-      //check linq to context
-      //LinqToContextCheck.GO();
+            //GENERATING DATABASES
+            //ManagerCheck.GenTestDB();
+            //ManagerCheck.GenDevDB();
 
-      //FUCNTIONAL CHECK
-      ManagerCheck.UOWFunctionalCheck();
+            //check linq to context
+            LinqToContextPOC.LinqToContextCheck.GO();
+
+            //FUCNTIONAL CHECK
+            //ManagerCheck.UOWFunctionalCheck();
       
-      //START API TEST
-      ManagerCheck.APItester_sngltnCheck();
+            //START API TEST
+            ManagerCheck.APItester_sngltnCheck();
       
-      //QUIZ CHECK
-      //ManagerCheck.QuizCheck();
+            //QUIZ CHECK
+            //ManagerCheck.QuizCheck();
+
+        }
 
     }
 
-  }
-
-  //move to tests except DB generating
-  public static class ManagerCheck
-  {    
-    static void propSearch<T>(T item)
-    {
-      var pc = item.GetType().GetProperties();
-      var pc2 = typeof(T).GetProperties();
+    //move to tests except DB generating
+    public static class ManagerCheck
+    {    
+        static void propSearch<T>(T item)
+        {
+          var pc = item.GetType().GetProperties();
+          var pc2 = typeof(T).GetProperties();
      
-      foreach (PropertyInfo ps in pc)
-      {
-        MethodInfo[] mi = ps.GetAccessors(true);
-        Type pt = ps.PropertyType.GetType();
-        Type t = ps.PropertyType;
-        TypeInfo ti = ps.PropertyType.GetTypeInfo();
-        Type ptt = item.GetType().GetProperty(ps.Name).GetType();
-        var a = typeof(T).GetProperty(ps.Name).GetValue(item).GetType();
-        Type tt = a.GetType();
-      }
-    }
+          foreach (PropertyInfo ps in pc)
+          {
+            MethodInfo[] mi = ps.GetAccessors(true);
+            Type pt = ps.PropertyType.GetType();
+            Type t = ps.PropertyType;
+            TypeInfo ti = ps.PropertyType.GetTypeInfo();
+            Type ptt = item.GetType().GetProperty(ps.Name).GetType();
+            var a = typeof(T).GetProperty(ps.Name).GetValue(item).GetType();
+            Type tt = a.GetType();
+          }
+        }
 
-    static OrientRepo DefaultManagerInit(string databaseName=null,string hostPort_=null)
-    {
-      string dbName;
-      string login = ConfigurationManager.AppSettings["orient_login"];
-      string password = ConfigurationManager.AppSettings["orient_pswd"];
-      string dbHost = string.Format("{0}:{1}"
-          , ConfigurationManager.AppSettings["OrientDevHost"]
-          , ConfigurationManager.AppSettings["OrientPort"]);
-      if (databaseName == null)
-      {
-        dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
-      }
-      else { dbName = databaseName; }
-      if (hostPort_ == null)
-      {
-        dbHost = string.Format("{0}:{1}"
-        , ConfigurationManager.AppSettings["OrientDevHost"]
-        , ConfigurationManager.AppSettings["OrientPort"]);
-      }
-      else { dbName = hostPort_; }
+        static OrientRepo DefaultManagerInit(string databaseName=null,string hostPort_=null)
+        {
+          string dbName;
+          string login = ConfigurationManager.AppSettings["orient_login"];
+          string password = ConfigurationManager.AppSettings["orient_pswd"];
+          string dbHost = string.Format("{0}:{1}"
+              , ConfigurationManager.AppSettings["OrientDevHost"]
+              , ConfigurationManager.AppSettings["OrientPort"]);
+          if (databaseName == null)
+          {
+            dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
+          }
+          else { dbName = databaseName; }
+          if (hostPort_ == null)
+          {
+            dbHost = string.Format("{0}:{1}"
+            , ConfigurationManager.AppSettings["OrientDevHost"]
+            , ConfigurationManager.AppSettings["OrientPort"]);
+          }
+          else { dbName = hostPort_; }
 
-      TypeConverter typeConverter = new TypeConverter();
-      JsonManagers.JSONManager jsonMnager = new JSONManager();
-      TokenMiniFactory tokenFactory = new TokenMiniFactory();
-      UrlShemasExplicit UrlShema = new UrlShemasExplicit(
-          new CommandBuilder(tokenFactory, new FormatFactory())
-          , new FormatFromListGenerator(new TokenMiniFactory())
-          , tokenFactory, new OrientBodyFactory());
+          TypeConverter typeConverter = new TypeConverter();
+          JsonManagers.JSONManager jsonMnager = new JSONManager();
+          TokenMiniFactory tokenFactory = new TokenMiniFactory();
+          UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+              new CommandBuilder(tokenFactory, new FormatFactory())
+              , new FormatFromListGenerator(new TokenMiniFactory())
+              , tokenFactory, new OrientBodyFactory());
 
-      BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
-          new OrientBodyFactory());
+          BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
+              new OrientBodyFactory());
 
-      UrlShema.AddHost(dbHost);
-      WebResponseReader webResponseReader = new WebResponseReader();
-      WebRequestManager webRequestManager = new WebRequestManager();
-      webRequestManager.SetCredentials(new NetworkCredential(login, password));
-      CommandFactory commandFactory = new CommandFactory();
-      FormatFactory formatFactory = new FormatFactory();
-      OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
-      OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
+          UrlShema.AddHost(dbHost);
+          WebResponseReader webResponseReader = new WebResponseReader();
+          WebRequestManager webRequestManager = new WebRequestManager();
+          webRequestManager.SetCredentials(new NetworkCredential(login, password));
+          CommandFactory commandFactory = new CommandFactory();
+          FormatFactory formatFactory = new FormatFactory();
+          OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
+          OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
 
-      CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
-      new TokenMiniFactory(), new OrientQueryFactory());
+          CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+          new TokenMiniFactory(), new OrientQueryFactory());
 
-      return new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
-      , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+          return new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+          , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
 
-    }
-    static NewsUOWs.NewsRealUow ActualNewsUOW()
-    {
-      NewsUOWs.NewsRealUow newsUow = new NewsUOWs.NewsRealUow(DefaultManagerInit(ConfigurationManager.AppSettings["OrientUnitTestDB"]));
-      return newsUow;
-    }
+        }
+    
+        static NewsUOWs.NewsRealUow ActualNewsUOW()
+        {
+          NewsUOWs.NewsRealUow newsUow = new NewsUOWs.NewsRealUow(DefaultManagerInit(ConfigurationManager.AppSettings["OrientUnitTestDB"]));
+          return newsUow;
+        }
+        public static void JsonManagerCheck()
+        {
+          string hs ="{ \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Holidays\": [{ \"Position\": \"Главный специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }, { \"Position\": \"Ведущий специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }] } ";
+          hs =
+    "[ { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Главный специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 13 } ] }, { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Ведущий специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 0 } ] } ] ";
+          JSONManager jm = new JSONManager();
 
-    public static void JsonManagerCheck()
-    {
-      string hs ="{ \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Holidays\": [{ \"Position\": \"Главный специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }, { \"Position\": \"Ведущий специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }] } ";
-      hs =
-"[ { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Главный специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 13 } ] }, { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Ведущий специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 0 } ] } ] ";
-      JSONManager jm = new JSONManager();
+          IEnumerable<List<AdinTce.Holiday>> a = jm.DeserializeFromParentChildren<List<AdinTce.Holiday>>(hs, "Holidays");
+        }
+        
+        public static void BatchBodyContentCheck()
+        {
+          WebRequest request=WebRequest.Create("http://localhost:2480/batch/test_db");
 
-      IEnumerable<List<AdinTce.Holiday>> a = jm.DeserializeFromParentChildren<List<AdinTce.Holiday>>(hs, "Holidays");
-    }
-    public static void QuizCheck()
-    {
-      Quizes.QuizRepo qr=new Quizes.QuizRepo();
-      qr.Quiz();
-    }
-    public static void BatchBodyContentCheck()
-    {
-      WebRequest request=WebRequest.Create("http://localhost:2480/batch/test_db");
+          request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
+            Encoding.ASCII.GetBytes("root:root")
+            ));
 
-      request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
-        Encoding.ASCII.GetBytes("root:root")
-        ));
+          string stringData="{\"transaction\":true,\"operations\":[   {\"type\":\"script\",\"language\":\"sql\",\"script\":[   \"Create Vertex Person content {\"Name\":\"0\",\"GUID\":\"1\",\"Created\":\"2017-01-01 00:00:00\",\"Changed\":\"2017-01-01 00:00:00\"}\"   ]}]}"; //place body here
+          var data=Encoding.ASCII.GetBytes(stringData); // or UTF8
 
-      string stringData="{\"transaction\":true,\"operations\":[   {\"type\":\"script\",\"language\":\"sql\",\"script\":[   \"Create Vertex Person content {\"Name\":\"0\",\"GUID\":\"1\",\"Created\":\"2017-01-01 00:00:00\",\"Changed\":\"2017-01-01 00:00:00\"}\"   ]}]}"; //place body here
-      var data=Encoding.ASCII.GetBytes(stringData); // or UTF8
+          request.Method="POST";
+          request.ContentType=""; //place MIME type here
+          request.ContentLength=data.Length;
 
-      request.Method="POST";
-      request.ContentType=""; //place MIME type here
-      request.ContentLength=data.Length;
-
-      var newStream=request.GetRequestStream();
-      newStream.Write(data, 0, data.Length);
-      newStream.Close();
+          var newStream=request.GetRequestStream();
+          newStream.Write(data, 0, data.Length);
+          newStream.Close();
            
 
-      try
-      {
-        var a=(HttpWebResponse)request.GetResponse();
-      }
-      catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+          try
+          {
+            var a=(HttpWebResponse)request.GetResponse();
+          }
+          catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
-    }    
- 
-    public static void AuthCheck()
-    {
-      string res=UserAuthenticationMultiple.UserAcc();
-    }
+        }     
+        public static void AuthCheck()
+        {
+          string res=UserAuthenticationMultiple.UserAcc();
+        }
 
-    //API testing mehod
-    public static void APItester_sngltnCheck()
-    {
-      APItester_sngltn at=new APItester_sngltn();
-      at.Initialize();
-      at.GO();
-    }
-    //DATABASE BOILERPLATE
-    public static void GenDevDB(bool cleanUpAter=false,bool newsGen=true)
-    {
+        //API testing mehod
+        public static void APItester_sngltnCheck()
+        {
+          APItester_sngltn at=new APItester_sngltn();
+          at.Initialize();
+          at.GO();
+        }
+        //DATABASE BOILERPLATE
+        public static void GenDevDB(bool cleanUpAter=false,bool newsGen=true)
+        {
 
-List<News> news_=new List<News>(){};
-List<Commentary> comments_=new List<Commentary>() { };
+    List<News> news_=new List<News>(){};
+    List<Commentary> comments_=new List<Commentary>() { };
 
-Managers.Manager mng=new Managers.Manager("dev_db");
-//CREATE DB
-mng.GenDB(cleanUpAter);
-//GENERATE NEWS,COMMENTS
-mng.GenNewsComments(newsGen,true);
+    Managers.Manager mng=new Managers.Manager("dev_db");
+    //CREATE DB
+    mng.GenDB(cleanUpAter);
+    //GENERATE NEWS,COMMENTS
+    mng.GenNewsComments(newsGen,true);
 
-    }
-    public static void GenTestDB(bool cleanUpAter=false,bool newsGen=true)
-    {
+        }
+        public static void GenTestDB(bool cleanUpAter=false,bool newsGen=true)
+        {
 
-List<News> news_ = new List<News>() { };
-List<Commentary> comments_ = new List<Commentary>() { };
+    List<News> news_ = new List<News>() { };
+    List<Commentary> comments_ = new List<Commentary>() { };
 
-Managers.Manager mng = new Managers.Manager("test_db");
-//CREATE DB
-mng.GenDB(cleanUpAter);
-//GENERATE NEWS,COMMENTS
-mng.GenNewsComments(newsGen,true);
+    Managers.Manager mng = new Managers.Manager("test_db");
+    //CREATE DB
+    mng.GenDB(cleanUpAter);
+    //GENERATE NEWS,COMMENTS
+    mng.GenNewsComments(newsGen,true);
 
-    }    
+        }    
 
-    //FUNCTIONAL TESTS
-    public static void UOWFunctionalCheck()
-    {
+        //FUNCTIONAL TESTS
+        public static void UOWFunctionalCheck()
+        {
 
-        //JsonToTypeList.GO();
+            //JsonToTypeList.GO();
 
-        //test new quizes
-        //Quizes.QuizUOWTest.GO();
+            //test new quizes
+            //Quizes.QuizUOWTest.GO();
 
-        //Check LinqToContext
-        //LinqToContextCheck.GO();
+            //Check LinqToContext
+            //LinqToContextCheck.GO();
 
-        //moove database
-        UOWMooveDb();
-    }
+            //moove database
+            //UOWMooveDb();
+        }
 
-    //MOOVE DB
-    public static void UOWMooveDb()
-    {
-        Managers.Manager mngFrom1=new Managers.Manager("dev_db","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
-        Managers.Manager mngFrom2=new Managers.Manager("news_test5","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+        //MOOVE DB
+        public static void UOWMooveDb()
+        {
+            Managers.Manager mngFrom1=new Managers.Manager("dev_db","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+            Managers.Manager mngFrom2=new Managers.Manager("news_test5","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
 
-        //msk1-vm-indb01.nspk.ru
-        //mR%mzJUGq1E
-        Managers.Manager mngTo=new Managers.Manager("news_test_for_prod","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
-            //Managers.Manager mngTo=new Managers.Manager("news_prod","http://msk1-vm-indb01.nspk.ru:2480","root","mR%mzJUGq1E");
+            //msk1-vm-indb01.nspk.ru
+            //mR%mzJUGq1E
+            Managers.Manager mngTo=new Managers.Manager("news_test_for_prod","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+                //Managers.Manager mngTo=new Managers.Manager("news_prod","http://msk1-vm-indb01.nspk.ru:2480","root","mR%mzJUGq1E");
 
-        List<IOrientObjects.IOrientDefaultObject> classes_=new List<IOrientObjects.IOrientDefaultObject>();
-        classes_.Add(new Note());
-        classes_.Add(new Authorship());
+            List<IOrientObjects.IOrientDefaultObject> classes_=new List<IOrientObjects.IOrientDefaultObject>();
+            classes_.Add(new Note());
+            classes_.Add(new Authorship());
 
-        //migrate class names and shemas from actual DB
-        MooveDB.Migrate(mngTo,mngFrom2,classes_,null,true,false);
-        //migrate ral persons from actual person DB
-        MooveDB.Migrate(mngTo,mngFrom1,null, classes_, false,false);
-    }
-    //Exclusive person moove
-    public static void UOWMovePersonFromProd()
-    {    
-      //!!! PROD DATABASE FOR PERSON SYNC !!!
-      //!!!
-      //Managers.Manager mngPerson=new Managers.Manager("Orgchart_prod","http://msk1-vm-indb01:2480","root","mR%mzJUGq1E");
-      //!!!
+            //migrate class names and shemas from actual DB
+            MooveDB.Migrate(mngTo,mngFrom2,classes_,null,true,false);
+            //migrate ral persons from actual person DB
+            MooveDB.Migrate(mngTo,mngFrom1,null, classes_, false,false);
+        }
+        //Exclusive person moove
+        public static void UOWMovePersonFromProd()
+        {    
+          //!!! PROD DATABASE FOR PERSON SYNC !!!
+          //!!!
+          //Managers.Manager mngPerson=new Managers.Manager("Orgchart_prod","http://msk1-vm-indb01:2480","root","mR%mzJUGq1E");
+          //!!!
 
-      /*
-      testing Chilinyak
-      Чили
-      13da7c6ca09a755dc45553bce03723f7
-      a.chilinyak
-      */
+          /*
+          testing Chilinyak
+          Чили
+          13da7c6ca09a755dc45553bce03723f7
+          a.chilinyak
+          */
+        }
+    
     }
     
-  }
-  
+    /// <summary>
+    /// Mooves orient database (Classes with properties, vertices and edges with GUID)  
+    /// from one Manager to another with some options.
+    /// </summary>
     public static class MooveDB
     {
         static TypeConverter tc = new TypeConverter();
@@ -493,56 +492,6 @@ mng.GenNewsComments(newsGen,true);
 
             }
         }
-    }
-
-
-    //check Linq to context
-    public static class LinqToContextCheck
-  {
-    static TestContext ts = new TestContext();
-    public static void GO()
-    {
-      TestEntity te=new TestEntity() {Id=0,name=null};
-      var a = te?.name;
-
-      ts.ExpressionBuild();
-
-      string st4=ts.VisitLeftRightFromExpressionTypes<TestEntity>(s=>s.tp.isTrue==false);
-      string st1=ts.VisitLeftRightFromExpressionTypes<TestEntity>(s=>s.Id>=1);      
-
-      string st2=ts.VisitLeftRightFromExpressionTypes<TestEntity>(s=>s.name=="test name");
-      string st3=ts.VisitLeftRightFromExpressionTypes<TestEntity>(s=>s.intrinsicIsTrue==true);
-    
-    }
-  }
-
-    public static class JsonToTypeList
-    {
-        static JSONManager jm = new JSONManager();
-        public static void GO()
-        {
-            List<Type> types_=new List<Type>();
-            List<IOrientObjects.IOrientEntity> objects_=new List<IOrientObjects.IOrientEntity>();
-
-            Person p=new Person(){GUID="a"};
-            News n=new News(){GUID="b"};
-
-            //serialize object to string
-            string pStr=jm.SerializeObject(p);
-            string nStr=jm.SerializeObject(n);
-
-            //deserialize static type
-            Person pDes=jm.DeserializeFromParentNodeStringObj<Person>(pStr);
-            News nDes=jm.DeserializeFromParentNodeStringObj<News>(nStr);
-
-            objects_.Add(pDes);
-            objects_.Add(nDes);
-
-            foreach (IOrientObjects.IOrientDefaultObject oo_ in objects_)
-            {
-                string str_ = jm.SerializeObject(oo_);
-            }
-        }
-    }
+    }   
 
 }

@@ -28,6 +28,35 @@ namespace Parts{
 	//Usefull links
 	public void mostUsefullLinks()
 	{
+
+	//OWIN
+	[
+https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/external-authentication-services
+https://docs.microsoft.com/en-us/aspnet/identity/overview/extensibility/overview-of-custom-storage-providers-for-aspnet-identity
+https://docs.microsoft.com/en-us/dotnet/framework/wcf/extending/how-to-create-a-custom-authorization-policy
+https://docs.microsoft.com/en-us/dotnet/framework/wcf/extending/how-to-create-a-custom-authorization-manager-for-a-service
+https://docs.microsoft.com/en-us/dotnet/framework/wcf/extending/how-to-create-a-custom-client-identity-verifier
+https://docs.microsoft.com/en-us/aspnet/core/security/authorization/roles
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/owin
+http://bitoftech.net/2015/01/21/asp-net-identity-2-with-asp-net-web-api-2-accounts-management/
+http://bitoftech.net/2015/03/11/asp-net-identity-2-1-roles-based-authorization-authentication-asp-net-web-api/
+	]
+	
+	//EXPRESSIONS
+	[
+//MSDN linq, expressions
+https://weblogs.asp.net/dixin					  
+//Expression trees
+https://weblogs.asp.net/dixin/functional-csharp-function-as-data-and-expression-tree
+//Dynamic LINQ Queries with Expression Trees
+https://www.simple-talk.com/dotnet/net-framework/dynamic-linq-queries-with-expression-trees/
+//expressionTypes
+https://msdn.microsoft.com/en-us/library/bb361179(v=vs.110).aspx
+//Expression rules
+http://coding-time.blogspot.ru/2011/07/how-to-implement-rule-engine-in-c.html
+//custom LINQ provider
+https://msdn.microsoft.com/en-us/library/bb546158.aspx
+	]
 	
 	//Generate mvc and razor from json
 	https://stackoverflow.com/questions/12876865/is-there-anyway-to-generate-razor-views-cshtml-based-on-a-template-beside-t4
@@ -43,6 +72,7 @@ namespace Parts{
 	//JS	
 	//Json to html
 	http://www.json2html.com/
+	https://gojs.net/latest/index.html
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
 	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708
@@ -57,7 +87,7 @@ namespace Parts{
 	//LinqInAction
 	https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
 															   
-	https://eloquentjavascript.net/index.html	
+	https://eloquentjavascript.net/index.html
 	//bulletproof wrappers
 	https://blog.sentry.io/2016/02/03/wrap-javascript-functions
 	//tests
@@ -65,7 +95,7 @@ namespace Parts{
 	//error handling
 	https://javascript.info/try-catch
 	
-	//chart vis	
+	//chart vis
 	http://js.cytoscape.org/#getting-started/including-cytoscape.js
 	http://graphalchemist.github.io/Alchemy/#/
 	https://neo4j.com/developer/guide-data-visualization/
@@ -115,8 +145,6 @@ namespace Parts{
 	https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode/263416#263416
 	//Chart visualization/
 	https://stackoverflow.com/questions/21893401/big-data-visualization-using-search-show-context-and-expand-on-demand-concep
-	//MSDN linq, expressions
-	https://weblogs.asp.net/dixin					  
 	
 	//D3.js
 	//essentials v4
@@ -199,8 +227,7 @@ namespace Parts{
 	
 	
 	 //C#
-	//Expression trees
-	https://weblogs.asp.net/dixin/functional-csharp-function-as-data-and-expression-tree
+
 		
 	//dev guide
 	https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
@@ -261,9 +288,7 @@ namespace Parts{
 	//Programming Entity Framework, 2nd Edition
 	https://www.safaribooksonline.com/library/view/programming-entity-framework/9780596807276/ch04.html
 
-	//Dynamic LINQ Queries with Expression Trees
-	https://www.simple-talk.com/dotnet/net-framework/dynamic-linq-queries-with-expression-trees/
-
+	
 	//Calling functions in LINQ queries
 	http://tomasp.net/blog/linq-expand.aspx/
 
@@ -1919,26 +1944,14 @@ StringBuilder.
 					//using System.Web.Http.Cors;
 					Install-Package Microsoft.AspNet.WebApi.Cors
 
-//nsql ref
-Install-Package xunit -ProjectName NSQLManagerIntegrationTests
-Install-Package moq -ProjectName NSQLManagerIntegrationTests
-Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
-Install-Package Microsoft.AspNet.WebApi -ProjectName NSQLManagerIntegrationTests
 
-Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
-Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
-Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
-Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
-				
 				}
 				public void ConfigurationManager()
 				{
 					reference 
-					FRAMEWORKS -> System.Configuration
-					
-				}
-			
-        public void WebDeploy()
+					FRAMEWORKS -> System.Configuration					
+				}			
+				public void WebDeploy()
 				{
 					Web Deploy
 					//host name without urls or ports
@@ -3238,10 +3251,7 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
           WHEN:
             testing wcf.svc from VS
           HOW:
-            NOT enough memory free 
-          OR: 
-            
-          
+            NOT enough memory free
         }
       
        
@@ -3354,13 +3364,24 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
                 
         }
         
-      }	
+		public XunitTestDebugNotThrowsException()
+		{
+			WHAT;
+				files .cs not found thrown bu Xunit
+			WHEN:
+				while code under test throws error for Xunit, when
+				exception must be thrown , some files .cs not found thrown instead
+			HOW:
+				Tolos->Import And export settings-> reset all settings
+		}
+      
+	  }
     
       
     }
     
   
-		
+
 	#endregion 	
 	
 	#region C++ 
@@ -7001,6 +7022,57 @@ POST,DELETE function
 http://msk1-vm-ovisp02:2480/command/news_prod/sql/
 delete from Ofunction where name = "test";
 CREATE FUNCTION test "var gp= orient.getGraph();var res=gp.command(\"sql\",\"select from \"+var1);return res;"  PARAMETERS [var1] IDEMPOTENT true LANGUAGE JAVASCRIPT
+
+	batchInsertPOCCbodyURI{
+					
+		http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
+
+		{ "transaction" : true,
+		  "operations" : [
+			{
+			  "type" : "script",
+			  "language" : "sql",
+			  "script" : [ "INSERT INTO Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}",
+						   "INSERT INTO Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+						   ]
+			}
+		  ]
+		}
+
+
+		{ "transaction" : true,
+		  "operations" : [
+			{
+			  "type" : "script",
+			  "language" : "sql",
+			  "script" : [
+				 "create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+				 ,"create vertex Person content {\"Changed\": \"2017-10-19 18:00:09\", \"Created\": \"2015-02-02 12:43:56\", \"GUID\": \"0\", \"Name\": \"0\"}"
+			  ]
+			}
+		  ]
+		}
+
+
+		"http://msk1-vm-ovisp02:2480/connect/news_test3"
+		"http://msk1-vm-ovisp02:2480/command/news_test3/sql"
+		"Select from Person"
+		"where 1=1"
+		http://msk1-vm-ovisp02:2480/command/news_test3/sql/Select from Person where 1=1
+
+	}
+	
+	createVertexURI{
+		Create Vertex Person content {"Created":"2017-10-27T14:45:11.3738136+03:00","GUID":"0","Changed":"2017-10-27T14:45:11.3733119+03:00","Name":"0"}
+		//ALTER DATABASE DATETIMEFORMAT "yyyy-MM-dd HH:mm:ss"
+		Create Vertex Person content {"Created":"2017-10-27 14:55:02","GUID":"0","Changed":"2017-10-27 14:55:02","Name":"0"}
+
+		Delete Vertex Person where "Name" = "0"
+		
+		http://msk1-vm-ovisp02:2480/command/news_test3/sql/Delete Vertex Person where Name = 0
+													
+	}
+
 	
 }
 			

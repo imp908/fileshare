@@ -21,9 +21,17 @@ namespace APItesting
 
       private string Filename;
       public string URI {get; set;}
+      //null - for explicit authentification turning off
+      //""-empty string for basic NTLM authentification      
       public string BasicAuthCredentials {get; set;}
+      //POST,GET methods
       public string Method {get; set;}
+      //POST body text
       public string Body {get; set;}
+      //exected value
+      //null if null value is awaited
+      //"not null" if not null
+      //full value condition for one to one comarison
       public string Expected {get; set;}
       public string Actual {get; set;}
       public bool OK {get; set;}
@@ -37,7 +45,7 @@ namespace APItesting
         webManager=new WebManagers.WebRequestManager();
         responseReader=new WebManagers.WebResponseReader();
 
-        Filename="Res.json";
+        Filename="test_urls.json";
         if (File.Exists(AppDomain.CurrentDomain.BaseDirectory + "\\" + Filename))
         {
           Import();
@@ -96,7 +104,7 @@ namespace APItesting
             if(tc.BasicAuthCredentials==string.Empty){
               webManager.NtlmAuth(true);
             }
-             if(tc.BasicAuthCredentials==null){
+            if(tc.BasicAuthCredentials==null){
               webManager.NtlmAuth(false);
             }
             if(!string.IsNullOrEmpty(tc.BasicAuthCredentials)){

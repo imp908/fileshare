@@ -28,7 +28,6 @@ namespace NewsAPI.Controllers
 
             var birthdays = personBirthdays.GetActualPersonBirthdays();
 
-
             var bdays = new OrientNewsHelper.ReturnPersonsBirthdays(birthdays);
 
             return bdays;

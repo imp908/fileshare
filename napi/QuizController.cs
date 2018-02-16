@@ -29,7 +29,7 @@ namespace NewsAPI.Controllers
           ConfigurationManager.AppSettings["IntranetDB"]
           ,host_Quiz
           ,ConfigurationManager.AppSettings["orient_dev_login"]
-          ,ConfigurationManager.AppSettings["orient_dev_pswd"]
+          ,ConfigurationManager.AppSettings["orient_prod_pswd"]
           );
 
           WebManagers.ReturnEntities response = null;
@@ -38,14 +38,14 @@ namespace NewsAPI.Controllers
 
             try
             {
-              // преобразуем строку в HttpResponseMessage со ReturnEntities с результатом в поле _value
-              res=qu.GetQuizByMonthGap(qp.monthDepth);
-              response=new WebManagers.ReturnEntities(res, Request);
+                // преобразуем строку в HttpResponseMessage со ReturnEntities с результатом в поле _value
+                res=qu.GetQuizByMonthGap(qp.monthDepth);
+                response=new WebManagers.ReturnEntities(res, Request);
             }
             catch (Exception e)
             {
-              System.Diagnostics.Trace.WriteLine(e.Message);
-              response = new WebManagers.ReturnEntities("Error: " + e.Message, Request);
+                System.Diagnostics.Trace.WriteLine(e.Message);
+                response = new WebManagers.ReturnEntities("Error: " + e.Message, Request);
             }
 
             return response;

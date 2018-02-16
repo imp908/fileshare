@@ -566,7 +566,13 @@ namespace POCO
         public DateTime StartDate { get; set; } = DateTime.Now;
         [JsonProperty("EndDate"), JsonConverter(typeof(YDMminus))]
         public DateTime EndDate { get; set; } = DateTime.Now;
-
+    }
+    public class QuizGet : Quiz
+    { 
+        [JsonProperty("StartDate")]
+        public new string StartDate { get; set; } = DateTime.Now.ToString();
+        [JsonProperty("EndDate")]
+        public new string EndDate { get; set; } = DateTime.Now.ToString();
     }
     public class QuizSend
     {

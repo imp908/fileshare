@@ -179,7 +179,7 @@ namespace QueryManagers
             this.Tokens=new List<ITypeToken>();               
           }
           this.formatGenerator=formatGenerator_;
-          this.FormatPattern.Text += this.formatGenerator.FromatFromTokenArray(this.Tokens).Text;
+          this.FormatPattern=this.formatGenerator.FromatFromTokenArray(this.Tokens);
             
           foreach (ICommandBuilder cb in texts_)
           {

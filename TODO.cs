@@ -1,7 +1,7 @@
 
 #region TODO
 
-TODO[
+TODO [
 	
 	ACTUAL[
 
@@ -15,14 +15,14 @@ TODO[
 	
 		ProofOfConcept
 			-> Linq from custom object to custom string[
-				<- done for equality for sample properties int,bool,string
+					<- done for equality for sample properties int,bool,string
 				]
 				-> custom expression from nodes concat
 				-> eliminate brakets from expression binary string result
 				-> complex types expression left chain to string dot concat
-			-> Polinom Parse {
+			-> Polinom Parse[
 				parse *^/ to expressions and add priorities for exprs
-			},
+			]
 			-> Command line Console parameters parse app dll -> to SB
 			-> Multithread socket message ping pong -> to SB
 			-> CollectionsComparison -> to SB
@@ -33,6 +33,7 @@ TODO[
 		
 			Info[
 				
+				VS_ref[
 Install-Package xunit -ProjectName NSQLManagerIntegrationTests
 Install-Package moq -ProjectName NSQLManagerIntegrationTests
 Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
@@ -54,19 +55,25 @@ Install-Package Microsoft.Owin.Cors
 				]
 
 				,GitMoove[
+				
 cd C:\workflow\projects\Dev\gitLab\nsql
 git init
 git remote add ns http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
 git pull ns prod_moove
 
-
 cd C:\workflow\projects\Dev\gitLab\napi
 git init
 git remote add ns http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
 git pull ns prod_move
+
+cd C:\workflow\projects\Dev\gitLab\napi
+git clone http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+cd C:\workflow\projects\Dev\gitLab\napi\NewsApi
+git checkout nsql_mng
+
 				]
 				
-				Queries[
+				,Queries[
 
 where_composed[
 select from Note where 1=1
@@ -77,6 +84,12 @@ and in('Authorship')[0].GUID='477a5bf9-1bec-4959-ae7f-35e08bba33b3'
 order by changed asc limit 4
 ]
 
+QuizSelect[
+
+select from Quiz where State ='Published' and StartDate between '2017-12-06 00:00:00' and '2018-07-30 00:00:00'
+create vertex Quiz content {"StartDate":"2017-12-03 17:01:01","State":"Published","EndDate":"2018-12-04 01:01:01","QuizDescription":"test quiz with large finish date for publishing","Title":"Test quiz title2"}
+
+]
 
 				]
 				
@@ -116,14 +129,15 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 									
 				,Shema[
 				
+				
 				//--------------------------------
 
 				//Class  model <- done
-
 				(Person) - [Authorship] -> (Commentary) <- [Comment] - (Person)
 				(Person) - [Authorship] -> (News) <- [Comment] - (Person)
 				(Person) - [Tagged] -> (Tag)
 				(Person) - [Liked] -> (Note)
+				
 				//Relations model -> obsolette
 
 				Post new tag by name, post tag id news id
@@ -135,80 +149,17 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 				Commentary
 				(Person) - [Authorship] -> (Object) - [Comment{CommentLevel:0+1}] -> (Object)
 				
-				//All note fields
-				Note
-				{
-
-					public override string id { get; set; }       	
-					public override string @version {get; set;} 
-					
-					public Person author_ { get; set; }
-
-					public string PGUID { get; set; }=string.Empty;
-
-					public string authAcc { get; set; }=string.Empty;
-					public string authGUID { get; set; }=string.Empty;
-					public string authName { get; set; }=string.Empty;
-
-					public string pic {get;set;}=string.Empty;
-					public string name {get;set;}=string.Empty;               
-
-					[JsonProperty("content_")]
-					public virtual string content { get; set; }=string.Empty;
-					public string description { get; set; }=string.Empty;
-
-					public DateTime? pinned { get; set; }=null;
-					public DateTime? published { get; set; }=null;
-
-					public int? commentDepth { get; set; }=0;
-					public bool hasComments { get; set; }=false;
-
-					public int likes { get; set; }=0;
-					public bool liked { get; set; }=false;
-
-				}
-
-				//updatable
+				//updatable by person. cerated by Destiny list
 				News
 				{
-					
+					[not updatable from POST,changes while note POST update]
 					public Person author_ { get; set; }
 
-					public string pic {get;set;}=string.Empty;
-					public string name {get;set;}=string.Empty;               
-
-					[JsonProperty("content_")]
-					public virtual string content { get; set; }=string.Empty;
-					public string description { get; set; }=string.Empty;				
-
-					public bool liked { get; set; }=false;
-					
-					public DateTime? pinned { get; set; }=null;
-					public DateTime? published { get; set; }=null;
-
-				}
-				
-				//Author never edited from Edtors
-				//updatable from author
+				}				
+				//Author never edited from POSTs
+				//updatable from UOW
 				Commentary
-				{
-							
-					public string pic {get;set;}=string.Empty;
-					public string name {get;set;}=string.Empty;               
-
-					[JsonProperty("content_")]
-					public virtual string content { get; set; }=string.Empty;
-					public string description { get; set; }=string.Empty;
-					
-					public DateTime? published { get; set; }=null;
-
-					public bool liked { get; set; }=false;
-					
-					public DateTime? pinned { get; set; }=null;
-					public DateTime? published { get; set; }=null;
-
-				}
-
+				
 				if "Name":null -> если null оставляем как в базе
 				if "Name":"" -> если явное "" empty перезаписываем в базе
 				
@@ -248,7 +199,7 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 
 				]
 				
-				, Migration_sceneries[
+				,Migration_sceneries[
 
 	 scenery_theoretical[
 	 
@@ -301,26 +252,26 @@ if not exist -> create relations
 			]
 			
 			,TODO[
-		-> no class specific vertex creation
-		-> custom expression {Class.prop.value}{condType}{targetValue}
-		-> integrate custom expression into class vertex			
-		-> property comparer with custom attributes[
-			-> common custom toggled atribute (IsUpdatable)
-			-> passing attribute to method and detecting its toggle value (true,false)]
-		-> split <Note> object from DB [
-			-> for every Note reference fields (Likes,Tabs,Author) to NoteReturn add
-			-> return aggr <NoteReturn> to front client
-		]			
-		-> synch Person from prod[
-			-> Custom comparisors <- done
-		]										
-		-> clean commentary creation
-		-> new db model [
+			
+
+-> no class specific vertex creation
+-> custom LINQ expression trees {Class.prop.value}{condType}{targetValue}
+-> integrate custom expression into class vertex
+	
+			-> split <Note> object from DB [
+				-> for every Note reference fields (Likes,Tabs,Author) to NoteReturn add
+				-> return aggr <NoteReturn> to front client
+			]			
+			-> synch Person from prod[
+				-> Custom comparisors <- done
+			]											
+			-> clean commentary creation
+			-> new db model [
 (company)<-[UnitOf]-(Unit)<-[Working,WorkedIn,Fired,Assigned]-(Person)
 ,(Person)-[Comments,Likes,Reads,Searches]->(Person)]
-		-> rewrite old Person functions for birthdays, working structure, management roles		  
-		-> Neo4j and Mongo repos add
-		-> Plugin arhiteckture			
+			-> rewrite old Person functions for birthdays, working structure, management roles		  
+			-> Neo4j and Mongo repos add
+			-> Plugin arhiteckture			
 -> RepoFactory add interaface parameters
 -> extend with ability to load tokens from model class
 -> add all tokens to tokenlist
@@ -333,10 +284,11 @@ if not exist -> create relations
 
 
 
-		-> property comparer with custom attributes[
+			-> property comparer with custom attributes[
 				-> common custom toggled atribute (IsUpdatable)
 				-> passing attribute to method and detecting its toggle value (true,false)]<-done
 			-> Prod Moove[
+			
 				received: 24.01.2018 estimate 1.5 week
 				detailed: news,quiz?!
 				
@@ -424,8 +376,9 @@ replace my.nspk with my.nspk2 to the same host
 			-> split Persons and News api <- done
 
 		ApiTester	
-			-> POST with NTLM
+			-> JSON response objects count and expect			
 			
+			-> POST with NTLM <- done
 			-> Config export/import <- done
 			-> Exeption expected <- done
 			-> Null expected <- done
@@ -479,14 +432,79 @@ replace my.nspk with my.nspk2 to the same host
 			-> Angular2 ajax <- done			
 			-> Ajax console log function dependency <- done
 			
-		nsql presentation
-			prototype sites{
-				http://nu-today.ru/
-			}
+		nsql presentation[
+		
+			INFO[
+			
+				prototype sites[
+					http://nu-today.ru/
+				]
+				
+				]
+			
+			TODO[
 			->functional prototype newsApi
 				ember, angular2, react
 			->tree chart d3
+			]
 			
+			]
+			
+		MyNSPK[
+			
+			info[
+			
+				HostedUrlsandSites[
+					//staic
+http://static.nspk.ru
+\\msk1-vm-ovisp01\e$
+http://msk1-vm-ovisp01/v9/
+http://my.nspk.ru/chart/
+				
+				]
+				
+				UsedURLs[
+				
+	var SearchPersonUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchPerson/'	
+	var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'	
+	var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last'
+	[
+StructureController
+Get(string p1, string p2)
+run orient function 
+	]
+	
+	var UserSettingsUrl = 'http://msk1-vm-inapp01:8081/api/UserSettings/'
+	var FavoritesUrl = 'http://msk1-vm-inapp01:8081/api/PersonRelation/'
+	var PersonBirthdays = 'http://msk1-vm-inapp01:8081/api/PersonBirthdays'
+	var AccountUrl = 'http://msk1-vm-inapp01.nspk.ru:8081/api/Account/'
+	
+	var VacationsUrl = 'http://msk1-vm-inapp01:8081/api/Person/HoliVationAcc'
+	
+	var QuizListURL = 'http://msk1-vm-inapp01:8185/api/Quiz'	
+	var NewsApiUrl = 'http://msk1-vm-inapp01:8185/api/news2/'
+	var OwnNewsUrl = NewsApiUrl + 'GetParam'
+	
+	var NewsFeedUrl = 'http://nspk.online/api/news.php?list=0&num=25'
+	
+	var MenuUrl = 'static.data/static.menu.json'
+	var GalUrl = 'static.data/gal.json'		
+
+CrossTeamWorkingGroupController
+public string GetTr(string p1)
+http://msk1-vm-indb01:2480/function/Orgchart_prod/GetFullTraverseBysAMAccountName/" + p1
+
+PhotoController
+public HttpResponseMessage Get(string email)
+var url = "https://webmail.nspk.ru/ews/exchange.asmx/s/GetUserPhoto?email=" + email + "&size=HR120x120"
+new MediaTypeHeaderValue("application/octet-stream");
+
+				]
+
+			]
+			
+		]
+		
 		jsHacks
 			-> New API drop box above textbox add. Textbox no ovewrite
 			-> Select2 Js To site <- done
@@ -1417,7 +1435,8 @@ Northwind
     
     ]       
 
-	public class CodeShemas{
+	public class CodeShemas
+	{
 				
 	public Node reference shemas
 	{
