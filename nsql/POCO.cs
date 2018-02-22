@@ -57,9 +57,9 @@ namespace POCO
       [Mandatory(true),Updatable(false)]
       [JsonProperty("GUID", Order = 2)]
       public string GUID { get; set; } = null;
-      [JsonProperty("Created", Order = 3),JsonConverter(typeof(OrientDateTime))]
+      [JsonProperty("created", Order = 3),JsonConverter(typeof(OrientDateTime))]
       public virtual DateTime? created { get; set; } = DateTime.Now;
-      [JsonProperty("Changed", Order = 4),JsonConverter(typeof(OrientDateTime))]
+      [JsonProperty("changed", Order = 4),JsonConverter(typeof(OrientDateTime))]
       public virtual DateTime? changed { get; set; } = DateTime.Now;
       [JsonProperty("Disabled", Order = 5),JsonConverter(typeof(OrientDateTime))]
       public DateTime? disabled { get; set; }

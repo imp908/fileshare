@@ -5,10 +5,22 @@ using System.Text;
 using System.Threading.Tasks;
 
 using System.Linq.Expressions;
+using System.Reflection;
+
+using Newtonsoft.Json;
+
+using System.Diagnostics;
+
+using System.Configuration;
 
 namespace LinqToContextPOC
 {
-  
+
+    /// <summary>
+    /// Custom linq proof of concept. traversing expression treee with custom strings.
+    /// </summary>
+    #region POC
+    //testing different expression types
     public class TestContext
     {
         ParameterExpression leftParamExpr;
@@ -176,6 +188,7 @@ namespace LinqToContextPOC
         
     }
     
+    //test POCO
     public class TestEntity
     {
       public string name {get;set;}
@@ -191,6 +204,7 @@ namespace LinqToContextPOC
       }
       public bool intrinsicIsTrue {get;set;}
     }
+    //toggle property for test POCO
     public class ToggleProp
     {
       public bool isTrue {get;set;}
@@ -209,7 +223,7 @@ namespace LinqToContextPOC
             return this.VisitEqual((BinaryExpression)node, expression);
 
           case ExpressionType.GreaterThanOrEqual:
-            return this.VisitGreaterorEqual((BinaryExpression)node, expression);
+            return this.VisitGreaterOrEqual((BinaryExpression)node, expression);
 
           case ExpressionType.MemberAccess:
             return this.VisitMemberAccess((MemberExpression)node, expression);
@@ -224,7 +238,7 @@ namespace LinqToContextPOC
       }
 
       protected abstract TResult VisitEqual(BinaryExpression equal, LambdaExpression expression);
-      protected abstract TResult VisitGreaterorEqual(BinaryExpression equal, LambdaExpression expression);
+      protected abstract TResult VisitGreaterOrEqual(BinaryExpression equal, LambdaExpression expression);
       protected abstract TResult VisitMemberAccess(MemberExpression equal, LambdaExpression expression);
       protected abstract TResult VisitConstatnt(ConstantExpression equal, LambdaExpression expression);
     }
@@ -232,7 +246,7 @@ namespace LinqToContextPOC
         protected override string VisitEqual
           (BinaryExpression add, LambdaExpression expression) => this.VisitBinary(add, "Equal", expression);
 
-        protected override string VisitGreaterorEqual
+        protected override string VisitGreaterOrEqual
           (BinaryExpression add, LambdaExpression expression) => this.VisitBinary(add, "Greater", expression);
 
         protected override string VisitMemberAccess
@@ -253,13 +267,817 @@ namespace LinqToContextPOC
           ConstantExpression binary,string @operator,LambdaExpression expression) =>
           $"{binary}";
     }
+    #endregion
+
+    
+    public interface ITokenBuilder
+    {
+        string GetCommand();
+        List<IQueryManagers.ITypeToken> GetTokens();
+        IQueryManagers.ITypeToken NewToken(string res_);
+        void Refresh();
+
+        void AddLeft(IQueryManagers.ITypeToken tk);
+        void AddRight(IQueryManagers.ITypeToken tk);
+        
+        void AddLeft(List<IQueryManagers.ITypeToken> tk);
+        void AddRight(List<IQueryManagers.ITypeToken> tk);
+       
+        void AddLeft(ITokenBuilder tk);
+        void AddRight(ITokenBuilder tk);
+    }    
+    internal interface IChainBuilder
+    {       
+        string GetCommand();
+        ITokenBuilder GetTokenBuilder();
+        void Refresh();
+
+        IChainBuilder AddRight(string res_);
+        IChainBuilder AddLeft(string res_);
+
+        IChainBuilder AddLeft(IQueryManagers.ITypeToken input_);
+        IChainBuilder AddRight(IQueryManagers.ITypeToken input_);
+
+        IChainBuilder AddLeft(IChainBuilder input_);
+        IChainBuilder AddRight(IChainBuilder input_);               
+
+        IChainBuilder Expand();
+
+        IChainBuilder Select();
+        IChainBuilder From();
+        IChainBuilder Where();
+        IChainBuilder WhereParam();
+        IChainBuilder And();
+        IChainBuilder Or();
+        IChainBuilder AndParam();
+
+        IChainBuilder Equal();
+        IChainBuilder NotEqual();
+        IChainBuilder EqualSign();
+        IChainBuilder GreaterThan();
+        IChainBuilder LessThan();
+        IChainBuilder GreaterOrEqualThan();
+        IChainBuilder LessOrEqualThan();   
+
+        IChainBuilder @in();
+        IChainBuilder @out();
+
+        IChainBuilder E();
+        IChainBuilder V();
+
+        IChainBuilder RdBrLt();
+        IChainBuilder RdBrRt();
+
+        IChainBuilder SqBrLt();
+        IChainBuilder SqBrRt();
+
+        IChainBuilder Dot();
+        IChainBuilder Gap();
+
+        IChainBuilder Quote();
+        IChainBuilder Comma();
+    }
+    internal  interface IChainBuilderFactory
+    {
+        IChainBuilder GetChainBuilder();
+    }
+
+    internal class ChainBuilderFactory : IChainBuilderFactory
+    {
+        public IChainBuilder GetChainBuilder()
+        {
+            return new ChainBuilder();
+        }
+    }
+    /// <summary>
+    /// Build tokens to collection from tokens,or from collection or from builder with left or right padding
+    /// </summary>
+    internal class TokenBuilder : ITokenBuilder
+    {
+        public List<IQueryManagers.ITypeToken> tokens
+        = new List<IQueryManagers.ITypeToken>();
+        
+        StringBuilder sb = new StringBuilder();
+
+        public TokenBuilder(){
+            
+        }
+        public void Refresh(){
+            this.tokens.Clear();
+            sb.Clear();
+        }
+
+        public string GetCommand()
+        {
+            string res=null;
+            foreach(IQueryManagers.ITypeToken tk in tokens){
+                sb.Append(tk.Text);
+                res = sb.ToString();
+            }
+            return res;
+        }
+        public List<IQueryManagers.ITypeToken> GetTokens()
+        {
+            return this.tokens;
+        }
+
+        public IQueryManagers.ITypeToken NewToken(string res_)
+        {
+            QueryManagers.TextToken res=new QueryManagers.TextToken() { Text = res_ };
+            return res;
+        }
+
+        //for single token
+        public void AddRight(IQueryManagers.ITypeToken tk)
+        {
+            this.tokens.Add(tk);
+        }
+        public void AddLeft(IQueryManagers.ITypeToken tk)
+        {
+            this.tokens.Insert(0,tk);
+        }
+        
+        //for collection of tokens
+        public void AddLeft(List<IQueryManagers.ITypeToken> tk)
+        {
+            int cnt = tk.Count();
+            for(int i=cnt-1;i>=0;i--)
+            {
+                this.tokens.Insert(0,tk[i]);
+            }
+            
+        }
+        public void AddRight(List<IQueryManagers.ITypeToken> tk)
+        {
+            int cnt = tk.Count();
+            for(int i=0;i<cnt;i++)
+            {
+                this.tokens.Add(tk[i]);
+            }            
+        }
+
+        //for other builders addition
+        public void AddLeft(ITokenBuilder tb)
+        {
+            AddLeft(tb.GetTokens());
+        }
+        public void AddRight(ITokenBuilder tb)
+        {
+            AddRight(tb.GetTokens());
+        }
+    }
+    /// <summary>
+    /// Chains tokens via Tokenbuilder to command, with command specific tokens. Nesting realization (From,expand,traverse).
+    /// </summary>
+    internal class ChainBuilder : IChainBuilder
+    {
+        ITokenBuilder tb;
+
+        public ChainBuilder()
+        {
+            this.tb = new TokenBuilder();
+        }
+        
+        public string GetCommand()
+        {
+            return tb.GetCommand();
+        }
+        public ITokenBuilder GetTokenBuilder()
+        {
+            return tb;
+        }
+        public void Refresh(){
+            tb.Refresh();
+        }
+
+        public IChainBuilder AddRight(string input_)
+        {
+            tb.AddRight(tb.NewToken(input_));            
+            return this;
+        }   
+        public IChainBuilder AddLeft(string input_)
+        {
+            tb.AddLeft(tb.NewToken(input_));            
+            return this;
+        }   
+        public IChainBuilder AddRight(IQueryManagers.ITypeToken input_)
+        {
+            tb.AddRight(input_);            
+            return this;
+        }   
+        public IChainBuilder AddLeft(IQueryManagers.ITypeToken input_)
+        {
+            tb.AddLeft(input_);            
+            return this;
+        }   
+        public IChainBuilder AddRight(IChainBuilder input_)
+        {
+            tb.AddRight(input_.GetTokenBuilder());            
+            return this;
+        }   
+        public IChainBuilder AddLeft(IChainBuilder input_)
+        {
+            tb.AddLeft(input_.GetTokenBuilder());            
+            return this;
+        } 
+
+        public IChainBuilder Select()
+        {
+            tb.AddLeft(new OrientRealization.OrientGapToken());
+            tb.AddLeft(new OrientRealization.OrientSelectToken());            
+            return this;
+        }      
+        public IChainBuilder From()
+        {
+            tb.AddLeft(new OrientRealization.OrientGapToken());
+            tb.AddLeft(new OrientRealization.OrientFromToken());
+            tb.AddLeft(new OrientRealization.OrientGapToken());
+            return this;
+        }      
+        public IChainBuilder WhereParam()
+        {
+            tb.AddLeft(new OrientRealization.OrientGapToken());
+            tb.AddLeft(new OrientRealization.OrientWhereToken());
+            tb.AddLeft(new OrientRealization.OrientGapToken());
+            return this;
+        }        
+        public IChainBuilder Where()
+        {
+            tb.AddRight(new OrientRealization.OrientGapToken());
+            tb.AddRight(new OrientRealization.OrientWhereToken());
+            tb.AddRight(new OrientRealization.OrientGapToken());
+            return this;
+        }  
+        public IChainBuilder AndParam()
+        {
+            tb.AddLeft(new OrientRealization.OrientGapToken());
+            tb.AddLeft(new OrientRealization.OrientAndToken());
+            tb.AddLeft(new OrientRealization.OrientGapToken());
+            return this;
+        }
+        public IChainBuilder And()
+        {
+            tb.AddRight(new OrientRealization.OrientGapToken());
+            tb.AddRight(new OrientRealization.OrientAndToken());
+            tb.AddRight(new OrientRealization.OrientGapToken());
+            return this;
+        }
+        public IChainBuilder Or()
+        {
+            tb.AddRight(new OrientRealization.OrientGapToken());
+            tb.AddRight(new OrientRealization.OrientOrToken());
+            tb.AddRight(new OrientRealization.OrientGapToken());
+            return this;
+        }
+
+        public IChainBuilder Equal()
+        {
+            tb.AddRight(new OrientRealization.OrientEqualsToken());            
+            tb.AddRight(new OrientRealization.OrientEqualsToken()); 
+            return this;
+        }
+        public IChainBuilder NotEqual()
+        {
+            tb.AddRight(new OrientRealization.OrientExclamationToken());            
+            tb.AddRight(new OrientRealization.OrientEqualsToken()); 
+            return this;
+        }       
+        public IChainBuilder GreaterThan()
+        {
+            tb.AddRight(tb.NewToken(">"));
+            return this;
+        }
+        public IChainBuilder LessThan()
+        {
+            tb.AddRight(tb.NewToken("<"));
+            return this;
+        }       
+        public IChainBuilder GreaterOrEqualThan()
+        {
+            GreaterThan();
+            EqualSign();
+            return this;
+        }
+        public IChainBuilder LessOrEqualThan()
+        {
+            LessThan();
+            EqualSign();
+            return this;
+        }
+
+        //Select in out
+        public IChainBuilder @in()
+        {
+            tb.AddRight(new OrientRealization.OrientInToken());            
+            return this;
+        }
+        public IChainBuilder @out()
+        {
+            tb.AddRight(new OrientRealization.OrientOutToken());            
+            return this;
+        }
+
+        public IChainBuilder E()
+        {
+            tb.AddRight(new OrientRealization.OrientEToken());            
+            return this;
+        }
+        public IChainBuilder V()
+        {
+            tb.AddRight(new OrientRealization.OrientVertexToken());            
+            return this;
+        }
+
+        public IChainBuilder Expand()
+        {
+            throw new NotImplementedException();
+        }
+        
+        public IChainBuilder Exclamation()
+        {
+            tb.AddRight(new OrientRealization.OrientExclamationToken());            
+            return this;
+        }
+        public IChainBuilder EqualSign()
+        {
+            tb.AddRight(new OrientRealization.OrientEqualsToken());            
+            return this;
+        }
+
+        public IChainBuilder RdBrLt()
+        {
+            tb.AddRight(new OrientRealization.OrientRoundBraketLeftToken());            
+            return this;
+        }
+        public IChainBuilder RdBrRt()
+        {
+            tb.AddRight(new OrientRealization.OrientRoundBraketRightToken());            
+            return this;
+        }
+
+        public IChainBuilder SqBrLt()
+        {
+            tb.AddRight(new OrientRealization.OrientSquareBraketLeftToken());            
+            return this;
+        }
+        public IChainBuilder SqBrRt()
+        {
+            tb.AddRight(new OrientRealization.OrientSquareBraketRightToken());            
+            return this;
+        }
+      
+        public IChainBuilder Dot()
+        {
+            tb.AddRight(new OrientRealization.OrientDotToken());            
+            return this;
+        }
+        public IChainBuilder Gap()
+        {
+            tb.AddRight(new OrientRealization.OrientGapToken());            
+            return this;
+        }
+
+        public IChainBuilder Comma()
+        {
+            tb.AddRight(new OrientRealization.OrientCommaToken());            
+            return this;
+        }
+        public IChainBuilder Quote()
+        {
+            tb.AddRight(new OrientRealization.OrientApostropheToken());            
+            return this;
+        }
+      
+    }
+
+    public enum Direction {LEFT,RIGHT};
+
+    ///Main idea description and overall expression logic examples.
+    //https://blogs.msdn.microsoft.com/mattwar/2007/07/31/linq-building-an-iqueryable-provider-part-ii/
+    /// <summary>
+    /// Custom expression visitor Interface
+    /// </summary>
+    internal interface IExpressionVisitor
+    {
+        string Translate();
+        void Visit<T>(Expression<Func<T, bool>> expr_);
+        void Visit<T>(Expression<Func<T, T>> expr_);
+        IChainBuilder GetBuilder();
+    }
+    /// <summary>
+    /// Custom expression visitor. Converts tree to orient string syntax.
+    /// </summary>
+    internal class ExpressionVisitorCustom : ExpressionVisitor,IExpressionVisitor
+    {
+        IChainBuilder cb;
+        IChainBuilderFactory cbf;
+
+        PropertyReader pr = new PropertyReader();
+        Stack<string> nestedProperties;
+
+        public ExpressionVisitorCustom(IChainBuilderFactory cb_)
+        {
+            this.cbf = cb_;
+            this.cb = cbf.GetChainBuilder();
+            nestedProperties = new Stack<string>();
+        }
+        public IChainBuilder GetBuilder()
+        {
+            if(this.cb!=null)
+            {
+                return this.cb;
+            }
+            throw new Exception("No command builder");
+        }
+        public void StackToStringBuilder(Func<IChainBuilder> delimeter_=null)
+        {        
+            while(nestedProperties.Count()!=0){
+            
+                cb.AddRight(nestedProperties.Pop());
+         
+                if(delimeter_!=null){
+                if(nestedProperties.Count()!=0){
+                    delimeter_.Invoke();
+                }}
+            }
+        }
+        public string Translate()
+        {
+            return cb.GetCommand();
+        }
+
+        public void Visit<T>(Expression<Func<T, T>> expr_)
+        {
+            Type expType = expr_.GetType();
+            Type lmdTp = expr_.ReturnType;
+            Type type_=expr_.GetType().BaseType;
+            ExpressionType ndType = expr_.NodeType;
+            Expression db = expr_.Body;
+            this.cb = cbf.GetChainBuilder();
+            Visit(db);
+        }
+        public void Visit<T>(Expression<Func<T,bool>> expr_)
+        {
+            Type expType = expr_.GetType();
+            Type lmdTp = expr_.ReturnType;
+            Type type_=expr_.GetType().BaseType;
+            ExpressionType ndType = expr_.NodeType;
+            Expression db = expr_.Body;
+            this.cb = cbf.GetChainBuilder();
+            Visit(db);
+        }    
+        public new void Visit(Expression expr_)
+        {
+            Type expType = expr_.GetType();
+            Type type_=expr_.GetType().BaseType;
+            ExpressionType ndType = expr_.NodeType;
+        
+            if(ndType==ExpressionType.AndAlso){ Visit(((BinaryExpression)expr_).Left); cb.And(); Visit(((BinaryExpression)expr_).Right); }
+            if(ndType==ExpressionType.OrElse){ Visit(((BinaryExpression)expr_).Left); cb.Or(); Visit(((BinaryExpression)expr_).Right); }
+
+            if(ndType==ExpressionType.Equal){ Visit(((BinaryExpression)expr_).Left); cb.EqualSign(); Visit(((BinaryExpression)expr_).Right); }
+            if(ndType==ExpressionType.NotEqual){  Visit(((BinaryExpression)expr_).Left); cb.NotEqual(); Visit(((BinaryExpression)expr_).Right);}
+            if(ndType==ExpressionType.GreaterThan){ Visit(((BinaryExpression)expr_).Left); cb.GreaterThan(); Visit(((BinaryExpression)expr_).Right);}
+            if(ndType==ExpressionType.LessThan){Visit(((BinaryExpression)expr_).Left); cb.LessThan(); Visit(((BinaryExpression)expr_).Right);}
+            if(ndType==ExpressionType.GreaterThanOrEqual){ Visit(((BinaryExpression)expr_).Left); cb.GreaterOrEqualThan(); Visit(((BinaryExpression)expr_).Right);}
+            if(ndType==ExpressionType.LessThanOrEqual){ Visit(((BinaryExpression)expr_).Left); cb.LessOrEqualThan(); Visit(((BinaryExpression)expr_).Right);}
+
+            if(ndType==ExpressionType.Constant){ VisitConstant((ConstantExpression)expr_); StackToStringBuilder();}
+            if(ndType==ExpressionType.MemberAccess){ VisitMember((MemberExpression)expr_); StackToStringBuilder(cb.Dot);}
+            if(ndType==ExpressionType.MemberInit){ VisitMemberInit((MemberInitExpression)expr_); StackToStringBuilder(cb.Comma);}
+
+            if(ndType==ExpressionType.Convert){ VisitUnary((UnaryExpression)expr_); StackToStringBuilder();}
+
+            //StackToStringBuilder();
+        }                           
+
+
+        /*
+        public void VisitEqual(BinaryExpression expr_)
+        {
+            Type expType = expr_.GetType();
+            Type type_=expr_.GetType().BaseType;
+            ExpressionType ndType = expr_.NodeType;
+            Visit(expr_.Left);
+            cb.EqualSign();
+            Visit(expr_.Right);
+        }
+        public void VisitNotEqual(BinaryExpression expr_)
+        {
+            Type expType = expr_.GetType();
+            Type type_=expr_.GetType().BaseType;
+            ExpressionType ndType = expr_.NodeType;
+            Visit(expr_.Left);
+            cb.NotEqual();
+            Visit(expr_.Right);
+        }
+        public void VisitGreaterThan(BinaryExpression expr_)
+        {
+            Type expType = expr_.GetType();
+            Type type_=expr_.GetType().BaseType;
+            ExpressionType ndType = expr_.NodeType;
+            Visit(expr_.Left);
+            cb.GreaterThan();
+            Visit(expr_.Right);
+        }
+        public void VisitLessThan(BinaryExpression expr_)
+        {
+            Type expType = expr_.GetType();
+            Type type_=expr_.GetType().BaseType;
+            ExpressionType ndType = expr_.NodeType;
+            Visit(expr_.Left);
+            cb.GreaterThan();
+            Visit(expr_.Right);
+        }
+        */
+
+        public new void VisitConstant(ConstantExpression expr_)
+        {
+            string res = expr_.ToString();
+            if(res=="\"\""){
+                cb.AddRight(res);
+            }else{
+                cb.AddRight(expr_.Value.ToString());
+            }
+       
+        }
+        public new void VisitMember(MemberExpression expr_)
+        {
+            //cb.append("memberExpr Type,Member=");
+            //cb.append(expr_.Type.Name);
+            MemberInfo mi=expr_.Member;
+
+            if(JsonPropertyAttribute.IsDefined(mi,typeof(JsonPropertyAttribute)))
+            {
+                Attribute atr= pr.IsUsingAttribute<JsonPropertyAttribute>(mi);
+                Attribute atr2= JsonPropertyAttribute.GetCustomAttribute(mi, typeof(JsonPropertyAttribute));
+                string res=pr.GetJsonPropertyName(atr);
+                nestedProperties.Push(res);
+            }else{
+                string mn=expr_.Member.ReflectedType.Name;
+                nestedProperties.Push(expr_.Member.Name);
+            }
+            Visit(expr_.Expression);
+        }
+        public new void VisitMemberInit(MemberInitExpression expr_)
+        {
+            //cb.append("memberExpr Type,Member=");
+            //cb.append(expr_.Type.Name);
+            IReadOnlyCollection<MemberBinding> memeberBinding=expr_.Bindings;
+            
+            foreach(MemberBinding mb in memeberBinding)
+            {
+                MemberInfo mi = mb.Member;
+                if(JsonPropertyAttribute.IsDefined(mi,typeof(JsonPropertyAttribute)))
+                {
+                    Attribute atr=pr.IsUsingAttribute<JsonPropertyAttribute>(mi);
+                    Attribute atr2=JsonPropertyAttribute.GetCustomAttribute(mi, typeof(JsonPropertyAttribute));
+                    string res=pr.GetJsonPropertyName(atr);
+                    nestedProperties.Push(res);
+                }else{
+                    
+                    string mn=mi.Name;
+                    nestedProperties.Push(mn);
+                }
+            }
+
+            /*
+            if(JsonPropertyAttribute.IsDefined(mi,typeof(JsonPropertyAttribute)))
+            {
+                Attribute atr=pr.IsUsingAttribute<JsonPropertyAttribute>(mi);
+                Attribute atr2=JsonPropertyAttribute.GetCustomAttribute(mi, typeof(JsonPropertyAttribute));
+                string res=pr.GetJsonPropertyName(atr);
+                nestedProperties.Push(res);
+            }else{
+                string mn=expr_.Member.ReflectedType.Name;
+                nestedProperties.Push(expr_.Member.Name);
+            }
+            */
+            
+        }
+        public new void VisitUnary(UnaryExpression expr_)
+        {
+            Type expType = expr_.GetType();
+            Type type_=expr_.GetType().BaseType;
+            ExpressionType ndType = expr_.NodeType;
+
+            if(ndType==ExpressionType.Convert )
+            {
+                if(expr_.Operand.Type == typeof(DateTime)){
+                    Expression expr=Expression.Convert(expr_.Operand, expr_.Operand.Type );
+                    DateTime exprCpl=Expression.Lambda<Func<DateTime>>(expr).Compile()();
+                
+                    nestedProperties.Push("'");
+                    nestedProperties.Push(exprCpl.ToString(ConfigurationManager.AppSettings["OrientDateTime"]));
+                    nestedProperties.Push("'");
+                }
+                if(expr_.Operand.Type == typeof(int)){
+                    int? exprCpl=Expression.Lambda<Func<int?>>(expr_).Compile()();
+                    nestedProperties.Push(exprCpl.ToString());
+                }
+                if(expr_.Operand.Type == typeof(double)){
+                    double? exprCpl=Expression.Lambda<Func<double?>>(expr_).Compile()();
+                    nestedProperties.Push(exprCpl.ToString());
+                }
+            }
+        }
+    
+    }
+    
+    /// <summary>
+    /// Cheks property. Used for attribute existing check and parameters reading.
+    /// </summary>
+    internal class PropertyReader
+    {
+        public T IsUsingAttribute<T>(PropertyInfo p_) 
+        where T:System.Attribute
+        {
+            if(p_.GetCustomAttributes().Where(s=>s.GetType().Equals(typeof(T))).Any()){ 
+                return (T)p_.GetCustomAttributes().Where(s=>s.GetType().Equals(typeof(T))).FirstOrDefault();
+            }
+            return null;
+        }
+        public T IsUsingAttribute<T>(MemberInfo p_) 
+        where T:System.Attribute
+        {
+            if(p_.GetCustomAttributes().Where(s=>s.GetType().Equals(typeof(T))).Any()){ 
+                return (T)p_.GetCustomAttributes().Where(s=>s.GetType().Equals(typeof(T))).FirstOrDefault();
+            }
+            return null;
+        }
+        public string GetJsonPropertyName(Attribute atr)
+        {
+            string res=string.Empty;
+            if(atr.GetType()==typeof(JsonPropertyAttribute)){
+                JsonPropertyAttribute jp=(JsonPropertyAttribute)atr;
+                res = jp.PropertyName;
+            }
+            return res;
+        }
+    }    
+
+    //with help of expression trees replaces query shemas + command builder. Makes them AllInOne
+    
+    /// <summary>
+    /// Generates command strings, from types or classes, with custom LINQ Entity look like query style
+    /// intended order - Select from where command order
+    /// instead of from select where 
+    /// </summary>
+    internal class CommandBuilder
+    {
+        IExpressionVisitor expressionVisitor;
+        IChainBuilder cb;
+
+        public CommandBuilder(IExpressionVisitor ie_,IChainBuilder cb_)
+        {            
+            expressionVisitor=ie_;
+            cb=cb_;
+        }
+        public string Translate()
+        {
+            return cb.GetCommand();
+        }
+        public void Refresh(){
+            cb.Refresh();
+        }
+
+        IChainBuilder ExpressionRead<T>(Expression<Func<T,bool>> expr_){
+            expressionVisitor.Visit<T>(expr_);
+            return expressionVisitor.GetBuilder();
+        }
+
+        public CommandBuilder Select()
+        {
+            cb.Select();
+            cb.Gap();
+            return this;
+        }
+        public CommandBuilder Select<T>(Expression<Func<T,T>> expr_)
+        {
+            expressionVisitor.Visit(expr_);      
+            expressionVisitor.GetBuilder().Select();
+            cb.AddLeft(expressionVisitor.GetBuilder());
+            
+            return this;
+        }
+        public CommandBuilder From<T>()
+        {            
+            cb.AddLeft(typeof(T).Name);
+            cb.From();
+           
+            
+            return this;
+        }
+        public CommandBuilder From(Type T)
+        {
+            cb.AddLeft(T.Name);            
+            cb.From();
+            
+            return this;
+        }
+        public CommandBuilder FromNest()
+        {
+            
+            return this;
+        }
+
+        public CommandBuilder Where<T>(Expression<Func<T,bool>> expr_)
+        {
+            cb.Where();
+
+            cb.AddRight(ExpressionRead<T>(expr_));
+            return this;
+        }
+        
+        public CommandBuilder And<T>(Expression<Func<T,bool>> expr_)
+        {          
+            cb.Gap();
+            cb.And();
+
+            cb.AddRight(ExpressionRead<T>(expr_));
+            return this;
+        }
+        public CommandBuilder And()
+        {
+            cb.Gap();
+            cb.And();
+            return this;
+        }
+        
+        public CommandBuilder in_<T>(Expression<Func<T,bool>> expr_)
+        {
+            expressionVisitor.Visit<T>(expr_);
+            
+            cb.AddRight(expressionVisitor.GetBuilder());
+            
+            return this;
+        }
+        
+        //add
+        //select  from Person where  out('Authorship').@rid = 22:0
+        //select  from Person where 22:0 in out('Authorship').@rid
+        //int=0
+
+        public CommandBuilder @in(Type type)
+        {
+            cb.@in();
+            cb.AddRight(type.Name);
+            return this;
+        }
+        public CommandBuilder @out(Type type)
+        {
+            cb.@out();
+            cb.AddRight(type.Name);
+            return this;
+        }
+        
+        public CommandBuilder @in<T>(Expression<Func<T,bool>> expr_)
+        {
+            cb.Gap();
+            cb.@in();         
+            cb.RdBrLt();
+            cb.Quote();
+            cb.AddRight(typeof(T).Name);
+            cb.Quote();
+            cb.RdBrRt();
+
+            cb.SqBrLt();
+            cb.AddRight("0");
+            cb.SqBrRt();
+
+            cb.Dot();
+            
+            cb.AddRight(ExpressionRead<T>(expr_));
+            return this;
+        }
+        public CommandBuilder @out<T>(Expression<Func<T,bool>> expr_)
+        {
+            cb.Gap();
+            cb.@out();           
+            cb.RdBrLt();
+            cb.Quote();
+            cb.AddRight(typeof(T).Name);
+            cb.Quote();
+            cb.RdBrRt();
+
+            cb.SqBrLt();
+            cb.AddRight("0");
+            cb.SqBrRt();
+
+            cb.Dot();
+            
+            cb.AddRight(ExpressionRead<T>(expr_));
+            return this;
+        }
+    }
 
     //check Linq to context
     public static class LinqToContextCheck
     {
-        static TestContext ts = new TestContext();
-        public static void GO()
-        {
+        //testing of Expression traversing and nodes visiting
+        public static void TestContextCheck()
+        {        
+            TestContext ts = new TestContext();
             TestEntity te=new TestEntity() {Id=0,name=null};
             var a = te?.name;
 
@@ -276,6 +1094,114 @@ namespace LinqToContextPOC
             string traverseStr = ts.TraverseExpression<TestEntity>(s => s.tp.isTrue == false);
             
             string manualExpressionStr = ts.BuildExpressionManualy();
+
+        }
+        //
+        public static void ExpressionVisitorCustomCheck()
+        {
+            CommandBuilder evc=new CommandBuilder(new ExpressionVisitorCustom(new ChainBuilderFactory()), new ChainBuilder());
+            CommandBuilder commandBuilder;
+
+            evc.@in<POCO.Authorship>(s=>s.id=="'25:26'");
+            string res=evc.Translate();
+            
+            evc.Refresh();
+            evc.From(typeof(POCO.News))
+            .Select<POCO.News>(s=>new POCO.News {id=s.id,authAcc=s.authAcc,GUID=s.GUID})
+            .Where<POCO.News>(s=>s.pinned.isTrue==false 
+            && s.name=="'Author eats his own book'" 
+            || s.Likes!=0 && s.created<=DateTime.Now 
+            && s.commentDepth>=1);
+            string res2=evc.Translate();
+
+            evc.Refresh();
+            evc.Where<POCO.Comment>(s => s.changed == new DateTime(2018, 01, 26, 12, 52, 46))
+            .And<POCO.Comment>(s => s.class_ != "")
+            .From(typeof(POCO.Comment))
+            .Select<POCO.Comment>(s => new POCO.Comment { id = s.id, class_ = s.class_ });
+            string res4=evc.Translate();
+
+            evc.Refresh();
+      
+            string res5 = evc.Translate();
+
+            commandBuilder=new CommandBuilder(new ExpressionVisitorCustom(new ChainBuilderFactory()), new ChainBuilder());
+            commandBuilder.Select<POCO.Person>(s => new POCO.Person {id=s.id,Birthday=s.Birthday,FirstName=s.FirstName,LastName=s.LastName});
+            string res3 = commandBuilder.Translate();
+        }
+        public static string ListInsertVsRearrange()
+        {
+            string res = string.Empty;
+            List<string> str1 = new List<string>();
+            List<string> str2 = new List<string>();
+            List<CheckResult> checkRes = new List<CheckResult>();
+
+            List<string> strToIns = new List<string>(){"111","112","113"};
+
+            string insertElapsed,addElapsed,
+            insertRangeElps,addRangeElp;
+
+            for(int i =0;i<10000000;i++)
+            {
+                str1.Add("str "+i.ToString());
+                str2.Add("str "+i.ToString());
+            }
+
+            Stopwatch sw = new Stopwatch();
+            
+            sw.Reset();
+            sw.Start();
+            str1.Insert(0, "-1");
+            sw.Stop();
+
+            insertElapsed = sw.Elapsed.ToString();
+            checkRes.Add(new CheckResult() { MethodName = "insert", elapsed = sw.Elapsed });
+
+            sw.Reset();
+            sw.Start();
+            List<string> str3 = new List<string>();
+            str3.Add("-2");
+            str3.AddRange(from s in str2 select s);
+            str2 = str3;
+            sw.Stop();
+            addElapsed = sw.Elapsed.ToString();
+            checkRes.Add(new CheckResult() { MethodName = "add", elapsed = sw.Elapsed });
+
+            sw.Reset();
+            sw.Start();
+            foreach(string str in strToIns){
+                str1.Insert(0, str);}
+            sw.Stop();
+            insertRangeElps = sw.Elapsed.ToString();
+            checkRes.Add(new CheckResult() { MethodName = "insert large", elapsed = sw.Elapsed });
+            
+            sw.Reset();
+            sw.Start();
+            str3 = new List<string>();
+            str3.Add("-2");
+            str3.AddRange(from s in strToIns select s);
+            str3.AddRange(from s in str2 select s);
+            str2 = str3;
+            sw.Stop();
+            addRangeElp = sw.Elapsed.ToString();
+            checkRes.Add(new CheckResult() { MethodName = "add large", elapsed = sw.Elapsed });
+
+            res = $"Insert elapsed:{insertElapsed}; AddElapsed:{addElapsed}; Insert range:{insertRangeElps}; Insert range add:{addRangeElp}" ;
+            System.Diagnostics.Trace.WriteLine(res);
+
+            return res;
+        }
+        public class CheckResult
+        {
+            public string MethodName { get; set; }
+            public TimeSpan elapsed { get; set; }
+        }
+        
+        public static void GO()
+        {
+            //TestContextCheck();
+            //string elapsed=ListInsertVsRearrange();
+            ExpressionVisitorCustomCheck();
         }
     
     }

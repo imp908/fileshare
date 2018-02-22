@@ -302,6 +302,10 @@ namespace OrientRealization
   {
       public string Text {get; set;}=@"and";
   }
+  public class OrientOrToken : ITypeToken
+  {
+      public string Text {get; set;}=@"or";
+  }
   public class OrientClassToken : ITypeToken
   {
       public string Text {get; set;}="class";
@@ -366,7 +370,11 @@ namespace OrientRealization
   {
       public string Text {get; set;}=@"size";
   }
-    
+  public class OrientExclamationToken : ITypeToken
+  {
+      public string Text {get; set;}="!";
+  }
+
 
   //URI tokens
   public class ColonToken : ITypeToken

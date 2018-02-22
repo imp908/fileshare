@@ -28,7 +28,15 @@ namespace Parts{
 	//Usefull links
 	public void mostUsefullLinks()
 	{
-
+	
+	//startups
+	[
+	
+	http://www.selpo.me/
+	http://go.philtech.ru/?utm_source=meduza&utm_medium=article&utm_campaign=accelerator.
+	
+	]
+	
 	//OWIN
 	[
 https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/external-authentication-services
@@ -55,8 +63,13 @@ https://msdn.microsoft.com/en-us/library/bb361179(v=vs.110).aspx
 //Expression rules
 http://coding-time.blogspot.ru/2011/07/how-to-implement-rule-engine-in-c.html
 //custom LINQ provider
+https://stackoverflow.com/questions/12181276/implementing-a-custom-linq-to-x-provider
 https://msdn.microsoft.com/en-us/library/bb546158.aspx
+https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-provider-part-i/
 	]
+	
+	//DAG directed acyclic graph
+	https://en.wikipedia.org/wiki/Directed_acyclic_graph
 	
 	//Generate mvc and razor from json
 	https://stackoverflow.com/questions/12876865/is-there-anyway-to-generate-razor-views-cshtml-based-on-a-template-beside-t4
@@ -7769,7 +7782,6 @@ http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentL
 			public void Queries()
 			{
 
-
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
 
@@ -7785,17 +7797,14 @@ and StartDate.asDate() > '2017-03-30'
 and EndDate.asDate() <  '2017-04-30'
 
 }
-public GroupByCountEdges()
-{
+public GroupByCountEdges(){
 	select out('Authorship').size(),Name,GUID from Person group by Name,GUID
 }
-select CommentsCountAndLikes()
-{
+select CommentsCountAndLikes(){
 select in('Authorship').GUID[0] as AuthGUID, * from Note
 select in('Authorship').GUID[0] as AuthGUID,out('Comment').size() as CommentsCount, * from News
 }
-public SelectConditionsHC()
-{
+public SelectConditionsHC(){
 	
 select from Note
 where 1=1
@@ -7813,7 +7822,6 @@ public SelectNews(){
 	outE('Authorship').inV('Note').inE('Comment').outV('Note')
 	)from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
 }
-
 public SelectComments(){
 	//select comments
 	select  from (
@@ -7822,7 +7830,7 @@ public SelectComments(){
 	)from Person where @rid=#73:1 )
 	where 1=1 and inE('Comment')[0].@rid!=''
 }
-	
+
 public DateTimeRearrangeGet(){
 	
 ALTER DATABASE DATETIMEFORMAT "yyyy.MM.dd HH:mm:ss GG"
@@ -8278,7 +8286,6 @@ unwind Path) ) while $depth <=1 ) where $depth >=1
 	
 
 }
-
 
 			}
 
