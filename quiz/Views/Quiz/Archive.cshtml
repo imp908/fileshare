@@ -1,0 +1,79 @@
+﻿@{
+    ViewBag.Title = "Archive";
+    Layout = "~/Views/Shared/_Layout_JsonAngularDriver.cshtml";
+}
+@model List<Intranet.Models.QuizModel.Quiz>
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Архивные опросы</title>
+    <script>
+        $(document).ready(function () {
+            $('#quizes').DataTable(
+            );
+        });
+
+
+
+
+    </script>
+</head>
+<body>
+    <div class="col-md-8 col-md-offset-2">
+        <h2><p class="text-center">Архивные опросы</p></h2>
+        <a href="/Quiz/List" class="btn btn-info" role="button">Активные опросы</a>
+        <br><br>
+    <table id="quizes" class="table table-striped table-bordered dataTable">
+        <thead>
+            <tr>
+                <th>
+                    <p>Название опроса</p>
+                </th>
+                <th><p>Автор</p></th>
+                <th><p>Дата создания</p></th>
+                <th><p>Дата начала</p></th>
+                <th><p>Дата завершения</p></th>
+                <th><p>Статус</p></th>
+
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var b in Model)
+            {
+                <tr>
+                    <td><p><a href="/Quiz/Execute/?id=@b.QuizMainInfo.ORID.RID.Replace("#","")">@b.QuizMainInfo.QuizName</a></p></td>
+                    <td><p>@b.QuizMainInfo.Author</p></td>
+                    <td><p>@b.QuizMainInfo.CreationDate.ToString("dd.MM.yyyy")</p></td>
+                    <td><p>@b.QuizMainInfo.StartDate.ToString("dd.MM.yyyy")</p></td>
+                    <td><p>@b.QuizMainInfo.EndDate.ToString("dd.MM.yyyy")</p></td>
+
+                    @if (@b.QuizMainInfo.State == Intranet.Models.QuizModel.State.Drafted)
+                    {
+                        <td><p><a href="/Quiz/Constructor/?id=@b.QuizMainInfo.ORID.RID.Replace("#","")">Черновик</a></p></td>
+                    }
+                    @if (@b.QuizMainInfo.State == Intranet.Models.QuizModel.State.Finished)
+                    {
+                        <td><p><a href="/Quiz/Results/?id=@b.QuizMainInfo.ORID.RID.Replace("#","")">Завершен</a></p></td>
+                    }
+                    @if (@b.QuizMainInfo.State == Intranet.Models.QuizModel.State.Published)
+                    {
+                        <td><p><a href="/Quiz/Results/?id=@b.QuizMainInfo.ORID.RID.Replace("#","")">Результаты</a></p></td>
+                    }
+
+                </tr>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+
+</body>
+</html>
+
+
+

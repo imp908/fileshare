@@ -1,0 +1,64 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout_JsonAngularDriver.cshtml";
+    string title = string.Empty;
+}
+@model Intranet.Models.NewsModel.News
+<!DOCTYPE html>
+
+<html>
+<head>
+    <script src="http://static.nspk.ru/js/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/CustomScripts/QuizJsonEditorForm/CKEditor/ckeditor.js"></script>
+
+    
+
+    <meta name="viewport" content="width=device-width" />
+    <title>NewsConstructor</title>
+    <script>
+                CKEDITOR.replace('editor1');
+    </script>
+</head>
+<body>
+    <div class="col-md-8 col-md-offset-2"> 
+            <p>
+                <br>
+                <input type="text" class="form-control" id="newsName" placeholder="Заголовок новости" value="@Model.Subject">
+                <br>
+                @if (Model == null)
+                {
+                    <textarea name="editor1" id="editor1">&lt;p&gt;&lt;/p&gt;</textarea>
+                }
+                else
+                {
+                    <textarea name="editor1" id="editor1">&lt;p&gt;@Model.Body&lt;/p&gt;</textarea>
+                }
+                <script>
+                    CKEDITOR.config.extraPlugins = "base64image";
+                    var editor = CKEDITOR.replace('editor1');
+
+                    function htmlEncode(value){
+                        return $('<div/>').text(value).html();
+                    }
+
+                    function init() {
+                        $.ajax
+                            ({
+                                url: 'News/Constructor',
+                                type: "post",
+                                data: { 'body': htmlEncode(editor.getData()), 'subject': document.getElementById('newsName').value, 'id': '@ViewBag.Id' },
+                                cache: false,
+                                success: function (savingStatus) { window.location.href = '/News/List' },
+                                error: function (xhr, ajaxOptions, thrownError) { }
+                            });
+                    };
+
+                </script>
+            </p>
+            <p>
+                <button type="button" class="btn btn-success" onclick="init()">Сохранить</button>
+            </p>
+
+</div>
+</body>
+</html>

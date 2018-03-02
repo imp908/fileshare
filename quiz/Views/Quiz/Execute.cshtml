@@ -1,0 +1,244 @@
+﻿
+@{
+    ViewBag.Title = "QuizExecute";
+    Layout = "~/Views/Shared/_Layout_JsonAngularDriver.cshtml";
+}
+@using Intranet.Models.QuizModel
+@model Intranet.Models.QuizModel.Quiz
+@{
+    var isNpsQuestion = false;
+
+}
+<title>Прохождение опроса</title>
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Список вопросов</title>
+    
+</head>
+<body>
+
+
+<div class="modal fade" id="image-modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <div class="modal-title">Просмотр изображения</div>
+            </div>
+            <div class="modal-body">
+                <img class="img-responsive center-block" src="" alt="">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-md-8 col-md-offset-2">
+
+    @{
+        isNpsQuestion = (Model.Questions as List<Question>).Any(x => x.QuestionType.Kind == Kind.Rating);
+    }
+    <h3>
+        @if (isNpsQuestion)
+        {
+            <img src="~/Content/NSPK_Ценности.jpg" alt="Smiley face" height="60" width="60">
+        }
+        @if (Model.QuizMainInfo.ORID.RID.Equals("#19:35"))
+        {
+            <img src="~/Content/Прокачка.jpg"><br>
+        }
+        @if (Model.QuizMainInfo.ORID.RID.Equals("#20:35"))
+        {
+            <div align="center"><img src="~/Content/хакатон.jpg" > </div><br>
+        }
+        @if (Model.QuizMainInfo.ORID.RID.Equals("#20:37"))
+        {
+            <div align="center"><img src="~/Content/Прокачка2.jpg"></div><br>
+        }
+        @Model.QuizMainInfo.QuizName
+    </h3>
+    <h3>@Model.QuizMainInfo.QuizDescription</h3>
+
+    @using (Html.BeginForm("Execute", "Quiz", FormMethod.Post, new {enctype = "multipart/form-data"}))
+    {
+        <table class="table table-striped">
+
+
+            @Html.HiddenFor(it => it.QuizMainInfo.QuizName)
+            @Html.HiddenFor(it => it.QuizMainInfo.QuizDescription)
+            @Html.HiddenFor(it => it.QuizMainInfo.ORID.RID)
+
+
+            @for (var i = Model.Questions.Count - 1; i >= 0; i--)
+            {
+
+                <tr>
+                    <td>@Model.Questions[i].QuestionText</td>
+                    @Html.HiddenFor(it => it.Questions[i].Id)
+                    @Html.HiddenFor(it => it.Questions[i].QuizId)
+                    @Html.HiddenFor(it => it.Questions[i].QuestionText)
+                    @Html.HiddenFor(it => it.Questions[i].AllowYourAnswer)
+                    @if (Model.Questions[i].QuestionPictures != null)
+                    {
+                        if(Model.Questions[i].QuestionPictures.Any())
+                        {
+                            <td style="min-width:50px;max-width:350px;cursor:pointer;">
+                                <div class="container">
+                                    <div class="row">
+                                        @foreach (var item in @Model.Questions[i].QuestionPictures)
+                                        {
+                                            <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                                                <a href="#" class="thumbnail">
+                                                    <img src="@item.QuestionPicture"/>
+                                                </a>
+                                            </div>
+                                        }
+
+                                    </div>
+                                </div>
+                            </td>
+                        }
+                    }
+
+                    <td>
+
+                        @{
+                            var answers = Model.Questions[i].Answers ?? new List<Answer>();
+                        }
+                        @if (!answers.Any()) //тут заплатка для оиночно комментария
+                        {
+                            @Html.HiddenFor(it => it.Questions[i].QuestionType.TypeOfQuestion)
+                            @Html.HiddenFor(it => it.Questions[i].QuestionType.Require)
+                            if (Model.Questions[i].AllowYourAnswer)
+                            {
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="radio">
+
+                                                @Html.RadioButtonFor(m => m.Questions[i].SelectedAnswerId, -1, new {id = "Answer" + (-1), @checked = true})
+                                                <!--Свой вариант:<br><br>-->
+                                                @Html.TextAreaFor(it => it.Questions[i].YourAnswer, new {style = "width: 450px; height:150px;"})
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            }
+                        }
+
+
+                        @for (var j = 0; j < answers.Count; j++)
+                        {
+                            @Html.HiddenFor(it => it.Questions[i].QuestionType.TypeOfQuestion)
+                            @Html.HiddenFor(it => it.Questions[i].QuestionType.Require)
+
+                            if (Model.Questions[i].QuestionType.TypeOfQuestion == TypeOfQuestion.Multiple)
+                            {
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="checkbox">
+
+                                                @Html.HiddenFor(it => it.Questions[i].Answers[j].Id)
+                                                @Html.HiddenFor(it => it.Questions[i].Answers[j].AnswerText)
+
+                                                @Html.CheckBoxFor(it => it.Questions[i].Answers[j].Checked, new {Style = "vertical-align:3px"})
+                                                @Html.DisplayFor(it => it.Questions[i].Answers[j].AnswerText, new {Name = Model.Questions[i].Answers[j].AnswerText})
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                if (j == Model.Questions[i].Answers.Count - 1)
+                                {
+                                    if (Model.Questions[i].AllowYourAnswer)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="checkbox">
+
+                                                        @Html.CheckBoxFor(it => it.Questions[i].SelectedYourAnswer, new {Style = "vertical-align:3px"})
+                                                        <!-- Свой вариант:<br><br>-->
+                                                        @Html.TextAreaFor(it => it.Questions[i].YourAnswer, new {style = "width: 450px; height:150px;"})
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                }
+                            }
+
+                            if (Model.Questions[i].QuestionType.TypeOfQuestion == TypeOfQuestion.Single) //it=>it.Questions[i].Answers[j].Checked
+                            {
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <div class="radio">
+
+                                                @Html.HiddenFor(m => m.Questions[i].Answers[j].AnswerText)
+                                                @Html.HiddenFor(m => m.Questions[i].Answers[j].Id)
+                                                @Html.RadioButtonFor(m => m.Questions[i].SelectedAnswerId, (Model.Questions[i].Answers[j].Id), new {id = "Answer" + (Model.Questions[i].Answers[j].Id)})
+                                                @Html.Name(Model.Questions[i].Answers[j].AnswerText)
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                if (j == Model.Questions[i].Answers.Count - 1)
+                                {
+                                    if (Model.Questions[i].AllowYourAnswer)
+                                    {
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div class="radio">
+
+                                                        @Html.RadioButtonFor(m => m.Questions[i].SelectedAnswerId, -1, new {id = "Answer" + (-1)})
+
+                                                        <!-- Свой вариант:<br><br>-->
+
+                                                        @Html.TextAreaFor(it => it.Questions[i].YourAnswer, new {style = "width: 450px; height:150px;"})
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    }
+                                }
+
+
+                            }
+
+                        }
+                    </td>
+
+                </tr>
+
+            }
+
+        </table>
+        @Html.ValidationSummary()
+        <input id="Submit1" type="submit" value="Завершить опрос" class="btn btn-success"/>
+    }
+</div>
+<script>
+    $(function() {     
+        $('a.thumbnail').click(function(e) {
+            e.preventDefault();
+            $('#image-modal .modal-body img').attr('src', $(this).find('img').attr('src'));
+            //открыть модальное окно
+            $("#image-modal").modal('show');
+        });
+        $('#image-modal .modal-body img').on('click', function() {
+            $("#image-modal").modal('hide')
+        });
+    });
+</script>
+</body>
+</html>
