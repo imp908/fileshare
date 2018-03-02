@@ -1,0 +1,217 @@
+﻿{
+  "type": "object",
+  "properties": {
+    "QuizMainInfo": {
+      "type": [
+        "object",
+        "null"
+      ],
+      "properties": {
+        "ORID": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "properties": {
+            "ClusterId": {
+              "type": "integer"
+            },
+            "ClusterPosition": {
+              "type": "integer"
+            },
+            "RID": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        },
+        
+        "Author": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "QuizName": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "QuizDescription": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "QuizType": {
+          "type": "integer",
+          "enum": [
+            1,
+            2
+          ],
+          "default": 1
+        },
+        "State": {
+          "type": "integer",
+          "enum": [
+            0,
+            1,
+            2
+          ],
+          "default": 2
+        },
+        "CreationDate": {
+          "type": "string"
+        },
+        "StartDate": {
+          "type": "string"
+        },
+        "EndDate": {
+          "type": "string"
+        }
+      }
+    },
+    "Questions": {
+      "type": [
+        "array",
+        "null"
+      ],
+      "items": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "Id": {
+            "type": "integer"
+          },
+          "QuizId": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "Order": {
+            "type": "integer"
+          },
+          "SelectedAnswerId": {
+            "type": "integer"
+          },
+          "SelectedAnswerText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "YourAnswer": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "AllowYourAnswer": {
+            "type": "boolean",
+            "default": false
+
+          },
+          "Answers": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "Id": {
+                  "type": "integer"
+                },
+                "QuestionId": {
+                  "type": "integer"
+                },
+                "AnswerText": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "Checked": {
+                  "type": "boolean"
+                },
+                "AnswerType": {
+                  "type": "integer",
+                  "enum": [
+                    0
+                  ]
+                }
+              }
+            }
+          },
+          "QuestionType": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "Require": {
+                "type": "boolean",
+                "default": true
+              },
+              "TypeOfQuestion": {
+                "type": "integer",
+                "enum": [
+                  1,
+                  2
+                ],
+                "default": 1
+              },
+              "Kind": {
+                "type": "integer",
+                "enum": [
+                  1,
+                  2,
+                  3
+                ],
+                "default": 1
+              }
+            }
+          },
+          "QuestionText": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "QuestionPictures": {
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "Id": {
+                  "type": "integer"
+                },
+                "QuestionPicture": {
+                  "title": "Добавить изображение",
+                  "type": "string",
+                  "format": "base64",
+                  "maxSize": "5000000"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

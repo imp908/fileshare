@@ -1,0 +1,215 @@
+﻿{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "QuizMainInfo": {
+      "type": "object",
+      "properties": {
+        "QuizId": {
+          "type": "string"
+        },
+        "Author": {
+          "type": "string"
+        },
+        "QuizName": {
+          "type": "string"
+        },
+        "CreationDate": {
+          "type": "string"
+        },
+        "StartDate": {
+          "type": "string"
+        },
+        "EndDate": {
+          "type": "string"
+        },
+        "IsQuizEnded": {
+          "type": "boolean"
+        },
+        "QuiestionId": {
+          "type": "string"
+        },
+        "QuizParticipantId": {
+          "type": "string"
+        },
+        "QuizPerformerId": {
+          "type": "string"
+        },
+        "AnswerResultId": {
+          "type": "string"
+        },
+        "CommentId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "QuizId",
+        "Author",
+        "QuizName",
+        "CreationDate",
+        "StartDate",
+        "EndDate",
+        "IsQuizEnded",
+        "QuiestionId",
+        "QuizParticipantId",
+        "QuizPerformerId",
+        "AnswerResultId",
+        "CommentId"
+      ]
+    },
+    "Questions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "QuizId": {
+            "type": "string"
+          },
+          "AnswerId": {
+            "type": "string"
+          },
+          "Answers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "Id": {
+                  "type": "string"
+                },
+                "QuastionId": {
+                  "type": "string"
+                },
+                "AnswerText": {
+                  "type": "string"
+                },
+                "AnswerType": {
+                  "type": "integer"
+                },
+                "IsInput": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "Id",
+                "QuastionId",
+                "AnswerText",
+                "AnswerType",
+                "IsInput"
+              ]
+            }
+          },
+          "QuestionType": {
+            "type": "object",
+            "properties": {
+              "Require": {
+                "type": "boolean"
+              },
+              "TypeOfQuestion": {
+                "type": "integer"
+              }
+            },
+            "required": [
+              "Require",
+              "TypeOfQuestion"
+            ]
+          }
+        },
+        "required": [
+          "Id",
+          "QuizId",
+          "AnswerId",
+          "Answers",
+          "QuestionType"
+        ]
+      }
+    },
+    "QuizParticipant": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "ParticipationDate": {
+            "type": "string"
+          },
+          "Participant": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Id",
+          "ParticipationDate",
+          "Participant"
+        ]
+      }
+    },
+    "QuizPerformer": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "Performer": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "Id",
+          "Performer"
+        ]
+      }
+    },
+    "AnswerResult": {
+      "type": "null"
+    },
+    "Comments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string"
+          },
+          "ParentID": {
+            "type": "string"
+          },
+          "rootId": {
+            "type": "string"
+          },
+          "CommentText": {
+            "type": "string"
+          },
+          "CommentAuthor": {
+            "type": "string"
+          },
+          "LikeCount": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "Id",
+          "ParentID",
+          "rootId",
+          "CommentText",
+          "CommentAuthor",
+          "LikeCount"
+        ]
+      }
+    }
+  },
+  "required": [
+    "QuizMainInfo",
+    "Questions",
+    "QuizParticipant",
+    "QuizPerformer",
+    "AnswerResult",
+    "Comments"
+  ]
+}
