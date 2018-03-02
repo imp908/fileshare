@@ -72,7 +72,48 @@ cd C:\workflow\projects\Dev\gitLab\napi\NewsApi
 git checkout nsql_mng
 
 				]
-				
+				,MergeManualTotalCommanderSynch[
+
+exceptlist[
+.vs
+.git
+*.config
+Release
+bin
+dll
+*.csproj*
+*.asax*
+libs
+obj
+Properties
+]
+
+//GET TARGET BRANCH
+cd C:\workflow\projects\Dev\gitLab\napi_nsql
+git clone http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+
+cd C:\workflow\projects\Dev\gitLab\napi_nsql\NewsApi
+
+git branch nsql_mng
+git branch prod_move
+git checkout nsql_mng
+git remote add np http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+git pull np nsql_mng
+
+//GET SOURCE BRANCH
+cd C:\workflow\projects\Dev\gitLab\napi_prod_move
+git clone http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+
+cd C:\workflow\projects\Dev\gitLab\napi_prod_move\NewsApi
+
+git branch nsql_mng
+git branch prod_move
+git checkout prod_move
+git remote add np http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+git pull np prod_move
+
+
+				]
 				,Queries[
 
 where_composed[
@@ -107,7 +148,7 @@ where commentDepth >=0 and commentDepth <=3
 traverse in('Authorshp','Comment') from (select from 24:53)
 
 //Get persons from news
-Select expand(a1) from(Select inE('Authorship').outV('Person')  as a1 from 26:1 )
+Select expand(a1) from(Select inE('Authorship').outV('Person') as a1 from 26:1 )
 
 //Person authorships
 traverse out() from 31:6
@@ -201,7 +242,7 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 				
 				,Migration_sceneries[
 
-	 scenery_theoretical[
+	scenery_theoretical[
 	 
 //migration scenery
 
@@ -369,7 +410,186 @@ replace my.nspk with my.nspk2 to the same host
 			
 		]
 
+		Quiz[
+		
+			TODO[
+->
+[
+back sends and receives Json or JsonShema
+Fron draws receive JSON or sh, redraws by user input and returns new JSOn/sh
+]
+-> Generate Form from JSON or JSONshema
+[
+	Linq Angular to MVC
+]
+-> Get JSON or JSONshema from Form
+[
 
+angular-schema-form.min.js,
+https://github.com/json-schema-form/angular-schema-form/blob/master/docs/index.md#basic-usage
+	
+]
+	
+			]
+			Deployed[
+				FrontHost
+				http://my.nspk.ru/Quiz/List
+				Deployed
+				MSK1-VM-INAPP01.nspk.ru
+				,my.nspk.ru
+				GitLab
+				http://gitlab.nspk.ru/Intranet_Development/Intranet/
+
+				DbHost:
+				msk1-vm-indb01.nspk.ru:2480
+				Intranet
+
+			]		
+			LogicExists[
+				
+				FU[
+no relations in Orient;
+No Interface realization;
+very arguable interface and autofac purpose -> no variations exists;
+very arguable abstract class usage and inheritance logic ->
+sealed override async Task<IEnumerable<Quiz>> SelectAsync();
+no type specific code -> 
+InsertNewQuizData("QuizResult", new QuizResult,
+InsertNewQuizData(typeof(QuizResult).Name, new QuizResult;
+
+				]
+				InOrientDB[
+					
+					!!!has no relation class
+					relation via QuizID!!!
+					select from Quiz
+					select from QuizResult
+					select from Question
+				]
+				
+				POCOs[
+
+Quiz{
+	...
+	List<Question> Question{
+		question{
+			...
+			List<Answer> Answers{}
+			...
+		}
+	}
+	...
+}
+
+QuizResult{
+...
+List<PerformerAnswer>{
+	...
+	PerformerQuestion{}
+	...
+}
+...
+}
+
+				]
+				
+				MVC_angularlogic[
+				View(Constructor.cshtml) uses 
+				~/Scripts/CustomScripts/QuizJsonEditorForm/CKEditor-Bootstrap/angular-schema-form-base64-file-upload.js
+				
+				Constructor.cshtml[
+ng-controller="FormController"
+ConstructorSchema.json,ConstructorForm.json
+OnSubmit 
+poststs JSON.stringify($scope.model) to Quiz/Constructor
+				]-> [HttpPost]QuizController[
+public ActionResult Constructor(string output){
+to QuizHelper.Insert();
+
+}
+				]
+				-> QuizHelper[
+				
+QuizHelper.Insert() ->
+//inserts quiz
+QuizHelper.InsertQuestions(){
+//inserts questions
+InsertNewQuizData()
+{
+//это просто шедевр б...ь
+InsertNewQuizData("QuizResult", new QuizResult
+//вместо
+InsertNewQuizData(typeof(QuizResult).Name, new QuizResult
+//я в восторге, честно
+}
+}
+
+QuizHelper.Execute(Quiz quiq){
+	
+	QuizHelper.InsertNewPerformerData(){
+		insert PerformerQuestion as answer to quiz
+	}
+}
+
+QuizHelper.SelectAsync(){
+	Select Quiz
+		additional select Question
+}
+				
+				]
+				
+				View 
+				Execute.cshtml
+					Form QuzExecute 
+					->
+				Controller(Quiz)
+					[HttpPost]
+					public ActionResult Execute(Quiz quiz)
+					...
+					 ((IQuiz)Quizhelper).InsertNewPerformerData(quiz);
+					->
+				IQuiz interface has not binded to realization
+				Realization in 
+				QuizHelper.cs
+				  public void InsertNewPerformerData(Quiz quiz)
+					  ->
+					 InsertNewQuizData("QuizResult", new QuizResult
+					{
+						QuizId = GetSelectedAnswerText(quiz).Questions.FirstOrDefault().QuizId,
+						FinishDate = DateTime.Now,
+						PerformerName = UserName,
+						PerformerAnswer = answers
+					});
+						->
+						private string InsertNewQuizData(string className, object obj)
+						{
+							var json = JsonConvert.SerializeObject(
+								obj,
+								new IsoDateTimeConverter {DateTimeFormat = "yyyy-MM-dd"},
+								new StringEnumConverter()
+							);
+							return ODatabase.Insert().Into(className + " Content " + json).Run().ORID.RID;
+						}
+						
+				]
+				
+				JsonForms[
+C:\workflow\projects\Dev\gitLab\quiz\Intranet
+\Intranet\Scripts\CustomScripts\QuizJsonEditorForm
+\Json
+ConstructorSchema.json
+ConstructorForm.json
+					]
+					
+			]
+			WantedDesciption[
+				Quest type: NPS - баллы для департамента, "Затрудняюсь ответить" 
+				Question types: [radio, checkbox, + texbox], textbox, dropbox,pictures
+				export excel
+			]
+			
+		]
+		
 		NSQLUOW
 		
 			-> move current UOW logic to Manager <- done
@@ -455,12 +675,14 @@ replace my.nspk with my.nspk2 to the same host
 			info[
 			
 				HostedUrlsandSites[
-					//staic
+//staic
 http://static.nspk.ru
 \\msk1-vm-ovisp01\e$
 http://msk1-vm-ovisp01/v9/
 http://my.nspk.ru/chart/
-				
+[my.nspk.ru]
+http://msk1-vm-inapp01:80
+
 				]
 				
 				UsedURLs[
@@ -509,6 +731,18 @@ new MediaTypeHeaderValue("application/octet-stream");
 			-> New API drop box above textbox add. Textbox no ovewrite
 			-> Select2 Js To site <- done
 		
+	]
+	
+	,job[
+quiz
+domen pass [
+http://help.nspk.ru/Task/view/62582
+62582
+]
+prod mynspk Olga
+[
+deploy testOnProd
+]
 	]
 	
 	,DONE[

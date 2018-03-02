@@ -564,29 +564,45 @@ https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-
 
 	public Bug Trackers
 	{
-		
+		ignore list[		
+.vs
+.git
+bin
+*.dll
+*.csproj*
+*.asax*
+Web.config
+Extensions
+obj
+Properties
+*.config
+
+		]
 		GitLab{
 
-			repository withot ".git"
-			http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
+			NSQL_napi_commit[
+				repository withot ".git"
+				http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
+				
+				http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
+				
+				git remote rm nsm
+				git remote rm napi
+				
+				git remote add nsm http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
+				git remote add napi http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+				
+				cd C:\workflow\projects\Dev\gitLab\PersonNews
+				git init 
+				git add .
+				git commit -m "slash escape repair. post with spaces."
+				
+				cd C:\workflow\projects\Dev\gitLab\manager_split\NSQLManager
+				git init 
+				git add .
+				git commit -m "slash escape repair. post with spaces."
+			]
 			
-			http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
-			
-			git remote rm nsm
-			git remote rm napi
-			
-			git remote add nsm http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
-			git remote add napi http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
-			
-			cd C:\workflow\projects\Dev\gitLab\PersonNews
-			git init 
-			git add .
-			git commit -m "slash escape repair. post with spaces."
-			
-			cd C:\workflow\projects\Dev\gitLab\manager_split\NSQLManager
-			git init 
-			git add .
-			git commit -m "slash escape repair. post with spaces."
 			
 		},
 		
@@ -728,9 +744,24 @@ repeat stage2:
 				
 			}
 			
-      
+			rmFilesByMask[
+				//	git rm -r --cached **/*.jar
+			]
+			removeVsFoldersFromDirectory[
+git rm -r .vs
+git rm -r NewsAPI/bin
+git rm -r NewsAPI/obj
+git rm -r NewsAPI/Properties
+git rm -r NewsAPI.JsonValidator.Tests/bin
+git rm -r NewsAPI.JsonValidator.Tests/obj
+git rm -r NewsAPI.JsonValidator.Tests/Properties
+git rm -r NewsAPI.Tests/bin
+git rm -r NewsAPI.Tests/obj
+git rm -r NewsAPI.Tests/Properties
+			]
+			
 			overall 
-			{
+			[
 			
 			MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
 			git pull origin branchname --allow-unrelated-histories			
@@ -774,7 +805,7 @@ repeat stage2:
 			
 			git-ls-tree 
 			git-ls-remote
-      }
+			]
 		}
 
 	}
@@ -9766,7 +9797,7 @@ RAW JSON
 		
 	#endregion
 		
-	#region OS		
+	#region OS
 		
 		public Windows
 		{
