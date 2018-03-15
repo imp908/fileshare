@@ -28,6 +28,65 @@ namespace Parts{
 	//Usefull links
 	public void mostUsefullLinks()
 	{
+		RPN[
+			http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
+			http://rospotrebnadzor.ru/region/structure/str_uprav.php
+			https://www.meleon.ru/
+			https://www.kartoteka.ru/card/235a7ca4f006b2d3f2b6c855374cadd0/
+			https://www.kartoteka.ru/card/886e2d61f96dc6ae24bd60eb3084fc78/	
+		]
+		
+		https://proglib.io/p/hacker-course/		
+		http://www.gilead.com/
+		http://www.ftse.com/products/downloads/Russell-US-indexes.pdf
+	
+	//investing
+	[
+		stats[
+			http://www.pbc.gov.cn
+		]
+		
+		funds[
+			https://www.bakerhughes.com/
+			
+			https://www.fidelity.com/
+			https://www.fundcalibre.com/
+			https://www.youinvest.co.uk/
+			https://www.brewin.co.uk/
+			https://www.unicornam.com/
+			http://www.moneyobserver.com/
+		]
+		
+		analytics[
+			
+			https://ru.investing.com
+			
+			US index
+			https://www.marketwatch.com/investing/index/DXY
+			
+			https://oilprice.com/
+
+		]
+		
+		ideas[
+			https://oilprice.com/
+			
+			OIL[
+				ROSN,SNGS,LKOH
+				
+				OPEC[
+				2018 IRI-57.5;KSA-70
+					07.2018 
+				]
+				2019 Saudi Arabian Oil Co IPO 
+				$2 trl priced
+				$100 mlrd IPO shares cap.
+			
+			]
+		]
+				
+			
+	]
 	
 	//startups
 	[
@@ -4559,7 +4618,7 @@ $(document).ready(function(){
 	//----------------------------------------------
 	
 	
-	public void AngularJS()
+	public void Angular_JS()
 	{
 		public SampleAjaxPrototype()
 		{
@@ -4732,23 +4791,67 @@ function AJQGet(URL_,depth_)
 		
 	}
 	
-	public void Angular_2()
+	public void Angular_IO()
 	{
+	
+		public void CMD_commands()
+		{
+			
+			//create new project 
+			ng new my_app
+			//Open project
+			ng serve --open
+		}
 		public void Descriptions()
 		{
 
-component {}
-metadata ...
-emplate <>
+componentModuleShema[
 
-{}-{{values}}-><>
-{}-[className]=""-><{}>
-<>-(event)="value"->{}
+	component {}
+	//new components added to app.component.html, index.html
+	.ts;.html;.css
+	metadata ...
+	emplate <>
 
-		}
+	{}-{{values}}-><>
+	{}-[className]=""-><{}>
+	<>-(event)="value"->{}
+
+]
+
+boilerplateReferenceShema[
+
+	{main.ts}-
+	[import { AppModule2 } from './app/app.module';... bootstrapModule(AppModule2)]
+	->{.module.ts}-
+	[
+	import { AppComponent2 } from './app2.component';
+	import { ClickMeComponent } from '../click/click_me.component';
+	...
+		declarations: [
+			AppComponent2,ClickMeComponent
+		]
+	]
+	->{.component.ts{selector(<app-root>),template,css}}
+	<-[selector(<app-root>)]-index.html(.ts,.html,.css)
+	{.html}<-[selector(<click-me>)]-{.component(.ts(selector(<click-me>)),.html)}
 	
+]
+		
+		}
 	}
 	
+	public void TypeScript
+	{
+		
+		index.html[
+			//to include compiled js
+			add <scripts> to <body> section
+			//include exports add to <body>
+			<script>var exports = {};</script>
+		]
+		
+	}
 	#endregion	
 	
 	#region Python
@@ -9796,7 +9899,18 @@ RAW JSON
 	}
 		
 	#endregion
+	
+	#region Editors
+	
+	Atom{
 		
+		Rebuild Angular Io project <- ctrl + s on filebrowser not in file			
+		Refactor <- ctrl + d;
+		
+	}
+		
+	#endregion	
+	
 	#region OS
 		
 		public Windows
@@ -10014,3 +10128,16 @@ sudo service smbd restart
 	
 	#endregion
 	
+	Lonax Strutto 6
+	Орматек Massage
+	Dimax Баланс Фоам Файв
+	Perrino Эрголатекс
+	Softy Plus (ORMATEK)
+	Mr.Mattress Megami
+	
+	сок
+	http://www.cafe-cok.ru/menu
+	лафлафель
+	https://www.afisha.ru/msk/restaurant/290896/
+	мох
+	https://www.afisha.ru/msk/restaurant/348742/

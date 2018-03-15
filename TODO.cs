@@ -27,8 +27,8 @@ TODO [
 			-> Multithread socket message ping pong -> to SB
 			-> CollectionsComparison -> to SB
 			-> Pluggin/addon architecture -> to SB
-			
-			
+
+
 		NSQLmanager[
 		
 			Info[
@@ -415,8 +415,8 @@ replace my.nspk with my.nspk2 to the same host
 			TODO[
 ->
 [
-back sends and receives Json or JsonShema
-Fron draws receive JSON or sh, redraws by user input and returns new JSOn/sh
+	back sends and receives Json or JsonShema
+	Fron draws receive JSON or sh, redraws by user input and returns new JSON/JSNshm
 ]
 -> Generate Form from JSON or JSONshema
 [
@@ -424,10 +424,8 @@ Fron draws receive JSON or sh, redraws by user input and returns new JSOn/sh
 ]
 -> Get JSON or JSONshema from Form
 [
-
-angular-schema-form.min.js,
-https://github.com/json-schema-form/angular-schema-form/blob/master/docs/index.md#basic-usage
-	
+	angular-schema-form.min.js,
+	https://github.com/json-schema-form/angular-schema-form/blob/master/docs/index.md#basic-usage
 ]
 	
 			]
@@ -588,6 +586,40 @@ ConstructorForm.json
 				export excel
 			]
 			
+		]
+		
+		DocsVision[
+		
+			OverallDescription[
+	1CBatch,Newscontroller,AccountControoler,...
+	1C,Ad->ProdOrient
+
+
+	NSQL[
+	JSON[Newtonsoft],Webmanager[Http,body,method],
+	repo, UOW (Person,News), Mng()]
+	NAPI[Mng.GetNews(....)]
+
+	Person[]->NewsOrient->DV[Hierarhy Mng,mng of unit ,mng of person,person to company manager]
+	(double)
+
+	:Node
+	Company
+	:Reference
+	WorkIn,Person{Disabled}
+	[assignments],OldMainAssignment
+
+	Disables, !WorkIn OldMainAssignment maxDate
+
+	пшенистова Рук отд Chart 
+	mng of unit dep (1000)
+	weight
+
+	sol (50)
+
+	Person,manger
+	]
+
 		]
 		
 		NSQLUOW
