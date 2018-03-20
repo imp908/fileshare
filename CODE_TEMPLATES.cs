@@ -39,7 +39,9 @@ namespace Parts{
 		https://proglib.io/p/hacker-course/		
 		http://www.gilead.com/
 		http://www.ftse.com/products/downloads/Russell-US-indexes.pdf
-	
+		
+		Barings Vostok 
+		 
 	//investing
 	[
 		stats[
@@ -4788,7 +4790,7 @@ function AJQGet(URL_,depth_)
 					}
 				
 		}
-		
+				
 	}
 	
 	public void Angular_IO()
@@ -4811,11 +4813,71 @@ componentModuleShema[
 	//new components added to app.component.html, index.html
 	.ts;.html;.css
 	metadata ...
-	emplate <>
-
+	template <>
+		
 	{}-{{values}}-><>
 	{}-[className]=""-><{}>
 	<>-(event)="value"->{}
+	
+	template.html{
+		
+		{{}} <- values from component.ts CL
+		[]=""/{{}} <- html element value bind to value/property
+		
+		//bind class
+		<button [disabled]="isUnchanged">Cancel is disabled</button>
+				
+		//pass model to html element, bind model to html element selector
+		<component selector [class]="classname from component"><> <-
+			
+		//bind event 
+		<button (click)="onSave()">Save</button>
+		<button on-click="onSave()">On Save</button>
+				target event
+				
+		//bind DOM event
+		<input [value]="currentHero.name"
+		(input)="currentHero.name=$event.target.value">
+		
+	}
+	
+	binings{
+	https://angular.io/guide/template-syntax#aliasing-io
+	
+	datasource to view
+	{{expression}}
+	[target]="expression"
+	bind-target="expression"
+	
+	view to datasource 
+	(target)="statement"
+	on-target="statement"
+	
+	two-way
+		Event and property
+		[(ngModel)]=""
+		
+	}
+	
+	events{
+		
+		template.html[method to event bind]{
+			<button (click)="delete()">Delete</button>
+		}
+		
+		component.ts[method calls eventproperty emmit ]{
+			deleteRequest = new EventEmitter<Hero>();
+
+			delete(){
+				this.deleteRequest.emit(this.hero);
+			}
+		}
+		
+		component.html[eventemmiter to method bind ]{
+			<app-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero"></app-hero-detail>
+		}
+		
+	}
 
 ]
 
@@ -4837,7 +4899,38 @@ boilerplateReferenceShema[
 	{.html}<-[selector(<click-me>)]-{.component(.ts(selector(<click-me>)),.html)}
 	
 ]
-		
+	
+modulesReference[
+
+
+	ng_module:{
+		question.service.ts{exports:CL}
+		,app.component.ts{
+			@component(links between html templates and services)({
+				service:servise.ts{imports:CL};
+				ref:selector to html:template{
+					links to other components selectors
+					
+				};
+			)}
+			exports:CL2;
+		}
+		,app.module.ts{
+			imports:CL2; 
+			exports{AppModule}
+		}
+		,components{
+			
+		}
+	}
+
+
+	main.ts{imports:AppModule,}
+	index.html{selector:ngModule component html}
+
+
+]
+
 		}
 	}
 	
