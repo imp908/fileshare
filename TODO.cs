@@ -413,6 +413,21 @@ replace my.nspk with my.nspk2 to the same host
 		Quiz[
 		
 			TODO[
+
+			actual[
+			
+drop down question type model
+question type init
+dropdown select event DOM change
+
+questions model add
+draw question DOM
+receive input
+
+print input on submit
+
+			]
+
 ->
 [
 	back sends and receives Json or JsonShema
@@ -442,7 +457,7 @@ replace my.nspk with my.nspk2 to the same host
 				msk1-vm-indb01.nspk.ru:2480
 				Intranet
 
-			]		
+			]
 			LogicExists[
 				
 				FU[

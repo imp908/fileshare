@@ -4856,7 +4856,23 @@ componentModuleShema[
 	two-way
 		Event and property
 		[(ngModel)]=""
+	
+	inject
+		class ChildCL{}
+		//import { Injectable }       from '@angular/core';
+		//@Injectable()	
+		class ParentCL {getCh(){return c ChildCL;}}
 		
+		@Component{
+			import {ParentCL}
+			,providers[ParentCL]
+		}
+		
+		qt: any;		
+		contructor(sr: ParentCL){
+			qt=sr.getCh();
+		}
+	
 	}
 	
 	events{
@@ -4932,6 +4948,7 @@ modulesReference[
 ]
 
 		}
+	
 	}
 	
 	public void TypeScript
