@@ -28,6 +28,7 @@ namespace Parts{
 	//Usefull links
 	public void mostUsefullLinks()
 	{
+		
 		RPN[
 			http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
 			http://rospotrebnadzor.ru/region/structure/str_uprav.php
@@ -41,7 +42,47 @@ namespace Parts{
 		http://www.ftse.com/products/downloads/Russell-US-indexes.pdf
 		
 		Barings Vostok 
-		 
+		
+		matress[
+	Lonax Strutto 6
+	Орматек Massage
+	Dimax Баланс Фоам Файв
+	Perrino Эрголатекс
+	Softy Plus (ORMATEK)
+	Mr.Mattress Megami
+	]
+	
+		caffe[
+	сок
+	http://www.cafe-cok.ru/menu
+	лафлафель
+	https://www.afisha.ru/msk/restaurant/290896/
+	мох
+	https://www.afisha.ru/msk/restaurant/348742/
+	]
+		
+		offhore[
+	Британские Виргинские острова, США, Великобритания, Кипр, Панама, Новая Зеландия
+	]
+	 
+		azb[
+		nesterov igor
+		
+		]
+		
+		JUR[
+https://vkusomania.ru/rules/
+
+1.15 отказ от рассылки[
+1.15. Согласившись с правилами Программы Участник соглашается на получение от «Азбуки Вкуса» Уведомлений, предусмотренных настоящими Правилами, но сохраняет за собой право отказаться от уведомлений рекламного характера одним из следующих способов:
+1.15.1. Перейдя по ссылке в электронном письме (e-mail) от «Азбуки Вкуса»;
+1.15.2. Оставив устное заявление об отказе от получения Уведомлений, переданное оператору горячей линии 8-800-700-19-11;
+1.15.3. В личном кабинете на сайте av.ru, сайте vkusomania.ru, а также в мобильном приложении «Вкусомания»;
+1.15.4. С помощью СМС-сервиса. Отправьте цифру «5» на короткий номер 2454 для отказа от СМС-информирования. Отправьте цифру «6» на короткий номер 2454 для отказа от e-mail информирования. Данная услуга доступна только абонентам сетей МТС, Билайн и Мегафон. Информацию о стоимости услуги можно уточнить у оператора связи.
+]
+
+		]
+		
 	//investing
 	[
 		stats[
@@ -10238,16 +10279,4 @@ sudo service smbd restart
 	
 	#endregion
 	
-	Lonax Strutto 6
-	Орматек Massage
-	Dimax Баланс Фоам Файв
-	Perrino Эрголатекс
-	Softy Plus (ORMATEK)
-	Mr.Mattress Megami
 	
-	сок
-	http://www.cafe-cok.ru/menu
-	лафлафель
-	https://www.afisha.ru/msk/restaurant/290896/
-	мох
-	https://www.afisha.ru/msk/restaurant/348742/
