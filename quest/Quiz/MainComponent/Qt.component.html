@@ -1,0 +1,6 @@
+<div>Question</div>
+<div>{{mcText2}}</div>
+<div [formGroup]="from_">
+  <aw-component (answersCollection)="receiveAnswers($event)"></aw-component>
+<button>Save Question</button>
+</div>
