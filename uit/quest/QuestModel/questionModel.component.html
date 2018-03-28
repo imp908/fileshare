@@ -1,3 +1,31 @@
 <div>
   Question model
 </div>
+
+<div *ngIf="selectedType">
+  Selected {{selectedType}}
+  Item {{qitm.type.type_}}
+
+  <div [ngSwitch]="selectedType">
+    <form   (ngSubmit)="onSubmit()" [formGroup]="form_">
+
+        <div *ngSwitchCase="'Text box'">
+          <label>Question:</label>
+          <input>
+        </div>
+
+        <div *ngSwitchCase="'Drop down'">
+          <label>Question:</label>
+          <input>
+
+          <label>Answers:</label>
+          <input>
+          <button>Add</button>
+        </div>
+
+      <input type="checkbox"> <label>To Add</label>
+
+    </form>
+  </div>
+
+</div>

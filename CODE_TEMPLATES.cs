@@ -4844,6 +4844,15 @@ function AJQGet(URL_,depth_)
 			ng new my_app
 			//Open project
 			ng serve --open
+			
+			//bootstrap install
+			npm install --save @ng-bootstrap/ng-bootstrap
+			
+			//material design
+			//https://material.angular.io/guide/getting-started
+			npm install --save @angular/material @angular/cdk
+			npm install --save @angular/animations
+
 		}
 		public void Descriptions()
 		{
@@ -4935,6 +4944,7 @@ componentModuleShema[
 		}
 		
 	}
+	
 
 ]
 
@@ -4988,6 +4998,17 @@ modulesReference[
 
 ]
 
+	child_to_parent_with_event_shema
+	{
+//Component child parent binding with events
+Child
+html -> action=method
+ts -> @output outEm=EventEmitter<>(), method(){this.outEm.emit();}
+Parent
+ts -> method($event){} 
+html -> <childHtml (outEm)="method($event)">
+	}
+	
 		}
 	
 	}

@@ -2,21 +2,26 @@
 import { Component, Input, OnInit }   from '@angular/core';
 import { FormGroup,FormControl }      from '@angular/forms';
 
-import {QuestionTypes,QuestionItem}   from '../questionMd.component';
+import {QuestionTypes,QuestionItems,QuestionType,QuestionItem} from '../questionMd.component';
 
 @Component({
   selector: 'question-model'
-  ,templateUrl: './QuestionTp.component.html'
-  ,providers:[QuestionTypes,QuestionItem]
+  ,templateUrl: './QuestionModel.component.html'
+  ,providers:[QuestionTypes,QuestionItems]
 })
 
-export class QuestionItems{
-  questions: QuestionItem ;
-  form: FormGroup;
+export class QuestionModels{
+  @Input() selectedType: QuestionType;
+  form_: FormGroup;
+  questionItems: QuestionItems ;
 
   constructor ()
   {
 
+  }
+
+  ngOnInit(){
+    
   }
 
 }

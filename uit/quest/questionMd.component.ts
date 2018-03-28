@@ -1,4 +1,5 @@
 import { Injectable }       from '@angular/core';
+import { FormGroup,FormControl }      from '@angular/forms';
 
 interface IQuestionType {
   ID:number;
@@ -20,8 +21,8 @@ export class QuestionItem
 {
   ID:number;
   type:QuestionType;
-  text?:string;
-  answer?:any;
+  AnswerText?:string;
+  AnswerItem?:any;
 
   constructor(  id_:number,
     type_:QuestionType,
@@ -29,8 +30,8 @@ export class QuestionItem
     answer_?:any){
       this.ID=id_;
       this.type=type_;
-      this.text=text_;
-      this.answer=answer_;
+      this.AnswerText=text_;
+
     }
 
 }
@@ -48,19 +49,31 @@ export class QuestionTypes{
 
     return questions;
   }
+  toControlGroup()
+  {
+    const group=new FormGroup({first: new FormControl(this.getQuestionTypes())});
+    return group;
+
+  }
 }
 
 @Injectable()
 export class QuestionItems{
   getQuestionItems(){
     let q: QuestionItem[]=[
-
-      new QuestionItem(0,new QuestionType(0,"Text box"),undefined,undefined)
-      ,new QuestionItem(0,new QuestionType(0,"Drop down"),undefined,undefined)
-
+      new QuestionItem(0,new QuestionType(0,"Text box"),undefined)
+      ,new QuestionItem(1,new QuestionType(0,"Drop down"),undefined)
+      ,new QuestionItem(2,new QuestionType(0,"Check box"),undefined)
+      ,new QuestionItem(3,new QuestionType(0,"Radio buttons"),undefined)
     ]
-
     return q;
   }
+  toControlGroup()
+  {
+    const group=new FormGroup({first: new FormControl(this.getQuestionItems())});
+    return group;
+
+  }
 }
+
 //export {IQuestionType,QuestionType,QuestionExport};

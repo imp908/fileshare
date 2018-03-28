@@ -1,20 +1,16 @@
 <div>
   Inserted
 </div>
+
 <form  (ngSubmit)="onSubmit()" [formGroup]="form">
   <select #selectedCategory (change)="onChange(selectedCategory.value)">
     <option *ngFor="let questType of questTypes" [value]="questType.name">{{questType.name}}</option>
   </select>
   <button type="submit" [disabled]="!form.valid">Save</button>
 </form>
-<div *ngIf="selectedType">
-  Selected {{selectedType}}
-  Item   {{qitm.type.type_}}
-</div>
-<div [ngSwitch]="selectedType">
-   <div *ngSwitchCase="'Text box'"></div>
-   <p *ngSwitchCase="'Drop down'"></p>
-</div>
+
+<question-model [selectedType]="selectedType"></question-model>
+
 <div>
   {{jsString}}
 </div>

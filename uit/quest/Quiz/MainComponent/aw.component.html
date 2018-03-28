@@ -1,0 +1,21 @@
+<div class="container">Answer
+  <form (ngSubmit)="submitForm(f)" #f="ngForm">
+    <table>
+    <div *ngFor="let aw_ of answer_">
+        <tr>
+          <td>
+            {{aw_.label}}
+          </td>
+          <td>
+            <input type="text" name="{{aw_.value}}" [(ngModel)]="aw_.value">
+          </td>
+          <td>
+            <input type="checkbox" name="{{aw_.toStore}}" [checked]="aw_.toStore" [(ngModel)]="aw_.toStore">
+          </td>
+        </tr>
+    </div>
+    </table>
+  <button class="btn btn-success">Save answers</button>
+  </form>
+
+</div>

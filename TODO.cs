@@ -294,7 +294,10 @@ if not exist -> create relations
 			
 			,TODO[
 			
-
+-> ETL[
+	1C load
+	Person sync (GUID,CN ad Fname+Lname+Mdlname )
+]
 -> no class specific vertex creation
 -> custom LINQ expression trees {Class.prop.value}{condType}{targetValue}
 -> integrate custom expression into class vertex
@@ -324,10 +327,10 @@ if not exist -> create relations
 -> AD synch
 
 
-
+			
 			-> property comparer with custom attributes[
 				-> common custom toggled atribute (IsUpdatable)
-				-> passing attribute to method and detecting its toggle value (true,false)]<-done
+				-> passing attribute to method and detecting its toggle value (true,false)] <-done
 			-> Prod Moove[
 			
 				received: 24.01.2018 estimate 1.5 week
@@ -1719,8 +1722,7 @@ Northwind
 	public class CodeShemas
 	{
 				
-	public Node reference shemas
-	{
+	public Node reference shemas{
 			
 	Node reference shemas. Minimum and explicit[
 

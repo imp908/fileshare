@@ -11,7 +11,7 @@ import {QuestionTypes,QuestionItems,QuestionType,QuestionItem}   from '../questi
 })
 
 
-export class QuestionCpnt{
+export class QuestionComponents{
   questTypes: QuestionType[];
   serv: QuestionTypes;
 
@@ -27,7 +27,9 @@ export class QuestionCpnt{
     this.serv=new QuestionTypes();
     this.qi=new QuestionItems();
 
+    //question type names for dropdown select
     this.questTypes=this.serv.getQuestionTypes();
+    //collection of question objects
     this.questionItems=this.qi.getQuestionItems();
 
     this.form=this.toFormGroup();
@@ -39,8 +41,9 @@ export class QuestionCpnt{
   {
     console.log("toFormGroup");
     console.log(this.questTypes);
-    const group=new FormGroup({first: new FormControl(this.questTypes)});
+    const group=this.serv.toControlGroup();
     return group;
+
   }
 
   onChange(value: string)
@@ -63,4 +66,7 @@ export class QuestionCpnt{
     console.log("onSubmit");
     this.jsString = JSON.stringify(this.form.value);
   }
+
+
+
 }
