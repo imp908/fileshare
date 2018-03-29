@@ -1,0 +1,15 @@
+<div>{{className}}</div>
+
+<button  class="btn" (click)="createQuestion()">New question</button>
+
+<div class="container">
+  <div *ngFor="let qt_ of quiz_.questions_">
+    {{qt_.value}}
+    <button class="btn" (click)="editQuestion(qt_)">Edit</button>
+    <button class="btn btn-danger" (click)="deleteQuestion(qt_)">Delete</button>
+  </div>
+</div>
+
+<div *ngIf="this.quiz_.selectedQuestion != null">
+  <question-component [question_]="this.quiz_.selectedQuestion" (saveQuestion_)="saveQuestion($event)"></question-component>
+</div>
