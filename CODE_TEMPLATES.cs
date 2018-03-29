@@ -29,7 +29,7 @@ namespace Parts{
 	public void mostUsefullLinks()
 	{
 		
-		RPN[
+	  RPN[
 			http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
 			http://rospotrebnadzor.ru/region/structure/str_uprav.php
 			https://www.meleon.ru/
@@ -42,47 +42,13 @@ namespace Parts{
 		http://www.ftse.com/products/downloads/Russell-US-indexes.pdf
 		
 		Barings Vostok 
-		
-		matress[
-	Lonax Strutto 6
-	Орматек Massage
-	Dimax Баланс Фоам Файв
-	Perrino Эрголатекс
-	Softy Plus (ORMATEK)
-	Mr.Mattress Megami
-	]
-	
-		caffe[
-	сок
-	http://www.cafe-cok.ru/menu
-	лафлафель
-	https://www.afisha.ru/msk/restaurant/290896/
-	мох
-	https://www.afisha.ru/msk/restaurant/348742/
-	]
-		
-		offhore[
+		 
+		  offhore[
 	Британские Виргинские острова, США, Великобритания, Кипр, Панама, Новая Зеландия
 	]
-	 
-		azb[
 		nesterov igor
-		
-		]
-		
-		JUR[
-https://vkusomania.ru/rules/
-
-1.15 отказ от рассылки[
-1.15. Согласившись с правилами Программы Участник соглашается на получение от «Азбуки Вкуса» Уведомлений, предусмотренных настоящими Правилами, но сохраняет за собой право отказаться от уведомлений рекламного характера одним из следующих способов:
-1.15.1. Перейдя по ссылке в электронном письме (e-mail) от «Азбуки Вкуса»;
-1.15.2. Оставив устное заявление об отказе от получения Уведомлений, переданное оператору горячей линии 8-800-700-19-11;
-1.15.3. В личном кабинете на сайте av.ru, сайте vkusomania.ru, а также в мобильном приложении «Вкусомания»;
-1.15.4. С помощью СМС-сервиса. Отправьте цифру «5» на короткий номер 2454 для отказа от СМС-информирования. Отправьте цифру «6» на короткий номер 2454 для отказа от e-mail информирования. Данная услуга доступна только абонентам сетей МТС, Билайн и Мегафон. Информацию о стоимости услуги можно уточнить у оператора связи.
-]
-
-		]
-		
+		13.01.1985
+		]								 
 	//investing
 	[
 		stats[
@@ -131,7 +97,7 @@ https://vkusomania.ru/rules/
 			
 	]
 	
-	//startups
+		 //startups
 	[
 	
 	http://www.selpo.me/
@@ -172,7 +138,7 @@ https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-
 	
 	//DAG directed acyclic graph
 	https://en.wikipedia.org/wiki/Directed_acyclic_graph
-	
+								 
 	//Generate mvc and razor from json
 	https://stackoverflow.com/questions/12876865/is-there-anyway-to-generate-razor-views-cshtml-based-on-a-template-beside-t4
 	http://www.umbraworks.net/bl0g/rebuildall/2009/11/17/ASP_NET_MVC_and_virtual_views
@@ -187,7 +153,6 @@ https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-
 	//JS	
 	//Json to html
 	http://www.json2html.com/
-	https://gojs.net/latest/index.html
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
 	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708
@@ -202,7 +167,7 @@ https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-
 	//LinqInAction
 	https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
 															   
-	https://eloquentjavascript.net/index.html
+	https://eloquentjavascript.net/index.html	
 	//bulletproof wrappers
 	https://blog.sentry.io/2016/02/03/wrap-javascript-functions
 	//tests
@@ -210,7 +175,7 @@ https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-
 	//error handling
 	https://javascript.info/try-catch
 	
-	//chart vis
+	//chart vis	
 	http://js.cytoscape.org/#getting-started/including-cytoscape.js
 	http://graphalchemist.github.io/Alchemy/#/
 	https://neo4j.com/developer/guide-data-visualization/
@@ -260,6 +225,8 @@ https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-
 	https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode/263416#263416
 	//Chart visualization/
 	https://stackoverflow.com/questions/21893401/big-data-visualization-using-search-show-context-and-expand-on-demand-concep
+	//MSDN linq, expressions
+	https://weblogs.asp.net/dixin					  
 	
 	//D3.js
 	//essentials v4
@@ -342,7 +309,8 @@ https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-
 	
 	
 	 //C#
-
+	//Expression trees
+	https://weblogs.asp.net/dixin/functional-csharp-function-as-data-and-expression-tree
 		
 	//dev guide
 	https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
@@ -403,7 +371,9 @@ https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-
 	//Programming Entity Framework, 2nd Edition
 	https://www.safaribooksonline.com/library/view/programming-entity-framework/9780596807276/ch04.html
 
-	
+	//Dynamic LINQ Queries with Expression Trees
+	https://www.simple-talk.com/dotnet/net-framework/dynamic-linq-queries-with-expression-trees/
+
 	//Calling functions in LINQ queries
 	http://tomasp.net/blog/linq-expand.aspx/
 
@@ -682,7 +652,7 @@ Properties
 		]
 		GitLab{
 
-			NSQL_napi_commit[
+		NSQL_napi_commit[
 				repository withot ".git"
 				http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
 				
@@ -703,8 +673,12 @@ Properties
 				git init 
 				git add .
 				git commit -m "slash escape repair. post with spaces."
-			]
+			]												
 			
+			cd C:\workflow\projects\Dev\gitLab\manager_split\NSQLManager
+			git init 
+			git add .
+			git commit -m "slash escape repair. post with spaces."
 			
 		},
 		
@@ -865,48 +839,48 @@ git rm -r NewsAPI.Tests/Properties
 			overall 
 			[
 			
-			MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
-			git pull origin branchname --allow-unrelated-histories			
-			//recommended
-			git clone
-						
-			
-			git remote -v -> check remotes
-			git branch -> check what branch you are in
-			
-			EXISTING LOCAL PROJECT TO NEW GIT REPO FIRST PUSH
-			create new in git web
-			cd -> moove to directory		
-			git remote add origin \\url_to_project
-			git pull origin master
-			git init -> initialize git
-			git add . -a //no files changed
-			git add -u //only indexed files
-			
-			git commit -m "Commit text"
-			git push -u origin master
-			
-			NEW BRANCH
-			create new branch in web
-			git checkout -b \\url to branch		
-			add commit push section 
-			
-			git push -u origin branchname {!!!<pushing to branch>!!!}
-			
-			REMOVE REPO
-			git remote rm origin
-      //filemanager
-			gitk
-			
-			//log commits
-			https://stackoverflow.com/questions/1838873/visualizing-branch-topology-in-git
-			git log --graph			
-			git log --graph --pretty=oneline --abbrev-commit
-			git log --graph --oneline --all
-			git log --graph --oneline
-			
-			git-ls-tree 
-			git-ls-remote
+				MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
+				git pull origin branchname --allow-unrelated-histories			
+				//recommended
+				git clone
+							
+				
+				git remote -v -> check remotes
+				git branch -> check what branch you are in
+				
+				EXISTING LOCAL PROJECT TO NEW GIT REPO FIRST PUSH
+				create new in git web
+				cd -> moove to directory		
+				git remote add origin \\url_to_project
+				git pull origin master
+				git init -> initialize git
+				git add . -a //no files changed
+				git add -u //only indexed files
+				
+				git commit -m "Commit text"
+				git push -u origin master
+				
+				NEW BRANCH
+				create new branch in web
+				git checkout -b \\url to branch		
+				add commit push section 
+				
+				git push -u origin branchname {!!!<pushing to branch>!!!}
+				
+				REMOVE REPO
+				git remote rm origin
+		  //filemanager
+				gitk
+				
+				//log commits
+				https://stackoverflow.com/questions/1838873/visualizing-branch-topology-in-git
+				git log --graph			
+				git log --graph --pretty=oneline --abbrev-commit
+				git log --graph --oneline --all
+				git log --graph --oneline
+				
+				git-ls-tree 
+				git-ls-remote
 			]
 		}
 
@@ -2090,14 +2064,26 @@ StringBuilder.
 					//using System.Web.Http.Cors;
 					Install-Package Microsoft.AspNet.WebApi.Cors
 
+//nsql ref
+Install-Package xunit -ProjectName NSQLManagerIntegrationTests
+Install-Package moq -ProjectName NSQLManagerIntegrationTests
+Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
+Install-Package Microsoft.AspNet.WebApi -ProjectName NSQLManagerIntegrationTests
 
+Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
+				
 				}
 				public void ConfigurationManager()
 				{
 					reference 
-					FRAMEWORKS -> System.Configuration					
-				}			
-				public void WebDeploy()
+					FRAMEWORKS -> System.Configuration
+					
+				}
+			
+        public void WebDeploy()
 				{
 					Web Deploy
 					//host name without urls or ports
@@ -3397,7 +3383,10 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
           WHEN:
             testing wcf.svc from VS
           HOW:
-            NOT enough memory free
+            NOT enough memory free 
+          OR: 
+            
+          
         }
       
        
@@ -3520,14 +3509,14 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 			HOW:
 				Tolos->Import And export settings-> reset all settings
 		}
-      
-	  }
+		
+      }	
     
       
     }
     
   
-
+		
 	#endregion 	
 	
 	#region C++ 
@@ -4661,7 +4650,7 @@ $(document).ready(function(){
 	//----------------------------------------------
 	
 	
-	public void Angular_JS()
+	public void AngularJS()
 	{
 		public SampleAjaxPrototype()
 		{
@@ -4831,19 +4820,16 @@ function AJQGet(URL_,depth_)
 					}
 				
 		}
-				
+		
 	}
 	
 	public void Angular_IO()
 	{
 		
-		links[
-		
 https://ng-bootstrap.github.io/#/getting-started
 https://angular.io/guide/setup-systemjs-anatomy
 
-		]
-		
+		]						   
 		public void CMD_commands()
 		{
 			
@@ -4864,11 +4850,13 @@ https://angular.io/guide/setup-systemjs-anatomy
 			npm install --save @angular/common -g
 			npm install --save @angular/forms -g
 			npm install --save @ng-bootstrap/ng-bootstrap -g
-		}
+		}		
 		public void Descriptions()
 		{
 
 componentModuleShema[
+			
+		  
 
 	component {}
 	//new components added to app.component.html, index.html
@@ -4955,7 +4943,6 @@ componentModuleShema[
 		}
 		
 	}
-	
 
 ]
 
@@ -5021,7 +5008,6 @@ html -> <childHtml (outEm)="method($event)">
 	}
 	
 		}
-		
 		public void Examples(){
 			
 			dropdownSlect[
@@ -5047,9 +5033,6 @@ html -> <childHtml (outEm)="method($event)">
 	
 	public void TypeScript
 	{
-		specificality{
-			//overload constructors
-		}
 		
 		index.html[
 			//to include compiled js
@@ -5058,8 +5041,9 @@ html -> <childHtml (outEm)="method($event)">
 			<script>var exports = {};</script>
 		]
 		
-	}
 	#endregion	
+	
+	#endregion
 	
 	#region Python
 		
@@ -7376,8 +7360,7 @@ POST,DELETE function
 http://msk1-vm-ovisp02:2480/command/news_prod/sql/
 delete from Ofunction where name = "test";
 CREATE FUNCTION test "var gp= orient.getGraph();var res=gp.command(\"sql\",\"select from \"+var1);return res;"  PARAMETERS [var1] IDEMPOTENT true LANGUAGE JAVASCRIPT
-
-	batchInsertPOCCbodyURI{
+		batchInsertPOCCbodyURI{
 					
 		http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
 
@@ -7426,8 +7409,6 @@ CREATE FUNCTION test "var gp= orient.getGraph();var res=gp.command(\"sql\",\"sel
 		http://msk1-vm-ovisp02:2480/command/news_test3/sql/Delete Vertex Person where Name = 0
 													
 	}
-
-	
 }
 			
 			}
@@ -8123,6 +8104,7 @@ http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentL
 			public void Queries()
 			{
 
+
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
 
@@ -8138,14 +8120,17 @@ and StartDate.asDate() > '2017-03-30'
 and EndDate.asDate() <  '2017-04-30'
 
 }
-public GroupByCountEdges(){
+public GroupByCountEdges()
+{
 	select out('Authorship').size(),Name,GUID from Person group by Name,GUID
 }
-select CommentsCountAndLikes(){
+select CommentsCountAndLikes()
+{
 select in('Authorship').GUID[0] as AuthGUID, * from Note
 select in('Authorship').GUID[0] as AuthGUID,out('Comment').size() as CommentsCount, * from News
 }
-public SelectConditionsHC(){
+public SelectConditionsHC()
+{
 	
 select from Note
 where 1=1
@@ -8163,6 +8148,7 @@ public SelectNews(){
 	outE('Authorship').inV('Note').inE('Comment').outV('Note')
 	)from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
 }
+
 public SelectComments(){
 	//select comments
 	select  from (
@@ -8171,7 +8157,7 @@ public SelectComments(){
 	)from Person where @rid=#73:1 )
 	where 1=1 and inE('Comment')[0].@rid!=''
 }
-
+	
 public DateTimeRearrangeGet(){
 	
 ALTER DATABASE DATETIMEFORMAT "yyyy.MM.dd HH:mm:ss GG"
@@ -8627,6 +8613,7 @@ unwind Path) ) while $depth <=1 ) where $depth >=1
 	
 
 }
+
 
 			}
 
@@ -10107,7 +10094,7 @@ RAW JSON
 		
 	#endregion
 	
-	#region Editors
+ 	#region Editors
 	
 	Atom{
 		
@@ -10117,8 +10104,8 @@ RAW JSON
 	}
 		
 	#endregion	
-	
-	#region OS
+			
+	#region OS		
 		
 		public Windows
 		{
@@ -10334,5 +10321,4 @@ sudo service smbd restart
 		}
 	
 	#endregion
-	
 	
