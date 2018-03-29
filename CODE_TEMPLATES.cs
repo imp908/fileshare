@@ -4836,7 +4836,14 @@ function AJQGet(URL_,depth_)
 	
 	public void Angular_IO()
 	{
-	
+		
+		links[
+		
+https://ng-bootstrap.github.io/#/getting-started
+https://angular.io/guide/setup-systemjs-anatomy
+
+		]
+		
 		public void CMD_commands()
 		{
 			
@@ -4852,7 +4859,11 @@ function AJQGet(URL_,depth_)
 			//https://material.angular.io/guide/getting-started
 			npm install --save @angular/material @angular/cdk
 			npm install --save @angular/animations
-
+			
+			npm install --save @angular/core-g
+			npm install --save @angular/common -g
+			npm install --save @angular/forms -g
+			npm install --save @ng-bootstrap/ng-bootstrap -g
 		}
 		public void Descriptions()
 		{
@@ -5010,11 +5021,35 @@ html -> <childHtml (outEm)="method($event)">
 	}
 	
 		}
+		
+		public void Examples(){
+			
+			dropdownSlect[
+				<select  #selectedCategory (change)="typeChange(selectedCategory.value)">
+				<option *ngFor="let qt of answerTypes_.types_" [value]="qt.type" >{{qt.name}}</option>
+				</select>
+			]
+			bootstrapDropDown(){
+				
+<div ngbDropdown>
+	<button class="btn btn-outline-primary" id="dropdownMenu3" ngbDropdownToggle>Toggle</button>
+	<div class="dropdown-menu" aria-labelledby="dropdownMenu3" ngbDropdownMenu>
+		<button class="dropdown-item">Action - 1</button>
+		<button class="dropdown-item">Another Action</button>
+		<button class="dropdown-item">Something else is here</button>
+	</div>
+</div>
+			}
+			
+		}
 	
 	}
 	
 	public void TypeScript
 	{
+		specificality{
+			//overload constructors
+		}
 		
 		index.html[
 			//to include compiled js
