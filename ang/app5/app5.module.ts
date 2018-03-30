@@ -22,12 +22,13 @@ import {mainComponent2} from '../quest/Quiz/Mc/main.component';
 import {answerComponent} from '../quest/Quiz/Answer/answer.component';
 import {questionComponent} from '../quest/Quiz/Question/question.component';
 import {quizComponent} from '../quest/Quiz/Quizes/quiz.component';
+import {listComponent} from '../quest/Quiz/List/list.component';
 
 @NgModule({
   declarations: [
     AppComponent5
     ,testComponent
-    ,mainComponent2,answerComponent,questionComponent,quizComponent
+    ,mainComponent2,answerComponent,questionComponent,quizComponent,listComponent
   ],
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule

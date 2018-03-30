@@ -1,6 +1,8 @@
 import { Component, Input, OnInit }   from '@angular/core';
 import { FormGroup,FormControl }      from '@angular/forms';
 
+import {serviceCl} from '../Model/QtMd.component';
+
 @Component({
   selector: 'main-component2'
   ,templateUrl: './main.component.html'
@@ -9,10 +11,11 @@ import { FormGroup,FormControl }      from '@angular/forms';
 
 export class mainComponent2
 {
+
   className: string;
   constructor(){this.className=this.constructor.name;}
   ngOnInit(){
-    console.log('Inited: ' + this.constructor.name)
+    serviceCl.log('Inited: ' + this.constructor.name)
   }
 
 }

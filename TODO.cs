@@ -736,7 +736,10 @@ http://msk1-vm-inapp01:80
 				]
 				
 				UsedURLs[
-				
+	
+	structure http://msk1-vm-ovisp01:8089/api/Structure/
+	
+	
 	var SearchPersonUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchPerson/'	
 	var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'	
 	var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last'

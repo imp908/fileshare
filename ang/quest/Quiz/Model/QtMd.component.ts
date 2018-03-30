@@ -1,6 +1,145 @@
 import { Injectable } from '@angular/core';
 import { FormGroup,FormControl }  from '@angular/forms';
 
+
+
+//Generic interface
+//---------------------------------------------------------------
+interface IPrimitiveCollection_ { <X>(arg:Array<X>):Array<X> }
+
+//Generic PrimitiveCollection
+//---------------------------------------------------------------
+function PrimitiveCollection_<T>(arg:Array<T>):Array<T>{return arg;}
+let myCol1: <U>(arg:Array<U>) => Array<U> = PrimitiveCollection_;
+//call signature of and object literal type
+let myCol2: { <X>(arg:Array<X>):Array<X> } =PrimitiveCollection_;
+//call via interface
+let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
+
+
+//Generic classes
+//---------------------------------------------------------------
+
+interface IprimitiveItem{
+  key:number;
+}
+interface IPrimitiveCollection<T extends IprimitiveItem>{
+  arr:Array<T>;
+}
+
+class PrimitiveItem{
+  key:number;
+
+  name:string="";
+  value?:string;
+}
+
+class PrimitiveCollection<T extends IprimitiveItem>{
+  array:Array<T>;
+
+  add(item:T){
+    var max=0;
+    var toPsuh:boolean=false;
+
+    if(typeof(this.array)=='undefined'){
+      serviceCl.log("PrimitiveCollection array Undefined")
+      this.array=Array<T>();
+      toPsuh=true;
+    }else{
+
+      max=this.getMaxKey();
+      serviceCl.log(["PrimitiveCollection array defined. max = ",max])
+
+      if(item.key==null){
+          max+=1;
+          toPsuh=true;
+          serviceCl.log(["item has no key. Max=  ",max])
+      }else{
+        serviceCl.log(["item has key: ",item.key])
+
+        if((this.getByItem(item)==null)){
+          max+=1;
+          toPsuh=true;
+          serviceCl.log(["item not exists. max= ",max])
+        }
+
+      }
+
+    }
+
+    if(toPsuh===true){
+      item.key=max;
+      this.array.push(item);
+    }
+    return item;
+  }
+
+  delete(item:T){
+    if(typeof(this.array)!=null){
+      var index_:number=this.getIndexByItem(item)
+      if(index_!=-1){
+        this.array.splice(index_,1);
+        return this.array
+      }
+    }
+    return null;
+  }
+  update(item:T){
+    if((typeof(this.array)!=null)){
+      var index_=this.array.findIndex(s=>s.key===item.key);
+      if(index_!=-1){
+          this.array[-1]=item;
+          return this.array[-1];
+      }
+    }
+    return null;
+  }
+
+  getMaxKey(){
+    if(typeof(this.array)!=null){
+      var max=Math.max.apply(Math,this.array.map(function(o){return o.key;}))
+      if(max!=null){
+        return max;
+      }
+    }
+    return null;
+  }
+  getByItem(item:T){
+    if(typeof(this.array)!=null){
+      var index_=this.array.findIndex(s=>s.key===item.key);
+      if(index_!=-1){
+        return this.array[index_];
+      }
+    }
+    return null;
+  }
+  getByKey(key:number){
+    if(typeof(this.array)!=null){
+      var index_=this.array.findIndex(s=>s.key===key);
+      if(index_!=-1){
+        return this.array[index_];
+      }
+    }
+    return null;
+  }
+  getIndexByItem(item:T){
+    if(typeof(this.array)!=null){
+      return this.array.findIndex(s=>s.key===item.key);
+    }
+    return -1;
+  }
+  getIndexBykey(key:number){
+    if(typeof(this.array)!=null){
+      return this.array.findIndex(s=>s.key===key);
+    }
+    return -1;
+  }
+}
+
+
+//Quiz non generic model weak inheritance
+//---------------------------------------------------------------
+
 export class Itm{
     public key: number=-1;
     public value: string="";
@@ -44,12 +183,12 @@ export class Qt extends Itm{
       (typeof(this.options)=='undefined') ||
       (this.options.length==0)
      ){
-      console.log("Undef")
+      serviceCl.log("Undef")
       this.options=[];
     }
     else{
-      console.log("def")
-      console.log(this.options)
+      serviceCl.log("def")
+      serviceCl.log(this.options)
       max=this.options[this.options.length-1].key;
       a.key=max+1;
     }
@@ -65,14 +204,14 @@ export class Qt extends Itm{
   deleteAnswer(a:Aw){
     //var max=this.options.findIndex(s=>s.key==1).key;
     var max=this.findIndex_(this.options,"key",a.key);
-    console.log('delete');
-    console.log(a);
-    console.log('from');
-    console.log(max);
-    console.log('item');
-    console.log(this.options);
-    console.log('equals');
-    console.log(this.options.splice(max,1));
+    serviceCl.log('delete');
+    serviceCl.log(a);
+    serviceCl.log('from');
+    serviceCl.log(max);
+    serviceCl.log('item');
+    serviceCl.log(this.options);
+    serviceCl.log('equals');
+    serviceCl.log(this.options.splice(max,1));
     //this.options.slice(this.options.findIndex(s=>s.key==a.key),1);
     //this.options=this.options.splice(max,1);
   }
@@ -98,6 +237,7 @@ export class Aw extends Itm{
     this.isChecked=isChecked_;
 
   };
+
 }
 
 export class answerType{
@@ -171,12 +311,17 @@ export class answerTypes{
 
 }
 
-export class Quiz{
+export class Quiz extends PrimitiveItem{
+
   questions_: Qt[]=[];
   selectedQuestion:Qt=null;
   types: answerTypes=new answerTypes();
 
-  constructor( qt_?:Qt[],types_?:answerTypes){
+  constructor(key_?:number,qt_?:Qt[]){
+    super();
+    if(key_!=null){
+      this.key=key_;
+    }
     if(qt_!=null){
       this.questions_=qt_;
     }
@@ -191,7 +336,7 @@ export class Quiz{
     this.addQuestions(arr);
   }
   addQuestions(a:Qt[]){
-    console.log("addQuestions")
+    serviceCl.log("addQuestions")
     var max:number=0;
 
     for(var i=0;i<a.length;i++){
@@ -199,24 +344,24 @@ export class Quiz{
       //IF exists
       if((this.questions_!=null) && (this.questions_.length>0)){
         var q=getItemFromObjArr(this.questions_,"key",a[i].key);
-        console.log(q);
+        serviceCl.log(q);
 
         if(q!=null){
           //this.deleteQuestion(q);
           this.updateQuestion(q,a[i])
-          console.log("exists for",a[i])
+          serviceCl.log(["exists for",a[i]])
         }else{
           max=getMaxID(this.questions_,'key');
-          console.log("not exists with max: ",max);
+          serviceCl.log(["not exists with max: ",max]);
           a[i].key=max+1;
-          console.log("max key: ");console.log(a[i].key);
+          serviceCl.log("max key: ");serviceCl.log(a[i].key);
           this.questions_.push(a[i]);
         }
 
       }//if NOT exists PUSH
       else{
         a[i].key=max+1;
-        console.log("max key: ");console.log(a[i].key);
+        serviceCl.log("max key: ");serviceCl.log(a[i].key);
         this.questions_.push(a[i]);
       }
     }
@@ -227,22 +372,33 @@ export class Quiz{
     this.deleteQuestions(arr);
   }
   deleteQuestions(a:Qt[]){
-    console.log("deleteQuestions")
+    serviceCl.log("deleteQuestions")
     for(var i =0;i<a.length;i++){
       this.questions_.splice(findIndex_(this.questions_,'key',a[i].key),1);
     }
   }
 
   updateQuestion(a:Qt,b:Qt){
-    console.log("updateQuestion item with ",a," ",b)
+    serviceCl.log(["updateQuestion item with ",a," ",b])
     a=b;
   }
 
 }
 
+export class Quizes{
+  key:number=-1;
+  quizes_:Quiz[];
+
+}
+
+
+
+
+// Service functions for array indexes find and get
+//---------------------------------------------------------------
 
 function findIndex_(arr:any[],attr:string,val:any){
-  console.log("findIndex_")
+  serviceCl.log("findIndex_")
   for(var i=0; i<arr.length;i++){
     if(arr[i][attr]===val){
       return i;
@@ -254,70 +410,139 @@ function findIndex_(arr:any[],attr:string,val:any){
 //serach array by field name value
 
 function getIDByFieldVal(arr:any[],field:string,val:any){
-  console.log("getMaxID from array by field value")
-  console.log(arr,field,val)
+  serviceCl.log("getMaxID from array by field value")
+  serviceCl.log([arr,field,val])
   return arr.findIndex(s=>s[field]===val);
 }
 
 //get item from array of objects
 
 function getItemFromObjArr(arr:any[],field:string,val:any){
-  console.log("getItemFromObjArr from array by field value")
-  console.log(arr,field,val)
+  serviceCl.log("getItemFromObjArr from array by field value")
+  serviceCl.log([arr,field,val])
   return arr[arr.findIndex(s=>s[field]===val)];
 }
 
 //
 
 function getMaxID(arr:any[],field:string){
-  console.log("getMaxID from array by field value")
+  serviceCl.log("getMaxID from array by field value")
   var max=Math.max.apply(Math,arr.map(function(o){return o[field];}))
-  console.log(arr,field,max);
+  serviceCl.log([arr,field,max]);
   return max;
 }
 
+
+//Service class with toLog booolesan console log and generators
+//---------------------------------------------------------------
 @Injectable()
 export class serviceCl{
 
+  public static toLog:boolean=true;
+
+  public static log(n:any){
+    if(serviceCl.toLog===true){
+      console.log(n);
+    }
+  }
+  public static run(callback:()=>void){
+    var toLogStore=serviceCl.toLog;
+    serviceCl.toLog=false;
+      callback();
+    serviceCl.toLog=toLogStore;
+  }
+
+  generateAnswers(n:number){
+    var toLogStore=serviceCl.toLog;
+    serviceCl.toLog=false;
+
+    serviceCl.log(["generateAnswers for ",n," abs ",Math.abs(n)]);
+    var abs=Math.abs(n);
+    var a:Aw[]=[];
+    for(var i=0;i<abs;i++){
+        a.push(new Aw(i,"Answer "+i,true))
+    }
+    serviceCl.log(["Generated: ",a]);
+    serviceCl.toLog=toLogStore;
+    return a;
+  }
+  generateQuestions(n:number,min?:number,max?:number){
+    var toLogStore=serviceCl.toLog;
+    serviceCl.toLog=false;
+
+    serviceCl.log(["generateAnswers for ",n," abs ",Math.abs(n)]);
+    var abs=Math.abs(n);
+    var a:Qt[]=[];
+    var aw:Aw[]=[];
+    for(var i=0;i<abs;i++){
+      a.push(new Qt(i,"Question "+i,"text",true,"",this.generateAnswers(2)))
+    }
+    serviceCl.log(["Generated: ",a]);
+
+    serviceCl.toLog=toLogStore;
+    return a;
+  }
+  genearateQuizes(n:number){
+    var toLogStore=serviceCl.toLog;
+    serviceCl.toLog=false;
+
+    serviceCl.log(["generateAnswers for ",n," abs ",Math.abs(n)]);
+    var qz:Quiz[]=[];
+    for(var i=0;i<n;i++){
+      qz.push(new Quiz(null,this.generateQuestions(2)))
+    }
+    serviceCl.log(["Generated quizes: ",qz]);
+
+    serviceCl.toLog=toLogStore;
+    return qz;
+  }
+
   testQuizExplicit(){
 
-    console.log('started testQuiz')
+    serviceCl.log('started testQuiz')
 
     let q: Quiz=new Quiz();
-/*
-    new Quiz([
-      new Qt(0,"Quest 1",'dropbox',true,"Input QuestionText",
-      [
-        new Aw(1,"Answ 1 ",true,"Insert answer")
-        ,new Aw(2,"Answ 2 ",true,"Insert answer")
-      ]
-    )
-      ,new Qt(3,"Quest 2",'checkbox',true,"Input QuestionText",
-      [
-        new Aw(4,"Answ 3 ",true,"Insert answer")
-        ,new Aw(5,"Answ 4 ",true,"Insert answer")
-      ])
-      ,new Qt(6,"Quest 3",'checkbox',true,"Input QuestionText")
-    ]  );
-*/
-    console.log(q);
+
+    // new Quiz([
+    //   new Qt(0,"Quest 1",'dropbox',true,"Input QuestionText",
+    //   [
+    //     new Aw(1,"Answ 1 ",true,"Insert answer")
+    //     ,new Aw(2,"Answ 2 ",true,"Insert answer")
+    //   ]
+    // )
+    //   ,new Qt(3,"Quest 2",'checkbox',true,"Input QuestionText",
+    //   [
+    //     new Aw(4,"Answ 3 ",true,"Insert answer")
+    //     ,new Aw(5,"Answ 4 ",true,"Insert answer")
+    //   ])
+    //   ,new Qt(6,"Quest 3",'checkbox',true,"Input QuestionText")
+    // ]  );
+
+    serviceCl.log(q);
 
     return q;
   }
   testQuizImplicit(){
-    console.log('testQuizImplicit')
+    serviceCl.log('testQuizImplicit')
     let q: Quiz = new Quiz();
+
     q.addQuestions([
-      new Qt(0,"Question 1",'text',true,"")
+      new Qt(0,"Question 1",'text',true,"",[
+        new Aw(0,"Aw 1",true)
+        ,new Aw(1,"Aw 2",true)
+      ])
     ]);
+
     return q;
   }
   testQuizesExplicit(){
-    console.log('started testQuiz')
+    serviceCl.log('started testQuiz')
 
-    let q: Quiz[]=[new Quiz()];
+    let q: Quiz[]=[
+      new Quiz()
+    ];
 
-    console.log(q);
+    serviceCl.log(q);
 
     return q;
   }
@@ -348,21 +573,21 @@ export class serviceCl{
     }
     return new FormGroup(g);
   }
-  toControlGroupOb(q_: Qt[]){
-    console.log('toControlGroupOb');
+   toControlGroupOb(q_: Qt[]){
+    serviceCl.log('toControlGroupOb');
     let g:{}={}
     for(let _q of q_){
       g[_q.key]= new FormControl({value:_q.value,toStore:_q.toStore});
     }
-    console.log(g);
+    serviceCl.log(g);
     return new FormGroup(g);
   }
 
-  newAnswer():Aw{
+  static newAnswer():Aw{
     return new Aw(0,"answer text",true,"");
   }
   newQuestion():Qt{
-    return new Qt(0,"question text",'text',true,"",new []);
+    return new Qt(0,"question text",'text',true,"",[]);
   }
   questTypes(){
     let types:string[]=[
@@ -377,10 +602,8 @@ export class serviceCl{
 
   quizesArr(){
     var a:Quiz[]=[
-      new Quiz([
-        new Qt(0,"","text",true,[
-          new
-        ])
+      new Quiz(null,[
+        new Qt(0,"","text",true,"",[] )
       ])
     ]
 
@@ -393,11 +616,106 @@ export class serviceCl{
     return getIDByFieldVal(arr,field,val);
   }
 
-}
+  equalitiesCheck(){
 
-export class TestCl{
-  printAwCl(){
-    let a=new Aw(0,"",true,"Quest text",);
-    console.log(a);
+    serviceCl.log(["NaN==NaN",NaN==NaN]);
+    serviceCl.log(["NaN===NaN",NaN===NaN]);
+    serviceCl.log(["undefined==undefined",undefined==undefined]);
+    serviceCl.log(["undefined===undefined",undefined===undefined]);
+    serviceCl.log(["undefined==NaN",undefined==NaN]);
+    serviceCl.log(["undefined===NaN",undefined===NaN]);
+    serviceCl.log(["0==NaN",0==NaN]);
+    serviceCl.log(["0==undefined",0==undefined]);
+
+    var x=[];var y=[];
+    serviceCl.log(["var x=[];var y=[];var a=x==y;",x==y]);
+    serviceCl.log(["var x=[];var y=[];var a=x===y;",x===y]);
+
+    var num = 0;
+    var obj = new String("0");
+    var str = "0";
+    var b = false;
+
+    serviceCl.log(["",num == num]); // true
+    serviceCl.log(obj == obj); // true
+    serviceCl.log(str == str); // true
+
+    //NOT in TYPESCRIPT
+    // serviceCl.log(num == obj); // true
+    // serviceCl.log(num == str); // true
+
+    serviceCl.log(obj == str); // true
+    serviceCl.log(null == undefined); // true
+
+    // оба false, кроме очень редких случаев
+    serviceCl.log(obj == null);
+    serviceCl.log(obj == undefined);
+
   }
+
+  genericFucnrionsCall(){
+    var toLogStore=serviceCl.toLog;
+    serviceCl.toLog=false;
+
+    serviceCl.log(PrimitiveCollection_([1,2,3]));
+    serviceCl.log(PrimitiveCollection_(["a","1",2]));
+
+    serviceCl.log(myCol1([1,2,3]));
+    serviceCl.log(myCol2(["a","1",2]));
+
+    serviceCl.log(myCol3([1,2,3]));
+    serviceCl.log(myCol3(["a","1",2]));
+
+    serviceCl.toLog=toLogStore;
+  }
+  generciClassesCall(){
+    var toLogStore=serviceCl.toLog;
+    serviceCl.toLog=false;
+
+    var col:PrimitiveCollection<PrimitiveItem>=new PrimitiveCollection<PrimitiveItem>();
+    col.add({key:0,name:"item1"});
+    col.add({key:1,name:"item2",value:"val1"});
+    col.add({key:1,name:"item3",value:"val2"});
+    serviceCl.log(col);
+
+    serviceCl.toLog=toLogStore;
+  }
+  genericQuizCollection(){
+    var toLogStore=serviceCl.toLog;
+    serviceCl.toLog=true;
+
+    var col:PrimitiveCollection<Quiz>=new PrimitiveCollection();
+    var arr:Quiz[]=this.genearateQuizes(2);
+
+    for(var q of arr){
+      serviceCl.log(arr);
+      col.add(q);
+    }
+
+    col.add(this.genearateQuizes(1)[0]);
+
+    var qz:Quiz[]=[
+      new Quiz(2)
+      ,new Quiz(4)
+      ,new Quiz(4)
+    ]
+
+    for(let q_ of qz){
+      col.add(q_);
+    }
+
+    serviceCl.log(["Quiz list:",col]);
+    serviceCl.toLog=toLogStore;
+  }
+
+  test(){
+    var ln=
+    "--------------------------------------------------------------------";
+    serviceCl.log(ln)
+
+    serviceCl.run(this.genericQuizCollection());
+
+    serviceCl.log(ln)
+  }
+
 }

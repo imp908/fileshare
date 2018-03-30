@@ -26,24 +26,24 @@ export class quizComponent
 
   //to quiz component
   createQuestion(){
-    console.log('createQuestion')
+    serviceCl.log('createQuestion')
     this.quiz_.selectedQuestion=this.quiz_.newQuestionInit();
   }
   editQuestion(q:Qt){
-    console.log('editQuestion')
-    console.log(q)
+    serviceCl.log('editQuestion')
+    serviceCl.log(q)
     this.quiz_.selectedQuestion=q;
   }
   saveQuestion($event){
-    console.log("savedQuestion($event)")
-    console.log($event)
+    serviceCl.log("savedQuestion($event)")
+    serviceCl.log($event)
     this.quiz_.addQuestion($event);
     this.quiz_.selectedQuestion=this.quiz_.newQuestionInit();
-    console.log(this.quiz_)
+    serviceCl.log(this.quiz_)
   }
   deleteQuestion(q:Qt){
-    console.log('deleteQuestion')
-    console.log(q)
+    serviceCl.log('deleteQuestion')
+    serviceCl.log(q)
     this.quiz_.deleteQuestion(q);
   }
 

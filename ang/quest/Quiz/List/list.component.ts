@@ -17,10 +17,10 @@ export class listComponent
 
   service_:serviceCl;
 
-  @Input() quizes_:Quiz[];
+  @Input() quizes:Quiz[];
 
   constructor(){
-    
+
   }
 
 }

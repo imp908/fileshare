@@ -27,7 +27,7 @@ export class questionComponent
   answerTypes_:answerTypes=new answerTypes();
 
   constructor(){
-    console.log('Constructor st: ' + this.constructor.name)
+    serviceCl.log('Constructor st: ' + this.constructor.name)
     this.service_=new serviceCl();
     this.className=this.constructor.name;
 
@@ -35,52 +35,52 @@ export class questionComponent
       (typeof(this.question_)!='undefined') &&
       (typeof(this.question_.options)!='undefined')
     ){
-      console.log('question options')
+      serviceCl.log('question options')
       this.answers_= this.question_.options;
-      console.log('Question:' + this.question_)
-      console.log('answer' + this.question_.options)
+      serviceCl.log('Question:' + this.question_)
+      serviceCl.log('answer' + this.question_.options)
 
     }
 
-    this.newAnswer_=this.service_.newAnswer();
-    console.log('questTypes: '); console.log(this.answerTypes_)
-    console.log('Constructor fn: ' + this.constructor.name)
+    this.newAnswer_=serviceCl.newAnswer();
+    serviceCl.log('questTypes: '); serviceCl.log(this.answerTypes_)
+    serviceCl.log('Constructor fn: ' + this.constructor.name)
   }
 
   ngOnInit(){
-    console.log('Inited: ' + this.constructor.name)
-    console.log(this.className);
-    console.log(this.answers_);
-    console.log(this.newAnswer_);
+    serviceCl.log('Inited: ' + this.constructor.name)
+    serviceCl.log(this.className);
+    serviceCl.log(this.answers_);
+    serviceCl.log(this.newAnswer_);
 
   }
 
   addAnswer(a:Aw){
-    console.log('addAnswer')
-    console.log(a)
+    serviceCl.log('addAnswer')
+    serviceCl.log(a)
     //this.answers_.push(a);
     this.question_.addAnswer(a);
-    this.newAnswer_=this.service_.newAnswer();
-    console.log(this.question_.options);
+    this.newAnswer_=serviceCl.newAnswer();
+    serviceCl.log(this.question_.options);
   }
 
   deleteAnswerListen($event){
-    console.log('deleteAnswer')
-    console.log($event)
-    console.log($event.key)
-    console.log(this.answers_)
+    serviceCl.log('deleteAnswer')
+    serviceCl.log($event)
+    serviceCl.log($event.key)
+    serviceCl.log(this.answers_)
     this.question_.deleteAnswer($event);
-    console.log(this.question_.options);
+    serviceCl.log(this.question_.options);
   }
 
   saveQuestion(q:Qt){
-    console.log('saveQuestion')
-    console.log(q)
+    serviceCl.log('saveQuestion')
+    serviceCl.log(q)
     this.saveQuestion_.emit(q);
   }
 
   typeChange(s:string){
-    console.log('typeChange'+ s)
+    serviceCl.log('typeChange'+ s)
     this.answerTypes_.bindSelected(s);
   }
 

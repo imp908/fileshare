@@ -20,10 +20,7 @@ export class testComponent
 
   quiz_:Quiz=new Quiz();
 
-  quizes_:Quiz[]=[
-    new Quiz()
-    ,new Quiz()
-  ]
+  _quizes:Quiz[]=[];
 
   //pass to question
   question_:Qt;
@@ -32,52 +29,56 @@ export class testComponent
 
 
   constructor(){
-    console.log('Constructor st: ' + this.constructor.name)
+    serviceCl.toLog =false;
 
+    serviceCl.log('Constructor st: ' + this.constructor.name)
     this.service_=new serviceCl();
+
+    this.service_.test();
+
     this.className=this.constructor.name;
 
     //new test answer get
-    this.service_.newAnswer();
+    serviceCl.newAnswer();
 
     //init quiz with test quest
     this.quiz_=this.service_.testQuizExplicit();
-    console.log('Quiz');console.log(this.quiz_);
+    serviceCl.log('Quiz');serviceCl.log(this.quiz_);
     //serach array by field name value
-    console.log(this.service_.getIDByFieldVal(this.quiz_.types.types_,'type','dropdown'))
+    serviceCl.log(this.service_.getIDByFieldVal(this.quiz_.types.types_,'type','dropdown'))
 
     if(this.quiz_.selectedQuestion!=null){
       this.question_=this.quiz_.selectedQuestion;
       this.answers_= this.question_.options;
     }
-    console.log('Constructor fn: ' + this.constructor.name);
+    serviceCl.log('Constructor fn: ' + this.constructor.name);
   }
 
   ngOnInit(){
-    console.log('Inited: ' + this.constructor.name);
-    console.log(this.className);
-    console.log(this.answers_);
-    console.log(this.quiz_);
+    serviceCl.log('Inited: ' + this.constructor.name);
+    serviceCl.log(this.className);
+    serviceCl.log(this.answers_);
+    serviceCl.log(this.quiz_);
   }
 
 
   //to answer component
   addAnswer(a:Aw){
-    console.log('addAnswer')
-    console.log(a)
+    serviceCl.log('addAnswer')
+    serviceCl.log(a)
     //this.answers_.push(a);
     this.question_.addAnswer(a);
 
-    console.log(this.question_.options);
+    serviceCl.log(this.question_.options);
   }
 
   deleteAnswerListen($event){
-    console.log('deleteAnswer')
-    console.log($event)
-    console.log($event.key)
-    console.log(this.answers_)
+    serviceCl.log('deleteAnswer')
+    serviceCl.log($event)
+    serviceCl.log($event.key)
+    serviceCl.log(this.answers_)
     this.question_.deleteAnswer($event);
-    console.log(this.question_.options);
+    serviceCl.log(this.question_.options);
   }
 
 
@@ -85,26 +86,26 @@ export class testComponent
   //to quiz component
   createQuestion()
   {
-    console.log('createQuestion')
+    serviceCl.log('createQuestion')
     this.quiz_.selectedQuestion=this.quiz_.newQuestionInit();
   }
   editQuestion(q:Qt){
-    console.log('editQuestion')
-    console.log(q)
+    serviceCl.log('editQuestion')
+    serviceCl.log(q)
       this.quiz_.selectedQuestion=q;
   }
 
   saveQuestion($event){
-    console.log("savedQuestion($event)")
-    console.log($event)
+    serviceCl.log("savedQuestion($event)")
+    serviceCl.log($event)
     this.quiz_.addQuestion($event);
     this.quiz_.selectedQuestion=this.quiz_.newQuestionInit();
-    console.log(this.quiz_)
+    serviceCl.log(this.quiz_)
   }
 
   deleteQuestion(q:Qt){
-    console.log('deleteQuestion')
-    console.log(q)
+    serviceCl.log('deleteQuestion')
+    serviceCl.log(q)
     this.quiz_.deleteQuestion(q);
   }
 
