@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { FormGroup,FormControl }  from '@angular/forms';
 
 
+import { HttpClient, HttpHeaders,HttpEvent } from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
 
 //Generic interface
 //---------------------------------------------------------------
@@ -20,20 +22,21 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 //Generic classes
 //---------------------------------------------------------------
 
-interface IprimitiveItem{
+export interface IprimitiveItem{
   key:number;
 }
-interface IPrimitiveCollection<T extends IprimitiveItem>{
-  arr:Array<T>;
+export interface IPrimitiveCollection<T extends IprimitiveItem>{
+  array:Array<T>;
+  delete(item:T);
+  update(item:T);
+  addUpdate(item:T)
 }
 
 class PrimitiveItem{
   key:number;
-
   name:string="";
   value?:string;
 }
-
 class PrimitiveCollection<T extends IprimitiveItem>{
   array:Array<T>;
 
@@ -93,6 +96,21 @@ class PrimitiveCollection<T extends IprimitiveItem>{
       }
     }
     return null;
+  }
+
+  addUpdate(item:T){
+    if((typeof(this.array)!=null)){
+      var index_=this.array.findIndex(s=>s.key===item.key);
+      serviceCl.log(index_);
+        if(index_!=null){
+          serviceCl.log("Add");
+          this.add(item);
+        }else{
+          serviceCl.log("Update");
+          this.update(item);
+
+        }
+    }
   }
 
   getMaxKey(){
@@ -313,12 +331,17 @@ export class answerTypes{
 
 export class Quiz extends PrimitiveItem{
 
+  dateFrom:Date;
+  dateTo:Date;
   questions_: Qt[]=[];
   selectedQuestion:Qt=null;
   types: answerTypes=new answerTypes();
 
-  constructor(key_?:number,qt_?:Qt[]){
+  constructor(key_?:number,name_?:string,dateFrom_?:Date,dateTo_?:Date,qt_?:Qt[]){
     super();
+    if(name_!=null){
+      this.name=name_
+    }
     if(key_!=null){
       this.key=key_;
     }
@@ -387,8 +410,7 @@ export class Quiz extends PrimitiveItem{
 
 export class Quizes{
   key:number=-1;
-  quizes_:Quiz[];
-
+  quiz_:Quiz;
 }
 
 
@@ -439,6 +461,7 @@ function getMaxID(arr:any[],field:string){
 export class serviceCl{
 
   public static toLog:boolean=true;
+  public static test:boolean=true;
 
   public static log(n:any){
     if(serviceCl.toLog===true){
@@ -489,7 +512,7 @@ export class serviceCl{
     serviceCl.log(["generateAnswers for ",n," abs ",Math.abs(n)]);
     var qz:Quiz[]=[];
     for(var i=0;i<n;i++){
-      qz.push(new Quiz(null,this.generateQuestions(2)))
+      qz.push(new Quiz(i,"Quiz "+i,new Date(),new Date(),this.generateQuestions(2)))
     }
     serviceCl.log(["Generated quizes: ",qz]);
 
@@ -584,7 +607,7 @@ export class serviceCl{
   }
 
   static newAnswer():Aw{
-    return new Aw(0,"answer text",true,"");
+    return new Aw(0,"",true,"");
   }
   newQuestion():Qt{
     return new Qt(0,"question text",'text',true,"",[]);
@@ -602,7 +625,7 @@ export class serviceCl{
 
   quizesArr(){
     var a:Quiz[]=[
-      new Quiz(null,[
+      new Quiz(null,"",null,null,[
         new Qt(0,"","text",true,"",[] )
       ])
     ]
@@ -682,10 +705,9 @@ export class serviceCl{
   }
   genericQuizCollection(){
     var toLogStore=serviceCl.toLog;
-    serviceCl.toLog=true;
 
     var col:PrimitiveCollection<Quiz>=new PrimitiveCollection();
-    var arr:Quiz[]=this.genearateQuizes(2);
+    var arr:Quiz[]=this.genearateQuizes(3);
 
     for(var q of arr){
       serviceCl.log(arr);
@@ -695,9 +717,9 @@ export class serviceCl{
     col.add(this.genearateQuizes(1)[0]);
 
     var qz:Quiz[]=[
-      new Quiz(2)
-      ,new Quiz(4)
-      ,new Quiz(4)
+      new Quiz(2,"Quiz 2 duplicate")
+      ,new Quiz(4,"Quiz 4 duplicate")
+      ,new Quiz(4,"Quiz 4 duplicate")
     ]
 
     for(let q_ of qz){
@@ -706,6 +728,7 @@ export class serviceCl{
 
     serviceCl.log(["Quiz list:",col]);
     serviceCl.toLog=toLogStore;
+    return col;
   }
 
   test(){
@@ -713,7 +736,7 @@ export class serviceCl{
     "--------------------------------------------------------------------";
     serviceCl.log(ln)
 
-    serviceCl.run(this.genericQuizCollection());
+    this.genericQuizCollection();
 
     serviceCl.log(ln)
   }

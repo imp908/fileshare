@@ -3,13 +3,17 @@ import { FormGroup,FormControl }      from '@angular/forms';
 
 import {answerComponent} from '../Answer/answer.component';
 
-import {Aw,Qt,Quiz,serviceCl} from '../Model/QtMd.component';
+import {Aw,Qt,Quiz,serviceCl,IPrimitiveCollection} from '../Model/QtMd.component';
 
+import {HS} from '../Http/quiz.service';
+
+import {Observable} from 'rxjs/Observable';
 
 @Component({
   selector: 'test-component'
   ,templateUrl: './test.component.html'
   //,providers:[]
+  ,providers: [ HS ]
 })
 
 export class testComponent
@@ -20,16 +24,16 @@ export class testComponent
 
   quiz_:Quiz=new Quiz();
 
-  _quizes:Quiz[]=[];
+  _quizes:IPrimitiveCollection<Quiz>;
+  _quizGet:any;
 
   //pass to question
   question_:Qt;
   //pass to answer from question
   answers_:Aw[];
 
-
-  constructor(){
-    serviceCl.toLog =false;
+  constructor(private hs_:HS){
+    serviceCl.toLog =true;
 
     serviceCl.log('Constructor st: ' + this.constructor.name)
     this.service_=new serviceCl();
@@ -41,16 +45,24 @@ export class testComponent
     //new test answer get
     serviceCl.newAnswer();
 
-    //init quiz with test quest
-    this.quiz_=this.service_.testQuizExplicit();
     serviceCl.log('Quiz');serviceCl.log(this.quiz_);
     //serach array by field name value
     serviceCl.log(this.service_.getIDByFieldVal(this.quiz_.types.types_,'type','dropdown'))
+
+    //this._quizes=this.service_.genearateQuizes(4);
+    this._quizes=this.service_.genericQuizCollection();
+
+    serviceCl.log(["quizes send: ",this._quizes]);
 
     if(this.quiz_.selectedQuestion!=null){
       this.question_=this.quiz_.selectedQuestion;
       this.answers_= this.question_.options;
     }
+
+    this._quizGet=this.hs_.getQuizResponse();
+
+    serviceCl.log(['Quizes HS ',this._quizGet])
+    
     serviceCl.log('Constructor fn: ' + this.constructor.name);
   }
 
@@ -84,11 +96,12 @@ export class testComponent
 
 
   //to quiz component
-  createQuestion()
-  {
+
+  createQuestion(){
     serviceCl.log('createQuestion')
     this.quiz_.selectedQuestion=this.quiz_.newQuestionInit();
   }
+
   editQuestion(q:Qt){
     serviceCl.log('editQuestion')
     serviceCl.log(q)

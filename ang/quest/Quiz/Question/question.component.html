@@ -2,7 +2,8 @@
 
 <div class="container">
 <div class="row">
-    <input type="text" [(ngModel)]="question_.value" name="{question_.value}">
+    <input type="text" [(ngModel)]="question_.value" name="{question_.value}" required minlength="1" #rq="ngModel">
+    <div *ngIf="rq.invalid" class="qlert alert-danger">Question text required</div>
 
     <div ngbDropdown>
       <select class="btn btn-outline-primary" #selectedCategory (change)="typeChange(selectedCategory.value)" ngbDropdownToggle>
@@ -14,18 +15,19 @@
 
 </div>
 
+<hr>
+
 <div>
     {{this.answerTypes_.selected.description}}
 </div>
-
   <div *ngIf="this.answerTypes_.selected.type!='text'">
-  Add new answer
-
-    <div>
-    <input type="text" [(ngModel)]="newAnswer_.value" name="{newAnswer_.value}">
+     <!--*ngIf="this.answerTypes_.selected.type!='text'"-->
+     Add new answer
+     <div>
+      <input type="text" [(ngModel)]="newAnswer_.value" required minlength="1" #rq="ngModel">
+      <div *ngIf="rq.invalid" class="qlert alert-danger">Answer required</div>
       <button (click)="addAnswer(newAnswer_)" class="btn">Add</button>
     </div>
-
   </div>
 
   <div *ngIf="this.question_.options">
@@ -35,6 +37,10 @@
   </div>
 
 </div>
+
+
+
+<hr>
 
 
 

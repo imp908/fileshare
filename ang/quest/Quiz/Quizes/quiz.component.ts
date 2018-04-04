@@ -20,6 +20,9 @@ export class quizComponent
 
   @Input() quiz_:Quiz;
 
+  @Output() editQuiz_= new EventEmitter<Quiz>();
+  @Output() saveQuiz_= new EventEmitter<Quiz>();
+
   constructor(){
 
   }
@@ -46,5 +49,22 @@ export class quizComponent
     serviceCl.log(q)
     this.quiz_.deleteQuestion(q);
   }
-
+  getQuiz($event){
+    serviceCl.log('getQuiz')
+    serviceCl.log($event)
+  }
+  deleteQuiz(qz_:Quiz)
+  {
+    serviceCl.log('deleteQuiz')
+    serviceCl.log(qz_)
+    this.quiz_=null;
+    this.editQuiz_.emit(qz_);
+  }
+  saveQuiz(qz_:Quiz)
+  {
+    serviceCl.log('saveQuiz')
+    serviceCl.log(qz_)
+    this.quiz_=null;
+    this.saveQuiz_.emit(qz_);
+  }
 }

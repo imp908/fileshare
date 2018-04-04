@@ -11,11 +11,12 @@ import {serviceCl} from '../Model/QtMd.component';
 
 export class mainComponent2
 {
-
+  test:boolean=true;
   className: string;
   constructor(){this.className=this.constructor.name;}
   ngOnInit(){
     serviceCl.log('Inited: ' + this.constructor.name)
+    this.test=serviceCl.test;
   }
 
 }
