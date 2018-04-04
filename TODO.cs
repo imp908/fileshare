@@ -736,7 +736,10 @@ http://msk1-vm-inapp01:80
 				]
 				
 				UsedURLs[
-				
+	
+	structure http://msk1-vm-ovisp01:8089/api/Structure/
+	
+	
 	var SearchPersonUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchPerson/'	
 	var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'	
 	var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last'
@@ -784,25 +787,15 @@ new MediaTypeHeaderValue("application/octet-stream");
 	]
 	
 	,job[
-	
-quiz [
-
-
-[
-ang io [ http, VS template ]
-,.net core [ web api 2 template, ang io template ]
-,linq to orient [ extend ]
-]
+quiz
 domen pass [
 http://help.nspk.ru/Task/view/62582
 62582
 ]
-prod mynspk Olga[
+prod mynspk Olga
+[
 deploy testOnProd
 ]
-
-]
-
 	]
 	
 	,DONE[

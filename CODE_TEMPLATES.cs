@@ -28,60 +28,12 @@ namespace Parts{
 	//Usefull links
 	public void mostUsefullLinks()
 	{
-		
-		RPN[
-			http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
-			http://rospotrebnadzor.ru/region/structure/str_uprav.php
-			https://www.meleon.ru/
-			https://www.kartoteka.ru/card/235a7ca4f006b2d3f2b6c855374cadd0/
-			https://www.kartoteka.ru/card/886e2d61f96dc6ae24bd60eb3084fc78/	
-		]
-		
+				
 		https://proglib.io/p/hacker-course/		
 		http://www.gilead.com/
 		http://www.ftse.com/products/downloads/Russell-US-indexes.pdf
 		
 		Barings Vostok 
-		
-		matress[
-	Lonax Strutto 6
-	Орматек Massage
-	Dimax Баланс Фоам Файв
-	Perrino Эрголатекс
-	Softy Plus (ORMATEK)
-	Mr.Mattress Megami
-	]
-	
-		caffe[
-	сок
-	http://www.cafe-cok.ru/menu
-	лафлафель
-	https://www.afisha.ru/msk/restaurant/290896/
-	мох
-	https://www.afisha.ru/msk/restaurant/348742/
-	]
-		
-		offhore[
-	Британские Виргинские острова, США, Великобритания, Кипр, Панама, Новая Зеландия
-	]
-	 
-		azb[
-		nesterov igor
-		
-		]
-		
-		JUR[
-https://vkusomania.ru/rules/
-
-1.15 отказ от рассылки[
-1.15. Согласившись с правилами Программы Участник соглашается на получение от «Азбуки Вкуса» Уведомлений, предусмотренных настоящими Правилами, но сохраняет за собой право отказаться от уведомлений рекламного характера одним из следующих способов:
-1.15.1. Перейдя по ссылке в электронном письме (e-mail) от «Азбуки Вкуса»;
-1.15.2. Оставив устное заявление об отказе от получения Уведомлений, переданное оператору горячей линии 8-800-700-19-11;
-1.15.3. В личном кабинете на сайте av.ru, сайте vkusomania.ru, а также в мобильном приложении «Вкусомания»;
-1.15.4. С помощью СМС-сервиса. Отправьте цифру «5» на короткий номер 2454 для отказа от СМС-информирования. Отправьте цифру «6» на короткий номер 2454 для отказа от e-mail информирования. Данная услуга доступна только абонентам сетей МТС, Билайн и Мегафон. Информацию о стоимости услуги можно уточнить у оператора связи.
-]
-
-		]
 		
 	//investing
 	[
@@ -168,6 +120,44 @@ http://coding-time.blogspot.ru/2011/07/how-to-implement-rule-engine-in-c.html
 https://stackoverflow.com/questions/12181276/implementing-a-custom-linq-to-x-provider
 https://msdn.microsoft.com/en-us/library/bb546158.aspx
 https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-provider-part-i/
+	]
+	
+	//OCRS
+	[
+	
+//.NET CORE
+https://docs.microsoft.com/en-us/dotnet/core/
+//core utilities
+https://www.microsoft.com/net/download/linux
+//Linux prerequisites
+https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites?tabs=netcore2x
+//core Hello world
+https://docs.microsoft.com/en-us/aspnet/core/tutorials/first-web-api
+//core deploy 
+https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-vs#simpleSelf
+//core target platforms 
+https://docs.microsoft.com/en-us/dotnet/core/rid-catalog#linux-rids
+//publish iis
+https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/iis/?tabs=aspnetcore2x
+https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/visual-studio-publish-profiles?tabs=aspnetcore2x#publish-profiles
+//kestrel
+https://docs.microsoft.com/en-us/aspnet/core/fundamentals/servers/?tabs=aspnetcore2x
+https://docs.microsoft.com/ru-ru/aspnet/core/fundamentals/servers/kestrel?tabs=aspnetcore2x
+//nginx
+https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?tabs=aspnetcore2x
+https://www.tonyranieri.com/blog/2017/10/27/Hosting-.Net-Core-On-Linux/
+//docker
+https://stormpath.com/blog/tutorial-deploy-asp-net-core-on-linux-with-docker
+//self contained 
+https://docs.microsoft.com/en-us/dotnet/core/deploying/index
+https://docs.microsoft.com/en-us/dotnet/core/deploying/deploy-with-vs
+//platforms ID catalog
+https://docs.microsoft.com/en-us/dotnet/core/rid-catalog#linux-rids
+//kestrel
+https://github.com/aspnet/KestrelHttpServer
+//iis host
+https://metanit.com/sharp/aspnet5/20.1.php
+
 	]
 	
 	//DAG directed acyclic graph
@@ -4859,7 +4849,8 @@ https://angular.io/guide/setup-systemjs-anatomy
 			npm install --save @angular/material @angular/cdk
 			npm install --save @angular/animations
 			
-			npm install --save @angular/core-g
+			npm install -g @angular/cli
+			npm install --save @angular/core -g
 			npm install --save @angular/common -g
 			npm install --save @angular/forms -g
 			npm install --save @ng-bootstrap/ng-bootstrap -g
@@ -10332,5 +10323,5 @@ sudo service smbd restart
 		}
 	
 	#endregion
-	
+
 	
