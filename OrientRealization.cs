@@ -302,6 +302,10 @@ namespace OrientRealization
   {
       public string Text {get; set;}=@"and";
   }
+  public class OrientOrToken : ITypeToken
+  {
+      public string Text {get; set;}=@"or";
+  }
   public class OrientClassToken : ITypeToken
   {
       public string Text {get; set;}="class";
@@ -366,7 +370,11 @@ namespace OrientRealization
   {
       public string Text {get; set;}=@"size";
   }
-    
+  public class OrientExclamationToken : ITypeToken
+  {
+      public string Text {get; set;}="!";
+  }
+
 
   //URI tokens
   public class ColonToken : ITypeToken
@@ -3208,6 +3216,10 @@ namespace OrientRealization
     public string getDbName()
     {
       return this.dbName;
+    }  
+    public string getURL()
+    {
+      return this.urlStr;
     }
 
     public OrientRepo
@@ -3283,10 +3295,10 @@ namespace OrientRealization
         }
     }
 
-        public PropertyInfo[] Props<T>() 
+    public PropertyInfo[] Props<T>() 
     where T:IOrientObject
     {
-        PropertyInfo[] psc = typeof(T).GetType().GetProperties();
+        PropertyInfo[] psc = typeof(T).GetProperties();
            
         foreach (PropertyInfo ps in psc)
         {
@@ -3329,7 +3341,7 @@ namespace OrientRealization
     }
     void CheckUrl(string input_)
     {
-      string name_ = ConfigurationManager.AppSettings["OrientTargetHost"];
+      string name_ = ConfigurationManager.AppSettings["OrientDevDB"];
 
       if(string.IsNullOrEmpty(input_)){
         if(string.IsNullOrEmpty(this.urlStr)){
@@ -3355,7 +3367,16 @@ namespace OrientRealization
     {
         return this.result_.Text;
     }
-      
+    public string GetDbName()
+    {
+      return this.dbName;
+    }
+    public string GetURL()
+    {
+      return this.urlStr;
+    }
+
+
     IEnumerable<T> BuildRequestArr<T>(string method_,ITypeToken returnstatus_)
     where T: class
     {
@@ -3397,6 +3418,7 @@ namespace OrientRealization
       return ret_;
     }
 
+    //move to manager return db only
     public void StoreDbStatistic(string path_,string name_){
       if(string.IsNullOrEmpty(name_)){ name_ = getDbName(); }
       if(string.IsNullOrEmpty(path_)){
@@ -3528,8 +3550,8 @@ namespace OrientRealization
           where_ =
               _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
       }
-      
 
+      this.commandBody = null;
       if (baseType == typeof(V))
       {
           this.commandBody = NewChain().Delete().Vertex(token_).Where(where_)
@@ -3547,7 +3569,60 @@ namespace OrientRealization
       ReadResponseStr("POST", _miniFactory.Deleted());
                          
       return this;
-    }     
+    }
+    public IOrientRepo Delete<T>(T item=null,Type class_=null,string condition_=null,string dbName_=null) 
+        where T:class, IOrientDefaultObject
+    {
+      CheckDbName(dbName_);
+
+      ITypeToken token_=_typeConverter.Get(typeof(T));
+      List<ITypeToken> tt = null;
+      ICommandBuilder where_ = null;
+      Type baseType = null;
+
+      if(class_==null){
+          baseType=typeof(T).BaseType;
+      }else{
+          baseType=class_;
+      }
+
+      if (condition_ != null)
+      {
+          tt=new List<ITypeToken>() { _miniFactory.NewToken(condition_) };
+      }
+      else
+      {
+          if (item != null)
+          {
+              tt=new List<ITypeToken>() { _miniFactory.NewToken("@rid=" + item.id) };
+          }
+      }
+ 
+      if (tt != null)
+      {
+          where_ =
+              _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
+      }
+
+      this.commandBody = null;
+      if (baseType == typeof(V))
+      {
+          this.commandBody = NewChain().Delete().Vertex(token_).Where(where_)
+              .GetBuilder().Build();
+      }
+      if (baseType == typeof(E))
+      {
+          this.commandBody = NewChain().Delete().Edge(token_).Where(where_)
+              .GetBuilder().Build();
+      }
+
+      BindBatchBody();
+      BindBatchUrl();
+      BindWebRequest();
+      ReadResponseStr("POST", _miniFactory.Deleted());
+                         
+      return this;
+    }
     public IOrientRepo DeleteEdge<T>(string from,string to,string condition_=null,string dbName_=null) 
       where T :class, IOrientEdge
     {
@@ -3675,7 +3750,7 @@ namespace OrientRealization
 
         if (this.response_ != null)
         {                   
-          this.result_ = _miniFactory.Deleted();
+          this.result_ = _miniFactory.Created();
         }
       }
       catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}                
@@ -3787,15 +3862,19 @@ namespace OrientRealization
         foreach (PropertyInfo ps in poperties_){
             this.response_=null;
             Type pt=null;
-               
-            try{
-                pt = item.GetType().GetProperty(ps.Name).GetValue(item).GetType();
+            
+            if(item!=null && (ps.Name!="In"||ps.Name!="Out"))
+            {
+              try{
+                  pt = item.GetType().GetProperty(ps.Name).GetValue(item).GetType();
+              }
+              catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+              if(pt==null) {
+                  pt=ps.PropertyType;
+              }
             }
-            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
-            if(pt==null) {
-                pt=ps.PropertyType;
-            }
-            if (pt != null && (ps.Name!="In"||ps.Name!="Out")){
+
+            if (pt != null ){
 
             ITypeToken clTk = _typeConverter.Get(item.GetType());
             ITypeToken propTk = _miniFactory.NewToken(ps.Name);
@@ -3845,13 +3924,13 @@ namespace OrientRealization
             }
         }
         return ret_;
-    }        
+    }
 
-    public V CreateVertex(V vertex_ =null,string dbName_=null)
+    public IOrientDefaultObject CreateVertexTp(IOrientDefaultObject vertex_ =null,string dbName_=null)
     {
-        V ret_=null;
+        IOrientDefaultObject ret_ =null;
         ITypeToken clTk=_miniFactory.NewToken(vertex_.GetType().Name);
-        string content_ = ObjectToContent<OrientDefaultObject>(vertex_);
+        string content_ = ObjectToContent<IOrientDefaultObject>(vertex_);
         ITypeToken prsTk=_miniFactory.NewToken(ContentClean(content_));
 
         CheckDbName(dbName_);
@@ -3871,7 +3950,7 @@ namespace OrientRealization
             {
                 try
                 {
-                    ret_=_jsonmanager.DeserializeFromParentNode<V>(this.response_, "result").FirstOrDefault();
+                    ret_=_jsonmanager.DeserializeFromParentNode<IOrientDefaultObject>(this.response_, "result").FirstOrDefault();
                 }
                 catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
             }
@@ -3914,7 +3993,7 @@ namespace OrientRealization
       }
       return ret_;
     }      
-    public T CreateVertex<T>(IOrientDefaultObject vertex) 
+    public T CreateVertex<T>(IOrientDefaultObject vertex,string dbName_ = null) 
       where T: class,IOrientDefaultObject
     {
       CheckDbName(dbName_);
@@ -3950,11 +4029,6 @@ namespace OrientRealization
 
       return ret_;
     }
-    
-    public void CreateVertex<P>(P item_)
-      where P:class{
-      
-    }
 
     public E CreateEdge(E edge_,V vFrom,V vTo)
     {
@@ -3962,19 +4036,25 @@ namespace OrientRealization
         ITypeToken edgeTk = null;
         ITypeToken fromId = null;
         ITypeToken toId = null;
-        ITypeToken edgCnt = ;
+        ITypeToken edgCnt = null;
 
-        if (edge_!=null){edgeTk=_miniFactory.NewToken(edge_.GetType().Name);}
+        if (edge_!=null){
+                edgeTk=_miniFactory.NewToken(edge_.GetType().Name);
+                edgCnt=_miniFactory.NewToken(ObjectToContent<E>(edge_));
+            }
         if(vFrom!=null && !string.IsNullOrEmpty(vFrom.id)){fromId=_miniFactory.NewToken(vFrom.id);}
         if(vTo!=null && !string.IsNullOrEmpty(vTo.id)){toId=_miniFactory.NewToken(vTo.id);}
 
-        if (edgeTk != null && fromId != null && toId != null)
+        if(edgeTk != null && fromId != null && toId != null)
         {
             //_commandFactory.CommandBuilder(_miniFactory, _formatFactory, prsTk, _miniFactory.NewToken("{0}"));
-
             this.commandBody = NewChain().Create().Edge(edgeTk).FromV(fromId).ToV(toId).Content(edgCnt)
-                .GetBuilder().Build();
-
+            .GetBuilder().Build();
+        }
+        if(edgeTk != null){
+            this.commandBody = NewChain().Content(edgCnt)
+            .GetBuilder().Build();
+        }
             BindBatchUrl();
             BindBatchBody();
             BindWebRequest();
@@ -3984,11 +4064,11 @@ namespace OrientRealization
             {
                 try
                 {
-                    ret_ = _jsonmanager.DeserializeFromParentNode<T>(this.response_, "result").FirstOrDefault();
+                    ret_ = _jsonmanager.DeserializeFromParentNode<E>(this.response_,"result").FirstOrDefault();
                 }
                 catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
             }
-        }
+        
         return ret_;
     }
     public T CreateEdge<T>(T edge_,IOrientVertex vFrom,IOrientVertex vTo,string dbName_=null) 
@@ -4003,7 +4083,7 @@ namespace OrientRealization
       ITypeToken edgCnt=_miniFactory.NewToken(ObjectToContent<IOrientDefaultObject>((IOrientDefaultObject)edge_));
       if(edgCnt==null)
       {
-          edgCnt=null;
+        edgCnt=null;
       }
 
       if(vFrom!=null&&vTo!=null){
@@ -4049,13 +4129,13 @@ namespace OrientRealization
     public IEnumerable<OrientDefaultObject> SelectRefl(Type typeName_,string cond_)
     {
         IEnumerable<OrientDefaultObject> ret_=null;
-        ITypeToken pTk=_miniFactory.NewToken(typeName_.GetType().Name);
+        ITypeToken pTk=_miniFactory.NewToken(typeName_.Name);
         List<ITypeToken> tt = null;
         ICommandBuilder where_=null;
         if (cond_ != null){
-            tt = new List<ITypeToken>() { _miniFactory.NewToken(cond_) };
+            tt=new List<ITypeToken>(){_miniFactory.NewToken(cond_)};
 
-            where_ =
+            where_=
                 _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
         }
         if (pTk != null)
@@ -5031,6 +5111,8 @@ propertiesTo[i2].SetValue(result, propertiesFrom[i].GetValue(fromObject, null), 
   {
     void StoreDbStatistic(string path_, string name_);
     string getDbName();
+    string getURL();
+
     void AlterProperty(ITypeToken class_, ITypeToken prop_, ITypeToken func_);
     void BindDbName(string dbName_);
     void BindUrlName(string input_);
@@ -5046,11 +5128,13 @@ propertiesTo[i2].SetValue(result, propertiesFrom[i].GetValue(fromObject, null), 
     T CreateEdge<T>(T edge_, IOrientVertex vFrom, IOrientVertex vTo, string dbName_ = null) where T : class, IOrientDefaultObject;
     IOrientRepo CreateProperty(string class_, string property_, string type_, bool mandatory_, bool notnull_, string dbName_ = null);
     T CreateProperty<T>(T item = null, string dbName_ = null) where T : class, IOrientDefaultObject;
-    T CreateVertex<T>(IOrientDefaultObject vertex, string dbName_ = null) where T : class, IOrientDefaultObject;
+        IOrientDefaultObject CreateVertexTp(IOrientDefaultObject vertex_ = null, string dbName_ = null);
+    T CreateVertex<T>(IOrientDefaultObject vertex,string dbName_=null) where T : class, IOrientDefaultObject;
     T CreateVertex<T>(string content_, string dbName_ = null) where T : class, IOrientVertex;
     K CreateClassTp<K>(Type class_, Type extends_, string dbName_ = null) where K : class, IOrientEntity;
     void DbPredefinedParameters();
     IOrientRepo Delete<T>(T item = null, string condition_ = null, string dbName_ = null) where T : class, IOrientDefaultObject;
+    IOrientRepo Delete<T>(T item = null, Type class_ = null, string condition_ = null, string dbName_ = null) where T : class, IOrientDefaultObject;
     IOrientRepo DeleteDb(string dbName_ = null, string host = null);
     IOrientRepo DeleteEdge<T, K, C>(K from, C to, string condition_ = null, string dbName_ = null)
       where T : IOrientEdge
@@ -5067,6 +5151,7 @@ propertiesTo[i2].SetValue(result, propertiesFrom[i].GetValue(fromObject, null), 
     IEnumerable<T> Select<T, InE>(T vertexFrom_ = null, string dbName_ = null)
       where T : class, IOrientVertex
       where InE : class, IOrientEdge;
+    IEnumerable<OrientDefaultObject> SelectRefl(Type typeName_,string cond_);
     IEnumerable<InV> SelectOutEInV<T, OutE, InV>(T vertexFrom_ = null, string dbName_ = null)
       where T : class, IOrientVertex
       where OutE : class, IOrientEdge

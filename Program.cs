@@ -26,367 +26,528 @@ using System.IO;
 
 using System.Text.RegularExpressions;
 
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 
 namespace NSQLManager
 {
 
-  class OrientDriverConnnect
-  {
-
-    static void Main(string[] args)
+    class OrientDriverConnnect
     {
 
-      //EFcheck.EFqueryCheck();
+        static void Main(string[] args)
+        {
 
-      //GENERATING DATABASES
-      //ManagerCheck.GenTestDB();
-      //ManagerCheck.GenDevDB();
+            //EFcheck.EFqueryCheck();
 
-      //FUCNTIONAL CHECK
-      ManagerCheck.UOWFunctionalCheck();
+            //GENERATING DATABASES
+            //ManagerCheck.GenTestDB();
+            //ManagerCheck.GenDevDB();
+
+            //FUCNTIONAL CHECK
+            ManagerCheck.UOWFunctionalCheck();
+
+            //check linq to context
+            LinqToContextPOC.LinqToContextCheck.GO();            
       
-      //START API TEST
-      ManagerCheck.APItester_sngltnCheck();
+            //START API TEST
+            ManagerCheck.APItester_sngltnCheck();
+      
+            //QUIZ CHECK
+            //ManagerCheck.QuizCheck();
 
-      //QUIZ CHECK
-      //ManagerCheck.QuizCheck();
+        }
 
     }
 
-  }
-
-  public static class ManagerCheck
-  {
-    
-    static void propSearch<T>(T item)
+    //move to tests except DB generating
+    public static class ManagerCheck
     {
-      var pc = item.GetType().GetProperties();
-      var pc2 = typeof(T).GetProperties();
+        static JSONManager jm = new JSONManager();
+
+        static void propSearch<T>(T item)
+        {
+          var pc = item.GetType().GetProperties();
+          var pc2 = typeof(T).GetProperties();
      
-      foreach (PropertyInfo ps in pc)
-      {
-        MethodInfo[] mi = ps.GetAccessors(true);
-        Type pt = ps.PropertyType.GetType();
-        Type t = ps.PropertyType;
-        TypeInfo ti = ps.PropertyType.GetTypeInfo();
-        Type ptt = item.GetType().GetProperty(ps.Name).GetType();
-        var a = typeof(T).GetProperty(ps.Name).GetValue(item).GetType();
-        Type tt = a.GetType();
-      }
-    }
+          foreach (PropertyInfo ps in pc)
+          {
+            MethodInfo[] mi = ps.GetAccessors(true);
+            Type pt = ps.PropertyType.GetType();
+            Type t = ps.PropertyType;
+            TypeInfo ti = ps.PropertyType.GetTypeInfo();
+            Type ptt = item.GetType().GetProperty(ps.Name).GetType();
+            var a = typeof(T).GetProperty(ps.Name).GetValue(item).GetType();
+            Type tt = a.GetType();
+          }
+        }
 
-    static OrientRepo DefaultManagerInit(string databaseName=null,string hostPort_=null)
-    {
-      string dbName;
-      string login = ConfigurationManager.AppSettings["orient_login"];
-      string password = ConfigurationManager.AppSettings["orient_pswd"];
-      string dbHost = string.Format("{0}:{1}"
-          , ConfigurationManager.AppSettings["OrientDevHost"]
-          , ConfigurationManager.AppSettings["OrientPort"]);
-      if (databaseName == null)
-      {
-          dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
-      }
-      else { dbName = databaseName; }
-      if (hostPort_ == null)
-      {
-          dbHost = string.Format("{0}:{1}"
-          , ConfigurationManager.AppSettings["OrientDevHost"]
-          , ConfigurationManager.AppSettings["OrientPort"]);
-      }
-      else { dbName = hostPort_; }
+        static OrientRepo DefaultManagerInit(string databaseName=null,string hostPort_=null)
+        {
+          string dbName;
+          string login = ConfigurationManager.AppSettings["orient_login"];
+          string password = ConfigurationManager.AppSettings["orient_pswd"];
+          string dbHost = string.Format("{0}:{1}"
+              , ConfigurationManager.AppSettings["OrientDevHost"]
+              , ConfigurationManager.AppSettings["OrientPort"]);
+          if (databaseName == null)
+          {
+            dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
+          }
+          else { dbName = databaseName; }
+          if (hostPort_ == null)
+          {
+            dbHost = string.Format("{0}:{1}"
+            , ConfigurationManager.AppSettings["OrientDevHost"]
+            , ConfigurationManager.AppSettings["OrientPort"]);
+          }
+          else { dbName = hostPort_; }
 
-      TypeConverter typeConverter = new TypeConverter();
-      JsonManagers.JSONManager jsonMnager = new JSONManager();
-      TokenMiniFactory tokenFactory = new TokenMiniFactory();
-      UrlShemasExplicit UrlShema = new UrlShemasExplicit(
-          new CommandBuilder(tokenFactory, new FormatFactory())
-          , new FormatFromListGenerator(new TokenMiniFactory())
-          , tokenFactory, new OrientBodyFactory());
+          TypeConverter typeConverter = new TypeConverter();
+          JsonManagers.JSONManager jsonMnager = new JSONManager();
+          TokenMiniFactory tokenFactory = new TokenMiniFactory();
+          UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+              new CommandBuilder(tokenFactory, new FormatFactory())
+              , new FormatFromListGenerator(new TokenMiniFactory())
+              , tokenFactory, new OrientBodyFactory());
 
-      BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
-          new OrientBodyFactory());
+          BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
+              new OrientBodyFactory());
 
-      UrlShema.AddHost(dbHost);
-      WebResponseReader webResponseReader = new WebResponseReader();
-      WebRequestManager webRequestManager = new WebRequestManager();
-      webRequestManager.SetCredentials(new NetworkCredential(login, password));
-      CommandFactory commandFactory = new CommandFactory();
-      FormatFactory formatFactory = new FormatFactory();
-      OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
-      OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
+          UrlShema.AddHost(dbHost);
+          WebResponseReader webResponseReader = new WebResponseReader();
+          WebRequestManager webRequestManager = new WebRequestManager();
+          webRequestManager.SetCredentials(new NetworkCredential(login, password));
+          CommandFactory commandFactory = new CommandFactory();
+          FormatFactory formatFactory = new FormatFactory();
+          OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
+          OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
 
-      CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
-      new TokenMiniFactory(), new OrientQueryFactory());
+          CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+          new TokenMiniFactory(), new OrientQueryFactory());
 
-      return new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
-      , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+          return new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+          , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
 
-    }
-    static NewsUOWs.NewsRealUow ActualNewsUOW()
-    {
-      NewsUOWs.NewsRealUow newsUow = new NewsUOWs.NewsRealUow(DefaultManagerInit("test_db"));
-      return newsUow;
-    }
+        }
+    
+        static NewsUOWs.NewsRealUow ActualNewsUOW()
+        {
+          NewsUOWs.NewsRealUow newsUow = new NewsUOWs.NewsRealUow(DefaultManagerInit(ConfigurationManager.AppSettings["OrientUnitTestDB"]));
+          return newsUow;
+        }
+        public static void JsonManagerCheck()
+        {
+          string hs ="{ \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Holidays\": [{ \"Position\": \"Главный специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }, { \"Position\": \"Ведущий специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }] } ";
+          hs =
+    "[ { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Главный специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 13 } ] }, { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Ведущий специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 0 } ] } ] ";
+          JSONManager jm = new JSONManager();
+
+          IEnumerable<List<AdinTce.Holiday>> a = jm.DeserializeFromParentChildren<List<AdinTce.Holiday>>(hs, "Holidays");
+        }
         
-    public static void JsonManagerCheck()
-    {
-        string hs ="{ \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Holidays\": [{ \"Position\": \"Главный специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }, { \"Position\": \"Ведущий специалист\", \"Holidays\": [{ \"LeaveType\": \"Основной\", \"Days\": 13 }] }] } ";
-        hs =
-"[ { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Главный специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 13 } ] }, { \"GUID\": \"542ceb48-8454-11e4-acb0-00c2c66d13b0\", \"Position\": \"Ведущий специалист\", \"Holidays\": [ { \"LeaveType\": \"Основной\", \"Days\": 0 } ] } ] ";
-        JSONManager jm = new JSONManager();
+        public static void BatchBodyContentCheck()
+        {
+            WebRequest request=WebRequest.Create("http://localhost:2480/batch/test_db");
 
-        IEnumerable<List<AdinTce.Holiday>> a = jm.DeserializeFromParentChildren<List<AdinTce.Holiday>>(hs, "Holidays");
-    }
-    public static void QuizCheck()
-    {
-        Quizes.QuizRepo qr=new Quizes.QuizRepo();
-        qr.Quiz();
-    }
-    public static void BatchBodyContentCheck()
-    {
+            request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
+              Encoding.ASCII.GetBytes("root:root")
+              ));
 
-        WebRequest request=WebRequest.Create("http://localhost:2480/batch/test_db");
+            string stringData="{\"transaction\":true,\"operations\":[   {\"type\":\"script\",\"language\":\"sql\",\"script\":[   \"Create Vertex Person content {\"Name\":\"0\",\"GUID\":\"1\",\"Created\":\"2017-01-01 00:00:00\",\"Changed\":\"2017-01-01 00:00:00\"}\"   ]}]}"; //place body here
+            var data=Encoding.ASCII.GetBytes(stringData); // or UTF8
 
-        request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
-          Encoding.ASCII.GetBytes("root:root")
-          ));
+            request.Method="POST";
+            request.ContentType=""; //place MIME type here
+            request.ContentLength=data.Length;
 
-        string stringData="{\"transaction\":true,\"operations\":[   {\"type\":\"script\",\"language\":\"sql\",\"script\":[   \"Create Vertex Person content {\"Name\":\"0\",\"GUID\":\"1\",\"Created\":\"2017-01-01 00:00:00\",\"Changed\":\"2017-01-01 00:00:00\"}\"   ]}]}"; //place body here
-        var data=Encoding.ASCII.GetBytes(stringData); // or UTF8
-
-        request.Method="POST";
-        request.ContentType=""; //place MIME type here
-        request.ContentLength=data.Length;
-
-        var newStream=request.GetRequestStream();
-        newStream.Write(data, 0, data.Length);
-        newStream.Close();
+            var newStream=request.GetRequestStream();
+            newStream.Write(data, 0, data.Length);
+            newStream.Close();
            
 
-        try
+            try
+            {
+                var a=(HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+
+        }     
+        public static void AuthCheck()
         {
-            var a=(HttpWebResponse)request.GetResponse();
+            string res=UserAuthenticationMultiple.UserAcc();
         }
-        catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+        public static void QuizNewCheck(){
+            OrientRepo repo=DefaultManagerInit();
+            Quizes.QuizNewUOW quizUOW=new Quizes.QuizNewUOW(repo);
 
-    }    
- 
-    public static void AuthCheck()
-    {
-      string res=UserAuthenticationMultiple.UserAcc();
-    }
-
-    //API testing mehod
-    public static void APItester_sngltnCheck()
-    {
-      APItester_sngltn at=new APItester_sngltn();
-      at.Initialize();
-      at.GO();
-    }
-     //DATABASE BOILERPLATE
-    public static void GenDevDB(bool cleanUpAter=false,bool newsGen=true)
-    {
-
-Managers.Manager mng = new Managers.Manager("dev_db");
-//CREATE DB
-mng.GenDB(cleanUpAter);
-//GENERATE NEWS,COMMENTS
-mng.GenNewsComments(newsGen);
-
-    }
-    public static void GenTestDB(bool cleanUpAter=false,bool newsGen=true)
-    {
-
-Managers.Manager mng = new Managers.Manager("test_db");
-//CREATE DB
-mng.GenDB(cleanUpAter);
-//GENERATE NEWS,COMMENTS
-mng.GenNewsComments(newsGen);
-
-    }    
-      
-    //FUNCTIONAL TESTS
-    public static void UOWFunctionalCheck()
-    {
-      
-      //Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientUnitTestDB"],null);
-      Managers.Manager mng = new Managers.Manager(ConfigurationManager.AppSettings["OrientUnitTestDB"],null);
-      PersonUOWs.PersonUOW pu=mng.GetPersonUOW();
-      NewsUOWs.NewsRealUow nu=mng.GetNewsUOW();
-
-      Managers.Manager mngPerson=new Managers.Manager(ConfigurationManager.AppSettings["OrientSourceDB"],null);
-      PersonUOWs.PersonUOW personToGetUOW=mngPerson.GetPersonUOW();
-     
-      POCO.News newsToAdd0 = new News() { GUID = "119", content = "s \"a \"a  t " };
-      POCO.Person newsMaker = nu.SearchByName("Neprintsevia").FirstOrDefault();
-
-      GETparameters gp = new GETparameters() {offest=5,published=true,pinned=true,asc=true,author=newsMaker };
-      JSONManager jm = new JSONManager();
-      string gps = jm.SerializeObject(gp);
-      string res =mng.GetNewsHC(gp);
-
-      gp = new GETparameters() {offest=5,published=true};
-      res =mng.GetNewsHC(gp);
-
-      string newsToAdded0=mng.PostNews(newsToAdd0, null);
-
-      List<Note> notes0 = nu.GetByOffset("153c2d01-6def-4bcc-97fe-85b051fd8532", 50).ToList();
-
-      Person commenter_ = pu.GetPersonByGUID("88906e68-e697-11e5-80d4-005056813668");
-      News newsTocomment = nu.GetNewsByGUID("153c2d01-6def-4bcc-97fe-85b051fd8532");
-      Commentary comment = new Commentary() { content = "nt_0" };
-      comment=nu.CreateCommentary(commenter_, comment, newsTocomment);
-
-
-    
-
-      //GET check
-      IEnumerable <Note> notes=nu.GetByOffset("558d95f3-964e-45f3-9708-2ee964aa2854", 2);
-      IEnumerable<Note> news=nu.GetNews(null,null,null);
-
-      //PersonsWith news
-      List<Person> persons=nu.GetOrientObjects<Person>().ToList();
-      //get by date check          
-      Person personUpdatesNews=persons[0];
-      Person personNewsUpdated=persons[1];
-
-      News newToupdate=nu.CreateNews(personNewsUpdated,new News(){content="content created"});
+            quizUOW.InitClasses();
           
-      if(newToupdate!=null)
-      {
-        newToupdate.content="Updated";
-        nu.UpdateNote(personUpdatesNews, newToupdate);
-        newToupdate=nu.GetNewsByGUID(newToupdate.GUID);
-        Note updatedNote=nu.UpdateNotePersonal(personUpdatesNews,newToupdate);
-        IEnumerable<News> ns=nu.GetNews(5,null,null);
-      }
+          List<QuizNewGet> qzReceive = new List<QuizNewGet>();
+          List<QuizNewGet> qzSend = new List<QuizNewGet>() {
+                    new QuizNewGet(){key=0,value="quiz 1", dateFrom=DateTime.Now,dateTo=DateTime.Now,
+                      questions= new List<Question>(){
 
-      Person pers = nu.SearchByName("neprintsev").FirstOrDefault();
-      Note netoupdate2 = nu.GetNoteByGUID("34b0cd78-2931-4e7b-8533-5d9ea6ee982b");
-      Note updatedNote2=nu.UpdateNote(pers,netoupdate2);
+                        new Question(){key=0,value="quiestion 1",toStore=true,type="checkbox",answers=new List<Answer>(){
+                          new Answer(){key=0,value="answer 1"}
+                          ,new Answer(){key=1,value="answer 2"}}}
+                        
+                        ,new Question(){key=0,value="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
+                        new Answer(){key=0,value="answer 1"}
+                        ,new Answer(){key=1,value="answer 2"}
+                        ,new Answer(){key=2,value="answer 3"}}}
 
-      //test author news update comment not update
-      Person someGuy=nu.GetOrientObjects<Person>(null).ToList()[0];
-      News newsToAdd=new News() { name="TestNews",content="content" };
-      News newsTestTime=nu.CreateNews(someGuy,newsToAdd);            
-         
-      //test personal update        
+                    }
+                }
+                , new QuizNewGet(){key=0,value="quiz 2", dateFrom=DateTime.Now,dateTo=DateTime.Now,
+                      questions= new List<Question>(){
 
-      //authored commentaries
-      IEnumerable<Commentary> commentaries = from s in nu.GetOrientObjects<Commentary>() where s.author_ != null select s;
+                        new Question(){key=0,value="quiestion 1",toStore=true,type="text"}
+                        
+                        ,new Question(){key=0,value="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
+                        new Answer(){key=0,value="answer 1"}
+                        ,new Answer(){key=1,value="answer 2"}
+                        ,new Answer(){key=2,value="answer 3"}}}
 
+                    }
+                }
+            };
 
-      //ABSENT PERSON CHECK
-      Random rnd = new Random();
-      int acc = (int)rnd.Next(0, 10000);
-      //News ns = nu.GetNewsByGUID("2370b972-48d4-4e49-95ad-b99ba5382042");
-      //News ns = nu.GetNewsByGUID("e7bc87ec-f649-4748-b4cb-d2863f780f1c");
-      //nu.GetNewsByGUID("f7557c27-f889-4aab-91ce-ba15e34e3981");
-      //News ns = nu.GetNewsByGUID("f7557c27-f889-4aab-91ce-ba15e34e3981");
+            string snd=jm.SerializeObject(qzSend);
 
-      var a=nu.GetNews(5,null,null);
+            quizUOW.QuizPost(qzSend);
 
-      Person personAbsent = new Person() { Name = "PersonAbsent", sAMAccountName = "absent"+acc };
-      string newsContent = "{\"conntent_\":\"news text\",\"name\":\"News name\"}";
-      News newsToinsert = nu.UOWdeserialize<News>(newsContent);
-      News newsAdded=nu.CreateNews(personAbsent, newsToinsert);
+            qzReceive = quizUOW.QuizGet().ToList();
 
-      //NEWS CREATION CHECK
-      Person personFromTest=personToGetUOW.GetPersonByAccount("Neprintsevia");
-      News newsAdded2=nu.CreateNews(personFromTest, newsToinsert);
-      string personFromStr = nu.UOWserialize<Person>(personFromTest);
-      string newsCreatedStr = nu.UOWserialize<News>(newsAdded2);
+            quizUOW.QuizDelete(qzReceive);
 
-      //COMMENTARY CREATION CHECK
-      Commentary commentToAdd = nu.UOWdeserialize<Commentary>(newsContent);
-      Commentary commentAdded = nu.CreateCommentary(personFromTest, commentToAdd, newsAdded2);
-      string CommentaryCreatedStr = nu.UOWserialize<Commentary>(commentAdded);
+        }
 
-      //COMMENTARY UPDATE CHECK
-      newsAdded.content="Updated news";
-      News commentUpdated1=nu.UpdateNews(personFromTest,newsAdded);
-      commentAdded.content="Updated comment";
-      Commentary commentUpdated2=nu.UpdateCommentary(personFromTest,commentAdded);
+        //API testing mehod
+        public static void APItester_sngltnCheck()
+        {
+            APItester_sngltn at=new APItester_sngltn();
+            at.Initialize();
+            at.GO();
+        }
+        //DATABASE BOILERPLATE
+        public static void GenDevDB(bool cleanUpAter=false,bool newsGen=true)
+        {
+
+    List<News> news_=new List<News>(){};
+    List<Commentary> comments_=new List<Commentary>() { };
+
+    Managers.Manager mng=new Managers.Manager("dev_db");
+    //CREATE DB
+    mng.GenDB(cleanUpAter);
+    //GENERATE NEWS,COMMENTS
+    mng.GenNewsComments(newsGen,true);
+
+        }
+        public static void GenTestDB(bool cleanUpAter=false,bool newsGen=true)
+        {
+
+    List<News> news_ = new List<News>() { };
+    List<Commentary> comments_ = new List<Commentary>() { };
+
+    Managers.Manager mng = new Managers.Manager("test_db");
+    //CREATE DB
+    mng.GenDB(cleanUpAter);
+    //GENERATE NEWS,COMMENTS
+    mng.GenNewsComments(newsGen,true);
+
+        }    
+
+        //FUNCTIONAL TESTS
+        public static void UOWFunctionalCheck()
+        {
             
-    }            
+            QuizNewCheck();
+
+            //GetPersonCheck();
+
+            //JsonToTypeList.GO();
+
+            //test new quizes
+            //Quizes.QuizUOWTest.GO();
+
+            //Check LinqToContext
+            //LinqToContextCheck.GO();
+
+            //moove database
+            //UOWMooveDb();
+        }
+
+        //MOOVE DB
+        public static void UOWMooveDb()
+        {
+            Managers.Manager mngFrom1=new Managers.Manager("dev_db","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+            Managers.Manager mngFrom2=new Managers.Manager("news_test5","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+
+            //msk1-vm-indb01.nspk.ru
+            //mR%mzJUGq1E
+            Managers.Manager mngTo=new Managers.Manager("news_test_for_prod","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+                //Managers.Manager mngTo=new Managers.Manager("news_prod","http://msk1-vm-indb01.nspk.ru:2480","root","mR%mzJUGq1E");
+
+            List<IOrientObjects.IOrientDefaultObject> classes_=new List<IOrientObjects.IOrientDefaultObject>();
+            classes_.Add(new Note());
+            classes_.Add(new Authorship());
+
+            //migrate class names and shemas from actual DB
+            MooveDB.Migrate(mngTo,mngFrom2,classes_,null,true,false);
+            //migrate ral persons from actual person DB
+            MooveDB.Migrate(mngTo,mngFrom1,null, classes_, false,false);
+        }
+        //Exclusive person moove
+        public static void UOWMovePersonFromProd()
+        {    
+          //!!! PROD DATABASE FOR PERSON SYNC !!!
+          //!!!
+          //Managers.Manager mngPerson=new Managers.Manager("Orgchart_prod","http://msk1-vm-indb01:2480","root","mR%mzJUGq1E");
+          //!!!
+
+          /*
+          testing Chilinyak
+          Чили
+          13da7c6ca09a755dc45553bce03723f7
+          a.chilinyak
+          */
+        }
+        
+        public static void GetPersonCheck()
+        {
+          Managers.Manager mng = new Managers.Manager("news_test5","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+          string res=mng.GetPersonWithManagers("http://msk1-vm-inapp01:8185/api/Person/GetManager/");
+        }
+    }
     
-  }  
-  
-  
-  public static class EFcheck
-  {
-    public enum Genre
+    /// <summary>
+    /// Mooves orient database (Classes with properties, vertices and edges with GUID)  
+    /// from one Manager to another with some options.
+    /// </summary>
+    public static class MooveDB
     {
-      Action,
-      Humor,
-      Fantasy,
-    }
+        static TypeConverter tc = new TypeConverter();
+        static IOrientRepo targetRepo_,sourceRepo_;
+        static List<NodeReferenceConditional> conditionalItems;
 
-    public class Book
-    {
-      public int Id { get; set; }
-      public string Title { get; set; }
-      public Genre? Genre { get; set; }
-      public AuthorName Author { get; set; }
-    }
+        static void ConditionalItemsInit(List<IOrientObjects.IOrientDefaultObject> mooveClasses)
+        {
+            conditionalItems=new List<NodeReferenceConditional>();
+            foreach (OrientDefaultObject tp_ in mooveClasses.Where(s=>s.GetType().BaseType==typeof(V)))
+            {
+                if(tp_!=null){conditionalItems.Add(new NodeReferenceConditional(){orientItem=tp_,processed=false});}
+            }
+            foreach (OrientDefaultObject tp_ in mooveClasses.Where(s => s.GetType().BaseType==typeof(E)))
+            {
+                if(tp_!=null){conditionalItems.Add(new NodeReferenceConditional(){orientItem=tp_,processed=false});}
+            }
+        }
+        public static List<IOrientObjects.IOrientDefaultObject> GetClasses(List<IOrientObjects.IOrientDefaultObject>  list_)
+        {           
+            return list_;
+        }
+        public static OrientDatabase Migrate(Managers.Manager to_,Managers.Manager from_,List<IOrientObjects.IOrientDefaultObject> mooveClasses
+        ,List<IOrientObjects.IOrientDefaultObject> mooveObjects, bool dropAndCreateIfExists = false,bool generate=false)
+        {
+        OrientDatabase result=null;
+ 
+        bool allreadyExists=false;
+      
+        if(to_==null){throw new Exception("No from DB passed");}
+        targetRepo_=to_.GetRepo();
+        if(targetRepo_==null){throw new Exception("No from repo exists");}
+      
+        OrientDatabase dbTo=targetRepo_.GetDb();
+		    		  
+        if(dropAndCreateIfExists==true){
+	        //drop and create db
+	        if(dbTo!=null){targetRepo_.DeleteDb();}
+        targetRepo_.CreateDb();
+        if(targetRepo_.GetDb()==null){throw new Exception("Db was not recreated");}
+        }
+        if(from_!=null){
+	        //moove db
+        sourceRepo_=from_.GetRepo();
+        if(sourceRepo_==null){throw new Exception("No from repo exists");}
+	    OrientDatabase dbFrom=sourceRepo_.GetDb();
+        dbFrom=sourceRepo_.GetDb();
+        dbTo=targetRepo_.GetDb();
+        if(dbTo==null)
+        {throw new Exception("No target database exists");}
+        if(dbFrom==null)
+        {throw new Exception("No source database exists");}
+        
+        if(mooveClasses!=null&& mooveClasses.Count()>0){
+            MooveClasses(targetRepo_,sourceRepo_, mooveClasses);
 
-    public class AuthorName
-    {
-      public string First { get; set; }
-      public string Last { get; set; }
-    }
+            foreach (OrientDefaultObject oL_ in mooveClasses){
+                targetRepo_.CreateProperty<OrientDefaultObject>(oL_,null);
+            }
+        }
+        if(mooveObjects!=null&&mooveObjects.Count()>0)
+        {
+            ConditionalItemsInit(mooveObjects);
+            MooveObject();
+            
+            /*
+            MooveObjectsOfClass<Person>(targetRepo_,sourceRepo_);
+            MooveObjectsOfClass<Unit>(targetRepo_,sourceRepo_);       
 
-    public class UnicodeContext : DbContext
-    {
-      public DbSet<Book> Books { get; set; }
+            MooveObjectsOfClass<SubUnit>(targetRepo_,sourceRepo_);
+            MooveObjectsOfClass<MainAssignment>(targetRepo_,sourceRepo_);
+            MooveObjectsOfClass<OldMainAssignment>(targetRepo_,sourceRepo_);
+            */
+        }
+            /*
+            MooveObjectsOfClass<UserSettings>(targetRepo_,sourceRepo_);
+            MooveObjectsOfClass<CommonSettings>(targetRepo_,sourceRepo_);
 
-      protected override void OnModelCreating(DbModelBuilder modelBuilder)
-      {
-        modelBuilder.Entity<Book>().Property(p => p.Title).IsUnicode(true);
-      }
-    }
 
-    public class NonUnicodeContext : DbContext
-    {
-      public DbSet<Book> Books { get; set; }
+            MooveObjectsOfClass<PersonRelation>(targetRepo_,sourceRepo_);
+            */
+        }
+        if (generate==true){
+            //generate scenery to existing
+            to_.GenDB(false,false);
+            to_.GenNewsComments(null,null);
+        }
+      
+            targetRepo_.StoreDbStatistic(null,null);
+            return result;
+        }
+   
+        static void MooveClasses(IOrientRepo targetRepo,IOrientRepo sourceRepo, List<IOrientObjects.IOrientDefaultObject> mooveClasses){
+        TypeConverter tc = new TypeConverter();
+        OrientDatabase dbFrom=sourceRepo.GetDb(null,null);
 
-      protected override void OnModelCreating(DbModelBuilder modelBuilder)
-      {
-        modelBuilder.Entity<Book>().Property(p => p.Title).IsUnicode(false);
-      }
-    }
-       
-    public static string EFqueryCheck()
-    {
-      string str=null;
+            foreach (OrientDefaultObject do_ in mooveClasses){
+                OrientClass oc = (from s in dbFrom.classes where s.name==do_.GetType().Name select s).FirstOrDefault();
+                if(oc!=null)
+                {
+                    CreateClassRec(oc);
+                }
+            }          
+        }
+        static void CreateClassRec(OrientClass class_){
+        OrientClass _class=targetRepo_.GetClass(class_.name,null, null);    
+            if(_class==null){
+                if(class_.superClass!=null){
+                    OrientClass superClass=targetRepo_.GetClass(class_.superClass,null, null);
+                    if(superClass==null){
+                    superClass=sourceRepo_.GetClass(class_.superClass,null, null);
+                        if(superClass==null){throw new Exception("no superclass in sourcedb found");}
+                    CreateClassRec(superClass);
+                    }
+                    class_=targetRepo_.CreateClass(class_.name,superClass.name,null).GetClass(class_.name,null,null);
+                }else{
+                    class_=targetRepo_.CreateClass(class_.name,null,null).GetClass(class_.name,null,null);
+                }
+                if(class_==null){throw new Exception("failed to create class");}
+            }
+        }
+    
+        static void MooveObjectsOfClass<T>(IOrientRepo targetRepo,IOrientRepo sourceRepo) 
+            where T:class, IOrientObjects.IOrientDefaultObject
+        {
+            List<T> arbitraryObjects = new List<T>();
+            foreach(T p in sourceRepo.SelectFromType<T>(null,null)){
+            T pc = null;
+                try{
+                    if(p.GetType().BaseType==typeof(V)){
+                        pc=targetRepo.CreateVertex<T>(p, null);
+                    }
+                    if(p.GetType().BaseType==typeof(E)){
+                        POCO.OrientEdge io=p as POCO.OrientEdge;
+                        POCO.V vFrom=
+                        sourceRepo.SelectByIDWithCondition<POCO.V>(io.In,null,null).FirstOrDefault();
+                        POCO.V vTo=
+                        sourceRepo.SelectByIDWithCondition<POCO.V>(io.Out,null,null).FirstOrDefault();
 
-      const string expectedSql =
-@"SELECT 
-[Extent1].[Id] AS [Id]
-FROM [dbo].[Books] AS [Extent1]
-WHERE ([Extent1].[Title] IN (N'Title1', N'Title2')) 
-OR ([Extent1].[Title] IS NULL)";
+                        vTo=targetRepo.SelectFromType<POCO.V>("GUID='"+vTo.GUID+"'",null).FirstOrDefault();
 
-      var array = new[] { "Title1", "Title2", null };
+                        pc=targetRepo.CreateEdge<T>(p,vFrom,vTo, null) as T;
+                    }
+                    if(pc==null){ if(arbitraryObjects!=null ){arbitraryObjects.Add(p);}}
+                }catch(Exception e){ System.Diagnostics.Trace.WriteLine(e.Message);}
+            }
+            if(arbitraryObjects.Count()>0){
+                CheckListOfObjects(targetRepo, arbitraryObjects);
+            }
+        }
+        static void CheckListOfObjects<T>(IOrientRepo targetRepo, List<T> unaddedObjects) where T:class, IOrientObjects.IOrientDefaultObject
+        {
+            T pc=null;
+            foreach(T p in unaddedObjects){
+            pc=targetRepo.SelectFromType<T>("GUID='"+p.GUID+"'",null).FirstOrDefault();
+            if(pc==null){
+                try{
+                    if(p.GetType().BaseType==typeof(V)){
+                        pc=targetRepo.CreateVertex<T>(p, null);
+                    }
+                    if(p.GetType().BaseType==typeof(E)){
+                        IOrientObjects.IOrientEdge io=p as IOrientObjects.IOrientEdge;
+                        IOrientObjects.IOrientVertex vFrom=targetRepo.SelectByIDWithCondition<T>(io.In,null,null).FirstOrDefault() as IOrientObjects.IOrientVertex;
+                        IOrientObjects.IOrientVertex vTo=targetRepo.SelectByIDWithCondition<T>(io.Out,null,null).FirstOrDefault() as IOrientObjects.IOrientVertex;
+                        pc=targetRepo.CreateEdge<IOrientObjects.IOrientDefaultObject>(p,vFrom,vTo, null) as T;
+                    }
+                }catch(Exception e){ System.Diagnostics.Trace.WriteLine(e.Message);}
+            }
+            }
+        }
 
-      using (var context = new UnicodeContext())
-      {
-        ((IObjectContextAdapter)context).ObjectContext.ContextOptions.UseCSharpNullComparisonBehavior=false;
+        //If object classes list passed, handles object movement from source to target
+        static void MooveObject(){
+            if(conditionalItems != null&& conditionalItems.Count()>0){
+                //Loop throught every assed class
+                foreach(NodeReferenceConditional conditionalreference_ in conditionalItems)
+                {
+                    IOrientObjects.IOrientDefaultObject objectClass_ = conditionalreference_.orientItem;
+                   
+                    //for Nodes
+                    if (objectClass_.GetType().BaseType.Equals(typeof(V)))
+                    {
+                        //get all objects of class from base
+                        IEnumerable<IOrientObjects.IOrientDefaultObject> tempVert = sourceRepo_.SelectRefl(objectClass_.GetType(), null);
+                        if (tempVert != null && tempVert.Count() > 0)
+                        {
+                            //for every Node just simple create
+                            foreach (V vToInsert in tempVert)
+                            {
+                                Type tp = vToInsert.GetType();
+                                IOrientObjects.IOrientDefaultObject vInserted =targetRepo_.CreateVertexTp(vToInsert, null);
+                                if (vInserted==null){throw new Exception("vertex was not mooved");}
+                            }
+                        }
+                    }
 
-        var query = from book in context.Books
-        where array.Contains(book.Title)
-        select book.Id;
+                    //for References
+                    if (objectClass_.GetType().BaseType.Equals(typeof(E)))
+                    {
+                        //get all objects of class from base
+                        IEnumerable<IOrientObjects.IOrientDefaultObject> tempVert = sourceRepo_.SelectRefl(objectClass_.GetType(), null);
+                        //for every Node just simple create
+                        foreach (E eToInsert in tempVert)
+                        {
+                            //get related Nodes from source DB by referenced rIDs
+                            V vFrom=sourceRepo_.SelectByIDWithCondition<V>(eToInsert.In, null, null).FirstOrDefault();
+                            V vTo= sourceRepo_.SelectByIDWithCondition<V>(eToInsert.Out, null, null).FirstOrDefault();
+                            if (vFrom == null || vTo == null) { throw new Exception("no in or out Node in source db"); }
 
-        str = Regex.Replace(query.ToString(), @"\s", string.Empty);
+                            //get related Nodes in target DB by GUIDs of source DB Nodes
+                            V vFromToIns=targetRepo_.SelectByCondFromType<V>(typeof(V),"GUID='"+vFrom.GUID+"'",null).FirstOrDefault();
+                            V vToToIns=targetRepo_.SelectByCondFromType<V>(typeof(V),"GUID='"+vTo.GUID+"'",null).FirstOrDefault();
+                            if (vFromToIns == null || vToToIns == null) {throw new Exception("no in or out Node in target db");}
 
-        bool res = Regex.Replace(query.ToString(), @"\s", string.Empty)==expectedSql;
-      }
-      return str;
-    }
-  
-  }
+                            //create relation inn target DB between Nodes related in source DB
+                            E eInserted = targetRepo_.CreateEdge<E>(eToInsert, vFromToIns, vToToIns, null);
+                            if (eInserted==null){throw new Exception("no in or out Node in target db");}
+                        }
+                    }
+                  
+                   
+                }
+
+            }
+        }
+    }   
 
 }
