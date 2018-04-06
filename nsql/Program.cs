@@ -42,11 +42,11 @@ namespace NSQLManager
             //ManagerCheck.GenTestDB();
             //ManagerCheck.GenDevDB();
 
-            //check linq to context
-            LinqToContextPOC.LinqToContextCheck.GO();
-
             //FUCNTIONAL CHECK
-            //ManagerCheck.UOWFunctionalCheck();
+            ManagerCheck.UOWFunctionalCheck();
+
+            //check linq to context
+            LinqToContextPOC.LinqToContextCheck.GO();            
       
             //START API TEST
             ManagerCheck.APItester_sngltnCheck();
@@ -60,7 +60,9 @@ namespace NSQLManager
 
     //move to tests except DB generating
     public static class ManagerCheck
-    {    
+    {
+        static JSONManager jm = new JSONManager();
+
         static void propSearch<T>(T item)
         {
           var pc = item.GetType().GetProperties();
@@ -144,42 +146,87 @@ namespace NSQLManager
         
         public static void BatchBodyContentCheck()
         {
-          WebRequest request=WebRequest.Create("http://localhost:2480/batch/test_db");
+            WebRequest request=WebRequest.Create("http://localhost:2480/batch/test_db");
 
-          request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
-            Encoding.ASCII.GetBytes("root:root")
-            ));
+            request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
+              Encoding.ASCII.GetBytes("root:root")
+              ));
 
-          string stringData="{\"transaction\":true,\"operations\":[   {\"type\":\"script\",\"language\":\"sql\",\"script\":[   \"Create Vertex Person content {\"Name\":\"0\",\"GUID\":\"1\",\"Created\":\"2017-01-01 00:00:00\",\"Changed\":\"2017-01-01 00:00:00\"}\"   ]}]}"; //place body here
-          var data=Encoding.ASCII.GetBytes(stringData); // or UTF8
+            string stringData="{\"transaction\":true,\"operations\":[   {\"type\":\"script\",\"language\":\"sql\",\"script\":[   \"Create Vertex Person content {\"Name\":\"0\",\"GUID\":\"1\",\"Created\":\"2017-01-01 00:00:00\",\"Changed\":\"2017-01-01 00:00:00\"}\"   ]}]}"; //place body here
+            var data=Encoding.ASCII.GetBytes(stringData); // or UTF8
 
-          request.Method="POST";
-          request.ContentType=""; //place MIME type here
-          request.ContentLength=data.Length;
+            request.Method="POST";
+            request.ContentType=""; //place MIME type here
+            request.ContentLength=data.Length;
 
-          var newStream=request.GetRequestStream();
-          newStream.Write(data, 0, data.Length);
-          newStream.Close();
+            var newStream=request.GetRequestStream();
+            newStream.Write(data, 0, data.Length);
+            newStream.Close();
            
 
-          try
-          {
-            var a=(HttpWebResponse)request.GetResponse();
-          }
-          catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
+            try
+            {
+                var a=(HttpWebResponse)request.GetResponse();
+            }
+            catch (Exception e) {System.Diagnostics.Trace.WriteLine(e.Message);}
 
         }     
         public static void AuthCheck()
         {
-          string res=UserAuthenticationMultiple.UserAcc();
+            string res=UserAuthenticationMultiple.UserAcc();
+        }
+        public static void QuizNewCheck(){
+            OrientRepo repo=DefaultManagerInit();
+            Quizes.QuizNewUOW quizUOW=new Quizes.QuizNewUOW(repo);
+
+            quizUOW.InitClasses();
+          
+          List<QuizNewGet> qzReceive = new List<QuizNewGet>();
+          List<QuizNewGet> qzSend = new List<QuizNewGet>() {
+                    new QuizNewGet(){key=0,value="quiz 1", dateFrom=DateTime.Now,dateTo=DateTime.Now,
+                      questions= new List<Question>(){
+
+                        new Question(){key=0,value="quiestion 1",toStore=true,type="checkbox",answers=new List<Answer>(){
+                          new Answer(){key=0,value="answer 1"}
+                          ,new Answer(){key=1,value="answer 2"}}}
+                        
+                        ,new Question(){key=0,value="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
+                        new Answer(){key=0,value="answer 1"}
+                        ,new Answer(){key=1,value="answer 2"}
+                        ,new Answer(){key=2,value="answer 3"}}}
+
+                    }
+                }
+                , new QuizNewGet(){key=0,value="quiz 2", dateFrom=DateTime.Now,dateTo=DateTime.Now,
+                      questions= new List<Question>(){
+
+                        new Question(){key=0,value="quiestion 1",toStore=true,type="text"}
+                        
+                        ,new Question(){key=0,value="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
+                        new Answer(){key=0,value="answer 1"}
+                        ,new Answer(){key=1,value="answer 2"}
+                        ,new Answer(){key=2,value="answer 3"}}}
+
+                    }
+                }
+            };
+
+            string snd=jm.SerializeObject(qzSend);
+
+            quizUOW.QuizPost(qzSend);
+
+            qzReceive = quizUOW.QuizGet().ToList();
+
+            quizUOW.QuizDelete(qzReceive);
+
         }
 
         //API testing mehod
         public static void APItester_sngltnCheck()
         {
-          APItester_sngltn at=new APItester_sngltn();
-          at.Initialize();
-          at.GO();
+            APItester_sngltn at=new APItester_sngltn();
+            at.Initialize();
+            at.GO();
         }
         //DATABASE BOILERPLATE
         public static void GenDevDB(bool cleanUpAter=false,bool newsGen=true)
@@ -212,6 +259,10 @@ namespace NSQLManager
         //FUNCTIONAL TESTS
         public static void UOWFunctionalCheck()
         {
+            
+            QuizNewCheck();
+
+            //GetPersonCheck();
 
             //JsonToTypeList.GO();
 
@@ -260,7 +311,12 @@ namespace NSQLManager
           a.chilinyak
           */
         }
-    
+        
+        public static void GetPersonCheck()
+        {
+          Managers.Manager mng = new Managers.Manager("news_test5","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
+          string res=mng.GetPersonWithManagers("http://msk1-vm-inapp01:8185/api/Person/GetManager/");
+        }
     }
     
     /// <summary>

@@ -3216,6 +3216,10 @@ namespace OrientRealization
     public string getDbName()
     {
       return this.dbName;
+    }  
+    public string getURL()
+    {
+      return this.urlStr;
     }
 
     public OrientRepo
@@ -3294,7 +3298,7 @@ namespace OrientRealization
     public PropertyInfo[] Props<T>() 
     where T:IOrientObject
     {
-        PropertyInfo[] psc = typeof(T).GetType().GetProperties();
+        PropertyInfo[] psc = typeof(T).GetProperties();
            
         foreach (PropertyInfo ps in psc)
         {
@@ -3363,7 +3367,16 @@ namespace OrientRealization
     {
         return this.result_.Text;
     }
-      
+    public string GetDbName()
+    {
+      return this.dbName;
+    }
+    public string GetURL()
+    {
+      return this.urlStr;
+    }
+
+
     IEnumerable<T> BuildRequestArr<T>(string method_,ITypeToken returnstatus_)
     where T: class
     {
@@ -3537,8 +3550,8 @@ namespace OrientRealization
           where_ =
               _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
       }
-      
 
+      this.commandBody = null;
       if (baseType == typeof(V))
       {
           this.commandBody = NewChain().Delete().Vertex(token_).Where(where_)
@@ -3556,7 +3569,60 @@ namespace OrientRealization
       ReadResponseStr("POST", _miniFactory.Deleted());
                          
       return this;
-    }     
+    }
+    public IOrientRepo Delete<T>(T item=null,Type class_=null,string condition_=null,string dbName_=null) 
+        where T:class, IOrientDefaultObject
+    {
+      CheckDbName(dbName_);
+
+      ITypeToken token_=_typeConverter.Get(typeof(T));
+      List<ITypeToken> tt = null;
+      ICommandBuilder where_ = null;
+      Type baseType = null;
+
+      if(class_==null){
+          baseType=typeof(T).BaseType;
+      }else{
+          baseType=class_;
+      }
+
+      if (condition_ != null)
+      {
+          tt=new List<ITypeToken>() { _miniFactory.NewToken(condition_) };
+      }
+      else
+      {
+          if (item != null)
+          {
+              tt=new List<ITypeToken>() { _miniFactory.NewToken("@rid=" + item.id) };
+          }
+      }
+ 
+      if (tt != null)
+      {
+          where_ =
+              _commandFactory.CommandBuilder(_miniFactory, _formatFactory, tt, _miniFactory.EmptyString()).Build();
+      }
+
+      this.commandBody = null;
+      if (baseType == typeof(V))
+      {
+          this.commandBody = NewChain().Delete().Vertex(token_).Where(where_)
+              .GetBuilder().Build();
+      }
+      if (baseType == typeof(E))
+      {
+          this.commandBody = NewChain().Delete().Edge(token_).Where(where_)
+              .GetBuilder().Build();
+      }
+
+      BindBatchBody();
+      BindBatchUrl();
+      BindWebRequest();
+      ReadResponseStr("POST", _miniFactory.Deleted());
+                         
+      return this;
+    }
     public IOrientRepo DeleteEdge<T>(string from,string to,string condition_=null,string dbName_=null) 
       where T :class, IOrientEdge
     {
@@ -5045,6 +5111,8 @@ propertiesTo[i2].SetValue(result, propertiesFrom[i].GetValue(fromObject, null), 
   {
     void StoreDbStatistic(string path_, string name_);
     string getDbName();
+    string getURL();
+
     void AlterProperty(ITypeToken class_, ITypeToken prop_, ITypeToken func_);
     void BindDbName(string dbName_);
     void BindUrlName(string input_);
@@ -5066,6 +5134,7 @@ propertiesTo[i2].SetValue(result, propertiesFrom[i].GetValue(fromObject, null), 
     K CreateClassTp<K>(Type class_, Type extends_, string dbName_ = null) where K : class, IOrientEntity;
     void DbPredefinedParameters();
     IOrientRepo Delete<T>(T item = null, string condition_ = null, string dbName_ = null) where T : class, IOrientDefaultObject;
+    IOrientRepo Delete<T>(T item = null, Type class_ = null, string condition_ = null, string dbName_ = null) where T : class, IOrientDefaultObject;
     IOrientRepo DeleteDb(string dbName_ = null, string host = null);
     IOrientRepo DeleteEdge<T, K, C>(K from, C to, string condition_ = null, string dbName_ = null)
       where T : IOrientEdge

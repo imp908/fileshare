@@ -201,7 +201,7 @@ namespace PersonUOWs
     public Person GetPersonByAccount(string accountName_)
     {
       Person result=null;
-      var a=from s in _repo.Props<Person>().ToList() where s.Name=="sAMAccountName" select s;
+      //var a=from s in _repo.Props<Person>().ToList() where s.Name=="sAMAccountName" select s;
       result=_repo.SelectSingle<Person>("sAMAccountName='" + accountName_+"'", null);
       return result;
     }
@@ -232,6 +232,15 @@ namespace PersonUOWs
       Person result = null;
         result = _repo.CreateVertex<Person>(p_,null);
       return result;
+    }
+
+    public List<Person> Managers()
+    {
+      List<Person> persons_ = new List<Person>();
+        WebManager wm = new WebManager("root","I9grekVmk5g");
+        JSONManager jm = new JSONManager();
+        
+      return persons_;
     }
 
   }
@@ -676,7 +685,7 @@ namespace NewsUOWs
               note_.Likes=GetLikesCountHC(note_).Likes;
               note_=UpdateNote(note_);
               if(note_==null){
-                _repo.Delete<Liked>(result);
+                _repo.Delete<Liked>(result,null,null);
                 throw new Exception("Ups... Note failed to update. Like deleted.");
               }
             }else{throw new Exception("Ups... No Like created.");}
@@ -761,9 +770,9 @@ namespace NewsUOWs
       if(tag_!=null){
         IEnumerable<Tagged> taggeds=_repo.SelectFromType<Tagged>("in.rid="+tag_.id, null);
         foreach(Tagged ref_ in taggeds){
-          _repo.Delete<Tagged>(ref_);          
+          _repo.Delete<Tagged>(ref_,null,null);          
         }
-        _repo.Delete<Tag>(tag_);
+        _repo.Delete<Tag>(tag_,null,null);
       }else{ return null;}
      return tag_;
     }
@@ -846,6 +855,8 @@ namespace Managers
     PersonUOW _personUOW;
     QuizUOW _quizUOW;
 
+    QuizNewUOW _quizUOWNew;
+
     /// <summary>
     /// Dictionary for storing new UOWs
     /// </summary>
@@ -865,7 +876,7 @@ namespace Managers
       try{
 
         _dbName=string.IsNullOrEmpty(dbName_) 
-        ?ConfigurationManager.AppSettings["OrientUnitTestDB"]
+        ?ConfigurationManager.AppSettings["OrientDevDB"]
         :dbName_ ;
             
         _dbHost=string.IsNullOrEmpty(url_)
@@ -1129,6 +1140,17 @@ namespace Managers
       return result;
     }
 
+    public string GetQuizNew(){
+        string res = null;
+            _quizUOWNew.QuizGetStr();
+        return res;
+    }
+    public string POSTQuizNew(IEnumerable<QuizNewGet> quizes_){
+        string res = null;
+            _quizUOWNew.QuizPost(quizes_);
+        return res;
+    }
+
     [Obsolete]
     public string GetNewsByTag(Tag tag_)
     {
@@ -1290,7 +1312,7 @@ new Person(){Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",changed
       bool res = dtStr.Equals(dtStrRegen);
 
       string sourceHost = string.Format("{0}:{1}"
-      ,ConfigurationManager.AppSettings["OrientDevHost"],ConfigurationManager.AppSettings["OrientPort"]);
+      ,ConfigurationManager.AppSettings["OrientProdHost"],ConfigurationManager.AppSettings["OrientPort"]);
 
       //Add custom Unit of work for receiving news_test5 users from dev db.
       PersonUOWs.PersonUOW _sourceUOW=
@@ -1298,12 +1320,9 @@ new Person(){Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",changed
       ConfigurationManager.AppSettings["OrientSourceDB"]
       ,sourceHost
       ,ConfigurationManager.AppSettings["orient_login"]
-      ,ConfigurationManager.AppSettings["orient_pswd"]));    
-
-
+      ,ConfigurationManager.AppSettings["orient_prod_pswd"]));    
       Person person_=_sourceUOW.GetPersonByAccount("Neprintsevia");
       string str=_newsUOW.UOWserialize<Person>(person_);
-
       Person pr=_repo.CreateVertex<Person>(str);
 
       personsAdded=_newsUOW.GetItems<Person>(null).ToList();         
@@ -1455,6 +1474,17 @@ new Person(){Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",changed
       return list_;
     }
    
+    public string GetPersonWithManagers(string apiUrl)
+    {
+      string res = null;
+      JSONManager jm = new JSONManager();
+      PersonApiRun.PersonAPIold po = new PersonApiRun.PersonAPIold();
+      List<Person> pr= GetPersonUOW().GetItems<Person>(null).ToList();
+      List<PersonWithMng> pwm= po.getMangers(pr, apiUrl);
+      res=jm.SerializeObject(pwm);
+      return res;
+    }
+
     public void DeleteDB()
     {
       _repo.DeleteDb(_dbName);
@@ -2139,76 +2169,167 @@ namespace Quizes
 
     public class QuizUOW : UOW
     {
-      public QuizUOW(IOrientRepo repo_)
-        :base(repo_)
-      {
-        BindRepo(repo_);
-      }
-      JSONManager jm = new JSONManager();
-
-      public IEnumerable<QuizGet> QuizGetAll()
-      {
-        IEnumerable<QuizGet> quizes = null;
-          quizes=_repo.SelectByCondFromType<QuizGet>(typeof(Quiz), " and 1=1", null);
-        return quizes;
-      }           
-      public IEnumerable<QuizGet> QuizGetByDate(DateTime st_,DateTime fn_)
-      {
-        IEnumerable<QuizGet> quizes = null;
-          string st = "'" +st_.ToString("yyyy-MM-dd HH:mm:ss")+"'";
-          string fn = "'" +fn_.ToString("yyyy-MM-dd HH:mm:ss")+"'";
-
-          quizes=_repo.SelectByCondFromType<QuizGet>(typeof(Quiz), " and State ='Published' and StartDate.asDate() >" + st + " and EndDate.asDate() < " +fn, null);
-
-        return quizes;
-      }     
-
-      public string GetQuizByMonthGap(int? month_)
-      {
-        string result = string.Empty;
-        IEnumerable<QuizGet> quizes = null;
-        List<QuizSend> quizesToSend = null;
-        if(month_==null){
-            quizes=QuizGetAll();
-        }else{
-            DateTime dateSt = DateTime.Now.Date.AddMonths((int)month_);
-            DateTime dateFn = DateTime.Now.Date.AddMonths((int)month_).AddMonths(1).AddMilliseconds(-1);
-            quizes=QuizGetByDate(dateSt, dateFn);
-        }
-        if(quizes!=null){
-          quizesToSend=ReturnQuizGet(quizes);
-          result=jm.SerializeObject(quizesToSend);
-        }
-        return result;
-      }
-
-      public List<QuizSend> ReturnQuizGet(IEnumerable<QuizGet> quizes_)
-      {
-        List<QuizSend> _quizes=new List<QuizSend>();
-        foreach(QuizGet qg in quizes_)
+        public QuizUOW(IOrientRepo repo_)
+            :base(repo_)
         {
-          if(qg!=null){
-            QuizSend qs=QuizGetToSendConvert(qg);
-            if(qs!=null){ _quizes.Add(qs); }
-          }
+            BindRepo(repo_);
         }
-        return _quizes;
-      }
+        JSONManager jm = new JSONManager();
 
-      /// <summary>
-      /// Converting of Quiz received object to Quiz to pass in JSON object
-      /// </summary>
-      /// <param name="qr"></param>
-      /// <returns></returns>
-      public QuizSend QuizGetToSendConvert(QuizGet qr)
-      {
-          QuizSend qs=new QuizSend();
-          qs.title=qr.Name;
-          qs.href=new QuizHrefNode() {link="/Quiz/Execute/?" + qr.id , target="_self"};
-          qs.parentid=50;
+        public IEnumerable<QuizGet> QuizGetAll()
+        {
+          IEnumerable<QuizGet> quizes = null;
+            quizes=_repo.SelectByCondFromType<QuizGet>(typeof(Quiz), " and 1=1", null);
+          return quizes;
+        }           
+        public IEnumerable<QuizGet> QuizGetByDate(DateTime st_,DateTime fn_)
+        {
+          IEnumerable<QuizGet> quizes = null;
+            string st = "'" +st_.ToString("yyyy-MM-dd HH:mm:ss")+"'";
+            string fn = "'" +fn_.ToString("yyyy-MM-dd HH:mm:ss")+"'";
+
+            quizes=_repo.SelectByCondFromType<QuizGet>(typeof(Quiz), " and State ='Published' and StartDate.asDate() >" + st + " and EndDate.asDate() < " +fn, null);
+
+          return quizes;
+        }     
+
+        public string GetQuizByMonthGap(int? month_)
+        {
+          string result = string.Empty;
+          IEnumerable<QuizGet> quizes = null;
+          List<QuizSend> quizesToSend = null;
+          if(month_==null){
+              quizes=QuizGetAll();
+          }else{
+              DateTime dateSt = DateTime.Now.Date.AddMonths((int)month_);
+              DateTime dateFn = DateTime.Now.Date.AddMonths((int)month_).AddMonths(1).AddMilliseconds(-1);
+              quizes=QuizGetByDate(dateSt, dateFn);
+          }
+          if(quizes!=null){
+            quizesToSend=ReturnQuizGet(quizes);
+            result=jm.SerializeObject(quizesToSend);
+          }
+          return result;
+        }
+
+        public List<QuizSend> ReturnQuizGet(IEnumerable<QuizGet> quizes_)
+        {
+            List<QuizSend> _quizes=new List<QuizSend>();
+            foreach(QuizGet qg in quizes_)
+            {
+              if(qg!=null){
+                QuizSend qs=QuizGetToSendConvert(qg);
+                if(qs!=null){ _quizes.Add(qs); }
+              }
+            }
+            return _quizes;
+        }
+
+        /// <summary>
+        /// Converting of Quiz received object to Quiz to pass in JSON object
+        /// </summary>
+        /// <param name="qr"></param>
+        /// <returns></returns>
+        public QuizSend QuizGetToSendConvert(QuizGet qr)
+        {
+            QuizSend qs=new QuizSend();
+            qs.title=qr.Name;
+            qs.href=new QuizHrefNode() {link="/Quiz/Execute/?" + qr.id , target="_self"};
+            qs.parentid=50;
           
-          return qs;
-      }
+            return qs;
+        }
     }
-   
+    
+    public class QuizNewUOW : UOW
+    {
+
+        public QuizNewUOW(IOrientRepo repo_)
+            :base(repo_)
+        {
+          BindRepo(repo_);
+        }
+
+        public void InitClasses()
+        {
+            _repo.CreateClass<QuizNewGet, V>(null);
+        }
+
+        public IEnumerable<QuizNewGet> QuizGet()
+        {
+            IEnumerable<QuizNewGet> quizes = null;           
+            quizes=_repo.SelectFromType<QuizNewGet>(null, null);
+            return quizes;
+        }
+        public string QuizGetStr()
+        {
+            string result = null;
+            result=_repo.ObjectToContentString<QuizNewGet>(QuizGet());
+            return result;
+        }
+
+        public void QuizPost(IEnumerable<QuizNewGet> quizes_)
+        {
+            foreach(QuizNewGet qz_ in quizes_){
+                _repo.CreateVertex<QuizNewGet>(qz_, null);
+            }
+        }
+        
+        public void QuizDelete(IEnumerable<QuizNewGet> quizes_)
+        {
+            foreach(QuizNewGet qz_ in quizes_){
+                _repo.Delete<QuizNewGet>(qz_,typeof(V), null,null);
+            }            
+        }
+    }
+}
+
+namespace PersonApiRun
+{
+ 
+  public class PersonAPIold{ 
+
+    public WebManagers.WebRequestManager webManager;
+    public WebManagers.WebResponseReader responseReader;
+
+    public PersonAPIold()
+    {     
+      this.webManager =new WebManagers.WebRequestManager();
+      this.responseReader =new WebManagers.WebResponseReader();   
+    }
+
+    public List<POCO.PersonWithMng> getMangers(List<Person> persons,string url)
+    {
+      List<POCO.PersonWithMng> pml = new List<PersonWithMng>();
+      PersonWithMng pwm = new PersonWithMng();
+
+      foreach (Person p in persons){
+        if(p!=null){   
+          pwm = Convert(p);
+
+          webManager.AddRequest(url + p.sAMAccountName);
+          webManager.NtlmAuth(true);
+          //webManager.SetCredentials(new NetworkCredential("", ""));
+          var resp=webManager.GetResponse("GET");
+          string rR=responseReader.ReadResponse(resp);
+          
+          if(!string.IsNullOrEmpty(rR)) 
+          {
+            pwm.MangerAcc = rR;
+          }
+          pml.Add(pwm);
+        }
+      }
+      return pml;         
+    }
+
+    public PersonWithMng Convert(Person p)
+    {
+      PersonWithMng pwm = new PersonWithMng();
+        pwm.Name = p.Name;
+        pwm.sAMAccountName = p.sAMAccountName;
+      return pwm;
+    }
+  }
+  
 }

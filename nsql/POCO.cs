@@ -23,33 +23,31 @@ namespace POCO
    
     public class OrientEntity : IOrientEntity
     {   
-
-      [JsonProperty("@rid", Order=1)]
-      public virtual string id { get; set; }
+        [JsonProperty("@rid", Order=1)]
+        public virtual string id { get; set; }
       
-      [JsonProperty("@type")]
-      public string type {get; set; }           
-      [JsonProperty("@class")]
-      public string class_ {get; set;} 
-      [JsonProperty("value")]
-      public string value_ {get; set;} 
+        [JsonProperty("@type")]
+        public string type {get; set; }           
+        [JsonProperty("@class")]
+        public string class_ {get; set;} 
+        [JsonProperty("value")]
+        public string value_ {get; set;} 
       
+        [JsonProperty("@version")]
+        public virtual string version {get;  set;}   
 
-      [JsonProperty("@version")]
-      public virtual string version {get;  set;}   
-
-      public bool ShouldSerializeclass_()
-      {
-        return false;
-      }
-      public bool ShouldSerializetype()
-      {
-        return false;
-      }
-       public bool ShouldSerializevalue_()
-      {
-        return false;
-      }
+        public bool ShouldSerializeclass_()
+        {
+          return false;
+        }
+        public bool ShouldSerializetype()
+        {
+          return false;
+        }
+        public bool ShouldSerializevalue_()
+        {
+          return false;
+        }
     }
     
     public class OrientDefaultObject:OrientEntity,IOrientDefaultObject
@@ -288,6 +286,11 @@ namespace POCO
       public bool? showBirthday { get; set; }
     }
     
+    public class PersonWithMng : Person{   
+      public string MangerAcc{ get; set; }
+    }
+  
+
     //Edges
     public class MainAssignment : E
     {
@@ -587,6 +590,38 @@ namespace POCO
     {
         public string link { get; set; } = null;
         public string target { get; set; } = "_self";
+    }
+    
+    #endregion
+
+    #region QuizNew
+
+    public class QuiznewType{
+      
+    }
+    public class QuizItem :V
+    {
+      public int key {get;set;}
+      public string value {get;set;}      
+    }
+    public class Question : QuizItem
+    {
+        public bool toStore { get; set; } = true;
+        public string type { get; set; } = "";
+        
+        public List<Answer> answers { get; set; }
+    }
+    public class Answer :QuizItem
+    {
+        public bool isChecked { get; set; } = true;
+        public bool toStore { get; set; } = true;
+    }
+
+    public class QuizNewGet : QuizItem
+    {
+        public DateTime dateFrom { get; set; }
+        public DateTime dateTo { get; set; }
+        public List<Question> questions { get; set; }
     }
 
     #endregion
