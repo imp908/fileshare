@@ -9,6 +9,8 @@ import {HS} from '../Http/quiz.service';
 
 import {Observable} from 'rxjs/Observable';
 
+import {httpClick} from '../Http/httpClick.component';
+
 @Component({
   selector: 'test-component'
   ,templateUrl: './test.component.html'
@@ -59,10 +61,7 @@ export class testComponent
       this.answers_= this.question_.options;
     }
 
-    this._quizGet=this.hs_.getQuizResponse();
 
-    serviceCl.log(['Quizes HS ',this._quizGet])
-    
     serviceCl.log('Constructor fn: ' + this.constructor.name);
   }
 
@@ -122,4 +121,10 @@ export class testComponent
     this.quiz_.deleteQuestion(q);
   }
 
+
+  httpGet(){
+    serviceCl.log('httpGet')
+    this._quizGet=this.hs_.getQuizResponse()
+    serviceCl.log(['Quizes HS ',this._quizGet])
+  }
 }

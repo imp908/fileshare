@@ -122,7 +122,7 @@ https://msdn.microsoft.com/en-us/library/bb546158.aspx
 https://blogs.msdn.microsoft.com/mattwar/2007/07/30/linq-building-an-iqueryable-provider-part-i/
 	]
 	
-	//OCRS
+	//CORE
 	[
 	
 //.NET CORE
@@ -10320,6 +10320,40 @@ sudo service smbd restart
 				}
 			}
 			
+			public CentOs{
+				
+				terminal[
+
+sudo yum install 
+yum list installed 
+
+hostname – show or set the systemâ€™s host name
+domainname – show or set the systemâ€™s NIS/YP domain name
+dnsdomainname – show the systemâ€™s DNS domain name
+nisdomainname – show or set systemâ€™s NIS/YP domain name
+ypdomainname – show or set the systemâ€™s NIS/YP domain name
+
+				]
+				
+				vim[
+				
+				cheatlist[
+				
+ЧТОБЫ ВЫЙТИ ИЗ ФАЙЛА БЕЗ СОХРАНЕНИЯ, нажмите:
+ESC  :  q  ! Enter
+
+чтобы выйти из файла, сохранив изменения, нажмите:
+ESC  :  w ! Enter
+ESC  :  q   Enter
+выйти из файла с сохранением, одной командой:
+ESC  :  wq  Enter
+//save if writeonly file
+w !sudo tee % > /dev/null
+
+					]
+				
+				]
+			}
 		}
 	
 	#endregion

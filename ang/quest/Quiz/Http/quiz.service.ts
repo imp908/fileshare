@@ -17,25 +17,26 @@ const httpOptions = {
 @Injectable()
 export class HS{
 
-  private url:string = 'http://msk1-vm-ovisp01:8185/api/quiz2';
+  private url:string =
+  //'http://msk1-vm-ovisp01:8185/api/quiz2'
+  'http://localhost:63282/api/quiz2'
+  ;
+  className: string;
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) { this.className = "HS";}
 
   addQuiz (quiz: Quiz): Observable<Quiz[]> {
       return this.http.post<Quiz[]>(this.url, Quiz, httpOptions);
   }
-
   getQuiz(): Observable<Quiz[]> {
       //return this.http.get<Quiz[]>(this.url);
       return this.http.get<Quiz[]>(this.url);
   }
-
-  getQuizes() {
-      return this.http.get<Quiz>(this.url,{observe: 'response'});
+  getQuizes(url_:string) {
+      return this.http.get<Quiz>(url_,{observe: 'response'});
   }
-
   getQuizResponse() {
       return this.http.get(this.url,{observe: 'response'})
       .subscribe(r=>{
@@ -43,5 +44,12 @@ export class HS{
         //console.log(r.body);
       });
   }
-
+  getQuizUrlResponse(url_:string) {
+      console.log("Passed url: ",url_)
+      return this.http.get(url_,{observe: 'response'})
+      .subscribe(r=>{
+        //const ks=r.headers.keys();
+        //console.log(r.body);
+      });
+  }
 }
