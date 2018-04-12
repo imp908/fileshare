@@ -27,9 +27,11 @@ export interface IprimitiveItem{
 }
 export interface IPrimitiveCollection<T extends IprimitiveItem>{
   array:Array<T>;
+  add(item:T);
   delete(item:T);
   update(item:T);
-  addUpdate(item:T)
+  addUpdate(item:T);
+  addUpdateArr(items:Array<T>);
 }
 
 class PrimitiveItem{
@@ -37,8 +39,12 @@ class PrimitiveItem{
   name:string="";
   value?:string;
 }
-class PrimitiveCollection<T extends IprimitiveItem>{
+export class PrimitiveCollection<T extends IprimitiveItem>{
   array:Array<T>;
+
+  constructor(){
+      this.array=new Array<T>();
+  }
 
   add(item:T){
     var max=0;
@@ -110,6 +116,12 @@ class PrimitiveCollection<T extends IprimitiveItem>{
           this.update(item);
 
         }
+    }
+  }
+
+  addUpdateArr(items:Array<T>){
+    for(var item of items){
+      this.addUpdate(item);
     }
   }
 
@@ -337,6 +349,10 @@ export class Quiz extends PrimitiveItem{
   selectedQuestion:Qt=null;
   types: answerTypes=new answerTypes();
 
+  created:Date;
+  changed:Date;
+  GUID:string;
+
   constructor(key_?:number,name_?:string,dateFrom_?:Date,dateTo_?:Date,qt_?:Qt[]){
     super();
     if(name_!=null){
@@ -415,7 +431,6 @@ export class Quizes{
 
 
 
-
 // Service functions for array indexes find and get
 //---------------------------------------------------------------
 
@@ -453,6 +468,7 @@ function getMaxID(arr:any[],field:string){
   serviceCl.log([arr,field,max]);
   return max;
 }
+
 
 
 //Service class with toLog booolesan console log and generators

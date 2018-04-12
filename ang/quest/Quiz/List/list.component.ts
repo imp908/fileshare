@@ -17,7 +17,7 @@ export class listComponent
 
   service_:serviceCl;
 
-  @Input() quizes_:IPrimitiveCollection<Quiz>;
+  @Input() quizes_:IPrimitiveCollection<Quiz>=null;
   _quiz:Quiz;
 
   constructor(){

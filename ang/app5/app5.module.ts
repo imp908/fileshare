@@ -12,7 +12,6 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
 
 
-
 /*
 //	npm install --save @angular/material @angular/cdk
 import {MatButtonModule, MatCheckboxModule} from '@angular/material';
@@ -31,6 +30,7 @@ import {listComponent} from '../quest/Quiz/List/list.component';
 import {HS} from '../quest/Quiz/Http/quiz.service';
 
 import {httpClick} from '../quest/Quiz/Http/httpClick.component';
+
 
 @NgModule({
   declarations: [

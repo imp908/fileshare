@@ -4,4 +4,6 @@
 
 <httpClick-component></httpClick-component>
 
-<list-component [quizes_]="_quizes"></list-component>
+<div *ngIf="_quizes">
+  <list-component [quizes_]="_quizes"></list-component>
+</div>

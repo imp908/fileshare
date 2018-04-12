@@ -90,7 +90,7 @@ namespace NSQLManager
               , ConfigurationManager.AppSettings["OrientPort"]);
           if (databaseName == null)
           {
-            dbName = ConfigurationManager.AppSettings["OrientUnitTestDB"];
+            dbName = ConfigurationManager.AppSettings["OrientDevDB"];
           }
           else { dbName = databaseName; }
           if (hostPort_ == null)
@@ -124,8 +124,52 @@ namespace NSQLManager
           CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
           new TokenMiniFactory(), new OrientQueryFactory());
 
-          return new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
-          , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+            OrientRepo or = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+            , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+            
+            or.BindDbName(dbName);
+
+            return or;
+
+        }
+        static OrientRepo ManagerInit(string host_,string hostPort_,string databaseName,string login_,string password_)
+        {
+            string dbName;
+            string login = login_;
+            string password = password_;
+            string dbHost = string.Format("{0}:{1}"
+                , host_
+                ,hostPort_);
+            dbName =databaseName;          
+
+            TypeConverter typeConverter = new TypeConverter();
+            JsonManagers.JSONManager jsonMnager = new JSONManager();
+            TokenMiniFactory tokenFactory = new TokenMiniFactory();
+            UrlShemasExplicit UrlShema = new UrlShemasExplicit(
+                new CommandBuilder(tokenFactory, new FormatFactory())
+                , new FormatFromListGenerator(new TokenMiniFactory())
+                , tokenFactory, new OrientBodyFactory());
+
+            BodyShemas bodyShema = new BodyShemas(new CommandFactory(), new FormatFactory(), new TokenMiniFactory(),
+                new OrientBodyFactory());
+
+            UrlShema.AddHost(dbHost);
+            WebResponseReader webResponseReader = new WebResponseReader();
+            WebRequestManager webRequestManager = new WebRequestManager();
+            webRequestManager.SetCredentials(new NetworkCredential(login, password));
+            CommandFactory commandFactory = new CommandFactory();
+            FormatFactory formatFactory = new FormatFactory();
+            OrientQueryFactory orientQueryFactory = new OrientQueryFactory();
+            OrientCLRconverter orientCLRconverter = new OrientCLRconverter();
+
+            CommandShemasExplicit commandShema_ = new CommandShemasExplicit(commandFactory, formatFactory,
+            new TokenMiniFactory(), new OrientQueryFactory());
+            OrientRepo or = new OrientRepo(typeConverter, jsonMnager, tokenFactory, UrlShema, bodyShema, commandShema_
+            , webRequestManager, webResponseReader, commandFactory, formatFactory, orientQueryFactory, orientCLRconverter);
+            
+            or.BindDbName(dbName);
+
+            return or;
 
         }
     
@@ -182,7 +226,8 @@ namespace NSQLManager
             quizUOW.InitClasses();
           
           List<QuizNewGet> qzReceive = new List<QuizNewGet>();
-          List<QuizNewGet> qzSend = new List<QuizNewGet>() {
+
+          List<QuizNewGet> qzSend = new List<QuizNewGet>(){
                     new QuizNewGet(){key=0,value="quiz 1", dateFrom=DateTime.Now,dateTo=DateTime.Now,
                       questions= new List<Question>(){
 
@@ -217,9 +262,14 @@ namespace NSQLManager
 
             qzReceive = quizUOW.QuizGet().ToList();
 
-            quizUOW.QuizDelete(qzReceive);
+            //quizUOW.QuizDelete(qzReceive);
 
         }
+        public static void AdinTceCheck(){
+            AdinTce.AdinTceRepo adinTceRepo = new AdinTce.AdinTceRepo();
+            string res=adinTceRepo.HoliVation("ba124b8e-9857-11e7-8119-005056813668");
+        }
+
 
         //API testing mehod
         public static void APItester_sngltnCheck()
@@ -259,7 +309,8 @@ namespace NSQLManager
         //FUNCTIONAL TESTS
         public static void UOWFunctionalCheck()
         {
-            
+            //AdinTceCheck();
+
             QuizNewCheck();
 
             //GetPersonCheck();
@@ -311,12 +362,7 @@ namespace NSQLManager
           a.chilinyak
           */
         }
-        
-        public static void GetPersonCheck()
-        {
-          Managers.Manager mng = new Managers.Manager("news_test5","http://msk1-vm-ovisp02:2480","root","I9grekVmk5g");
-          string res=mng.GetPersonWithManagers("http://msk1-vm-inapp01:8185/api/Person/GetManager/");
-        }
+      
     }
     
     /// <summary>

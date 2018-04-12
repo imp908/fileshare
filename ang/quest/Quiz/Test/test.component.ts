@@ -7,10 +7,6 @@ import {Aw,Qt,Quiz,serviceCl,IPrimitiveCollection} from '../Model/QtMd.component
 
 import {HS} from '../Http/quiz.service';
 
-import {Observable} from 'rxjs/Observable';
-
-import {httpClick} from '../Http/httpClick.component';
-
 @Component({
   selector: 'test-component'
   ,templateUrl: './test.component.html'
@@ -27,7 +23,6 @@ export class testComponent
   quiz_:Quiz=new Quiz();
 
   _quizes:IPrimitiveCollection<Quiz>;
-  _quizGet:any;
 
   //pass to question
   question_:Qt;
@@ -54,13 +49,19 @@ export class testComponent
     //this._quizes=this.service_.genearateQuizes(4);
     this._quizes=this.service_.genericQuizCollection();
 
-    serviceCl.log(["quizes send: ",this._quizes]);
+    serviceCl.log(["quizes to send before: ",this._quizes]);
+
+
+    //this._quizes=this.service_.genearateQuizes(4);
+    this._quizes=this.service_.genericQuizCollection();
+
+    serviceCl.log(["quizes to send after: ",this._quizes,this._quizes.array.length]);
+
 
     if(this.quiz_.selectedQuestion!=null){
       this.question_=this.quiz_.selectedQuestion;
       this.answers_= this.question_.options;
     }
-
 
     serviceCl.log('Constructor fn: ' + this.constructor.name);
   }
@@ -121,10 +122,4 @@ export class testComponent
     this.quiz_.deleteQuestion(q);
   }
 
-
-  httpGet(){
-    serviceCl.log('httpGet')
-    this._quizGet=this.hs_.getQuizResponse()
-    serviceCl.log(['Quizes HS ',this._quizGet])
-  }
 }

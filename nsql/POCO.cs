@@ -602,7 +602,10 @@ namespace POCO
     public class QuizItem :V
     {
       public int key {get;set;}
-      public string value {get;set;}      
+      public string name {get;set;}
+      public string value {get;set;}
+
+      public List<QuizItem> options {get;set;} 
     }
     public class Question : QuizItem
     {

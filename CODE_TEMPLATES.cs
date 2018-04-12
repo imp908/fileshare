@@ -181,6 +181,12 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
 	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708
+	//editing
+	https://readymag.com/
+	//ExtCore
+	http://extcore.net/
+	
+	
 	
 	//Angular + React
 	https://www.packtpub.com/books/content/integrating-angular-2-react
@@ -2050,7 +2056,7 @@ StringBuilder.
 				public void ConsoleManager()
 				{https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
 				
-          //install all projects
+					//install all projects
 					Get-Project -All | Install-Package packageName
 				
 					//install in project subset

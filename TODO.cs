@@ -419,15 +419,16 @@ replace my.nspk with my.nspk2 to the same host
 
 			actual[
 			
-drop down question type model
-question type init
-dropdown select event DOM change
+-> drop down question type model <- done
+-> question type init <- done
+-> dropdown select event DOM change <- done
 
-questions model add
-draw question DOM
-receive input
+-> questions model add
+{textbox,radio button,checkbox{pic realization},dropdowns to names}
+-> draw question DOM
+-> receive input
 
-print input on submit
+-> print input on submit
 
 			]
 
@@ -485,6 +486,17 @@ InsertNewQuizData(typeof(QuizResult).Name, new QuizResult;
 				
 				POCOs[
 
+QuizArr{
+					
+	Question text
+		answer variants [
+			textbox string
+			,array of checkboxes/radio buttons {string; [string variant,bool checked;]}
+			,array of dropdowns {string; dorpdown strings}
+		]
+
+}
+				
 Quiz{
 	...
 	List<Question> Question{
@@ -602,8 +614,11 @@ ConstructorForm.json
 				Quest type: NPS - баллы для департамента, "Затрудняюсь ответить" 
 				Question types: [radio, checkbox, + texbox], textbox, dropbox,pictures
 				export excel
+				{person}-[quested]->{quiz}
 			]
-			
+			Examples[
+				http://diletant.media/personality_test/test/39962349/
+			]
 		]
 		
 		DocsVision[
@@ -777,6 +792,17 @@ new MediaTypeHeaderValue("application/octet-stream");
 				]
 
 			]
+			
+		]
+		
+		MyNSPK2.0[
+		
+			https://mobx.js.org
+			http://dsmorse.github.io/gridster.js/			
+			http://extcore.net/ru/
+			Readymag 
+			Reveal.js
+			Redis
 			
 		]
 		

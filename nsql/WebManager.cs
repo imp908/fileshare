@@ -53,30 +53,30 @@ namespace WebManagers
                 
                 CredentialsBind();
                 
-           }
+            }
             catch (Exception e)
             {
                 throw e;
-           }
+            }
             return _request;
-       }
+        }
         internal void AddHeader(HttpRequestHeader header, string value)
         {
             _request.Headers.Add(header, value);
-       }
+        }
         public void AddBase64AuthHeader(string value)
         {
             _request.Headers.Add(HttpRequestHeader.Authorization, "Basic " + System.Convert.ToBase64String(
             Encoding.ASCII.GetBytes(value)
             ));
-       }
+        }
        
         internal string GetHeaderValue(string header)
         {
             string result=string.Empty;
             result=this._request.GetResponse().Headers.Get(header);
             return result;
-       }
+        }
         public void SetCredentials(NetworkCredential credentials)
         {
           _credentials=credentials;
@@ -93,16 +93,16 @@ namespace WebManagers
                 if (this._credentials != null)
                 {
                     this._request.Credentials=_credentials;
-               }
-           }
-       }
+                }
+            }
+        }
         public void CredentialsUnBind()
         {
             if (this._request != null)
             {
                 this._request.Credentials=null;
-           }
-       }
+            }
+        }
         public virtual WebResponse GetResponseAuth(string url, string method)
         {
 
@@ -110,13 +110,13 @@ namespace WebManagers
             try
             {
                 return (HttpWebResponse)this._request.GetResponse();
-           }
+            }
             catch (Exception e)
             {
                 throw e;
-           }
+            }
 
-       }
+        }
         public virtual WebResponse GetResponse(string url, string method)
         {
 
@@ -125,29 +125,29 @@ namespace WebManagers
             try
             {
                 return (HttpWebResponse)this._request.GetResponse();
-           }
+            }
             catch (Exception e)
             {
                 throw e;
-           }
+            }
 
-       }
+        }
         public virtual WebResponse GetResponse()
         {
             CredentialsBind();
             try
             {
                 return (HttpWebResponse)this._request.GetResponse();
-           }
+            }
             catch (System.Net.WebException e)
             {                          
                 string msg=new StreamReader(e.Response.GetResponseStream()).ReadToEnd();
                 System.Diagnostics.Trace.WriteLine(e.Message);
                 System.Diagnostics.Trace.WriteLine(msg);
                 throw new Exception(msg);
-           }           
+            }           
            
-       }
+        }
         public virtual async Task<HttpWebResponse> GetResponseAsync(string url, string method)
         {
             HttpWebResponse resp;
@@ -156,14 +156,14 @@ namespace WebManagers
             try
             {
                 resp=(HttpWebResponse)this._request.GetResponse();
-           }
+            }
             catch (Exception e)
             {
                 throw e;
-           }
+            }
 
             return await Task.FromResult(resp);
-       }
+        }
 
         public WebResponse GetResponse64(string method) {throw new NotImplementedException();}
         public WebResponse GetResponse(string method) {throw new NotImplementedException(); }
@@ -192,7 +192,9 @@ namespace WebManagers
 
           if (url == null) {throw new Exception("String not passed");}
           SetUrl(url);
+          try{
           this._request=WebRequest.Create(url);
+          }catch(Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
           if(this._credentials!=null){ this._request.Credentials = this._credentials; }
           return this._request;            
             

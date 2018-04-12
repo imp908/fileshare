@@ -3,26 +3,29 @@
 <hr>
 
 <div class="container">
-<div *ngFor="let qz_ of quizes_.array">
+
+  <div *ngIf="quizes_!=null && quizes_.array!=quizes_.array.length>0">
+  <div *ngFor="let qz_ of quizes_.array">
 
 
-    <div class="row align-items-start">
-      <div class="col-sm-8 ">
-        {{qz_.name}}
+      <div class="row align-items-start">
+        <div class="col-sm-8 ">
+          {{qz_.name}}
+        </div>
+        <div class="col-1">
+          <button (click)="quizSend(qz_)" class="btn btn">Edit</button>
+        </div>
+        <div class="col-1">
+          <button (click)="quizDelete(qz_)" class="btn btn-danger">Delete</button>
+        </div>
       </div>
-      <div class="col-1">
-        <button (click)="quizSend(qz_)" class="btn btn">Edit</button>
-      </div>
-      <div class="col-1">
-        <button (click)="quizDelete(qz_)" class="btn btn-danger">Delete</button>
-      </div>
-    </div>
 
-</div>
+  </div>
+  </div>
 
+  <div *ngIf="_quiz!=null">
+    <hr>
+    <quiz-component [quiz_]="_quiz" (editQuiz_)="quizDelete($event)" (saveQuiz_)="quizSave($event)"></quiz-component>
+  </div>
 
-<div *ngIf="_quiz!=null">
-  <hr>
-  <quiz-component [quiz_]="_quiz" (editQuiz_)="quizDelete($event)" (saveQuiz_)="quizSave($event)"></quiz-component>
-</div>
 </div>

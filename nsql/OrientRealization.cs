@@ -3570,7 +3570,7 @@ namespace OrientRealization
                          
       return this;
     }
-    public IOrientRepo Delete<T>(T item=null,Type class_=null,string condition_=null,string dbName_=null) 
+    public IOrientRepo Delete<T>(T item=null,Type baseType_=null,string condition_=null,string dbName_=null) 
         where T:class, IOrientDefaultObject
     {
       CheckDbName(dbName_);
@@ -3580,10 +3580,10 @@ namespace OrientRealization
       ICommandBuilder where_ = null;
       Type baseType = null;
 
-      if(class_==null){
+      if(baseType_==null){
           baseType=typeof(T).BaseType;
       }else{
-          baseType=class_;
+          baseType=baseType_;
       }
 
       if (condition_ != null)
@@ -3852,7 +3852,7 @@ namespace OrientRealization
       }
       return this;
     }
-    public T CreateProperty<T>(T item=null,string dbName_=null) 
+    public T CreateProperty<T>(T item,string dbName_=null) 
       where T:class,IOrientDefaultObject
     {
         CheckDbName(dbName_);

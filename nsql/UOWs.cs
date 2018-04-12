@@ -960,6 +960,12 @@ namespace Managers
       return WebManagers.UserAuthenticationMultiple.UserAcc();
     }
     
+    public string GetGUIDByAcc(string accName_){
+      string result = string.Empty;
+        result = this._personUOW.GetPersonByAccount(accName_).GUID;
+      return result;
+    }  
+
     public string GetNotes(string GUID_,int offset)
     {
       string res_ = null;
@@ -1474,14 +1480,11 @@ new Person(){Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",changed
       return list_;
     }
    
-    public string GetPersonWithManagers(string apiUrl)
+    public string SearchByName(string name)
     {
       string res = null;
       JSONManager jm = new JSONManager();
-      PersonApiRun.PersonAPIold po = new PersonApiRun.PersonAPIold();
-      List<Person> pr= GetPersonUOW().GetItems<Person>(null).ToList();
-      List<PersonWithMng> pwm= po.getMangers(pr, apiUrl);
-      res=jm.SerializeObject(pwm);
+      res=jm.SerializeObject(this._personUOW.SearchByName(name));     
       return res;
     }
 
@@ -2252,13 +2255,56 @@ namespace Quizes
 
         public void InitClasses()
         {
-            _repo.CreateClass<QuizNewGet, V>(null);
+            _repo.Delete<QuizNewGet>(null, typeof(V), null, this._repo.getDbName());
+            _repo.CreateClass<QuizNewGet, V>(this._repo.getDbName());
+            _repo.CreateProperty<QuizNewGet>(new QuizNewGet(), null);
+        }
+
+        public void QuizGenerate()
+        {
+            this.InitClasses();
+            List<QuizNewGet> qzSend = new List<QuizNewGet>(){
+                    new QuizNewGet(){key=0,name="quiz 1", dateFrom=DateTime.Now,dateTo=DateTime.Now,
+                      questions= new List<Question>(){
+
+                        new Question(){key=0,name="quiestion 1",toStore=true,type="checkbox",answers=new List<Answer>(){
+                          new Answer(){key=0,name="answer 1"}
+                          ,new Answer(){key=1,name="answer 2"}}}
+                        
+                        ,new Question(){key=0,name="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
+                        new Answer(){key=0,name="answer 1"}
+                        ,new Answer(){key=1,name="answer 2"}
+                        ,new Answer(){key=2,name="answer 3"}}}
+
+                    }
+                }
+                , new QuizNewGet(){key=0,name="quiz 2", dateFrom=DateTime.Now,dateTo=DateTime.Now,
+                      questions= new List<Question>(){
+
+                        new Question(){key=0,name="quiestion 1",toStore=true,type="text"}
+                        
+                        ,new Question(){key=0,name="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
+                        new Answer(){key=0,name="answer 1"}
+                        ,new Answer(){key=1,name="answer 2"}
+                        ,new Answer(){key=2,name="answer 3"}}}
+
+                    }
+                }
+            };
+            this.QuizDelete(this.QuizGet());
+            this.QuizPost(qzSend);
         }
 
         public IEnumerable<QuizNewGet> QuizGet()
         {
             IEnumerable<QuizNewGet> quizes = null;           
-            quizes=_repo.SelectFromType<QuizNewGet>(null, null);
+            quizes=_repo.SelectFromType<QuizNewGet>(null, this._repo.getDbName());
+            return quizes;
+        }
+        public QuizNewGet QuizGetItem(string guid_)
+        {
+            QuizNewGet quizes = null;           
+              quizes=_repo.SelectSingle<QuizNewGet>("GUID=='"+guid_+"'", this._repo.getDbName());
             return quizes;
         }
         public string QuizGetStr()
@@ -2271,65 +2317,19 @@ namespace Quizes
         public void QuizPost(IEnumerable<QuizNewGet> quizes_)
         {
             foreach(QuizNewGet qz_ in quizes_){
-                _repo.CreateVertex<QuizNewGet>(qz_, null);
+                _repo.CreateVertex<QuizNewGet>(qz_, this._repo.getDbName());
             }
         }
         
         public void QuizDelete(IEnumerable<QuizNewGet> quizes_)
         {
             foreach(QuizNewGet qz_ in quizes_){
-                _repo.Delete<QuizNewGet>(qz_,typeof(V), null,null);
+                QuizNewGet qzToDelete = this.QuizGetItem(qz_.GUID);
+                if(qzToDelete!=null){
+                    _repo.Delete<QuizNewGet>(qzToDelete,typeof(V), null,this._repo.getDbName());
+                }
             }            
         }
     }
 }
 
-namespace PersonApiRun
-{
- 
-  public class PersonAPIold{ 
-
-    public WebManagers.WebRequestManager webManager;
-    public WebManagers.WebResponseReader responseReader;
-
-    public PersonAPIold()
-    {     
-      this.webManager =new WebManagers.WebRequestManager();
-      this.responseReader =new WebManagers.WebResponseReader();   
-    }
-
-    public List<POCO.PersonWithMng> getMangers(List<Person> persons,string url)
-    {
-      List<POCO.PersonWithMng> pml = new List<PersonWithMng>();
-      PersonWithMng pwm = new PersonWithMng();
-
-      foreach (Person p in persons){
-        if(p!=null){   
-          pwm = Convert(p);
-
-          webManager.AddRequest(url + p.sAMAccountName);
-          webManager.NtlmAuth(true);
-          //webManager.SetCredentials(new NetworkCredential("", ""));
-          var resp=webManager.GetResponse("GET");
-          string rR=responseReader.ReadResponse(resp);
-          
-          if(!string.IsNullOrEmpty(rR)) 
-          {
-            pwm.MangerAcc = rR;
-          }
-          pml.Add(pwm);
-        }
-      }
-      return pml;         
-    }
-
-    public PersonWithMng Convert(Person p)
-    {
-      PersonWithMng pwm = new PersonWithMng();
-        pwm.Name = p.Name;
-        pwm.sAMAccountName = p.sAMAccountName;
-      return pwm;
-    }
-  }
-  
-}
