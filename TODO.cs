@@ -414,7 +414,7 @@ replace my.nspk with my.nspk2 to the same host
 		]
 
 		Quiz[
-		
+			
 			TODO[
 
 			actual[
@@ -618,6 +618,36 @@ ConstructorForm.json
 			]
 			Examples[
 				http://diletant.media/personality_test/test/39962349/
+			]
+			Description[
+			
+  сейчас есть
+  создание  опросника из вопросов с вариантами ответов (
+  checkbox один вариант,
+  radio button несколько,
+  textbox написать ответ 
+  и еще list rate , рейтинг для item)
+  
+  Нужно:
+	  определить нужен ли автор у опроса, могут ли повторяться названия у опросов, что публиковать в лист опросов, кто может редактировать, ставить опрос на прохождение менять дату,
+	  могут ли опросы проходиться по несколько раз, затирать ли результаты
+	  	  
+  
+  схема :{
+	  quiz[]{
+		quiestion[]{
+			answers[]?{
+			}
+		}
+	  }
+  }
+  
+  пример json:
+  {
+		{"array":[{"name":"quiz 3","questions_":[{"toStore":true,"key":1,"value":"qw3","created":"2018-04-13 16:43:04","changed":"2018-04-13 16:43:04"},{"toStore":true,"key":2,"value":"qw4","created":"2018-04-13 16:43:04","changed":"2018-04-13 16:43:04"},{"toStore":true,"key":3,"value":"qw5","created":"2018-04-13 16:50:42","changed":"2018-04-13 16:50:42"}],"selectedQuestion":null,"types":{"selected":{"type":"text","name":"Text field","description":"Required text reponse"},"types_":[{"type":"text","name":"Text field","description":"Required text reponse"},{"type":"radiobutton","name":"One answer","description":"select only one answer from one or various"},{"type":"checkbox","name":"Multianswer","description":"select any answers from from one or various"},{"type":"dropdown","name":"List rate","description":"rate every answer from one to various"}]},"key":0},{"name":"q4","questions_":[],"selectedQuestion":null,"types":{"selected":{"type":"text","name":"Text field","description":"Required text reponse"},"types_":[{"type":"text","name":"Text field","description":"Required text reponse"},{"type":"radiobutton","name":"One answer","description":"select only one answer from one or various"},{"type":"checkbox","name":"Multianswer","description":"select any answers from from one or various"},{"type":"dropdown","name":"List rate","description":"rate every answer from one to various"}]},"key":1},{"name":"quiz 5","questions_":[{"key":1,"value":"q5","toStore":null,"type":null},{"key":3,"value":"q6","toStore":true,"type":""}],"selectedQuestion":{"key":-1,"value":"","toStore":true,"type":""},"types":{"selected":{"type":"text","name":"Text field","description":"Required text reponse"},"types_":[{"type":"text","name":"Text field","description":"Required text reponse"},{"type":"radiobutton","name":"One answer","description":"select only one answer from one or various"},{"type":"checkbox","name":"Multianswer","description":"select any answers from from one or various"},{"type":"dropdown","name":"List rate","description":"rate every answer from one to various"}]},"key":2,"changed":"2018-04-13T13:57:51.396Z"}]}
+  }
+  
+  
 			]
 		]
 		

@@ -7,7 +7,7 @@ import {Observable} from 'rxjs/Observable';
 
 import 'rxjs/add/operator/map';
 
-const httpOptions = {
+const _httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
     //,    'Authorization': 'my-auth-token'
@@ -39,50 +39,40 @@ export class HS {
       this.quizes_=null;
     }
 
-
-  // addQuiz_ (quiz: Quiz): Observable<Quiz[]> {
-  //     return this.http.post<Quiz[]>(this.url, Quiz, httpOptions);
-  // }
-  //
-  // getQuiz(): Observable<Quiz[]> {
-  //     //return this.http.get<Quiz[]>(this.url);
-  //     return this.http.get<Quiz[]>(this.url);
-  // }
-  // getQuizes(url_:string) {
-  //     return this.http.get<value_cl>(url_);
-  // }
-  // getQuizResponse_(url_:string) {
-  //     console.log('getQuizResponse');
-  //     return this.http.get(url_,{observe: 'response'})
-  //     .subscribe(r=>{
-  //       //const ks=r.headers.keys();
-  //       //console.log(r.body);
-  //     });
-  // }
-  //
-  // getQuizUrlResponse(url_:string) {
-  //     console.log("Passed url: ",url_)
-  //     return this.http.get(url_,{observe: 'response'})
-  //     .subscribe(r=> this.value_={
-  //     prop1: r['prop1']
-  //     ,prop2: r['prop2']
-  //       //const ks=r.headers.keys();
-  //       //console.log(r.body);
-  //     });
-  // }
-
-
   //get action
   //return whole response object
   getQuizResponse(url_:string): Observable<HttpResponse<IPrimitiveCollection<Quiz>>> {
+      return this.http.get<IPrimitiveCollection<Quiz>>(
+      url_, { observe: 'response' });
+  }
 
-  return this.http.get<IPrimitiveCollection<Quiz>>(
-    url_, { observe: 'response' });
-  }
-  //simplier Shorter version
+  //simplier Shorter version? returns array of objects but not IPrimitiveCollection
   getQuizResponse2(url_:string): Observable<Array<Quiz>> {
-    return this.http.get<Array<Quiz>>( url_)
+      return this.http.get<Array<Quiz>>( url_)
   }
+
+  getQuizResponse3(url_:string): Observable<Array<Quiz>> {
+      return this.http.get<Array<Quiz>>( url_)
+      .map(r=>{
+          return r.map(
+            c=>{
+              return new Quiz(c.key,c.name,c.value,c.dateFrom,c.dateTo,c.questions_)
+            }
+          );
+      })
+      ;
+  }
+
+  //POST action
+  addQuiz (url_:string,quiz: IPrimitiveCollection<Quiz>): Observable<IPrimitiveCollection<Quiz>> {
+      console.log("addQuiz",url_,quiz,_httpOptions)
+      return this.http.post<IPrimitiveCollection<Quiz>>(url_, quiz.array, _httpOptions);
+  }
+  quizPost(url_:string,quiz: IPrimitiveCollection<Quiz>){
+      this.addQuiz(url_,quiz)
+      .subscribe(q=>this.quizes_ =q);
+  }
+
 
   //get listener
   quizResp(url_:string){
@@ -113,17 +103,6 @@ export class HS {
     );
   }
 
-  //POST action
-  addQuiz (url_:string,quiz: IPrimitiveCollection<Quiz>): Observable<IPrimitiveCollection<Quiz>> {
-    console.log("addQuiz",url_,quiz,httpOptions)
-    return this.http.post<IPrimitiveCollection<Quiz>>(url_, quiz, httpOptions);
-  }
-  quizPost(url_:string,quiz: IPrimitiveCollection<Quiz>){
-
-    this.addQuiz(url_,quiz)
-    .subscribe(q => this.quizes_ =q);
-
-  }
 
   //get value action
   getValueResponse(url_:string): Observable<HttpResponse<value_cl>> {

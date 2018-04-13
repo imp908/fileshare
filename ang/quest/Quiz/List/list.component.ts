@@ -25,7 +25,9 @@ export class listComponent
     this.service_=new serviceCl();
     serviceCl.log(["quizes get: ",this.quizes_]);
   }
-
+  ngOnInit(){
+    serviceCl.log(["listComponent quizes get: ",this.quizes_]);
+  }
   quizCreate()
   {
     serviceCl.log(["quizCreate"]);

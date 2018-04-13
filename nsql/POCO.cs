@@ -624,7 +624,7 @@ namespace POCO
     {
         public DateTime dateFrom { get; set; }
         public DateTime dateTo { get; set; }
-        public List<Question> questions { get; set; }
+        public List<Question> questions_ { get; set; }
     }
 
     #endregion

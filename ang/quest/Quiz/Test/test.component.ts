@@ -30,7 +30,7 @@ export class testComponent
   answers_:Aw[];
 
   constructor(private hs_:HS){
-    serviceCl.toLog =true;
+    serviceCl.toLog =false;
 
     serviceCl.log('Constructor st: ' + this.constructor.name)
     this.service_=new serviceCl();
@@ -49,6 +49,7 @@ export class testComponent
     //this._quizes=this.service_.genearateQuizes(4);
     this._quizes=this.service_.genericQuizCollection();
 
+
     serviceCl.log(["quizes to send before: ",this._quizes]);
 
 
@@ -62,7 +63,7 @@ export class testComponent
       this.question_=this.quiz_.selectedQuestion;
       this.answers_= this.question_.options;
     }
-
+    serviceCl.toLog=true;
     serviceCl.log('Constructor fn: ' + this.constructor.name);
   }
 

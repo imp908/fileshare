@@ -24,13 +24,16 @@ export class quizComponent
   @Output() saveQuiz_= new EventEmitter<Quiz>();
 
   constructor(){
-
+    this.quiz_=new Quiz();
+    serviceCl.log(["Constructed this.constructor.name",this.quiz_])
   }
-
+  ngOnInit(){
+    serviceCl.log(["Inited: " + this.constructor.name,this.quiz_])
+  }
   //to quiz component
   createQuestion(){
     serviceCl.log('createQuestion')
-    this.quiz_.selectedQuestion=this.quiz_.newQuestionInit();
+    this.quiz_.selectedQuestion=new Qt(0,"","",null,null);//this.quiz_.newQuestionInit();
   }
   editQuestion(q:Qt){
     serviceCl.log('editQuestion')
@@ -39,7 +42,8 @@ export class quizComponent
   }
   saveQuestion($event){
     serviceCl.log("savedQuestion($event)")
-    serviceCl.log($event)
+    serviceCl.log(["passed Qt",$event])
+    serviceCl.log(["edited quiz",this.quiz_])
     this.quiz_.addQuestion($event);
     this.quiz_.selectedQuestion=this.quiz_.newQuestionInit();
     serviceCl.log(this.quiz_)
@@ -65,6 +69,7 @@ export class quizComponent
     serviceCl.log('saveQuiz')
     serviceCl.log(qz_)
     this.quiz_=null;
+    qz_.changed=new Date();
     this.saveQuiz_.emit(qz_);
   }
 }

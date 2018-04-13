@@ -2265,28 +2265,28 @@ namespace Quizes
             this.InitClasses();
             List<QuizNewGet> qzSend = new List<QuizNewGet>(){
                     new QuizNewGet(){key=0,name="quiz 1", dateFrom=DateTime.Now,dateTo=DateTime.Now,
-                      questions= new List<Question>(){
+                    questions_= new List<Question>(){
 
-                        new Question(){key=0,name="quiestion 1",toStore=true,type="checkbox",answers=new List<Answer>(){
-                          new Answer(){key=0,name="answer 1"}
-                          ,new Answer(){key=1,name="answer 2"}}}
+                    new Question(){key=0,name="quiestion 1",value="question 1",toStore=true,type="checkbox",answers=new List<Answer>(){
+                    new Answer(){key=0,name="answer 1",value="answer 1"}
+                    ,new Answer(){key=1,name="answer 2",value="answer 2"}}}
                         
-                        ,new Question(){key=0,name="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
-                        new Answer(){key=0,name="answer 1"}
-                        ,new Answer(){key=1,name="answer 2"}
-                        ,new Answer(){key=2,name="answer 3"}}}
+                    ,new Question(){key=0,name="quiestion 2",value="question 2",toStore=true,type="checkbox",answers=new List<Answer>(){
+                    new Answer(){key=0,name="answer 1",value="answer 1"}
+                    ,new Answer(){key=1,name="answer 2",value="answer 2"}
+                    ,new Answer(){key=2,name="answer 3",value="answer 3"}}}
 
                     }
                 }
                 , new QuizNewGet(){key=0,name="quiz 2", dateFrom=DateTime.Now,dateTo=DateTime.Now,
-                      questions= new List<Question>(){
+                      questions_= new List<Question>(){
 
-                        new Question(){key=0,name="quiestion 1",toStore=true,type="text"}
+                        new Question(){key=0,name="quiestion 1",value="question 1",toStore=true,type="text"}
                         
                         ,new Question(){key=0,name="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
-                        new Answer(){key=0,name="answer 1"}
-                        ,new Answer(){key=1,name="answer 2"}
-                        ,new Answer(){key=2,name="answer 3"}}}
+                        new Answer(){key=0,name="answer 1",value="answer 1"}
+                        ,new Answer(){key=1,name="answer 2",value="answer 2"}
+                        ,new Answer(){key=2,name="answer 3",value="answer 3"}}}
 
                     }
                 }
@@ -2316,6 +2316,7 @@ namespace Quizes
 
         public void QuizPost(IEnumerable<QuizNewGet> quizes_)
         {
+            QuizDelete(QuizGet());
             foreach(QuizNewGet qz_ in quizes_){
                 _repo.CreateVertex<QuizNewGet>(qz_, this._repo.getDbName());
             }

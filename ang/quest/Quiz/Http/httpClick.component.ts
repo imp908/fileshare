@@ -24,7 +24,8 @@ export class httpClick
   qz:Quiz;
   //_quizes:Quiz[];
   _quizes:IPrimitiveCollection<Quiz>;
-  _quizesSend:IPrimitiveCollection<Quiz>;
+
+
   constructor (private hs_:HS){
       this.className=this.constructor.name;
       this._quizes=new PrimitiveCollection<Quiz>();
@@ -36,24 +37,24 @@ export class httpClick
       //not calls any method
       serviceCl.log(['Quizes before ',this._quizes]);
 
-      //old CALL async without subscription
-      //this.hs_.quizResp2(this.url_).subscribe();
-      //this._quizes=this.hs_.quizes_;
-
-      this.hs_.getQuizResponse2(this.url_)
-      //.map(s=>console.log(s.body))
+      this.hs_.getQuizResponse3(this.url_)
       .subscribe(r=>{console.log(r); this._quizes.array=r;})
       ;
-//    .map(data => {this.data = data});
 
-      //this._quizes=this.service.genericQuizCollection();
+      //test
+      //this._quizesSend=this.service.genericQuizCollection();
+
       serviceCl.log(['Quizes after ',this._quizes]);
   }
 
   AddQuiz(){
       serviceCl.log("AddQuiz");
+
+      //test
       //this._quizesSend=this.service.genericQuizCollection();
+
       this.hs_.quizPost(this.url_,this._quizes);
-      serviceCl.log(["Quiz",this._quizesSend, "to ",this.url_]);
+      serviceCl.log(["Quiz",this._quizes, "to ",this.url_]);
   }
+
 }

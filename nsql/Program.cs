@@ -229,7 +229,7 @@ namespace NSQLManager
 
           List<QuizNewGet> qzSend = new List<QuizNewGet>(){
                     new QuizNewGet(){key=0,value="quiz 1", dateFrom=DateTime.Now,dateTo=DateTime.Now,
-                      questions= new List<Question>(){
+                      questions_= new List<Question>(){
 
                         new Question(){key=0,value="quiestion 1",toStore=true,type="checkbox",answers=new List<Answer>(){
                           new Answer(){key=0,value="answer 1"}
@@ -243,7 +243,7 @@ namespace NSQLManager
                     }
                 }
                 , new QuizNewGet(){key=0,value="quiz 2", dateFrom=DateTime.Now,dateTo=DateTime.Now,
-                      questions= new List<Question>(){
+                      questions_= new List<Question>(){
 
                         new Question(){key=0,value="quiestion 1",toStore=true,type="text"}
                         
