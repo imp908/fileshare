@@ -28,13 +28,31 @@ namespace Parts{
 	//Usefull links
 	public void mostUsefullLinks()
 	{
-				
+		//electronics manufacturing association
+		http://www.semi.org
+		
+	  RPN[
+			http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
+			http://rospotrebnadzor.ru/region/structure/str_uprav.php
+			https://www.meleon.ru/
+			https://www.kartoteka.ru/card/235a7ca4f006b2d3f2b6c855374cadd0/
+			https://www.kartoteka.ru/card/886e2d61f96dc6ae24bd60eb3084fc78/	
+		]
+		
 		https://proglib.io/p/hacker-course/		
 		http://www.gilead.com/
 		http://www.ftse.com/products/downloads/Russell-US-indexes.pdf
 		
 		Barings Vostok 
+		 
+		offhore[
+			Британские Виргинские острова, США, Великобритания, Кипр, Панама, Новая Зеландия
+		]
 		
+		azb[nesterov igor
+			13.01.1985
+		]			 
+	
 	//investing
 	[
 		stats[
@@ -60,7 +78,8 @@ namespace Parts{
 			https://www.marketwatch.com/investing/index/DXY
 			
 			https://oilprice.com/
-
+			
+			http://www.barrons.com
 		]
 		
 		ideas[
@@ -75,15 +94,20 @@ namespace Parts{
 				]
 				2019 Saudi Arabian Oil Co IPO 
 				$2 trl priced
-				$100 mlrd IPO shares cap.			
+				$100 mlrd IPO shares cap.
+			
 			]
-			
-			
 		]
 		
+		platforms[
+			https://www.xtrade.ru
+			https://www.etoro.com
+			https://www.investopedia.com
+		]
+			
 	]
 	
-	//startups
+		 //startups
 	[
 	
 	http://www.selpo.me/
@@ -162,7 +186,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	
 	//DAG directed acyclic graph
 	https://en.wikipedia.org/wiki/Directed_acyclic_graph
-	
+								 
 	//Generate mvc and razor from json
 	https://stackoverflow.com/questions/12876865/is-there-anyway-to-generate-razor-views-cshtml-based-on-a-template-beside-t4
 	http://www.umbraworks.net/bl0g/rebuildall/2009/11/17/ASP_NET_MVC_and_virtual_views
@@ -177,7 +201,6 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//JS	
 	//Json to html
 	http://www.json2html.com/
-	https://gojs.net/latest/index.html
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
 	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708
@@ -185,8 +208,6 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://readymag.com/
 	//ExtCore
 	http://extcore.net/
-	
-	
 	
 	//Angular + React
 	https://www.packtpub.com/books/content/integrating-angular-2-react
@@ -198,7 +219,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//LinqInAction
 	https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
 															   
-	https://eloquentjavascript.net/index.html
+	https://eloquentjavascript.net/index.html	
 	//bulletproof wrappers
 	https://blog.sentry.io/2016/02/03/wrap-javascript-functions
 	//tests
@@ -206,7 +227,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//error handling
 	https://javascript.info/try-catch
 	
-	//chart vis
+	//chart vis	
 	http://js.cytoscape.org/#getting-started/including-cytoscape.js
 	http://graphalchemist.github.io/Alchemy/#/
 	https://neo4j.com/developer/guide-data-visualization/
@@ -256,6 +277,8 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://stackoverflow.com/questions/263400/what-is-the-best-algorithm-for-an-overridden-system-object-gethashcode/263416#263416
 	//Chart visualization/
 	https://stackoverflow.com/questions/21893401/big-data-visualization-using-search-show-context-and-expand-on-demand-concep
+	//MSDN linq, expressions
+	https://weblogs.asp.net/dixin					  
 	
 	//D3.js
 	//essentials v4
@@ -338,7 +361,8 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	
 	
 	 //C#
-
+	//Expression trees
+	https://weblogs.asp.net/dixin/functional-csharp-function-as-data-and-expression-tree
 		
 	//dev guide
 	https://msdn.microsoft.com/en-us/library/hh156542(v=vs.110).aspx
@@ -399,7 +423,9 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//Programming Entity Framework, 2nd Edition
 	https://www.safaribooksonline.com/library/view/programming-entity-framework/9780596807276/ch04.html
 
-	
+	//Dynamic LINQ Queries with Expression Trees
+	https://www.simple-talk.com/dotnet/net-framework/dynamic-linq-queries-with-expression-trees/
+
 	//Calling functions in LINQ queries
 	http://tomasp.net/blog/linq-expand.aspx/
 
@@ -660,302 +686,306 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	
 	#region SourceControl
 
-	public Bug Trackers
-	{
-		ignore list[		
-.vs
-.git
-bin
-*.dll
-*.csproj*
-*.asax*
-Web.config
-Extensions
-obj
-Properties
-*.config
+		public Bug Trackers
+		{
+			ignore list[		
+	.vs
+	.git
+	bin
+	*.dll
+	*.csproj*
+	*.asax*
+	Web.config
+	Extensions
+	obj
+	Properties
+	*.config
 
-		]
-		GitLab{
+			]
+			GitLab{
 
 			NSQL_napi_commit[
-				repository withot ".git"
-				http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
-				
-				http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
-				
-				git remote rm nsm
-				git remote rm napi
-				
-				git remote add nsm http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
-				git remote add napi http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
-				
-				cd C:\workflow\projects\Dev\gitLab\PersonNews
-				git init 
-				git add .
-				git commit -m "slash escape repair. post with spaces."
+					repository withot ".git"
+					http://files.nspk.ru:8888/Intranet_Development/AddressBook_News2
+					
+					http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
+					
+					git remote rm nsm
+					git remote rm napi
+					
+					git remote add nsm http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git
+					git remote add napi http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+					
+					cd C:\workflow\projects\Dev\gitLab\PersonNews
+					git init 
+					git add .
+					git commit -m "slash escape repair. post with spaces."
+					
+					cd C:\workflow\projects\Dev\gitLab\manager_split\NSQLManager
+					git init 
+					git add .
+					git commit -m "slash escape repair. post with spaces."
+				]												
 				
 				cd C:\workflow\projects\Dev\gitLab\manager_split\NSQLManager
 				git init 
 				git add .
 				git commit -m "slash escape repair. post with spaces."
-			]
-			
-			
-		},
-		
-		public GIT hub
-		{https://git-scm.com/book/en/v2
-			
-			public ProxyAdd
-			{
 				
-git config http.sslVerify false
-git config --global http.proxy http://proxypath:proxyport
+			},
+			
+			public GIT hub
+			{https://git-scm.com/book/en/v2
 				
-			}
-			
-			public InitializeNewRepo()
-			{
+				public ProxyAdd
+				{
+					
+	git config http.sslVerify false
+	git config --global http.proxy http://proxypath:proxyport
+					
+				}
 				
-echo "# NSQLmanager" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git remote add origin https://github.com/imp908/NSQLmanager.git
-git push -u origin master
-				
-			}
-			
-			
-			public BranchMerge()
-			{// Master->br1. stage 1 master+ stage 2 master+ br1--
-
-Short:
-https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
-
-Long:
-
-stage1
-inital deploy
-short: {
-create
-commit
-push
-}
-\\\\\\
-detailed
-//Initial deploy
-
->>Create repo
-
-cd PATH
-git init
-git commit –m "initial commit"
-git remote add origin GITPATH
-git push origin master
-
-stage2
-//////
-get cahnges from master to br1
-short: {
-pull br want to update,
-checkout branch want to update,
-pull branch(master) from what to get
-}
-\\\\\\
-//Pull changes from master to branch (changes in master were made,commited and pushed)
->>branch git project
-
-cd PATH_branch1
-git init
-//(if not set) 
-git remote add origin GITPATH
-//+ if no branch1 files are in direcory
-git pull origin br1
-git checkout gm br1
-//get changes from master to br branch
-git pull origin master
-git push origin br1
-
-stage3
-added method in master file
-deleted file in br
-deleted method in br
-changed method in br
-//////
-
- repeat Stage2: 
-{
-pull br1
-checkout br1,
-pull master
-}
-
-CONFLICT: automatic merge failed
-
-Resolve conflicts in web or descktop or cmd
-
-
-
-stage4:
-///////
-added files to master
-
-repeat stage2:
-{
-	//if no files in 
-	pull br1
-	checkout br1
-	pull master
-	//added files added
-	push br1
-}
-
-
-
-			}
-			
-			
-			public DeleteMaster()
-			{ //not working
-				https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
-				git symbolic-ref HEAD refs/heads/another-branch
-				http://matthew-brett.github.io/pydagogue/gh_delete_master.html
-      }
-      
-			PullProgects
-			{
-				
-	git remote rm nsm
-	git remote rm napi
-	git remote add nsm http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git 
-	git remote add napi http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
-	cd C:\workflow\projects\Dev\gitLab\manager_split
+				public InitializeNewRepo()
+				{
+					
+	echo "# NSQLmanager" >> README.md
 	git init
-	git pull nsm manager_split
-	git checkout manager_split
-	cd C:\workflow\projects\Dev\gitLab\PersonNews
-	git init
-	git pull napi nsql_mng
-	git checkout nsql_mng
+	git add README.md
+	git commit -m "first commit"
+	git remote add origin https://github.com/imp908/NSQLmanager.git
+	git push -u origin master
+					
+				}
 				
-			}
-			
-			rmFilesByMask[
-				//	git rm -r --cached **/*.jar
-			]
-			removeVsFoldersFromDirectory[
-git rm -r .vs
-git rm -r NewsAPI/bin
-git rm -r NewsAPI/obj
-git rm -r NewsAPI/Properties
-git rm -r NewsAPI.JsonValidator.Tests/bin
-git rm -r NewsAPI.JsonValidator.Tests/obj
-git rm -r NewsAPI.JsonValidator.Tests/Properties
-git rm -r NewsAPI.Tests/bin
-git rm -r NewsAPI.Tests/obj
-git rm -r NewsAPI.Tests/Properties
-			]
-			
-			overall 
-			[
-			
-			MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
-			git pull origin branchname --allow-unrelated-histories			
-			//recommended
-			git clone
-						
-			
-			git remote -v -> check remotes
-			git branch -> check what branch you are in
-			
-			EXISTING LOCAL PROJECT TO NEW GIT REPO FIRST PUSH
-			create new in git web
-			cd -> moove to directory		
-			git remote add origin \\url_to_project
-			git pull origin master
-			git init -> initialize git
-			git add . -a //no files changed
-			git add -u //only indexed files
-			
-			git commit -m "Commit text"
-			git push -u origin master
-			
-			NEW BRANCH
-			create new branch in web
-			git checkout -b \\url to branch		
-			add commit push section 
-			
-			git push -u origin branchname {!!!<pushing to branch>!!!}
-			
-			REMOVE REPO
-			git remote rm origin
-      //filemanager
-			gitk
-			
-			//log commits
-			https://stackoverflow.com/questions/1838873/visualizing-branch-topology-in-git
-			git log --graph			
-			git log --graph --pretty=oneline --abbrev-commit
-			git log --graph --oneline --all
-			git log --graph --oneline
-			
-			git-ls-tree 
-			git-ls-remote
-			]
-		}
+				
+				public BranchMerge()
+				{// Master->br1. stage 1 master+ stage 2 master+ br1--
 
+	Short:
+	https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
+
+	Long:
+
+	stage1
+	inital deploy
+	short: {
+	create
+	commit
+	push
 	}
+	\\\\\\
+	detailed
+	//Initial deploy
 
-	public Issuer Trackers
+	>>Create repo
+
+	cd PATH
+	git init
+	git commit –m "initial commit"
+	git remote add origin GITPATH
+	git push origin master
+
+	stage2
+	//////
+	get cahnges from master to br1
+	short: {
+	pull br want to update,
+	checkout branch want to update,
+	pull branch(master) from what to get
+	}
+	\\\\\\
+	//Pull changes from master to branch (changes in master were made,commited and pushed)
+	>>branch git project
+
+	cd PATH_branch1
+	git init
+	//(if not set) 
+	git remote add origin GITPATH
+	//+ if no branch1 files are in direcory
+	git pull origin br1
+	git checkout gm br1
+	//get changes from master to br branch
+	git pull origin master
+	git push origin br1
+
+	stage3
+	added method in master file
+	deleted file in br
+	deleted method in br
+	changed method in br
+	//////
+
+	 repeat Stage2: 
 	{
-		public TFS()
-		{
-			
-			public void MergeBranchAndFolder()
-			{
-				Branching of two differnet projects in TFS 
-(if link chain was broken with zip download example)
-
-Project changes disposition:
-\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	(Folder) Parent project 		 			  -> 1 -> 4 -> 5
-
-	(Folder converted to branch) Child project  0 -> 2 -> 3 -> 6
-				zip downloaded   changes
-
-	Want to make projects merge of child branch to parent folder 
-
-	Parent  -> 5	
-				\
-	Child	-> 6 -> 7 -> TA DAAM! merged branch goes on
-
-///////////////////////////////////////////////////////////////////
-
-1) zip download parent progect
-2) open in VS
-3) unbind from TFS in VS
-обозрватель решений-выделить заголовок проекта
-файл-система управления версиями-сменить систему-удалить привязку
-4) deploy project to new folder parent3
-	файл-добавить проект в систему управления версиями
-	create new folder for solution branch 9better one level folder down, whole sln becomes a branch)
-	check in
-5) convert parent3 to branch
-6) select child branch and select 
-	создание ветви и объединение-объединить
-	select final branch 
-	parent3
-7) merge
-Result:
-Parent and child progects merged in child branch
-
-	
-			}
-			
-		}
+	pull br1
+	checkout br1,
+	pull master
 	}
+
+	CONFLICT: automatic merge failed
+
+	Resolve conflicts in web or descktop or cmd
+
+
+
+	stage4:
+	///////
+	added files to master
+
+	repeat stage2:
+	{
+		//if no files in 
+		pull br1
+		checkout br1
+		pull master
+		//added files added
+		push br1
+	}
+
+
+
+				}
+				
+				
+				public DeleteMaster()
+				{ //not working
+					https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
+					git symbolic-ref HEAD refs/heads/another-branch
+					http://matthew-brett.github.io/pydagogue/gh_delete_master.html
+		  }
+		  
+				PullProgects
+				{
+					
+		git remote rm nsm
+		git remote rm napi
+		git remote add nsm http://gitlab.nspk.ru/Neprintsevia/NSQLManager.git 
+		git remote add napi http://gitlab.nspk.ru/Neprintsevia/NewsApi.git
+		cd C:\workflow\projects\Dev\gitLab\manager_split
+		git init
+		git pull nsm manager_split
+		git checkout manager_split
+		cd C:\workflow\projects\Dev\gitLab\PersonNews
+		git init
+		git pull napi nsql_mng
+		git checkout nsql_mng
+					
+				}
+				
+				rmFilesByMask[
+					//	git rm -r --cached **/*.jar
+				]
+				removeVsFoldersFromDirectory[
+	git rm -r .vs
+	git rm -r NewsAPI/bin
+	git rm -r NewsAPI/obj
+	git rm -r NewsAPI/Properties
+	git rm -r NewsAPI.JsonValidator.Tests/bin
+	git rm -r NewsAPI.JsonValidator.Tests/obj
+	git rm -r NewsAPI.JsonValidator.Tests/Properties
+	git rm -r NewsAPI.Tests/bin
+	git rm -r NewsAPI.Tests/obj
+	git rm -r NewsAPI.Tests/Properties
+				]
+				
+				overall 
+				[
+				
+					MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
+					git pull origin branchname --allow-unrelated-histories			
+					//recommended
+					git clone
+								
+					
+					git remote -v -> check remotes
+					git branch -> check what branch you are in
+					
+					EXISTING LOCAL PROJECT TO NEW GIT REPO FIRST PUSH
+					create new in git web
+					cd -> moove to directory		
+					git remote add origin \\url_to_project
+					git pull origin master
+					git init -> initialize git
+					git add . -a //no files changed
+					git add -u //only indexed files
+					
+					git commit -m "Commit text"
+					git push -u origin master
+					
+					NEW BRANCH
+					create new branch in web
+					git checkout -b \\url to branch		
+					add commit push section 
+					
+					git push -u origin branchname {!!!<pushing to branch>!!!}
+					
+					REMOVE REPO
+					git remote rm origin
+			  //filemanager
+					gitk
+					
+					//log commits
+					https://stackoverflow.com/questions/1838873/visualizing-branch-topology-in-git
+					git log --graph			
+					git log --graph --pretty=oneline --abbrev-commit
+					git log --graph --oneline --all
+					git log --graph --oneline
+					
+					git-ls-tree 
+					git-ls-remote
+				]
+			}
+
+		}
+
+		public Issuer Trackers
+		{
+			public TFS()
+			{
+				
+				public void MergeBranchAndFolder()
+				{
+					Branching of two differnet projects in TFS 
+	(if link chain was broken with zip download example)
+
+	Project changes disposition:
+	\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+		(Folder) Parent project 		 			  -> 1 -> 4 -> 5
+
+		(Folder converted to branch) Child project  0 -> 2 -> 3 -> 6
+					zip downloaded   changes
+
+		Want to make projects merge of child branch to parent folder 
+
+		Parent  -> 5	
+					\
+		Child	-> 6 -> 7 -> TA DAAM! merged branch goes on
+
+	///////////////////////////////////////////////////////////////////
+
+	1) zip download parent progect
+	2) open in VS
+	3) unbind from TFS in VS
+	обозрватель решений-выделить заголовок проекта
+	файл-система управления версиями-сменить систему-удалить привязку
+	4) deploy project to new folder parent3
+		файл-добавить проект в систему управления версиями
+		create new folder for solution branch 9better one level folder down, whole sln becomes a branch)
+		check in
+	5) convert parent3 to branch
+	6) select child branch and select 
+		создание ветви и объединение-объединить
+		select final branch 
+		parent3
+	7) merge
+	Result:
+	Parent and child progects merged in child branch
+
+		
+				}
+				
+			}
+		}
 
 	#endregion
 
@@ -2056,7 +2086,7 @@ StringBuilder.
 				public void ConsoleManager()
 				{https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
 				
-					//install all projects
+          //install all projects
 					Get-Project -All | Install-Package packageName
 				
 					//install in project subset
@@ -2086,14 +2116,26 @@ StringBuilder.
 					//using System.Web.Http.Cors;
 					Install-Package Microsoft.AspNet.WebApi.Cors
 
+//nsql ref
+Install-Package xunit -ProjectName NSQLManagerIntegrationTests
+Install-Package moq -ProjectName NSQLManagerIntegrationTests
+Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
+Install-Package Microsoft.AspNet.WebApi -ProjectName NSQLManagerIntegrationTests
 
+Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
+				
 				}
 				public void ConfigurationManager()
 				{
 					reference 
-					FRAMEWORKS -> System.Configuration					
-				}			
-				public void WebDeploy()
+					FRAMEWORKS -> System.Configuration
+					
+				}
+			
+        public void WebDeploy()
 				{
 					Web Deploy
 					//host name without urls or ports
@@ -3393,7 +3435,10 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
           WHEN:
             testing wcf.svc from VS
           HOW:
-            NOT enough memory free
+            NOT enough memory free 
+          OR: 
+            
+          
         }
       
        
@@ -3516,14 +3561,14 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 			HOW:
 				Tolos->Import And export settings-> reset all settings
 		}
-      
-	  }
+		
+      }	
     
       
     }
     
   
-
+		
 	#endregion 	
 	
 	#region C++ 
@@ -4654,181 +4699,7 @@ $(document).ready(function(){
 	}
 
 	}
-	//----------------------------------------------
-	
-	
-	public void Angular_JS()
-	{
-		public SampleAjaxPrototype()
-		{
-				
-			index.html{
-				<!doctype html>
-<html ng-app="myApp">
-<head>
-	<script type="text/javascript" src="C:\workflow\projects\common\js\angular.min.js"></script>
-	<script type="text/javascript" src="C:\workflow\projects\common\js\jquery-3.2.1.min.js"></script>
-	<!--<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>-->
-	<script type="text/javascript" src="C:\workflow\projects\JS\angularjs\js.js"></script>
-
-</head>
-<body>
-
-	<h3>Todo</h3>
-	<div ng-controller="GreetingController">
-		{{ greeting }}
-	</div>
-
-	<h3>ToCount</h3>
-	<div ng-controller="CountController">
-	Two times <input ng-model="num"> equals {{ double(num) }}
-	</div>
-
-	<h3>ToLog</h3>
-	<div ng-controller="LogController">
-	[ <a href="" ng-click="log_()">Log</a> ]
-	</div>
-
-	<h3>ToList</h3>
-	<div ng-controller="ListController">
-	URL body<br>
-	<input size="80" ng-model="url" ng-change="bindURL_(url)"> <br>
-	Input body<br>
-	<textarea  rows="6" cols="81" ng-model="data_">Input body here</textarea ><br>
-		[<a href="" ng-click="POST_(data_)">POST_</a>]
-		[<a href="" ng-click="PUT_(data_)">PUT_</a>]
-		[<a href="" ng-click="GET_(data_)">GET_</a>]
-	</div>
-
-</body>
-</html>
-
-				}
-				
-			js.js{
-				var myApp = angular.module('myApp',[]);
-
-myApp.controller('GreetingController', ['$scope', function($scope) {
-	$scope.greeting = 'Hola!';
-}]);
-
-myApp.controller('CountController', ['$scope', function($scope) {
-	$scope.double = function(value) { return value * 2; };
-}]);
-
-myApp.controller('LogController', function($scope){
-
-	$scope.customer = {
-	  address1 : 'address1',
-	  address2 : 'address2',
-	  city:'city'
-	};
-
-	$scope.log_=function(){	console.log($scope.customer);}
-});
-
-myApp.controller('ListController', function($scope){
-
-	$scope.list_ = [
-		{GUID:"0",content_:"ct1"},
-		{GUID:"1",content_:"ct2"}
-	];
-
-	testUrl="http://msk1-vm-ovisp01:8184/api/news2";
-
-	$scope.bindURL_= function(url_){
-		this.testUrl=url_;
-	}
-
-	testPOST={GUID:"123",content_:"ct"};
-	testPUT={GUID:"123",content_:"ct2"};
-	/*
-	$scope.POST_=function(){console.log($scope.list_); AJQ(testUrl,"POST",testPOST); }
-	$scope.PUT_=function(){console.log($scope.list_); AJQ(testUrl,"PUT",testPUT); }
-	*/
-
-	var testObj=testPOST;
-	var depth=2;
-
-	$scope.POST_=function(testObj){console.log($scope.list_); AJQ(this.testUrl,"POST",testObj); }
-	$scope.PUT_=function(testObj){console.log($scope.list_); AJQ(this.testUrl,"PUT",testObj); }
-	$scope.GET_=function(depth){console.log($scope.list_); AJQGet(this.testUrl,depth); }
-
-});
-
-
-$.ajaxSetup({
-    contentType : 'application/json',
-    processData : false
-});
-
-$.ajaxPrefilter( function( options, originalOptions, jqXHR ) {
-    if (options.data){
-        //options.data=JSON.stringify(options.data);
-    }
-});
-
-
-function AJQ(restServerURL,method_,obj_)
-{
-	//var objAJ=JSON.stringify(obj_);
-	var objAJ=obj_;
-	console.log("stringified object:" + objAJ);
-
-	$.ajax({
-	type:method_,
-	url: restServerURL ,
-	accepts: "application/json",
-	dataType:"json",
-	data:objAJ,
-	xhrFields: {
-		withCredentials: true
-	},
-	//beforeSend: function (xhr) {        xhr.setRequestHeader('Authorization', make_base_auth("neo4j", "root"));},
-	success: function(data, xhr, textStatus){
-				  //alert("query success!");
-		  //process query results here
-
-		 //alert(JSON.stringify(data, null, 4));
-		 console.log(data);
-	},
-	error:function(jqXHR, textStatus, errorThrown){
-				   alert(errorThrown);
-	}
-	});
-}
-
-function AJQGet(URL_,depth_)
-{
-	restServerURL=URL_+"/"+depth_;
-
-	$.ajax({
-	type:'GET',
-	url: restServerURL ,
-	accepts: "application/json",
-	dataType:"json",
-	xhrFields: {
-		withCredentials: true
-	},
-	//beforeSend: function (xhr) {xhr.setRequestHeader('Authorization', make_base_auth("neo4j", "root"));},
-	success: function(data, xhr, textStatus){
-				  //alert("query success!");
-		  //process query results here
-
-		 //alert(JSON.stringify(data, null, 4));
-		 console.log(data);
-	},
-	error:function(jqXHR, textStatus, errorThrown){
-				   alert(errorThrown);
-	}
-	});
-}
-
-					}
-				
-		}
-				
-	}
+	//----------------------------------------------	
 	
 	public void Angular_IO()
 	{
@@ -4847,6 +4718,9 @@ https://angular.io/guide/setup-systemjs-anatomy
 			//Open project
 			ng serve --open
 			
+				
+							  
+   
 			//bootstrap install
 			npm install --save @ng-bootstrap/ng-bootstrap
 			
@@ -4860,11 +4734,18 @@ https://angular.io/guide/setup-systemjs-anatomy
 			npm install --save @angular/common -g
 			npm install --save @angular/forms -g
 			npm install --save @ng-bootstrap/ng-bootstrap -g
+   
+  
+							 
+							 
 			
 		}
+  
 		public void Descriptions(){
 
 componentModuleShema[
+   
+	
 
 	component {}
 	//new components added to app.component.html, index.html
@@ -4875,6 +4756,28 @@ componentModuleShema[
 	{}-{{values}}-><>
 	{}-[className]=""-><{}>
 	<>-(event)="value"->{}	
+ 
+			   
+  
+									 
+														 
+  
+			  
+															  
+	
+																   
+															  
+   
+			   
+										  
+											  
+				
+	
+				  
+								   
+												 
+  
+  
 	
 	binings{
 		
@@ -4909,6 +4812,8 @@ componentModuleShema[
 			qt=sr.getCh();
 		}
 	
+  
+ 
 		{{}} <- values from component.ts CL
 		[]=""/{{}} <- html element value bind to value/property
 		
@@ -4944,6 +4849,7 @@ componentModuleShema[
 				}
 			}
 			
+  
 			component.html[eventemmiter to method bind ]{
 				<app-hero-detail (deleteRequest)="deleteHero($event)" [hero]="currentHero"></app-hero-detail>
 			}
@@ -5074,6 +4980,7 @@ html -> <childHtml (outEm)="method($event)">
 	}
 	
 		}		
+  
 		public void Examples(){
 			
 			dropdownSlect[
@@ -5402,8 +5309,9 @@ export class serviceCl{
 		
 	}
 	
-	#endregion	
 	
+	#endregion	
+		
 	#region Python
 		
 		public void Python{
@@ -7719,8 +7627,7 @@ POST,DELETE function
 http://msk1-vm-ovisp02:2480/command/news_prod/sql/
 delete from Ofunction where name = "test";
 CREATE FUNCTION test "var gp= orient.getGraph();var res=gp.command(\"sql\",\"select from \"+var1);return res;"  PARAMETERS [var1] IDEMPOTENT true LANGUAGE JAVASCRIPT
-
-	batchInsertPOCCbodyURI{
+		batchInsertPOCCbodyURI{
 					
 		http://msk1-vm-ovisp02:2480/command/news_test3/sql/create vertex Person content {"Changed": "2017-10-19 18:00:09", "Created": "2015-02-02 12:43:56", "GUID": "0", "Name": "0"}
 
@@ -7769,8 +7676,6 @@ CREATE FUNCTION test "var gp= orient.getGraph();var res=gp.command(\"sql\",\"sel
 		http://msk1-vm-ovisp02:2480/command/news_test3/sql/Delete Vertex Person where Name = 0
 													
 	}
-
-	
 }
 			
 			}
@@ -8466,6 +8371,7 @@ http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentL
 			public void Queries()
 			{
 
+
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
 
@@ -8481,14 +8387,17 @@ and StartDate.asDate() > '2017-03-30'
 and EndDate.asDate() <  '2017-04-30'
 
 }
-public GroupByCountEdges(){
+public GroupByCountEdges()
+{
 	select out('Authorship').size(),Name,GUID from Person group by Name,GUID
 }
-select CommentsCountAndLikes(){
+select CommentsCountAndLikes()
+{
 select in('Authorship').GUID[0] as AuthGUID, * from Note
 select in('Authorship').GUID[0] as AuthGUID,out('Comment').size() as CommentsCount, * from News
 }
-public SelectConditionsHC(){
+public SelectConditionsHC()
+{
 	
 select from Note
 where 1=1
@@ -8506,6 +8415,7 @@ public SelectNews(){
 	outE('Authorship').inV('Note').inE('Comment').outV('Note')
 	)from Person where @rid=#73:1 and outE('Authorship').inV('Note').inE('Comment').@size!=''
 }
+
 public SelectComments(){
 	//select comments
 	select  from (
@@ -8514,7 +8424,7 @@ public SelectComments(){
 	)from Person where @rid=#73:1 )
 	where 1=1 and inE('Comment')[0].@rid!=''
 }
-
+	
 public DateTimeRearrangeGet(){
 	
 ALTER DATABASE DATETIMEFORMAT "yyyy.MM.dd HH:mm:ss GG"
@@ -8970,6 +8880,7 @@ unwind Path) ) while $depth <=1 ) where $depth >=1
 	
 
 }
+
 
 			}
 
@@ -10450,7 +10361,7 @@ RAW JSON
 		
 	#endregion
 	
-	#region Editors
+ 	#region Editors
 	
 	Atom{
 		
@@ -10460,8 +10371,8 @@ RAW JSON
 	}
 		
 	#endregion	
-	
-	#region OS
+			
+	#region OS		
 		
 		public Windows
 		{
@@ -10674,42 +10585,7 @@ sudo service smbd restart
 				}
 			}
 			
-			public CentOs{
-				
-				terminal[
-
-sudo yum install 
-yum list installed 
-
-hostname – show or set the systemâ€™s host name
-domainname – show or set the systemâ€™s NIS/YP domain name
-dnsdomainname – show the systemâ€™s DNS domain name
-nisdomainname – show or set systemâ€™s NIS/YP domain name
-ypdomainname – show or set the systemâ€™s NIS/YP domain name
-
-				]
-				
-				vim[
-				
-				cheatlist[
-				
-ЧТОБЫ ВЫЙТИ ИЗ ФАЙЛА БЕЗ СОХРАНЕНИЯ, нажмите:
-ESC  :  q  ! Enter
-
-чтобы выйти из файла, сохранив изменения, нажмите:
-ESC  :  w ! Enter
-ESC  :  q   Enter
-выйти из файла с сохранением, одной командой:
-ESC  :  wq  Enter
-//save if writeonly file
-w !sudo tee % > /dev/null
-
-					]
-				
-				]
-			}
 		}
 	
 	#endregion
-
 	
