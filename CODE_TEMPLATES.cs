@@ -30,6 +30,8 @@ namespace Parts{
 	{
 		//electronics manufacturing association
 		http://www.semi.org
+		RAND Corporation 
+		Atlantic Council
 		
 	  RPN[
 			http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
@@ -107,7 +109,7 @@ namespace Parts{
 			
 	]
 	
-		 //startups
+	//startups
 	[
 	
 	http://www.selpo.me/
@@ -182,6 +184,22 @@ https://github.com/aspnet/KestrelHttpServer
 //iis host
 https://metanit.com/sharp/aspnet5/20.1.php
 
+	]
+	
+	//angular routing and injection
+	[
+		https://angular-2-training-book.rangle.io/handout/modules/lazy-load-di.html
+		https://plnkr.co/edit/C1QKHk9Uijtxtb13UU9t?p=preview
+		https://medium.com/@cyrilletuzi/understanding-angular-modules-ngmodule-and-their-scopes-81e4ed6f7407
+	]
+	
+	//blogs
+	[
+		https://medium.com/reverdev/why-we-moved-from-angular-2-to-vue-js-and-why-we-didnt-choose-react-ef807d9f4163
+		https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3
+		https://blog.angularindepth.com/the-new-angular-httpclient-api-9e5c85fe3361
+		https://toddmotto.com/classes-vs-interfaces-in-typescript
+		https://codecraft.tv/courses/angular/http/http-with-observables/
 	]
 	
 	//DAG directed acyclic graph
@@ -934,6 +952,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 					git-ls-tree 
 					git-ls-remote
 				]
+			
 			}
 
 		}
