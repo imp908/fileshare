@@ -1,63 +1,15 @@
 <!doctype html>
-<html ng-app="myApp">
+<html lang="en">
 <head>
- <meta charset="utf-8">
-	<!--<script type="text/javascript" src="C:\workflow\projects\common\js\angular.min.js"></script>
-	<script type="text/javascript" src="C:\workflow\projects\common\js\jquery-3.2.1.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.6/angular.min.js"></script>-->
-		
+  <meta charset="utf-8">
+  <title>Quiz3</title>
+  <base href="/">
 
-	
-	<script type="text/javascript" src="angular.js"></script>
-	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
-	
-	<script type="text/javascript" src="bootstrap.js"></script>
-	<link rel="stylesheet" href="bootstrap.css">
-	
-	<script type="text/javascript" src="js.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
 </head>
 <body>
-
-
-	<h3>Todo</h3>
-	<div ng-controller="GreetingController">
-		{{ greeting }}
-	</div>
-
-	<h3>ToCount</h3>
-	<div ng-controller="CountController">
-	Two times <input ng-model="num"> equals {{ double(num) }}
-	</div>
-
-	<h3>ToLog</h3>
-	<div ng-controller="LogController">
-	[ <a href="" ng-click="log_()">Log</a> ]
-	[ <a href="" ng-click="thErr_()">ThrowErrorLog</a> ]
-	[ <a href="" ng-click="callCatch_(thErr_)">InjectFunction</a> ]
-	</div>
-
-	<div class="container">
-		<h3>ToList</h3>
-		<div ng-controller="ListController">
-		URL body<br>
-		<input size="80" ng-model="url" ng-change="bindURL_(url)"> <br>
-		Input body<br>
-		<textarea  rows="6" cols="81" ng-model="data_">Input body here</textarea ><br>
-			
-			<a>Jquery</a>
-			<div class="row">
-				[<a href="" ng-click="POST_(data_)">POST_</a>]
-				[<a href="" ng-click="PUT_(data_)">PUT_</a>]
-				[<a href="" ng-click="GET_js(data_)">GET_js</a>]
-				[<a href="" ng-click="GET_txt(data_)">GET_txt</a>]
-			</div>
-			<a>Plain JS</a>
-			<div class="row">
-				<button onclick="JS_GET()">Get</button>
-				<button onclick="JS_POST()">Post</button>
-			</div>
-		</div>
-	</div>
-
+  <app-root></app-root>
+  <app-app7></app-app7>
 </body>
 </html>
