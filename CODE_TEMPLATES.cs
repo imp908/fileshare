@@ -33,6 +33,51 @@ namespace Parts{
 		RAND Corporation 
 		Atlantic Council
 		
+		temp[
+		
+Белиз 
+Гватемала 	
+Сальвадор 	
+Гондурас 	
+Никарагуа 	
+Коста-Рика 	
+Лос-Альтос 
+Панама
+
+эль-пасо
+Сьюдад-Хуарес
+лос-сента
+синалоа
+
+Радуга: Семеро из шестой камеры второго блока
+1. Добро пожаловать в Эн.Эйч.Кэй / NHK ni Youkoso! (24 серии) 1:20 - 3:56 
+2. Радуга: Семеро из шестой камеры / Rainbow: Nisha Rokubou no Shichinin (26 серий) 3:57 - 6:32 
+3. Код Гиас: Восставший Лелуш / Code Geass (первый сезон: 25 + 11 special, второй сезон: 25 + 9 special) 7:02 - 9:00﻿
+
+[
+ang io [ http, VS template ]
+,.net core [ web api 2 template, ang io template ]
+,linq to orient [ extend ]
+]
+
+cubiio
+
+atack rocket
+[usa,gb,fr]->[syria]
+rus sector avoid
+
+weak
+oil,usd/
+rub,gold\
+
+oil(72.57;67.33),gold(1347),
+usd\rub(62.01)/
+
+подсолнечник 39/0,250
+тыква 199/0,5
+
+
+		]
 	  RPN[
 			http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
 			http://rospotrebnadzor.ru/region/structure/str_uprav.php
@@ -109,7 +154,7 @@ namespace Parts{
 			
 	]
 	
-	//startups
+		 //startups
 	[
 	
 	http://www.selpo.me/
@@ -200,8 +245,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 		https://blog.angularindepth.com/the-new-angular-httpclient-api-9e5c85fe3361
 		https://toddmotto.com/classes-vs-interfaces-in-typescript
 		https://codecraft.tv/courses/angular/http/http-with-observables/
-	]
-	
+	]						   
 	//DAG directed acyclic graph
 	https://en.wikipedia.org/wiki/Directed_acyclic_graph
 								 
@@ -952,7 +996,6 @@ https://metanit.com/sharp/aspnet5/20.1.php
 					git-ls-tree 
 					git-ls-remote
 				]
-			
 			}
 
 		}
