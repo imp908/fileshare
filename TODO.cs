@@ -1,7 +1,7 @@
 
 #region TODO
 
-TODO [
+TODO[
 	
 	ACTUAL[
 
@@ -15,8 +15,8 @@ TODO [
 	
 		ProofOfConcept
 			-> Linq from custom object to custom string[
-					<- done for equality for sample properties int,bool,string
-				]
+				<- done for equality for sample properties int,bool,string
+			]
 				-> custom expression from nodes concat
 				-> eliminate brakets from expression binary string result
 				-> complex types expression left chain to string dot concat

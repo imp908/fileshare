@@ -32,6 +32,7 @@ namespace Parts{
 		http://www.semi.org
 		RAND Corporation 
 		Atlantic Council
+		http://veloline.ru/ispravlenie-vosmerok
 		
 		temp[
 		
@@ -78,7 +79,8 @@ usd\rub(62.01)/
 
 
 		]
-	  RPN[
+	  
+		RPN[
 			http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
 			http://rospotrebnadzor.ru/region/structure/str_uprav.php
 			https://www.meleon.ru/
@@ -96,14 +98,64 @@ usd\rub(62.01)/
 			Британские Виргинские острова, США, Великобритания, Кипр, Панама, Новая Зеландия
 		]
 		
-		azb[nesterov igor
+		azb[
+			nesterov igor
 			13.01.1985
 		]			 
 	
 	//investing
 	[
+	
 		stats[
 			http://www.pbc.gov.cn
+			
+			JPY[
+				MinistryOfFinanace
+				https://www.mof.go.jp/english/index.htm
+					[
+						Сальдо торгового баланса с учетом сезонных колебаний
+						импорт,экспорт
+						
+					]
+			]
+			
+			GB[
+				Office for National Statistics
+				https://www.gov.uk/government/statistics/announcements
+				https://www.ons.gov.uk/
+				[
+					Consumer Price Index (CPI)
+					Индекс потребительских цен (ИПЦ) (г/г,м/м) (month)
+					Producer Price Index (PPI)
+					Индекс закупочных цен производителей (г/г,м/м) (month)
+					The Retail Price Index
+				]
+				
+			]
+			
+			EUR[
+				eurostat
+				http://ec.europa.eu/eurostat
+			]
+			
+			USA[
+				fedreserve
+				https://www.federalreserve.gov/monetarypolicy/beige-book-default.htm
+				[
+					Beige Book
+				]
+				energy agency
+				https://www.eia.gov/
+				[
+				 	Crude Oil Inventories
+					Crude Oil Imports
+					Cushing Crude Oil Inventories
+					EIA Weekly Distillates Stocks
+					Distillate Fuel Production
+					EIA Weekly Distillates Stocks
+				]
+			]
+			
 		]
 		
 		funds[
@@ -151,10 +203,10 @@ usd\rub(62.01)/
 			https://www.etoro.com
 			https://www.investopedia.com
 		]
-			
+
 	]
 	
-		 //startups
+	//startups
 	[
 	
 	http://www.selpo.me/
@@ -240,12 +292,17 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	
 	//blogs
 	[
+		
 		https://medium.com/reverdev/why-we-moved-from-angular-2-to-vue-js-and-why-we-didnt-choose-react-ef807d9f4163
 		https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3
 		https://blog.angularindepth.com/the-new-angular-httpclient-api-9e5c85fe3361
 		https://toddmotto.com/classes-vs-interfaces-in-typescript
 		https://codecraft.tv/courses/angular/http/http-with-observables/
-	]						   
+		https://medium.com/meduza-how-it-works/%D1%85%D0%BE%D1%87%D1%83-%D1%81%D0%B2%D0%BE%D0%B9-vpn-%D0%B7%D0%B0-5-%D0%BC%D0%B8%D0%BD%D1%83%D1%82-%D1%87%D1%82%D0%BE-%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-5581e536650a
+		https://medium.com/meduza-how-it-works/ddos-ab63424e595e
+		
+	]	
+	
 	//DAG directed acyclic graph
 	https://en.wikipedia.org/wiki/Directed_acyclic_graph
 								 
