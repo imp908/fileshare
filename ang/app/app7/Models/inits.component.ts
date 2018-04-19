@@ -361,8 +361,8 @@ export class CollectionG_<T extends NodeG> implements ICollection_<T>{
 
 export class Node implements INode{
   key:number=0;
-  name:string="";
-  value:string="";
+  name:string="13";
+  value:string="13";
   constructor(key_?:number,name_?:string, value_?:string)
   {
     if(key_!=null){this.key=key_;}
@@ -387,41 +387,69 @@ export class Collection_<T extends Node> implements ICollection_<T>{
         ServiceCl.log("PrimitiveCollection array Undefined")
       }
       this.array=Array<T>();
-      toPsuh=true;
+    }
+
+    max=this.getMaxKey();
+
+    if(this.tolog){
+      ServiceCl.log(["PrimitiveCollection array max = ",max])
+    }
+
+    if(item.key==null){
+
+      //tolog
+      if(this.tolog){ServiceCl.log(["Item key is null"])}
+
+      if(max!=-1){
+
+        //tolog
+        if(this.tolog){ServiceCl.log(["array contains some elements"])}
+
+        max+=1;
+        item.key=max;
+        toPsuh=true;
+      }else{
+        //tolog
+        if(this.tolog){ServiceCl.log(["array contains no elements"])}
+        item.key=0;
+        toPsuh=true;
+      }
+
     }else{
 
-      max=this.getMaxKey();
-      if(this.tolog){
-      ServiceCl.log(["PrimitiveCollection array defined. max = ",max])
-      }
-      if(item.key==null){
-        max+=1;
-        toPsuh=true;
-        if(this.tolog){
-        ServiceCl.log(["item has no key. Max=  ",max])
-        }
-      }else{
-        if(this.tolog){
-        ServiceCl.log(["item has key: ",item.key])
-        }
+      //tolog
+      if(this.tolog){ServiceCl.log(["Item key is: ",item.key])}
 
-        if((this.getByItem(item)==null)){
-          max+=1;
-          toPsuh=true;
-          if(this.tolog){
-          ServiceCl.log(["item not exists. max= ",max])
+      if(max!=-1){
+        //tolog
+        if(this.tolog){ServiceCl.log(["Array not empty"])}
+
+          if((this.getByItem(item)!=null)){
+            //tolog
+            if(this.tolog){ServiceCl.log(["Array contains item: ",item])}
+
+            max+=1;
+            item.key=max;
+            toPsuh=true;
+
+          }else
+          {
+            //tolog
+            if(this.tolog){ServiceCl.log(["Array not contains item"])}
+            toPsuh=true;
           }
-        }
-
+      }else{
+        //tolog
+        if(this.tolog){ServiceCl.log(["Array is empty"])}
+        toPsuh=true;
       }
 
     }
 
+
+
     if(toPsuh===true){
-      if(this.tolog){
-      ServiceCl.log(["pushing item with key: ",item,max])
-      }
-      item.key=max;
+      if(this.tolog){ServiceCl.log(["pushing item with key: ",item,max])}
       this.array.push(item);
     }
     return item;
@@ -438,14 +466,26 @@ export class Collection_<T extends Node> implements ICollection_<T>{
     return null;
   }
   update(item:T){
-    if((typeof(this.array)!=null)){
-      var index_=this.array.findIndex(s=>s.key===item.key);
-      if(index_!=-1){
-          this.array[-1]=item;
-          return this.array[-1];
+    var max=0;
+    var toPsuh:boolean=false;
+
+    if(typeof(this.array)!=null){
+      //log
+      if(this.tolog){ServiceCl.log("PrimitiveCollection array exists")}
+      max=this.getMaxKey();
+      if(max>-1){
+        //log
+        if(this.tolog){ServiceCl.log("Array contains items")}
+        var index_=this.array.findIndex(s=>s.key===item.key);
+        if(index_!=-1){
+          //log
+          if(this.tolog){ServiceCl.log(["Array contains item",item])}
+            this.array[item.key]=item;
+        }
       }
     }
-    return null;
+
+    return this.array;
   }
 
   addUpdate(item:T){
@@ -515,17 +555,28 @@ export class Collection_<T extends Node> implements ICollection_<T>{
       return -1;
     }
 
+  isUndefined(arr_:Array<T>):boolean{
+    if(typeof(arr_)=='undefined'){
+      if(this.tolog){
+        ServiceCl.log("PrimitiveCollection array Undefined")
+      }
+      return true;
+    }
+    return false;
+  }
+
+
 }
 
 export class NodeCollection extends Node{
 
   key:number=0;
-  name:string="";
-  value:string="";
+  name:string="12";
+  value:string="12";
   collection:ICollection_<INodeCollection>;
   constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>)
   {
-    super();
+    super(key_,name_,value_);
     if(collection_!=null){this.collection=collection_;}
   }
 
@@ -536,13 +587,23 @@ export class Factory_{
     return new  NodeCollection();
   }
 
-  answers(n:number){
-    var answer:ICollection_<Node>=new Collection_<Node>();
-    answer.tolog=false;
+  answers(n:number):ICollection_<NodeCollection>{
+    var answer:ICollection_<NodeCollection>=new Collection_<NodeCollection>();
+    answer.tolog=true;
     for(var i=0;i<n;i++){
-      answer.add(new Node(i,"Answer " +i,"Answer " +i));
+      answer.add(new NodeCollection(i,"Answer " +i,"Answer " +i));
     }
     return answer;
+  }
+
+  questions(n:number){
+    var question:ICollection_<Node>=new Collection_<Node>();
+    question.tolog=false;
+    for(var i=0;i<n;i++){
+      question.add(new Node(i,"Question " +i,"Question " +i));
+
+    }
+    return question;
   }
 
 }
@@ -575,8 +636,21 @@ export class Test{
     //NEW
 
     public static GenNewColl(bol_:boolean){
+      var factory:Factory_=new Factory_();
+
+      ServiceCl.log(["New answer: ",new NodeCollection(11,"Answer " +11,"Answer " +11)])
+
       ServiceCl.log(["New factory NodeCollection: ",new Factory_().node()])
-      ServiceCl.log(["New factory AnswersCollection: ",new Factory_().answers(5)])
+      var answers:ICollection_<INodeCollection> = factory.answers(5);
+      ServiceCl.log(["New factory AnswersCollection: "])
+      ServiceCl.log(answers);
+
+
+    }
+
+    public static AnswersAddDeleteUpdate(bol_:boolean){
+        var answers:ICollection_<NodeCollection> =
+        new Collection_<NodeCollection>();
     }
 
     public static GO(){
