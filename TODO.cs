@@ -293,15 +293,20 @@ if not exist -> create relations
 			]
 			
 			,TODO[
-			
+
+-> LINQtoOrient finilize command builder
+-> refresh repository CRUD (nodes,relations) only
 -> ETL[
 	1C load
 	Person sync (GUID,CN ad Fname+Lname+Mdlname )
 ]
+-> rewrite UOW on new repo
 -> no class specific vertex creation
 -> custom LINQ expression trees {Class.prop.value}{condType}{targetValue}
 -> integrate custom expression into class vertex
 	
+			-> move current UOW logic to Manager <- done
+			-> split Persons and News api <- done
 			-> split <Note> object from DB [
 				-> for every Note reference fields (Likes,Tabs,Author) to NoteReturn add
 				-> return aggr <NoteReturn> to front client
@@ -416,19 +421,23 @@ replace my.nspk with my.nspk2 to the same host
 		Quiz[
 			
 			TODO[
-
+			
+		
 			actual[
 			
--> drop down question type model <- done
--> question type init <- done
--> dropdown select event DOM change <- done
+-> New model create templates rebuild
+-> new Model pass templates write
+				
+	-> drop down question type model <- done
+	-> question type init <- done
+	-> dropdown select event DOM change <- done
 
--> questions model add
-{textbox,radio button,checkbox{pic realization},dropdowns to names}
--> draw question DOM
--> receive input
+	-> questions model add <- done
+	{textbox,radio button,checkbox{pic realization},dropdowns to names}
+	-> draw question DOM <- done
+	-> receive input <- done
 
--> print input on submit
+	-> print input on submit <- done
 
 			]
 
@@ -649,6 +658,7 @@ ConstructorForm.json
   
   
 			]
+		
 		]
 		
 		DocsVision[
@@ -683,12 +693,8 @@ ConstructorForm.json
 	Person,manger
 	]
 
-		]
+		]			
 		
-		NSQLUOW
-		
-			-> move current UOW logic to Manager <- done
-			-> split Persons and News api <- done
 
 		ApiTester	
 			-> JSON response objects count and expect			
