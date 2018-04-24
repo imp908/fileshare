@@ -24,9 +24,7 @@ namespace LinqToContextPOC
     public class TestContext
     {
         ParameterExpression leftParamExpr;
-        Type leftType_=null;
-        string memberName;
-        Expression expr;
+        Type leftType_=null;       
 
         ConstantExpression constExpr;    
 
@@ -285,9 +283,9 @@ namespace LinqToContextPOC
        
         void AddLeft(ITokenBuilder tk);
         void AddRight(ITokenBuilder tk);
-    }    
+    }
     internal interface ITokenChain
-    {       
+    {
         string GetCommand();
         ITokenBuilder GetTokenBuilder();
         void Refresh();
@@ -299,10 +297,12 @@ namespace LinqToContextPOC
         ITokenChain AddRight(IQueryManagers.ITypeToken input_);
 
         ITokenChain AddLeft(ITokenChain input_);
-        ITokenChain AddRight(ITokenChain input_);               
+        ITokenChain AddRight(ITokenChain input_);
 
         ITokenChain Expand();
-
+    }
+    internal interface ITokenQueryChain : ITokenChain
+    {             
         ITokenChain Select();
         ITokenChain From();
         ITokenChain Where();
@@ -337,9 +337,10 @@ namespace LinqToContextPOC
         ITokenChain Quote();
         ITokenChain Comma();
     }
-    internal  interface IChainBuilderFactory
+    internal interface IChainBuilderFactory
     {
         ITokenChain GetChainBuilder();
+        ITokenQueryChain GetQueryChainBuilder();
     }
 
     internal class ChainBuilderFactory : IChainBuilderFactory
@@ -347,6 +348,9 @@ namespace LinqToContextPOC
         public ITokenChain GetChainBuilder()
         {
             return new TokenChain();
+        }
+        public ITokenQueryChain GetQueryChainBuilder() {
+            return new TokenQueryChain();
         }
     }
     /// <summary>
@@ -427,17 +431,17 @@ namespace LinqToContextPOC
         }
     }
     /// <summary>
-    /// Chains tokens via Tokenbuilder to command, with command specific tokens. Nesting realization (From,expand,traverse).
+    /// Main token chaining operaions, add left,right,expand
     /// </summary>
     internal class TokenChain : ITokenChain
     {
-        ITokenBuilder tb;
+        internal ITokenBuilder tb;
 
         public TokenChain()
         {
             this.tb = new TokenBuilder();
         }
-        
+
         public string GetCommand()
         {
             return tb.GetCommand();
@@ -446,41 +450,58 @@ namespace LinqToContextPOC
         {
             return tb;
         }
-        public void Refresh(){
+        public void Refresh()
+        {
             tb.Refresh();
         }
 
         public ITokenChain AddRight(string input_)
         {
-            tb.AddRight(tb.NewToken(input_));            
+            tb.AddRight(tb.NewToken(input_));
             return this;
-        }   
+        }
         public ITokenChain AddLeft(string input_)
         {
-            tb.AddLeft(tb.NewToken(input_));            
+            tb.AddLeft(tb.NewToken(input_));
             return this;
-        }   
+        }
         public ITokenChain AddRight(IQueryManagers.ITypeToken input_)
         {
-            tb.AddRight(input_);            
+            tb.AddRight(input_);
             return this;
-        }   
+        }
         public ITokenChain AddLeft(IQueryManagers.ITypeToken input_)
         {
-            tb.AddLeft(input_);            
+            tb.AddLeft(input_);
             return this;
-        }   
+        }
         public ITokenChain AddRight(ITokenChain input_)
         {
-            tb.AddRight(input_.GetTokenBuilder());            
+            tb.AddRight(input_.GetTokenBuilder());
             return this;
-        }   
+        }
         public ITokenChain AddLeft(ITokenChain input_)
         {
-            tb.AddLeft(input_.GetTokenBuilder());            
+            tb.AddLeft(input_.GetTokenBuilder());
             return this;
-        } 
+        }
 
+        public ITokenChain Expand()
+        {
+            throw new NotImplementedException();
+        }
+    }
+    /// <summary>
+    /// Chains tokens via Tokenbuilder to command, with command specific tokens. Nesting realization (From,expand,traverse).
+    /// </summary>
+    internal class TokenQueryChain : TokenChain, ITokenQueryChain
+    {       
+
+        public TokenQueryChain()
+        {
+            //tb = new TokenBuilder();
+        }
+      
         public ITokenChain Select()
         {
             tb.AddLeft(new OrientRealization.OrientGapToken());
@@ -489,9 +510,9 @@ namespace LinqToContextPOC
         }      
         public ITokenChain From()
         {
-            tb.AddLeft(new OrientRealization.OrientGapToken());
-            tb.AddLeft(new OrientRealization.OrientFromToken());
-            tb.AddLeft(new OrientRealization.OrientGapToken());
+            tb.AddRight(new OrientRealization.OrientGapToken());
+            tb.AddRight(new OrientRealization.OrientFromToken());
+            tb.AddRight(new OrientRealization.OrientGapToken());
             return this;
         }      
         public ITokenChain WhereParam()
@@ -586,11 +607,7 @@ namespace LinqToContextPOC
             tb.AddRight(new OrientRealization.OrientVertexToken());            
             return this;
         }
-
-        public ITokenChain Expand()
-        {
-            throw new NotImplementedException();
-        }
+       
         
         public ITokenChain Exclamation()
         {
@@ -649,6 +666,12 @@ namespace LinqToContextPOC
       
     }
 
+    internal class TokenCommandChain : TokenChain
+    {
+        public TokenCommandChain() {
+
+    }
+
     ///Main idea description and overall expression logic examples.
     //https://blogs.msdn.microsoft.com/mattwar/2007/07/31/linq-building-an-iqueryable-provider-part-ii/
     /// <summary>
@@ -663,14 +686,14 @@ namespace LinqToContextPOC
 
         void VisitLeft(Expression expr_);
         void VisitRight(Expression expr_);
-        ITokenChain GetBuilder();
+        ITokenQueryChain GetBuilder();
     }
     /// <summary>
     /// Custom expression visitor. Converts tree to orient string syntax.
     /// </summary>
     internal class ExpressionVisitorCustom : ExpressionVisitor,IExpressionVisitor
     {
-        ITokenChain cb;
+        ITokenQueryChain cb;
         IChainBuilderFactory cbf;
 
         PropertyReader pr = new PropertyReader();
@@ -679,10 +702,10 @@ namespace LinqToContextPOC
         public ExpressionVisitorCustom(IChainBuilderFactory cb_)
         {
             this.cbf = cb_;
-            this.cb = cbf.GetChainBuilder();
+            this.cb = cbf.GetQueryChainBuilder();
             nestedProperties = new Stack<string>();
         }
-        public ITokenChain GetBuilder()
+        public ITokenQueryChain GetBuilder()
         {
             if(this.cb!=null)
             {
@@ -714,7 +737,7 @@ namespace LinqToContextPOC
             Type type_=expr_.GetType().BaseType;
             ExpressionType ndType = expr_.NodeType;
             Expression db = expr_.Body;
-            this.cb = cbf.GetChainBuilder();
+            this.cb = cbf.GetQueryChainBuilder();
             Visit(db);
         }
         public void Visit<T>(Expression<Func<T,bool>> expr_)
@@ -724,7 +747,7 @@ namespace LinqToContextPOC
             Type type_=expr_.GetType().BaseType;
             ExpressionType ndType = expr_.NodeType;
             Expression db = expr_.Body;
-            this.cb = cbf.GetChainBuilder();
+            this.cb = cbf.GetQueryChainBuilder();
             Visit(db);
         }    
         public new void Visit(Expression expr_)
@@ -759,7 +782,7 @@ namespace LinqToContextPOC
             Type type_=expr_.GetType().BaseType;
             ExpressionType ndType = expr_.NodeType;
             Expression db = expr_.Body;
-            this.cb = cbf.GetChainBuilder();
+            this.cb = cbf.GetQueryChainBuilder();
             VisitIn(db,direction_);
         }
         public void VisitIn(Expression expr_,Action<Expression> direction_)
@@ -964,7 +987,7 @@ namespace LinqToContextPOC
     internal class CommandBuilder
     {
         IExpressionVisitor expressionVisitor;
-        ITokenChain cb;
+        ITokenQueryChain cb;
 
         public string Translate()
         {
@@ -974,7 +997,7 @@ namespace LinqToContextPOC
             cb.Refresh();
         }
 
-        public CommandBuilder(IExpressionVisitor ie_,ITokenChain cb_)
+        public CommandBuilder(IExpressionVisitor ie_,ITokenQueryChain cb_)
         {            
             expressionVisitor=ie_;
             cb=cb_;
@@ -1021,8 +1044,8 @@ namespace LinqToContextPOC
         }
         public CommandBuilder From(Type T)
         {
-            cb.AddLeft(T.Name);            
             cb.From();
+            cb.AddRight(T.Name);
             
             return this;
         }
@@ -1039,8 +1062,10 @@ namespace LinqToContextPOC
         public CommandBuilder Where<T>(Expression<Func<T,bool>> expr_)
         {
             cb.Where();
-
-            cb.AddRight(ExpressionRead<T>(expr_));
+            if (expr_ != null)
+            {
+                cb.AddRight(ExpressionRead<T>(expr_));
+            }           
             return this;
         }
         
@@ -1186,41 +1211,47 @@ namespace LinqToContextPOC
         //
         public static void ExpressionVisitorCustomCheck()
         {
-            CommandBuilder evc=new CommandBuilder(new ExpressionVisitorCustom(new ChainBuilderFactory()), new TokenChain());
+            CommandBuilder evc=new CommandBuilder(new ExpressionVisitorCustom(new ChainBuilderFactory()), new TokenQueryChain());
             CommandBuilder commandBuilder;
 
             evc.@in<POCO.Authorship>(s=>s.id=="'25:26'");
             string res=evc.Translate();
 
-      POCO.Unit unit = new POCO.Unit() { Name = "НСПК" };
+            POCO.Unit unit = new POCO.Unit() {Name="НСПК"};
 
             evc.Refresh();
-            evc.From(typeof(POCO.News))
-            .Select<POCO.News>(s=>new POCO.News {id=s.id,authAcc=s.authAcc,GUID=s.GUID})
-            .Where<POCO.News>(s=>s.pinned.isTrue==false 
-            && s.name=="'Author eats his own book'" 
-            || s.Likes!=0 && s.created<=DateTime.Now 
-            && s.commentDepth>=1);
+            evc
+            .From(typeof(POCO.News))
+            .Where<POCO.News>(s => s.pinned.isTrue == false
+                    && s.name == "'Author eats his own book'"
+                    || s.Likes != 0 && s.created <= DateTime.Now
+                    && s.commentDepth >= 1)
+            .Select<POCO.News>(s => new POCO.News { id = s.id, authAcc = s.authAcc, GUID = s.GUID })
+          ;
             string res2=evc.Translate();
 
             evc.Refresh();
-            evc.Where<POCO.Comment>(s => s.changed == new DateTime(2018, 01, 26, 12, 52, 46))
-            .And<POCO.Comment>(s => s.class_ != "")
-            .From(typeof(POCO.Comment))
+            evc.From(typeof(POCO.Comment))
+                .Where<POCO.Comment>(s => s.changed == new DateTime(2018, 01, 26, 12, 52, 46))
+                .And<POCO.Comment>(s => s.class_ != "")            
             .Select<POCO.Comment>(s => new POCO.Comment { id = s.id, class_ = s.class_ });
             string res4=evc.Translate();
             
             evc.Refresh();
-            evc.Select().@in(typeof(POCO.CommonSettings)).Dot().@out(typeof(POCO.Commentary))
-            .Dot().Field<POCO.Comment>(s => new POCO.Comment{GUID=s.GUID})
-            .And().@in<POCO.Comment>(s => s.GUID == "123")
-            .And().in_<POCO.Authorship>(s => s.id == "123");
+            evc                
+                .Gap().@in(typeof(POCO.CommonSettings)).Dot().@out(typeof(POCO.Commentary))
+                .Dot().Field<POCO.Comment>(s => new POCO.Comment{GUID=s.GUID})
+              .From(typeof(POCO.News))
+            .Where<POCO.News>(null)
+            .@in<POCO.Comment>(s => s.GUID == "123")
+            .And().in_<POCO.Authorship>(s => s.id == "123")
+            .Select();
             string res5 = evc.Translate();
 
             evc.Refresh();
             evc.in_<POCO.Commentary>(s => s.GUID == "abc");
 
-            commandBuilder=new CommandBuilder(new ExpressionVisitorCustom(new ChainBuilderFactory()), new TokenChain());
+            commandBuilder=new CommandBuilder(new ExpressionVisitorCustom(new ChainBuilderFactory()), new TokenQueryChain());
             commandBuilder.Select<POCO.Person>(s => new POCO.Person {id=s.id,Birthday=s.Birthday,FirstName=s.FirstName,LastName=s.LastName});
             string res3 = commandBuilder.Translate();
         }

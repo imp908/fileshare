@@ -1497,7 +1497,268 @@ new Person(){Seed =123,Name="Neprintsevia",sAMAccountName="Neprintsevia",changed
 
 }
 
+namespace DbSync
+{
 
+    /// <summary>
+    /// Mooves orient database (Classes with properties, vertices and edges with GUID)  
+    /// from one Manager to another with some options.
+    /// </summary>
+    public static class MooveDB
+    {
+        static TypeConverter tc = new TypeConverter();
+        static IOrientRepo targetRepo_, sourceRepo_;
+        static List<NodeReferenceConditional> conditionalItems;
+
+        static void ConditionalItemsInit(List<IOrientObjects.IOrientDefaultObject> mooveClasses)
+        {
+            conditionalItems = new List<NodeReferenceConditional>();
+            foreach (OrientDefaultObject tp_ in mooveClasses.Where(s => s.GetType().BaseType == typeof(V)))
+            {
+                if (tp_ != null) { conditionalItems.Add(new NodeReferenceConditional() { orientItem = tp_, processed = false }); }
+            }
+            foreach (OrientDefaultObject tp_ in mooveClasses.Where(s => s.GetType().BaseType == typeof(E)))
+            {
+                if (tp_ != null) { conditionalItems.Add(new NodeReferenceConditional() { orientItem = tp_, processed = false }); }
+            }
+        }
+        public static List<IOrientObjects.IOrientDefaultObject> GetClasses(List<IOrientObjects.IOrientDefaultObject> list_)
+        {
+            return list_;
+        }
+        public static OrientDatabase Migrate(Managers.Manager to_, Managers.Manager from_, List<IOrientObjects.IOrientDefaultObject> mooveClasses
+        , List<IOrientObjects.IOrientDefaultObject> mooveObjects, bool dropAndCreateIfExists = false, bool generate = false)
+        {
+            OrientDatabase result = null;
+
+            bool allreadyExists = false;
+
+            if (to_ == null) { throw new Exception("No from DB passed"); }
+            targetRepo_ = to_.GetRepo();
+            if (targetRepo_ == null) { throw new Exception("No from repo exists"); }
+
+            OrientDatabase dbTo = targetRepo_.GetDb();
+
+            if (dropAndCreateIfExists == true)
+            {
+                //drop and create db
+                if (dbTo != null) { targetRepo_.DeleteDb(); }
+                targetRepo_.CreateDb();
+                if (targetRepo_.GetDb() == null) { throw new Exception("Db was not recreated"); }
+            }
+            if (from_ != null)
+            {
+                //moove db
+                sourceRepo_ = from_.GetRepo();
+                if (sourceRepo_ == null) { throw new Exception("No from repo exists"); }
+                OrientDatabase dbFrom = sourceRepo_.GetDb();
+                dbFrom = sourceRepo_.GetDb();
+                dbTo = targetRepo_.GetDb();
+                if (dbTo == null)
+                { throw new Exception("No target database exists"); }
+                if (dbFrom == null)
+                { throw new Exception("No source database exists"); }
+
+                if (mooveClasses != null && mooveClasses.Count() > 0)
+                {
+                    MooveClasses(targetRepo_, sourceRepo_, mooveClasses);
+
+                    foreach (OrientDefaultObject oL_ in mooveClasses)
+                    {
+                        targetRepo_.CreateProperty<OrientDefaultObject>(oL_, null);
+                    }
+                }
+                if (mooveObjects != null && mooveObjects.Count() > 0)
+                {
+                    ConditionalItemsInit(mooveObjects);
+                    MooveObject();
+
+                    /*
+                    MooveObjectsOfClass<Person>(targetRepo_,sourceRepo_);
+                    MooveObjectsOfClass<Unit>(targetRepo_,sourceRepo_);       
+
+                    MooveObjectsOfClass<SubUnit>(targetRepo_,sourceRepo_);
+                    MooveObjectsOfClass<MainAssignment>(targetRepo_,sourceRepo_);
+                    MooveObjectsOfClass<OldMainAssignment>(targetRepo_,sourceRepo_);
+                    */
+                }
+                /*
+                MooveObjectsOfClass<UserSettings>(targetRepo_,sourceRepo_);
+                MooveObjectsOfClass<CommonSettings>(targetRepo_,sourceRepo_);
+
+
+                MooveObjectsOfClass<PersonRelation>(targetRepo_,sourceRepo_);
+                */
+            }
+            if (generate == true)
+            {
+                //generate scenery to existing
+                to_.GenDB(false, false);
+                to_.GenNewsComments(null, null);
+            }
+
+            targetRepo_.StoreDbStatistic(null, null);
+            return result;
+        }
+
+        static void MooveClasses(IOrientRepo targetRepo, IOrientRepo sourceRepo, List<IOrientObjects.IOrientDefaultObject> mooveClasses)
+        {
+            TypeConverter tc = new TypeConverter();
+            OrientDatabase dbFrom = sourceRepo.GetDb(null, null);
+
+            foreach (OrientDefaultObject do_ in mooveClasses)
+            {
+                OrientClass oc = (from s in dbFrom.classes where s.name == do_.GetType().Name select s).FirstOrDefault();
+                if (oc != null)
+                {
+                    CreateClassRec(oc);
+                }
+            }
+        }
+        static void CreateClassRec(OrientClass class_)
+        {
+            OrientClass _class = targetRepo_.GetClass(class_.name, null, null);
+            if (_class == null)
+            {
+                if (class_.superClass != null)
+                {
+                    OrientClass superClass = targetRepo_.GetClass(class_.superClass, null, null);
+                    if (superClass == null)
+                    {
+                        superClass = sourceRepo_.GetClass(class_.superClass, null, null);
+                        if (superClass == null) { throw new Exception("no superclass in sourcedb found"); }
+                        CreateClassRec(superClass);
+                    }
+                    class_ = targetRepo_.CreateClass(class_.name, superClass.name, null).GetClass(class_.name, null, null);
+                }
+                else
+                {
+                    class_ = targetRepo_.CreateClass(class_.name, null, null).GetClass(class_.name, null, null);
+                }
+                if (class_ == null) { throw new Exception("failed to create class"); }
+            }
+        }
+
+        static void MooveObjectsOfClass<T>(IOrientRepo targetRepo, IOrientRepo sourceRepo)
+            where T : class, IOrientObjects.IOrientDefaultObject
+        {
+            List<T> arbitraryObjects = new List<T>();
+            foreach (T p in sourceRepo.SelectFromType<T>(null, null))
+            {
+                T pc = null;
+                try
+                {
+                    if (p.GetType().BaseType == typeof(V))
+                    {
+                        pc = targetRepo.CreateVertex<T>(p, null);
+                    }
+                    if (p.GetType().BaseType == typeof(E))
+                    {
+                        POCO.OrientEdge io = p as POCO.OrientEdge;
+                        POCO.V vFrom =
+                        sourceRepo.SelectByIDWithCondition<POCO.V>(io.In, null, null).FirstOrDefault();
+                        POCO.V vTo =
+                        sourceRepo.SelectByIDWithCondition<POCO.V>(io.Out, null, null).FirstOrDefault();
+
+                        vTo = targetRepo.SelectFromType<POCO.V>("GUID='" + vTo.GUID + "'", null).FirstOrDefault();
+
+                        pc = targetRepo.CreateEdge<T>(p, vFrom, vTo, null) as T;
+                    }
+                    if (pc == null) { if (arbitraryObjects != null) { arbitraryObjects.Add(p); } }
+                }
+                catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
+            }
+            if (arbitraryObjects.Count() > 0)
+            {
+                CheckListOfObjects(targetRepo, arbitraryObjects);
+            }
+        }
+        static void CheckListOfObjects<T>(IOrientRepo targetRepo, List<T> unaddedObjects) where T : class, IOrientObjects.IOrientDefaultObject
+        {
+            T pc = null;
+            foreach (T p in unaddedObjects)
+            {
+                pc = targetRepo.SelectFromType<T>("GUID='" + p.GUID + "'", null).FirstOrDefault();
+                if (pc == null)
+                {
+                    try
+                    {
+                        if (p.GetType().BaseType == typeof(V))
+                        {
+                            pc = targetRepo.CreateVertex<T>(p, null);
+                        }
+                        if (p.GetType().BaseType == typeof(E))
+                        {
+                            IOrientObjects.IOrientEdge io = p as IOrientObjects.IOrientEdge;
+                            IOrientObjects.IOrientVertex vFrom = targetRepo.SelectByIDWithCondition<T>(io.In, null, null).FirstOrDefault() as IOrientObjects.IOrientVertex;
+                            IOrientObjects.IOrientVertex vTo = targetRepo.SelectByIDWithCondition<T>(io.Out, null, null).FirstOrDefault() as IOrientObjects.IOrientVertex;
+                            pc = targetRepo.CreateEdge<IOrientObjects.IOrientDefaultObject>(p, vFrom, vTo, null) as T;
+                        }
+                    }
+                    catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
+                }
+            }
+        }
+
+        //If object classes list passed, handles object movement from source to target
+        static void MooveObject()
+        {
+            if (conditionalItems != null && conditionalItems.Count() > 0)
+            {
+                //Loop throught every assed class
+                foreach (NodeReferenceConditional conditionalreference_ in conditionalItems)
+                {
+                    IOrientObjects.IOrientDefaultObject objectClass_ = conditionalreference_.orientItem;
+
+                    //for Nodes
+                    if (objectClass_.GetType().BaseType.Equals(typeof(V)))
+                    {
+                        //get all objects of class from base
+                        IEnumerable<IOrientObjects.IOrientDefaultObject> tempVert = sourceRepo_.SelectRefl(objectClass_.GetType(), null);
+                        if (tempVert != null && tempVert.Count() > 0)
+                        {
+                            //for every Node just simple create
+                            foreach (V vToInsert in tempVert)
+                            {
+                                Type tp = vToInsert.GetType();
+                                IOrientObjects.IOrientDefaultObject vInserted = targetRepo_.CreateVertexTp(vToInsert, null);
+                                if (vInserted == null) { throw new Exception("vertex was not mooved"); }
+                            }
+                        }
+                    }
+
+                    //for References
+                    if (objectClass_.GetType().BaseType.Equals(typeof(E)))
+                    {
+                        //get all objects of class from base
+                        IEnumerable<IOrientObjects.IOrientDefaultObject> tempVert = sourceRepo_.SelectRefl(objectClass_.GetType(), null);
+                        //for every Node just simple create
+                        foreach (E eToInsert in tempVert)
+                        {
+                            //get related Nodes from source DB by referenced rIDs
+                            V vFrom = sourceRepo_.SelectByIDWithCondition<V>(eToInsert.In, null, null).FirstOrDefault();
+                            V vTo = sourceRepo_.SelectByIDWithCondition<V>(eToInsert.Out, null, null).FirstOrDefault();
+                            if (vFrom == null || vTo == null) { throw new Exception("no in or out Node in source db"); }
+
+                            //get related Nodes in target DB by GUIDs of source DB Nodes
+                            V vFromToIns = targetRepo_.SelectByCondFromType<V>(typeof(V), "GUID='" + vFrom.GUID + "'", null).FirstOrDefault();
+                            V vToToIns = targetRepo_.SelectByCondFromType<V>(typeof(V), "GUID='" + vTo.GUID + "'", null).FirstOrDefault();
+                            if (vFromToIns == null || vToToIns == null) { throw new Exception("no in or out Node in target db"); }
+
+                            //create relation inn target DB between Nodes related in source DB
+                            E eInserted = targetRepo_.CreateEdge<E>(eToInsert, vFromToIns, vToToIns, null);
+                            if (eInserted == null) { throw new Exception("no in or out Node in target db"); }
+                        }
+                    }
+
+
+                }
+
+            }
+        }
+    }
+
+}
 
 namespace AdinTce
 {
@@ -2331,6 +2592,7 @@ namespace Quizes
                 }
             }            
         }
+    
     }
 }
 
