@@ -1,0 +1,11 @@
+<div *ngIf="test==true" class="component">
+  {{cName}}
+</div>
+
+<div *ngIf="test==false">
+  <div *ngFor="let qz_ of nodes_.collection.array">
+
+      <app-item [node_]=qz_></app-item>
+      <app-list [nodes_]=qz_></app-list>
+  </div>
+</div>

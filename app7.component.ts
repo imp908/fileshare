@@ -11,8 +11,8 @@ export class App7Component implements OnInit {
   cName:string;
   test: boolean;
 
-  constructor(private service:Service_) {
-      service.test=true;
+  constructor(private service:Service_){
+      service.test=false;
       service.toLog=true;
       this.test=service.test;
       this.cName=this.constructor.name;
