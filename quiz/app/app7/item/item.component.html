@@ -1,0 +1,10 @@
+<div *ngIf="test==true" class="component">
+  {{cName}}
+</div>
+
+<div *ngIf="test==false" class="component">
+  <div *ngIf="node_!=null">
+    {{node_.name}}
+    <button class="btn btn-outline-primary" (click)="itemSelect(node_)">Edit</button>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+<div *ngIf="test==true" class="component">
+  {{cName}}
+</div>
+
+<div *ngIf="test==false" class="component">
+
+  <div *ngFor="let qz_ of nodes_.collection.array">
+      <app-item [node_]=qz_></app-item>
+  </div>
+
+  <button class="btn btn-outline-primary">Save</button>
+</div>
