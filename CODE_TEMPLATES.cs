@@ -27,7 +27,8 @@ namespace Parts{
 
 	//Usefull links
 	public void mostUsefullLinks()
-	{
+	{		
+		
 		//electronics manufacturing association
 		http://www.semi.org
 		RAND Corporation 
@@ -77,6 +78,7 @@ usd\rub(62.01)/
 подсолнечник 39/0,250
 тыква 199/0,5
 
+"Яма" Александра Куприна, "Санин" Михаила Арцыбашева, "В тумане" Леонида Андреева, "Крейцерова соната" Льва Толстого
 
 		]
 	  
@@ -4864,8 +4866,6 @@ https://angular.io/guide/setup-systemjs-anatomy
 
 componentModuleShema[
    
-	
-
 	component {}
 	//new components added to app.component.html, index.html
 	.ts;.html;.css
@@ -4875,29 +4875,7 @@ componentModuleShema[
 	{}-{{values}}-><>
 	{}-[className]=""-><{}>
 	<>-(event)="value"->{}	
- 
-			   
-  
-									 
-														 
-  
-			  
-															  
-	
-																   
-															  
-   
-			   
-										  
-											  
-				
-	
-				  
-								   
-												 
-  
-  
-	
+ 	
 	binings{
 		
 	https://angular.io/guide/template-syntax#aliasing-io
@@ -5034,7 +5012,6 @@ componentModuleShema[
 	
 	}
 	
-
 ]
 
 boilerplateReferenceShema[
