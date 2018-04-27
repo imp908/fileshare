@@ -425,9 +425,15 @@ replace my.nspk with my.nspk2 to the same host
 		
 			actual[
 			
--> New model create templates rebuild
--> new Model pass templates write
-				
+-> Model tree change to contain selected
+-> Save model tree
+-> http add
+-> pass templates add 
+-> pass http
+	
+	-> New model menu,list-menu,edit-menu added <- done
+	-> New model create templates rebuild <- done
+	
 	-> drop down question type model <- done
 	-> question type init <- done
 	-> dropdown select event DOM change <- done
