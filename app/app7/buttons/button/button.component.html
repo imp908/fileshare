@@ -1,0 +1,10 @@
+<div *ngIf="test==true" class="component">
+  {{cName}}
+</div>
+<div *ngIf="test==false" >
+  <div class="row">
+    <div *ngFor="let bt_ of _buttons.collection.array">    
+    	<app-click [button_]="bt_" [obj_]="_obj"></app-click>
+    </div>
+  </div>
+</div>

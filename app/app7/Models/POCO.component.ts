@@ -1,24 +1,34 @@
 
-export interface IItem{
+//NEW
+
+export interface INode{
   key:number;
   name:string;
   value:string;
 }
-export interface ICollection<T extends IItem>{
+export interface ICollection_<T>{
+  tolog:boolean;
   array:Array<T>;
   add(item:T);
   delete(item:T);
   update(item:T);
   addUpdate(item:T);
   addUpdateArr(items:Array<T>);
-}
-export interface IItemCollection{
-  item:IItem;
-  coletcion:ICollection<IItem>;
+
+  getMaxKey();
+  getByItem(item:T);
+  getByKey(key:number);
+  getIndexByItem(item:T);
+  getIndexBykey(key:number);
+
+  isUndefined(arr_:Array<T>):boolean;
+
 }
 
-export interface IFactory{
-  createItem():IItem;
+export interface INodeCollection extends INode{
+  key:number;
+  name:string;
+  value:string;
+  parentKey:number;
+  collection:ICollection_<INodeCollection>;
 }
-
-//export interface IFactoryG<T extends IItem>{ createItem():T;}

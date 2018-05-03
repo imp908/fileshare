@@ -2,9 +2,11 @@
   {{cName}}
 </div>
 
-<div *ngIf="test==false" class="component">
-
+<div *ngIf="test==false" class="container" >
+  <Button>Add new</Button>
+  <hr>
   <div *ngFor="let qz_ of nodes_.collection.array">
       <app-item [node_]=qz_></app-item>
-  </div>  
+  </div>
+
 </div>

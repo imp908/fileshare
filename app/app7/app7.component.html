@@ -1,6 +1,12 @@
-<div *ngIf="test==true" class="component">
+<div *ngIf="test==true" class="container">
   app7 module
   {{cName}}
+  <app-test></app-test>
 </div>
-<app-list></app-list>
-<app-item></app-item>
+<div *ngIf="test==false" class="container">
+  <app-menu-edit></app-menu-edit>
+  <div class="two pre-scrollable">
+    <app-menu></app-menu>
+    <app-menu-list></app-menu-list>
+  </div>
+</div>
