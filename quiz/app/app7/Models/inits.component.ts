@@ -146,17 +146,33 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
       }
       return -1;
     }
+
+  isUndefined(arr_:Array<T>):boolean{
+    if(typeof(arr_)=='undefined'){
+      if(this.tolog){
+        ServiceCl.log("PrimitiveCollection array Undefined")
+      }
+      return true;
+    }
+    return false;
+  }
+
 }
 
 //parameter constructions
 
 class Node implements INode{
-  key:number=0;
+  key:number;
   name:string;
   value:string;
+
+  static _key:number;
+
   constructor(key_?:number,name_?:string, value_?:string)
   {
-    if(key_!=null){this.key=key_;}
+    if(key_!=null){Node._key=key_;}else{
+      if(Node._key!=null){Node._key+1;}else{Node._key=0;}
+    }
     if(name_!=null){this.name=name_;}
     if(value_!=null){this.value=value_;}
   }
@@ -363,20 +379,81 @@ export class NodeCollection extends Node{
   key:number=0;
   name:string;
   value:string;
+
+  parentKey:number;
+
   collection:ICollection_<INodeCollection>;
   constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>)
   {
     super(key_,name_,value_);
-    if(collection_!=null){this.collection=collection_;}else{this.collection=new Collection_<NodeCollection>();}
+    if(collection_!=null){this.collection=collection_;}
+    if(collection_===undefined){this.collection=new Collection_<NodeCollection>();}
+    if(collection_===null){this.collection=null;}
   }
 
 }
+
 export class Quiz extends NodeCollection{}
 export class Question extends NodeCollection{}
 export class Answer extends NodeCollection{}
 
+class ButtonAction {
+  actionType:string;
+  passedElementName:string;
+  passedOject:any;
+  constructor(at_:string,pen_?:string,obj_?:any){
+    this.actionType=at_;
+
+    this.passedElementName=""
+    if(pen_!=null){this.passedElementName=pen_}
+    if(pen_===null){this.passedElementName=null}
+
+    this.passedOject=null
+    if(obj_!=null){this.passedOject=obj_}
+
+  }
+}
+export class Button extends NodeCollection {
+  displayText:string;
+
+  clicked:boolean;
+
+  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+    ,displayText_?:string,clicked_?:boolean){
+    super(key_,name_,value_,collection_);
+    this.displayText="";
+    this.clicked=false;
+    if(displayText_!=null){
+      this.displayText=displayText_;
+    }
+    if(clicked_!=null){
+      this.clicked=clicked_;
+    }
+  }
+
+}
+export class itemButtons extends Button{
+
+    constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+      ,displayText_?:string,clicked_?:boolean){
+      super(key_,name_,value_,collection_,displayText_,clicked_);
+
+      this.collection.add(new Button(null,null,null,null,"Edit",false))
+      this.collection.add(new Button(null,null,null,null,"Delete",false))
+    }
+}
+export class menuButtons extends Button{
+
+    constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+      ,displayText_?:string,clicked_?:boolean){
+      super(key_,name_,value_,collection_,displayText_,clicked_);
+      this.collection.add(new Button(null,null,null,null,"Add",false))
+    }
+}
+
 
 export class ModelContainer{
+
   static nodesPassed_:NodeCollection;
   static nodeToEdit:NodeCollection;
 
@@ -384,25 +461,61 @@ export class ModelContainer{
   static QuestionToEdit:Question;
   static AnswerToEdit:Question;
 
-  @Output() static nodeEmitted = new EventEmitter<NodeCollection>();
+  static buttonClicked:Button;
+  static buttonAction:ButtonAction;
 
+  @Output() static nodeEmitted=new EventEmitter<NodeCollection>();
+  @Output() static nodeSaved=new EventEmitter();
+
+  static nodeSave(n_:NodeCollection){
+    ServiceCl.log(["nodeSave",n_,ModelContainer]);
+    if(n_ instanceof Answer)
+    {
+        let quizEditable:NodeCollection=ModelContainer.nodesPassed_.collection.getByItem(ModelContainer.QuizToEdit);
+        let questionEditable:NodeCollection=quizEditable.collection.getByItem(ModelContainer.QuestionToEdit);
+        let answerEditable:NodeCollection=questionEditable.collection.getByItem(ModelContainer.AnswerToEdit);
+        answerEditable=n_;
+        ServiceCl.log(["Answer",ModelContainer]);
+    }
+    if(n_ instanceof Question)
+    {
+        ServiceCl.log(["Question"]);
+    }
+    if(n_ instanceof Quiz)
+    {
+        ServiceCl.log(["Quiz"]);
+    }
+    ModelContainer.nodeSaved.emit();
+  }
   static nodeSelect(n_:NodeCollection){
     ModelContainer.nodeToEdit=n_;
+
+    ModelContainer.classDetect(n_);
+
+    ModelContainer.nodeEmitted.emit();
+    ServiceCl.log(["ModelContainer:",ModelContainer]);
+  }
+  static nodeDelete(n_:NodeCollection){
+
+  }
+  static classDetect(n_:NodeCollection){
     if(n_ instanceof Quiz){
       ServiceCl.log(["Quiz selected",n_]);
       ModelContainer.QuizToEdit=n_;
       ModelContainer.QuestionToEdit=null;
       ModelContainer.AnswerToEdit=null;
-      ModelContainer.nodeEmitted.emit(n_);
     }
     if(n_ instanceof Question){
       ServiceCl.log(["Question selected",n_]);
       ModelContainer.QuestionToEdit=n_;
       ModelContainer.AnswerToEdit=null;
-      ModelContainer.nodeEmitted.emit(n_);
     }
-    ServiceCl.log(["ModelContainer:",ModelContainer]);
+    if(n_ instanceof Answer){
+      ServiceCl.log(["Answer selected",n_]);
+      ModelContainer.AnswerToEdit=n_;
+    }
   }
+
 }
 
 export class Factory_{
@@ -574,7 +687,6 @@ export class Test{
         Factory_.answersCL(gn_)
         */
 
-
         for(var qt_ of col_.collection.array)
         {
           gn_=Math.floor(Math.random()*up)+lw;
@@ -619,6 +731,8 @@ export class Test{
       ServiceCl.log(["Item: ",new Item()]);
       ServiceCl.log(["ItemG: ",new ItemG()]);
       ServiceCl.log(["ItemCollection: ",new ItemCollection()]);
+
+      ServiceCl.log(new Button(1,"a","b",null,"button1",false));
       */
 
     }

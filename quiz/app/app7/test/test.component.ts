@@ -1,6 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {ServiceCl,Service_} from '../Services/services.component'
 import {Factory_,Quiz,Test,NodeCollection} from '../Models/inits.component'
+import {Button} from 'app/app7/Models/inits.component'
 
 @Component({
   selector: 'app-test',

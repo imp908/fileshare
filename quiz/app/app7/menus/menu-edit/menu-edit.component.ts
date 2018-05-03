@@ -1,8 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {ServiceCl,Service_} from '../Services/services.component'
-import {Test,NodeCollection,ModelContainer,Quiz,Question} from '../Models/inits.component'
-
-
+import {ServiceCl,Service_} from 'app/app7/Services/services.component'
+import {Test,NodeCollection,ModelContainer,Quiz,Question} from 'app/app7/Models/inits.component'
 
 @Component({
   selector: 'app-menu-edit',

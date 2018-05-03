@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {ServiceCl,Service_} from '../Services/services.component'
-import {Test,NodeCollection,ModelContainer} from '../Models/inits.component'
+import {ServiceCl,Service_} from 'app/app7/Services/services.component'
+import {Test,NodeCollection,ModelContainer} from 'app/app7/Models/inits.component'
 
 @Component({
   selector: 'app-menu',
@@ -20,7 +20,7 @@ export class MenuComponent implements OnInit {
   constructor(private service:Service_){
     //service.test=false;
     this.test=service.test;
-    this.cName=this.constructor.name;
+    this.cName=this.constructor.name;  
     this.genTest();
   }
   genTest(){

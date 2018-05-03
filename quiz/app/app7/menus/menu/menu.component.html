@@ -2,7 +2,8 @@
   {{cName}}
 </div>
 <div *ngIf="test==false">
-  <app-menu-edit></app-menu-edit>
-  <app-menu></app-menu>
-  <app-menu-list></app-menu-list>
+  <div *ngIf="nodesPassed_!=null">
+    <app-list [nodes_]=nodesPassed_></app-list>
+  </div>
+
 </div>
