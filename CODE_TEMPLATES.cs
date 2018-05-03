@@ -327,6 +327,10 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//JS	
 	//Json to html
 	http://www.json2html.com/
+	//clarity 
+	https://vmware.github.io/clarity/documentation/v0.11/get-started
+	//UX UI
+	https://blog.bitsrc.io/11-angular-component-libraries-you-should-know-in-2018-e9f9c9d544ff	
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
 	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708
