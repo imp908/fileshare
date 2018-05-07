@@ -16,12 +16,13 @@ import { MenuComponent } from './menus/menu/menu.component';
 import { MenuListComponent } from './menus/menu-list/menu-list.component';
 import { MenuEditComponent } from './menus/menu-edit/menu-edit.component';
 import { ClickComponent } from './buttons/click/click.component';
+import { ButtonComponent } from './buttons/button/button.component';
 
 @NgModule({
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
   ],
-  declarations:[App7Component, ListComponent, ItemComponent, TestComponent, MenuComponent, MenuListComponent, MenuEditComponent, ClickComponent],
+  declarations:[App7Component, ListComponent, ItemComponent, TestComponent, MenuComponent, MenuListComponent, MenuEditComponent, ClickComponent,ButtonComponent],
   bootstrap:[App7Component],
   providers:[Service_]
 })

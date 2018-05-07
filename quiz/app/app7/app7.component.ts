@@ -13,11 +13,13 @@ export class App7Component implements OnInit {
 
   constructor(private service:Service_){
       service.test=false;
-      service.toLog=true;
+      service.toLog=false;
+      ServiceCl.toLog=true;
       this.test=service.test;
       this.cName=this.constructor.name;
       service.log(service.test)
       service.log(this.test)
+      service.log(ServiceCl.toLog)
       service.log('Constructor : ' + this.constructor.name)
 
       Test.GO();

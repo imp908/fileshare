@@ -5,6 +5,7 @@ export interface INode{
   key:number;
   name:string;
   value:string;
+  typeName:string;
 }
 export interface ICollection_<T>{
   tolog:boolean;
@@ -22,7 +23,7 @@ export interface ICollection_<T>{
   getIndexBykey(key:number);
 
   isUndefined(arr_:Array<T>):boolean;
-
+  getType();
 }
 
 export interface INodeCollection extends INode{
@@ -31,4 +32,5 @@ export interface INodeCollection extends INode{
   value:string;
   parentKey:number;
   collection:ICollection_<INodeCollection>;
+  getType_();
 }

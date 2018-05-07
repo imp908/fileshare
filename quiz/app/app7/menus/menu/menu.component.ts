@@ -14,25 +14,13 @@ export class MenuComponent implements OnInit {
 
   nodesPassed_:NodeCollection;
 
-  nodeSelected_:NodeCollection;
-  nodesSelected_:NodeCollection;
-
   constructor(private service:Service_){
+    ServiceCl.log("Constructor: " + this.constructor.name);
     //service.test=false;
     this.test=service.test;
-    this.cName=this.constructor.name;  
-    this.genTest();
-  }
-  genTest(){
-    ModelContainer.nodesPassed_=Test.GenClasses(false,1,4);
-    this.nodesPassed_= ModelContainer.nodesPassed_;
-    ServiceCl.log(["nodesPassed_",this.nodesPassed_]);
+    this.cName=this.constructor.name;
   }
   ngOnInit(){
-    ModelContainer.nodeSaved.subscribe(s=>{
-      this.nodesPassed_=ModelContainer.nodesPassed_;
-      ServiceCl.log(["nodeSaved",this.nodesPassed_]);
-    });
+    ServiceCl.log("Inited: " +this.constructor.name);
   }
-
 }

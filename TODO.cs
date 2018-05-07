@@ -424,7 +424,16 @@ replace my.nspk with my.nspk2 to the same host
 			
 		
 			actual[
-			
+
+-> Detect current Nodecollection class type, to add new Items to empty collection
+->  Make editable instance of item <- to mmake it discardable
+	-> make converter from item to new
+
+-> Quiz Pass page 
+http://angular-data-grid.github.io/demo/bootstrap/multiple.html
+quiz with correct answers
+https://meduza.io/quiz/bublik-ili-prettsel
+	
 -> Model tree change to contain selected
 -> Save model tree
 -> http add
@@ -630,6 +639,18 @@ ConstructorForm.json
 				Question types: [radio, checkbox, + texbox], textbox, dropbox,pictures
 				export excel
 				{person}-[quested]->{quiz}
+				
+				quiz -> [
+					replayable: not saved but started again, 
+					anonimous: only answers counter, no person relation
+				]
+					questionarie -> [get answers only]
+					victorine -> [correct answer exists]
+				- > 
+				textbox -> textbox answer
+				checkbox -> several answers
+				radio button -> several answers, only one selected
+				dropbox rate -> several rated items with rate gap
 			]
 			Examples[
 				http://diletant.media/personality_test/test/39962349/

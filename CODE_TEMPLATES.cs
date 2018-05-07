@@ -27,7 +27,7 @@ namespace Parts{
 
 	//Usefull links
 	public void mostUsefullLinks()
-	{		
+	{
 		
 		https://sharpc.livejournal.com/67583.html
 		http://www.securitynewspaper.com/2015/10/15/how-to-scan-whole-internet-3-7-billion-ip-addresses-in-few-minutes/
@@ -5106,8 +5106,63 @@ html -> <childHtml (outEm)="method($event)">
 </div>
 			}
 			
+			TemplateDrawRowColumn{
+						
+  <div class="row">
+    <div class="col-sm-4" *ngFor="let bt_ of _buttons.collection.array">
+         <app-click [button_]="bt_" [obj_]="_obj"></app-click>
+    </div>
+  </div>
+			
+			}
+		
 		}
-	
+		
+		public void TipsAndTricks{
+			
+			generateTemplateIncolumns[
+			
+				When template draws in *ngFor block, to correctly placing in bootstrap columns
+				fake nested row must be inserted
+				
+				<row>
+					{{modelItem}}
+					
+					//nested template
+					<listTemplate>
+					
+						*//nested template code
+						<row>
+							<ng-container *ngFor>
+								<div class="col-sm">
+								</div>
+							</ng-container>
+						</row>
+					</listTemplate>
+				</row>
+			
+			]
+			
+			Css[
+				component based css is on component scope only
+				rogect scope css in main styles.css need to be placed 
+				
+				@import './assets/common.css';
+			]
+		
+			neutralPlaceholderForDOM[
+				<ng-container></ng-container>
+			]
+			
+			multiSubscription[
+				several instances of one Template, is subscribed to one action, would multiple it.
+				if several templates generated, all of them would be triggered with one action?
+				not "clicked" only.
+			]
+			
+			
+		}
+
 		
 	}
 	
@@ -5413,6 +5468,15 @@ export class serviceCl{
 		
 		]
 		
+		tipsandtricks[
+			cannotreturnTypeStringOnly[			
+				exists=>
+				a typeof b
+				a instanceof b 
+				not exists=>
+				return type, can only string return <= this.constructor.name
+			]
+		]
 	}
 	
 	
