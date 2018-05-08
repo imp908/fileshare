@@ -422,14 +422,15 @@ replace my.nspk with my.nspk2 to the same host
 			
 			TODO[
 			
-		
+
 			actual[
 
+-> remove events duplicates in edit-menu, edit existing and add new differ by flow
 -> Detect current Nodecollection class type, to add new Items to empty collection
 ->  Make editable instance of item <- to mmake it discardable
 	-> make converter from item to new
 
--> Quiz Pass page 
+-> Quiz Pass page
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
 quiz with correct answers
 https://meduza.io/quiz/bublik-ili-prettsel
@@ -654,6 +655,13 @@ ConstructorForm.json
 			]
 			Examples[
 				http://diletant.media/personality_test/test/39962349/
+				
+				CSS gradients
+				https://uigradients.com
+				
+				MDB //Boostrap material design
+				https://mdbootstrap.com/components/buttons/
+				
 			]
 			Description[
 			

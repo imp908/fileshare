@@ -4,7 +4,7 @@
 <ng-container *ngIf="test==false"  class="container editarea" id="menu_edit" >
   <ng-container *ngIf="nodeToEdit_!=null">
     <div class="row">
-       <input type="text" [(ngModel)]="nodeToEdit_.value" size="80" >
+       <input type="text" [(ngModel)]="nodeToEdit_.value" size="80" class="input" >
        <button class="btn btn-outline-primary" (click)="nodeSave(nodeToEdit_)">Save</button>
        <app-button [_buttons]="editButtons_" [_obj]="nodeToEdit_"></app-button>
     </div>

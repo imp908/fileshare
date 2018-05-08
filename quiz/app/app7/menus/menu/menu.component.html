@@ -1,7 +1,16 @@
 <div *ngIf="test==true" class="container">
   {{cName}}
 </div>
-<ng-container *ngIf="test==false" id="menu" class="item">
-  <app-menu-edit></app-menu-edit>
-  <app-menu-list></app-menu-list>
-</ng-container>
+
+  <ng-container *ngIf="test==false" id="menu" class="item">
+        <app-menu-edit></app-menu-edit>
+        <app-menu-list></app-menu-list>
+
+        <ng-container>
+          <div class="container" >
+            <div class="textarea gradback">
+            <h1>Here might be your awasome thoughts</h1>
+            </div>
+          </div>
+        </ng-container>
+  </ng-container>

@@ -207,8 +207,14 @@ usd\rub(62.01)/
 			https://www.xtrade.ru
 			https://www.etoro.com
 			https://www.investopedia.com
+			
+			
 		]
-
+		
+		crypto[
+			https://ru.m.bitcoinwiki.org/wiki/%D0%91%D0%B8%D1%80%D0%B6%D0%B8
+		]
+	
 	]
 	
 	//startups
@@ -305,6 +311,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 		https://codecraft.tv/courses/angular/http/http-with-observables/
 		https://medium.com/meduza-how-it-works/%D1%85%D0%BE%D1%87%D1%83-%D1%81%D0%B2%D0%BE%D0%B9-vpn-%D0%B7%D0%B0-5-%D0%BC%D0%B8%D0%BD%D1%83%D1%82-%D1%87%D1%82%D0%BE-%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-5581e536650a
 		https://medium.com/meduza-how-it-works/ddos-ab63424e595e
+		https://hackernoon.com/
 		
 	]	
 	
@@ -330,7 +337,9 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//clarity 
 	https://vmware.github.io/clarity/documentation/v0.11/get-started
 	//UX UI
-	https://blog.bitsrc.io/11-angular-component-libraries-you-should-know-in-2018-e9f9c9d544ff	
+	https://blog.bitsrc.io/11-angular-component-libraries-you-should-know-in-2018-e9f9c9d544ff
+	//bootstrap
+	https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
 	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708

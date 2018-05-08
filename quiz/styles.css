@@ -1,3 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import './assets/bootstrap.css';
 @import './assets/common.css';
+@import './assets/scrollbars.css';
+@import './assets/gradientscrollbars.css';
+@import './assets/buttons.css';
+@import './assets/grads.css';

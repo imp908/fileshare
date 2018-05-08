@@ -10,6 +10,8 @@ export interface INode{
 export interface ICollection_<T>{
   tolog:boolean;
   array:Array<T>;
+  type_:string;
+  
   add(item:T);
   delete(item:T);
   update(item:T);
@@ -24,6 +26,7 @@ export interface ICollection_<T>{
 
   isUndefined(arr_:Array<T>):boolean;
   getType();
+
 }
 
 export interface INodeCollection extends INode{
