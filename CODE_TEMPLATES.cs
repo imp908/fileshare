@@ -213,6 +213,13 @@ usd\rub(62.01)/
 		
 		crypto[
 			https://ru.m.bitcoinwiki.org/wiki/%D0%91%D0%B8%D1%80%D0%B6%D0%B8
+			
+			https://www.bloomberg.com/features/bitcoin-bulls-bears/
+			https://xapo.com/
+			
+			https://www.bloomberg.com/news/articles/2018-05-09/ex-goldman-trader-hires-former-rivals-to-build-a-crypto-empire
+			https://www.panteracapital.com/
+			
 		]
 	
 	]
@@ -4847,6 +4854,8 @@ $(document).ready(function(){
 		
 https://ng-bootstrap.github.io/#/getting-started
 https://angular.io/guide/setup-systemjs-anatomy
+//jquery include
+https://medium.com/@swarnakishore/how-to-include-and-use-jquery-in-angular-cli-project-592e0fe63176
 
 		]
 		

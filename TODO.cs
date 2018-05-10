@@ -425,10 +425,10 @@ replace my.nspk with my.nspk2 to the same host
 
 			actual[
 
--> remove events duplicates in edit-menu, edit existing and add new differ by flow
--> Detect current Nodecollection class type, to add new Items to empty collection
-->  Make editable instance of item <- to mmake it discardable
-	-> make converter from item to new
+-> parameters collection
+-> Quiz parameters
+-> Question parameters
+-> back post/get
 
 -> Quiz Pass page
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
@@ -438,9 +438,9 @@ https://meduza.io/quiz/bublik-ili-prettsel
 -> Model tree change to contain selected
 -> Save model tree
 -> http add
--> pass templates add 
+-> pass templates add
 -> pass http
-	
+
 	-> New model menu,list-menu,edit-menu added <- done
 	-> New model create templates rebuild <- done
 	
@@ -454,6 +454,12 @@ https://meduza.io/quiz/bublik-ili-prettsel
 	-> receive input <- done
 
 	-> print input on submit <- done
+	
+	<- done -> remove events duplicates in edit-menu, edit existing and add new differ by flow
+	<- done -> Detect current Nodecollection class type, to add new Items to empty collection
+	<- done ->  Make editable instance of item [ 
+		<- to mmake it discardable
+		<- done -> make converter from item to new]
 
 			]
 
@@ -664,7 +670,23 @@ ConstructorForm.json
 				
 			]
 			Description[
-			
+	//after git pull npm folder in parent application folder need to be installed 
+	npm install
+	
+	//for ng-bootstrap (ngbbootstrap) used for datepicker, toltips, dropdown
+	//https://github.com/ng-bootstrap/ng-bootstrap
+	npm install --save @ng-bootstrap/ng-bootstrap
+	
+	//for bootstrap css datepicker 
+	npm install jquery — save
+	npm install jquery jquery-ui --save
+	//+ bootstrap css in styles import
+	//add to angular-cli.json 
+	"scripts": [
+	"../node_modules/jquery/dist/jquery.min.js"
+	,"../node_modules/jquery-ui/jquery-ui.js"
+	]
+
   сейчас есть
   создание опросника из вопросов с вариантами ответов(
   checkbox один вариант,
