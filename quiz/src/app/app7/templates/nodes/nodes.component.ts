@@ -31,8 +31,8 @@ export class NodesComponent implements OnInit {
       $( "#datepicker" ).datepicker();
     } );
     */
-      ServiceCl.log(["jquery inited on document.ready "+$.fn.jquery]);
-      ServiceCl.log($("#datepicker"));
+      ServiceCl.log(["jquery inited on document.ready "+$.fn.jquery]);    
+
   }
 
 }
