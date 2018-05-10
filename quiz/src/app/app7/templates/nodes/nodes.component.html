@@ -1,0 +1,30 @@
+<ng-container *ngIf="test==true" class="container">
+  {{cName}}
+</ng-container>
+
+<ng-container *ngIf="((test==false) && (nodesPassed_!=null))">
+  <ng-container *ngFor="let item of nodesPassed_.collection.array">
+      <div class="row">
+        <div class="col-sm-2">
+          <a>{{item.name}}</a>
+        </div>
+        <div class="col-sm-8">
+            <ng-container *ngIf="item.cssType!=null">
+              <input type="{{item.cssType}}">
+            </ng-container>
+            <ng-container *ngIf="item.cssClass=='datepicker'">
+              <div class="row">
+              <app-datepicker-popup></app-datepicker-popup>
+              <app-timepicker></app-timepicker>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="item.cssClass=='gappicker'">
+              <div class="row">
+              <p>Date: <input type="text" id="datepicker"></p>
+              <app-timepicker></app-timepicker>
+              </div>
+            </ng-container>
+        </div>
+      </div>
+  </ng-container>
+</ng-container>
