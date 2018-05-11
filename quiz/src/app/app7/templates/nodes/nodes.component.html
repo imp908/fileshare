@@ -4,27 +4,52 @@
 
 <ng-container *ngIf="((test==false) && (nodesPassed_!=null))">
   <ng-container *ngFor="let item of nodesPassed_.collection.array">
+  <ng-container *ngIf="item.show!=false">
+
       <div class="row">
         <div class="col-sm-2">
-          <a>{{item.name}}</a>
+          <a>{{item.value}}</a>
+          {{item.cssType}}
         </div>
+
         <div class="col-sm-8">
-            <ng-container *ngIf="item.cssType!=null">
-              <input type="{{item.cssType}}">
+            <ng-container *ngIf="(item.cssType!=null)">
+
+              <ng-container *ngIf="((item.cssType!='checkbox') && (item.cssType!='text') && (item.cssType!='checkbox'))">
+
+                <input type="{{item.cssType}}">
+              </ng-container>
+              <ng-container *ngIf="item.cssType=='text'">
+                <input type="{{item.cssType}}" value="{{item.value}}">
+              </ng-container>
+              <ng-container *ngIf="item.cssType=='checkbox'">
+                  <input type="{{item.cssType}}" [checked]="item.valueVal" (click)="clicked_(item)">
+              </ng-container>
+
             </ng-container>
-            <ng-container *ngIf="item.cssClass=='datepicker'">
+
+            <ng-container *ngIf="item.templateClass=='datepicker'">
               <div class="row">
-              <app-datepicker-popup></app-datepicker-popup>
-              <app-timepicker></app-timepicker>
+                <div class="flex-container">
+                  <app-datepicker-popup></app-datepicker-popup>
+                </div>
               </div>
             </ng-container>
-            <ng-container *ngIf="item.cssClass=='gappicker'">
+            <ng-container *ngIf="item.templateClass=='timepicker'">
               <div class="row">
-              <p>Date: <input type="text" id="datepicker"></p>
-              <app-timepicker></app-timepicker>
+                <div class="flex-container">
+                  <app-timepicker></app-timepicker>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="item.templateClass=='gappicker'">
+              <div class="row">
+                <app-timepicker></app-timepicker>
               </div>
             </ng-container>
         </div>
       </div>
+
+  </ng-container>
   </ng-container>
 </ng-container>

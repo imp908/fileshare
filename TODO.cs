@@ -680,7 +680,9 @@ ConstructorForm.json
 	//for bootstrap css datepicker 
 	npm install jquery — save
 	npm install jquery jquery-ui --save
+	npm install bootstrap-datepicker --save 
 	//+ bootstrap css in styles import
+	
 	//add to angular-cli.json 
 	"scripts": [
 	"../node_modules/jquery/dist/jquery.min.js"

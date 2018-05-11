@@ -347,6 +347,9 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://blog.bitsrc.io/11-angular-component-libraries-you-should-know-in-2018-e9f9c9d544ff
 	//bootstrap
 	https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1
+	//primeng
+	https://www.primefaces.org/primeng/#/
+	
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
 	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708
@@ -5178,7 +5181,24 @@ html -> <childHtml (outEm)="method($event)">
 				not "clicked" only.
 			]
 			
+			JS_CSS_Libs[
+				tricky js include via .angular-cli.json block => scripts['assets/svg.js']
+				tricky import => import * as f from "assets/svg.js"
+				not all js functions visible from ng DOM components. vanila component nedded => <div> not <div *ngFor|*mgIf>
+				jquery inited, but tricky usage with component return $ => return $
+				multiple bootstrap libs more reality trick not angular => vanilla,ng,mdb [
+					https://getbootstrap.com ,
+					https://ng-bootstrap.github.io,
+					https://mdbootstrap.com
+				]
+				datetime pickers only in ng and very fucked up
+				glyphicons ignore event with fonts folder include
+			]
 			
+			typeAttributeBinding[
+				to get <input type="checkbox" checked>
+				<input type="{{item.cssType}}" [checked]="item.checked_">
+			]
 		}
 
 		
@@ -5497,7 +5517,24 @@ export class serviceCl{
 		]
 	}
 	
-	
+	public void TipsAndTricks{
+		
+		DOMevents{
+			
+			ClickVsMouseUp(
+			click will trigger MouseEvent and will intercept other KeyDown events.
+			if different actions on mouseclick and keybord click (enter for example ) expected=>
+				use mouseup
+				
+				//in this structure 
+				    <div class="input-group-append">
+						<input class="form-control" (keyup)="keyPressed($event)"
+						<button (mouseup/click)="selectToday($event)">Select Today</button>
+					</div>
+			
+			)
+		}
+	}
 	#endregion	
 		
 	#region Python
