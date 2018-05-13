@@ -425,8 +425,6 @@ replace my.nspk with my.nspk2 to the same host
 
 			actual[
 
--> parameters collection
--> Quiz parameters
 -> Question parameters
 -> back post/get
 
@@ -434,13 +432,16 @@ replace my.nspk with my.nspk2 to the same host
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
 quiz with correct answers
 https://meduza.io/quiz/bublik-ili-prettsel
-	
+
+-> change model to linked list	
 -> Model tree change to contain selected
 -> Save model tree
 -> http add
--> pass templates add
+-> pass templates add 
 -> pass http
-
+	
+	
+	
 	-> New model menu,list-menu,edit-menu added <- done
 	-> New model create templates rebuild <- done
 	
@@ -453,14 +454,23 @@ https://meduza.io/quiz/bublik-ili-prettsel
 	-> draw question DOM <- done
 	-> receive input <- done
 
-	-> print input on submit <- done
-	
-	<- done -> remove events duplicates in edit-menu, edit existing and add new differ by flow
-	<- done -> Detect current Nodecollection class type, to add new Items to empty collection
-	<- done ->  Make editable instance of item [ 
-		<- to mmake it discardable
-		<- done -> make converter from item to new]
+	-> print input on submit <- done					 
 
+	<- done -> remove events duplicates in edit-menu, edit existing and add new differ by flow
+<- done -> Detect current nested Nodecollection class type, to add new Items to empty collection 
+<- done -> Make editable instance of item [
+	<- done <- to mmake it discardable
+	<- done	-> make converter from item to new	
+	]
+	
+<- done -> parameters collection ItemParameters
+<- done -> QuizParameters
+<- done -> Collection sort asc|desc 
+<- done -> Node key init rep
+<- done -> ModelContainer checkToggle for itemparameter
+<- done -> ModelContainer show trigger for itemparameter
+<- done -> DatePicker select current date with mouseup 
+	
 			]
 
 ->
@@ -477,7 +487,8 @@ https://meduza.io/quiz/bublik-ili-prettsel
 	angular-schema-form.min.js,
 	https://github.com/json-schema-form/angular-schema-form/blob/master/docs/index.md#basic-usage
 ]
-	
+
+
 			]
 			Deployed[
 				FrontHost
@@ -493,7 +504,7 @@ https://meduza.io/quiz/bublik-ili-prettsel
 				Intranet
 
 			]
-			LogicExists[
+			LogicLegacy[
 				
 				FU[
 no relations in Orient;
@@ -515,7 +526,7 @@ InsertNewQuizData(typeof(QuizResult).Name, new QuizResult;
 					select from Question
 				]
 				
-				POCOs[
+				POCOsOld[
 
 QuizArr{
 					
@@ -639,7 +650,8 @@ C:\workflow\projects\Dev\gitLab\quiz\Intranet
 ConstructorSchema.json
 ConstructorForm.json
 					]
-					
+				
+				
 			]
 			WantedDesciption[
 				Quest type: NPS - баллы для департамента, "Затрудняюсь ответить" 
@@ -670,25 +682,27 @@ ConstructorForm.json
 				
 			]
 			Description[
-	//after git pull npm folder in parent application folder need to be installed 
-	npm install
-	
-	//for ng-bootstrap (ngbbootstrap) used for datepicker, toltips, dropdown
-	//https://github.com/ng-bootstrap/ng-bootstrap
-	npm install --save @ng-bootstrap/ng-bootstrap
-	
-	//for bootstrap css datepicker 
-	npm install jquery — save
-	npm install jquery jquery-ui --save
-	npm install bootstrap-datepicker --save 
-	//+ bootstrap css in styles import
-	
-	//add to angular-cli.json 
-	"scripts": [
-	"../node_modules/jquery/dist/jquery.min.js"
-	,"../node_modules/jquery-ui/jquery-ui.js"
-	]
+				I. install packages
+				//after git pull npm folder in parent application folder need to be installed 
+				npm install
 
+				//for ng-bootstrap (ngbbootstrap) used for datepicker, toltips, dropdown
+				//https://github.com/ng-bootstrap/ng-bootstrap
+				npm install --save @ng-bootstrap/ng-bootstrap
+
+				//for bootstrap css datepicker 
+				npm install jquery — save
+				npm install jquery jquery-ui --save
+				//+ bootstrap css in styles import
+				//add to angular-cli.json 
+				"scripts": [
+				"../node_modules/jquery/dist/jquery.min.js"
+				,"../node_modules/jquery-ui/jquery-ui.js"
+				
+				//ngx-bootstrap
+				
+			]
+	
   сейчас есть
   создание опросника из вопросов с вариантами ответов(
   checkbox один вариант,
@@ -716,6 +730,20 @@ ConstructorForm.json
   }
   
   
+			]
+			LogicActual[
+				INode,Icollection<INode> ,INodeCollection
+				./Models/POCO.ts
+								
+				ItemParameter:NodeCollection{					
+					cssType (textbox,checkbox,radioButton)=> <Input type="">
+					value,valueType => rresult element value (true,false,datetime,checked)
+					templateClass => to detect in template : 
+						datetime fields for datetimepicker draw
+						gappicker for gap if repidet draw
+					cssClass => 
+				}
+				
 			]
 		
 		]
