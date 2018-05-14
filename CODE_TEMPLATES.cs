@@ -214,7 +214,7 @@ usd\rub(62.01)/
 	
 	]
 	
-		 //startups
+	 //startups
 	[
 	
 	http://www.selpo.me/
@@ -338,6 +338,25 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//primeng
 	https://www.primefaces.org/primeng/#/ 
 	
+	TOREAD_SORT
+	//JS to Typescript
+	https://blog.appdynamics.com/engineering/8-steps-migrating-javascript-typescript/
+	//JS modules
+	https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
+	//Common JS 
+	http://requirejs.org/docs/start.html
+	//webpack
+	https://webpack.js.org/guides/installation/
+	//TS modules
+	https://www.typescriptlang.org/docs/handbook/tsconfig-json.html
+	//avoid multiple subscription
+	https://medium.com/@2muchcoffee/how-to-avoid-multiple-subscription-in-angular-2-component-ce50bc21991b
+	//datasharing 
+	https://www.lucidchart.com/techblog/2016/11/08/angular-2-and-observables-data-sharing-in-a-multi-view-application/
+	//concurent dataloading 
+	https://www.metaltoad.com/blog/angular-2-http-observables-and-concurrent-data-loading
+
+
 	//CSS
 	https://css-tricks.com/snippets/html/glyphs/
 	//character code
