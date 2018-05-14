@@ -5135,28 +5135,16 @@ html -> <childHtml (outEm)="method($event)">
 		<button class="dropdown-item">Something else is here</button>
 	</div>
 </div>
-
-			}		
-			TemplateDrawRowColumn{
-								
-			  <div class="row">
-				<div class="col-sm-4" *ngFor="let bt_ of _buttons.collection.array">
-					 <app-click [button_]="bt_" [obj_]="_obj"></app-click>
-				</div>
-			  </div>
-			
 			}
-			BindModelValueToFormInputs{
-			//cssType-> input type attribute
 			
-			//textbox
-			  <ng-container *ngIf="item.cssType=='text'">
-				<input type="{{item.cssType}}" [(ngModel)]="item.valueItem" [value]="item.valueItem">
-			  </ng-container>
-			//checkbox 
-			  <ng-container *ngIf="item.cssType=='checkbox'">
-				  <input type="{{item.cssType}}" [(ngModel)]="item.valueItem" [checked]="item.valueItem" (click)="clicked_(item)">
-			  </ng-container>
+	  TemplateDrawRowColumn{
+						
+  <div class="row">
+    <div class="col-sm-4" *ngFor="let bt_ of _buttons.collection.array">
+         <app-click [button_]="bt_" [obj_]="_obj"></app-click>
+    </div>
+  </div>
+			
 			}
 		}
 	
@@ -5222,7 +5210,6 @@ html -> <childHtml (outEm)="method($event)">
 			]
 			
 		}
-	
 	}
 	
 	public void TypeScript
@@ -5261,272 +5248,7 @@ let myCol2: { <X>(arg:Array<X>):Array<X> } =PrimitiveCollection_;
 //call via interface
 let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 			
-		]			
-			
-Generic classes[
-//---------------------------------------------------------------
-
-export interface IprimitiveItem{
-  key:number;
-}
-export interface IPrimitiveCollection<T extends IprimitiveItem>{
-  array:Array<T>;
-  add(item:T);
-  delete(item:T);
-  update(item:T);
-  addUpdate(item:T);
-  addUpdateArr(items:Array<T>);
-}
-
-class PrimitiveItem{
-  key:number;
-  name:string="";
-  value?:string;
-}
-
-//generic Array<T>
-export class PrimitiveCollection<T extends IprimitiveItem>{
-  array:Array<T>;
-
-  constructor(){
-      this.array=new Array<T>();
-  }
-
-  add(item:T){
-    var max=0;
-    var toPsuh:boolean=false;
-
-    if(typeof(this.array)=='undefined'){
-      serviceCl.log("PrimitiveCollection array Undefined")
-      this.array=Array<T>();
-      toPsuh=true;
-    }else{
-
-      max=this.getMaxKey();
-      serviceCl.log(["PrimitiveCollection array defined. max = ",max])
-
-      if(item.key==null){
-          max+=1;
-          toPsuh=true;
-          serviceCl.log(["item has no key. Max=  ",max])
-      }else{
-        serviceCl.log(["item has key: ",item.key])
-
-        if((this.getByItem(item)==null)){
-          max+=1;
-          toPsuh=true;
-          serviceCl.log(["item not exists. max= ",max])
-        }
-
-      }
-
-    }
-
-    if(toPsuh===true){
-      item.key=max;
-      this.array.push(item);
-    }
-    return item;
-  }
-
-  delete(item:T){
-    if(typeof(this.array)!=null){
-      var index_:number=this.getIndexByItem(item)
-      if(index_!=-1){
-        this.array.splice(index_,1);
-        return this.array
-      }
-    }
-    return null;
-  }
-  update(item:T){
-    if((typeof(this.array)!=null)){
-      var index_=this.array.findIndex(s=>s.key===item.key);
-      if(index_!=-1){
-          this.array[-1]=item;
-          return this.array[-1];
-      }
-    }
-    return null;
-  }
-
-  addUpdate(item:T){
-    if((typeof(this.array)!=null)){
-      var index_=this.array.findIndex(s=>s.key===item.key);
-      serviceCl.log(index_);
-        if(index_!=null){
-          serviceCl.log("Add");
-          this.add(item);
-        }else{
-          serviceCl.log("Update");
-          this.update(item);
-
-        }
-    }
-  }
-
-  addUpdateArr(items:Array<T>){
-    for(var item of items){
-      this.addUpdate(item);
-    }
-  }
-
-  getMaxKey(){
-    if(typeof(this.array)!=null){
-      var max=Math.max.apply(Math,this.array.map(function(o){return o.key;}))
-      if(max!=null){
-        return max;
-      }
-    }
-    return null;
-  }
-  getByItem(item:T){
-    if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===item.key);
-      if(index_!=-1){
-        return this.array[index_];
-      }
-    }
-    return null;
-  }
-  getByKey(key:number){
-    if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===key);
-      if(index_!=-1){
-        return this.array[index_];
-      }
-    }
-    return null;
-  }
-  getIndexByItem(item:T){
-    if(typeof(this.array)!=null){
-      return this.array.findIndex(s=>s.key===item.key);
-    }
-    return -1;
-  }
-  getIndexBykey(key:number){
-    if(typeof(this.array)!=null){
-      return this.array.findIndex(s=>s.key===key);
-    }
-    return -1;
-  }
-}
-
-//Inheritance 
-export class Quiz extends PrimitiveItem{
-
-  dateFrom:Date;
-  dateTo:Date;
-  questions_: Qt[]=[];
-  selectedQuestion:Qt=null;
-  types: answerTypes=new answerTypes();
-
-  created:Date;
-  changed:Date;
-  GUID:string;
-
-  constructor(key_?:number,name_?:string,dateFrom_?:Date,dateTo_?:Date,qt_?:Qt[]){
-    super();
-    if(name_!=null){
-      this.name=name_
-    }
-    if(key_!=null){
-      this.key=key_;
-    }
-    if(qt_!=null){
-      this.questions_=qt_;
-    }
-  };
-
-  newQuestionInit(){
-    return new Qt(-1,"","",true);
-  }
-
-  addQuestion(a:Qt){
-    var arr:Qt[]=[a];
-    this.addQuestions(arr);
-  }
-  addQuestions(a:Qt[]){
-    serviceCl.log("addQuestions")
-    var max:number=0;
-
-    for(var i=0;i<a.length;i++){
-
-      //IF exists
-      if((this.questions_!=null) && (this.questions_.length>0)){
-        var q=getItemFromObjArr(this.questions_,"key",a[i].key);
-        serviceCl.log(q);
-
-        if(q!=null){
-          //this.deleteQuestion(q);
-          this.updateQuestion(q,a[i])
-          serviceCl.log(["exists for",a[i]])
-        }else{
-          max=getMaxID(this.questions_,'key');
-          serviceCl.log(["not exists with max: ",max]);
-          a[i].key=max+1;
-          serviceCl.log("max key: ");serviceCl.log(a[i].key);
-          this.questions_.push(a[i]);
-        }
-
-      }//if NOT exists PUSH
-      else{
-        a[i].key=max+1;
-        serviceCl.log("max key: ");serviceCl.log(a[i].key);
-        this.questions_.push(a[i]);
-      }
-    }
-  }
-
-  deleteQuestion(a:Qt){
-    var arr:Qt[]=[a];
-    this.deleteQuestions(arr);
-  }
-  deleteQuestions(a:Qt[]){
-    serviceCl.log("deleteQuestions")
-    for(var i =0;i<a.length;i++){
-      this.questions_.splice(findIndex_(this.questions_,'key',a[i].key),1);
-    }
-  }
-
-  updateQuestion(a:Qt,b:Qt){
-    serviceCl.log(["updateQuestion item with ",a," ",b])
-    a=b;
-  }
-
-}
-
-//interface initialization, binding, class creation
-var col:IPrimitiveCollection<Quiz>=new PrimitiveCollection<Quiz>();
-col.addUpdateArr([new Quiz(0,"name"),new Quiz(1,"name2")])
-  		
-		
-//Service class with toLog booolesan console log and generators
-//---------------------------------------------------------------
-@Injectable()
-export class serviceCl{
-
-  public static toLog:boolean=true;
-  public static test:boolean=true;
-
-  public static log(n:any){
-    if(serviceCl.toLog===true){
-      console.log(n);
-    }
-  }
-    test(){
-    var ln=
-    "--------------------------------------------------------------------";
-    serviceCl.log(ln)
-
-  
-
-    serviceCl.log(ln)
-  }
-
-}
-		
-		]
+		]						
 		
 		tipsandtricks[
 			cannotreturnTypeStringOnly[			

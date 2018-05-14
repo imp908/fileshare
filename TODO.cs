@@ -425,8 +425,9 @@ replace my.nspk with my.nspk2 to the same host
 
 			actual[
 
--> add correct two way binding to node.html checkboxes, datetime
--> add Form nad Subbmit to menu-edit.html
+-> repair click need 
+	-> try event ignore issue to repair 
+
 -> Question parameters
 -> back post/get
 
@@ -441,22 +442,21 @@ https://meduza.io/quiz/bublik-ili-prettsel
 -> http add
 -> pass templates add 
 -> pass http
-	
-	
-	
-	-> New model menu,list-menu,edit-menu added <- done
-	-> New model create templates rebuild <- done
-	
-	-> drop down question type model <- done
-	-> question type init <- done
-	-> dropdown select event DOM change <- done
 
-	-> questions model add <- done
+
+	<- done -> New model menu,list-menu,edit-menu added 
+	<- done -> New model create templates rebuild 
+	
+	<- done -> drop down question type model
+	<- done -> question type init
+	<- done -> dropdown select event DOM change
+
+	 <- done -> questions model add
 	{textbox,radio button,checkbox{pic realization},dropdowns to names}
-	-> draw question DOM <- done
-	-> receive input <- done
+	 <- done -> draw question DOM
+	 <- done-> receive input
 
-	-> print input on submit <- done					 
+	 <- done-> print input on submit					 
 
 	<- done -> remove events duplicates in edit-menu, edit existing and add new differ by flow
 <- done -> Detect current nested Nodecollection class type, to add new Items to empty collection 
@@ -472,7 +472,9 @@ https://meduza.io/quiz/bublik-ili-prettsel
 <- done -> ModelContainer checkToggle for itemparameter
 <- done -> ModelContainer show trigger for itemparameter
 <- done -> DatePicker select current date with mouseup 
-	
+<- done -> add correct two way binding to node.html checkboxes, datetime
+<- done with static ModelContainer fields.-> add Form nad Subbmit to menu-edit.html
+
 			]
 
 ->
