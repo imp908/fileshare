@@ -5135,16 +5135,28 @@ html -> <childHtml (outEm)="method($event)">
 		<button class="dropdown-item">Something else is here</button>
 	</div>
 </div>
+
+			}		
+			TemplateDrawRowColumn{
+								
+			  <div class="row">
+				<div class="col-sm-4" *ngFor="let bt_ of _buttons.collection.array">
+					 <app-click [button_]="bt_" [obj_]="_obj"></app-click>
+				</div>
+			  </div>
+			
 			}
+			BindModelValueToFormInputs{
+			//cssType-> input type attribute
 			
-	  TemplateDrawRowColumn{
-						
-  <div class="row">
-    <div class="col-sm-4" *ngFor="let bt_ of _buttons.collection.array">
-         <app-click [button_]="bt_" [obj_]="_obj"></app-click>
-    </div>
-  </div>
-			
+			//textbox
+			  <ng-container *ngIf="item.cssType=='text'">
+				<input type="{{item.cssType}}" [(ngModel)]="item.valueItem" [value]="item.valueItem">
+			  </ng-container>
+			//checkbox 
+			  <ng-container *ngIf="item.cssType=='checkbox'">
+				  <input type="{{item.cssType}}" [(ngModel)]="item.valueItem" [checked]="item.valueItem" (click)="clicked_(item)">
+			  </ng-container>
 			}
 		}
 	
@@ -5210,6 +5222,7 @@ html -> <childHtml (outEm)="method($event)">
 			]
 			
 		}
+	
 	}
 	
 	public void TypeScript
@@ -5250,7 +5263,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 			
 		]			
 			
-//Generic classes
+Generic classes[
 //---------------------------------------------------------------
 
 export interface IprimitiveItem{
@@ -5486,8 +5499,7 @@ export class Quiz extends PrimitiveItem{
 //interface initialization, binding, class creation
 var col:IPrimitiveCollection<Quiz>=new PrimitiveCollection<Quiz>();
 col.addUpdateArr([new Quiz(0,"name"),new Quiz(1,"name2")])
-  
-		]		
+  		
 		
 //Service class with toLog booolesan console log and generators
 //---------------------------------------------------------------

@@ -1,6 +1,6 @@
 import { Component, OnInit ,Input} from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
-import {Test,ItemParameter,ModelContainer} from 'app/app7/Models/inits.component'
+import {Test,ItemParameter,QuizParameter,ModelContainer,NodeCollection,Quiz} from 'app/app7/Models/inits.component'
 
 import { FormsModule }   from '@angular/forms';
 
@@ -13,22 +13,35 @@ export class NodesComponent implements OnInit {
   cName:string;
   test: boolean;
 
-  @Input() nodesPassed_:ItemParameter;
+  @Input() nodePassed_:NodeCollection;
+
+  items:ItemParameter;
 
   constructor(private service:Service_) {
-    ServiceCl.log(["Constructor: " + this.constructor.name,this.nodesPassed_]);
+    this.bindItems();
     this.test=service.test;
+    ServiceCl.log(["Constructor: " + this.constructor.name,this.nodePassed_]);
   }
 
   ngOnInit() {
-    ServiceCl.log(["Inited: " + this.constructor.name,this.nodesPassed_]);
-  }
+    this.bindItems();
+    ServiceCl.log(["Inited: " + this.constructor.name,this.nodePassed_]);
 
+  }
+  bindItems(){
+    if((this.nodePassed_!=null) &&
+    (this.nodePassed_ instanceof Quiz)){
+      this.items=this.nodePassed_.itemParameter;
+    }
+  }
   clicked_(n:ItemParameter){
-      ServiceCl.log(["clicked_: " , n,this.nodesPassed_]);
-      let a=this.nodesPassed_.collection.getByItem(n);
-      ServiceCl.log(["valueVal: " , a]);
-      a.valueVal=!n.valueVal;
-      ModelContainer.changeShowStatus("GapPicker");
+    ServiceCl.log(["clicked_: " , this.items,n]);
+    ModelContainer.checkedToggle(this.nodePassed_,n);
+    if(this.items instanceof QuizParameter){
+      this.items.conditionsCheck();
+    }
+    /* if(n.name=="Replayabe"){
+      this.items=ModelContainer.changeShowStatus("GapPicker");
+    }*/
   }
 }

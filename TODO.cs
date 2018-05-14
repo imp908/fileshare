@@ -425,6 +425,8 @@ replace my.nspk with my.nspk2 to the same host
 
 			actual[
 
+-> add correct two way binding to node.html checkboxes, datetime
+-> add Form nad Subbmit to menu-edit.html
 -> Question parameters
 -> back post/get
 

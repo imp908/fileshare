@@ -1,7 +1,7 @@
-<ngb-timepicker [(ngModel)]="time" [seconds]="seconds" [meridian]="meridian"></ngb-timepicker>
+<ngb-timepicker [(ngModel)]="time" [seconds]="seconds_" [meridian]="meridian_"></ngb-timepicker>
 <button class="btn btn-sm btn-outline-{{seconds ? 'success' : 'danger'}}" (click)="toggleSeconds()">
-    Seconds - {{seconds ? "ON" : "OFF"}}
+    Seconds - {{seconds_ ? "ON" : "OFF"}}
 </button>
 <button class="btn btn-sm btn-outline-{{meridian ? 'success' : 'danger'}}" (click)="toggleMeridian()">
-    Meridian - {{meridian ? "ON" : "OFF"}}
+    Meridian - {{meridian_ ? "ON" : "OFF"}}
 </button>

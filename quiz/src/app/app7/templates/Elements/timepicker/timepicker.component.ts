@@ -11,16 +11,16 @@ export class TimepickerComponent implements OnInit {
 
   time: NgbTimeStruct={hour: 13, minute: 30, second: 30};
 
-  seconds = true;
-  meridian = true;
+  seconds_ = true;
+  meridian_ = true;
 
   toggleMeridian() {
-    this.meridian = !this.meridian;
+    this.meridian_ = !this.meridian_;
     console.log(this.time);
   }
 
   toggleSeconds() {
-    this.seconds = !this.seconds;
+    this.seconds_ = !this.seconds_;
     console.log(this.time);
   }
 

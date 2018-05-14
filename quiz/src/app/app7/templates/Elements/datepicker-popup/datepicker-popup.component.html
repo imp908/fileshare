@@ -3,7 +3,7 @@
   <pre>Model: {{ model | json }}</pre>
 </ng-container>
 
-
+<ng-container *ngIf="test==false">
 <form class="form-inline">
   <div class="form-group">
     <div class="input-group">
@@ -13,8 +13,12 @@
         <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
           <img src="assets/img/calendar-icon.svg" style="width: 1.2rem; height: 1rem; cursor: pointer; border-radius: 15px;"/>
         </button>
-        <span class="glyphicon glyphicon-asterisk"></span>
+
+        <button class="btn btn-sm btn-outline-primary mr-2" (mouseup)="selectToday()"(click)="changed()">Select Today</button>
+        <!--<span class="glyphicon glyphicon-asterisk"></span>-->
+        <!--<span class="glyphicons glyphicons-glass"></span>-->
       </div>
     </div>
   </div>
 </form>
+</ng-container>
