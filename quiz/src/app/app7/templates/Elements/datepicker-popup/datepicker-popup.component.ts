@@ -12,7 +12,7 @@ export class DatepickerPopupComponent implements OnInit {
   cName:string;
   test: boolean;
 
-  itemParameter_:ItemParameter;
+  @Input() itemParameter_:ItemParameter;
   startDate_:Date;
   model:NgbDateStruct;
 
@@ -25,26 +25,38 @@ export class DatepickerPopupComponent implements OnInit {
   }
 
   ngOnInit() {
-
     ModelContainer.nodeEmitted.subscribe(s=>{
-      ServiceCl.log(['nodeEmitted Rreceived: ' + this.constructor.name, s])
+      ServiceCl.log(['nodeEmitted Received : ' + this.constructor.name,s])
+    });
+    this.dateToModel();
+
+    /*
+    ModelContainer.nodeEmitted.subscribe(s=>{
+        ServiceCl.log(['nodeEmitted Rreceived: ' + this.constructor.name, s])
       if(s instanceof Quiz){
+
         let a=s.itemParameter.collection.array.find(s=>s.name=="StartDate");
         ServiceCl.log(['ItemParameter StartDate: ' + this.constructor.name, a])
         if(a instanceof ItemParameter){
           this.itemParameter_=a;
         }
-      }
-      if((this.itemParameter_!=null)){
-        if((this.itemParameter_.valueVal!=null)){
-          this.dateToModel();
+
+          if((this.itemParameter_!=null)){
+            if((this.itemParameter_.valueVal!=null)){
+              this.dateToModel();
+            }
+          }
+
         }
-      }
-    });
+      });
+
+    */
 
     ServiceCl.log(['Inited : ' + this.constructor.name, this.itemParameter_,this.model])
   }
-
+  navigate_($event){
+        ServiceCl.log(["navigate_ ",$event])
+  }
   changed(){
     this.modelToItemDate();
     ServiceCl.log(["changed ",this.model,this.itemParameter_])
@@ -53,16 +65,23 @@ export class DatepickerPopupComponent implements OnInit {
     ServiceCl.log(["toggled ",this.model])
   }
   selectToday(){
-    this.model={year: new Date().getFullYear(), month: new Date().getMonth() + 1, day: new Date().getDate()};
+    this.model={year: new Date().getFullYear(), month: new Date().getMonth()+1, day: new Date().getDate()};
     this.modelToItemDate();
     ServiceCl.log(["selectToday ",this.model,this.itemParameter_.valueVal])
   }
   modelToItemDate(){
+      if(this.model!=null){
+        this.itemParameter_.valueVal=new Date(this.model.year,this.model.month-1,this.model.day,0,0,0);
+      }
       ServiceCl.log(["modelToItemDate ",this.model,this.itemParameter_])
-      this.itemParameter_.valueVal=new Date(this.model.year,this.model.month+1,this.model.day,0,0,0);
   }
   dateToModel(){
+      if((this.itemParameter_!=null) && (this.itemParameter_.valueVal!=null)){
+        this.model={year: this.itemParameter_.valueVal.getFullYear(), month: this.itemParameter_.valueVal.getMonth()+1, day:this.itemParameter_.valueVal.getDate()};
+      }
       ServiceCl.log(["dateToModel ",this.model,this.itemParameter_])
-      this.model={year: this.itemParameter_.valueVal.getFullYear(), month: this.itemParameter_.valueVal.getMonth(), day:this.itemParameter_.valueVal.getDate()};
+  }
+  modelChange($event){
+    ServiceCl.log(["modelChange ",$event])
   }
 }

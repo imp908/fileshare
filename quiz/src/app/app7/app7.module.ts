@@ -23,13 +23,17 @@ import { NodesComponent } from './templates/nodes/nodes.component';
 import { DatepickerPopupComponent } from './templates/Elements/datepicker-popup/datepicker-popup.component';
 import { TimepickerComponent } from './templates/Elements/timepicker/timepicker.component';
 import { NodeComponent } from './templates/nodes/node/node.component';
+import { GappickerNgComponent } from './templates/Elements/gappicker-list/gappicker-ng/gappicker-ng.component';
+import { GappickerListComponent } from './templates/Elements/gappicker-list/gappicker-list.component';
+import { GappickerDropComponent } from './templates/Elements/gappicker-list/gappicker-drop/gappicker-drop.component';
+import { TestinputComponent } from './test/testinput/testinput.component';
 
 @NgModule({
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
     ,NgbModule.forRoot()
   ],
-  declarations:[App7Component, ListComponent, ItemComponent, TestComponent, MenuComponent, MenuListComponent, MenuEditComponent, ClickComponent,ButtonComponent, NodesComponent, DatepickerPopupComponent, TimepickerComponent, NodeComponent],
+  declarations:[App7Component, ListComponent, ItemComponent, TestComponent, MenuComponent, MenuListComponent, MenuEditComponent, ClickComponent,ButtonComponent, NodesComponent, DatepickerPopupComponent, TimepickerComponent, NodeComponent, GappickerNgComponent, GappickerListComponent, GappickerDropComponent, TestinputComponent],
   bootstrap:[App7Component],
   providers:[Service_]
 })

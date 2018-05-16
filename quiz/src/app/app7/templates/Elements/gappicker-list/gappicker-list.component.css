@@ -1,0 +1,10 @@
+/*for git not empty file*/
+.shlistrow{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+.shlistcol{
+  display: flex;
+  flex-direction: column;
+}

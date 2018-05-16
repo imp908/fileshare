@@ -337,6 +337,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1
 	//primeng
 	https://www.primefaces.org/primeng/#/ 
+	lor.space/gradient?ori=to+right+top&hex=%23153669&hex2=%231ECFE0&sub=1
 	
 	TOREAD_SORT
 	//JS to Typescript
@@ -364,6 +365,10 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	http://www.mauvecloud.net
 	//custom checkboxes 
 	https://codepen.io/arpitnj/pen/oCAqa
+	//gradients 
+	https://mycolor.space/gradient?ori=to+right+top&hex=%23153669&hex2=%231ECFE0&sub=1
+	//svg
+	https://bennettfeely.com/clippy/
 	
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition

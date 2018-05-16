@@ -20,6 +20,7 @@ export class NodesComponent implements OnInit {
   constructor(private service:Service_) {
     this.bindItems();
     this.test=service.test;
+    this.cName=this.constructor.name;
     ServiceCl.log(["Constructor: " + this.constructor.name,this.nodePassed_]);
   }
 

@@ -1,5 +1,14 @@
 <div *ngIf="test==true" class="component">
   {{cName}}
+  <div class="form-group">
+    <app-gappicker-list [itemValueArr_]="testGapPickerParameter_.itemValueArr_" [itemValueArrDrop_]="testGapPickerParameter_.itemValueArrDrop_"></app-gappicker-list>
+    <button (click)="click_($event)">CL</button>
+  </div>
+
+<app-testinput></app-testinput>
+
+
+
 </div>
 <div *ngIf="test==false">
   <app-menu-edit></app-menu-edit>

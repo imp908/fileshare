@@ -422,20 +422,26 @@ replace my.nspk with my.nspk2 to the same host
 			
 			TODO[
 			
-
 			actual[
 
--> repair click need 
-	-> try event ignore issue to repair 
+-> Create NodeCollection inherited model for gap picker
+-> Reqrite ItemParameter form controls generation for new model 
+-> more then 3 events listen ignore issue to repair 
 
 -> Question parameters
 -> back post/get
 
 -> Quiz Pass page
+exmpls[
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
 quiz with correct answers
 https://meduza.io/quiz/bublik-ili-prettsel
-
+]
+TnT[
+add image 
+var image = document.createElement('img');
+image.src = window.URL.createObjectURL(curFiles[i]);
+]
 -> change model to linked list	
 -> Model tree change to contain selected
 -> Save model tree
@@ -443,7 +449,7 @@ https://meduza.io/quiz/bublik-ili-prettsel
 -> pass templates add 
 -> pass http
 
-
+	
 	<- done -> New model menu,list-menu,edit-menu added 
 	<- done -> New model create templates rebuild 
 	
@@ -452,7 +458,7 @@ https://meduza.io/quiz/bublik-ili-prettsel
 	<- done -> dropdown select event DOM change
 
 	 <- done -> questions model add
-	{textbox,radio button,checkbox{pic realization},dropdowns to names}
+		{textbox,radio button,checkbox{pic realization},dropdowns to names}
 	 <- done -> draw question DOM
 	 <- done-> receive input
 
@@ -467,13 +473,16 @@ https://meduza.io/quiz/bublik-ili-prettsel
 	
 <- done -> parameters collection ItemParameters
 <- done -> QuizParameters
-<- done -> Collection sort asc|desc 
+<- done -> Collection sort asc|desc
 <- done -> Node key init rep
 <- done -> ModelContainer checkToggle for itemparameter
 <- done -> ModelContainer show trigger for itemparameter
 <- done -> DatePicker select current date with mouseup 
 <- done -> add correct two way binding to node.html checkboxes, datetime
 <- done with static ModelContainer fields.-> add Form nad Subbmit to menu-edit.html
+<- done with css display atr, mouseup and ngModelChange-> repair click need
+<- done -> new GapPicker
+<- done -> Input most usefull types test (textbox,radio,check,date,color,range,files) with NgBinding,value display and form submit model + template
 
 			]
 

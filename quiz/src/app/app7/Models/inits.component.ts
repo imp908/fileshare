@@ -494,7 +494,9 @@ export class ItemParameter extends NodeCollection{
       this.cssType=null;
       this.templateClass="gappicker";
     }
+
   }
+
 }
 export class QuizParameter extends ItemParameter{
 
@@ -525,13 +527,26 @@ export class QuizParameter extends ItemParameter{
         let ii=this.collection.array.find(s=>s.name=="GapPicker");
           if( ii instanceof ItemParameter){
             ii.show=i.valueVal;
-            console.log("conditionsCheck: ",i,ii)
           }
         }
 
     }
 }
 
+export class FormControlParameter extends NodeCollection{
+  valueType:string;
+}
+
+class ItemValue {key:string;value:number;min:number;max:number}
+class ItemDrop {key:string;values:[{value:number;checked:boolean}]}
+export class TestGapPickerParameter{
+  itemValueArr_:Array<ItemValue>;
+  itemValueArrDrop_:Array<ItemDrop>;
+  constructor(itemValue_:[ItemValue],itemDrop:[ItemDrop]){
+    this.itemValueArr_=itemValue_;
+    this.itemValueArrDrop_=itemDrop;
+  }
+}
 
 export class Quiz extends NodeCollection{
 

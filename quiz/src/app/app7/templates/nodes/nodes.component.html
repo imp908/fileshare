@@ -12,8 +12,8 @@
         </div>
 
         <div class="col-sm-8">
-            <ng-container *ngIf="(item.cssType!=null)">
 
+            <ng-container *ngIf="(item.cssType!=null)">
               <ng-container *ngIf="((item.cssType!='checkbox') && (item.cssType!='text') && (item.cssType!='checkbox'))">
                 <input type="{{item.cssType}}" [(ngModel)]="item.valueVal">
               </ng-container>
@@ -23,16 +23,16 @@
               <ng-container *ngIf="item.cssType=='checkbox'">
                   <input type="{{item.cssType}}" [checked]="item.valueVal" (click)="clicked_(item)">
               </ng-container>
-
             </ng-container>
 
             <ng-container *ngIf="item.templateClass=='datepicker'">
               <div class="row">
                 <div class="flex-container">
-                  <app-datepicker-popup></app-datepicker-popup>
+                  <app-datepicker-popup [itemParameter_]="item"></app-datepicker-popup>
                 </div>
               </div>
             </ng-container>
+
             <ng-container *ngIf="item.templateClass=='timepicker'">
               <div class="row">
                 <div class="flex-container">
@@ -40,11 +40,17 @@
                 </div>
               </div>
             </ng-container>
+
             <ng-container *ngIf="item.templateClass=='gappicker'">
               <div class="row">
-                <app-timepicker></app-timepicker>
+                <div class="row">
+                  <div class="flex-container">
+<!-- Gap picker insert -->
+                  </div>
+                </div>
               </div>
             </ng-container>
+
         </div>
       </div>
 
