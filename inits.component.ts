@@ -1,11 +1,10 @@
 import {ServiceCl} from '../Services/services.component';
-
+import { EventEmitter,Output } from '@angular/core';
 //TS Collections
 //npm install typescript-collections [-g] --save
 import * as Collections from 'typescript-collections';
 
 import {INode,ICollection_,INodeCollection} from './POCO.component';
-
 
 //option constructors
 
@@ -13,6 +12,7 @@ class NodeG implements INode{
   key:number;
   name:string;
   value:string;
+  typeName:string;
   constructor(options:{key_:number,name_:string, value_:string}={key_:0,name_ : "",value_:""})
   {
     this.key=options.key_;
@@ -24,8 +24,10 @@ class NodeG implements INode{
 class CollectionG_<T extends NodeG> implements ICollection_<T>{
   array:Array<T>;
   tolog:boolean;
+  type_:string;
+
   constructor(options:{array_?:Array<T>}={array_:new Array<T>()}){
-      this.array=options.array_;
+    this.array=options.array_;
   }
 
   add(item:T){
@@ -146,24 +148,53 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
       }
       return -1;
     }
+
+  isUndefined(arr_:Array<T>):boolean{
+    if(typeof(arr_)=='undefined'){
+      if(this.tolog){
+        ServiceCl.log("PrimitiveCollection array Undefined")
+      }
+      return true;
+    }
+    return false;
+  }
+  getType(){
+    return typeof this.type_;
+  }
+
+  setType(type_:string){
+    this.type_=type_;
+  }
+
+  sort(asc:boolean){
+    ServiceCl.log(["Mot implemented"]);
+  }
 }
 
 //parameter constructions
 
 class Node implements INode{
-  key:number=0;
+  key:number;
   name:string;
   value:string;
+  typeName:string;
+  static _key:number;
+
   constructor(key_?:number,name_?:string, value_?:string)
   {
-    if(key_!=null){this.key=key_;}
+    if(key_!=null){Node._key=key_;this.key=key_;}else{
+      if(Node._key!=null){Node._key+1;}else{Node._key=0;}
+    }
     if(name_!=null){this.name=name_;}
     if(value_!=null){this.value=value_;}
+    this.typeName=this.constructor.name;
   }
+
 }
 class Collection_<T extends Node> implements ICollection_<T>{
   array:Array<T>=new Array<T>();
   tolog:boolean=false;
+  type_:string;
 
   constructor(array_?:Array<T>){
     if(array_!=null){this.array=array_;}
@@ -243,6 +274,7 @@ class Collection_<T extends Node> implements ICollection_<T>{
       if(this.tolog){ServiceCl.log(["pushing item with key: ",item,max])}
       this.array.push(item);
     }
+    this.setType(item.name);
     return item;
   }
 
@@ -306,7 +338,7 @@ class Collection_<T extends Node> implements ICollection_<T>{
     if(typeof(this.array)!=null){
       var max=Math.max.apply(Math,this.array.map(function(o){return o.key;}))
       if(!isFinite(max)){
-        ServiceCl.log("Max infinite")
+        //ServiceCl.log("Max infinite")
         max=-1
       }
       if(max!=null){
@@ -356,24 +388,481 @@ class Collection_<T extends Node> implements ICollection_<T>{
     return false;
   }
 
+  getType():string {
+    return this.type_;
+  }
+  setType(type_:string){
+    this.type_=type_;
+  }
 
+  sortAsc(a:T,b:T){
+    if(a.key>b.key){return 1}
+    if(a.key<b.key){return -1}
+    return 0;
+  }
+  sortDesc(a:T,b:T){
+    if(a.key>b.key){return -1}
+    if(a.key<b.key){return 1}
+    return 0;
+  }
+  sort(asc:boolean){
+    let a:Array<T>;
+    if(asc){
+      a=this.array.sort(this.sortAsc);
+    }else{a=this.array.sort(this.sortDesc);}
+    return a;
+  }
 }
+
 export class NodeCollection extends Node{
 
-  key:number=0;
-  name:string;
-  value:string;
+  parentKey:number;
+
   collection:ICollection_<INodeCollection>;
   constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>)
   {
     super(key_,name_,value_);
-    if(collection_!=null){this.collection=collection_;}else{this.collection=new Collection_<NodeCollection>();}
+    if(collection_!=null){this.collection=collection_;}
+    if(collection_===undefined){this.collection=new Collection_<NodeCollection>();}
+    if(collection_===null){this.collection=null;}
+    this.typeName=this.constructor.name;
+  }
+
+  getType_():string {
+
+    //return this.collection.getType();
+    if(this.collection!=null){
+      return this.constructor.name;
+    }
   }
 
 }
-export class Quiz extends NodeCollection{}
-class Question extends NodeCollection{}
-class Answer extends NodeCollection{}
+
+export class ItemParameter extends NodeCollection{
+  //instance if value to get type, not to pass string
+  valueItem:any;
+  //name of velue type
+  valueType:string;
+  //value of passed value type
+  //exmpl: new Date(), new Date(2015,01,01)
+  //or: "text type","text value"
+  valueVal:any;
+
+  cssType:string;
+  templateClass:string;
+  show:boolean;
+
+  constructor(valueItem_:any,valueVal_:any,name_?:string, value_?:string,show_?:boolean,collection_?:ICollection_<INodeCollection>,key_?:number)
+  {
+    super(key_,name_,value_,collection_);
+    this.cssType="";
+    this.valueItem=valueItem_;
+    this.valueVal=valueVal_;
+
+    this.show=false;
+
+    if(show_!=null){
+      this.show=show_;
+    }
+    if( typeof this.valueItem === "boolean")
+    {
+      this.valueType="boolean";
+      this.cssType+="checkbox"
+      this.templateClass=null;
+    }
+    if( typeof this.valueItem === "string")
+    {
+      this.valueType="text";
+      this.cssType+="text";
+      this.templateClass=null;
+    }
+    if( this.valueItem instanceof Date)
+    {
+      this.valueType="date";
+      this.cssType=null;
+      this.templateClass="datepicker";
+    }
+    if( this.name == "TimePicker")
+    {
+      this.valueType="date";
+      this.cssType=null;
+      this.templateClass="timepicker";
+    }
+    if( this.name == "GapPicker")
+    {
+      this.valueType="date";
+      this.cssType=null;
+      this.templateClass="gappicker";
+    }
+
+  }
+
+}
+export class QuizParameter extends ItemParameter{
+
+  constructor(valueItem_:any,valueVal_:any,name_?:string, value_?:string,show_?:boolean,collection_?:ICollection_<INodeCollection>,key_?:number)
+  {
+    super(valueItem_,valueVal_,name_,value_,show_,collection_,key_);
+    this.defaultInit();
+    this.conditionsCheck();
+  }
+
+    defaultInit(){
+      this.collection=new Collection_<ItemParameter>([
+      new ItemParameter(true,false,"Replayabe","Replayable",true,null,10)
+      ,new ItemParameter(new Date(),null,"StartDate","Start date",true,null,0)
+      ,new ItemParameter(new Date(),null,"TimePicker","Start time",true,null,5)
+      ,new ItemParameter(true,true,"Anonimous","Anonimous",true,null,20)
+      ,new ItemParameter(true,false,"GapPicker","Replay gap pick",false,null,15)
+      ,new ItemParameter("","value test text","Test","Test Text",true,null,100)
+    ]);
+      this.collection.setType("ItemParameter");
+      this.collection.sort(true);
+    }
+
+    conditionsCheck(){
+
+      let i=this.collection.array.find(s=>s.name=="Replayabe");
+        if(i instanceof ItemParameter){
+        let ii=this.collection.array.find(s=>s.name=="GapPicker");
+          if( ii instanceof ItemParameter){
+            ii.show=i.valueVal;
+          }
+        }
+
+    }
+}
+
+export class FormControlParameter extends NodeCollection{
+  valueType:string;
+}
+
+class ItemValue {key:string;value:number;min:number;max:number}
+class ItemDrop {key:string;values:[{value:number;checked:boolean}]}
+export class TestGapPickerParameter{
+  itemValueArr_:Array<ItemValue>;
+  itemValueArrDrop_:Array<ItemDrop>;
+  constructor(itemValue_:[ItemValue],itemDrop:[ItemDrop]){
+    this.itemValueArr_=itemValue_;
+    this.itemValueArrDrop_=itemDrop;
+  }
+}
+
+export class Quiz extends NodeCollection{
+
+  replay:boolean;
+  startTime:Date;
+  timeGap:Date;
+
+  anonimous:boolean;
+
+  itemParameter:ItemParameter;
+
+  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,itemParameter_?:ItemParameter)
+  {
+    super(key_,name_,value_,collection_);
+    this.replay=true;
+    this.anonimous=false;
+    this.itemParameter=itemParameter_;
+
+    this.typeName="Question";
+    if(collection_==null){
+      this.collection=new Collection_<Question>();
+    }
+
+    if(itemParameter_==null){
+      this.itemParameter=new QuizParameter("",null,null,null,null,null);
+    }
+
+  }
+
+}
+export class Questionarie extends Quiz{}
+export class Victorine extends Quiz{}
+
+export class Question extends NodeCollection{
+  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,replay_?:boolean,anonimous_?:boolean)
+  {
+    super(key_,name_,value_,collection_);
+    this.typeName="Answer";
+    if(collection_==null){
+      this.collection=new Collection_<Answer>();
+    }
+  }
+}
+export class Answer extends NodeCollection{
+  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,replay_?:boolean,anonimous_?:boolean)
+  {
+    super(key_,name_,value_,collection_);
+    this.typeName="null";
+  }
+}
+
+//unused temp
+
+class ButtonAction {
+  actionType:string;
+  passedElementName:string;
+  passedOject:any;
+  constructor(at_:string,pen_?:string,obj_?:any){
+    this.actionType=at_;
+
+    this.passedElementName=""
+    if(pen_!=null){this.passedElementName=pen_}
+    if(pen_===null){this.passedElementName=null}
+
+    this.passedOject=null
+    if(obj_!=null){this.passedOject=obj_}
+
+  }
+}
+export class Button extends NodeCollection {
+
+  htmlClass:string;
+  clicked:boolean;
+  toolTipText:string;
+
+  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+    ,htmlClass_?:string,clicked_?:boolean,toolTipText_?:string){
+    super(key_,name_,value_,collection_);
+    this.htmlClass="";
+    if(htmlClass_!=null){
+      this.htmlClass=htmlClass_;
+    }
+    this.clicked=false;
+    if(clicked_!=null){
+      this.clicked=clicked_;
+    }
+    this.toolTipText="";
+    if(toolTipText_!=null){
+      this.toolTipText=toolTipText_;
+    }
+  }
+
+}
+export class itemButtons extends Button{
+
+  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+    ,htmlClass_?:string,clicked_?:boolean,toolTipText_?:string){
+      super(key_,name_,value_,collection_,htmlClass_,clicked_,toolTipText_);
+
+      //this.collection.add(new Button(null,"Edit_","Edit",null,"btn btn-primary",false,"Edit "))
+      //this.collection.add(new Button(null,"Delete_","Delete",null,"btn btn-danger",false,"Delete "))
+
+        this.collection.add(new Button(null,"Edit_","Edit",null,"btn btn-purple",false,"Edit "))
+        this.collection.add(new Button(null,"Delete_","Delete",null,"btn btn-unique",false,"Delete "))
+    }
+}
+export class menuButtons extends Button{
+
+    constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+      ,htmlClass_?:string,clicked_?:boolean,toolTipText_?:string){
+      super(key_,name_,value_,collection_,htmlClass_,clicked_,toolTipText_);
+      this.collection.add(new Button(null,"Add_","Add new",null,"btn btn-purple-gradient",false,null))
+
+      this.collection.add(new Button(null,"Test1","Test button 1",null,"btn btn-evening-night",false,"Button for test1"))
+      this.collection.add(new Button(null,"Test2","Test button 2",null,"btn btn-red-sunset",false,"Testing button"))
+      this.collection.add(new Button(null,"Test3","Test button 3",null,"btn",false))
+      this.collection.add(new Button(null,"Test4","Test button 4",null,"btn",false))
+    }
+}
+
+export class editButtons extends Button{
+  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+    ,htmlClass_?:string,clicked_?:boolean){
+    super(key_,name_,value_,collection_,htmlClass_,clicked_);
+      this.collection.add(new Button(null,"Save_","Save",null,"btn btn-darkgreen",false,"Save currently edited object"))
+  }
+}
+export class editNewButtons extends Button{
+  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+    ,htmlClass_?:string,clicked_?:boolean){
+    super(key_,name_,value_,collection_,htmlClass_,clicked_);
+      this.collection.add(new Button(null,"SaveNew_","Save",null,"btn btn-darkgreen",false,"Save object addition"))
+  }
+}
+
+export class ModelContainer{
+
+  static nodesPassed_:NodeCollection;
+  static nodeToEdit:NodeCollection;
+
+  static QuizToEdit:Quiz;
+  static QuestionToEdit:Question;
+  static AnswerToEdit:Question;
+
+  static buttonClicked:Button;
+
+  @Output() static nodeEmitted=new EventEmitter<NodeCollection>();
+  @Output() static nodeSavedNew=new EventEmitter();
+  @Output() static nodeSaved=new EventEmitter();
+  @Output() static nodeAdded=new EventEmitter<NodeCollection>();
+
+  static nodeMethodCall(b_:Button,n_:INodeCollection){
+    ServiceCl.log(["nodeMethodCall",b_,n_]);
+    if(b_.name=="Edit_"){
+      ServiceCl.log("Edit_");
+      ModelContainer.nodeSelect(n_);
+    }
+    if(b_.name=="Add_"){
+      ServiceCl.log("Add_");
+      ModelContainer.nodeNewSelect(n_)
+    }
+    if(b_.name=="Delete_"){
+      ServiceCl.log("Delete_");
+      ModelContainer.nodeDelete(n_);
+    }
+    if(b_.name=="SaveNew_"){
+      ServiceCl.log("SaveNew_");
+      ModelContainer.nodeSaveNew(n_);
+    }
+    if(b_.name=="Save_"){
+      ServiceCl.log("Save_");
+      ModelContainer.nodeSave(n_);
+    }
+  }
+  static classDetectNState(n_:NodeCollection){
+    if(n_ instanceof Quiz){
+      ServiceCl.log(["Quiz selected",n_]);
+      ModelContainer.QuizToEdit=n_;
+      ModelContainer.QuestionToEdit=null;
+      ModelContainer.AnswerToEdit=null;
+    }
+    if(n_ instanceof Question){
+      ServiceCl.log(["Question selected",n_]);
+      ModelContainer.QuestionToEdit=n_;
+      ModelContainer.AnswerToEdit=null;
+    }
+    if(n_ instanceof Answer){
+      ServiceCl.log(["Answer selected",n_]);
+      ModelContainer.AnswerToEdit=n_;
+    }
+  }
+  static createCopy(item_:NodeCollection):NodeCollection{
+    let _item:NodeCollection;
+    if(item_ instanceof Quiz){
+      _item=new Quiz(item_.key,item_.name,item_.value,item_.collection,item_.itemParameter);
+    }
+    if(item_ instanceof Question){
+      _item=new Question(item_.key,item_.name,item_.value);
+    }
+    if(item_ instanceof Answer){
+      _item=new Answer(item_.key,item_.name,item_.value);
+    }
+    return _item;
+  }
+  static saveTo(from_:NodeCollection,to_:NodeCollection){
+    to_.name=from_.name;
+    to_.value=from_.value;
+  }
+
+  static nodeNewSelect(n_:NodeCollection){
+    let type_:string=n_.typeName;
+    ServiceCl.log(["nodeAdd emitted",n_,type_]);
+    let nd_:any;
+    if(type_ == "Quiz"){
+      nd_=new Quiz(0,"Add new Quiz","Add new Quiz");
+    }
+    if(type_ == "Question"){
+      nd_=new Question(0,"Add new question","Add new question");
+    }
+    if(type_ == "Answer"){
+      nd_=new Answer(0,"Add new answer","Add new answer");
+    }
+    //ModelContainer.nodeToEdit=nd_;
+    ModelContainer.nodeAdded.emit(nd_);
+  }
+  static nodeSaveNew(n_:NodeCollection){
+    ServiceCl.log(["nodeSaveNew",n_,ModelContainer]);
+    if(n_ instanceof Answer)
+    {
+        ServiceCl.log(["Answer",n_]);
+        this.QuestionToEdit.collection.add(n_);
+    }
+    if(n_ instanceof Question)
+    {
+        ServiceCl.log(["Question",n_]);
+        this.QuizToEdit.collection.add(n_);
+        this.AnswerToEdit=null;
+        this.QuestionToEdit=null;
+    }
+    if(n_ instanceof Quiz)
+    {
+        ServiceCl.log(["Quiz",n_]);
+        this.nodesPassed_.collection.add(n_);
+        this.AnswerToEdit=null;
+        this.QuestionToEdit=null;
+        this.QuizToEdit=null;
+    }
+    ModelContainer.nodeSavedNew.emit(n_);
+  }
+
+  static nodeSelect(n_:NodeCollection){
+    ModelContainer.nodeToEdit=n_;
+
+    ModelContainer.classDetectNState(n_);
+    let nd_:NodeCollection=ModelContainer.createCopy(n_);
+    ModelContainer.nodeEmitted.emit(nd_);
+
+    ServiceCl.log(["ModelContainer:",ModelContainer]);
+  }
+  static nodeDelete(n_:NodeCollection){
+      ServiceCl.log(["nodeDelete",n_,ModelContainer]);
+  }
+
+  static nodeSave(n_:NodeCollection){
+    ServiceCl.log(["nodeSave",n_,ModelContainer]);
+    if(n_ instanceof Answer)
+    {
+        let quizEditable:NodeCollection=ModelContainer.nodesPassed_.collection.getByItem(ModelContainer.QuizToEdit);
+        let questionEditable:NodeCollection=quizEditable.collection.getByItem(ModelContainer.QuestionToEdit);
+        let answerEditable:NodeCollection=questionEditable.collection.getByItem(ModelContainer.AnswerToEdit);
+        ServiceCl.log(["Save to ","Answer",n_,answerEditable]);
+        ModelContainer.saveTo(n_,answerEditable);
+    }
+    if(n_ instanceof Question)
+    {
+        let quizEditable:NodeCollection=ModelContainer.nodesPassed_.collection.getByItem(ModelContainer.QuizToEdit);
+        let questionEditable:NodeCollection=quizEditable.collection.getByItem(ModelContainer.QuestionToEdit);
+        ServiceCl.log(["Save to ","Question",n_,questionEditable]);
+        ModelContainer.saveTo(n_,questionEditable);
+    }
+    if(n_ instanceof Quiz)
+    {
+      let quizEditable:NodeCollection=ModelContainer.nodesPassed_.collection.getByItem(ModelContainer.QuizToEdit);
+      ServiceCl.log(["Save to ","Quiz",n_,quizEditable]);
+      ModelContainer.saveTo(n_,quizEditable);
+    }
+    ModelContainer.nodeSaved.emit(n_);
+  }
+
+  static checkedToggle(nodeEdited_:NodeCollection, parameterClicked_:ItemParameter){
+
+    if(nodeEdited_ instanceof Quiz){
+      let a=nodeEdited_.itemParameter.collection.getByItem(parameterClicked_);
+      ServiceCl.log(["checkedToggle: " ,a]);
+      a.valueVal=!a.valueVal;
+    }
+  }
+  static changeShowStatus(name_:string){
+
+    let a:ItemParameter;
+
+    if(ModelContainer.nodeToEdit instanceof Quiz){
+      let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name==name_);
+
+      if(b instanceof ItemParameter){
+        a=b;
+        a.show=!a.show;
+      }
+      ServiceCl.log(["changeShowStatus: " ,a,ModelContainer.nodesPassed_]);
+      return ModelContainer.nodeToEdit.itemParameter;
+    }
+
+
+  }
+
+}
 
 export class Factory_{
 
@@ -464,6 +953,7 @@ export class Test{
     }
 
     //Generates NodeCollection array
+
     public static Gen(bol_:boolean,lw_?:number,up_?:number)
     :ICollection_<INodeCollection> {
 
@@ -508,6 +998,7 @@ export class Test{
     }
 
     //Generates NodeCollection from classes
+
     public static GenClasses(bol_:boolean,lw_?:number,up_?:number)
     :INodeCollection {
 
@@ -525,7 +1016,7 @@ export class Test{
         }
         if(up_!=null){up=up_;
         }else{
-          up=Math.floor(Math.random()*5)+lw;
+          up=Math.floor(Math.random()*10)+lw;
         }
 
 
@@ -535,6 +1026,7 @@ export class Test{
         }
 
         col_.collection=Factory_.quizesCL(gn_);
+        col_.typeName="Quiz";
 
         /*
         Factory_.quizesCL(gn_)
@@ -542,15 +1034,16 @@ export class Test{
         Factory_.answersCL(gn_)
         */
 
-
         for(var qt_ of col_.collection.array)
         {
           gn_=Math.floor(Math.random()*up)+lw;
           qt_.collection=Factory_.questionsCL(gn_);
+          qt_.typeName="Question"
           for(var aw_ of qt_.collection.array)
           {
             gn_=Math.floor(Math.random()*up)+lw;
             aw_.collection=Factory_.answersCL(gn_);
+            aw_.typeName="Answer"
           }
         }
 
@@ -564,6 +1057,7 @@ export class Test{
     }
 
     public static GO(){
+
 
       //Test.GenNewColl(false);
       //Test.Gen(false,1,3);
@@ -587,8 +1081,23 @@ export class Test{
       ServiceCl.log(["Item: ",new Item()]);
       ServiceCl.log(["ItemG: ",new ItemG()]);
       ServiceCl.log(["ItemCollection: ",new ItemCollection()]);
+
+      ServiceCl.log(new Button(1,"a","b",null,"button1",false));
+
+      //checking collection type get
+      var cl_:Collection_<NodeCollection>=new Collection_<Quiz>();
+      cl_.add(new Quiz(0,"Quiz " +0,"Quiz " +0));
+      ServiceCl.log(["Test GO :", "Quizes type ",cl_.array[0].constructor.name])
+
+
+      var cl2:NodeCollection=new NodeCollection();
+      cl2.collection.add(new Quiz(0,"Quiz " +0,"Quiz " +0));
+      ServiceCl.log(["Test GO :", "Quizes type ",cl2.collection.array[0].constructor.name,cl2.collection.getType(),cl2.getType_()])
+      ServiceCl.log(["Test GO2 :",cl2.getType_(),cl2.collection.type_,cl2.typeName]);
       */
 
+      let cl3:NodeCollection=this.GenClasses(false,2,3);
+      ServiceCl.log(["GO 3",cl3,cl3.typeName]);
     }
 
 }

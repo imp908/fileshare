@@ -424,6 +424,10 @@ replace my.nspk with my.nspk2 to the same host
 			
 			actual[
 
+-> Edit Node for input types 
+-> Edit Nodes for input collection
+-> Change ItemParameter model to NodeCollection with input type specific attrs 
+
 -> Create NodeCollection inherited model for gap picker
 -> Reqrite ItemParameter form controls generation for new model 
 -> more then 3 events listen ignore issue to repair 
