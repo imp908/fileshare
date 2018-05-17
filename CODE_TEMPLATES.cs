@@ -369,6 +369,9 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://mycolor.space/gradient?ori=to+right+top&hex=%23153669&hex2=%231ECFE0&sub=1
 	//svg
 	https://bennettfeely.com/clippy/
+	//spans svg png
+	https://icons8.com/icon/set/calendar/all
+	https://icons8.com/
 	
 	//c#
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
@@ -5172,7 +5175,7 @@ html -> <childHtml (outEm)="method($event)">
 			}
 		}
 	
-		 	public void TipsAndTricks{
+		public void TipsAndTricks{
 			
 			generateTemplateIncolumns[
 			
@@ -5231,6 +5234,10 @@ html -> <childHtml (outEm)="method($event)">
 			typeAttributeBinding[
 				to get <input type="checkbox" checked>
 				<input type="{{item.cssType}}" [checked]="item.checked_">
+			]
+			
+			NgMOdelOverridsHtmlAttr[
+			inpyt type="textbox" - > binding [(ngModel)]="val" overrides any placeholders value attr
 			]
 			
 		}

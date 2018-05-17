@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
 
+import {NodeCollection  ,Collection_,ModelContainer
+  ,HtmlItem,TextControl,CheckBoxControl,RadioButtonControl,DatePickerControl,NumberPickerControl
+  ,Button
+} from 'app/app7/Models/inits.component'
+
 @Component({
   selector: 'app-testinput',
   templateUrl: './testinput.component.html',
@@ -11,16 +16,20 @@ export class TestinputComponent implements OnInit {
   test: boolean;
 
   inputTypesModel:{key:string,value:number
-    ,textbox_:{value_:string,displayValue_:string,pattern:string,maxLength_:number,minLength_:number}
+    ,textbox_:{value_:string,displayValue_:string,pattern_:string,maxLength_:number,minLength_:number}
     ,checkbox_:boolean
-    ,radio_:{name_:string,val_:string,values_:[{value_:string}]}, color_:any
-    ,date_?: Date,dateL_?: string,month_:string
+    ,radio_:{name_:string,val_:string,values_:[{value_:string}]}
+    ,color_:any
+    ,date_?: Date
+    ,dateL_?: string, month_:string
     ,number_:{value_:number,min_:number,max_:number}
     ,range_:{value_:number,min_:number,max_:number}
     ,files_:{value_:any,multiple_:true,fileList_:any,accept_:string}
   }
 
-  constructor(private service:Service_) {
+
+
+  constructor(private service:Service_){
     this.test=service.test;
     this.cName=this.constructor.name;
 
@@ -33,7 +42,7 @@ export class TestinputComponent implements OnInit {
 
   inputModelInit(){
     this.inputTypesModel={key:"0",value:1
-    ,textbox_:{value_:"val",displayValue_:"test txt",pattern:null,maxLength_:2,minLength_:1}
+    ,textbox_:{value_:"val",displayValue_:"test txt",pattern_:"[0-9]",maxLength_:null,minLength_:null}
     ,checkbox_:true
     ,radio_:
       {name_:"n1",val_:"X1"
@@ -49,22 +58,28 @@ export class TestinputComponent implements OnInit {
     ServiceCl.log(["click_ : " + this.constructor.name,event]);
   }
 
-    changeTextbox_(event:string ){
-      this.inputTypesModel.textbox_.value_=event;
-      ServiceCl.log(["changeTextbox_ : " + this.constructor.name,event]);
-    }
-    color_($event){
-      ServiceCl.log(["color_ : " + this.constructor.name,this.inputTypesModel.color_,event]);
-    }
-    submit_($event){
-      ServiceCl.log(["submit_ : " + this.constructor.name,this.inputTypesModel,event]);
-    }
-    checked_($event){
-      this.inputTypesModel.checkbox_=!this.inputTypesModel.checkbox_;
-      ServiceCl.log(["checked_ : " + this.constructor.name]);
-    }
-    files_(event: any){
-      ServiceCl.log(["files_ : " + this.constructor.name,event]);
-      this.inputTypesModel.files_.fileList_=event.srcElement.files;
-    }
+  changeTextbox_(event:string ){
+    this.inputTypesModel.textbox_.value_=event;
+    ServiceCl.log(["changeTextbox_ : " + this.constructor.name,event]);
+  }
+  color_($event){
+    ServiceCl.log(["color_ : " + this.constructor.name,this.inputTypesModel.color_,event]);
+  }
+  submit_($event){
+    ServiceCl.log(["submit_ : " + this.constructor.name,this.inputTypesModel,event]);
+  }
+  checked_($event){
+    this.inputTypesModel.checkbox_=!this.inputTypesModel.checkbox_;
+    ServiceCl.log(["checked_ : " + this.constructor.name]);
+  }
+  files_(event: any){
+    ServiceCl.log(["files_ : " + this.constructor.name,event]);
+    this.inputTypesModel.files_.fileList_=event.srcElement.files;
+  }
+
+
+  submitNew(event:any){
+    ServiceCl.log(["submitNew: ",event]);
+  }
+
 }

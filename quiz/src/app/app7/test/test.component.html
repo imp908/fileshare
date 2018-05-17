@@ -1,13 +1,25 @@
 <div *ngIf="test==true" class="component">
   {{cName}}
+  <!--
   <div class="form-group">
     <app-gappicker-list [itemValueArr_]="testGapPickerParameter_.itemValueArr_" [itemValueArrDrop_]="testGapPickerParameter_.itemValueArrDrop_"></app-gappicker-list>
     <button (click)="click_($event)">CL</button>
   </div>
+-->
 
-<app-testinput></app-testinput>
+<!-- <app-testinput></app-testinput> -->
+<app-test-html-item></app-test-html-item>
 
+<div class="flex-container wtc">
+<ng-container *ngFor="let i of htmlItemsArr" >
+    <app-test-html-item [itemPassed_]="i"></app-test-html-item>
+</ng-container>
+<!--  Submit button object passe to template with function hosting submit event. Filter event mouseclick needed-->
+<!-- <app-click [button_]="submitBtn_" [obj_]="'null'" [e_]="submitNew"></app-click> -->
 
+<!--  Default submit for test-->
+<button (click)="submitNew($event)" class="btn btn-primary">Submit NEW</button>
+</div>
 
 </div>
 <div *ngIf="test==false">

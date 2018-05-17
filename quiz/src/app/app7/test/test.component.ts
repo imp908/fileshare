@@ -1,6 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {ServiceCl,Service_} from '../Services/services.component'
-import {Factory_,Quiz,Test,NodeCollection,QuizParameter,ItemParameter,TestGapPickerParameter} from '../Models/inits.component'
+import {Factory_,Quiz,Test,NodeCollection,QuizParameter,ItemParameter,TestGapPickerParameter  } from '../Models/inits.component'
+import { HtmlItem,TextControl,CheckBoxControl,RadioButtonControl,DatePickerControl,NumberPickerControl } from '../Models/inits.component'
 import {Button} from 'app/app7/Models/inits.component'
 
 @Component({
@@ -21,6 +22,13 @@ export class TestComponent implements OnInit {
   itemValueArrDrop_:[{key:string,values:[{value:number,checked:boolean}]}];
 
   testGapPickerParameter_:TestGapPickerParameter;
+
+  htmlItemsArr:[NodeCollection]=[
+    new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4)
+    ,new TextControl(0,"Tb","text_nm","Type text","Type here2",null,1,3)
+    ,new CheckBoxControl(0,"Cb","To Check or not to check",true)
+    ,new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1))
+  ];
 
   constructor(private service:Service_){
     //service.test=false;
@@ -115,4 +123,7 @@ export class TestComponent implements OnInit {
     ServiceCl.log(["click_ : " + this.constructor.name,event]);
   }
 
+  submitNew(event:any){
+    ServiceCl.log(["submitNew: ",this.htmlItemsArr,event]);
+  }
 }

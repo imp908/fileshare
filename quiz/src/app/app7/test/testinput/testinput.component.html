@@ -1,13 +1,20 @@
 <ng-container *ngIf="test==true" class="component">
+  <p><input type="tel" pattern="[0-9]{1}" placeholder="val2"></p>
+  <p><input type="submit" value="Отправить"></p>
   <!-- Input template -->
   <div class="flex-container" style="flex-direction:column;align-items: flex-start;">
     <input type="text"
     [(ngModel)]="inputTypesModel.textbox_.displayValue_"
     [maxlength]="inputTypesModel.textbox_.maxLength_"
     [minlength]="inputTypesModel.textbox_.minLength_"
+    [pattern]="inputTypesModel.textbox_.pattern_"
+    [placeholder]="inputTypesModel.textbox_.value_"
     (ngModelChange)="changeTextbox_($event)"
     #t>
-    <input type="checkbox" value="check" [checked]="inputTypesModel.checkbox_" (click)="checked_($event)" #c>
+
+    <!-- <input type="checkbox" value="check" [checked]="inputTypesModel.checkbox_" (click)="checked_($event)" #c> -->
+
+    <input type="checkbox" value="check" [(ngModel)]="inputTypesModel.checkbox_" (click)="checked_($event)" #c>
 
     <!--  Radio button colelction-->
     <div class="row" *ngFor="let r of inputTypesModel.radio_.values_">
@@ -40,12 +47,13 @@
      <input type="image"
      width="50"
      height="50"
-     src="https://raw.githubusercontent.com/mdn/learning-area/master/html/forms/image-type-example/login.png"
-     >
+     src="https://raw.githubusercontent.com/mdn/learning-area/master/html/forms/image-type-example/login.png">
+
     <button (click)="c.checked=!c.checked" (click)="t.value=t.value+'a'">Togle</button>
     <br>
     <button (click)="submit_($event)">Submit</button>
     </div>
+
 
 </ng-container>
 <ng-container *ngIf="test==false" class="component">

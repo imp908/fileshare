@@ -27,13 +27,14 @@ import { GappickerNgComponent } from './templates/Elements/gappicker-list/gappic
 import { GappickerListComponent } from './templates/Elements/gappicker-list/gappicker-list.component';
 import { GappickerDropComponent } from './templates/Elements/gappicker-list/gappicker-drop/gappicker-drop.component';
 import { TestinputComponent } from './test/testinput/testinput.component';
+import { TestHtmlItemComponent } from './test/test-html-item/test-html-item.component';
 
 @NgModule({
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
     ,NgbModule.forRoot()
   ],
-  declarations:[App7Component, ListComponent, ItemComponent, TestComponent, MenuComponent, MenuListComponent, MenuEditComponent, ClickComponent,ButtonComponent, NodesComponent, DatepickerPopupComponent, TimepickerComponent, NodeComponent, GappickerNgComponent, GappickerListComponent, GappickerDropComponent, TestinputComponent],
+  declarations:[App7Component, ListComponent, ItemComponent, TestComponent, MenuComponent, MenuListComponent, MenuEditComponent, ClickComponent,ButtonComponent, NodesComponent, DatepickerPopupComponent, TimepickerComponent, NodeComponent, GappickerNgComponent, GappickerListComponent, GappickerDropComponent, TestinputComponent, TestHtmlItemComponent],
   bootstrap:[App7Component],
   providers:[Service_]
 })
