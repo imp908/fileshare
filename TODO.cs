@@ -422,74 +422,81 @@ replace my.nspk with my.nspk2 to the same host
 			
 			TODO[
 			
+TnT[
+	add image 
+	var image = document.createElement('img');
+	image.src = window.URL.createObjectURL(curFiles[i]);
+]
+
 			actual[
 
--> Rep nested tmplate ngModel update 
 
--> Edit Node for input types 
--> Edit Nodes for input collection
--> Change ItemParameter model to NodeCollection with input type specific attrs 
 
--> Create NodeCollection inherited model for gap picker
--> Reqrite ItemParameter form controls generation for new model 
--> more then 3 events listen ignore issue to repair 
-
--> Question parameters
--> back post/get
-
--> Quiz Pass page
-exmpls[
+-> repeat checkbox 
+-> Edit Node for HtmlItem
+-> Edit Nodes list for HtmlItem collection
+-> Add new Question Question parameters [
+	-> question type with dropdown {textbox,checkbox,radio,rate with dropdown, pictures? }	
+	]
+-> Add new Answers according to Quiz,Answer types[
+	0 or Correct only for text, 1-* for radio,check,picture, rate. rate max points:number.
+	-> Correct answer for victorine according to type 
+	-> Answers according to type 
+]
+-> Quiz Pass page[exmpls
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
 quiz with correct answers
 https://meduza.io/quiz/bublik-ili-prettsel
-]
-TnT[
-add image 
-var image = document.createElement('img');
-image.src = window.URL.createObjectURL(curFiles[i]);
-]
--> change model to linked list	
--> Model tree change to contain selected
--> Save model tree
--> http add
--> pass templates add 
--> pass http
 
-	
+Generate Html according to type
+	-> plain all questoins with answers on one page 
+		one submit
+	-> scroll one question by page 
+		multiple mini submits 
+	-> final page results show , repeat for repeatable
+]
+
+-> Ignore event issue to repair [
+more then 3 events listen ignore issue to repair  ]
+-> Http POST/GET front
+-> Http back
+
+
 	<- done -> New model menu,list-menu,edit-menu added 
 	<- done -> New model create templates rebuild 
-	
 	<- done -> drop down question type model
 	<- done -> question type init
 	<- done -> dropdown select event DOM change
-
-	 <- done -> questions model add
-		{textbox,radio button,checkbox{pic realization},dropdowns to names}
-	 <- done -> draw question DOM
-	 <- done-> receive input
-
-	 <- done-> print input on submit					 
-
+	<- done -> questions model add
+	{textbox,radio button,checkbox{pic realization},dropdowns to names}
+	<- done -> draw question DOM
+	<- done-> receive input
+	<- done-> print input on submit					 
 	<- done -> remove events duplicates in edit-menu, edit existing and add new differ by flow
-<- done -> Detect current nested Nodecollection class type, to add new Items to empty collection 
-<- done -> Make editable instance of item [
+	<- done -> Detect current nested Nodecollection class type, to add new Items to empty collection 
+	<- done -> Make editable instance of item [
 	<- done <- to mmake it discardable
-	<- done	-> make converter from item to new	
-	]
-	
-<- done -> parameters collection ItemParameters
-<- done -> QuizParameters
-<- done -> Collection sort asc|desc
-<- done -> Node key init rep
-<- done -> ModelContainer checkToggle for itemparameter
-<- done -> ModelContainer show trigger for itemparameter
-<- done -> DatePicker select current date with mouseup 
-<- done -> add correct two way binding to node.html checkboxes, datetime
-<- done with static ModelContainer fields.-> add Form nad Subbmit to menu-edit.html
-<- done with css display atr, mouseup and ngModelChange-> repair click need
-<- done -> new GapPicker
-<- done -> Input most usefull types test (textbox,radio,check,date,color,range,files) with NgBinding,value display and form submit model + template
+	<- done	-> make converter from item to new]		
+	<- done -> parameters collection ItemParameters
+	<- done -> QuizParameters
+	<- done -> Collection sort asc|desc
+	<- done -> Node key init rep
+	<- done -> ModelContainer checkToggle for itemparameter
+	<- done -> ModelContainer show trigger for itemparameter
+	<- done -> DatePicker select current date with mouseup 
+	<- done -> add correct two way binding to node.html checkboxes, datetime
+	<- done with static ModelContainer fields.-> add Form nad Subbmit to menu-edit.html
+	<- done with css display atr, mouseup and ngModelChange-> repair click need
+	<- done 15.05.2018 -> new GapPicker
+	<- done 16.05.2018 -> Input most usefull types test (textbox,radio,check,date,color,range,files) with NgBinding,value display and form submit model + template
+	<- done 17.05.2018 with HtmlItem class and its childs-> Change ItemParameter model to NodeCollection with input type specific attrs 
+	x- cancelled 17.05.2018  (no need cause model updates)-> Rep nested tmplate ngModel update 								 
 
+			]
+			feature[
+-> change model to linked list	
+-> Model tree change to contain selected
+-> Save model tree
 			]
 
 ->
@@ -720,7 +727,7 @@ ConstructorForm.json
 				
 				//ngx-bootstrap
 				
-				]
+			]
 	
   сейчас есть:
 	на 02.04.2017
