@@ -571,14 +571,17 @@ export class HtmlItem extends NodeCollection{
   //show checkedToggle
   show:boolean;
 
+  cssClass:string;
+
   constructor(key_:number,name_:string,value_:string,HtmlClass_:string,HtmlTypeAttr_:string,HtmlSubmittedValue_:any
-    ,show_:boolean,collection_?:ICollection_<INodeCollection>){
+    ,show_:boolean,cssClass_?:string,collection_?:ICollection_<INodeCollection>){
     super(key_,name_,value_,collection_)
     this.HtmlClass=HtmlClass_;
     this.HtmlTypeAttr=HtmlTypeAttr_;
     this.HtmlSubmittedValue=HtmlSubmittedValue_;
     this.show=true;
     if(show_==null){this.show=show_};
+    this.cssClass=cssClass_;
   }
 }
 export class TextControl extends HtmlItem{
@@ -591,7 +594,9 @@ export class TextControl extends HtmlItem{
 
   constructor(key_:number,name_:string,value_:string, displayValue_:any,HtmlSubmittedValue_:any
     ,pattern_?:string,minLen_?:number,maxLen_?:number,show_?:boolean){
-    super(key_,name_,value_,"input","text",HtmlSubmittedValue_,show_,null)
+
+    super(key_,name_,value_,"input","text",HtmlSubmittedValue_,show_,null,null)
+
     this.maxLength=null;
     this.minLength=null;
     this.pattern==null;
@@ -602,27 +607,29 @@ export class TextControl extends HtmlItem{
     if(minLen_!=null){
       this.minLength=minLen_;}
     if(pattern_!=null){
-    this.pattern=pattern_;}
+      this.pattern=pattern_};
     if(displayValue_!=null){
       this.displayValue=displayValue_;}
+
   }
 }
 export class CheckBoxControl extends HtmlItem{
   constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:any
     ,show_?:boolean){
-    super(key_,name_,value_,"input","checkbox",HtmlSubmittedValue_,show_,null)
+    super(key_,name_,value_,"input","checkbox",HtmlSubmittedValue_,show_,null,null)
   }
 }
 export class RadioButtonControl extends HtmlItem{
   constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
       ,show_:boolean
+      ,cssClass_:string
       ,collection_:ICollection_<INodeCollection>){
-    super(key_,name_,value_,"input","radio",HtmlSubmittedValue_,show_,collection_)
+    super(key_,name_,value_,"input","radio",HtmlSubmittedValue_,show_,cssClass_,collection_)
   }
 }
 export class DatePickerControl extends HtmlItem{
   constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:Date ,show_:boolean){
-    super(key_,name_,value_,"input","datepicker",HtmlSubmittedValue_,show_,null)
+    super(key_,name_,value_,"input","datepicker",HtmlSubmittedValue_,show_,null,null)
   }
 }
 export class NumberPickerControl extends HtmlItem{
@@ -631,7 +638,7 @@ export class NumberPickerControl extends HtmlItem{
   maxN?:number;
 
   constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:number,min_?:number,max_?:number,show_?:boolean){
-    super(key_,name_,value_,"input","numberpicker",HtmlSubmittedValue_,show_,null)
+    super(key_,name_,value_,"input","numberpicker",HtmlSubmittedValue_,show_,null,null)
 
     this.minN=null;
     this.maxN=null;
@@ -645,42 +652,52 @@ export class NumberPickerControl extends HtmlItem{
 
 // Default Quiz form controllers
 
-export class QuizControls extends NodeCollection{
-  constructor()
+export class QuizControls extends HtmlItem{
+
+  constructor(HtmlCssAttr_:string,show_:boolean,collection_?:ICollection_<HtmlItem>)
   {
 
-    let rb=new Collection_<NodeCollection>([
-    new RadioButtonControl(0,"Rb","What to shoose?","Choice 2",true,new Collection_<HtmlItem>([
-        new HtmlItem(0,"Rb","Choice 1","option","",null,true,null)
-        ,new HtmlItem(1,"Rb","Choice 2","option","",null,true,null)
-        ,new HtmlItem(2,"Rb","Choice 3","option","",null,true,null)
-      ]))
-    ]);
+    let qzcl:Collection_<HtmlItem>;
+    qzcl=collection_;
 
-    let tx = new Collection_<NodeCollection>([
-      new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true)
-      ,new CheckBoxControl(1,"Cb","To Check or not to check",true,true)
-    ]);
+    if(collection_==null){
 
-    let cb = new Collection_<NodeCollection>([
-      new CheckBoxControl(0,"Cb","To Check or not to check1",true)
-      ,new CheckBoxControl(1,"Cb","To Check or not to check2",true)
-    ]);
+      let rb=new Collection_<HtmlItem>([
+      new RadioButtonControl(0,"Rb","What to shoose?","Choice 2",true,"flex-container horizontal",new Collection_<HtmlItem>([
+          new HtmlItem(0,"Rb","Choice 1","option","",null,true,null,null)
+          ,new HtmlItem(1,"Rb","Choice 2","option","",null,true,null,null)
+          ,new HtmlItem(2,"Rb","Choice 3","option","",null,true,null,null)
+        ]))
+      ]);
 
-    rb.setType("HtmlItem");
-    tx.setType("HtmlItem");
-    cb.setType("HtmlItem");
+      let tx = new Collection_<HtmlItem>([
+        new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true)
+        ,new CheckBoxControl(1,"Cb","To Check or not to check",true,true)
+        ,new CheckBoxControl(1,"Cb","To Check or not to check2",true,true)
+      ]);
 
-    let rbcl=new HtmlItem(0,"RadioColl","RadioColl","flex-container","wrt",null,true,rb);
-    let txcl=new HtmlItem(1,"TextBoxColl","TextBoxColl","flex-container","wrt",null,true,tx);
-    let cbcl=new HtmlItem(2,"CheckColl","CheckColl","flex-container","wrt",null,true,cb);
+      let cb = new Collection_<HtmlItem>([
+        new CheckBoxControl(0,"Cb","To Check or not to check1",true)
+        ,new CheckBoxControl(1,"Cb","To Check or not to check2",true)
+      ]);
 
-    let qzcl =new Collection_<NodeCollection>([rbcl,txcl,cbcl]);
+      rb.setType("HtmlItem");
+      tx.setType("HtmlItem");
+      cb.setType("HtmlItem");
 
-    qzcl.setType("HtmlItem");
+      let rbcl=new HtmlItem(0,"RadioColl","RadioColl","f-c","wrt",null,true,"flex-container horizontal",rb);
+      let txcl=new HtmlItem(1,"TextBoxColl","TextBoxColl","f-c","wrt",null,true,"flex-container horizontal",tx);
+      let cbcl=new HtmlItem(2,"CheckColl","CheckColl","f-c","wrt",null,true,"flex-container horizontal",cb);
 
-    super(0,"QuizControls","QuizControls",qzcl);
+      qzcl=new Collection_<HtmlItem>([rbcl,txcl,cbcl]);
+
+      qzcl.setType("HtmlItem");
+
+    }
+
+    super(0,"QuizControlGroup","QuizControlGroup","div",HtmlCssAttr_,null,show_,"flex-container horizontal",qzcl);
   }
+
 }
 
 // obsolete est itemp params
@@ -712,7 +729,7 @@ export class Quiz extends NodeCollection{
     super(key_,name_,value_,collection_);
     this.replay=true;
     this.anonimous=false;
-    this.itemParameter=new QuizControls();
+    this.itemParameter=new QuizControls("flex-container horizontal",true,null);
 
     this.typeName="Question";
     if(collection_==null){
@@ -1021,7 +1038,7 @@ export class ModelContainer{
     if(i instanceof RadioButtonControl){return "RadioButtonControl"}
     if(i instanceof DatePickerControl){return "DatePickerControl"}
     if(i instanceof NumberPickerControl){return "NumberPickerControl"}
-    
+
   }
 
 }

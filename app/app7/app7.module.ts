@@ -29,8 +29,6 @@ import { TimepickerComponent } from './templates/Elements/timepicker/timepicker.
 import { GappickerNgComponent } from './templates/Elements/gappicker-list/gappicker-ng/gappicker-ng.component';
 import { GappickerListComponent } from './templates/Elements/gappicker-list/gappicker-list.component';
 import { GappickerDropComponent } from './templates/Elements/gappicker-list/gappicker-drop/gappicker-drop.component';
-import { TestinputComponent } from './test/testinput/testinput.component';
-import { TestHtmlItemComponent } from './test/test-html-item/test-html-item.component';
 
 
 
@@ -39,7 +37,13 @@ import { TestHtmlItemComponent } from './test/test-html-item/test-html-item.comp
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
     ,NgbModule.forRoot()
   ],
-  declarations:[App7Component, ListComponent, ItemComponent, TestComponent, MenuComponent, MenuListComponent, MenuEditComponent, ClickComponent,ButtonComponent, NodesGroups, DatepickerPopupComponent, TimepickerComponent, NodesComponent, GappickerNgComponent, GappickerListComponent, GappickerDropComponent, TestinputComponent, TestHtmlItemComponent, NodeitemComponent],
+  declarations:[
+    App7Component,
+    ListComponent, ItemComponent, TestComponent, MenuComponent,
+    MenuListComponent, MenuEditComponent, ClickComponent,ButtonComponent,
+    NodesGroups, DatepickerPopupComponent, TimepickerComponent, NodesComponent,
+    GappickerNgComponent, GappickerListComponent, GappickerDropComponent,
+    NodeitemComponent],
   bootstrap:[App7Component],
   providers:[Service_]
 })

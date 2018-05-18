@@ -5,6 +5,8 @@ import { HtmlItem,TextControl,CheckBoxControl,RadioButtonControl,DatePickerContr
 ,QuizControls } from '../Models/inits.component'
 import {Button} from 'app/app7/Models/inits.component'
 
+import * as SVG from 'assets/svg.js'
+
 @Component({
   selector: 'app-test',
   templateUrl: './test.component.html',

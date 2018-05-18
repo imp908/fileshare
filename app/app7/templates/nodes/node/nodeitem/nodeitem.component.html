@@ -1,7 +1,7 @@
 <ng-container *ngIf="test==true" class="component">
   {{cName}}
   <!-- Generate form control from model class -->
-  <div class="flex-container wtc">
+  <div [class]="this.htmlItem_.cssType">
   <br style="margin-top:5ch">
 
     <ng-container *ngIf="controlType()=='TextControl'">
@@ -25,10 +25,10 @@
     </ng-container>
 
     <ng-container *ngIf="controlType()=='RadioButtonControl'">
-      <div class="flex-container wtc">
+      <div class="flex-container vertical">
         {{this.htmlItem_.value}}
         <ng-container *ngFor="let r of this.htmlItem_.collection.array">
-          <div class="flex-container hrz">
+          <div class="flex-container horizontal">
             <input type="radio"
             [name]="this.htmlItem_.name"
             [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
@@ -40,13 +40,13 @@
     </ng-container>
 
     <ng-container *ngIf="controlType()=='DatePickerControl'">
-        <div class="flex-container wtc">
+        <div class="flex-container vertical">
           <app-datepicker-popup [itemParameter_]="this.htmlItem_"></app-datepicker-popup>
         </div>
     </ng-container>
 
     <ng-container *ngIf="controlType()=='NumberPickerControl'">
-        <div class="flex-container hrz">
+        <div class="flex-container horizontal">
           <app-gappicker-ng [itemValue_]="this.htmlItem_"></app-gappicker-ng>
         </div>
     </ng-container>
@@ -56,7 +56,7 @@
 
 <ng-container *ngIf="test==false">
   <!-- Generate form control from model class -->
-  <div class="flex-container wtc">
+  <div class="flex-container vertical">
   <br style="margin-top:5ch">
 
     <ng-container *ngIf="controlType()=='TextControl'">
@@ -80,10 +80,10 @@
     </ng-container>
 
     <ng-container *ngIf="controlType()=='RadioButtonControl'">
-      <div class="flex-container wtc">
+      <div class="flex-container vertical">
         {{this.htmlItem_.value}}
         <ng-container *ngFor="let r of this.htmlItem_.collection.array">
-          <div class="flex-container hrz">
+          <div class="flex-container horizontal">
             <input type="radio"
             [name]="this.htmlItem_.name"
             [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
@@ -95,13 +95,13 @@
     </ng-container>
 
     <ng-container *ngIf="controlType()=='DatePickerControl'">
-        <div class="flex-container wtc">
+        <div class="flex-container vertical">
           <app-datepicker-popup [itemParameter_]="this.htmlItem_"></app-datepicker-popup>
         </div>
     </ng-container>
 
     <ng-container *ngIf="controlType()=='NumberPickerControl'">
-        <div class="flex-container hrz">
+        <div class="flex-container horizontal">
           <app-gappicker-ng [itemValue_]="this.htmlItem_"></app-gappicker-ng>
         </div>
     </ng-container>
