@@ -430,8 +430,6 @@ TnT[
 
 			actual[
 
-
-
 -> repeat checkbox 
 -> Edit Node for HtmlItem
 -> Edit Nodes list for HtmlItem collection
