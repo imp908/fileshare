@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 
 import { AppComponent } from './app.component';
-import { ButtonComponent } from 'app/app7/buttons/button/button.component';
+import { ButtonComponent } from 'app/app7/templates/buttons/button/button.component';
 
 
 @NgModule({

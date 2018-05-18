@@ -1,0 +1,17 @@
+<div *ngIf="test==true" class="component">
+  {{cName}}
+</div>
+
+<ng-container *ngIf="test==false">
+    <div class="row">
+      <div class="col-sm-12">
+        <app-button [_buttons]="buttons_" [_obj]="nodes_"></app-button>
+      </div>
+    </div>
+    <hr>
+
+    <ng-container *ngFor="let qz_ of nodes_.collection.array">
+      <app-item [node_]=qz_></app-item>
+    </ng-container>
+
+</ng-container>

@@ -1,0 +1,44 @@
+<ng-container *ngIf="test==true" class="container">
+  <form class="form-inline">
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd hh:mm:ss"
+          name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker"
+          (input)="changed($event)"
+          (navigate)="navigate_($event)"
+          (ngModelChange)="modelChange($event)">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="assets/img/calendar1.svg" style="width: 1.2rem; height: 1rem; cursor: pointer; border-radius: 15px;"/>
+          </button>
+          <button class="btn btn-sm btn-outline-primary mr-2" (mouseup)="selectToday()">Select Today</button>
+          <!--<span class="glyphicon glyphicon-asterisk"></span>-->
+          <!--<span class="glyphicons glyphicons-glass"></span>-->
+        </div>
+      </div>
+    </div>
+  </form>
+  <pre>Model: {{ model | json }}</pre>
+</ng-container>
+
+<ng-container *ngIf="test==false">
+  <form class="form-inline">
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd hh:mm:ss"
+          name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker"
+          (input)="changed($event)"
+          (navigate)="navigate_($event)"
+          (ngModelChange)="modelChange($event)">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary" (click)="d.toggle()" type="button">
+            <img src="assets/img/calendar1.svg" style="width: 1.2rem; height: 1rem; cursor: pointer; border-radius: 15px;"/>
+          </button>
+          <button class="btn btn-sm btn-outline-primary mr-2" (mouseup)="selectToday()">Select Today</button>
+          <!--<span class="glyphicon glyphicon-asterisk"></span>-->
+          <!--<span class="glyphicons glyphicons-glass"></span>-->
+        </div>
+      </div>
+    </div>
+  </form>
+</ng-container>
