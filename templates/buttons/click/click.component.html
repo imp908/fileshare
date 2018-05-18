@@ -1,0 +1,17 @@
+<div *ngIf="test==true" class="component">
+  {{cName}}
+  <ng-container *ngIf="button_.toolTipText!=null">
+    <button (click)="clicked_(obj_)" (click)="clickEvent_($event)" class={{button_.htmlClass}} data-toggle="tooltip" data-placement="top" title="{{button_.toolTipText}}{{obj_.typeName}}">{{button_.value}}</button>
+  </ng-container>
+  <ng-container *ngIf="button_.toolTipText==null">
+    <button (click)="clicked_(obj_)" (click)="clickEvent_($event)" class={{button_.htmlClass}}>{{button_.value}}</button>
+  </ng-container>
+</div>
+<ng-container *ngIf="test==false">
+<ng-container *ngIf="button_.toolTipText!=null">
+  <button (click)="clicked_(obj_)" class={{button_.htmlClass}} data-toggle="tooltip" data-placement="top" title="{{button_.toolTipText}}{{obj_.typeName}}">{{button_.value}}</button>
+</ng-container>
+<ng-container *ngIf="button_.toolTipText==null">
+  <button (click)="clicked_(obj_)" (click)="clickEvent_($event)" class={{button_.htmlClass}}>{{button_.value}}</button>
+</ng-container>
+</ng-container>

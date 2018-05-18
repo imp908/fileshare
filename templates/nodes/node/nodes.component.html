@@ -1,0 +1,24 @@
+<ng-container *ngIf="test==true" class="component">
+  {{cName}}
+  <!-- Generate form control from model class -->
+  <div class="flex-container wtc">
+  <ng-container *ngFor="let i_ of htmlItems_.collection.array">
+    <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
+  </ng-container>
+  </div>
+</ng-container>
+<ng-container *ngIf="test==false">
+
+</ng-container>
+<ng-container *ngIf="test==false" class="component">
+  {{cName}}
+  <!-- Generate form control from model class -->
+  <div class="flex-container wtc">
+  <ng-container *ngFor="let i_ of htmlItems_.collection.array">
+    <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
+  </ng-container>
+  </div>
+</ng-container>
+<ng-container *ngIf="test==false">
+
+</ng-container>
