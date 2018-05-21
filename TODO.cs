@@ -436,15 +436,6 @@ TnT[
 
 			actual[
 
-<- done -> check flex [
-	<- done -> correct CSS flex container display 
-	<- done -> JS gen div add flex and CSS[
-		<- done -> gen div
-		<- done -> load JS lib external
-		<- done with  script.onreadystatechange = callback;
-			script.onload = callback; -> use external lib
-	]
-]
 
 -> repeat checkbox
 -> Edit Node for HtmlItem
@@ -476,7 +467,7 @@ more then 3 events listen ignore issue to repair  ]
 -> Http back
 
 
-	<- done -> New model menu,list-menu,edit-menu added 
+	<- 17.04.2018 done -> New model menu,list-menu,edit-menu added 
 	<- done -> New model create templates rebuild 
 	<- done -> drop down question type model
 	<- done -> question type init
@@ -484,12 +475,12 @@ more then 3 events listen ignore issue to repair  ]
 	<- done -> questions model add
 	{textbox,radio button,checkbox{pic realization},dropdowns to names}
 	<- done -> draw question DOM
-	<- done-> receive input
-	<- done-> print input on submit					 
+	<- done -> receive input
+	<- done -> print input on submit					 
 	<- done -> remove events duplicates in edit-menu, edit existing and add new differ by flow
 	<- done -> Detect current nested Nodecollection class type, to add new Items to empty collection 
 	<- done -> Make editable instance of item [
-	<- done <- to mmake it discardable
+	<- done -> to mmake it discardable
 	<- done	-> make converter from item to new]		
 	<- done -> parameters collection ItemParameters
 	<- done -> QuizParameters
@@ -501,12 +492,25 @@ more then 3 events listen ignore issue to repair  ]
 	<- done -> add correct two way binding to node.html checkboxes, datetime
 	<- done with static ModelContainer fields.-> add Form nad Subbmit to menu-edit.html
 	<- done with css display atr, mouseup and ngModelChange-> repair click need
-	<- done 15.05.2018 -> new GapPicker
-	<- done 16.05.2018 -> Input most usefull types test (textbox,radio,check,date,color,range,files) with NgBinding,value display and form submit model + template
-	<- done 17.05.2018 with HtmlItem class and its childs-> Change ItemParameter model to NodeCollection with input type specific attrs 
-	x- cancelled 17.05.2018  (no need cause model updates)-> Rep nested tmplate ngModel update 								 
-
+	<- 15.05.2018 done -> new GapPicker
+	<- 16.05.2018 done -> Input most usefull types test (textbox,radio,check,date,color,range,files) with NgBinding,value display and form submit model + template
+	<- 17.05.2018 done with HtmlItem class and its childs-> Change ItemParameter model to NodeCollection with input type specific attrs 
+	x- 17.05.2018 cancelled   (no need cause model updates)-> Rep nested tmplate ngModel update 								 
+	<- 20.05.2018 done -> check flex [
+	<- 20.05.2018 done -> correct CSS flex container display
+	<- 20.05.2018 done -> JS gen div add flex and CSS [
+		<-  19.05.2018 done -> gen div
+		<-  19.05.2018 done -> load JS lib external
+		<-  19.05.2018 done with  script.onreadystatechange = callback; script.onload = callback; -> use external lib
 			]
+		]
+
+	]
+	<- 21.05.2018 14:19 done  -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows
+	
+
+//--------------------------------------------------------------
+			
 			feature[
 -> change model to linked list	
 -> Model tree change to contain selected
