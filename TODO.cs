@@ -10,7 +10,13 @@ TODO[
 			->Employee class
 			->OpenGltutorials
 			->linked list reference graph
+		
+		SB[
+-> Moove classes from CT to SB3 
 
+sharefolder\Files\Repo\Mercurial\SBbr\MainBr\SB3_new_output
+		]
+		
 	c#
 	
 		ProofOfConcept
@@ -430,16 +436,26 @@ TnT[
 
 			actual[
 
--> repeat checkbox 
+<- done -> check flex [
+	<- done -> correct CSS flex container display 
+	<- done -> JS gen div add flex and CSS[
+		<- done -> gen div
+		<- done -> load JS lib external
+		<- done with  script.onreadystatechange = callback;
+			script.onload = callback; -> use external lib
+	]
+]
+
+-> repeat checkbox
 -> Edit Node for HtmlItem
 -> Edit Nodes list for HtmlItem collection
 -> Add new Question Question parameters [
-	-> question type with dropdown {textbox,checkbox,radio,rate with dropdown, pictures? }	
+	-> question type with dropdown {textbox,checkbox,radio,rate with dropdown, pictures? }
 	]
 -> Add new Answers according to Quiz,Answer types[
-	0 or Correct only for text, 1-* for radio,check,picture, rate. rate max points:number.
-	-> Correct answer for victorine according to type 
-	-> Answers according to type 
+	0 or Correct only for text, 1-* for radio,check,picture, rate. rate max points:number
+	-> Correct answer for victorine according to type
+	-> Answers according to type
 ]
 -> Quiz Pass page[exmpls
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html

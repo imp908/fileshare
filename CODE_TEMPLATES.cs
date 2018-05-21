@@ -82,7 +82,7 @@ usd\rub(62.01)/
 
 "Яма" Александра Куприна, "Санин" Михаила Арцыбашева, "В тумане" Леонида Андреева, "Крейцерова соната" Льва Толстого
 		]
-	  RPN[
+		RPN[
 			http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
 			http://rospotrebnadzor.ru/region/structure/str_uprav.php
 			https://www.meleon.ru/
@@ -324,7 +324,11 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//Books
 	//The Art of Unit Testing: with Examples in .NET
 	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
-	//JS	
+	//JS
+	//dynamic external lib load
+	https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
+	//Cloud I9 editor
+	//Ace editor
 	//Json to html
 	http://www.json2html.com/
 	//clarity 
@@ -337,9 +341,12 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://medium.com/codingthesmartway-com-blog/building-an-angular-5-project-with-bootstrap-4-and-firebase-4504ff7717c1
 	//primeng
 	https://www.primefaces.org/primeng/#/ 
-	lor.space/gradient?ori=to+right+top&hex=%23153669&hex2=%231ECFE0&sub=1
 	
 	TOREAD_SORT
+	//JS maddness external files load
+	http://unixpapa.com/js/dyna.html
+	//Load files
+	https://frontender.info/exploring-the-abyss-of-null-and-undefined-in-javascript/
 	//JS to Typescript
 	https://blog.appdynamics.com/engineering/8-steps-migrating-javascript-typescript/
 	//JS modules
@@ -356,17 +363,32 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://www.lucidchart.com/techblog/2016/11/08/angular-2-and-observables-data-sharing-in-a-multi-view-application/
 	//concurent dataloading 
 	https://www.metaltoad.com/blog/angular-2-http-observables-and-concurrent-data-loading
+	
 
-
-	//CSS
+	//CSS		
 	https://css-tricks.com/snippets/html/glyphs/
+	//CSS tricks
+	https://css-tricks.com/
+	//CSS tricks flexbox
+	https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+	//CSS tricks grid
+	https://css-tricks.com/snippets/css/complete-guide-grid/
+	//Float parent lement collaps
+	https://css-tricks.com/almanac/properties/f/float/
+	//Code alchemy
+	https://htmlacademy.ru/courses/45
+	//Code alchemy grids
+	https://htmlacademy.ru/courses/65
+	//animate css
+	https://daneden.github.io/animate.css/
 	//character code
 	http://www.fileformat.info
 	http://www.mauvecloud.net
 	//custom checkboxes 
 	https://codepen.io/arpitnj/pen/oCAqa
-	//gradients 
+	 //gradients 
 	https://mycolor.space/gradient?ori=to+right+top&hex=%23153669&hex2=%231ECFE0&sub=1
+	https://webgradients.com/
 	//svg
 	https://bennettfeely.com/clippy/
 	//spans svg png
@@ -926,6 +948,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	git commit -m "first commit"
 	git remote add origin https://github.com/imp908/NSQLmanager.git
 	git push -u origin master
+	IF NOT WORKS {git push -f origin master}
 					
 				}
 				
@@ -1062,7 +1085,9 @@ https://metanit.com/sharp/aspnet5/20.1.php
 				
 				overall 
 				[
-				
+					//add CAinfo
+					git config http.sslCAinfo G:/disk/Progs/Git/mingw64/ssl/certs/ca-bundle.crt
+					
 					MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
 					git pull origin branchname --allow-unrelated-histories			
 					//recommended
@@ -3765,14 +3790,12 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 			//pointers declaration
 			int* a;
 			int *a;
-			
-			
-			
+								
 		}
 		
 		Structures
 		{
-
+			
 			class enum Name 
 			{
 				T field
@@ -3808,11 +3831,20 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 
 				*(*(arr+i)+j)
 			}
-									
-			
+												
 
 		}
 		
+		arhitecture{
+			
+			namespaces{
+				//Use ms namespace foo function
+				ms::foo();
+				//using custom namespace function
+				return ms::return_zero();
+			}
+		
+		}
 	}
 
 	public Code Examples
@@ -3830,388 +3862,20 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 
 				int main()
 				{
-				cout << "HW";
-				return 0;
+					cout << "HW";
+					return 0;
 				}
-			}
+			}							
 			
-			custom namespaceAdd{
-				
-	//standart minimum include for cout
-	#include <iostream>
-
-	//namespace initialization
-	using namespace std;
-
-	//custom namespace
-	namespace ms {
-		//function in namespace
-		int return_zero()
-		{
-			return 0;
-		}
-
-		//void func
-		void foo()
-		{
-			std::cout << "Empty foo() callsed";
-		};
-	}
-
-	int main()
-	{
-		cout << "HW \n";
-
-		//using void fucnt
-		ms::foo();
-		//using custom namespace
-		return ms::return_zero();
-	}
-
-			}
 			
-			HelowWorld extended{
-	//standart minimum include for cout
-	#include <iostream>
-	#include <array>
-
-	//namespace initialization
-	using namespace std;
-
-	//class structures
-	namespace Classes_
-	{
-		//enum classs
-		enum class MyEnum
-		{
-			value1, value2 = 10, value3
-		};
-
-		//struc 
-		struct Record {
-			int ID;
-			int num;
-			char letter;
-		};
-	}
-
-	namespace Functions_
-	{
-		void Function1()
-		{	
-			std::cout << "Function started - > " << __func__ << "; \r\n";
-		}
-
-		int Function2(int a, int b)
-		{
-			std::cout << "Function started - > " << __func__ << "; \r\n";
-			return 0;
-		}
-		
-		auto Function3() -> int
-		{
-			return 0;
-		}
-
-		auto Function4(double a, double b)
-		{
-			if (b == 0) { std::cout << "1" << __func__ << a / b; }
-			std::cout << "2" << __func__ << a / b;
-			return a / b;
-		}
-	}
-	//custom namespace
-	namespace ms {
-
-		//function in namespace
-		int return_zero()
-		{
-			return 0;
-		}
-
-		//void func
-		void foo()
-		{
-			std::cout << "Empty foo() callsed";
-		};
-
-		void nl()
-		{
-			std::cout << "\r\n";
-		}
-		
-		//Variables demonstration
-		void Variables()
-		{
-			int uninitialized = 12;
-			int initialized = 11;
-
-			nl();
-
-			std::cout << "Uninitialized->" << uninitialized << "\r\n";
-			std::cout << "Initialized->" << uninitialized << "\r\n";
-
-			std:cout << "nl->" << nl;
-		}
-
-		//Int cast and operator
-		void Operators()
-		{
-			int i, x;
-			i = 8;
-			x = 2;
-			i %= x;
-
-			float flt = 1.234;
-			int y;
-
-			nl();
-			std::cout << "  i % = x -> " << i << " i,x: " << i << ";" << x;
-			
-			nl();
-			std::cout << "Float(f): " << flt << " (int)f -> " << (int)flt << "\r\n";
-			std::cout << "Float(f): " << flt << " int(f) -> " << int(flt) << "\r\n";
-			std::cout << "Float(f): " << flt << " static_cast<int>(f) -> " << static_cast<int>(flt) << "\r\n";
-
-			nl();
-			int i2 = 32767;
-			short shrt;
-
-			i2 *= 20;
-			i2 += 153;
-
-			i2 = 32769;
-
-			nl();
-			std::cout << "i2 -> " << i2;
-			
-			shrt = static_cast<short>(i2);
-
-			nl();
-			std::cout << "i2 % 32767 -> " << i2 % 32767 << "\r\n";
-			std::cout << "shrt -> " << shrt;
-
-			std::cout << "short 32768 to int -> " << static_cast<int>((short)32767) << "\r\n";
-			std::cout << "short 32768 to int -> " << static_cast<int>((short)32768) << "\r\n";
-			std::cout << "short 32769 to int -> " << static_cast<int>((short)32769) << "\r\n";
-			std::cout << "short 32770 to int -> " << static_cast<int>((short)32770) << "\r\n";
-
-			std::cout << "short 32770 to int -> " << static_cast<int>((short)(32768*2)) << "\r\n";
-		}
-
-		//enumerator print
-		void EnumPrint()
-		{
-			Classes_::MyEnum  i = Classes_::MyEnum::value1;
-			
-			nl();
-			std::cout<< "Classes_::MyEnum::Value1 -> " << (int)i;
-			std::cout << "Classes_::MyEnum::Value1 -> " << (int)Classes_::MyEnum::value2;
-		}
-		
-		//struct print
-		void StructPrint()
-		{
-			Classes_::Record record = Classes_::Record();
-			record.ID = 1;
-			record.num = 15;
-			record.letter = 'A';
-
-			nl();
-			std::cout << "Record -> " << record.ID << " " << record.letter << " " << record.num ;
-
-			nl();
-			
-		}
-		
-		void Array()
-		{
-			std::array<int, 4> arr1;
-			arr1 = { 9,8,7,6 };
-
-			nl();
-			for (int i = 0; i < arr1.size(); i++)
-			{
-				std::cout << " i=" << i << "; Arr[i]=" << arr1[i] << "; ";
-			}
-
-
-			//unexpected for i > declared
-			//nl();
-			//for (int i : arr1)
-			//{
-			//	std::cout << " i=" << i << "; Arr[i]=" << arr1[i] << "; ";
-			//}
-
-		}
-		
-		void Functions()
-		{
-			nl();
-			Functions_::Function1();
-			nl();
-			Functions_::Function2(0, 1);
-			nl();
-			Functions_::Function3();
-			nl();
-			Functions_::Function4(5, 0);
-			nl();
-			Functions_::Function4(5, 3);
-		}
-
-		void Pointers()
-		{
-			int a = 10;
-			int* p = &a;
-			int** c = &p;
-
-			std::cout << "a p &p &a *p-> " << a << " " << p << " " << &a << " " << &p << " " << *p;
-			ms::nl();
-			std::cout << "p c &p &c *p *c-> " << p << " " << c << " " << &p << " " << &c << " " << *p << " " << *c;
-		}
-
-	}
-
-
-	int main()
-	{
-		cout << "HW \n";
-		
-		//using void fucnt
-		ms::foo();
-
-		ms::Variables();
-		
-		ms::Operators();
-
-		ms::EnumPrint();
-
-		ms::StructPrint();
-
-		ms::Array();
-
-		ms::Functions();
-
-		//using custom namespace
-		return ms::return_zero();
-	}
-
-
-
-			}
-			
-			sharefolder\Files\Repo\Mercurial\SBbr\MainBr\SB3_new_output
 		}
 		
 		[class boilerplates
 
-	[rectangle class
 
-		///CLass in code check
-		class Rectangle{
-		private:
-			int height,width;
-			void set_Values(int,int);
-		public:
-			Rectangle();
-			Rectangle(int,int);
-			int Area();
-		};
-		void Rectangle::set_Values(int x,int y)
-		{
-			width=x;
-			height=y;
-		}
-		Rectangle::Rectangle()
-		{
-			width=0;
-			height=0;
-		}
-
-		Rectangle::Rectangle(int a,int b)
-		{
-			set_Values(a,b);
-		}
-
-		int Rectangle::Area(){
-			return width*height;
-		}
-		void ClassCheck()
-		{
-			Rectangle recta(2,3),rectb(4,5);
-			Rectangle rectc;
-			std::cout << "Rect area a: " << recta.Area() << "\n";
-			std::cout << "Rect area b: " << rectb.Area() << "\n";
-			std::cout << "Rect area c: " << rectc.Area() << "\n";
-			std::cout << "\n";
-		}
-
-
-		Circle crcl0 (11.0); //functional not calls default contrl
-		Circle crcl1 = 12.0; //assignment calls
-		Circle crcl2 {13.0}; //uniform	 
-		Circle crcl3 = {14.0}; //POD like calls
-
-	]
 
 	//<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
-	[cirlce class
-
-	class Circle
-	{
-	private:
-		double radius;
-		double area;
-		double circumference;
-		void countArea();
-		void countCircum();
-	public:
-		Circle();
-		Circle(double radius);
-		void print();
-		double Area();
-		double Circum();
-	};
-
-	Circle::Circle()
-	{
-		area=0.0;
-	}
-	Circle::Circle(double r)
-	{
-		radius=r;
-		countArea();
-		countCircum();
-	}
-	void Circle::countArea(){
-		area=radius*radius*2.14159265;
-	}
-	void Circle::countCircum()
-	{
-		circumference=2*radius*2.14159265;
-	}
-	double Circle::Area()
-	{
-		return area;
-	}
-	double Circle::Circum()
-	{
-		return circumference;
-	}
-	void Circle::print()
-	{
-		std::cout << "Radius= " << radius << std::endl;
-		std::cout << "Area= " << Area() << std::endl;
-		std::cout << "Circumference= " << Circum() << std::endl;
-	}
-	void CircleCheck()
-	{
-		Circle cr(10);
-		cr.print();
-	}
-
-	]
 	
 	
 		]
@@ -5175,7 +4839,7 @@ html -> <childHtml (outEm)="method($event)">
 			}
 		}
 	
-		public void TipsAndTricks{
+		 	public void TipsAndTricks{
 			
 			generateTemplateIncolumns[
 			
@@ -5239,7 +4903,6 @@ html -> <childHtml (outEm)="method($event)">
 			NgMOdelOverridsHtmlAttr[
 			inpyt type="textbox" - > binding [(ngModel)]="val" overrides any placeholders value attr
 			]
-			
 		}
 	}
 	
@@ -5295,7 +4958,13 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 	
 	public void TipsAndTricks{
 		
-		DOMevents{
+		CSS{
+			FlexBoxRowWrap{
+				not working if flexbox child of some unflex parent;
+				need flexbow with height attr;
+			}
+		}
+		,DOMevents{
 			
 			ClickVsMouseUp(
 			click will trigger MouseEvent and will intercept other KeyDown events.
