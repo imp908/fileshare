@@ -1,0 +1,30 @@
+
+
+.gradMenu{
+  background: radial-gradient(circle,rgba(242, 242, 237,0),rgba(242, 242, 237,1));
+  border-radius: 15px;
+}
+.gradList{
+    border-radius: 15px;
+    background: linear-gradient(to bottom,rgba(242, 242, 242,1),rgba(211, 207, 186,1),rgba(242, 242, 242,1));
+}
+
+.gradback{
+  background: linear-gradient(to right,#23074d, #cc5333);
+}
+
+.graddelic{
+  background: radial-gradient(circle,#d9a7c7,#fffcdc);
+}
+.gradhearts{
+  background: radial-gradient(circle,#fffcdc ,#d9a7c7);
+}
+.gradzinc{
+  background: linear-gradient(0deg,#ada996,#f2f2f2,#DBDBDB,#ada996);
+}
+
+.gradbeyond{
+  background: #F0F2F0;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to left, #000C40, #F0F2F0);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to left, #000C40, #F0F2F0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
