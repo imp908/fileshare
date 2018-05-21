@@ -20,7 +20,7 @@ export class MenuListComponent implements OnInit {
   typePassed_:string;
   constructor(private service:Service_){
       //service.test=false;
-      ServiceCl.log(["ModelContainer",ModelContainer])
+      ServiceCl.log(["Constructor: " + this.constructor.name]);
       this.test=service.test;
       this.cName=this.constructor.name;
       this.genTest();
@@ -49,6 +49,7 @@ export class MenuListComponent implements OnInit {
           this.conatinerBind();
       });
 
+      ServiceCl.log(["Inited: " + this.constructor.name,this.nodesPassed_]);
   }
 
 }

@@ -1,6 +1,12 @@
-<div *ngIf="test==true" class="component">
-  {{cName}}
-</div>
+<ng-container *ngIf="test==true" >
+
+  <div class="row">
+    <div class="col-sm" *ngFor="let bt_ of _buttons.collection.array">
+         <app-click [button_]="bt_" [obj_]="_obj"></app-click>
+    </div>
+  </div>
+
+</ng-container >
 <ng-container *ngIf="test==false" >
 
   <div class="row">

@@ -1,23 +1,25 @@
 <ng-container *ngIf="test==true" class="component">
-  {{cName}}
+  <!-- {{cName}} -->
   <!-- Generate form control from model class -->
 
-  <div [class]="htmlItems_.ccsType">
-  <ng-container *ngFor="let i_ of htmlItems_.collection.array">
+    CSS_4: {{htmlItems_.cssClass}}, {{htmlItems_.name}}
+    <ng-container *ngFor="let i_ of htmlItems_.collection.array">
+      <div [class]="i_.cssClass">
+        CSS_5:{{i_.cssClass}}, {{htmlItems_.name}}
+        <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
+      </div>
+    </ng-container>
 
-      <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
-
-  </ng-container>
-  </div>
 
 </ng-container>
 <ng-container *ngIf="test==false">
 
 </ng-container>
 <ng-container *ngIf="test==false" class="component">
-  {{cName}}
+  <!-- {{cName}} -->
   <!-- Generate form control from model class -->
   <div class="flex-container vertical">
+    CSS_2
   <ng-container *ngFor="let i_ of htmlItems_.collection.array">
     <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
   </ng-container>

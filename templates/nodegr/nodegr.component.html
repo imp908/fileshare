@@ -1,17 +1,13 @@
 <ng-container *ngIf="test==true">
 
-  <div [class]="nodePassed_.cssType">
+  <div [class]="nodePassed_.cssClass">
+    CSS_2:{{nodePassed_.cssClass}} , {{nodePassed_.name}}
   <ng-container *ngFor="let i_ of nodePassed_.collection.array">
     <ng-container *ngIf="i_.show!=false">
-
-
-        <div class="col-sm-8">
-          {{i_.value}}
-        </div>
-        <div class="col-sm-8">
+        <div class="flex-container horizontal">
+          <p class="ctgrhd">{{i_.value}}</p>
           <app-nodes [htmlItems_]="i_"></app-nodes>
         </div>
-
 
     </ng-container>
     </ng-container>
