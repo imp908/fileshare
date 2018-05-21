@@ -436,7 +436,12 @@ TnT[
 
 			actual[
 
-
+-> change every HtmlItem child class to cssType receive
+-> handle cssClass in allnodes for all HtmlItem types [
+	-> nodeItem rewrite for one item.csstype binding
+	-> change nodes and nodegr to cssType
+]
+	
 -> repeat checkbox
 -> Edit Node for HtmlItem
 -> Edit Nodes list for HtmlItem collection
@@ -506,7 +511,7 @@ more then 3 events listen ignore issue to repair  ]
 		]
 
 	]
-	<- 21.05.2018 14:19 done  -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows
+	<- 21.05.2018 14:19 done  -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows.
 	
 
 //--------------------------------------------------------------

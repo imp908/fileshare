@@ -868,14 +868,14 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	intraservise
 	elma
 	
-	//code gen
+  //code gen
 	https://swagger.io/
 	//tizen
 	https://www.tizen.org/
 	
 	//ORACLE
 	http://www.f-notes.info/oracle:what_where
-	
+		
 	//Shodan
 	https://www.shodan.io/
 	
@@ -2335,7 +2335,7 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 					
 				}
 			
-				public void WebDeploy()
+        public void WebDeploy()
 				{
 					Web Deploy
 					//host name without urls or ports
