@@ -436,15 +436,12 @@ TnT[
 
 			actual[
 
--> change every HtmlItem child class to cssType receive
 -> handle cssClass in allnodes for all HtmlItem types [
 	-> nodeItem rewrite for one item.csstype binding
 	-> change nodes and nodegr to cssType
 ]
 	
 -> repeat checkbox
--> Edit Node for HtmlItem
--> Edit Nodes list for HtmlItem collection
 -> Add new Question Question parameters [
 	-> question type with dropdown {textbox,checkbox,radio,rate with dropdown, pictures? }
 	]
@@ -501,6 +498,8 @@ more then 3 events listen ignore issue to repair  ]
 	<- 16.05.2018 done -> Input most usefull types test (textbox,radio,check,date,color,range,files) with NgBinding,value display and form submit model + template
 	<- 17.05.2018 done with HtmlItem class and its childs-> Change ItemParameter model to NodeCollection with input type specific attrs 
 	x- 17.05.2018 cancelled   (no need cause model updates)-> Rep nested tmplate ngModel update 								 
+	<- 18.05.2108 done -> Edit Node for HtmlItem
+	<- 18.05.2108 done -> Edit Nodes list for HtmlItem collection
 	<- 20.05.2018 done -> check flex [
 	<- 20.05.2018 done -> correct CSS flex container display
 	<- 20.05.2018 done -> JS gen div add flex and CSS [
@@ -510,7 +509,8 @@ more then 3 events listen ignore issue to repair  ]
 			]
 		]
 	<- 21.05.2018 14:19 done  -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows.
-		
+	<- 22.05.2018 done -> change every HtmlItem child class to cssType receive
+	
 		
 	]
 	
