@@ -1,6 +1,12 @@
-<div *ngIf="test==true" class="component">
+<ng-container *ngIf="test==true" class="container">
   {{cName}}
-</div>
-<div *ngIf="test==false">
-  <app-list [nodes_]=nodes_></app-list>
-</div>
+  <!-- <app-menu></app-menu> -->
+  <ng-container *ngFor="let i_ of htmlItemsArr2">
+    <div>{{i_.value}} , {{i_.name}} , {{i_.cssClass}}</div>
+    <div style="margin-left:10vw; padding-left:10vw;">
+        <ng-container *ngFor="let i2_ of i_">
+          <app-nodeitem [htmlItem_]="i2_"></app-nodeitem>
+        </ng-container>
+    </div>
+  </ng-container>
+</ng-container>
