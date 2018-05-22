@@ -1,7 +1,7 @@
 <ng-container *ngIf="test==true" class="container">
 
-  <div class="flex-container" >
-    {{itemValue_.value}}
+  <div [class]="itemValue_.cssClass" >
+    <!-- {{itemValue_.value}} -->
   <ng-container *ngIf="cstmSpin==true">
 
     <!--  <path d="M0 0 L0 5 L20 20 L5 0 L0 0 Z"/>-->

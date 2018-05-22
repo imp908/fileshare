@@ -593,9 +593,9 @@ export class TextControl extends HtmlItem{
   displayValue:any
 
   constructor(key_:number,name_:string,value_:string, displayValue_:any,HtmlSubmittedValue_:any
-    ,pattern_?:string,minLen_?:number,maxLen_?:number,show_?:boolean){
+    ,pattern_?:string,minLen_?:number,maxLen_?:number,show_?:boolean,cssClass_?:string){
 
-    super(key_,name_,value_,"input","text",HtmlSubmittedValue_,show_,null,null)
+    super(key_,name_,value_,"input","text",HtmlSubmittedValue_,show_,cssClass_,null)
 
     this.maxLength=null;
     this.minLength=null;
@@ -615,8 +615,8 @@ export class TextControl extends HtmlItem{
 }
 export class CheckBoxControl extends HtmlItem{
   constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:any
-    ,show_?:boolean){
-    super(key_,name_,value_,"input","checkbox",HtmlSubmittedValue_,show_,null,null)
+    ,show_?:boolean,cssClass_?:string){
+    super(key_,name_,value_,"input","checkbox",HtmlSubmittedValue_,show_,cssClass_,null)
   }
 }
 export class RadioButtonControl extends HtmlItem{
@@ -628,8 +628,8 @@ export class RadioButtonControl extends HtmlItem{
   }
 }
 export class DatePickerControl extends HtmlItem{
-  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:Date ,show_:boolean){
-    super(key_,name_,value_,"input","datepicker",HtmlSubmittedValue_,show_,null,null)
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:Date ,show_:boolean,cssClass_?:string){
+    super(key_,name_,value_,"input","datepicker",HtmlSubmittedValue_,show_,cssClass_,null)
   }
 }
 export class NumberPickerControl extends HtmlItem{
@@ -637,8 +637,9 @@ export class NumberPickerControl extends HtmlItem{
   minN?:number;
   maxN?:number;
 
-  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:number,min_?:number,max_?:number,show_?:boolean){
-    super(key_,name_,value_,"input","numberpicker",HtmlSubmittedValue_,show_,null,null)
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:number
+    ,min_?:number,max_?:number,show_?:boolean,cssClass_?:string){
+    super(key_,name_,value_,"input","numberpicker",HtmlSubmittedValue_,show_,cssClass_,null)
 
     this.minN=null;
     this.maxN=null;
@@ -663,11 +664,13 @@ export class QuizControls extends HtmlItem{
     if(collection_==null){
 
       let rb=new Collection_<HtmlItem>([
-      new RadioButtonControl(0,"Rb","What to shoose?","Choice 2",true,"flex-container horizontal",new Collection_<HtmlItem>([
+      new RadioButtonControl(0,"Rb","What to shoose?","Choice 2",true,"flex-container fxvt"
+        ,new Collection_<HtmlItem>([
           new HtmlItem(0,"Rb","Choice 1","option","",null,true,null,null)
           ,new HtmlItem(1,"Rb","Choice 2","option","",null,true,null,null)
           ,new HtmlItem(2,"Rb","Choice 3","option","",null,true,null,null)
-        ]))
+          ])
+        )
       ]);
 
       let tx = new Collection_<HtmlItem>([
@@ -678,16 +681,16 @@ export class QuizControls extends HtmlItem{
 
       let cb = new Collection_<HtmlItem>([
         new CheckBoxControl(0,"Cb","To Check or not to check1",true)
-        ,new CheckBoxControl(1,"Cb","To Check or not to check2",true)
+        ,new CheckBoxControl(1,"Cb","To Check or not to check3",true)
       ]);
 
       rb.setType("HtmlItem");
       tx.setType("HtmlItem");
       cb.setType("HtmlItem");
 
-      let rbcl=new HtmlItem(0,"RadioColl","RadioColl","f-c","wrt",null,true,"flex-container horizontal",rb);
-      let txcl=new HtmlItem(1,"TextBoxColl","TextBoxColl","f-c","wrt",null,true,"flex-container horizontal",tx);
-      let cbcl=new HtmlItem(2,"CheckColl","CheckColl","f-c","wrt",null,true,"flex-container horizontal",cb);
+      let rbcl=new HtmlItem(0,"RadioColl","RadioColl","f-c","wrt",null,true,"flex-container fxhr",rb);
+      let txcl=new HtmlItem(1,"TextBoxColl","TextBoxColl","f-c","wrt",null,true,"flex-container fxhr",tx);
+      let cbcl=new HtmlItem(2,"CheckColl","CheckColl","f-c","wrt",null,true,"flex-container fxhr",cb);
 
       qzcl=new Collection_<HtmlItem>([rbcl,txcl,cbcl]);
 
@@ -695,12 +698,13 @@ export class QuizControls extends HtmlItem{
 
     }
 
-    super(0,"QuizControlGroup","QuizControlGroup","div",HtmlCssAttr_,null,show_,"flex-container horizontal",qzcl);
+    super(0,"QuizControlGroup","QuizControlGroup","div",HtmlCssAttr_,null,show_,"flex-container fxvt",qzcl);
   }
 
 }
 
 // obsolete est itemp params
+
 
 class ItemValue {key:string;value:number;min:number;max:number}
 class ItemDrop {key:string;values:[{value:number;checked:boolean}]}
@@ -829,7 +833,8 @@ export class menuButtons extends Button{
       this.collection.add(new Button(null,"Test1","Test button 1",null,"btn btn-evening-night",false,"Button for test1"))
       this.collection.add(new Button(null,"Test2","Test button 2",null,"btn btn-red-sunset",false,"Testing button"))
       this.collection.add(new Button(null,"Test3","Test button 3",null,"btn",false))
-      this.collection.add(new Button(null,"Test4","Test button 4",null,"btn",false))
+      this.collection.add(new Button(null,"Test3","Test button 4",null,"btn",false))
+      this.collection.add(new Button(null,"Test3","Test button 5",null,"btn",false))
     }
 }
 

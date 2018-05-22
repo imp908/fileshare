@@ -1,6 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {ServiceCl,Service_} from '../Services/services.component'
-import {Factory_,Quiz,Test,NodeCollection,QuizParameter,ItemParameter,TestGapPickerParameter  } from '../Models/inits.component'
+import {Factory_,Quiz,Test,NodeCollection,Collection_,QuizParameter,ItemParameter,TestGapPickerParameter  } from '../Models/inits.component'
 import { HtmlItem,TextControl,CheckBoxControl,RadioButtonControl,DatePickerControl,NumberPickerControl
 ,QuizControls } from '../Models/inits.component'
 import {Button} from 'app/app7/Models/inits.component'
@@ -27,11 +27,61 @@ export class TestComponent implements OnInit {
   testGapPickerParameter_:TestGapPickerParameter;
 
   htmlItemsArr:[NodeCollection]=[
-    new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4)
-    ,new TextControl(0,"Tb","text_nm","Type text","Type here2",null,1,3)
-    ,new CheckBoxControl(0,"Cb","To Check or not to check",true)
-    ,new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true)
+
+    new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true,"flex-container fxvt")
+    ,new TextControl(0,"Tb","text_nm","Type text2","Type here2",null,1,3,true,"flex-container fxhr")
+    ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true,"flex-container fxvt")
+    ,new CheckBoxControl(0,"Cb","To Check or not to check2",false,true,"flex-container fxhr")
+
+    ,new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true,"flex-container fxvt")
+    ,new DatePickerControl(0,"Dp","Choose date",new Date(2002,11,11,11,11,1),true,"flex-container fxhr")
+
+    ,new RadioButtonControl(0,"Rb1","Choose or not to choose?","Choice 2",true,"flex-container fxvt"
+      ,new Collection_<HtmlItem>([
+        new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+        ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+        ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+        ]))
+    ,new RadioButtonControl(0,"Rb2","Choose or not to choose?","Choice_3",true,"flex-container fxhr"
+      ,new Collection_<HtmlItem>([
+        new HtmlItem(0,"Rb2","Choice_1","option","",null,true,null,null)
+        ,new HtmlItem(1,"Rb2","Choice_2","option","",null,true,null,null)
+        ,new HtmlItem(2,"Rb2","Choice_3","option","",null,true,null,null)
+        ]))
+
+    ,new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"flex-container fxvt")
+    ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"flex-container fxhr")
+
   ];
+
+  htmlItemsArr2:[NodeCollection[]]=
+  [
+    [
+  new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true,"flex-container fxvt")
+  ,new TextControl(0,"Tb","text_nm","Type text2","Type here2",null,1,3,true,"flex-container fxhr")
+  ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true,"flex-container fxvt")
+  ,new CheckBoxControl(0,"Cb","To Check or not to check2",false,true,"flex-container fxhr")
+],[
+    ,new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true,"flex-container fxvt")
+    ,new DatePickerControl(0,"Dp","Choose date",new Date(2002,11,11,11,11,1),true,"flex-container fxhr")
+],[    ,new RadioButtonControl(0,"Rb1","Choose or not to choose?","Choice 2",true,"flex-container fxvt"
+      ,new Collection_<HtmlItem>([
+        new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+        ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+        ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+        ]))
+    ,new RadioButtonControl(0,"Rb2","Choose or not to choose?","Choice_3",true,"flex-container fxhr"
+      ,new Collection_<HtmlItem>([
+        new HtmlItem(0,"Rb2","Choice_1","option","",null,true,null,null)
+        ,new HtmlItem(1,"Rb2","Choice_2","option","",null,true,null,null)
+        ,new HtmlItem(2,"Rb2","Choice_3","option","",null,true,null,null)
+        ]))
+      ],[
+        ,new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"flex-container fxvt")
+        ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"flex-container fxhr")
+
+      ]
+  ]
 
   quizControls_:QuizControls;
 

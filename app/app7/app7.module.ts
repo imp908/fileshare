@@ -18,9 +18,9 @@ import { MenuComponent } from './templates/menus/menu/menu.component';
 import { MenuListComponent } from './templates/menus/menu-list/menu-list.component';
 import { MenuEditComponent } from './templates/menus/menu-edit/menu-edit.component';
 
-import { NodesGroups } from './templates/nodes/nodegr.component';
-import { NodesComponent } from './templates/nodes/node/nodes.component';
-import { NodeitemComponent } from './templates/nodes/node/nodeitem/nodeitem.component';
+import { NodesGroups } from './templates/nodegr/nodegr.component';
+import { NodesComponent } from './templates/nodegr/nodes/nodes.component';
+import { NodeitemComponent } from './templates/nodegr/nodes/nodeitem/nodeitem.component';
 
 import { ClickComponent } from './templates/buttons/click/click.component';
 import { ButtonComponent } from './templates/buttons/button/button.component';
@@ -29,6 +29,7 @@ import { TimepickerComponent } from './templates/Elements/timepicker/timepicker.
 import { GappickerNgComponent } from './templates/Elements/gappicker-list/gappicker-ng/gappicker-ng.component';
 import { GappickerListComponent } from './templates/Elements/gappicker-list/gappicker-list.component';
 import { GappickerDropComponent } from './templates/Elements/gappicker-list/gappicker-drop/gappicker-drop.component';
+
 
 
 

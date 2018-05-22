@@ -12,7 +12,7 @@ export class DatepickerPopupComponent implements OnInit {
   cName:string;
   test: boolean;
 
-  @Input() itemParameter_:HtmlItem;
+  @Input() htmlItem_:HtmlItem;
   startDate_:Date;
   model:NgbDateStruct;
 
@@ -21,7 +21,7 @@ export class DatepickerPopupComponent implements OnInit {
     this.cName=this.constructor.name;
     this.startDate_=null;
 
-    ServiceCl.log(['Constructor : ' + this.constructor.name, this.itemParameter_,this.model])
+    ServiceCl.log(['Constructor : ' + this.constructor.name, this.htmlItem_,this.model])
   }
 
   ngOnInit() {
@@ -38,11 +38,11 @@ export class DatepickerPopupComponent implements OnInit {
         let a=s.itemParameter.collection.array.find(s=>s.name=="StartDate");
         ServiceCl.log(['ItemParameter StartDate: ' + this.constructor.name, a])
         if(a instanceof ItemParameter){
-          this.itemParameter_=a;
+          this.htmlItem_=a;
         }
 
-          if((this.itemParameter_!=null)){
-            if((this.itemParameter_.valueVal!=null)){
+          if((this.htmlItem_!=null)){
+            if((this.htmlItem_.valueVal!=null)){
               this.dateToModel();
             }
           }
@@ -52,14 +52,14 @@ export class DatepickerPopupComponent implements OnInit {
 
     */
 
-    ServiceCl.log(['Inited : ' + this.constructor.name,this.itemParameter_,this.model])
+    ServiceCl.log(['Inited : ' + this.constructor.name,this.htmlItem_,this.model])
   }
   navigate_($event){
         ServiceCl.log(["navigate_ ",$event])
   }
   changed(e:any){
     this.modelToItemDate();
-    ServiceCl.log(["changed ",this.model,this.itemParameter_])
+    ServiceCl.log(["changed ",this.model,this.htmlItem_])
   }
   toggled(){
     ServiceCl.log(["toggled ",this.model])
@@ -67,25 +67,25 @@ export class DatepickerPopupComponent implements OnInit {
   selectToday(){
     this.model={year: new Date().getFullYear(), month: new Date().getMonth()+1, day: new Date().getDate()};
     this.modelToItemDate();
-    ServiceCl.log(["selectToday ",this.model,this.itemParameter_.HtmlSubmittedValue])
+    ServiceCl.log(["selectToday ",this.model,this.htmlItem_.HtmlSubmittedValue])
   }
   modelToItemDate(){
       if(this.model!=null){
-        this.itemParameter_.HtmlSubmittedValue.getFullYear=this.model.year;
-        this.itemParameter_.HtmlSubmittedValue.getMonth=this.model.month-1;
-        this.itemParameter_.HtmlSubmittedValue.getDate=this.model.day;
+        this.htmlItem_.HtmlSubmittedValue.getFullYear=this.model.year;
+        this.htmlItem_.HtmlSubmittedValue.getMonth=this.model.month-1;
+        this.htmlItem_.HtmlSubmittedValue.getDate=this.model.day;
         //=new Date(this.model.year,this.model.month-1,this.model.day,0,0,0);
       }
-      ServiceCl.log(["modelToItemDate ",this.model,this.itemParameter_])
+      ServiceCl.log(["modelToItemDate ",this.model,this.htmlItem_])
   }
   dateToModel(){
-      if((this.itemParameter_!=null) && (this.itemParameter_.HtmlSubmittedValue!=null)){
+      if((this.htmlItem_!=null) && (this.htmlItem_.HtmlSubmittedValue!=null)){
         this.model={
-          year: this.itemParameter_.HtmlSubmittedValue.getFullYear()
-          , month: this.itemParameter_.HtmlSubmittedValue.getMonth()+1
-          , day:this.itemParameter_.HtmlSubmittedValue.getDate()};
+          year: this.htmlItem_.HtmlSubmittedValue.getFullYear()
+          , month: this.htmlItem_.HtmlSubmittedValue.getMonth()+1
+          , day:this.htmlItem_.HtmlSubmittedValue.getDate()};
       }
-      ServiceCl.log(["dateToModel ",this.model,this.itemParameter_])
+      ServiceCl.log(["dateToModel ",this.model,this.htmlItem_])
   }
   modelChange(e:any){
     this.modelToItemDate();
