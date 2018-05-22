@@ -509,14 +509,18 @@ more then 3 events listen ignore issue to repair  ]
 		<-  19.05.2018 done with  script.onreadystatechange = callback; script.onload = callback; -> use external lib
 			]
 		]
-
-	]
 	<- 21.05.2018 14:19 done  -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows.
+		
+		
+	]
+	
 	
 
 //--------------------------------------------------------------
 			
 			feature[
+-> split add htmlItem to <label> <item> templates. Pass cssClass to 
+	Item and to Item group to change label control display direction 
 -> change model to linked list	
 -> Model tree change to contain selected
 -> Save model tree

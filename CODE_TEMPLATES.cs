@@ -325,6 +325,8 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//The Art of Unit Testing: with Examples in .NET
 	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
 	//JS
+	//Angular 2 to WebComponents
+	https://angular.io/guide/elements
 	//dynamic external lib load
 	https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
 	//Cloud I9 editor
