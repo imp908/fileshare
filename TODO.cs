@@ -231,7 +231,8 @@ traverse out('Comment','Authorship'),in('Comment') from 32:7
 				  "login": "Neprintsevia"
 				}
 				
-				NoteReturn{
+				NoteReturn
+				{
 					
 					author personReturn_ {get;set;}
 					
@@ -1007,13 +1008,50 @@ new MediaTypeHeaderValue("application/octet-stream");
 		
 		MyNSPK2.0[
 		
-			https://mobx.js.org
-			http://dsmorse.github.io/gridster.js/			
-			http://extcore.net/ru/
-			Readymag 
-			Reveal.js
-			Redis
-			
+			Examples[
+				https://mobx.js.org
+				http://dsmorse.github.io/gridster.js/			
+				http://extcore.net/ru/
+				Readymag 
+				Reveal.js
+				Redis
+				
+				http://slides.com/gsklee/functional-programming-in-5-minutes#/
+			]
+			,Info[
+				RoleModel
+				http://confluence.nspk.ru/pages/viewpage.action?pageId=11395984
+			]
+			,vendors[
+				? https://arealidea.ru/
+				? https://www.extyl-pro.ru/portfolio/portaly/
+				
+				! https://gearheart.io/
+				
+				issue[
+				
+http://www.ratingruneta.ru/agency-r52/portfolio/
+
+Украина 
+https://gearheart.io/
+
+Лос-анджелес (просто аример сайта)
+https://distillery.com/
+(внимание на бекграун)
+
+Сан-франциско (внимание на About US)
+https://beunicorn.io/
+И цены, на секундочку:
+https://beunicorn.io/startups/
+
+И смотрим с офисами в Москве:
+http://www.ratingruneta.ru/web/moscow/
+первое место, цены
+http://www.ratingruneta.ru/agency-aic/prices/
+
+				]
+				
+			]
 		]
 		
 		jsHacks

@@ -365,7 +365,8 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://www.lucidchart.com/techblog/2016/11/08/angular-2-and-observables-data-sharing-in-a-multi-view-application/
 	//concurent dataloading 
 	https://www.metaltoad.com/blog/angular-2-http-observables-and-concurrent-data-loading
-	
+	//custom custom scrollbars library
+	http://jscrollpane.kelvinluck.com/#examples
 
 	//CSS		
 	https://css-tricks.com/snippets/html/glyphs/
@@ -869,8 +870,10 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	docsvision
 	intraservise
 	elma
+	https://www.naumen.ru
 	
-  //code gen
+	
+	//code gen
 	https://swagger.io/
 	//tizen
 	https://www.tizen.org/
