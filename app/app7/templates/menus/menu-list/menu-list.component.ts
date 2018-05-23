@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
 import {Test,NodeCollection,ModelContainer,Quiz,Question,Answer} from 'app/app7/Models/inits.component'
 
@@ -16,7 +16,7 @@ export class MenuListComponent implements OnInit {
   QuestionToEdit:Question;
   AnswerToEdit:Answer;
 
-  nodesPassed_:NodeCollection;
+  @Input() nodesPassed_:NodeCollection;
   typePassed_:string;
   constructor(private service:Service_){
       //service.test=false;

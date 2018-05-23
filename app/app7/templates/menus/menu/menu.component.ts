@@ -35,5 +35,4 @@ export class MenuComponent implements OnInit {
     ServiceCl.log(["Inited: " + this.constructor.name,this.nodesPassed_]);
   }
 
-
 }

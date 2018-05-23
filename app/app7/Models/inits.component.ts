@@ -655,7 +655,7 @@ export class NumberPickerControl extends HtmlItem{
 
 export class QuizControls extends HtmlItem{
 
-  constructor(HtmlCssAttr_:string,show_:boolean,collection_?:ICollection_<HtmlItem>)
+  constructor(cssClass_:string,show_:boolean,collection_?:Collection_<HtmlItem>)
   {
 
     let qzcl:Collection_<HtmlItem>;
@@ -698,7 +698,7 @@ export class QuizControls extends HtmlItem{
 
     }
 
-    super(0,"QuizControlGroup","QuizControlGroup","div",HtmlCssAttr_,null,show_,"flex-container fxvt",qzcl);
+    super(0,"QuizControlGroup","QuizControlGroup","div","",null,show_,cssClass_,qzcl);
   }
 
 }
@@ -733,7 +733,9 @@ export class Quiz extends NodeCollection{
     super(key_,name_,value_,collection_);
     this.replay=true;
     this.anonimous=false;
-    this.itemParameter=new QuizControls("flex-container horizontal",true,null);
+    let a=Test.HtmlItems();
+
+    this.itemParameter=a;
 
     this.typeName="Question";
     if(collection_==null){
@@ -743,7 +745,6 @@ export class Quiz extends NodeCollection{
     if(itemParameter_!=null){
       this.itemParameter=itemParameter_;
     }
-
   }
 
 }
@@ -835,6 +836,7 @@ export class menuButtons extends Button{
       this.collection.add(new Button(null,"Test3","Test button 3",null,"btn",false))
       this.collection.add(new Button(null,"Test3","Test button 4",null,"btn",false))
       this.collection.add(new Button(null,"Test3","Test button 5",null,"btn",false))
+      this.collection.add(new Button(null,"Test3","Test button 6",null,"btn btn-success",false))
     }
 }
 
@@ -1113,13 +1115,120 @@ export class Factory_{
 export class Test{
 
     public static HtmlItems(){
-      return [
-        new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true)
-        ,new TextControl(0,"Tb","text_nm","Type text","Type here2",null,1,3,true)
-        ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true)
-        ,new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true)
+
+      let htmlItemsArr:[NodeCollection]=[
+
+        new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true,"fxvt")
+        ,new TextControl(0,"Tb","text_nm","Type text2","Type here2",null,1,3,true,"fxhr")
+        ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true,"fxvt")
+        ,new CheckBoxControl(0,"Cb","To Check or not to check2",false,true,"fxhr")
+
+        ,new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true,"fxvt")
+        ,new DatePickerControl(0,"Dp","Choose date",new Date(2002,11,11,11,11,1),true,"fxhr")
+
+        ,new RadioButtonControl(0,"Rb1","Choose or not to choose?","Choice 2",true,"fxvt"
+          ,new Collection_<HtmlItem>([
+            new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+            ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+            ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+            ]))
+        ,new RadioButtonControl(0,"Rb2","Choose or not to choose?","Choice_3",true,"fxhr"
+          ,new Collection_<HtmlItem>([
+            new HtmlItem(0,"Rb2","Choice_1","option","",null,true,null,null)
+            ,new HtmlItem(1,"Rb2","Choice_2","option","",null,true,null,null)
+            ,new HtmlItem(2,"Rb2","Choice_3","option","",null,true,null,null)
+            ]))
+
+        ,new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+        ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"fxhr")
+
       ];
+
+      let htmlItemsArr2:[NodeCollection[]]=
+          [
+            [
+          new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true,"fxvt")
+          ,new TextControl(0,"Tb","text_nm","Type text2","Type here2",null,1,3,true,"fxhr")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true,"fxvt")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check2",false,true,"fxhr")
+        ],[
+            new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true,"fxvt")
+            ,new DatePickerControl(0,"Dp","Choose date",new Date(2002,11,11,11,11,1),true,"fxhr")
+        ],[    new RadioButtonControl(0,"Rb1","Choose or not to choose?","Choice 2",true,"fxvt"
+              ,new Collection_<HtmlItem>([
+                new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                ]))
+            ,new RadioButtonControl(0,"Rb2","Choose or not to choose?","Choice_3",true,"fxhr"
+              ,new Collection_<HtmlItem>([
+                new HtmlItem(0,"Rb2","Choice_1","option","",null,true,null,null)
+                ,new HtmlItem(1,"Rb2","Choice_2","option","",null,true,null,null)
+                ,new HtmlItem(2,"Rb2","Choice_3","option","",null,true,null,null)
+                ]))
+              ],[
+                new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+                ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"fxhr")
+
+              ]
+          ]
+
+      let tbColl = new HtmlItem(0,"Textboxes","Text box n radios","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true,"fxvt")
+          ,new TextControl(0,"Tb","text_nm","Type text2","Type here2",null,1,3,true,"fxhr")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true,"fxvt")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check2",false,true,"fxhr")
+          ])
+        );
+
+      let dtColl = new HtmlItem(0,"DatePicker","DatePicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+            new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true,"fxvt")
+            ,new DatePickerControl(0,"Dp","Choose date",new Date(2002,11,11,11,11,1),true,"fxhr")
+        ])
+        );
+
+      let rbColl = new HtmlItem(0,"Radio","Radio","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>(
+          [    new RadioButtonControl(0,"Rb1","Choose or not to choose?","Choice 2",true,"fxvt"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                  ]))
+              ,new RadioButtonControl(0,"Rb2","Choose or not to choose?","Choice_3",true,"fxhr"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb2","Choice_1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb2","Choice_2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb2","Choice_3","option","",null,true,null,null)
+                  ]))
+                ]
+        ));
+
+      let nbColl = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"fxhr")
+          ,new NumberPickerControl(0,"Npc","Select number 2",2,3,4,true,"fxvt")
+        ]));
+
+      let nb2Coll = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"fxhr")
+
+        ]));
+
+      let htmlItemsArr3=new HtmlItem(0,"Dropboxes","Dropboxes","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>(
+          // [tbColl,dtColl,rbColl,nbColl]
+          [tbColl,dtColl,rbColl,nbColl,nb2Coll]
+        ));
+
+      return htmlItemsArr3;
     }
+
     //NEW
 
     public static GenNewColl(bol_:boolean){

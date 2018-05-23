@@ -18,6 +18,8 @@ export class GappickerNgComponent implements OnInit {
 
   cstmSpin:boolean;
 
+  first:string;
+  second:string;
   constructor(private service:Service_) {
     this.test=service.test;
     this.cName=this.constructor.name;
@@ -30,11 +32,19 @@ export class GappickerNgComponent implements OnInit {
   ngOnInit() {
     this.min=this.itemValue_.minN;
     this.max=this.itemValue_.maxN;
+    if(this.itemValue_.cssClass=="fxvt"){
+      this.first="shevron up";
+      this.second="shevron down";
+    }
+    if(this.itemValue_.cssClass=="fxhr"){
+      this.first="shevron left";
+      this.second="shevron right";
+    }
     ModelContainer.nodeEmitted.subscribe(s=>{
       ServiceCl.log(['nodeEmitted Received : ' + this.constructor.name,s])
     });
 
-    ServiceCl.log(['Inited : ' + this.constructor.name,this.itemValue_])
+    ServiceCl.log(['Inited : ' + this.constructor.name,this.itemValue_,this.first])
   }
   increase(){
     if(this.max!=null){

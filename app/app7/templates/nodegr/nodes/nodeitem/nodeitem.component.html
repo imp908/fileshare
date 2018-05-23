@@ -4,29 +4,26 @@
 
     <!-- CSS_6: {{this.htmlItem_.cssClass}} , {{this.htmlItem_.name}} -->
 
-  <br style="margin-top:5ch">
-
   <div [class]="this.htmlItem_.cssClass">
 
     <div class="label_">{{this.htmlItem_.value}}</div>
 
-    <ng-container *ngIf="controlType()=='TextControl'">
+    <div *ngIf="controlType()=='TextControl'">
         <input type="text"
         [(ngModel)]="this.htmlItem_.displayValue"
-        class="form-control"
         [maxlength]="this.htmlItem_.maxLength"
         [minlength]="this.htmlItem_.maxLength"
         [pattern]="this.htmlItem_.pattern"
         [placeholder]="this.htmlItem_.displayValue"
         (ngModelChange)="changeTextbox_($event)" #t>
-    </ng-container>
+    </div>
 
-    <ng-container *ngIf="controlType()=='CheckBoxControl'">
+    <div *ngIf="controlType()=='CheckBoxControl'">
       <input type="checkbox" value="check" [(ngModel)]="this.htmlItem_.HtmlSubmittedValue">
-    </ng-container>
+    </div>
 
     <ng-container *ngIf="controlType()=='RadioButtonControl'">
-        <ng-container *ngFor="let r of this.htmlItem_.collection.array">
+        <div *ngFor="let r of this.htmlItem_.collection.array">
 
             <div class="flex-container fxhr">
               <input type="radio"
@@ -36,7 +33,7 @@
               {{r.value}}
             </div>
 
-        </ng-container>
+        </div>
     </ng-container>
 
     <ng-container *ngIf="controlType()=='DatePickerControl'">

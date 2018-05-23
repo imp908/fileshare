@@ -1,11 +1,5 @@
 <ng-container *ngIf="test==true" class="container">
   {{cName}}
-  <!-- <app-menu></app-menu> -->
-  <ng-container *ngFor="let i_ of htmlItemsArr2">
-    <div style="margin-left:10vw; padding-left:10vw;">
-        <ng-container *ngFor="let i2_ of i_">
-          <app-nodeitem [htmlItem_]="i2_"></app-nodeitem>
-        </ng-container>
-    </div>
-  </ng-container>
+    <app-grps [nodePassed_]="this.qz"></app-grps>
+
 </ng-container>
