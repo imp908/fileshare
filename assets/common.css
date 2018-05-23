@@ -23,16 +23,24 @@ html, body { height: 100%; padding: 0; margin: 0; }
 .two { width: 50%; height: 50%; float: left; }
 */
 
-.input{
+.container{
+
+  margin-right: 20vw;
+  /* padding-right: 15vw; */
+}
+
+#input_edit{
   width: 70%;
   height: 35px;
   border: none;
   border:solid 1px;
   border-color: rgb(157, 163, 173);
-  border-radius: 15px;
+  border-radius: var(--textBorderRads);
 }
 
-.selectarea { margin-top: 8% ; padding:0% }
+.input[type="text"]{
+  border-radius: var(--textBorderRads);
+}
 
 /*vertical gaps between menu and lsit items*/
 .item{
@@ -47,21 +55,126 @@ html, body { height: 100%; padding: 0; margin: 0; }
   margin-top: 0%;
   padding-top: 10%;
   padding-bottom: 0%;
+  width: 55vw;
+
 }
 
 .editarea{
-   position: relative;
-}
-/*Menu floating on top*/
-.menu_edit {
- position: sticky;
- position: -webkit-sticky;
- top: 0;
- margin-top: 2%;
+  display: -webkit-flex;
+  display: flex;
+  align-items: end;
+  padding-left: 5vh;
+  top: 3vh;
+  margin-top: 0%;
+  padding-top: var(--shadowHeight);
+  z-index: var(--menuZ);
+  border-radius: var(--menuBorderRads);
 }
 
-.textarea{
+
+.editarea::before{
   position: fixed;
+  content: '';
+  z-index: var(--shadowZ);
+  height: var( --shadowHeight);
+  width: 100%;
+  top:3vh;
+  left:0;
+  background-image:var(--ShadowTopWhite);
+
+}
+
+.editarea::after {
+  position: fixed;
+  content: '';
+  z-index: var(--shadowZ);
+  height: var( --shadowHeight);
+  width: 100%;
+  top: calc((var(--editAreaHeight) -  var( --shadowHeight)) + 3vh );
+  left:0;
+  background-image: var(--ShadowBottomWhite);
+
+}
+
+.textinputarea{
+  position: fixed;
+
+  height: 5vh;
+  width: 99vw;
+  z-index: 3;
+  top: 3vh;
+
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex-flow: row wrap;
+  justify-content: flex-center;
+  border-radius: var(--menuBorderRads);
+  /*background: radial-gradient(rgba(171, 244, 233,1) 5%,rgba(217, 210, 250,0.8) 25%,rgba(255, 255, 255,0.5) 50%  );*/
+
+}
+
+.listarea{
+  /*
+  position: sticky;
+  position: -webkit-sticky;
+  bottom: 0;
+
+  height: 50vh
+  */
+
+z-index: var(--menuZ);
+
+position: fixed;
+position: -webkit-sticky;
+
+bottom: 0;
+
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+flex-flow: row wrap;
+justify-content: flex-center;
+
+
+height: var(--listAreaH);
+width: 99vw;
+
+/* max-height:1ch;
+
+margin-top: 1ch;*/
+/* border-style: double; */
+/* border-width: 0.1ch; */
+/* color: yellow; */
+background-image: var(--tealBackground);
+overflow-y: scroll;
+
+}
+
+.listarea::before{
+
+  position: fixed;
+  content: '';
+  z-index: var(--shadowZ);
+  height: var(--shadowHeight);
+  bottom: var(--shadowBottom);
+  width: 100%;
+  left:0;
+  background-image:var(--ShadowTopWhite);
+  /* background: red; */
+}
+
+.listarea::after {
+
+  position: fixed;
+  content: '';
+  z-index: var(--shadowZ);
+  height: var(--shadowHeight);
+  width: 100%;
+  bottom:  0vh ;
+  left:0;
+  background-image: var(--ShadowBottomWhite);
+  /* background: red; */
 }
 
 h1 {
@@ -71,26 +184,47 @@ h1 {
   -webkit-text-fill-color: transparent;
 }
 
+.ctgrhd{
+  font-size: 3vh;
+  background: -webkit-linear-gradient(#3E5151, #DECBA4);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .flex-container{
   display: -webkit-flex;
   display: flex;
   align-items: center;
+
+  /* width: 100%; */
+
+  /* background-image: var(--ShadowBottomWhite); */
+  /* background: red; */
 }
 
-.vertical{
+
+.fxvt{
+
   display: -webkit-flex;
   display: flex;
 
   flex-direction:column;
+  flex-wrap: wrap;
   align-items: flex-start;
+  /* justify-content: flex-end; */
+  /* border-color: green;  border-width : 1px;   border-style: solid; */
 }
 
-.horizontal{
+.fxhr{
+
   display: -webkit-flex;
   display: flex;
 
+  flex-wrap: wrap;
   flex-direction:row;
-  align-items: flex-start;
+  /* justify-content: flex-start; */
+  /* align-items: flex-start; */
+  /* border-color:blue;  border-width : 1px;   border-style: solid; */
 }
 
 .chevron::before {
@@ -105,4 +239,19 @@ h1 {
 	transform: rotate(-45deg);
 	vertical-align: top;
 	width: 0.45em;
+}
+
+.up{
+  transform:rotate(90deg);
+  margin-left:1.2ch;
+}
+.down{
+  transform:rotate(-90deg);
+  margin-left:1.8ch;
+}
+.left{
+  transform:rotate(0deg);
+}
+.right{
+  transform:rotate(180deg);  
 }

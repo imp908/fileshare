@@ -2,34 +2,87 @@
 /*>>>>>>>>>>>>
 For pre-scrollable class */
 /* width */
+
 ::-webkit-scrollbar {
-    width: 10px;
+  width: var(--scrollbarWidth);
+  height: var(--scrollbarHeight);
+  max-width: var(--scrollbarWidth);
+  max-height: var(--scrollbarHeight);
+
+  z-index: var(--scrolbarZ);
 }
 
-/* Track */
-::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px grey;
-    border-radius: 10px;
+::-webkit-scrollbar:horizontal {
+  width: var(--scrollbarWidth);
+  height: var(--scrollbarHeight);
+  max-width: var(--scrollbarWidth);
+  max-height: var(--scrollbarHeight);
+
+  z-index: var(--scrolbarZ);
 }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
+::-webkit-scrollbar-track:vertical {
+  width: var(--scrollbarWidth);
+  height: var(--scrollbarHeight);
+  max-width: var(--scrollbarWidth);
+  max-height: var(--scrollbarHeight);
+
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 15px;
+    background-image: var(--scrollbarColorGradBlueVert);
+    /* background: red; */
+    z-index: calc( var(--scrolbarZ) - 1 );
+}
+
+::-webkit-scrollbar-track:horizontal {
+  width: var(--scrollbarWidth);
+  height: var(--scrollbarHeight);
+  max-width: var(--scrollbarWidth);
+  max-height: var(--scrollbarHeight);
+
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 5px;
+    background-image: var(--scrollbarColorGradBlueHor);
+    /* background: green; */
+    z-index: calc( var(--scrolbarZ) - 1 );
+}
+
+
+::-webkit-scrollbar-thumb:horizontal {
+  width: var(--scrollbarWidth);
+  height: var(--scrollbarHeight);
+  max-width: var(--scrollbarWidth);
+  max-height: var(--scrollbarHeight);
+
+  /* background-color: linear-gradient(90deg,red,green); */
+  background-image: var(--scrollbarThumbColorGradBlueHor);
+  outline: 1px solid slategrey;
+  border-radius: 15px;
+  z-index: calc( var(--scrolbarZ) + 1 );
+}
+
+::-webkit-scrollbar-thumb:vertical {
+  width: var(--scrollbarWidth);
+  height: var(--scrollbarHeight);
+  max-width: var(--scrollbarWidth);
+  max-height: var(--scrollbarHeight);
+
+  /* background-color: linear-gradient(90deg,red,green); */
+  background-image: var(--scrollbarThumbColorGradBlueVert);
+  outline: 1px solid slategrey;
+  border-radius: 15px;
+  z-index: calc( var(--scrolbarZ) + 1 );
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-    background: #555;
+  background:var(--scrollbarThumbHoover);
 }
-
-
-
 
 
 /*>>>
 Custom scrollbar class
-*/
+
 .scrollbar {
     margin-left: 30px;
     float: left;
@@ -137,3 +190,4 @@ Custom scrollbar class
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
   background-color: #aa66cc; }
+*/
