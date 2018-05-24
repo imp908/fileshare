@@ -22,6 +22,10 @@
 .gradzinc{
   background: linear-gradient(0deg,#ada996,#f2f2f2,#DBDBDB,#ada996);
 }
+.gradpink{
+  background:  linear-gradient(0deg,rgba(57,32,56,1),rgba(100,32,49,1));
+}
+
 
 .gradbeyond{
   background: #F0F2F0;  /* fallback for old browsers */

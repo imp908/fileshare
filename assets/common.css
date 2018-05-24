@@ -38,7 +38,7 @@ html, body { height: 100%; padding: 0; margin: 0; }
   border-radius: var(--textBorderRads);
 }
 
-.input[type="text"]{
+input[type="text"],input[type="number"]{
   border-radius: var(--textBorderRads);
 }
 
@@ -253,5 +253,9 @@ h1 {
   transform:rotate(0deg);
 }
 .right{
-  transform:rotate(180deg);  
+  transform:rotate(180deg);
+}
+
+.label_{
+   font-weight: 450;
 }
