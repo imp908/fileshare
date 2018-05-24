@@ -947,8 +947,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 					
 				}
 				
-				public InitializeNewRepo()
-				{
+				public InitializeNewRepo(){
 					
 	echo "# NSQLmanager" >> README.md
 	git init
@@ -960,9 +959,31 @@ https://metanit.com/sharp/aspnet5/20.1.php
 					
 				}
 				
+				public EXISTING_LOCAL_PROJECT_TO_NEW_GIT_REPO_FIRST_PUSH[
+					create new in git web
+					cd -> moove to directory		
+					git remote add origin \\url_to_project
+					git pull origin master
+					git init -> initialize git
+					git add . -a //no files changed
+					git add -u //only indexed files
+					
+					git commit -m "Commit text"
+					git push -u origin master
+				]
 				
-				public BranchMerge()
-				{// Master->br1. stage 1 master+ stage 2 master+ br1--
+				public MERGE_PROJECTS_ON_FIRST_COMMIT_AFTER_REMOTE_BRANCH_CREATEION[
+					git pull origin branchname --allow-unrelated-histories			
+					//recommended
+					git clone
+				]
+					
+				public NEW_BRANCH[
+					create new branch in web
+					git checkout -b \\url to branch
+				]
+				
+				public BranchMerge(){// Master->br1. stage 1 master+ stage 2 master+ br1--
 
 	Short:
 	https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
@@ -1050,15 +1071,13 @@ https://metanit.com/sharp/aspnet5/20.1.php
 				}
 				
 				
-				public DeleteMaster()
-				{ //not working
+				public DeleteMaster(){//not working
 					https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
 					git symbolic-ref HEAD refs/heads/another-branch
 					http://matthew-brett.github.io/pydagogue/gh_delete_master.html
-		  }
+				}
 		  
-				PullProgects
-				{
+				PullProgects[
 					
 		git remote rm nsm
 		git remote rm napi
@@ -1073,8 +1092,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 		git pull napi nsql_mng
 		git checkout nsql_mng
 					
-				}
-				
+				]
 				rmFilesByMask[
 					//	git rm -r --cached **/*.jar
 				]
@@ -1090,42 +1108,27 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	git rm -r NewsAPI.Tests/obj
 	git rm -r NewsAPI.Tests/Properties
 				]
-				
-				overall 
-				[
+				filestoryChange[
+					gitk [filename]
+					gitk --follow [filename]				
+				]
+				undoUncommitChangesToFile[
+					git checkout -- <filename>
+				]
+				overall[
 					//add CAinfo
-					git config http.sslCAinfo G:/disk/Progs/Git/mingw64/ssl/certs/ca-bundle.crt
-					
-					MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
-					git pull origin branchname --allow-unrelated-histories			
-					//recommended
-					git clone
-								
+					git config http.sslCAinfo G:/disk/Progs/Git/mingw64/ssl/certs/ca-bundle.crt																
 					
 					git remote -v -> check remotes
 					git branch -> check what branch you are in
 					
-					EXISTING LOCAL PROJECT TO NEW GIT REPO FIRST PUSH
-					create new in git web
-					cd -> moove to directory		
-					git remote add origin \\url_to_project
-					git pull origin master
-					git init -> initialize git
-					git add . -a //no files changed
-					git add -u //only indexed files
-					
-					git commit -m "Commit text"
-					git push -u origin master
-					
-					NEW BRANCH
-					create new branch in web
-					git checkout -b \\url to branch		
-					add commit push section 
-					
-					git push -u origin branchname {!!!<pushing to branch>!!!}
+					add commit push section
+					git push -u origin branchname - pushing to branch
 					
 					REMOVE REPO
 					git remote rm origin
+					
+					
 			  //filemanager
 					gitk
 					
@@ -1138,7 +1141,13 @@ https://metanit.com/sharp/aspnet5/20.1.php
 					
 					git-ls-tree 
 					git-ls-remote
+					
+					gitk [filename] - track file changes
+						
+					git checkout -- [] filename - undo uncomit changes to file
+					
 				]
+			
 			}
 
 		}

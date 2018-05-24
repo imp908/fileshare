@@ -437,14 +437,9 @@ TnT[
 
 			actual[
 
--> handle cssClass in allnodes for all HtmlItem types [
-	-> nodeItem rewrite for one item.csstype binding
-	-> change nodes and nodegr to cssType
-]
-	
--> repeat checkbox
+			
 -> Add new Question Question parameters [
-	-> question type with dropdown {textbox,checkbox,radio,rate with dropdown, pictures? }
+	-> question type with dropdown {textbox,checkbox,radio,rate with dropdown, pictures?}
 	]
 -> Add new Answers according to Quiz,Answer types[
 	0 or Correct only for text, 1-* for radio,check,picture, rate. rate max points:number
@@ -511,8 +506,13 @@ more then 3 events listen ignore issue to repair  ]
 		]
 	<- 21.05.2018 14:19 done  -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows.
 	<- 22.05.2018 done -> change every HtmlItem child class to cssType receive
+	<- done 24.05.2018 -> handle cssClass in all nodes for all HtmlItem types [
+	<- done 22.05.2018-> nodeItem rewrite for one item.csstype binding
+	<- done 22.05.2018 -> change nodes and nodegr to cssType
+		]	
+	<- done 22.05.2018 -> repeat checkbox	
 	
-		
+	
 	]
 	
 	
