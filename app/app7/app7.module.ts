@@ -29,6 +29,7 @@ import { TimepickerComponent } from './templates/Elements/timepicker/timepicker.
 import { GappickerNgComponent } from './templates/Elements/gappicker-list/gappicker-ng/gappicker-ng.component';
 import { GappickerListComponent } from './templates/Elements/gappicker-list/gappicker-list.component';
 import { GappickerDropComponent } from './templates/Elements/gappicker-list/gappicker-drop/gappicker-drop.component';
+import { DropdownComponent } from './templates/Elements/dropdown/dropdown.component';
 
 
 
@@ -44,7 +45,8 @@ import { GappickerDropComponent } from './templates/Elements/gappicker-list/gapp
     MenuListComponent, MenuEditComponent, ClickComponent,ButtonComponent,
     NodesGroups, DatepickerPopupComponent, TimepickerComponent, NodesComponent,
     GappickerNgComponent, GappickerListComponent, GappickerDropComponent,
-    NodeitemComponent],
+    NodeitemComponent,
+    DropdownComponent],
   bootstrap:[App7Component],
   providers:[Service_]
 })

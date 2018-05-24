@@ -1,7 +1,7 @@
 <ng-container *ngIf="test==true" class="container">
 
-  <div [class]="itemValue_.cssClass" >
-    <!-- {{itemValue_.value}} -->
+  <div class="flex-container" >
+    {{itemValue_.HtmlSubmittedValue}}
   <ng-container *ngIf="cstmSpin==true">
 
     <!--  <path d="M0 0 L0 5 L20 20 L5 0 L0 0 Z"/>-->
@@ -10,26 +10,26 @@
       </svg>
     </div>
 
-    <input class="form-control" id="ship" type="number"
-    [min]="min"
-    [max]="max"
-    class="numberpicker"
-    [(ngModel)]="itemValue_.HtmlSubmittedValue"
-    (keyup)="input_($event)" #d="ngModel" style="margin-left:0.7ch">
+      <input class="form-control" id="ship" type="number"
+      [min]="min"
+      [max]="max"
+      [placeholder]="itemValue_.HtmlSubmittedValue"
+      class="numberpicker"
+      [(ngModel)]="itemValue_.HtmlSubmittedValue"
+      (keyup)="input_($event)" #d="ngModel" style="margin-left:0.7ch">
 
     <div style="transform:rotate(-90deg);margin-left:1.2ch">
       <svg class="shevron" viewBox="0 0 50 50" (click)="decrease()">
       </svg>
     </div>
 
-    <!-- Front validation -->
     <div *ngIf="( ((min!=null) && (max!=null)) && ((d.value < min) || (d.value > max)) )" style="color:red;">
       {{itemValue_.value}} must be between {{min}} and {{max}}
     </div>
     <div *ngIf="( ((min!=null) && (max==null) ) && ((d.value < min)) )" style="color:red;">
       {{itemValue_.value}} must be greater then {{min}}
     </div>
-    <div *ngIf="( ((min==null) && (max!=null)) && ( (d.value > max)) )" style="color:red;">
+    <div *ngIf="( ((min==null) && (max!=null)) && ((d.value > max)) )" style="color:red;">
       {{itemValue_.value}} must be  lower then {{max}}
     </div>
 
@@ -47,39 +47,39 @@
 </ng-container>
 
 
-<ng-container *ngIf="test==false" class="container">
 
-  <div [class]="itemValue_.cssClass" >
-    <!-- {{itemValue_.value}} -->
+<ng-container *ngIf="test==false">
+
+  <div class="flex-container" >
+    <!-- {{itemValue_.HtmlSubmittedValue}} -->
   <ng-container *ngIf="cstmSpin==true">
 
     <!--  <path d="M0 0 L0 5 L20 20 L5 0 L0 0 Z"/>-->
-    <!-- <div style="transform:rotate({{this.degree}})"> -->
-    <div>
-      <svg class="this.first" viewBox="0 0 50 50" (click)="increase()">
+    <div style="transform:rotate(90deg)">
+      <svg class="shevron" viewBox="0 0 50 50" (click)="increase()">
       </svg>
     </div>
 
-    <input class="form-control" id="ship" type="number"
-    [min]="min"
-    [max]="max"
-    class="numberpicker"
-    [(ngModel)]="itemValue_.HtmlSubmittedValue"
-    (keyup)="input_($event)" #d="ngModel" style="margin-left:0.7ch">
+      <input class="form-control" id="ship" type="number"
+      [min]="min"
+      [max]="max"
+      [placeholder]="itemValue_.HtmlSubmittedValue"
+      class="numberpicker"
+      [(ngModel)]="itemValue_.HtmlSubmittedValue"
+      (keyup)="input_($event)" #d="ngModel" style="margin-left:0.7ch">
 
-    <div>
-      <svg [class]="this.second" viewBox="0 0 50 50" (click)="decrease()">
+    <div style="transform:rotate(-90deg);margin-left:1.2ch">
+      <svg class="shevron" viewBox="0 0 50 50" (click)="decrease()">
       </svg>
     </div>
 
-    <!-- Front validation -->
     <div *ngIf="( ((min!=null) && (max!=null)) && ((d.value < min) || (d.value > max)) )" style="color:red;">
       {{itemValue_.value}} must be between {{min}} and {{max}}
     </div>
     <div *ngIf="( ((min!=null) && (max==null) ) && ((d.value < min)) )" style="color:red;">
       {{itemValue_.value}} must be greater then {{min}}
     </div>
-    <div *ngIf="( ((min==null) && (max!=null)) && ( (d.value > max)) )" style="color:red;">
+    <div *ngIf="( ((min==null) && (max!=null)) && ((d.value > max)) )" style="color:red;">
       {{itemValue_.value}} must be  lower then {{max}}
     </div>
 
