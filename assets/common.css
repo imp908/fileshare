@@ -41,6 +41,9 @@ html, body { height: 100%; padding: 0; margin: 0; }
 input[type="text"],input[type="number"]{
   border-radius: var(--textBorderRads);
 }
+input[type="number"]{
+  width:5ch;
+}
 
 /*vertical gaps between menu and lsit items*/
 .item{
@@ -73,6 +76,7 @@ input[type="text"],input[type="number"]{
 
 
 .editarea::before{
+  pointer-events: none;
   position: fixed;
   content: '';
   z-index: var(--shadowZ);
@@ -85,6 +89,7 @@ input[type="text"],input[type="number"]{
 }
 
 .editarea::after {
+  pointer-events: none;
   position: fixed;
   content: '';
   z-index: var(--shadowZ);
@@ -130,11 +135,13 @@ position: -webkit-sticky;
 
 bottom: 0;
 
+
 display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-flex-flow: row wrap;
-justify-content: flex-center;
+flex-direction: column;
+flex-wrap: nowrap;
+/*
+flex-flow: column wrap;
+justify-content: flex-center; */
 
 
 height: var(--listAreaH);
@@ -148,11 +155,11 @@ margin-top: 1ch;*/
 /* color: yellow; */
 background-image: var(--tealBackground);
 overflow-y: scroll;
-
+left:0;
 }
 
 .listarea::before{
-
+  pointer-events: none;
   position: fixed;
   content: '';
   z-index: var(--shadowZ);
@@ -165,7 +172,7 @@ overflow-y: scroll;
 }
 
 .listarea::after {
-
+  pointer-events: none;
   position: fixed;
   content: '';
   z-index: var(--shadowZ);
@@ -222,6 +229,10 @@ h1 {
 
   flex-wrap: wrap;
   flex-direction:row;
+
+  margin-left:var(--fxhrMargWidth);
+  margin-right:var(--fxhrMargWidth);
+
   /* justify-content: flex-start; */
   /* align-items: flex-start; */
   /* border-color:blue;  border-width : 1px;   border-style: solid; */
