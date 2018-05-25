@@ -819,10 +819,17 @@ ConstructorForm.json
   
   
 			]
-			LogicActual[
+			ObjectsActual[
 				INode,Icollection<INode> ,INodeCollection
 				./Models/POCO.ts
-								
+				
+				Node;
+				Collection_<Node>;
+				NodeCollection:Node;
+					+Collection<NodeCollection>
+				HtmlItem:NodeCollection;
+				
+				//obsolette
 				ItemParameter:NodeCollection{					
 					cssType (textbox,checkbox,radioButton)=> <Input type="">
 					value,valueType => rresult element value (true,false,datetime,checked)
@@ -832,8 +839,141 @@ ConstructorForm.json
 					cssClass => 
 				}
 				
+				//New
+				HtmlItem:NodeCollection
+					+cssClass
+				
+				
 			]
+			Design[
+//Front back shema of Constructor and Passpage
+//Main style names - Meduza (all features), Echo (minimum features)
+//\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+
+	constructor{
 		
+			QuizStatistics{
+				num:passedQuantity;
+				num:rejectedQuantity;
+				num:passedPercent;
+				num:rating:
+				Question:mostPopularquestion;
+			}
+			QuizControls{
+				bool:aftertestStatisticsShow;
+				bool:listItem;				
+				bool:anonimous;
+				datetime:startdate;
+				bool:replayable;
+				datetime:gap;
+				
+			}
+			Quiz{
+				:Back{		
+					itemParameter:QuizControls				
+					HtmlItem:QuizStatistics;
+				}
+				:Front{
+					?quizOrVitorine:<-DropBox[Quiz,Victorine] default victorine;
+					listItem:bool;<-checkbox; default false //all questions on list, one question per list with scroll buttons
+					anonimous:bool<-checkbox; default true;
+					bool:aftertestStat<-checkbox default true; //show question percent statistic after test is passed
+						Statistic: 
+							checkbox:question percent; - > collection item show toggle;
+							checkbox:most popular question; - > collection item show toggle;
+					date:startdate<-Collection<HtmlItem>{[datepicker]} default null;
+					replayable:bool; <-checkbox default false;
+						-[clicked]-> Collection<HtmlItem>{show:toggle; [datepicker,numberpickers (Timepicker)]}
+				}
+			}
+			
+			Question{
+				:Back{
+					QuestionText:string;
+					Collection<HtmlItem>;[
+						Textbox - Text answer,
+						CheckBox - Multi answer,
+						Radio|DropDown - select one from variants,
+						DropDown - rate
+						?Picture [CheckBox,Radio,DropDown] - select picture 
+					]
+					Rquered:bool->Skippable;[
+					]-[listens]-> change question requered parameter 
+					bool:DisplayQuestionStat;
+				}
+				:Front{
+					QuestionText:string;
+					string:QuestionText
+					Collection<HtmlItem>:
+						Collection<HtmlItem>;[
+						Textbox - Text answer,
+						CheckBox - Multi answer,
+						Radio|DropDown - select one from variants,
+						DropDown - rate
+						?Picture [CheckBox,Radio,DropDown] - select picture
+					]-[emits]-> change available question amount (1 for text box, several for others)
+					Skippable:bool;[
+					]-[emitts]-> change question requered parameter -> Rquered
+					bool:DisplayCorrect;
+					bool:DisplayPercent;
+				}
+			}
+
+			Answer{
+				:Back{
+					string:answerText;
+					bool:correctAnswer;
+					string:correctAnswerCommentary
+				}
+				:Front{
+					answer text;
+					bool:correctAnswer;
+					string:correctAnswerCommentary
+				}
+			}
+			
+			
+		
+	}
+
+passpage{
+	:Front{
+		
+		Greeting page{
+			> central box
+			> background
+			
+			string:quiz name;
+			string:quiz dexcription;
+			num:passed amount;
+			num:quiz rating;
+			
+			> start button
+		}
+		
+		QuestionPage{
+			: OneQuestion 
+				number:question/from all
+				Question,
+				answer variant HmlItem
+				:unskippable
+					wait answer select -[amit]-> display button next; 
+				:Skippable 
+					> button next; button previous;
+			:ListQuestions
+				> row Question Number, question text 
+				> row list of all htmlitems 
+					:unskippable
+						print requered after submit
+					:skippable
+						:showstat > statistic page
+						:!showstat > 		
+		}
+	}
+}
+
+////////////////////////////////////////////////////////////				
+			]
 		]
 		
 		DocsVision[
