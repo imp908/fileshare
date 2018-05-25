@@ -109,8 +109,7 @@ export class TestComponent implements OnInit {
   }
   ngOnInit(){
     this.keyValueGen();
-    ServiceCl.log(["htmlItemsArr3",this.htmlItemsArr3])
-    this.qz.itemParameter=this.htmlItemsArr3;
+    ServiceCl.log(["htmlItemsArr3",this.htmlItemsArr3])    
     ServiceCl.log(["Inited: " + this.constructor.name,this.nodes_,this.qz]);
   }
   click_($event){

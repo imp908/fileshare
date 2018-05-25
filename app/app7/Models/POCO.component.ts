@@ -31,6 +31,7 @@ export interface ICollection_<T>{
   sortAsc(a:T,b:T);
   sortDesc(a:T,b:T);
   sort(asc:boolean);
+
 }
 
 export interface INodeCollection extends INode{
@@ -40,5 +41,5 @@ export interface INodeCollection extends INode{
   parentKey:number;
   collection:ICollection_<INodeCollection>;
   getType_();
-
+  sortHierarhy(asc:boolean);
 }
