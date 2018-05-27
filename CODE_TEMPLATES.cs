@@ -326,7 +326,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
 	//JS
 	//Angular 2 to WebComponents
-	https://angular.io/guide/elements
+	https://angular.io/guide/elements  
 	//dynamic external lib load
 	https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
 	//Cloud I9 editor
@@ -367,7 +367,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	https://www.metaltoad.com/blog/angular-2-http-observables-and-concurrent-data-loading
 	//custom custom scrollbars library
 	http://jscrollpane.kelvinluck.com/#examples
-
+	
 	//CSS		
 	https://css-tricks.com/snippets/html/glyphs/
 	//CSS tricks
@@ -872,8 +872,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	elma
 	https://www.naumen.ru
 	
-	
-	//code gen
+  //code gen
 	https://swagger.io/
 	//tizen
 	https://www.tizen.org/
@@ -947,7 +946,8 @@ https://metanit.com/sharp/aspnet5/20.1.php
 					
 				}
 				
-				public InitializeNewRepo(){
+				public InitializeNewRepo()
+				{
 					
 	echo "# NSQLmanager" >> README.md
 	git init
@@ -981,9 +981,8 @@ https://metanit.com/sharp/aspnet5/20.1.php
 				public NEW_BRANCH[
 					create new branch in web
 					git checkout -b \\url to branch
-				]
-				
-				public BranchMerge(){// Master->br1. stage 1 master+ stage 2 master+ br1--
+				public BranchMerge()
+				{// Master->br1. stage 1 master+ stage 2 master+ br1--
 
 	Short:
 	https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
@@ -1071,13 +1070,15 @@ https://metanit.com/sharp/aspnet5/20.1.php
 				}
 				
 				
-				public DeleteMaster(){//not working
+				public DeleteMaster()
+				{ //not working
 					https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
 					git symbolic-ref HEAD refs/heads/another-branch
 					http://matthew-brett.github.io/pydagogue/gh_delete_master.html
-				}
+		  }
 		  
-				PullProgects[
+				PullProgects
+				{
 					
 		git remote rm nsm
 		git remote rm napi
@@ -1092,7 +1093,8 @@ https://metanit.com/sharp/aspnet5/20.1.php
 		git pull napi nsql_mng
 		git checkout nsql_mng
 					
-				]
+				}
+				
 				rmFilesByMask[
 					//	git rm -r --cached **/*.jar
 				]
@@ -1115,20 +1117,41 @@ https://metanit.com/sharp/aspnet5/20.1.php
 				undoUncommitChangesToFile[
 					git checkout -- <filename>
 				]
-				overall[
+				overall 
+				[
 					//add CAinfo
-					git config http.sslCAinfo G:/disk/Progs/Git/mingw64/ssl/certs/ca-bundle.crt																
+					git config http.sslCAinfo G:/disk/Progs/Git/mingw64/ssl/certs/ca-bundle.crt
+					
+					MERGE PROJECTS ON FIRST COMMIT AFTER REMOTE BRANCH CREATEION
+					git pull origin branchname --allow-unrelated-histories			
+					//recommended
+					git clone
+								
 					
 					git remote -v -> check remotes
 					git branch -> check what branch you are in
 					
-					add commit push section
-					git push -u origin branchname - pushing to branch
+					EXISTING LOCAL PROJECT TO NEW GIT REPO FIRST PUSH
+					create new in git web
+					cd -> moove to directory		
+					git remote add origin \\url_to_project
+					git pull origin master
+					git init -> initialize git
+					git add . -a //no files changed
+					git add -u //only indexed files
+					
+					git commit -m "Commit text"
+					git push -u origin master
+					
+					NEW BRANCH
+					create new branch in web
+					git checkout -b \\url to branch		
+					add commit push section 
+					
+					git push -u origin branchname {!!!<pushing to branch>!!!}
 					
 					REMOVE REPO
 					git remote rm origin
-					
-					
 			  //filemanager
 					gitk
 					
@@ -1141,13 +1164,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 					
 					git-ls-tree 
 					git-ls-remote
-					
-					gitk [filename] - track file changes
-						
-					git checkout -- [] filename - undo uncomit changes to file
-					
 				]
-			
 			}
 
 		}

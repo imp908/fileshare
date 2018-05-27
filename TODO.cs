@@ -437,8 +437,8 @@ TnT[
 
 			actual[
 
-			
--> Add new Question Question parameters [
+
+-> Add new Question parameters [
 	-> question type with dropdown {textbox,checkbox,radio,rate with dropdown, pictures?}
 	]
 -> Add new Answers according to Quiz,Answer types[
@@ -511,7 +511,9 @@ more then 3 events listen ignore issue to repair  ]
 	<- done 22.05.2018 -> change nodes and nodegr to cssType
 		]	
 	<- done 22.05.2018 -> repeat checkbox	
-	
+	<- done 27.05.2018-> add dropbox ts 
+	<- done 27.05.2018-> change item-ng
+
 	
 	]
 	
