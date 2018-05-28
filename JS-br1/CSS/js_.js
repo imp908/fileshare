@@ -232,7 +232,32 @@ function addListeners(){
     }
   }
 
-  
+  //bind toggle to dropdown button
+  var ddToggle=selectByClass("ddbtn");
+  if(!isNull(ddToggle)){
+    for(let i=0;i<ddToggle.length;i++){
+      if(!isNull(ddToggle[i])){
+        // console.log(["toggle bind",ddToggle[i],i])
+        ddToggle[i].addEventListener("click",function(e){
+          e.stopPropagation();
+          e.preventDefault();
+          toggle_(ddToggle[i]);
+        },true)
+      }
+    }
+  }
+
+  //bind select to drop down items
+  var ddI=selectByClass("dd-item");
+  if(!isNull(ddI)){
+    for(let i=0;i<ddI.length;i++){
+      if(!isNull(ddI[i])){
+        //ddI[i].addEventListener("click",function(){selected(ddI[i].value)},true)
+        ddI[i].onclick =function(){selected(ddI[i])};
+      }
+    }
+  }
+
 }
 
 //executes on load
@@ -299,6 +324,33 @@ function scroll(){
 
 function selected(v){
     console.log(["selected",v]);
+}
+function toggle_(v){
+  //var ch_=v.parentElement.childNodes;
+  var pn_;
+  var cn_;
+  var dm_;
+
+  var pn_=v.parentNode;
+  if(!isNull(pn_)){
+    var cn_=pn_.childNodes;
+    if(!isNull(cn_)){
+
+      for(let i=0;i<cn_.length;i++){
+        if(cn_[i].className=="dd-menu"){dm_=cn_[i];}
+
+        if(!isNull(dm_)){
+          dm_.hidden=!dm_.hidden;
+          console.log(["toggle_",v,pn_,cn_,dm_]);
+          dm_=null;
+        }
+
+      }
+
+    }
+  }
+
+
 }
 
 function gen(tag,text,count){
