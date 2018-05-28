@@ -1,4 +1,3 @@
-
 <ng-container *ngIf="test==true" class="component">
   <!-- {{cName}} -->
   <!-- Generate form control from model class -->
@@ -24,17 +23,17 @@
     </div>
 
     <ng-container *ngIf="controlType()=='RadioButtonControl'">
-        <div *ngFor="let r of this.htmlItem_.collection.array">
+      <div *ngFor="let r of this.htmlItem_.collection.array">
 
-            <div class="flex-container fxhr">
-              <input type="radio"
-              [name]="this.htmlItem_.name"
-              [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
-              [value]="r.value">
-              {{r.value}}
-            </div>
-
+        <div class="flex-container fxhr">
+          <input type="radio"
+          [name]="this.htmlItem_.name"
+          [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
+          [value]="r.value">
+          {{r.value}}
         </div>
+
+      </div>
     </ng-container>
 
     <ng-container *ngIf="controlType()=='DatePickerControl'">
@@ -44,20 +43,33 @@
     </ng-container>
 
     <ng-container *ngIf="controlType()=='NumberPickerControl'">
-        <!-- <div class="flex-container horizontal"> -->
-          <app-gappicker-ng [itemValue_]="this.htmlItem_"></app-gappicker-ng>
-        <!-- </div> -->
+      <!-- <div class="flex-container horizontal"> -->
+        <app-gappicker-ng [itemValue_]="this.htmlItem_"></app-gappicker-ng>
+      <!-- </div> -->
     </ng-container>
 
-    <ng-container *ngIf="controlType()=='DropDownControl'">
-        <!-- <div class="flex-container horizontal"> -->
-          <app-dropdown [htmlItem_]="this.htmlItem_"></app-dropdown>
-        <!-- </div> -->
+    <ng-container *ngIf="controlType()=='DropDownControlNg'">
+      <!-- <div class="flex-container horizontal"> -->
+      DropDownControlNg
+      <app-dropdownng></app-dropdownng>
+      <!-- </div> -->
     </ng-container>
+
+    <ng-container *ngIf="controlType()=='DropDownControlMultiNg'">
+      <!-- <div class="flex-container horizontal"> -->
+        <app-dropdownmulting></app-dropdownmulting>
+      <!-- </div> -->
+    </ng-container>
+
+    <ng-container *ngIf="controlType()=='DropDownControlMulti'">
+      <!-- <div class="flex-container horizontal"> -->
+        <app-dropdownmulti></app-dropdownmulti>
+      <!-- </div> -->
+    </ng-container>
+
   </div>
 
 </ng-container>
-
 
 
 <ng-container *ngIf="test==false" class="component">
@@ -85,17 +97,17 @@
     </div>
 
     <ng-container *ngIf="controlType()=='RadioButtonControl'">
-        <div *ngFor="let r of this.htmlItem_.collection.array">
+      <div *ngFor="let r of this.htmlItem_.collection.array">
 
-            <div class="flex-container fxhr">
-              <input type="radio"
-              [name]="this.htmlItem_.name"
-              [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
-              [value]="r.value">
-              {{r.value}}
-            </div>
-
+        <div class="flex-container fxhr">
+          <input type="radio"
+          [name]="this.htmlItem_.name"
+          [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
+          [value]="r.value">
+          {{r.value}}
         </div>
+
+      </div>
     </ng-container>
 
     <ng-container *ngIf="controlType()=='DatePickerControl'">
@@ -105,16 +117,30 @@
     </ng-container>
 
     <ng-container *ngIf="controlType()=='NumberPickerControl'">
-        <!-- <div class="flex-container horizontal"> -->
-          <app-gappicker-ng [itemValue_]="this.htmlItem_"></app-gappicker-ng>
-        <!-- </div> -->
+      <!-- <div class="flex-container horizontal"> -->
+        <app-gappicker-ng [itemValue_]="this.htmlItem_"></app-gappicker-ng>
+      <!-- </div> -->
     </ng-container>
 
-    <ng-container *ngIf="controlType()=='DropDownControl'">
-        <!-- <div class="flex-container horizontal"> -->
-          <app-dropdown [htmlItem_]="this.htmlItem_"></app-dropdown>
-        <!-- </div> -->
+    <ng-container *ngIf="controlType()=='DropDownControlNg'">
+      <!-- <div class="flex-container horizontal"> -->
+      DropDownControlNg
+      <app-dropdownng></app-dropdownng>
+      <!-- </div> -->
     </ng-container>
+
+    <ng-container *ngIf="controlType()=='DropDownControlMultiNg'">
+      <!-- <div class="flex-container horizontal"> -->
+        <app-dropdownmulting></app-dropdownmulting>
+      <!-- </div> -->
+    </ng-container>
+
+    <ng-container *ngIf="controlType()=='DropDownControlMulti'">
+      <!-- <div class="flex-container horizontal"> -->
+        <app-dropdownmulti></app-dropdownmulti>
+      <!-- </div> -->
+    </ng-container>
+
   </div>
 
 </ng-container>

@@ -1,0 +1,52 @@
+/*for git not empty file*/
+
+.dropdownmultifield{
+  border: solid;
+  border-radius: 2px;
+  border-color: rgba(210,210,210,0.8);
+
+}
+
+
+.dd{
+  position: relative;
+  pointer-events: none;
+}
+.ddbtn{
+  pointer-events: visiblePainted;
+}
+.dd-menu{
+  pointer-events: visiblePainted;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  /* display: none; */
+  hidden:false;
+  float: left;
+  min-width: 10rem;
+  padding: 0.5rem 0;
+  margin: 0.125rem 0 0;
+  font-size: 1rem;
+  color: #212529;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 0.25rem;
+}
+
+.dd-item {
+  display: block;
+  width: 100%;
+  padding-bottom: 0.009ch;
+  padding-top: 0.009ch;
+  clear: both;
+  font-weight: 400;
+  color: #212529;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+}

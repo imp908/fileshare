@@ -1,4 +1,9 @@
 <ng-container *ngIf="test==true" class="container">
   {{cName}}
-    <app-grps [nodePassed_]="this.qz"></app-grps>
+    <!-- <app-grps [nodePassed_]="this.qz"></app-grps> -->
+
+    <!-- Multi NG dropbox -->
+    <!-- <app-dropdownmulting></app-dropdownmulting> -->
+
+    <app-dropdownmulti [htmlItem_]="itemsToPass_"></app-dropdownmulti>
 </ng-container>

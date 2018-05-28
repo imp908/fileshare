@@ -642,12 +642,28 @@ export class RadioButtonControl extends HtmlItem{
     super(key_,name_,value_,"input","radio",HtmlSubmittedValue_,show_,cssClass_,collection_)
   }
 }
-export class DropDownControl extends HtmlItem{
+export class DropDownControlNg extends HtmlItem{
   constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
       ,show_:boolean
       ,cssClass_:string
       ,collection_:ICollection_<INodeCollection>){
-    super(key_,name_,value_,"input","radio",HtmlSubmittedValue_,show_,cssClass_,collection_)
+    super(key_,name_,value_,"input","dropdown",HtmlSubmittedValue_,show_,cssClass_,collection_)
+  }
+}
+export class DropDownControlMultiNg extends HtmlItem{
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
+      ,show_:boolean
+      ,cssClass_:string
+      ,collection_:ICollection_<INodeCollection>){
+    super(key_,name_,value_,"input","dropdown",HtmlSubmittedValue_,show_,cssClass_,collection_)
+  }
+}
+export class DropDownControlMulti extends HtmlItem{
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
+      ,show_:boolean
+      ,cssClass_:string
+      ,collection_:ICollection_<INodeCollection>){
+    super(key_,name_,value_,"input","dropdown",HtmlSubmittedValue_,show_,cssClass_,collection_)
   }
 }
 export class DatePickerControl extends HtmlItem{
@@ -713,9 +729,11 @@ export class Quiz extends NodeCollection{
   anonimous:boolean;
 
   //Collection of formcontroll to generate for user input
+
   itemParameter:QuizControls;
 
   //Collection of gormcontrols to generate for read
+
   quizStatistic:QuizStatistic;
 
   constructor(
@@ -1076,8 +1094,9 @@ export class ModelContainer{
     if(i instanceof RadioButtonControl){return "RadioButtonControl"}
     if(i instanceof DatePickerControl){return "DatePickerControl"}
     if(i instanceof NumberPickerControl){return "NumberPickerControl"}
-    if(i instanceof DropDownControl){
-      return "DropDownControl"}
+    if(i instanceof DropDownControlNg){return "DropDownControlNg"}
+    if(i instanceof DropDownControlMultiNg){return "DropDownControlMultiNg"}
+    if(i instanceof DropDownControlMulti){return "DropDownControlMulti"}
   }
 
 }
@@ -1191,7 +1210,8 @@ export class Factory_{
       static DaysInMonth(){
         let r = new Collection_<HtmlItem>();
         for(let i=0;i<31;i++){
-          r.add(new HtmlItem(0,"days",i+1+"","option","",null,true,null,null))
+          // r.add(new HtmlItem(0,"days",i+1+"","option","",null,true,null,null))
+          r.add(new CheckBoxControl(i,"days","day " + String(i+1),false,true,"row"))
         }
         return r;
       }
@@ -1208,12 +1228,17 @@ export class Factory_{
       static CalendarDropDowns(){
         let r = new Collection_<HtmlItem>();
 
-          r.add(new DropDownControl(0,"MonthInYear","Months","Month",true,"fxvt"
+          r.add(new DropDownControlNg(0,"MonthInYear","MonthInYear","Month",true,"fxvt"
           ,Factory_.MonthsInYear()))
 
-          r.add(new DropDownControl(0,"WeeksInYear","Weeks","Month",true,"fxvt"
+          r.add(new DropDownControlNg(0,"WeeksInYear","WeeksInYear","Weeks",true,"fxvt"
           ,Factory_.WeeksInYear()))
 
+          r.add(new DropDownControlMultiNg(0,"DaysInMonth","DaysInMonth","Days",true,"fxvt"
+          ,Factory_.DaysInMonth()))
+
+          r.add(new DropDownControlMulti(0,"DaysInWeek","DaysInWeek","Days",true,"fxvt"
+          ,Factory_.DaysInWeek()))
 
         return r;
       }
@@ -1236,13 +1261,16 @@ export class Factory_{
           , Factory_.QuizNumberControls()
         );
 
-        let calendarcontrols=new HtmlItem(2,"CalendarControls","Choose quiz calendar period","","","Choose quiz calendar period",true,"fxvt"
+        let calendarcontrols=new HtmlItem(2,"CalendarControls","Choose quiz calendar period","","","Choose quiz calendar period",true,"fxhr"
           , Factory_.CalendarDropDowns()
         );
 
         let q=new Collection_<HtmlItem>(
+
             // [tbColl,dtColl,rbColl,nbColl]
+
             [checkboxes,startDate,circleCheck,numbercontrols,calendarcontrols]
+
           );
 
         return q;
@@ -1256,6 +1284,7 @@ export class Factory_{
 export class Test{
 
     //genes html items
+
     public static HtmlItems(){
 
       let qzcl = new Collection_<HtmlItem>();
@@ -1308,13 +1337,13 @@ export class Test{
 
         let ddCollVt = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxvt"
           ,new Collection_<HtmlItem>(
-            [    new DropDownControl(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+            [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
                   ,new Collection_<HtmlItem>([
                     new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
                     ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
                     ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
                     ]))
-                ,new DropDownControl(0,"Dd1","And again heder","And again",true,"fxvt"
+                ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
                       ,new Collection_<HtmlItem>([
                         new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
                         ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
@@ -1325,13 +1354,13 @@ export class Test{
 
           let ddCollHr = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxhr"
             ,new Collection_<HtmlItem>(
-              [    new DropDownControl(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+              [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
                     ,new Collection_<HtmlItem>([
                       new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
                       ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
                       ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
                       ]))
-                  ,new DropDownControl(0,"Dd1","And again heder","And again",true,"fxvt"
+                  ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
                         ,new Collection_<HtmlItem>([
                           new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
                           ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
@@ -1341,9 +1370,13 @@ export class Test{
             ));
 
       qzcl=new Collection_<HtmlItem>(
-          // [tbColl,dtColl,rbColl,nbColl]
-          [ddCollVt,ddCollHr,tbColl,dtColl,rbColl,nbColl,]
-        );
+
+        // [tbColl,dtColl,rbColl,nbColl]
+
+        [ddCollVt,ddCollHr,tbColl,dtColl,rbColl,nbColl]
+
+      );
+
       // qzcl=new Collection_<HtmlItem>([dbcl]);
 
       qzcl.setType("HtmlItem");
@@ -1355,6 +1388,7 @@ export class Test{
     }
 
     //gens html items for quiz -> moove to optiondefault
+
     public static QuizHtml(){
 
       let qzcl = new Collection_<HtmlItem>();
@@ -1407,13 +1441,13 @@ export class Test{
 
         let ddCollVt = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxvt"
           ,new Collection_<HtmlItem>(
-            [    new DropDownControl(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+            [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
                   ,new Collection_<HtmlItem>([
                     new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
                     ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
                     ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
                     ]))
-                ,new DropDownControl(0,"Dd1","And again heder","And again",true,"fxvt"
+                ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
                       ,new Collection_<HtmlItem>([
                         new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
                         ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
@@ -1424,13 +1458,13 @@ export class Test{
 
           let ddCollHr = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxhr"
             ,new Collection_<HtmlItem>(
-              [    new DropDownControl(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+              [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
                     ,new Collection_<HtmlItem>([
                       new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
                       ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
                       ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
                       ]))
-                  ,new DropDownControl(0,"Dd1","And again heder","And again",true,"fxvt"
+                  ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
                         ,new Collection_<HtmlItem>([
                           new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
                           ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
@@ -1636,6 +1670,11 @@ export class Test{
 
       let qzSt:QuizStatistic= new QuizStatistic();
       let qzCt:QuizControls=new QuizControls();
+
+      let cc=Factory_.CalendarDropDowns();
+      for(let i of cc.array){
+        ServiceCl.log(["Calendars: ",ModelContainer.HtmlItemType(i)]);
+      }
 
       ServiceCl.log(["GO ",qzSt,qzCt]);
     }

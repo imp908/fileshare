@@ -1,7 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
 import {Test,HtmlItem,ModelContainer} from 'app/app7/Models/inits.component'
-
 @Component({
   selector: 'app-nodeitem',
   templateUrl: './nodeitem.component.html',

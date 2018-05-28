@@ -29,15 +29,21 @@ import { TimepickerComponent } from './templates/Elements/timepicker/timepicker.
 import { GappickerNgComponent } from './templates/Elements/gappicker-list/gappicker-ng/gappicker-ng.component';
 import { GappickerListComponent } from './templates/Elements/gappicker-list/gappicker-list.component';
 import { GappickerDropComponent } from './templates/Elements/gappicker-list/gappicker-drop/gappicker-drop.component';
-import { DropdownComponent } from './templates/Elements/dropdown/dropdown.component';
 
+import { DropdownComponent } from './templates/Elements/dropdowns/dropdownng/dropdownng.component';
 
+//https://github.com/softsimon/angular-2-dropdown-multiselect
+import { MultiselectDropdownModule } from 'angular-2-dropdown-multiselect';
+import { DropdownmultingComponent } from './templates/Elements/dropdowns/dropdownmulting/dropdownmulting.component';
+import { DropdownmultiComponent } from './templates/Elements/dropdowns/dropdownmulti/dropdownmulti.component';
 
 
 @NgModule({
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
     ,NgbModule.forRoot()
+
+    ,MultiselectDropdownModule
   ],
   declarations:[
     App7Component,
@@ -46,7 +52,9 @@ import { DropdownComponent } from './templates/Elements/dropdown/dropdown.compon
     NodesGroups, DatepickerPopupComponent, TimepickerComponent, NodesComponent,
     GappickerNgComponent, GappickerListComponent, GappickerDropComponent,
     NodeitemComponent,
-    DropdownComponent],
+    DropdownComponent,
+    DropdownmultingComponent,
+    DropdownmultiComponent],
   bootstrap:[App7Component],
   providers:[Service_]
 })

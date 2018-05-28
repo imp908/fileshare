@@ -16,8 +16,6 @@
   </ng-container>
 </ng-container>
 
-
-
 <ng-container *ngIf="test==false" >
   <ng-container *ngIf="nodeToEdit_!=null">
     <div class="listarea editarea">
@@ -28,10 +26,10 @@
       </div>
 
       <div *ngIf="((nodeTypeGet()=='Quiz') && (nodeToEdit_!=null))">
-
         <!-- CSS1:{{nodeToEdit_.cssClass}},{{nodeToEdit_.name}} -->
         <app-grps [nodePassed_]="nodeToEdit_"></app-grps>
       </div>
+
     </div>
   </ng-container>
 </ng-container>
