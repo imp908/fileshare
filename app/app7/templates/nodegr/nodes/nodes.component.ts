@@ -20,7 +20,7 @@ export class NodesComponent implements OnInit {
     ServiceCl.log(['Constructor : ' + this.constructor.name])
   }
 
-  ngOnInit() {
+  ngOnInit() {  
     ServiceCl.log(['Inited : ' + this.constructor.name,this.htmlItems_])
   }
 

@@ -3,12 +3,16 @@
 
 <div class="container-fluid">
   <div class="dd">
-    <button class="btn btn-secondary dropdown-toggle ddbtn" (click)="dm.hidden=!dm.hidden">MultiDrop</button>
+    <button class="btn btn-secondary dropdown-toggle ddTgl ddBtn" (click)="dm.hidden=!dm.hidden">MultiDrop</button>
     <div class="dd-menu" hidden="true" #dm>
       <ng-container *ngFor="let i_ of htmlItem_.collection.array">
-        <a class="dd-item" (hover)="background=rgba(200,200,200,0.8)">
-        <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
-        </a>
+        <div #di class="dd-item" (click)="clicked_($event,i_)"
+        [class.ddSelected]="isSelected(i_)"
+        (mouseenter)="mouseenter_($event)"
+        (mouseleave)="mouseleave_($event)"
+        >
+          <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
+        </div>
       </ng-container>
     </div>
   </div>
@@ -17,10 +21,18 @@
 </ng-container>
 
 <ng-container *ngIf="test==false">
-  <button (click)="sl.hidden=!sl.hidden">Select</button>
-  <div #sl>
-    <ng-container *ngFor="let i_ of htmlItem_.collection.array">
-      <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
-    </ng-container>
-  </div>
+
+  <!-- <div class="container-fluid"> -->
+    <div class="dd">
+      <button class="btn btn-secondary dropdown-toggle ddTgl ddBtn" (click)="dm.hidden=!dm.hidden">MultiDrop</button>
+      <div class="dd-menu" hidden="true" #dm>
+        <ng-container *ngFor="let i_ of htmlItem_.collection.array">
+          <div class="dd-item">
+            <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  <!-- </div> -->
+
 </ng-container>

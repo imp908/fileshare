@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {ServiceCl,Service_} from './Services/services.component'
 import {Test} from './Models/inits.component'
 
+
+
 @Component({
   selector: 'app-app7',
   templateUrl: './app7.component.html',
@@ -11,8 +13,11 @@ export class App7Component implements OnInit {
   cName:string;
   test: boolean;
 
+
+
   constructor(private service:Service_){
-      service.test=true;
+
+      service.test=false;
       service.toLog=false;
       ServiceCl.toLog=true;
       this.test=service.test;

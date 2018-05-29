@@ -1,8 +1,8 @@
 <div *ngIf="test==true" class="container">
   <app-menu-edit></app-menu-edit>
-  <app-menu-list></app-menu-list>
+  <app-menu-list [nodesPassed_]="nodesPassed_"></app-menu-list>
 </div>
-  <ng-container *ngIf="test==false" class="item menu_edit">
-    <app-menu-edit></app-menu-edit>
-    <app-menu-list></app-menu-list>
-  </ng-container>
+<div *ngIf="test==false" class="item menu_edit">
+  <app-menu-edit></app-menu-edit>
+  <app-menu-list [nodesPassed_]="nodesPassed_"></app-menu-list>
+</div>

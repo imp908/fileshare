@@ -736,7 +736,7 @@ export class Quiz extends NodeCollection{
 
   quizStatistic:QuizStatistic;
 
-  constructor(
+    constructor(
       option:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
       ,itemParameter_?:QuizControls,quizStatistic_?:QuizStatistic}
       ={key_:0,name_:"Quiz",value_:null,collection_:null,itemParameter_:new QuizControls(),quizStatistic_:new QuizStatistic()}
@@ -744,7 +744,6 @@ export class Quiz extends NodeCollection{
       super(option.key_,option.name_,option.value_,option.collection_);
       this.replay=true;
       this.anonimous=false;
-
 
       this.typeName="Question";
       if(option.collection_==null){
@@ -920,6 +919,7 @@ export class ModelContainer{
   @Output() static nodeSaved=new EventEmitter();
   @Output() static nodeAdded=new EventEmitter<NodeCollection>();
 
+
   static nodeMethodCall(b_:Button,n_:INodeCollection){
     ServiceCl.log(["nodeMethodCall",b_,n_]);
     if(b_.name=="Edit_"){
@@ -1058,6 +1058,7 @@ export class ModelContainer{
     ModelContainer.nodeSaved.emit(n_);
   }
 
+
   static checkedToggle(nodeEdited_:NodeCollection, parameterClicked_:HtmlItem){
 
     if(nodeEdited_ instanceof Quiz){
@@ -1067,25 +1068,51 @@ export class ModelContainer{
     }
   }
 
-  // rewrite to new Htmlitem
-
-  static changeShowStatus(name_:string){
-
-    let a:ItemParameter;
-
-    if(ModelContainer.nodeToEdit instanceof Quiz){
-      let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name==name_);
-
-      if(b instanceof ItemParameter){
-        a=b;
-        a.show=!a.show;
+  static CheckCycleDisplay(){
+    if(ModelContainer.nodeToEdit instanceof Quiz)
+    {
+      let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name=="QuizCircle");
+      if(b!=null){
+        let c=b.collection.array.find(s=>s.name=="Cicle");
+        if(c!=null){
+          if(c instanceof HtmlItem){
+            console.log(["CheckCycleDisplay",c]);
+            ModelContainer.toggleCycleShow(c);
+          }
+        }
       }
-      ServiceCl.log(["changeShowStatus: " ,a,ModelContainer.nodesPassed_]);
-      return ModelContainer.nodeToEdit.itemParameter;
+
+    }
+  }
+  static toggleCycleShow(cb_:HtmlItem){
+    if(cb_.name=="Cicle"){
+      this.toggleShowStatus(cb_,["DateGap","CalendarControls"]);
+    }
+  }
+  static toggleShowStatus(checkbox_:HtmlItem,toChangeName_:string[]){
+
+    let a:HtmlItem=null;
+
+    if(checkbox_!=null && toChangeName_ !=null ){
+      // ServiceCl.log(["st",ModelContainer.nodeToEdit,toChangeName_])
+      if(ModelContainer.nodeToEdit instanceof Quiz && toChangeName_.length>0){
+        console.log(["toggleShowStatus: ",checkbox_]);
+        for(let i=0;i<toChangeName_.length;i++){
+          let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name==toChangeName_[i]);
+
+          if(b instanceof HtmlItem){
+            a=b;
+            a.show=checkbox_.HtmlSubmittedValue;
+            ServiceCl.log(["changeShowStatus: ",checkbox_,a,b]);
+          }
+
+        }
+      }
     }
 
-
   }
+
+  // rewrite to new Htmlitem
 
   static HtmlItemType(i:NodeCollection): string {
 
@@ -1162,7 +1189,7 @@ export class Factory_{
         let r = new Collection_<HtmlItem>();
 
         r= new Collection_<HtmlItem>([
-          new DatePickerControl(0,"StartDate","Choose quiz start date",new Date(),true,"")
+          new DatePickerControl(0,"StartDate","Choose quiz start date",new Date(),true,"row")
         ])
 
         return r;
@@ -1173,7 +1200,7 @@ export class Factory_{
         let r = new Collection_<HtmlItem>();
 
         r= new Collection_<HtmlItem>([
-          new CheckBoxControl(0,"Cicle","Does quiz need to be cicled?",false,true,"")
+          new CheckBoxControl(0,"Cicle","Does quiz need to be cicled?",false,false,"")
         ])
 
         return r;
@@ -1211,7 +1238,7 @@ export class Factory_{
         let r = new Collection_<HtmlItem>();
         for(let i=0;i<31;i++){
           // r.add(new HtmlItem(0,"days",i+1+"","option","",null,true,null,null))
-          r.add(new CheckBoxControl(i,"days","day " + String(i+1),false,true,"row"))
+          r.add(new CheckBoxControl(i,"days","day " + String(i+1),false,true,"fxhr"))
         }
         return r;
       }
@@ -1231,7 +1258,7 @@ export class Factory_{
           r.add(new DropDownControlNg(0,"MonthInYear","MonthInYear","Month",true,"fxvt"
           ,Factory_.MonthsInYear()))
 
-          r.add(new DropDownControlNg(0,"WeeksInYear","WeeksInYear","Weeks",true,"fxvt"
+          r.add(new DropDownControlMulti(0,"WeeksInYear","WeeksInYear","Weeks",true,"fxvt"
           ,Factory_.WeeksInYear()))
 
           r.add(new DropDownControlMultiNg(0,"DaysInMonth","DaysInMonth","Days",true,"fxvt"

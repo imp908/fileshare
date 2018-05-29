@@ -11,16 +11,20 @@
 .dd{
   position: relative;
   pointer-events: none;
+  z-index: 1000;
 }
-.ddbtn{
+
+.ddTgl{
   pointer-events: visiblePainted;
+}
+.ddBtn{
+  background-image: var(--dropDownGrad);
 }
 .dd-menu{
   pointer-events: visiblePainted;
   position: absolute;
   top: 100%;
   left: 0;
-  z-index: 1000;
   /* display: none; */
   hidden:false;
   float: left;
@@ -31,13 +35,15 @@
   color: #212529;
   text-align: left;
   list-style: none;
-  background-color: #fff;
-  background-clip: padding-box;
+  /* background-color: #fff; */
+  background: var(--dropDownMenu);
+  /* background-clip: padding-box; */
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 0.25rem;
 }
 
 .dd-item {
+  left:0;
   display: block;
   width: 100%;
   padding-bottom: 0.009ch;
@@ -47,6 +53,21 @@
   color: #212529;
   text-align: inherit;
   white-space: nowrap;
-  background-color: transparent;
+  /* background-color: transparent; */
   border: 0;
+}
+
+
+
+.ddMouseOut{
+  background: var(--dropDownMenu);
+  /* background: blue; */
+}
+.ddSelected{
+  background: var(--dropDownSelected);
+  /* background: red; */
+}
+.ddMouseOver{
+  background: var(--dropDownMouseOver);
+  /* background: green; */
 }

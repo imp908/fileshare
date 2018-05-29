@@ -23,7 +23,7 @@ export class MenuListComponent implements OnInit {
       ServiceCl.log(["Constructor: " + this.constructor.name]);
       this.test=service.test;
       this.cName=this.constructor.name;
-      this.genTest();
+
     }
     conatinerBind(){
       this.QuizToEdit=ModelContainer.QuizToEdit;
@@ -38,6 +38,8 @@ export class MenuListComponent implements OnInit {
       ServiceCl.log(["nodesPassed_",this.nodesPassed_,ModelContainer]);
     }
     ngOnInit(){
+      // this.genTest();
+      this.conatinerBind();
 
       ModelContainer.nodeEmitted.subscribe(s=>{
       ServiceCl.log([this.constructor.name+" NodeEmitted: ",s])

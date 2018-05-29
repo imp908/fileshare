@@ -23,5 +23,7 @@ export class DropdownComponent implements OnInit {
   ngOnInit() {
     ServiceCl.log(["Inited: " + this.constructor.name,this.htmlItem_]);
   }
-
+  changed(i){
+    ServiceCl.log(["changed",i]);
+  }
 }

@@ -8,16 +8,8 @@
       <div [class]="i_0.cssClass">
       {{i_0.cssClass}}
         <!-- {{i_0.cssClass}} -->
-        <ng-container *ngFor="let i_1 of i_0.collection.array">
-          <div [class]="i_1.cssClass">
-          {{i_1.cssClass}}
-            <!-- {{i_1.cssClass}} -->
-          <app-nodeitem [htmlItem_]="i_1"></app-nodeitem>
-            <!-- <ng-container *ngFor="let i_2 of i_1.collection.array">
-              <app-nodeitem [htmlItem_]="i_2"></app-nodeitem>
-            </ng-container> -->
-          </div>
-        </ng-container>
+        <app-nodes [htmlItems_]="i_0"></app-nodes>
+
       </div>
     </ng-container>
   </div>
@@ -25,24 +17,16 @@
 </ng-container>
 
 <ng-container *ngIf="test==false">
-  <!-- {{cName}} -->
+  <div style="margin-left:3ch">
   <div [class]="this.nodePassed_.itemParameter.cssClass">
-    <!-- {{this.nodePassed_.itemParameter.cssClass}} -->
+
     <ng-container *ngFor="let i_0 of this.nodePassed_.itemParameter.collection.array">
       <div [class]="i_0.cssClass">
-      <!-- {{i_0.cssClass}} -->
-        <!-- {{i_0.cssClass}} -->
-        <ng-container *ngFor="let i_1 of i_0.collection.array">
-          <div [class]="i_1.cssClass">
-          <!-- {{i_1.cssClass}} -->
-            <!-- {{i_1.cssClass}} -->
-          <app-nodeitem [htmlItem_]="i_1"></app-nodeitem>
-            <!-- <ng-container *ngFor="let i_2 of i_1.collection.array">
-              <app-nodeitem [htmlItem_]="i_2"></app-nodeitem>
-            </ng-container> -->
-          </div>
-        </ng-container>
+
+        <app-nodes [htmlItems_]="i_0"></app-nodes>
+
       </div>
     </ng-container>
+  </div>
   </div>
 </ng-container>

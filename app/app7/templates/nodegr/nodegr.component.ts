@@ -27,6 +27,7 @@ export class NodesGroups implements OnInit {
 
   ngOnInit(){
     this.bindItems();
+    
     ServiceCl.log(["Inited: " + this.constructor.name,this.nodePassed_,this.htmlItemsGroup_]);
   }
   bindItems(){

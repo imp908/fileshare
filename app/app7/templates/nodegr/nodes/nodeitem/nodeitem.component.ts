@@ -22,9 +22,20 @@ export class NodeitemComponent implements OnInit {
    }
 
   ngOnInit() {
+
     ServiceCl.log(["Inited: " + this.constructor.name,this.htmlItem_]);
   }
   controlType(){
     return ModelContainer.HtmlItemType(this.htmlItem_);
+  }
+  clicked_(e){
+    ServiceCl.log(["clicked: ",e])
+
+    if(this.controlType() =="CheckBoxControl")
+    {
+      this.htmlItem_.HtmlSubmittedValue=!this.htmlItem_.HtmlSubmittedValue;
+      ModelContainer.toggleCycleShow(this.htmlItem_);
+    }
+
   }
 }

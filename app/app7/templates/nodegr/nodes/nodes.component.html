@@ -3,27 +3,34 @@
   <!-- Generate form control from model class -->
 
     CSS_4: {{htmlItems_.cssClass}},{{htmlItems_.name}}
-    <ng-container *ngFor="let i_ of htmlItems_.collection.array">
-      <div [class]="i_.cssClass">
-        CSS_5:{{i_.cssClass}}, {{htmlItems_.name}}
-        <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
-      </div>
-    </ng-container>
+    <div *ngIf="this.htmlItems_.show==true">
+    <div [class]="this.htmlItems_.cssClass">
+      <ng-container *ngFor="let i_1 of htmlItems_.collection.array">
+        <div [class]="i_1.cssClass">
+        {{i_1.cssClass}}
+          <!-- {{i_1.cssClass}} -->
+          <app-nodeitem [htmlItem_]="i_1"></app-nodeitem>
+          <!-- <ng-container *ngFor="let i_2 of i_1.collection.array">
+            <app-nodeitem [htmlItem_]="i_2"></app-nodeitem>
+          </ng-container> -->
+        </div>
+      </ng-container>
+    </div>
+    </div>
 
 </ng-container>
 <ng-container *ngIf="test==false">
 
 </ng-container>
 <ng-container *ngIf="test==false" class="component">
-  <!-- {{cName}} -->
-  <!-- Generate form control from model class -->
-  <div class="flex-container vertical">
-    CSS_2
-  <ng-container *ngFor="let i_ of htmlItems_.collection.array">
-    <app-nodeitem [htmlItem_]="i_"></app-nodeitem>
-  </ng-container>
+  <div *ngIf="this.htmlItems_.show==true">
+  <div [class]="this.htmlItems_.cssClass">
+    <ng-container *ngFor="let i_1 of htmlItems_.collection.array">
+      <div [class]="i_1.cssClass">  
+        <app-nodeitem [htmlItem_]="i_1"></app-nodeitem>
+      </div>
+    </ng-container>
   </div>
-</ng-container>
-<ng-container *ngIf="test==false">
+  </div>
 
 </ng-container>
