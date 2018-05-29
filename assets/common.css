@@ -66,7 +66,9 @@ input[type="number"]{
   display: -webkit-flex;
   display: flex;
   align-items: end;
+
   padding-left: 5vh;
+
   top: 3vh;
   margin-top: 0%;
   padding-top: var(--shadowHeight);
@@ -120,13 +122,6 @@ input[type="number"]{
 }
 
 .listarea{
-  /*
-  position: sticky;
-  position: -webkit-sticky;
-  bottom: 0;
-
-  height: 50vh
-  */
 
 z-index: var(--menuZ);
 
@@ -135,6 +130,8 @@ position: -webkit-sticky;
 
 bottom: 0;
 
+padding-top: var(--editAreaPadBtm);
+padding-bottom: var(--editAreaPadBtm);
 
 display: flex;
 flex-direction: column;
