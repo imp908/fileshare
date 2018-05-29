@@ -1219,7 +1219,9 @@ https://metanit.com/sharp/aspnet5/20.1.php
 		}
 
 	#endregion
-
+	
+	#endregion 
+	
 	#region C#
 
 	//Forums
@@ -4937,6 +4939,11 @@ html -> <childHtml (outEm)="method($event)">
 			NgMOdelOverridsHtmlAttr[
 			inpyt type="textbox" - > binding [(ngModel)]="val" overrides any placeholders value attr
 			]
+			
+			customJSusage[
+				if custom js references elment DOM exmpl: toggles class by css class name
+				then undefined erro would fire, while action performs OK
+			]
 		}
 	}
 	
@@ -5000,7 +5007,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 		}
 		,DOMevents{
 			
-			ClickVsMouseUp(
+			ClickVsMouseUp{
 			click will trigger MouseEvent and will intercept other KeyDown events.
 			if different actions on mouseclick and keybord click (enter for example ) expected=>
 				use mouseup
@@ -5011,7 +5018,22 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 						<button (mouseup/click)="selectToday($event)">Select Today</button>
 					</div>
 			
-			)
+			}
+		
+			MouseEnterLeave_MOuseOverOut{
+				https://javascript.info/mousemove-mouseover-mouseout-mouseenter-mouseleave
+				mouseover,mouseout($e)
+					e.target - elemnt acted in action
+					e.fromElment - elment from which action was performed
+					e.relatedTarget - elment from which action was performed
+					
+				very fast moovement ignored
+				
+				MouseEnter/Mouseleave No transition inside elment
+				Nobubbling !!! children ignored
+				
+			}
+				
 		}
 	}
 	#endregion	
