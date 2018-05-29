@@ -6,51 +6,95 @@
   --scrolbarZ:7;
 
   --menuBorderRads:15px;
+  --textBorderRads:10px;
 
   --vH_:100vh;
 
   --editAreaHeight:calc(var(--vH_)/2.1);
 
   --listAreaH:calc((var(--vH_) - var(--editAreaHeight)) - 5vh);
-
+  --editAreaPadBtm:5ch;
 
   /* --shadowHeight:10vh; */
-  --shadowHeight:calc(var(--listAreaH) / 6);
+  --shadowHeight:calc(var(--listAreaH) / 8);
   --shadowBottom:calc(var(--listAreaH) - var(--shadowHeight)) ;
   /* --shadowBottom:40vh; */
 
   --topGradRad:0deg;
   --bottomGradRad:0deg;
 
-  --tealBackground:linear-gradient(0deg, rgba(0, 0, 0,0.0) ,rgba(207, 199, 248,1) , rgba(171, 244, 233,1));
-  --tealShadowListTop:linear-gradient(180deg
+  --tealBackground: linear-gradient(0deg, rgba(0, 0, 0,0.0), rgba(207, 199, 248,1), rgba(171, 244, 233,1));
+
+  --tealShadowListTop: linear-gradient(180deg
   ,rgba(171, 244, 233,0.9) 1%
   ,rgba(171, 244, 233,1) 5%
   ,rgba(237, 230, 250,0.8) 50%
   ,rgba(255, 255, 255,0.05) 80%
-  ,rgba(255, 255, 255,0.0) );
+  ,rgba(255, 255, 255,0.0)
+  );
+
+  /*Drop down styles  */
+  --dropDownGrad2: linear-gradient( 45deg
+    ,rgba(103, 34, 214,1)
+    ,rgba(80, 41, 142,1)
+    ,rgba(160, 100, 150,1)
+    );
+  --dropDownGrad: linear-gradient( 35deg
+    ,rgba(161, 9, 237,1)
+    ,rgba(125, 40, 230,1)
+    ,rgba(80, 30, 140,1)
+    ,rgba(200, 140, 230,1)
+    );
+  --dropDownMouseOver:linear-gradient( 45deg
+    ,rgba(88, 99, 183,0.2)
+    ,rgba(88, 99, 183,1)
+    );
+  --dropDownMenu:rgba(218, 212, 249,1.0);
+  --dropDownSelected:rgba(80, 80, 160,1.0);
+
   --tealGradTop: linear-gradient(0deg  ,rgba(171, 244, 233,1) ,rgba(207, 199, 248,1) ,  rgba(0,0,0,0.0) );
 
-  --ShadowTopWhite:  linear-gradient(0deg
+  --ShadowTopWhite: linear-gradient(0deg
     ,rgba(255,255,255,0) 0%
-    ,rgba(255,255,255,0.5) 30%
+    ,rgba(255,255,255,0.4) 30%
     ,rgba(255,255,255,0.9) 60%
     ,rgba(255,255,255,1) 100%
-    ) ;
+    );
 
-  --ShadowBottomWhite:  linear-gradient(180deg
+  --ShadowBottomWhite: linear-gradient(180deg
     ,rgba(255,255,255,0) 0%
-    ,rgba(255,255,255,0.3) 30%
+    ,rgba(255,255,255,0.2) 30%
     ,rgba(255,255,255,0.75) 60%
     ,rgba(255,255,255,1) 100%
-    ) ;
+    );
 
-  --shadowTop2:  linear-gradient(0deg
+  --shadowTop2: linear-gradient(0deg
     ,rgba(78,182,119,0) 0%
     ,rgba(78,182,119,0.2) 15%
     ,rgba(66,163,132,0.8) 25%
     ,rgba(38,117,160,1) 80%
     ,rgba(26,98,172,1) 90%
     ,rgba(26,98,172,1) 100%
-    ) ;
+    );
+
+
+
+    /* Scrollbar colors and degrees */
+    --scrollbarWidth:1%;
+    --scrollbarHeight:1%;
+
+    --scrollbarColorGradDegVert:120deg;
+    --scrollbarColorGradDegHor:30deg;
+
+    --scrollbarColorGradBlueVert:linear-gradient(var(--scrollbarColorGradDegVert), #84fab0 0%, #8fd3f4 100%);
+    --scrollbarColorGradBlueHor:linear-gradient(var(--scrollbarColorGradDegHor), #84fab0 0%, #8fd3f4 100%);
+
+    --scrollbarThumbColorGradBlueVert:linear-gradient(var(--scrollbarColorGradDegVert), #30cfd0 0%, #330867 100%);
+    --scrollbarThumbColorGradBlueHor:linear-gradient(var(--scrollbarColorGradDegHor), #30cfd0 0%, #330867 100%);
+
+    --scrollbarThumbHoover:rgba(65, 27, 142,0.8);
+
+
+
+
 }

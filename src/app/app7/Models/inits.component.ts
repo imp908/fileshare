@@ -183,6 +183,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
     }else{a=this.array.sort(this.sortDesc);}
     return a;
   }
+
 }
 
 //parameter constructions
@@ -426,6 +427,8 @@ export class Collection_<T extends Node> implements ICollection_<T>{
     }else{a=this.array.sort(this.sortDesc);}
     return a;
   }
+
+
 }
 
 export class NodeCollection extends Node{
@@ -447,6 +450,18 @@ export class NodeCollection extends Node{
       //return this.collection.getType();
     if(this.collection!=null){
       return this.constructor.name;
+    }
+  }
+  sortHierarhy(asc:boolean){
+    if((this.collection!=null)){
+      // console.log("sort");
+      this.collection.sort(asc);
+      if((this.collection.array!=null) && (this.collection.array.length!=-1)){
+          for(let i =0;i<this.collection.array.length;i++){
+            // console.log("go deeper");
+            this.collection.array[i].sortHierarhy(asc);
+          }
+      }
     }
   }
 
@@ -593,9 +608,9 @@ export class TextControl extends HtmlItem{
   displayValue:any
 
   constructor(key_:number,name_:string,value_:string, displayValue_:any,HtmlSubmittedValue_:any
-    ,pattern_?:string,minLen_?:number,maxLen_?:number,show_?:boolean){
+    ,pattern_?:string,minLen_?:number,maxLen_?:number,show_?:boolean,cssClass_?:string){
 
-    super(key_,name_,value_,"input","text",HtmlSubmittedValue_,show_,null,null)
+    super(key_,name_,value_,"input","text",HtmlSubmittedValue_,show_,cssClass_,null)
 
     this.maxLength=null;
     this.minLength=null;
@@ -615,8 +630,8 @@ export class TextControl extends HtmlItem{
 }
 export class CheckBoxControl extends HtmlItem{
   constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:any
-    ,show_?:boolean){
-    super(key_,name_,value_,"input","checkbox",HtmlSubmittedValue_,show_,null,null)
+    ,show_?:boolean,cssClass_?:string){
+    super(key_,name_,value_,"input","checkbox",HtmlSubmittedValue_,show_,cssClass_,null)
   }
 }
 export class RadioButtonControl extends HtmlItem{
@@ -627,9 +642,33 @@ export class RadioButtonControl extends HtmlItem{
     super(key_,name_,value_,"input","radio",HtmlSubmittedValue_,show_,cssClass_,collection_)
   }
 }
+export class DropDownControlNg extends HtmlItem{
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
+      ,show_:boolean
+      ,cssClass_:string
+      ,collection_:ICollection_<INodeCollection>){
+    super(key_,name_,value_,"input","dropdown",HtmlSubmittedValue_,show_,cssClass_,collection_)
+  }
+}
+export class DropDownControlMultiNg extends HtmlItem{
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
+      ,show_:boolean
+      ,cssClass_:string
+      ,collection_:ICollection_<INodeCollection>){
+    super(key_,name_,value_,"input","dropdown",HtmlSubmittedValue_,show_,cssClass_,collection_)
+  }
+}
+export class DropDownControlMulti extends HtmlItem{
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
+      ,show_:boolean
+      ,cssClass_:string
+      ,collection_:ICollection_<INodeCollection>){
+    super(key_,name_,value_,"input","dropdown",HtmlSubmittedValue_,show_,cssClass_,collection_)
+  }
+}
 export class DatePickerControl extends HtmlItem{
-  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:Date ,show_:boolean){
-    super(key_,name_,value_,"input","datepicker",HtmlSubmittedValue_,show_,null,null)
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:Date ,show_:boolean,cssClass_?:string){
+    super(key_,name_,value_,"input","datepicker",HtmlSubmittedValue_,show_,cssClass_,null)
   }
 }
 export class NumberPickerControl extends HtmlItem{
@@ -637,8 +676,9 @@ export class NumberPickerControl extends HtmlItem{
   minN?:number;
   maxN?:number;
 
-  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:number,min_?:number,max_?:number,show_?:boolean){
-    super(key_,name_,value_,"input","numberpicker",HtmlSubmittedValue_,show_,null,null)
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:number
+    ,min_?:number,max_?:number,show_?:boolean,cssClass_?:string){
+    super(key_,name_,value_,"input","numberpicker",HtmlSubmittedValue_,show_,cssClass_,null)
 
     this.minN=null;
     this.maxN=null;
@@ -654,49 +694,15 @@ export class NumberPickerControl extends HtmlItem{
 
 export class QuizControls extends HtmlItem{
 
-  constructor(HtmlCssAttr_:string,show_:boolean,collection_?:ICollection_<HtmlItem>)
+  constructor(option:{cssClass_:string,show_:boolean,collection_?:Collection_<HtmlItem>}
+  ={cssClass_:"",show_:true,collection_:null})
   {
+    let qzcl=Factory_.QuizControlsGen();
 
-    let qzcl:Collection_<HtmlItem>;
-    qzcl=collection_;
-
-    if(collection_==null){
-
-      let rb=new Collection_<HtmlItem>([
-      new RadioButtonControl(0,"Rb","What to shoose?","Choice 2",true,"flex-container fxvt",new Collection_<HtmlItem>([
-          new HtmlItem(0,"Rb","Choice 1","option","",null,true,null,null)
-          ,new HtmlItem(1,"Rb","Choice 2","option","",null,true,null,null)
-          ,new HtmlItem(2,"Rb","Choice 3","option","",null,true,null,null)
-        ]))
-      ]);
-
-      let tx = new Collection_<HtmlItem>([
-        new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true)
-        ,new CheckBoxControl(1,"Cb","To Check or not to check",true,true)
-        ,new CheckBoxControl(1,"Cb","To Check or not to check2",true,true)
-      ]);
-
-      let cb = new Collection_<HtmlItem>([
-        new CheckBoxControl(0,"Cb","To Check or not to check1",true)
-        ,new CheckBoxControl(1,"Cb","To Check or not to check3",true)
-      ]);
-
-      rb.setType("HtmlItem");
-      tx.setType("HtmlItem");
-      cb.setType("HtmlItem");
-
-      let rbcl=new HtmlItem(0,"RadioColl","RadioColl","f-c","wrt",null,true,"flex-container fxhr",rb);
-      let txcl=new HtmlItem(1,"TextBoxColl","TextBoxColl","f-c","wrt",null,true,"flex-container fxhr",tx);
-      let cbcl=new HtmlItem(2,"CheckColl","CheckColl","f-c","wrt",null,true,"flex-container fxhr",cb);
-
-      qzcl=new Collection_<HtmlItem>([rbcl,txcl,cbcl]);
-
-      qzcl.setType("HtmlItem");
-
-    }
-
-    super(0,"QuizControlGroup","QuizControlGroup","div",HtmlCssAttr_,null,show_,"flex-container fxvt",qzcl);
+    super(0,"QuizControlGroup","QuizControlGroup","div","",null,option.show_,option.cssClass_,qzcl);
+    this.sortHierarhy(true);
   }
+
 
 }
 
@@ -720,28 +726,41 @@ export class Quiz extends NodeCollection{
   replay:boolean;
   startTime:Date;
   timeGap:Date;
-
   anonimous:boolean;
 
-  itemParameter:NodeCollection;
+  //Collection of formcontroll to generate for user input
 
-  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,itemParameter_?:NodeCollection)
-  {
-    super(key_,name_,value_,collection_);
-    this.replay=true;
-    this.anonimous=false;
-    this.itemParameter=new QuizControls("flex-container horizontal",true,null);
+  itemParameter:QuizControls;
 
-    this.typeName="Question";
-    if(collection_==null){
-      this.collection=new Collection_<Question>();
+  //Collection of gormcontrols to generate for read
+
+  quizStatistic:QuizStatistic;
+
+    constructor(
+      option:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+      ,itemParameter_?:QuizControls,quizStatistic_?:QuizStatistic}
+      ={key_:0,name_:"Quiz",value_:null,collection_:null,itemParameter_:new QuizControls(),quizStatistic_:new QuizStatistic()}
+    ){
+      super(option.key_,option.name_,option.value_,option.collection_);
+      this.replay=true;
+      this.anonimous=false;
+
+      this.typeName="Question";
+      if(option.collection_==null){
+        this.collection=new Collection_<Question>();
+      }
+
+      if(option.itemParameter_!=null){
+        this.itemParameter=option.itemParameter_;
+      }else{this.itemParameter=new QuizControls();}
+
+      if(option.quizStatistic_!=null){
+        this.quizStatistic=option.quizStatistic_;
+      }else{
+        this.quizStatistic=new QuizStatistic();
+      }
+
     }
-
-    if(itemParameter_!=null){
-      this.itemParameter=itemParameter_;
-    }
-
-  }
 
 }
 export class Questionarie extends Quiz{}
@@ -763,6 +782,39 @@ export class Answer extends NodeCollection{
     super(key_,name_,value_,collection_);
     this.typeName="null";
   }
+}
+
+export class QuizStatistic extends HtmlItem{
+  passedQuantityAll:number;
+  rejectedQuantityAll:number;
+
+  ratedTimes:number;
+  rating:number;
+
+  aftertestStatisticsShow:boolean;
+  questionsByList:boolean;
+
+  //default object initializer
+
+  constructor(options:{
+    value_:string,HtmlClass_:string,HtmlTypeAttr_:string,HtmlSubmittedValue_:any
+    ,passedQuantityAll_:number
+    ,show_:boolean,cssClass_?:string
+    } = {
+      value_:"QuizStatisticValue",HtmlClass_:"div",HtmlTypeAttr_:"",HtmlSubmittedValue_:null
+      ,passedQuantityAll_:0
+      ,show_:true,cssClass_:""
+    }
+    ){
+      // constructor(name_:string,value_:string,HtmlClass_:string,HtmlTypeAttr_:string,HtmlSubmittedValue_:any
+      //   ,options:{passedQuantityAll_:number},show_:boolean,cssClass_?:string ){
+
+      super(0,"QuizStatistic",options.value_,options.HtmlClass_,options.HtmlTypeAttr_,options.HtmlSubmittedValue_,options.show_,options.cssClass_,null)
+
+      this.passedQuantityAll=options.passedQuantityAll_;
+
+    }
+
 }
 
 //unused temp
@@ -832,6 +884,7 @@ export class menuButtons extends Button{
       this.collection.add(new Button(null,"Test3","Test button 3",null,"btn",false))
       this.collection.add(new Button(null,"Test3","Test button 4",null,"btn",false))
       this.collection.add(new Button(null,"Test3","Test button 5",null,"btn",false))
+      this.collection.add(new Button(null,"Test3","Test button 6",null,"btn btn-success",false))
     }
 }
 
@@ -865,6 +918,7 @@ export class ModelContainer{
   @Output() static nodeSavedNew=new EventEmitter();
   @Output() static nodeSaved=new EventEmitter();
   @Output() static nodeAdded=new EventEmitter<NodeCollection>();
+
 
   static nodeMethodCall(b_:Button,n_:INodeCollection){
     ServiceCl.log(["nodeMethodCall",b_,n_]);
@@ -909,7 +963,7 @@ export class ModelContainer{
   static createCopy(item_:NodeCollection):NodeCollection{
     let _item:NodeCollection;
     if(item_ instanceof Quiz){
-      _item=new Quiz(item_.key,item_.name,item_.value,item_.collection,item_.itemParameter);
+      _item=new Quiz({key_:item_.key,name_:item_.name,value_:item_.value,collection_:item_.collection,itemParameter_:item_.itemParameter});
     }
     if(item_ instanceof Question){
       _item=new Question(item_.key,item_.name,item_.value);
@@ -929,7 +983,7 @@ export class ModelContainer{
     ServiceCl.log(["nodeAdd emitted",n_,type_]);
     let nd_:any;
     if(type_ == "Quiz"){
-      nd_=new Quiz(0,"Add new Quiz","Add new Quiz");
+      nd_=new Quiz({key_:0,name_:"Add new Quiz",value_:"Add new Quiz",collection_:null,itemParameter_:null});
     }
     if(type_ == "Question"){
       nd_=new Question(0,"Add new question","Add new question");
@@ -1004,6 +1058,7 @@ export class ModelContainer{
     ModelContainer.nodeSaved.emit(n_);
   }
 
+
   static checkedToggle(nodeEdited_:NodeCollection, parameterClicked_:HtmlItem){
 
     if(nodeEdited_ instanceof Quiz){
@@ -1013,25 +1068,51 @@ export class ModelContainer{
     }
   }
 
-  // rewrite to new Htmlitem
-
-  static changeShowStatus(name_:string){
-
-    let a:ItemParameter;
-
-    if(ModelContainer.nodeToEdit instanceof Quiz){
-      let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name==name_);
-
-      if(b instanceof ItemParameter){
-        a=b;
-        a.show=!a.show;
+  static CheckCycleDisplay(){
+    if(ModelContainer.nodeToEdit instanceof Quiz)
+    {
+      let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name=="QuizCircle");
+      if(b!=null){
+        let c=b.collection.array.find(s=>s.name=="Cicle");
+        if(c!=null){
+          if(c instanceof HtmlItem){
+            console.log(["CheckCycleDisplay",c]);
+            ModelContainer.toggleCycleShow(c);
+          }
+        }
       }
-      ServiceCl.log(["changeShowStatus: " ,a,ModelContainer.nodesPassed_]);
-      return ModelContainer.nodeToEdit.itemParameter;
+
+    }
+  }
+  static toggleCycleShow(cb_:HtmlItem){
+    if(cb_.name=="Cicle"){
+      this.toggleShowStatus(cb_,["DateGap","CalendarControls"]);
+    }
+  }
+  static toggleShowStatus(checkbox_:HtmlItem,toChangeName_:string[]){
+
+    let a:HtmlItem=null;
+
+    if(checkbox_!=null && toChangeName_ !=null ){
+      // ServiceCl.log(["st",ModelContainer.nodeToEdit,toChangeName_])
+      if(ModelContainer.nodeToEdit instanceof Quiz && toChangeName_.length>0){
+        console.log(["toggleShowStatus: ",checkbox_]);
+        for(let i=0;i<toChangeName_.length;i++){
+          let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name==toChangeName_[i]);
+
+          if(b instanceof HtmlItem){
+            a=b;
+            a.show=checkbox_.HtmlSubmittedValue;
+            ServiceCl.log(["changeShowStatus: ",checkbox_,a,b]);
+          }
+
+        }
+      }
     }
 
-
   }
+
+  // rewrite to new Htmlitem
 
   static HtmlItemType(i:NodeCollection): string {
 
@@ -1040,7 +1121,9 @@ export class ModelContainer{
     if(i instanceof RadioButtonControl){return "RadioButtonControl"}
     if(i instanceof DatePickerControl){return "DatePickerControl"}
     if(i instanceof NumberPickerControl){return "NumberPickerControl"}
-
+    if(i instanceof DropDownControlNg){return "DropDownControlNg"}
+    if(i instanceof DropDownControlMultiNg){return "DropDownControlMultiNg"}
+    if(i instanceof DropDownControlMulti){return "DropDownControlMulti"}
   }
 
 }
@@ -1052,31 +1135,6 @@ export class Factory_{
   }
 
   //Generate only NodeCollection
-
-  answers(n:number):ICollection_<NodeCollection>{
-    var answer:ICollection_<NodeCollection>=new Collection_<NodeCollection>();
-    answer.tolog=false;
-    for(var i=0;i<n;i++){
-      answer.add(new NodeCollection(i,"Answer " +i,"Answer " +i));
-    }
-    return answer;
-  }
-  questions(n:number){
-    var question:ICollection_<NodeCollection>=new Collection_<NodeCollection>();
-    question.tolog=false;
-    for(var i=0;i<n;i++){
-      question.add(new NodeCollection(i,"Question " +i,"Question " +i));
-    }
-    return question;
-  }
-  quizes(n:number){
-    var quizes:ICollection_<NodeCollection>=new Collection_<NodeCollection>();
-    quizes.tolog=false;
-    for(var i=0;i<n;i++){
-      quizes.add(new NodeCollection(i,"Quiz " +i,"Quiz " +i));
-    }
-    return quizes;
-  }
 
   //Generate class segregation
 
@@ -1100,25 +1158,365 @@ export class Factory_{
     var quizes:ICollection_<Quiz>=new Collection_<Quiz>();
     quizes.tolog=false;
     for(var i=0;i<n;i++){
-      quizes.add(new Quiz(i,"Quiz " +i,"Quiz " +i));
+      quizes.add(new Quiz({key_:i,name_:"Quiz " +i,value_:"Quiz " +i,collection_:null,itemParameter_:null}));
+
     }
     return quizes;
   }
+
+  //Quiz html controls
+
+    //--------------------
+
+      //returns quiz controlls with checkboxes
+
+      static QuizCheckboxes(){
+        let r = new Collection_<HtmlItem>();
+
+        let cssClass_="fxvr";
+
+        r= new Collection_<HtmlItem>([
+          new CheckBoxControl(0,"Anonimous","Is question anonimous?",true,true,cssClass_)
+          ,new CheckBoxControl(1,"QuizStat","Show quiz statistics?",true,true,cssClass_)
+          ,new CheckBoxControl(2,"ListItem","Place questions on list?",false,true,cssClass_)
+          ,new CheckBoxControl(4,"Replayable","Can quiz be replayed?",true,true,cssClass_)
+          ])
+
+        return r;
+      }
+
+      static QuizStartDate(){
+        let r = new Collection_<HtmlItem>();
+
+        r= new Collection_<HtmlItem>([
+          new DatePickerControl(0,"StartDate","Choose quiz start date",new Date(),true,"row")
+        ])
+
+        return r;
+
+      }
+
+      static QuizCicleCheckbox(){
+        let r = new Collection_<HtmlItem>();
+
+        r= new Collection_<HtmlItem>([
+          new CheckBoxControl(0,"Cicle","Does quiz need to be cicled?",false,false,"")
+        ])
+
+        return r;
+
+      }
+      //returns quiz controlls with numbercontrols
+
+      static QuizNumberControls(){
+        return new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"YearGap","Years gap",0,0,null,true,"fxvt")
+          ,new NumberPickerControl(1,"MonthsGap","Months gap",0,0,null,true,"fxvt")
+          ,new NumberPickerControl(2,"DaysGap","Days gap",0,0,null,true,"fxvt")
+          ,new NumberPickerControl(3,"HoursGap","Hours gap",0,0,null,true,"fxvt")
+          ,new NumberPickerControl(4,"MinutesGap","Minutes gap",0,0,null,true,"fxvt")
+        ]);
+      }
+
+      //claendar collections
+
+      static MonthsInYear(){
+        let r = new Collection_<HtmlItem>();
+        for(let i=0;i<12;i++){
+          r.add(new HtmlItem(0,"months",i+1+"","option","",null,true,null,null))
+        }
+        return r;
+      }
+      static WeeksInYear(){
+        let r = new Collection_<HtmlItem>();
+        for(let i=0;i<52;i++){
+          r.add(new HtmlItem(0,"weeks",i+1+"","option","",null,true,null,null))
+        }
+        return r;
+      }
+      static DaysInMonth(){
+        let r = new Collection_<HtmlItem>();
+        for(let i=0;i<31;i++){
+          // r.add(new HtmlItem(0,"days",i+1+"","option","",null,true,null,null))
+          r.add(new CheckBoxControl(i,"days","day " + String(i+1),false,true,"fxhr"))
+        }
+        return r;
+      }
+      static DaysInWeek(){
+        let r = new Collection_<HtmlItem>();
+        for(let i=0;i<7;i++){
+          r.add(new HtmlItem(0,"days",i+1+"","option","",null,true,null,null))
+        }
+        return r;
+      }
+
+      //Quiz controll for dropdowns
+
+      static CalendarDropDowns(){
+        let r = new Collection_<HtmlItem>();
+
+          r.add(new DropDownControlNg(0,"MonthInYear","MonthInYear","Month",true,"fxvt"
+          ,Factory_.MonthsInYear()))
+
+          r.add(new DropDownControlMulti(0,"WeeksInYear","WeeksInYear","Weeks",true,"fxvt"
+          ,Factory_.WeeksInYear()))
+
+          r.add(new DropDownControlMultiNg(0,"DaysInMonth","DaysInMonth","Days",true,"fxvt"
+          ,Factory_.DaysInMonth()))
+
+          r.add(new DropDownControlMulti(0,"DaysInWeek","DaysInWeek","Days",true,"fxvt"
+          ,Factory_.DaysInWeek()))
+
+        return r;
+      }
+
+      static QuizControlsGen(){
+
+        let checkboxes=new HtmlItem(0,"Checkboxes","Select Quiz parameters","","","Select Quiz parameters",true,"row"
+          , Factory_.QuizCheckboxes()
+          );
+
+        let startDate=new HtmlItem(0,"QuizStartDate","Select Quiz start date","","","Select Quiz start date",true,"fxhr"
+          , Factory_.QuizStartDate()
+          );
+
+        let circleCheck=new HtmlItem(0,"QuizCircle","Does quiz cicled?","","","Does quiz cicled?",true,"fxhr"
+          , Factory_.QuizCicleCheckbox()
+          );
+
+        let numbercontrols=new HtmlItem(1,"DateGap","Choose quiz restart period","","","Choose quiz restart period",true,"fxhr"
+          , Factory_.QuizNumberControls()
+        );
+
+        let calendarcontrols=new HtmlItem(2,"CalendarControls","Choose quiz calendar period","","","Choose quiz calendar period",true,"fxhr"
+          , Factory_.CalendarDropDowns()
+        );
+
+        let q=new Collection_<HtmlItem>(
+
+            // [tbColl,dtColl,rbColl,nbColl]
+
+            [checkboxes,startDate,circleCheck,numbercontrols,calendarcontrols]
+
+          );
+
+        return q;
+      }
+
+    //--------------------
+
 
 }
 
 export class Test{
 
-    public static HtmlItems(){
-      return [
-        new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true)
-        ,new TextControl(0,"Tb","text_nm","Type text","Type here2",null,1,3,true)
-        ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true)
-        ,new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true)
-      ];
-    }
-    //NEW
+    //genes html items
 
+    public static HtmlItems(){
+
+      let qzcl = new Collection_<HtmlItem>();
+      let tbColl = new HtmlItem(0,"Textboxes","Text box n radios","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true,"fxvt")
+          ,new TextControl(0,"Tb","text_nm","Type text2","Type here2",null,1,3,true,"fxhr")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true,"fxvt")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check2",false,true,"fxhr")
+          ])
+        );
+
+      let dtColl = new HtmlItem(0,"DatePicker","DatePicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+          new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true,"fxvt")
+          ,new DatePickerControl(0,"Dp","Choose date",new Date(2002,11,11,11,11,1),true,"fxhr")
+        ])
+      );
+
+      let rbColl = new HtmlItem(0,"Radio","Radio","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>(
+          [    new RadioButtonControl(0,"Rb1","Choose or not to choose?1","Choice 2",true,"fxvt"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                  ]))
+              ,new RadioButtonControl(0,"Rb2","Choose or not to choose?2","Choice_3",true,"fxhr"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb2","Choice_1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb2","Choice_2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb2","Choice_3","option","",null,true,null,null)
+                  ]))
+                ]
+        ));
+
+      let nbColl = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",3,2,4,true,"fxvt")
+        ]));
+
+      let nb2Coll = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",8,7,9,true,"fxvt")
+
+        ]));
+
+        let ddCollVt = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxvt"
+          ,new Collection_<HtmlItem>(
+            [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+                  ,new Collection_<HtmlItem>([
+                    new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                    ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                    ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                    ]))
+                ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
+                      ,new Collection_<HtmlItem>([
+                        new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                        ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                        ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                        ]))
+                  ]
+          ));
+
+          let ddCollHr = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxhr"
+            ,new Collection_<HtmlItem>(
+              [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+                    ,new Collection_<HtmlItem>([
+                      new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                      ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                      ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                      ]))
+                  ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
+                        ,new Collection_<HtmlItem>([
+                          new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                          ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                          ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                          ]))
+                    ]
+            ));
+
+      qzcl=new Collection_<HtmlItem>(
+
+        // [tbColl,dtColl,rbColl,nbColl]
+
+        [ddCollVt,ddCollHr,tbColl,dtColl,rbColl,nbColl]
+
+      );
+
+      // qzcl=new Collection_<HtmlItem>([dbcl]);
+
+      qzcl.setType("HtmlItem");
+
+      let htmlItemsArr3=new HtmlItem(0,"HtmlColl","HtmlColl","","","",true,"fxvt"
+        ,qzcl);
+
+      return htmlItemsArr3;
+    }
+
+    //gens html items for quiz -> moove to optiondefault
+
+    public static QuizHtml(){
+
+      let qzcl = new Collection_<HtmlItem>();
+      let tbColl = new HtmlItem(0,"Textboxes","Text box n radios","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true,"fxvt")
+          ,new TextControl(0,"Tb","text_nm","Type text2","Type here2",null,1,3,true,"fxhr")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true,"fxvt")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check2",false,true,"fxhr")
+          ])
+        );
+
+      let dtColl = new HtmlItem(0,"DatePicker","DatePicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+          new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true,"fxvt")
+          ,new DatePickerControl(0,"Dp","Choose date",new Date(2002,11,11,11,11,1),true,"fxhr")
+        ])
+      );
+
+      let rbColl = new HtmlItem(0,"Radio","Radio","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>(
+          [    new RadioButtonControl(0,"Rb1","Choose or not to choose?1","Choice 2",true,"fxvt"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                  ]))
+              ,new RadioButtonControl(0,"Rb2","Choose or not to choose?2","Choice_3",true,"fxhr"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb2","Choice_1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb2","Choice_2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb2","Choice_3","option","",null,true,null,null)
+                  ]))
+                ]
+        ));
+
+      let nbColl = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",3,2,4,true,"fxvt")
+        ]));
+
+      let nb2Coll = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",8,7,9,true,"fxvt")
+
+        ]));
+
+        let ddCollVt = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxvt"
+          ,new Collection_<HtmlItem>(
+            [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+                  ,new Collection_<HtmlItem>([
+                    new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                    ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                    ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                    ]))
+                ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
+                      ,new Collection_<HtmlItem>([
+                        new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                        ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                        ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                        ]))
+                  ]
+          ));
+
+          let ddCollHr = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxhr"
+            ,new Collection_<HtmlItem>(
+              [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+                    ,new Collection_<HtmlItem>([
+                      new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                      ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                      ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                      ]))
+                  ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
+                        ,new Collection_<HtmlItem>([
+                          new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                          ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                          ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                          ]))
+                    ]
+            ));
+
+      qzcl=new Collection_<HtmlItem>(
+          // [tbColl,dtColl,rbColl,nbColl]
+          [ddCollVt,ddCollHr,tbColl,dtColl,rbColl,nbColl,]
+        );
+      // qzcl=new Collection_<HtmlItem>([dbcl]);
+
+      qzcl.setType("HtmlItem");
+
+      let htmlItemsArr3=new HtmlItem(0,"HtmlColl","HtmlColl","","","",true,"fxvt"
+        ,qzcl);
+
+      return htmlItemsArr3;
+    }
+
+    //obsolette
+
+    /*
     public static GenNewColl(bol_:boolean){
 
       if(bol_==true ){
@@ -1141,9 +1539,11 @@ export class Test{
         new Collection_<NodeCollection>();
     }
 
+
+
     //Generates NodeCollection array
 
-    public static Gen(bol_:boolean,lw_?:number,up_?:number)
+    public static Gen_(bol_:boolean,lw_?:number,up_?:number)
     :ICollection_<INodeCollection> {
 
       var col_:ICollection_<INodeCollection> =new Collection_<NodeCollection> ();
@@ -1185,6 +1585,8 @@ export class Test{
       }
 
     }
+
+    */
 
     //Generates NodeCollection from classes
 
@@ -1293,7 +1695,15 @@ export class Test{
       itemPassed_=text_;
       */
 
-      ServiceCl.log(["GO "]);
+      let qzSt:QuizStatistic= new QuizStatistic();
+      let qzCt:QuizControls=new QuizControls();
+
+      let cc=Factory_.CalendarDropDowns();
+      for(let i of cc.array){
+        ServiceCl.log(["Calendars: ",ModelContainer.HtmlItemType(i)]);
+      }
+
+      ServiceCl.log(["GO ",qzSt,qzCt]);
     }
 
 }

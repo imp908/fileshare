@@ -1,4 +1,16 @@
 <ng-container *ngIf="test==true" class="container">
   {{cName}}
-  <app-menu></app-menu>
+    <!-- <app-grps [nodePassed_]="this.nodeToPass_"></app-grps> -->
+
+    <!-- Multi NG dropbox -->
+    <!-- <app-dropdownmulting></app-dropdownmulting> -->
+
+    <!-- <app-dropdownmulti [htmlItem_]="itemsToPass_"></app-dropdownmulti> -->
+
+    <!--Check HtmlItem groups on checked  -->
+    <!-- <app-grps [nodePassed_]="this.nodeToPass_"></app-grps> -->
+
+    <!-- menu full check -->
+    <app-menu [nodesPassed_]="nodesToPass_"></app-menu>
+
 </ng-container>
