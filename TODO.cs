@@ -437,15 +437,19 @@ TnT[
 
 			actual[
 
+-> repair edit menu buttons disable
+-> Add question type check for answer amount to type accordance
+-> Add inform about question invalid
+-> Add save, add new button disabled
+-> copy question
 
--> Add new Question parameters [
-	-> question type with dropdown {textbox,checkbox,radio,rate with dropdown, pictures?}
-	]
 -> Add new Answers according to Quiz,Answer types[
 	0 or Correct only for text, 1-* for radio,check,picture, rate. rate max points:number
+	-> textbox answer (1-5 for dropbox)	
 	-> Correct answer for victorine according to type
 	-> Answers according to type
 ]
+
 -> Quiz Pass page[exmpls
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
 quiz with correct answers
@@ -515,7 +519,11 @@ more then 3 events listen ignore issue to repair  ]
 	<- done 27.05.2018-> change item-ng
 	<- done 28.05.2018-> custom multi dropdown
 	<- done 29.05.2018-> custom multi dropdown CSS, events
-
+	<- done 30.05.2018 -> Add new Question parameters [
+	<- done 30.05.2018 -> question text 
+		<- done 30.05.2018 -> question type with dropdown {textbox,checkbox,radio,rate with dropdown}
+		-> pictures? type
+	]
 	
 	]
 	
