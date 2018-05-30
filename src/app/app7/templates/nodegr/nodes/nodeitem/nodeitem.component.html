@@ -12,7 +12,7 @@
 
       <div *ngIf="controlType()=='TextControl'">
           <input type="text"
-          [(ngModel)]="this.htmlItem_.displayValue"
+          [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
           [maxlength]="this.htmlItem_.maxLength"
           [minlength]="this.htmlItem_.maxLength"
           [pattern]="this.htmlItem_.pattern"
@@ -91,7 +91,7 @@
 
       <div *ngIf="controlType()=='TextControl'">
           <input type="text"
-          [(ngModel)]="this.htmlItem_.displayValue"
+          [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
           [maxlength]="this.htmlItem_.maxLength"
           [minlength]="this.htmlItem_.maxLength"
           [pattern]="this.htmlItem_.pattern"

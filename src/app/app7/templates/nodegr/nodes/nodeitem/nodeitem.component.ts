@@ -38,4 +38,8 @@ export class NodeitemComponent implements OnInit {
     }
 
   }
+  changeTextbox_(e){
+    this.htmlItem_.HtmlSubmittedValue=e;
+    ServiceCl.log(["changeTextbox_: ",e,this.htmlItem_])
+  }
 }

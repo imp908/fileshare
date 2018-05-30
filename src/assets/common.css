@@ -35,9 +35,18 @@ html, body { height: 100%; padding: 0; margin: 0; }
   border: none;
   border:solid 1px;
   border-color: rgb(157, 163, 173);
-  border-radius: var(--menuBorderRads);
+  border-radius: var(--textBorderRads);
 }
 
+input[type="text"],input[type="number"]{
+  border-radius: var(--textBorderRads);
+}
+input[type="number"]{
+  width:5ch;
+}
+input[type="text"]{
+  width: 70vw;
+}
 
 /*vertical gaps between menu and lsit items*/
 .item{
@@ -57,19 +66,33 @@ html, body { height: 100%; padding: 0; margin: 0; }
 }
 
 .editarea{
-  display: -webkit-flex;
+  z-index: var(--menuZ);
+
+  position: fixed;
+  position: -webkit-sticky;
+
   display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
   align-items: end;
+
   padding-left: 5vh;
+  background-image: var(--tealBackgroundTop);
   top: 3vh;
   margin-top: 0%;
   padding-top: var(--shadowHeight);
   z-index: var(--menuZ);
   border-radius: var(--menuBorderRads);
+  height: var(--listAreaH);
+  width: 99vw;
+  overflow-y: scroll;
+  left:0;
 }
 
 
 .editarea::before{
+  pointer-events: none;
   position: fixed;
   content: '';
   z-index: var(--shadowZ);
@@ -82,6 +105,7 @@ html, body { height: 100%; padding: 0; margin: 0; }
 }
 
 .editarea::after {
+  pointer-events: none;
   position: fixed;
   content: '';
   z-index: var(--shadowZ);
@@ -93,7 +117,8 @@ html, body { height: 100%; padding: 0; margin: 0; }
 
 }
 
-.textinputarea{
+
+.textinputEditArea{
   position: fixed;
 
   height: 5vh;
@@ -112,13 +137,6 @@ html, body { height: 100%; padding: 0; margin: 0; }
 }
 
 .listarea{
-  /*
-  position: sticky;
-  position: -webkit-sticky;
-  bottom: 0;
-
-  height: 50vh
-  */
 
 z-index: var(--menuZ);
 
@@ -127,28 +145,21 @@ position: -webkit-sticky;
 
 bottom: 0;
 
+padding-top: var(--editAreaPadBtm);
+padding-bottom: var(--editAreaPadBtm);
+
 display: flex;
-flex-direction: row;
-flex-wrap: wrap;
-flex-flow: row wrap;
-justify-content: flex-center;
-
-
+flex-direction: column;
+flex-wrap: nowrap;
 height: var(--listAreaH);
 width: 99vw;
-
-/* max-height:1ch;
-
-margin-top: 1ch;*/
-/* border-style: double; */
-/* border-width: 0.1ch; */
-/* color: yellow; */
-background-image: var(--tealBackground);
+background-image: var(--tealBackgroundBottom);
 overflow-y: scroll;
-
+left:0;
 }
 
 .listarea::before{
+  pointer-events: none;
   position: fixed;
   content: '';
   z-index: var(--shadowZ);
@@ -156,24 +167,12 @@ overflow-y: scroll;
   bottom: var(--shadowBottom);
   width: 100%;
   left:0;
-  /* background-image:  var(--tealShadowListTop);
-
-  */
-
   background-image:var(--ShadowTopWhite);
-
-
-  /*
-  background-image:
-  linear-gradient(0deg
-  ,rgba(250,250,250,0.1)
-  ,rgba(250,250,250,1)
-  );
-  */
-
+  /* background: red; */
 }
 
 .listarea::after {
+  pointer-events: none;
   position: fixed;
   content: '';
   z-index: var(--shadowZ);
@@ -204,29 +203,48 @@ h1 {
   display: flex;
   align-items: center;
 
-  width: 100%;
+  /* width: 100%; */
 
   /* background-image: var(--ShadowBottomWhite); */
   /* background: red; */
 }
 
 
-
-
 .fxvt{
+
   display: -webkit-flex;
   display: flex;
 
   flex-direction:column;
+  flex-wrap: wrap;
   align-items: flex-start;
+
+  margin-left:var(--fxhrMargWidth);
+  margin-right:var(--fxhrMargWidth);
+  margin-top:var(--fxhrMargWidth);
+  margin-bottom:var(--fxhrMargWidth);
+
+
+  /* justify-content: flex-end; */
+  /* border-color: green;  border-width : 1px;   border-style: solid; */
 }
 
 .fxhr{
+
   display: -webkit-flex;
   display: flex;
 
+  flex-wrap: wrap;
   flex-direction:row;
-  align-items: flex-start;
+
+  margin-left:var(--fxhrMargWidth);
+  margin-right:var(--fxhrMargWidth);
+  margin-top:var(--fxhrMargWidth);
+  margin-bottom:var(--fxhrMargWidth);
+
+  /* justify-content: flex-start; */
+  /* align-items: flex-start; */
+  /* border-color:blue;  border-width : 1px;   border-style: solid; */
 }
 
 .chevron::before {
@@ -241,4 +259,23 @@ h1 {
 	transform: rotate(-45deg);
 	vertical-align: top;
 	width: 0.45em;
+}
+
+.up{
+  transform:rotate(90deg);
+  margin-left:1.2ch;
+}
+.down{
+  transform:rotate(-90deg);
+  margin-left:1.8ch;
+}
+.left{
+  transform:rotate(0deg);
+}
+.right{
+  transform:rotate(180deg);
+}
+
+.label_{
+   font-weight: 450;
 }

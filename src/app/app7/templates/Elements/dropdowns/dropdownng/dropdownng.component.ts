@@ -1,7 +1,7 @@
 import { Component, OnInit ,Input} from '@angular/core';
 
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
-import {Test,ModelContainer,HtmlItem} from 'app/app7/Models/inits.component'
+import {Test,ModelContainer,HtmlItem,Question} from 'app/app7/Models/inits.component'
 
 @Component({
   selector: 'app-dropdownng',
@@ -24,6 +24,11 @@ export class DropdownComponent implements OnInit {
     ServiceCl.log(["Inited: " + this.constructor.name,this.htmlItem_]);
   }
   changed(i){
-    ServiceCl.log(["changed",i]);
+    this.htmlItem_.HtmlSubmittedValue=i.value;
+    if(ModelContainer.nodeToEdit instanceof Question){
+      ModelContainer.CheckAnswerAmount(this.htmlItem_.HtmlSubmittedValue);
+      ServiceCl.log(["Button checked: ",ModelContainer.editButtons_]);
+    }
+    ServiceCl.log(["changed",this.htmlItem_,i,ModelContainer.nodeToEdit]);
   }
 }
