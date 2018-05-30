@@ -437,7 +437,7 @@ TnT[
 
 			actual[
 
--> repair edit menu buttons disable
+
 -> Add question type check for answer amount to type accordance
 -> Add inform about question invalid
 -> Add save, add new button disabled
@@ -523,9 +523,11 @@ more then 3 events listen ignore issue to repair  ]
 	<- done 30.05.2018 -> question text 
 		<- done 30.05.2018 -> question type with dropdown {textbox,checkbox,radio,rate with dropdown}
 		-> pictures? type
-	]
+		]
+	<- done 30.05.2018-> repair edit menu buttons disable
 	
-	]
+	
+]
 	
 	
 
