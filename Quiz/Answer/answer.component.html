@@ -1,0 +1,6 @@
+<div>
+  {{className}}  
+  <input type="text" [(ngModel)]="answer_.value" required minlength="1" #rq="ngModel">
+  <div *ngIf="rq.invalid" class="qlert alert-danger">Answer required</div>
+  <button class="btn" (click)="deleteAnswer(answer_)">Delete</button>
+</div>

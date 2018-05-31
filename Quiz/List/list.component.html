@@ -1,0 +1,12 @@
+<div>{{className}}</div>
+<button (click)="quizCreate(qz_)" class="btn btn-primary">Create new quiz</button>
+<hr>
+<div *ngFor="let qz_ of quizes_.array">
+  {{qz_.name}}
+  <button (click)="quizSend(qz_)"  class="btn btn-success">Edit</button>
+  <button (click)="quizDelete(qz_)" class="btn btn-danger">Delete</button>
+</div>
+<div *ngIf="_quiz!=null">
+  <hr>
+  <quiz-component [quiz_]="_quiz" (editQuiz_)="quizDelete($event)" (saveQuiz_)="quizSave($event)"></quiz-component>
+</div>
