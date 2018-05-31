@@ -1,0 +1,30 @@
+<ng-container *ngIf="test==true">
+  {{cName}}
+
+  <div ngbDropdown>
+    <button class="btn btn-outline-primary" id="dropdownMenu3" ngbDropdownToggle>{{htmlItem_.HtmlSubmittedValue}}</button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu3" ngbDropdownMenu>
+      <ng-container *ngFor="let i of htmlItem_.collection.array">
+        <button class="dropdown-item" (click)="changed(i)">{{i._value}}</button>
+        <!-- <button class="dropdown-item">Another Action</button>
+        <button class="dropdown-item">Something else is here</button> -->
+      </ng-container>
+    </div>
+  </div>
+
+</ng-container>
+
+<ng-container *ngIf="test==false">
+
+  <div ngbDropdown>
+    <button class="btn btn-outline-primary" id="dropdownMenu3" ngbDropdownToggle>{{htmlItem_.HtmlSubmittedValue}}</button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu3" ngbDropdownMenu>
+      <ng-container *ngFor="let i of htmlItem_.collection.array">
+        <button class="dropdown-item" (click)="changed(i)">{{i._value}}</button>
+        <!-- <button class="dropdown-item">Another Action</button>
+        <button class="dropdown-item">Something else is here</button> -->
+      </ng-container>
+    </div>
+  </div>
+
+</ng-container>

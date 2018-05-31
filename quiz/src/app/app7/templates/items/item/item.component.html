@@ -1,22 +1,25 @@
-<div *ngIf="test==true" class="component">
-  {{cName}}
-</div>
+<ng-container *ngIf="test==true">
+  <ng-container *ngIf="node_!=null">
+
+    <div class="row">
+      <div class="col-sm-4">
+        {{node_._value}}
+      </div>
+
+      <app-button [_buttons]="buttons_" [_obj]="node_"></app-button>
+
+    </div>
+
+  </ng-container>
+</ng-container>
 
 <ng-container *ngIf="test==false">
   <ng-container *ngIf="node_!=null">
 
-    <div class="row ">
+    <div class="row">
       <div class="col-sm-4">
-        {{node_.value}}
+        {{node_._value}}
       </div>
-
-      <!--
-      <button class="btn btn-outline-primary" (click)="itemSelect(node_)">Edit</button>
-      <button class="btn btn-danger" (click)="itemDelete(node_)">Delete</button>
-      <div *ngFor="let bt_ of buttons_.collection.array">
-        <app-click [button_]="bt_" [obj_]="node_"></app-click>
-      </div>
-      -->
 
       <app-button [_buttons]="buttons_" [_obj]="node_"></app-button>
 

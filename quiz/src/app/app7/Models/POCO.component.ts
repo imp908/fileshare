@@ -2,9 +2,9 @@
 //NEW
 
 export interface INode{
-  key:number;
-  name:string;
-  value:string;
+  _key:number;
+  _name:string;
+  _value:string;
   typeName:string;
 }
 export interface ICollection_<T>{
@@ -27,15 +27,19 @@ export interface ICollection_<T>{
   isUndefined(arr_:Array<T>):boolean;
   getType();
   setType(type_:string);
+
+  sortAsc(a:T,b:T);
+  sortDesc(a:T,b:T);
   sort(asc:boolean);
+
 }
 
 export interface INodeCollection extends INode{
-  key:number;
-  name:string;
-  value:string;
+  _key:number;
+  _name:string;
+  _value:string;
   parentKey:number;
   collection:ICollection_<INodeCollection>;
   getType_();
-
+  sortHierarhy(asc:boolean);
 }

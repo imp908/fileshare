@@ -28,7 +28,8 @@ export class ListComponent implements OnInit {
 
   ngOnInit(){
     ServiceCl.log('Inited : ' + this.constructor.name)
-  
+
+
   }
 
 }

@@ -9,15 +9,15 @@ import {INode,ICollection_,INodeCollection} from './POCO.component';
 //option constructors
 
 class NodeG implements INode{
-  key:number;
-  name:string;
-  value:string;
+  _key:number;
+  _name:string;
+  _value:string;
   typeName:string;
   constructor(options:{key_:number,name_:string, value_:string}={key_:0,name_ : "",value_:""})
   {
-    this.key=options.key_;
-    this.name=options.name_;
-    this.value=options.value_;
+    this._key=options.key_;
+    this._name=options.name_;
+    this._value=options.value_;
   }
 }
 
@@ -43,12 +43,12 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
       max=this.getMaxKey();
       ServiceCl.log(["PrimitiveCollection array defined. max = ",max])
 
-      if(item.key==null){
+      if(item._key==null){
           max+=1;
           toPsuh=true;
           ServiceCl.log(["item has no key. Max=  ",max])
       }else{
-        ServiceCl.log(["item has key: ",item.key])
+        ServiceCl.log(["item has key: ",item._key])
 
         if((this.getByItem(item)==null)){
           max+=1;
@@ -61,7 +61,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
     }
 
     if(toPsuh===true){
-      item.key=max;
+      item._key=max;
       this.array.push(item);
     }
     return item;
@@ -79,7 +79,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
   }
   update(item:T){
     if((typeof(this.array)!=null)){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       if(index_!=-1){
           this.array[-1]=item;
           return this.array[-1];
@@ -90,7 +90,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
 
   addUpdate(item:T){
     if((typeof(this.array)!=null)){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       ServiceCl.log(index_);
         if(index_!=null){
           ServiceCl.log("Add");
@@ -111,7 +111,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
 
   getMaxKey(){
     if(typeof(this.array)!=null){
-      var max=Math.max.apply(Math,this.array.map(function(o){return o.key;}))
+      var max=Math.max.apply(Math,this.array.map(function(o){return o._key;}))
       if(max!=null){
         return max;
       }
@@ -120,7 +120,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
   }
   getByItem(item:T){
     if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       if(index_!=-1){
         return this.array[index_];
       }
@@ -129,7 +129,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
   }
   getByKey(key:number){
     if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===key);
+      var index_=this.array.findIndex(s=>s._key===key);
       if(index_!=-1){
         return this.array[index_];
       }
@@ -138,13 +138,13 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
   }
   getIndexByItem(item:T){
     if(typeof(this.array)!=null){
-      return this.array.findIndex(s=>s.key===item.key);
+      return this.array.findIndex(s=>s._key===item._key);
     }
     return -1;
   }
   getIndexBykey(key:number){
       if(typeof(this.array)!=null){
-        return this.array.findIndex(s=>s.key===key);
+        return this.array.findIndex(s=>s._key===key);
       }
       return -1;
     }
@@ -166,27 +166,42 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
     this.type_=type_;
   }
 
-  sort(asc:boolean){
-    ServiceCl.log(["Mot implemented"]);
+  sortAsc(a:T,b:T){
+    if(a._key>b._key){return 1}
+    if(a._key<b._key){return -1}
+    return 0;
   }
+  sortDesc(a:T,b:T){
+    if(a._key>b._key){return -1}
+    if(a._key<b._key){return 1}
+    return 0;
+  }
+  sort(asc:boolean){
+    let a:Array<T>;
+    if(asc){
+      a=this.array.sort(this.sortAsc);
+    }else{a=this.array.sort(this.sortDesc);}
+    return a;
+  }
+
 }
 
 //parameter constructions
 
 class Node implements INode{
-  key:number;
-  name:string;
-  value:string;
+  _key:number;
+  _name:string;
+  _value:string;
   typeName:string;
-  static _key:number;
+  static __key:number;
 
   constructor(key_?:number,name_?:string, value_?:string)
   {
-    if(key_!=null){Node._key=key_;this.key=key_;}else{
-      if(Node._key!=null){Node._key+1;}else{Node._key=0;}
+    if(key_!=null){Node.__key=key_;this._key=key_;}else{
+      if(Node.__key!=null){Node.__key+1;}else{Node.__key=0;}
     }
-    if(name_!=null){this.name=name_;}
-    if(value_!=null){this.value=value_;}
+    if(name_!=null){this._name=name_;}
+    if(value_!=null){this._value=value_;}
     this.typeName=this.constructor.name;
   }
 
@@ -217,7 +232,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
       ServiceCl.log(["PrimitiveCollection array max = ",max])
     }
 
-    if(item.key==null){
+    if(item._key==null){
 
       //tolog
       if(this.tolog){ServiceCl.log(["Item key is null"])}
@@ -228,19 +243,19 @@ export class Collection_<T extends Node> implements ICollection_<T>{
         if(this.tolog){ServiceCl.log(["array contains some elements"])}
 
         max+=1;
-        item.key=max;
+        item._key=max;
         toPsuh=true;
       }else{
         //tolog
         if(this.tolog){ServiceCl.log(["array contains no elements"])}
-        item.key=0;
+        item._key=0;
         toPsuh=true;
       }
 
     }else{
 
       //tolog
-      if(this.tolog){ServiceCl.log(["Item key is: ",item.key])}
+      if(this.tolog){ServiceCl.log(["Item key is: ",item._key])}
 
       if(max!=-1){
         //tolog
@@ -251,7 +266,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
             if(this.tolog){ServiceCl.log(["Array contains item: ",item])}
 
             max+=1;
-            item.key=max;
+            item._key=max;
             toPsuh=true;
 
           }else
@@ -274,7 +289,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
       if(this.tolog){ServiceCl.log(["pushing item with key: ",item,max])}
       this.array.push(item);
     }
-    this.setType(item.name);
+    this.setType(item._name);
     return item;
   }
 
@@ -299,11 +314,11 @@ export class Collection_<T extends Node> implements ICollection_<T>{
       if(max>-1){
         //log
         if(this.tolog){ServiceCl.log("Array contains items")}
-        var index_=this.array.findIndex(s=>s.key===item.key);
+        var index_=this.array.findIndex(s=>s._key===item._key);
         if(index_!=-1){
           //log
           if(this.tolog){ServiceCl.log(["Array contains item",item])}
-            this.array[item.key]=item;
+            this.array[item._key]=item;
         }
       }
     }
@@ -313,7 +328,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
 
   addUpdate(item:T){
     if((typeof(this.array)!=null)){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       if(this.tolog){
       ServiceCl.log(index_);
         if(index_!=null){
@@ -336,7 +351,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
 
   getMaxKey(){
     if(typeof(this.array)!=null){
-      var max=Math.max.apply(Math,this.array.map(function(o){return o.key;}))
+      var max=Math.max.apply(Math,this.array.map(function(o){return o._key;}))
       if(!isFinite(max)){
         //ServiceCl.log("Max infinite")
         max=-1
@@ -349,7 +364,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
   }
   getByItem(item:T){
     if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       if(index_!=-1){
         return this.array[index_];
       }
@@ -358,7 +373,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
   }
   getByKey(key:number){
     if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===key);
+      var index_=this.array.findIndex(s=>s._key===key);
       if(index_!=-1){
         return this.array[index_];
       }
@@ -367,13 +382,13 @@ export class Collection_<T extends Node> implements ICollection_<T>{
   }
   getIndexByItem(item:T){
     if(typeof(this.array)!=null){
-      return this.array.findIndex(s=>s.key===item.key);
+      return this.array.findIndex(s=>s._key===item._key);
     }
     return -1;
   }
   getIndexBykey(key:number){
       if(typeof(this.array)!=null){
-        return this.array.findIndex(s=>s.key===key);
+        return this.array.findIndex(s=>s._key===key);
       }
       return -1;
     }
@@ -396,13 +411,13 @@ export class Collection_<T extends Node> implements ICollection_<T>{
   }
 
   sortAsc(a:T,b:T){
-    if(a.key>b.key){return 1}
-    if(a.key<b.key){return -1}
+    if(a._key>b._key){return 1}
+    if(a._key<b._key){return -1}
     return 0;
   }
   sortDesc(a:T,b:T){
-    if(a.key>b.key){return -1}
-    if(a.key<b.key){return 1}
+    if(a._key>b._key){return -1}
+    if(a._key<b._key){return 1}
     return 0;
   }
   sort(asc:boolean){
@@ -412,6 +427,8 @@ export class Collection_<T extends Node> implements ICollection_<T>{
     }else{a=this.array.sort(this.sortDesc);}
     return a;
   }
+
+
 }
 
 export class NodeCollection extends Node{
@@ -435,8 +452,22 @@ export class NodeCollection extends Node{
       return this.constructor.name;
     }
   }
+  sortHierarhy(asc:boolean){
+    if((this.collection!=null)){
+      // console.log("sort");
+      this.collection.sort(asc);
+      if((this.collection.array!=null) && (this.collection.array.length!=-1)){
+          for(let i =0;i<this.collection.array.length;i++){
+            // console.log("go deeper");
+            this.collection.array[i].sortHierarhy(asc);
+          }
+      }
+    }
+  }
 
 }
+
+// obsolete ItemParameters replaced with HtmlItem
 
 export class ItemParameter extends NodeCollection{
   //instance if value to get type, not to pass string
@@ -482,13 +513,13 @@ export class ItemParameter extends NodeCollection{
       this.cssType=null;
       this.templateClass="datepicker";
     }
-    if( this.name == "TimePicker")
+    if( this._name == "TimePicker")
     {
       this.valueType="date";
       this.cssType=null;
       this.templateClass="timepicker";
     }
-    if( this.name == "GapPicker")
+    if( this._name == "GapPicker")
     {
       this.valueType="date";
       this.cssType=null;
@@ -522,9 +553,9 @@ export class QuizParameter extends ItemParameter{
 
     conditionsCheck(){
 
-      let i=this.collection.array.find(s=>s.name=="Replayabe");
+      let i=this.collection.array.find(s=>s._name=="Replayabe");
         if(i instanceof ItemParameter){
-        let ii=this.collection.array.find(s=>s.name=="GapPicker");
+        let ii=this.collection.array.find(s=>s._name=="GapPicker");
           if( ii instanceof ItemParameter){
             ii.show=i.valueVal;
           }
@@ -532,6 +563,7 @@ export class QuizParameter extends ItemParameter{
 
     }
 }
+
 
 //Model generating form controls from code
 
@@ -551,12 +583,20 @@ export class HtmlItem extends NodeCollection{
   //submitted value
   HtmlSubmittedValue:any;
 
+  //show checkedToggle
+  show:boolean;
+
+  cssClass:string;
+
   constructor(key_:number,name_:string,value_:string,HtmlClass_:string,HtmlTypeAttr_:string,HtmlSubmittedValue_:any
-    ,collection_?:ICollection_<INodeCollection>){
+    ,show_:boolean,cssClass_?:string,collection_?:ICollection_<INodeCollection>){
     super(key_,name_,value_,collection_)
     this.HtmlClass=HtmlClass_;
     this.HtmlTypeAttr=HtmlTypeAttr_;
     this.HtmlSubmittedValue=HtmlSubmittedValue_;
+    this.show=true;
+    if(show_==null){this.show=show_};
+    this.cssClass=cssClass_;
   }
 }
 export class TextControl extends HtmlItem{
@@ -568,8 +608,10 @@ export class TextControl extends HtmlItem{
   displayValue:any
 
   constructor(key_:number,name_:string,value_:string, displayValue_:any,HtmlSubmittedValue_:any
-    ,pattern_?:string,minLen_?:number,maxLen_?:number){
-    super(key_,name_,value_,"input","text",HtmlSubmittedValue_,null)
+    ,pattern_?:string,minLen_?:number,maxLen_?:number,show_?:boolean,cssClass_?:string){
+
+    super(key_,name_,value_,"input","text",HtmlSubmittedValue_,show_,cssClass_,null)
+
     this.maxLength=null;
     this.minLength=null;
     this.pattern==null;
@@ -580,24 +622,53 @@ export class TextControl extends HtmlItem{
     if(minLen_!=null){
       this.minLength=minLen_;}
     if(pattern_!=null){
-    this.pattern=pattern_;}
+      this.pattern=pattern_};
     if(displayValue_!=null){
       this.displayValue=displayValue_;}
+
   }
 }
 export class CheckBoxControl extends HtmlItem{
-  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:any){
-    super(key_,name_,value_,"input","checkbox",HtmlSubmittedValue_,null)
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:any
+    ,show_?:boolean,cssClass_?:string){
+    super(key_,name_,value_,"input","checkbox",HtmlSubmittedValue_,show_,cssClass_,null)
   }
 }
 export class RadioButtonControl extends HtmlItem{
-  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string,collection_:ICollection_<INodeCollection>){
-    super(key_,name_,value_,"input","radio",HtmlSubmittedValue_,collection_)
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
+      ,show_:boolean
+      ,cssClass_:string
+      ,collection_:ICollection_<INodeCollection>){
+    super(key_,name_,value_,"input","radio",HtmlSubmittedValue_,show_,cssClass_,collection_)
+  }
+}
+export class DropDownControlNg extends HtmlItem{
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
+      ,show_:boolean
+      ,cssClass_:string
+      ,collection_:ICollection_<INodeCollection>){
+    super(key_,name_,value_,"input","dropdown",HtmlSubmittedValue_,show_,cssClass_,collection_)
+  }
+}
+export class DropDownControlMultiNg extends HtmlItem{
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
+      ,show_:boolean
+      ,cssClass_:string
+      ,collection_:ICollection_<INodeCollection>){
+    super(key_,name_,value_,"input","dropdown",HtmlSubmittedValue_,show_,cssClass_,collection_)
+  }
+}
+export class DropDownControlMulti extends HtmlItem{
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:string
+      ,show_:boolean
+      ,cssClass_:string
+      ,collection_:ICollection_<INodeCollection>){
+    super(key_,name_,value_,"input","dropdown",HtmlSubmittedValue_,show_,cssClass_,collection_)
   }
 }
 export class DatePickerControl extends HtmlItem{
-  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:Date){
-    super(key_,name_,value_,"input","datepicker",HtmlSubmittedValue_,null)
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:Date ,show_:boolean,cssClass_?:string){
+    super(key_,name_,value_,"input","datepicker",HtmlSubmittedValue_,show_,cssClass_,null)
   }
 }
 export class NumberPickerControl extends HtmlItem{
@@ -605,8 +676,9 @@ export class NumberPickerControl extends HtmlItem{
   minN?:number;
   maxN?:number;
 
-  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:number,min_?:number,max_?:number){
-    super(key_,name_,value_,"input","numberpicker",HtmlSubmittedValue_,null)
+  constructor(key_:number,name_:string,value_:string, HtmlSubmittedValue_:number
+    ,min_?:number,max_?:number,show_?:boolean,cssClass_?:string){
+    super(key_,name_,value_,"input","numberpicker",HtmlSubmittedValue_,show_,cssClass_,null)
 
     this.minN=null;
     this.maxN=null;
@@ -615,7 +687,39 @@ export class NumberPickerControl extends HtmlItem{
     if(max_!=null){this.maxN=max_;}
 
   }
+
 }
+
+// Default Quiz form controllers
+
+export class QuizControls extends HtmlItem{
+
+  constructor(option:{cssClass_:string,show_:boolean,collection_?:Collection_<HtmlItem>}
+  ={cssClass_:"",show_:true,collection_:null})
+  {
+    let qzcl=Factory_.QuizControlsGen();
+
+    super(0,"QuizControlGroup","QuizControlGroup","div","",null,option.show_,option.cssClass_,qzcl);
+    this.sortHierarhy(true);
+  }
+
+}
+
+export class QuestionControls extends HtmlItem{
+
+  constructor(option:{cssClass_:string,show_:boolean,collection_?:Collection_<HtmlItem>}
+  ={cssClass_:"",show_:true,collection_:null})
+  {
+    let qzcl=Factory_.QuestionControlsGen();
+
+    super(0,"QuestionControlGroup","Question","div","",null,option.show_,option.cssClass_,qzcl);
+    this.sortHierarhy(true);
+  }
+
+}
+
+
+// obsolete est itemp params
 
 
 class ItemValue {key:string;value:number;min:number;max:number}
@@ -635,49 +739,116 @@ export class Quiz extends NodeCollection{
   replay:boolean;
   startTime:Date;
   timeGap:Date;
-
   anonimous:boolean;
 
-  itemParameter:ItemParameter;
+  //Collection of formcontroll to generate for user input
 
-  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,itemParameter_?:ItemParameter)
-  {
-    super(key_,name_,value_,collection_);
-    this.replay=true;
-    this.anonimous=false;
-    this.itemParameter=itemParameter_;
+  itemParameter:QuizControls;
 
-    this.typeName="Question";
-    if(collection_==null){
-      this.collection=new Collection_<Question>();
+  //Collection of gormcontrols to generate for read
+
+
+  quizStatistic:QuizStatistic;
+
+    constructor(
+      option:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+      ,itemParameter_?:QuizControls,quizStatistic_?:QuizStatistic}
+      ={key_:0,name_:"Quiz",value_:null,collection_:null,itemParameter_:new QuizControls(),quizStatistic_:new QuizStatistic()}
+    ){
+      super(option.key_,option.name_,option.value_,option.collection_);
+      this.replay=true;
+      this.anonimous=false;
+
+      this.typeName="Question";
+      if(option.collection_==null){
+        this.collection=new Collection_<Question>();
+      }
+
+      if(option.itemParameter_!=null){
+        this.itemParameter=option.itemParameter_;
+      }else{this.itemParameter=new QuizControls();}
+
+      if(option.quizStatistic_!=null){
+        this.quizStatistic=option.quizStatistic_;
+      }else{
+        this.quizStatistic=new QuizStatistic();
+      }
+
     }
-
-    if(itemParameter_==null){
-      this.itemParameter=new QuizParameter("",null,null,null,null,null);
-    }
-
-  }
 
 }
 export class Questionarie extends Quiz{}
 export class Victorine extends Quiz{}
 
 export class Question extends NodeCollection{
-  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,replay_?:boolean,anonimous_?:boolean)
+  itemParameter:HtmlItem;
+  constructor(option_:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,itemParameter_?:HtmlItem}
+  ={key_:0,name_:"Question",value_:"Question",collection_:new Collection_<Answer>(null),itemParameter_:new QuestionControls()})
   {
-    super(key_,name_,value_,collection_);
-    this.typeName="Answer";
-    if(collection_==null){
-      this.collection=new Collection_<Answer>();
+    super(option_.key_,option_.name_,option_.value_,option_.collection_);
+    this.typeName="Question";
+    this.itemParameter=option_.itemParameter_;
+    this.collection=option_.collection_;
+    if(option_.itemParameter_==null){
+      this.itemParameter=new QuestionControls();
+    }
+    if(option_.collection_==null){
+      this.collection=new Collection_<Answer>(null);
     }
   }
+
 }
 export class Answer extends NodeCollection{
-  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,replay_?:boolean,anonimous_?:boolean)
+  itemParameter:HtmlItem;
+  constructor(option_:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,itemParameter_:HtmlItem}
+  ={key_:0,name_:"Answer",value_:"Answer",collection_:new Collection_<Answer>(),itemParameter_:new QuizControls()})
   {
-    super(key_,name_,value_,collection_);
-    this.typeName="null";
+    super(option_.key_,option_.name_,option_.value_,option_.collection_);
+    this.typeName="Answer";
+    this.itemParameter=option_.itemParameter_;
+    this.collection=option_.collection_;
+    if(option_.itemParameter_==null){
+      this.itemParameter=new QuizControls();
+    }
+    if(option_.collection_==null){
+      this.collection=null;
+    }
   }
+
+}
+
+
+export class QuizStatistic extends HtmlItem{
+  passedQuantityAll:number;
+  rejectedQuantityAll:number;
+
+  ratedTimes:number;
+  rating:number;
+
+  aftertestStatisticsShow:boolean;
+  questionsByList:boolean;
+
+  //default object initializer
+
+  constructor(options:{
+    value_:string,HtmlClass_:string,HtmlTypeAttr_:string,HtmlSubmittedValue_:any
+    ,passedQuantityAll_:number
+    ,show_:boolean,cssClass_?:string
+    } = {
+      value_:"QuizStatisticValue",HtmlClass_:"div",HtmlTypeAttr_:"",HtmlSubmittedValue_:null
+      ,passedQuantityAll_:0
+      ,show_:true,cssClass_:""
+    }
+    ){
+      // constructor(name_:string,value_:string,HtmlClass_:string,HtmlTypeAttr_:string,HtmlSubmittedValue_:any
+      //   ,options:{passedQuantityAll_:number},show_:boolean,cssClass_?:string ){
+
+      super(0,"QuizStatistic",options.value_,options.HtmlClass_,options.HtmlTypeAttr_,options.HtmlSubmittedValue_,options.show_,options.cssClass_,null)
+
+      this.passedQuantityAll=options.passedQuantityAll_;
+
+    }
+
 }
 
 //unused temp
@@ -703,6 +874,7 @@ export class Button extends NodeCollection {
   htmlClass:string;
   clicked:boolean;
   toolTipText:string;
+  disabled_:boolean;
 
   constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
     ,htmlClass_?:string,clicked_?:boolean,toolTipText_?:string){
@@ -719,6 +891,7 @@ export class Button extends NodeCollection {
     if(toolTipText_!=null){
       this.toolTipText=toolTipText_;
     }
+    this.disabled_=false;
   }
 
 }
@@ -742,12 +915,18 @@ export class menuButtons extends Button{
       super(key_,name_,value_,collection_,htmlClass_,clicked_,toolTipText_);
       this.collection.add(new Button(null,"Add_","Add new",null,"btn btn-purple-gradient",false,null))
 
+      /*
       this.collection.add(new Button(null,"Test1","Test button 1",null,"btn btn-evening-night",false,"Button for test1"))
       this.collection.add(new Button(null,"Test2","Test button 2",null,"btn btn-red-sunset",false,"Testing button"))
       this.collection.add(new Button(null,"Test3","Test button 3",null,"btn",false))
-      this.collection.add(new Button(null,"Test4","Test button 4",null,"btn",false))
+      this.collection.add(new Button(null,"Test3","Test button 4",null,"btn",false))
+      this.collection.add(new Button(null,"Test3","Test button 5",null,"btn",false))
+      this.collection.add(new Button(null,"Test3","Test button 6",null,"btn btn-success",false))
+      */
     }
 }
+
+//Button to save edit existing node
 
 export class editButtons extends Button{
   constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
@@ -756,6 +935,9 @@ export class editButtons extends Button{
       this.collection.add(new Button(null,"Save_","Save",null,"btn btn-darkgreen",false,"Save currently edited object"))
   }
 }
+
+//button to save edit creation of new node
+
 export class editNewButtons extends Button{
   constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
     ,htmlClass_?:string,clicked_?:boolean){
@@ -779,29 +961,38 @@ export class ModelContainer{
   @Output() static nodeSavedNew=new EventEmitter();
   @Output() static nodeSaved=new EventEmitter();
   @Output() static nodeAdded=new EventEmitter<NodeCollection>();
+  @Output() static nodeDeleted=new EventEmitter<NodeCollection>();
 
-  static nodeMethodCall(b_:Button,n_:INodeCollection){
+  //Buutons to be disabled on conditions
+
+  static editButtons_:editButtons;
+  static editNewButtons_:editNewButtons;
+
+  static nodeMethodCall(b_:NodeCollection,n_:any){
     ServiceCl.log(["nodeMethodCall",b_,n_]);
-    if(b_.name=="Edit_"){
-      ServiceCl.log("Edit_");
+    console.log(["instanceof: ",b_.parentKey]);
+
+    if(b_._name=="Edit_"){
+      ServiceCl.log(["Edit_"]);
       ModelContainer.nodeSelect(n_);
     }
-    if(b_.name=="Add_"){
-      ServiceCl.log("Add_");
+    if(b_._name=="Add_"){
+      ServiceCl.log(["Add_"]);
       ModelContainer.nodeNewSelect(n_)
     }
-    if(b_.name=="Delete_"){
+    if(b_._name=="Delete_"){
       ServiceCl.log("Delete_");
       ModelContainer.nodeDelete(n_);
     }
-    if(b_.name=="SaveNew_"){
+    if(b_._name=="SaveNew_"){
       ServiceCl.log("SaveNew_");
       ModelContainer.nodeSaveNew(n_);
     }
-    if(b_.name=="Save_"){
+    if(b_._name=="Save_"){
       ServiceCl.log("Save_");
       ModelContainer.nodeSave(n_);
     }
+
   }
   static classDetectNState(n_:NodeCollection){
     if(n_ instanceof Quiz){
@@ -823,19 +1014,23 @@ export class ModelContainer{
   static createCopy(item_:NodeCollection):NodeCollection{
     let _item:NodeCollection;
     if(item_ instanceof Quiz){
-      _item=new Quiz(item_.key,item_.name,item_.value,item_.collection,item_.itemParameter);
+      _item=new Quiz({key_:item_._key,name_:item_._name,value_:item_._value,collection_:item_.collection,itemParameter_:item_.itemParameter});
     }
     if(item_ instanceof Question){
-      _item=new Question(item_.key,item_.name,item_.value);
+      _item=new Question({key_:item_._key,name_:item_._name,value_:item_._value,collection_:item_.collection,itemParameter_:item_.itemParameter});
     }
     if(item_ instanceof Answer){
-      _item=new Answer(item_.key,item_.name,item_.value);
+      _item=new Answer({key_:item_._key,name_:item_._name,value_:item_._value,collection_:item_.collection,itemParameter_:item_.itemParameter});
     }
     return _item;
   }
   static saveTo(from_:NodeCollection,to_:NodeCollection){
-    to_.name=from_.name;
-    to_.value=from_.value;
+    to_._name=from_._name;
+    to_._value=from_._value;
+    to_.collection=from_.collection;
+    if(from_ instanceof Question && to_ instanceof Question){
+      to_.itemParameter=from_.itemParameter;
+    }
   }
 
   static nodeNewSelect(n_:NodeCollection){
@@ -843,13 +1038,13 @@ export class ModelContainer{
     ServiceCl.log(["nodeAdd emitted",n_,type_]);
     let nd_:any;
     if(type_ == "Quiz"){
-      nd_=new Quiz(0,"Add new Quiz","Add new Quiz");
+      nd_=new Quiz({key_:0,name_:"Add new Quiz",value_:"Add new Quiz",collection_:null,itemParameter_:null});
     }
     if(type_ == "Question"){
-      nd_=new Question(0,"Add new question","Add new question");
+      nd_=new Question({key_:0,name_:"Add new question",value_:"Add new question"});
     }
     if(type_ == "Answer"){
-      nd_=new Answer(0,"Add new answer","Add new answer");
+      nd_=new Answer({key_:0,name_:"Add new answer",value_:"Add new answer",collection_:null,itemParameter_:null});
     }
     //ModelContainer.nodeToEdit=nd_;
     ModelContainer.nodeAdded.emit(nd_);
@@ -889,7 +1084,8 @@ export class ModelContainer{
     ServiceCl.log(["ModelContainer:",ModelContainer]);
   }
   static nodeDelete(n_:NodeCollection){
-      ServiceCl.log(["nodeDelete",n_,ModelContainer]);
+    ModelContainer.nodeDeleted.emit(n_);
+    ServiceCl.log(["nodeDelete",n_,ModelContainer]);
   }
 
   static nodeSave(n_:NodeCollection){
@@ -918,7 +1114,8 @@ export class ModelContainer{
     ModelContainer.nodeSaved.emit(n_);
   }
 
-  static checkedToggle(nodeEdited_:NodeCollection, parameterClicked_:ItemParameter){
+
+  static checkedToggle(nodeEdited_:NodeCollection, parameterClicked_:HtmlItem){
 
     if(nodeEdited_ instanceof Quiz){
       let a=nodeEdited_.itemParameter.collection.getByItem(parameterClicked_);
@@ -927,24 +1124,51 @@ export class ModelContainer{
     }
   }
 
-  // rewrite to new Htmlitem
-  static changeShowStatus(name_:string){
-
-    let a:ItemParameter;
-
-    if(ModelContainer.nodeToEdit instanceof Quiz){
-      let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name==name_);
-
-      if(b instanceof ItemParameter){
-        a=b;
-        a.show=!a.show;
+  static CheckCycleDisplay(){
+    if(ModelContainer.nodeToEdit instanceof Quiz)
+    {
+      let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s._name=="QuizCircle");
+      if(b!=null){
+        let c=b.collection.array.find(s=>s._name=="Cicle");
+        if(c!=null){
+          if(c instanceof HtmlItem){
+            console.log(["CheckCycleDisplay",c]);
+            ModelContainer.toggleCycleShow(c);
+          }
+        }
       }
-      ServiceCl.log(["changeShowStatus: " ,a,ModelContainer.nodesPassed_]);
-      return ModelContainer.nodeToEdit.itemParameter;
+
+    }
+  }
+  static toggleCycleShow(cb_:HtmlItem){
+    if(cb_._name=="Cicle"){
+      this.toggleShowStatus(cb_,["DateGap","CalendarControls"]);
+    }
+  }
+  static toggleShowStatus(checkbox_:HtmlItem,toChangeName_:string[]){
+
+    let a:HtmlItem=null;
+
+    if(checkbox_!=null && toChangeName_ !=null ){
+      // ServiceCl.log(["st",ModelContainer.nodeToEdit,toChangeName_])
+      if(ModelContainer.nodeToEdit instanceof Quiz && toChangeName_.length>0){
+        console.log(["toggleShowStatus: ",checkbox_]);
+        for(let i=0;i<toChangeName_.length;i++){
+          let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s._name==toChangeName_[i]);
+
+          if(b instanceof HtmlItem){
+            a=b;
+            a.show=checkbox_.HtmlSubmittedValue;
+            ServiceCl.log(["changeShowStatus: ",checkbox_,a,b]);
+          }
+
+        }
+      }
     }
 
-
   }
+
+  // rewrite to new Htmlitem
 
   static HtmlItemType(i:NodeCollection): string {
 
@@ -953,6 +1177,30 @@ export class ModelContainer{
     if(i instanceof RadioButtonControl){return "RadioButtonControl"}
     if(i instanceof DatePickerControl){return "DatePickerControl"}
     if(i instanceof NumberPickerControl){return "NumberPickerControl"}
+    if(i instanceof DropDownControlNg){return "DropDownControlNg"}
+    if(i instanceof DropDownControlMultiNg){return "DropDownControlMultiNg"}
+    if(i instanceof DropDownControlMulti){return "DropDownControlMulti"}
+  }
+
+  static CheckAnswerAmount(type_:string){
+
+    let bntObj=ModelContainer.editButtons_.collection.array[0];
+    let btn_:Button;
+    if(bntObj instanceof Button){
+      btn_=bntObj;
+    }
+
+    if(ModelContainer.QuestionToEdit!=null){
+      if(type_=="Text answer" ){
+        btn_.disabled_=false;
+        if(ModelContainer.QuestionToEdit.collection.array.length>1){
+          btn_.disabled_=true;
+        }
+      }
+      if(ModelContainer.QuestionToEdit.collection.array.length<=0){
+        btn_.disabled_=true;
+      }
+    }
   }
 
 }
@@ -965,38 +1213,13 @@ export class Factory_{
 
   //Generate only NodeCollection
 
-  answers(n:number):ICollection_<NodeCollection>{
-    var answer:ICollection_<NodeCollection>=new Collection_<NodeCollection>();
-    answer.tolog=false;
-    for(var i=0;i<n;i++){
-      answer.add(new NodeCollection(i,"Answer " +i,"Answer " +i));
-    }
-    return answer;
-  }
-  questions(n:number){
-    var question:ICollection_<NodeCollection>=new Collection_<NodeCollection>();
-    question.tolog=false;
-    for(var i=0;i<n;i++){
-      question.add(new NodeCollection(i,"Question " +i,"Question " +i));
-    }
-    return question;
-  }
-  quizes(n:number){
-    var quizes:ICollection_<NodeCollection>=new Collection_<NodeCollection>();
-    quizes.tolog=false;
-    for(var i=0;i<n;i++){
-      quizes.add(new NodeCollection(i,"Quiz " +i,"Quiz " +i));
-    }
-    return quizes;
-  }
-
   //Generate class segregation
 
   static answersCL(n:number):ICollection_<Answer>{
     var answer:ICollection_<Answer>=new Collection_<Answer>();
     answer.tolog=false;
     for(var i=0;i<n;i++){
-      answer.add(new Answer(i,"Answer " +i,"Answer " +i));
+      answer.add(new Answer({key_:i,name_:"Answer " +i,value_:"Answer " +i,collection_:null,itemParameter_:null}));
     }
     return answer;
   }
@@ -1004,7 +1227,7 @@ export class Factory_{
     var question:ICollection_<Question>=new Collection_<Question>();
     question.tolog=false;
     for(var i=0;i<n;i++){
-      question.add(new Question(i,"Question " +i,"Question " +i));
+      question.add(new Question({key_:i,name_:"Question " +i,value_:"Question " +i}));
     }
     return question;
   }
@@ -1012,25 +1235,446 @@ export class Factory_{
     var quizes:ICollection_<Quiz>=new Collection_<Quiz>();
     quizes.tolog=false;
     for(var i=0;i<n;i++){
-      quizes.add(new Quiz(i,"Quiz " +i,"Quiz " +i));
+      quizes.add(new Quiz({key_:i,name_:"Quiz " +i,value_:"Quiz " +i,collection_:null,itemParameter_:null}));
+
     }
     return quizes;
   }
+
+  //Quiz html controls
+
+    //--------------------
+
+      //returns quiz controlls with checkboxes
+
+      static QuizCheckboxes(){
+        let r = new Collection_<HtmlItem>();
+
+        let cssClass_="fxvt";
+
+        r= new Collection_<HtmlItem>([
+          new CheckBoxControl(0,"Anonimous","Is question anonimous?",true,true,cssClass_)
+          ,new CheckBoxControl(1,"QuizStat","Show quiz statistics?",true,true,cssClass_)
+          ,new CheckBoxControl(2,"ListItem","Place questions on list?",false,true,cssClass_)
+          ,new CheckBoxControl(4,"Replayable","Can quiz be replayed?",true,true,cssClass_)
+          ])
+
+        return r;
+      }
+
+      static QuizStartDate(){
+        let r = new Collection_<HtmlItem>();
+
+        r= new Collection_<HtmlItem>([
+          new DatePickerControl(0,"StartDate","Choose quiz start date",new Date(),true,"fxhr")
+        ])
+
+        return r;
+
+      }
+
+      static QuizCicleCheckbox(){
+        let r = new Collection_<HtmlItem>();
+
+        r= new Collection_<HtmlItem>([
+          new CheckBoxControl(0,"Cicle","Does quiz need to be cicled?",false,false,"")
+        ])
+
+        return r;
+
+      }
+      //returns quiz controlls with numbercontrols
+
+      static QuizNumberControls(){
+        return new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"YearGap","Years gap",0,0,null,true,"fxvt")
+          ,new NumberPickerControl(1,"MonthsGap","Months gap",0,0,null,true,"fxvt")
+          ,new NumberPickerControl(2,"DaysGap","Days gap",0,0,null,true,"fxvt")
+          ,new NumberPickerControl(3,"HoursGap","Hours gap",0,0,null,true,"fxvt")
+          ,new NumberPickerControl(4,"MinutesGap","Minutes gap",0,0,null,true,"fxvt")
+        ]);
+      }
+
+      //claendar collections
+
+      static MonthsInYear(){
+        let r = new Collection_<HtmlItem>();
+        for(let i=0;i<12;i++){
+          r.add(new HtmlItem(0,"months",i+1+"","option","",null,true,null,null))
+        }
+        return r;
+      }
+      static WeeksInYear(){
+        let r = new Collection_<HtmlItem>();
+        for(let i=0;i<52;i++){
+          r.add(new HtmlItem(0,"weeks",i+1+"","option","",null,true,null,null))
+        }
+        return r;
+      }
+      static DaysInMonth(){
+        let r = new Collection_<HtmlItem>();
+        for(let i=0;i<31;i++){
+          // r.add(new HtmlItem(0,"days",i+1+"","option","",null,true,null,null))
+          r.add(new CheckBoxControl(i,"days","day " + String(i+1),false,true,"fxhr"))
+        }
+        return r;
+      }
+      static DaysInWeek(){
+        let r = new Collection_<HtmlItem>();
+        for(let i=0;i<7;i++){
+          r.add(new HtmlItem(0,"days",i+1+"","option","",null,true,null,null))
+        }
+        return r;
+      }
+
+      //Quiz controll for dropdowns
+
+      static CalendarDropDowns(){
+        let r = new Collection_<HtmlItem>();
+
+          r.add(new DropDownControlNg(0,"MonthInYear","MonthInYear","Month",true,"fxvt"
+          ,Factory_.MonthsInYear()))
+
+          r.add(new DropDownControlMultiNg(0,"WeeksInYear","WeeksInYear","Weeks",true,"fxvt"
+          ,Factory_.WeeksInYear()))
+
+          r.add(new DropDownControlMulti(0,"DaysInMonth","DaysInMonth","Days",true,"fxvt"
+          ,Factory_.DaysInMonth()))
+
+          r.add(new DropDownControlMulti(0,"DaysInWeek","DaysInWeek","Days",true,"fxvt"
+          ,Factory_.DaysInWeek()))
+
+        return r;
+      }
+
+      static QuizControlsGen(){
+
+        let checkboxes=new HtmlItem(0,"Checkboxes","Select Quiz parameters","","","Select Quiz parameters",true,"fxhr"
+          , Factory_.QuizCheckboxes()
+          );
+
+        let startDate=new HtmlItem(0,"QuizStartDate","Select Quiz start date","","","Select Quiz start date",true,"fxhr"
+          , Factory_.QuizStartDate()
+          );
+
+        let circleCheck=new HtmlItem(0,"QuizCircle","Does quiz cicled?","","","Does quiz cicled?",true,"fxhr"
+          , Factory_.QuizCicleCheckbox()
+          );
+
+        let numbercontrols=new HtmlItem(1,"DateGap","Choose quiz restart period","","","Choose quiz restart period",true,"fxhr"
+          , Factory_.QuizNumberControls()
+        );
+
+        let calendarcontrols=new HtmlItem(2,"CalendarControls","Choose quiz calendar period","","","Choose quiz calendar period",true,"fxhr"
+          , Factory_.CalendarDropDowns()
+        );
+
+        let q=new Collection_<HtmlItem>(
+
+            // [tbColl,dtColl,rbColl,nbColl]
+
+            [checkboxes,startDate,circleCheck,numbercontrols,calendarcontrols]
+
+          );
+
+        return q;
+      }
+
+    //--------------------
+
+
+    //Question html controls
+
+    //--------------------
+
+
+    //Question answer types drop box values
+
+    static QuestionTypes(){
+      let q:Collection_<HtmlItem>=null;
+
+        q=new Collection_<HtmlItem>([
+          new HtmlItem(0,"TextControl","Text answer","","","Text answer",true,"fxhr",null)
+          ,new HtmlItem(1,"CheckBoxControl","Select any answers","","","Text answer",true,"fxhr",null)
+          ,new HtmlItem(2,"RadioButtonControl","Select one answer","","","Text answer",true,"fxhr",null)
+          ,new HtmlItem(3,"DropDownControlMulti","Rating answer","","","Text answer",true,"fxhr",null)
+        ])
+      return q;
+    }
+
+
+
+    //Question text controll
+
+    static QuestionTextControl(){
+      let q:Collection_<HtmlItem>=null;
+      q=new Collection_<HtmlItem>([
+        new TextControl(0,"TextControl","Question text: ","enter text here",null,null,null,null,true,"fxvt")
+      ]);
+      return q;
+    }
+
+    //Dropdown control for answer types
+
+    static QuestionTypeControl(){
+      let q:Collection_<HtmlItem>=null;
+        q=new Collection_<HtmlItem>([
+          new DropDownControlNg(1,"QuestionTypes","Select answers type for question","Answer type",true,"fxvt",Factory_.QuestionTypes())
+        ])
+      return q;
+    }
+
+
+    //Generates controlls for Question
+
+    static QuestionControlsGen(){
+      let q:Collection_<HtmlItem>=null;
+
+      let txtCtrl=new HtmlItem(0,"TextControl","Enter question text","","","Enter question text",true,"fxhr",
+        Factory_.QuestionTextControl());
+
+      let tpCtrl=new HtmlItem(0,"DropBoxControl","Select question answer type","","","Select question answer type",true,"fxhr",
+        Factory_.QuestionTypeControl());
+
+      q=new Collection_<HtmlItem>([
+        txtCtrl,tpCtrl
+      ]);
+
+      return q;
+    }
+
+    //--------------------
+
+
+    //--------------------
+
+    //Buttons
+
+    static editButton(){
+      let q=new Button(null,"Save_","Save",null,"btn btn-darkgreen",false,"Save currently edited object");
+      q.disabled_=true;
+      return q
+    }
+
+    static editNewButton(){
+      return new Button(null,"Save_","Save",null,"btn btn-darkgreen",false,"Save currently edited object");
+    }
+
+
+    //--------------------
+
 
 }
 
 export class Test{
 
-    public static HtmlItems(){
-      return [
-        new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4)
-        ,new TextControl(0,"Tb","text_nm","Type text","Type here2",null,1,3)
-        ,new CheckBoxControl(0,"Cb","To Check or not to check",true)
-        ,new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1))
-      ];
-    }
-    //NEW
+    //genes html items
 
+    public static HtmlItems(){
+
+      let qzcl = new Collection_<HtmlItem>();
+      let tbColl = new HtmlItem(0,"Textboxes","Text box n radios","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true,"fxvt")
+          ,new TextControl(0,"Tb","text_nm","Type text2","Type here2",null,1,3,true,"fxhr")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true,"fxvt")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check2",false,true,"fxhr")
+          ])
+        );
+
+      let dtColl = new HtmlItem(0,"DatePicker","DatePicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+          new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true,"fxvt")
+          ,new DatePickerControl(0,"Dp","Choose date",new Date(2002,11,11,11,11,1),true,"fxhr")
+        ])
+      );
+
+      let rbColl = new HtmlItem(0,"Radio","Radio","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>(
+          [    new RadioButtonControl(0,"Rb1","Choose or not to choose?1","Choice 2",true,"fxvt"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                  ]))
+              ,new RadioButtonControl(0,"Rb2","Choose or not to choose?2","Choice_3",true,"fxhr"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb2","Choice_1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb2","Choice_2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb2","Choice_3","option","",null,true,null,null)
+                  ]))
+                ]
+        ));
+
+      let nbColl = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",3,2,4,true,"fxvt")
+        ]));
+
+      let nb2Coll = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",8,7,9,true,"fxvt")
+
+        ]));
+
+        let ddCollVt = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxvt"
+          ,new Collection_<HtmlItem>(
+            [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+                  ,new Collection_<HtmlItem>([
+                    new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                    ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                    ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                    ]))
+                ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
+                      ,new Collection_<HtmlItem>([
+                        new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                        ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                        ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                        ]))
+                  ]
+          ));
+
+          let ddCollHr = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxhr"
+            ,new Collection_<HtmlItem>(
+              [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+                    ,new Collection_<HtmlItem>([
+                      new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                      ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                      ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                      ]))
+                  ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
+                        ,new Collection_<HtmlItem>([
+                          new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                          ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                          ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                          ]))
+                    ]
+            ));
+
+      qzcl=new Collection_<HtmlItem>(
+
+        // [tbColl,dtColl,rbColl,nbColl]
+
+        [ddCollVt,ddCollHr,tbColl,dtColl,rbColl,nbColl]
+
+      );
+
+      // qzcl=new Collection_<HtmlItem>([dbcl]);
+
+      qzcl.setType("HtmlItem");
+
+      let htmlItemsArr3=new HtmlItem(0,"HtmlColl","HtmlColl","","","",true,"fxvt"
+        ,qzcl);
+
+      return htmlItemsArr3;
+    }
+
+    //gens html items for quiz -> moove to optiondefault
+
+    public static QuizHtml(){
+
+      let qzcl = new Collection_<HtmlItem>();
+      let tbColl = new HtmlItem(0,"Textboxes","Text box n radios","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new TextControl(0,"Tb","text_nm","Type text","Type here",null,2,4,true,"fxvt")
+          ,new TextControl(0,"Tb","text_nm","Type text2","Type here2",null,1,3,true,"fxhr")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check",true,true,"fxvt")
+          ,new CheckBoxControl(0,"Cb","To Check or not to check2",false,true,"fxhr")
+          ])
+        );
+
+      let dtColl = new HtmlItem(0,"DatePicker","DatePicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+          new DatePickerControl(0,"Dp","Choose date",new Date(2001,11,11,11,11,1),true,"fxvt")
+          ,new DatePickerControl(0,"Dp","Choose date",new Date(2002,11,11,11,11,1),true,"fxhr")
+        ])
+      );
+
+      let rbColl = new HtmlItem(0,"Radio","Radio","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>(
+          [    new RadioButtonControl(0,"Rb1","Choose or not to choose?1","Choice 2",true,"fxvt"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                  ]))
+              ,new RadioButtonControl(0,"Rb2","Choose or not to choose?2","Choice_3",true,"fxhr"
+                ,new Collection_<HtmlItem>([
+                  new HtmlItem(0,"Rb2","Choice_1","option","",null,true,null,null)
+                  ,new HtmlItem(1,"Rb2","Choice_2","option","",null,true,null,null)
+                  ,new HtmlItem(2,"Rb2","Choice_3","option","",null,true,null,null)
+                  ]))
+                ]
+        ));
+
+      let nbColl = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxhr"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",7,8,9,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",3,2,4,true,"fxvt")
+        ]));
+
+      let nb2Coll = new HtmlItem(0,"NumPicker","NumPicker","","","",true,"fxvt"
+        ,new Collection_<HtmlItem>([
+          new NumberPickerControl(0,"Npc","Select number 1",3,1,5,true,"fxvt")
+          ,new NumberPickerControl(0,"Npc","Select number 2",8,7,9,true,"fxvt")
+
+        ]));
+
+        let ddCollVt = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxvt"
+          ,new Collection_<HtmlItem>(
+            [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+                  ,new Collection_<HtmlItem>([
+                    new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                    ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                    ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                    ]))
+                ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
+                      ,new Collection_<HtmlItem>([
+                        new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                        ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                        ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                        ]))
+                  ]
+          ));
+
+          let ddCollHr = new HtmlItem(0,"DropDown","DropDown","","","",true,"fxhr"
+            ,new Collection_<HtmlItem>(
+              [    new DropDownControlNg(0,"Dd1","Choose again header","Choose again",true,"fxvt"
+                    ,new Collection_<HtmlItem>([
+                      new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                      ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                      ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                      ]))
+                  ,new DropDownControlNg(0,"Dd1","And again heder","And again",true,"fxvt"
+                        ,new Collection_<HtmlItem>([
+                          new HtmlItem(0,"Rb1","Choice 1","option","",null,true,null,null)
+                          ,new HtmlItem(1,"Rb1","Choice 2","option","",null,true,null,null)
+                          ,new HtmlItem(2,"Rb1","Choice 3","option","",null,true,null,null)
+                          ]))
+                    ]
+            ));
+
+      qzcl=new Collection_<HtmlItem>(
+          // [tbColl,dtColl,rbColl,nbColl]
+          [ddCollVt,ddCollHr,tbColl,dtColl,rbColl,nbColl,]
+        );
+      // qzcl=new Collection_<HtmlItem>([dbcl]);
+
+      qzcl.setType("HtmlItem");
+
+      let htmlItemsArr3=new HtmlItem(0,"HtmlColl","HtmlColl","","","",true,"fxvt"
+        ,qzcl);
+
+      return htmlItemsArr3;
+    }
+
+    //obsolette
+
+    /*
     public static GenNewColl(bol_:boolean){
 
       if(bol_==true ){
@@ -1053,9 +1697,11 @@ export class Test{
         new Collection_<NodeCollection>();
     }
 
+
+
     //Generates NodeCollection array
 
-    public static Gen(bol_:boolean,lw_?:number,up_?:number)
+    public static Gen_(bol_:boolean,lw_?:number,up_?:number)
     :ICollection_<INodeCollection> {
 
       var col_:ICollection_<INodeCollection> =new Collection_<NodeCollection> ();
@@ -1097,6 +1743,8 @@ export class Test{
       }
 
     }
+
+    */
 
     //Generates NodeCollection from classes
 
@@ -1159,53 +1807,17 @@ export class Test{
 
     public static GO(){
 
-
       //Test.GenNewColl(false);
       //Test.Gen(false,1,3);
 
       //Test.GenClasses(true,1,3);
 
-      /*
-      //item facory test
-      let fct=new Factory();
-      ServiceCl.log(["Factory Item: ",fct.createItem()]);
-      ServiceCl.log(["Factory ItemG: ",fct.createItemG()]);
 
-      //item anf itemg factory test
-      let fctCol=new FactoryCollection();
-      let collG:Collection<ItemG>=fctCol.createCollection();
-      collG.add(fct.createItemG());
-      ServiceCl.log(["Factory CollG: ",collG.array]);
-
-      //itemG collection factory test
-      let fctItmColl=new FactoryItemColection();
-      ServiceCl.log(["Item: ",new Item()]);
-      ServiceCl.log(["ItemG: ",new ItemG()]);
-      ServiceCl.log(["ItemCollection: ",new ItemCollection()]);
-
-      ServiceCl.log(new Button(1,"a","b",null,"button1",false));
-
-      //checking collection type get
-      var cl_:Collection_<NodeCollection>=new Collection_<Quiz>();
-      cl_.add(new Quiz(0,"Quiz " +0,"Quiz " +0));
-      ServiceCl.log(["Test GO :", "Quizes type ",cl_.array[0].constructor.name])
-
-
-      var cl2:NodeCollection=new NodeCollection();
-      cl2.collection.add(new Quiz(0,"Quiz " +0,"Quiz " +0));
-      ServiceCl.log(["Test GO :", "Quizes type ",cl2.collection.array[0].constructor.name,cl2.collection.getType(),cl2.getType_()])
-      ServiceCl.log(["Test GO2 :",cl2.getType_(),cl2.collection.type_,cl2.typeName]);
-
-      let cl3:NodeCollection=this.GenClasses(false,2,3);
-
-
-      let text_:TextControl=new TextControl(0,"Tb","display val cl",null,null,2,4);
-      let check_:CheckBoxControl=new CheckBoxControl(0,"Tb",true,null);
-      let itemPassed_:NodeCollection;
-      itemPassed_=text_;
-      */
-
-      ServiceCl.log(["GO "]);
+      let qzSt:QuizStatistic= new QuizStatistic();
+      let qzCt:QuizControls=new QuizControls();
+      let qs:Question=new Question();
+      let qs2=new Question({key_:0,name_:"Question " +0,value_:"Question " +0});
+      ServiceCl.log(["GO ",qs2 ]);
     }
 
 }

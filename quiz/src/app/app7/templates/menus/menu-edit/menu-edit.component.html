@@ -1,15 +1,33 @@
-<div *ngIf="test==true" class="component">
-  {{cName}}
-</div>
-<ng-container *ngIf="test==false"  class="container editarea" id="menu_edit" >
+<ng-container *ngIf="test==true" >
   <ng-container *ngIf="nodeToEdit_!=null">
-    <div class="row">
-       <input type="text" [(ngModel)]="nodeToEdit_.value" size="80" class="input" >
-       <button class="btn btn-outline-primary" (click)="nodeSave(nodeToEdit_)">Save</button>
-       <app-button [_buttons]="editButtons_" [_obj]="nodeToEdit_"></app-button>
+    <div class="listarea editarea">
+      <div class="textinputEditArea">
+         <input type="text" [(ngModel)]="nodeToEdit_._value" size="80" id="input_edit">
+         <button class="btn btn-outline-primary" (click)="nodeSave(nodeToEdit_)">Save</button>
+         <app-button [_buttons]="editButtons_" [_obj]="nodeToEdit_"></app-button>
+      </div>
+
+      <div *ngIf="((nodeTypeGet()=='Quiz') && (nodeToEdit_!=null))">
+        CSS1:{{nodeToEdit_.cssClass}},{{nodeToEdit_._name}}
+        <app-grps [nodePassed_]="nodeToEdit_"></app-grps>
+      </div>
+
     </div>
-    <ng-container *ngIf="((nodeTypeGet()=='Quiz') && (nodeToEdit_!=null))">
-      <app-nodes [nodesPassed_]="nodeToEdit_.itemParameter"></app-nodes>
-    </ng-container>
+  </ng-container>
+</ng-container>
+
+<ng-container *ngIf="test==false" >
+  <ng-container *ngIf="nodeToEdit_!=null">
+    <div class="editarea">
+      <div class="textinputEditArea">
+        <input type="text" [(ngModel)]="nodeToEdit_._value" size="80" id="input_edit">
+        <button class="btn btn-outline-primary" (click)="nodeSave(nodeToEdit_)">Save</button>
+        <app-button [_buttons]="editButtons_" [_obj]="nodeToEdit_"></app-button>
+      </div>
+
+      <div *ngIf="((nodeToEdit_.itemParameter!=null))">
+        <app-grps [nodePassed_]="nodeToEdit_"></app-grps>
+      </div>
+    </div>
   </ng-container>
 </ng-container>

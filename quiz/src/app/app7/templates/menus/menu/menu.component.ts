@@ -1,7 +1,7 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
 import {Test,NodeCollection,ModelContainer} from 'app/app7/Models/inits.component'
-import * as SVG from 'assets/svg.js'
+
 
 //declare var $: any;
 
@@ -18,7 +18,7 @@ export class MenuComponent implements OnInit {
   @Input() nodesPassed_:NodeCollection;
 
   constructor(private service:Service_){
-    ServiceCl.log("Constructor: " + this.constructor.name);
+
     //service.test=false;
     this.test=service.test;
     this.cName=this.constructor.name;
@@ -29,11 +29,12 @@ export class MenuComponent implements OnInit {
       startDate: '-3d'
     });
     */
-
+    ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
   ngOnInit(){
+    this.nodesPassed_=Test.GenClasses(false,1,4);
 
+    ServiceCl.log(["Inited: " + this.constructor.name,this.nodesPassed_]);
   }
-
 
 }
