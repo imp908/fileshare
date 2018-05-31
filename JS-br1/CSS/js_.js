@@ -254,9 +254,13 @@ function addListeners(){
       if(!isNull(ddI[i])){
         //ddI[i].addEventListener("click",function(){selected(ddI[i].value)},true)
         ddI[i].onclick =function(){selected(ddI[i])};
+        ddI[i].onmouseover =function(){mouseover_(ddI[i])};
+        ddI[i].onmouseout =function(){mouseout_(ddI[i])};
       }
     }
   }
+
+
 
 }
 
@@ -322,8 +326,18 @@ function scroll(){
 
 }
 
+
+//Dropdown styling events
+//---------------------------------
+
 function selected(v){
     console.log(["selected",v]);
+    var cl_=v.classList.contains("selected");
+    if(cl_==false){
+      v.classList.toggle("selected",true);
+    }else {
+      v.classList.toggle("selected",false);
+    }
 }
 function toggle_(v){
   //var ch_=v.parentElement.childNodes;
@@ -352,6 +366,24 @@ function toggle_(v){
 
 
 }
+function mouseover_(e){
+  console.log(["mouseover_",e])
+  e.style.background="grey";
+}
+function mouseout_(e){
+  console.log(["mouseout_",e])
+  var cl_=e.classList.contains("selected");
+  if(cl_==true){
+    e.style.background="lightgrey";
+  }else{
+    if(e.style.background=="grey"){
+      e.style.background="white";
+    }
+  }
+}
+
+//---------------------------------
+
 
 function gen(tag,text,count){
   for(o=0;o<Math.abs(count);o++){

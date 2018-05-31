@@ -189,6 +189,7 @@ p{
   pointer-events: visiblePainted;
 }
 .dd-menu{
+  cursor:default;
   pointer-events: visiblePainted;
   position: absolute;
   top: 100%;
@@ -219,6 +220,10 @@ p{
   color: #212529;
   text-align: inherit;
   white-space: nowrap;
-  background-color: transparent;
+  /* background-color: transparent; */
   border: 0;
+}
+
+.selected{
+  background: lightgrey;
 }
