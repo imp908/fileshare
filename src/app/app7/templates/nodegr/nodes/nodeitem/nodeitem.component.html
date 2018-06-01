@@ -8,7 +8,7 @@
 
     <div [class]="this.htmlItem_.cssClass">
 
-      <div class="label_">{{this.htmlItem_.value}}</div>
+      <div class="label_">{{this.htmlItem_._value}}</div>
 
       <div *ngIf="controlType()=='TextControl'">
           <input type="text"
@@ -31,8 +31,8 @@
             <input type="radio"
             [name]="this.htmlItem_.name"
             [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
-            [value]="r.value">
-            {{r.value}}
+            [value]="r._value">
+            {{r._value}}
           </div>
 
         </div>
@@ -87,7 +87,7 @@
 
     <div [class]="this.htmlItem_.cssClass">
 
-      <div class="label_">{{this.htmlItem_.value}}</div>
+      <div class="label_">{{this.htmlItem_._value}}</div>
 
       <div *ngIf="controlType()=='TextControl'">
           <input type="text"
@@ -110,8 +110,8 @@
             <input type="radio"
             [name]="this.htmlItem_.name"
             [(ngModel)]="this.htmlItem_.HtmlSubmittedValue"
-            [value]="r.value">
-            {{r.value}}
+            [value]="r._value">
+            {{r._value}}
           </div>
 
         </div>

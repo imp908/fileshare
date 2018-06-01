@@ -11,10 +11,10 @@
     <!--Check HtmlItem groups on checked  -->
     <!-- <app-grps [nodePassed_]="this.nodeToPass_"></app-grps> -->
 
-
-
-
+    <!-- Test buttons  -->
+    <app-button [_buttons]="this.buttonsToPass_" [_obj]="this.buttonsToPass_"></app-button>
+    <button (click)="disable()">dis</button>
     <!-- menu full check -->
-    <app-menu [nodesPassed_]="nodesToPass_"></app-menu>
+    <!-- <app-menu [nodesPassed_]="nodesToPass_"></app-menu> -->
 
 </ng-container>

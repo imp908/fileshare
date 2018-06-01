@@ -14,7 +14,6 @@ export class App7Component implements OnInit {
   test: boolean;
 
 
-
   constructor(private service:Service_){
 
       service.test=false;
@@ -31,7 +30,7 @@ export class App7Component implements OnInit {
   }
 
   ngOnInit() {
-
+    ServiceCl.log(["Inited: " + this.constructor.name]);
   }
 
 }

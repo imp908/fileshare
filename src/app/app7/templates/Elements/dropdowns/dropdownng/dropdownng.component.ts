@@ -14,7 +14,7 @@ export class DropdownComponent implements OnInit {
 
   @Input() htmlItem_:HtmlItem;
 
-  constructor(private service:Service_) {
+  constructor(private service:Service_){
     this.test=service.test;
     this.cName=this.constructor.name;
     ServiceCl.log(["Constructor: " + this.constructor.name,this.htmlItem_]);
@@ -24,11 +24,11 @@ export class DropdownComponent implements OnInit {
     ServiceCl.log(["Inited: " + this.constructor.name,this.htmlItem_]);
   }
   changed(i){
-    this.htmlItem_.HtmlSubmittedValue=i.value;
+    this.htmlItem_.HtmlSubmittedValue=i._value;
     if(ModelContainer.nodeToEdit instanceof Question){
       ModelContainer.CheckAnswerAmount(this.htmlItem_.HtmlSubmittedValue);
-      ServiceCl.log(["Button checked: ",ModelContainer.editButtons_]);
+      ServiceCl.log(["Button checked: ",ModelContainer.saveButtons_]);
     }
-    ServiceCl.log(["changed",this.htmlItem_,i,ModelContainer.nodeToEdit]);
+    ServiceCl.log(["changed",ModelContainer.saveButtons_,this.htmlItem_,i,ModelContainer.nodeToEdit]);
   }
 }

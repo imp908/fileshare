@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
-import {Test,NodeCollection,ModelContainer,Quiz,Question,Answer,editButtons,editNewButtons} from 'app/app7/Models/inits.component'
+import {Test,ModelContainer,Factory_} from 'app/app7/Models/inits.component'
+import {NodeCollection,Quiz,Question,Answer,editButtons,editNewButtons,Button} from 'app/app7/Models/inits.component'
 
 
 @Component({
@@ -26,14 +27,24 @@ export class MenuListComponent implements OnInit {
 
     }
     conatinerBind(){
+
+      //Binding variables
+
       ModelContainer.nodesPassed_=this.nodesPassed_;
       this.QuizToEdit=ModelContainer.QuizToEdit;
       this.QuestionToEdit=ModelContainer.QuestionToEdit;
       this.AnswerToEdit=ModelContainer.AnswerToEdit;
-      ModelContainer.CheckCycleDisplay();
-      ModelContainer.editButtons_=new editButtons();
-      ModelContainer.editButtons_.disabled_=true;
-      ModelContainer.editNewButtons_=new editNewButtons();
+
+      //Modelcontainer initialization
+
+      // ModelContainer.CheckCycleDisplay();
+      // ModelContainer.saveButtons_=new Button();
+      // ModelContainer.saveNewButtons_=new Button();
+      // ModelContainer.saveButtons_.collection.add(Factory_.saveButton());
+      // ModelContainer.saveNewButtons_.collection.add(Factory_.saveNewButton());
+
+      ModelContainer.Init();
+
       ServiceCl.log([this.constructor.name+" container binded ",
       this.QuizToEdit,this.QuestionToEdit,this.AnswerToEdit]);
     }
@@ -45,7 +56,6 @@ export class MenuListComponent implements OnInit {
     ngOnInit(){
       // this.genTest();
       this.conatinerBind();
-
 
       ModelContainer.nodeEmitted.subscribe(s=>{
       ServiceCl.log([this.constructor.name+" NodeEmitted: ",s])

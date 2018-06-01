@@ -25,7 +25,7 @@ export class DropdownmultiComponent implements OnInit {
     ServiceCl.log(["Constructor: " + this.constructor.name,this.htmlItem_]);
   }
 
-  ngOnInit() {
+  ngOnInit(){
     // d.ctmCheck();
     this._mouseover=false;
     this._mouseout=true;
