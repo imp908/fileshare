@@ -36,6 +36,7 @@ export interface ICollection_<T>{
 }
 
 export interface INodeCollection extends INode{
+
   _key:number;
   _name:string;
   _value:string;
@@ -45,4 +46,7 @@ export interface INodeCollection extends INode{
   sortHierarhy(asc:boolean);
   scan(name_:string,col_:INodeCollection);
   findInParams(name_:string,col_:INodeCollection,ret_:INodeCollection);
+  shallowCopy();
+  _sliceArr(nc:INodeCollection);
+
 }
