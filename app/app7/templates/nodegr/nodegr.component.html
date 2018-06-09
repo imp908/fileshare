@@ -1,15 +1,9 @@
 <ng-container *ngIf="test==true">
-  {{cName}}
-  <!-- <app-menu></app-menu> -->
   <div style="margin-left:3ch">
   <div [class]="this.nodePassed_.itemParameter.cssClass">
-    {{this.nodePassed_.itemParameter.cssClass}}
     <ng-container *ngFor="let i_0 of this.nodePassed_.itemParameter.collection.array">
       <div [class]="i_0.cssClass">
-      {{i_0.cssClass}}
-        <!-- {{i_0.cssClass}} -->
         <app-nodes [htmlItems_]="i_0"></app-nodes>
-
       </div>
     </ng-container>
   </div>
@@ -19,12 +13,9 @@
 <ng-container *ngIf="test==false">
   <div style="margin-left:3ch">
   <div [class]="this.nodePassed_.itemParameter.cssClass">
-
     <ng-container *ngFor="let i_0 of this.nodePassed_.itemParameter.collection.array">
       <div [class]="i_0.cssClass">
-
         <app-nodes [htmlItems_]="i_0"></app-nodes>
-
       </div>
     </ng-container>
   </div>

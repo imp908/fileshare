@@ -30,10 +30,13 @@
 </div>
 </ng-container>
 
+
+
 <ng-container *ngIf="test==false" >
 <!-- <div class="container" class="scrollbar"> -->
 <div class="listarea">
 <ng-container class="item list row">
+
     <ng-container *ngIf="nodesPassed_!=null">
       <ng-container class="gradList item list row">
       <ng-container class="col-sm-12">
@@ -44,17 +47,17 @@
 
     <ng-container *ngIf="QuizToEdit!=null">
       <ng-container class="gradList item list row">
-      <ng-container class="col-sm-12">
-      <app-list [nodes_]=QuizToEdit></app-list>
-      </ng-container>
+        <ng-container class="col-sm-12">
+          <app-list [nodes_]=QuizToEdit></app-list>
+        </ng-container>
       </ng-container>
     </ng-container>
 
     <ng-container *ngIf="QuestionToEdit!=null">
       <ng-container class="gradList item list row">
-      <ng-container class="col-sm-12">
-      <app-list [nodes_]=QuestionToEdit></app-list>
-      </ng-container>
+        <ng-container class="col-sm-12">
+          <app-list [nodes_]=QuestionToEdit></app-list>
+        </ng-container>
       </ng-container>
     </ng-container>
 

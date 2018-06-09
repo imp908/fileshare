@@ -9,15 +9,15 @@ import {INode,ICollection_,INodeCollection} from './POCO.component';
 //option constructors
 
 class NodeG implements INode{
-  key:number;
-  name:string;
-  value:string;
+  _key:number;
+  _name:string;
+  _value:string;
   typeName:string;
   constructor(options:{key_:number,name_:string, value_:string}={key_:0,name_ : "",value_:""})
   {
-    this.key=options.key_;
-    this.name=options.name_;
-    this.value=options.value_;
+    this._key=options.key_;
+    this._name=options.name_;
+    this._value=options.value_;
   }
 }
 
@@ -43,12 +43,12 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
       max=this.getMaxKey();
       ServiceCl.log(["PrimitiveCollection array defined. max = ",max])
 
-      if(item.key==null){
+      if(item._key==null){
           max+=1;
           toPsuh=true;
           ServiceCl.log(["item has no key. Max=  ",max])
       }else{
-        ServiceCl.log(["item has key: ",item.key])
+        ServiceCl.log(["item has key: ",item._key])
 
         if((this.getByItem(item)==null)){
           max+=1;
@@ -61,7 +61,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
     }
 
     if(toPsuh===true){
-      item.key=max;
+      item._key=max;
       this.array.push(item);
     }
     return item;
@@ -79,7 +79,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
   }
   update(item:T){
     if((typeof(this.array)!=null)){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       if(index_!=-1){
           this.array[-1]=item;
           return this.array[-1];
@@ -90,7 +90,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
 
   addUpdate(item:T){
     if((typeof(this.array)!=null)){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       ServiceCl.log(index_);
         if(index_!=null){
           ServiceCl.log("Add");
@@ -111,7 +111,7 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
 
   getMaxKey(){
     if(typeof(this.array)!=null){
-      var max=Math.max.apply(Math,this.array.map(function(o){return o.key;}))
+      var max=Math.max.apply(Math,this.array.map(function(o){return o._key;}))
       if(max!=null){
         return max;
       }
@@ -120,16 +120,25 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
   }
   getByItem(item:T){
     if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       if(index_!=-1){
         return this.array[index_];
       }
     }
     return null;
   }
+  getByName(item:string){
+    if(typeof(this.array)!=null){
+      var ret=this.array.find(s=>s._name===item);
+      if(ret!=null){
+        return ret;
+      }
+    }
+    return null;
+  }
   getByKey(key:number){
     if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===key);
+      var index_=this.array.findIndex(s=>s._key===key);
       if(index_!=-1){
         return this.array[index_];
       }
@@ -138,13 +147,13 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
   }
   getIndexByItem(item:T){
     if(typeof(this.array)!=null){
-      return this.array.findIndex(s=>s.key===item.key);
+      return this.array.findIndex(s=>s._key===item._key);
     }
     return -1;
   }
   getIndexBykey(key:number){
       if(typeof(this.array)!=null){
-        return this.array.findIndex(s=>s.key===key);
+        return this.array.findIndex(s=>s._key===key);
       }
       return -1;
     }
@@ -167,13 +176,13 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
   }
 
   sortAsc(a:T,b:T){
-    if(a.key>b.key){return 1}
-    if(a.key<b.key){return -1}
+    if(a._key>b._key){return 1}
+    if(a._key<b._key){return -1}
     return 0;
   }
   sortDesc(a:T,b:T){
-    if(a.key>b.key){return -1}
-    if(a.key<b.key){return 1}
+    if(a._key>b._key){return -1}
+    if(a._key<b._key){return 1}
     return 0;
   }
   sort(asc:boolean){
@@ -184,24 +193,25 @@ class CollectionG_<T extends NodeG> implements ICollection_<T>{
     return a;
   }
 
+  shallowCopy(){};
 }
 
 //parameter constructions
 
 class Node implements INode{
-  key:number;
-  name:string;
-  value:string;
+  _key:number;
+  _name:string;
+  _value:string;
   typeName:string;
-  static _key:number;
+  static __key:number;
 
   constructor(key_?:number,name_?:string, value_?:string)
   {
-    if(key_!=null){Node._key=key_;this.key=key_;}else{
-      if(Node._key!=null){Node._key+1;}else{Node._key=0;}
+    if(key_!=null){Node.__key=key_;this._key=key_;}else{
+      if(Node.__key!=null){Node.__key+1;}else{Node.__key=0;}
     }
-    if(name_!=null){this.name=name_;}
-    if(value_!=null){this.value=value_;}
+    if(name_!=null){this._name=name_;}
+    if(value_!=null){this._value=value_;}
     this.typeName=this.constructor.name;
   }
 
@@ -232,7 +242,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
       ServiceCl.log(["PrimitiveCollection array max = ",max])
     }
 
-    if(item.key==null){
+    if(item._key==null){
 
       //tolog
       if(this.tolog){ServiceCl.log(["Item key is null"])}
@@ -243,19 +253,19 @@ export class Collection_<T extends Node> implements ICollection_<T>{
         if(this.tolog){ServiceCl.log(["array contains some elements"])}
 
         max+=1;
-        item.key=max;
+        item._key=max;
         toPsuh=true;
       }else{
         //tolog
         if(this.tolog){ServiceCl.log(["array contains no elements"])}
-        item.key=0;
+        item._key=0;
         toPsuh=true;
       }
 
     }else{
 
       //tolog
-      if(this.tolog){ServiceCl.log(["Item key is: ",item.key])}
+      if(this.tolog){ServiceCl.log(["Item key is: ",item._key])}
 
       if(max!=-1){
         //tolog
@@ -266,7 +276,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
             if(this.tolog){ServiceCl.log(["Array contains item: ",item])}
 
             max+=1;
-            item.key=max;
+            item._key=max;
             toPsuh=true;
 
           }else
@@ -289,7 +299,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
       if(this.tolog){ServiceCl.log(["pushing item with key: ",item,max])}
       this.array.push(item);
     }
-    this.setType(item.name);
+    this.setType(item._name);
     return item;
   }
 
@@ -314,11 +324,11 @@ export class Collection_<T extends Node> implements ICollection_<T>{
       if(max>-1){
         //log
         if(this.tolog){ServiceCl.log("Array contains items")}
-        var index_=this.array.findIndex(s=>s.key===item.key);
+        var index_=this.array.findIndex(s=>s._key===item._key);
         if(index_!=-1){
           //log
           if(this.tolog){ServiceCl.log(["Array contains item",item])}
-            this.array[item.key]=item;
+            this.array[item._key]=item;
         }
       }
     }
@@ -328,7 +338,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
 
   addUpdate(item:T){
     if((typeof(this.array)!=null)){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       if(this.tolog){
       ServiceCl.log(index_);
         if(index_!=null){
@@ -351,7 +361,7 @@ export class Collection_<T extends Node> implements ICollection_<T>{
 
   getMaxKey(){
     if(typeof(this.array)!=null){
-      var max=Math.max.apply(Math,this.array.map(function(o){return o.key;}))
+      var max=Math.max.apply(Math,this.array.map(function(o){return o._key;}))
       if(!isFinite(max)){
         //ServiceCl.log("Max infinite")
         max=-1
@@ -364,16 +374,25 @@ export class Collection_<T extends Node> implements ICollection_<T>{
   }
   getByItem(item:T){
     if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===item.key);
+      var index_=this.array.findIndex(s=>s._key===item._key);
       if(index_!=-1){
         return this.array[index_];
       }
     }
     return null;
   }
+  getByName(item:string){
+    if(typeof(this.array)!=null){
+      var ret=this.array.find(s=>s._name===item);
+      if(ret!=null){
+        return ret;
+      }
+    }
+    return null;
+  }
   getByKey(key:number){
     if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s.key===key);
+      var index_=this.array.findIndex(s=>s._key===key);
       if(index_!=-1){
         return this.array[index_];
       }
@@ -382,13 +401,13 @@ export class Collection_<T extends Node> implements ICollection_<T>{
   }
   getIndexByItem(item:T){
     if(typeof(this.array)!=null){
-      return this.array.findIndex(s=>s.key===item.key);
+      return this.array.findIndex(s=>s._key===item._key);
     }
     return -1;
   }
   getIndexBykey(key:number){
       if(typeof(this.array)!=null){
-        return this.array.findIndex(s=>s.key===key);
+        return this.array.findIndex(s=>s._key===key);
       }
       return -1;
     }
@@ -411,13 +430,13 @@ export class Collection_<T extends Node> implements ICollection_<T>{
   }
 
   sortAsc(a:T,b:T){
-    if(a.key>b.key){return 1}
-    if(a.key<b.key){return -1}
+    if(a._key>b._key){return 1}
+    if(a._key<b._key){return -1}
     return 0;
   }
   sortDesc(a:T,b:T){
-    if(a.key>b.key){return -1}
-    if(a.key<b.key){return 1}
+    if(a._key>b._key){return -1}
+    if(a._key<b._key){return 1}
     return 0;
   }
   sort(asc:boolean){
@@ -463,6 +482,81 @@ export class NodeCollection extends Node{
           }
       }
     }
+  }
+
+  //Recursive array collection search
+
+  scan(name_:string,col_:NodeCollection){
+    let ret_:NodeCollection=null;
+    ret_=this.findInParams(name_,col_,ret_);
+    return ret_;
+  }
+  findInParams(name_:string,col_:NodeCollection,ret_:NodeCollection){
+    // console.log(["findInParams: ",col_])
+
+    if(col_.collection!=null){
+      if(col_.collection.array!=null){
+        if(col_.collection.array.length>0){
+          for(let i=0;i<=col_.collection.array.length;i++){
+            let tCol_=col_.collection.array[i];
+            // console.log(["For: ",tCol_])
+            if(tCol_!=null){
+              if(tCol_._name==name_){
+                // console.log(["Return: ",tCol_])
+                ret_=tCol_;
+              }
+              if(tCol_.collection!=null){
+                ret_=this.findInParams(name_,tCol_,ret_);
+              }
+            }
+          }
+        }
+      }
+    }
+
+      return ret_;
+  }
+
+  shallowCopy(){
+
+    let r = this._sliceArr(this);
+
+    return r;
+  }
+  _sliceArr(nc:NodeCollection){
+
+    if(
+      (nc.collection !=null)
+      && (nc.collection.array !=null)
+      && (nc.collection.array.length>0)
+    ){
+      for(let cl_ of nc.collection.array)
+      {
+        this._sliceArr(cl_);
+      }
+    }else{
+      let bindArr=new Collection_<NodeCollection>();
+      if(this.collection==null){this.collection=new Collection_<NodeCollection>(new Array<NodeCollection>()); }
+      else{
+        if(this.collection.array==null){this.collection.array=new Array<NodeCollection>()}
+      }
+
+      for(let i=0;i<this.collection.array.length;i++){
+        bindArr.array[i]=this.collection.array[i];
+      }
+      let r=new NodeCollection(nc._key,nc._name,nc._value,bindArr);
+      nc=r;
+    }
+    return nc;
+  }
+  _deepСopy(o:any){
+     var output, v, key;
+     output = Array.isArray(o) ? [] : {};
+       for (key in o) {
+           v = o[key];
+           output[key] = (typeof v === "object") ? this._deepСopy(v) : v;
+       }
+     return output;
   }
 
 }
@@ -513,13 +607,13 @@ export class ItemParameter extends NodeCollection{
       this.cssType=null;
       this.templateClass="datepicker";
     }
-    if( this.name == "TimePicker")
+    if( this._name == "TimePicker")
     {
       this.valueType="date";
       this.cssType=null;
       this.templateClass="timepicker";
     }
-    if( this.name == "GapPicker")
+    if( this._name == "GapPicker")
     {
       this.valueType="date";
       this.cssType=null;
@@ -553,9 +647,9 @@ export class QuizParameter extends ItemParameter{
 
     conditionsCheck(){
 
-      let i=this.collection.array.find(s=>s.name=="Replayabe");
+      let i=this.collection.array.find(s=>s._name=="Replayabe");
         if(i instanceof ItemParameter){
-        let ii=this.collection.array.find(s=>s.name=="GapPicker");
+        let ii=this.collection.array.find(s=>s._name=="GapPicker");
           if( ii instanceof ItemParameter){
             ii.show=i.valueVal;
           }
@@ -598,6 +692,7 @@ export class HtmlItem extends NodeCollection{
     if(show_==null){this.show=show_};
     this.cssClass=cssClass_;
   }
+
 }
 export class TextControl extends HtmlItem{
 
@@ -703,6 +798,31 @@ export class QuizControls extends HtmlItem{
     this.sortHierarhy(true);
   }
 
+}
+
+export class QuestionControls extends HtmlItem{
+
+  constructor(option:{cssClass_:string,show_:boolean,collection_?:Collection_<HtmlItem>}
+  ={cssClass_:"",show_:true,collection_:null})
+  {
+    let qzcl=Factory_.QuestionControlsGen();
+
+    super(0,"QuestionControlGroup","Question","div","",null,option.show_,option.cssClass_,qzcl);
+    this.sortHierarhy(true);
+  }
+
+}
+
+export class AnswerControls extends HtmlItem{
+
+  constructor(option:{cssClass_:string,show_:boolean,collection_?:Collection_<HtmlItem>}
+  ={cssClass_:"",show_:true,collection_:null})
+  {
+    let qzcl=Factory_.AnswerControlsGen();
+
+    super(0,"AnswerControlGroup","Answer","div","",null,option.show_,option.cssClass_,qzcl);
+    this.sortHierarhy(true);
+  }
 
 }
 
@@ -721,7 +841,85 @@ export class TestGapPickerParameter{
 }
 
 
-export class Quiz extends NodeCollection{
+export class QuizItem extends NodeCollection{
+
+  //Collection of formcontroll to generate for user input
+
+  itemParameter:NodeCollection;
+
+  //Collection of gormcontrols to generate for read
+
+  quizStatistic:NodeCollection;
+
+  constructor(
+    option:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+    ,itemParameter_?:NodeCollection,quizStatistic_?:NodeCollection}
+    ={key_:0,name_:"QuizItem",value_:null,collection_:null,itemParameter_:new NodeCollection()}
+    ){
+      super(option.key_,option.name_,option.value_,option.collection_);
+
+
+      this.typeName="QuizItem";
+      if(option.collection_==null){
+        this.collection=new Collection_<NodeCollection>();
+      }
+
+      if(option.itemParameter_!=null){
+        this.itemParameter=option.itemParameter_;
+      }else{this.itemParameter=new NodeCollection();}
+
+  }
+
+  _checkArray(n_:Collection_<NodeCollection>){
+    if(n_.array!=null){
+      if(n_.array.length>0){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  _checkCollection(n_:QuizItem){
+    if((n_!=null)
+    && (n_.collection!=null)
+    ){
+      return true;
+    }else{return false;}
+  }
+  _Clone(){
+    let r=new QuizItem();
+      this._deepClone(this,r);
+    return r;
+  }
+  _deepClone(nc_:QuizItem,r_:QuizItem){
+
+      if(this._checkCollection(nc_)){
+
+      r_=new QuizItem({key_:this._key+1,name_:this._name,value_:this._value,collection_:null});
+
+        if(this._checkArray(nc_.collection)){
+          for(let n_ of nc_.collection.array){
+            if(n_ instanceof QuizItem){
+              this._deepClone(n_,r_);
+            }
+          }
+        }
+
+      }else{
+
+        let new_=Factory_.CloneItemByClass(nc_);
+
+        if(this._checkCollection(r_)!=null){
+          r_.collection.array.push(new_);
+        }
+      }
+
+      return r_;
+    }
+
+}
+
+export class Quiz extends QuizItem{
 
   replay:boolean;
   startTime:Date;
@@ -736,12 +934,12 @@ export class Quiz extends NodeCollection{
 
   quizStatistic:QuizStatistic;
 
-    constructor(
-      option:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
-      ,itemParameter_?:QuizControls,quizStatistic_?:QuizStatistic}
-      ={key_:0,name_:"Quiz",value_:null,collection_:null,itemParameter_:new QuizControls(),quizStatistic_:new QuizStatistic()}
+  constructor(
+    option:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
+    ,itemParameter_?:QuizControls,quizStatistic_?:QuizStatistic}
+    ={key_:0,name_:"Quiz",value_:null,collection_:null,itemParameter_:new QuizControls(),quizStatistic_:new QuizStatistic()}
     ){
-      super(option.key_,option.name_,option.value_,option.collection_);
+      super(option);
       this.replay=true;
       this.anonimous=false;
 
@@ -766,23 +964,45 @@ export class Quiz extends NodeCollection{
 export class Questionarie extends Quiz{}
 export class Victorine extends Quiz{}
 
-export class Question extends NodeCollection{
-  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,replay_?:boolean,anonimous_?:boolean)
-  {
-    super(key_,name_,value_,collection_);
-    this.typeName="Answer";
-    if(collection_==null){
-      this.collection=new Collection_<Answer>();
+export class Question extends QuizItem{
+  itemParameter:HtmlItem;
+
+  constructor(option_:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,itemParameter_?:HtmlItem}
+    ={key_:0,name_:"Question",value_:"Question",collection_:new Collection_<Answer>(null),itemParameter_:new QuestionControls()})
+    {
+      super(option_);
+      this.typeName="Question";
+      this.itemParameter=option_.itemParameter_;
+      this.collection=option_.collection_;
+      if(option_.itemParameter_==null){
+        this.itemParameter=new QuestionControls();
+      }
+      if(option_.collection_==null){
+        this.collection=new Collection_<Answer>(null);
+      }
     }
-  }
+
 }
-export class Answer extends NodeCollection{
-  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,replay_?:boolean,anonimous_?:boolean)
-  {
-    super(key_,name_,value_,collection_);
-    this.typeName="null";
-  }
+export class Answer extends QuizItem{
+  itemParameter:HtmlItem;
+
+  constructor(option_:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>,itemParameter_:HtmlItem}
+    ={key_:0,name_:"Answer",value_:"Answer",collection_:new Collection_<Answer>(),itemParameter_:new AnswerControls()})
+    {
+      super(option_);
+      this.typeName="Answer";
+      this.itemParameter=option_.itemParameter_;
+      this.collection=option_.collection_;
+      if(option_.itemParameter_==null){
+        this.itemParameter=new AnswerControls();
+      }
+      if(option_.collection_==null){
+        this.collection=null;
+      }
+    }
+
 }
+
 
 export class QuizStatistic extends HtmlItem{
   passedQuantityAll:number;
@@ -840,6 +1060,7 @@ export class Button extends NodeCollection {
   htmlClass:string;
   clicked:boolean;
   toolTipText:string;
+  disabled_:boolean;
 
   constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
     ,htmlClass_?:string,clicked_?:boolean,toolTipText_?:string){
@@ -856,6 +1077,7 @@ export class Button extends NodeCollection {
     if(toolTipText_!=null){
       this.toolTipText=toolTipText_;
     }
+    this.disabled_=false;
   }
 
 }
@@ -879,29 +1101,17 @@ export class menuButtons extends Button{
       super(key_,name_,value_,collection_,htmlClass_,clicked_,toolTipText_);
       this.collection.add(new Button(null,"Add_","Add new",null,"btn btn-purple-gradient",false,null))
 
+      /*
       this.collection.add(new Button(null,"Test1","Test button 1",null,"btn btn-evening-night",false,"Button for test1"))
       this.collection.add(new Button(null,"Test2","Test button 2",null,"btn btn-red-sunset",false,"Testing button"))
       this.collection.add(new Button(null,"Test3","Test button 3",null,"btn",false))
       this.collection.add(new Button(null,"Test3","Test button 4",null,"btn",false))
       this.collection.add(new Button(null,"Test3","Test button 5",null,"btn",false))
       this.collection.add(new Button(null,"Test3","Test button 6",null,"btn btn-success",false))
+      */
     }
 }
 
-export class editButtons extends Button{
-  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
-    ,htmlClass_?:string,clicked_?:boolean){
-    super(key_,name_,value_,collection_,htmlClass_,clicked_);
-      this.collection.add(new Button(null,"Save_","Save",null,"btn btn-darkgreen",false,"Save currently edited object"))
-  }
-}
-export class editNewButtons extends Button{
-  constructor(key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
-    ,htmlClass_?:string,clicked_?:boolean){
-    super(key_,name_,value_,collection_,htmlClass_,clicked_);
-      this.collection.add(new Button(null,"SaveNew_","Save",null,"btn btn-darkgreen",false,"Save object addition"))
-  }
-}
 
 export class ModelContainer{
 
@@ -918,30 +1128,70 @@ export class ModelContainer{
   @Output() static nodeSavedNew=new EventEmitter();
   @Output() static nodeSaved=new EventEmitter();
   @Output() static nodeAdded=new EventEmitter<NodeCollection>();
+  @Output() static nodeDeleted=new EventEmitter<NodeCollection>();
+
+  @Output() static saveDisabled=new EventEmitter<boolean>();
+  @Output() static addNewToggle=new EventEmitter<boolean>();
+
+  @Output() static questionTypeAlert=new EventEmitter<string>();
+
+  //Buutons to be disabled on conditions
+
+  static saveButtons_:Button;
+  static saveNewButtons_:Button;
+
+  static Init(){
+
+    ModelContainer.nodesPassed_=Test.GenClasses(false,1,4);
+    ModelContainer.CheckCycleDisplay();
+    ModelContainer.saveButtons_=Factory_.saveButton();
+    ModelContainer.saveNewButtons_=Factory_.saveNewButton();
+    // ModelContainer.saveButtons_.collection.add(Factory_.saveButton());
+    // ModelContainer.saveNewButtons_.collection.add(Factory_.saveNewButton());
 
 
-  static nodeMethodCall(b_:Button,n_:INodeCollection){
-    ServiceCl.log(["nodeMethodCall",b_,n_]);
-    if(b_.name=="Edit_"){
-      ServiceCl.log("Edit_");
-      ModelContainer.nodeSelect(n_);
+  }
+
+  static clickStageDetect(b_:NodeCollection,n_:any){
+    ServiceCl.log(["clickStageDetect",b_,n_]);
+    console.log(["instanceof: ",b_]);
+
+    if((b_._name!="SaveNew_") && (b_._name!="Add_")){
+
+      if(b_._name=="Edit_"){
+        ServiceCl.log(["Edit_"]);
+        let bt= ModelContainer.saveButtons_;
+        // if(bt instanceof Button){ bt.disabled_=false;}
+        ModelContainer.nodeSelect(n_);
+      }
+      if(b_._name=="Delete_"){
+        ServiceCl.log("Delete_");
+        ModelContainer.nodeDelete(n_);
+      }
+      if(b_._name=="Save_"){
+        ServiceCl.log("Save_");
+        ModelContainer.nodeSave(n_);
+      }
+      if(b_._name=="Copy_"){
+        ServiceCl.log("Copy_");
+        ModelContainer.nodeCopySelect(n_);
+      }
+
+      ModelContainer.CheckAnswerAmount(false);
     }
-    if(b_.name=="Add_"){
-      ServiceCl.log("Add_");
-      ModelContainer.nodeNewSelect(n_)
+
+    if((b_._name=="SaveNew_") || (b_._name=="Add_")){
+      if(b_._name=="Add_"){
+        ServiceCl.log(["Add_"]);
+        ModelContainer.nodeNewSelect(n_)
+      }
+      if(b_._name=="SaveNew_"){
+        ServiceCl.log("SaveNew_");
+        ModelContainer.nodeSaveNew(n_);
+      }
+      ModelContainer.CheckAnswerAmount(true);
     }
-    if(b_.name=="Delete_"){
-      ServiceCl.log("Delete_");
-      ModelContainer.nodeDelete(n_);
-    }
-    if(b_.name=="SaveNew_"){
-      ServiceCl.log("SaveNew_");
-      ModelContainer.nodeSaveNew(n_);
-    }
-    if(b_.name=="Save_"){
-      ServiceCl.log("Save_");
-      ModelContainer.nodeSave(n_);
-    }
+
   }
   static classDetectNState(n_:NodeCollection){
     if(n_ instanceof Quiz){
@@ -963,35 +1213,55 @@ export class ModelContainer{
   static createCopy(item_:NodeCollection):NodeCollection{
     let _item:NodeCollection;
     if(item_ instanceof Quiz){
-      _item=new Quiz({key_:item_.key,name_:item_.name,value_:item_.value,collection_:item_.collection,itemParameter_:item_.itemParameter});
+      _item=new Quiz({key_:item_._key,name_:item_._name,value_:item_._value,collection_:item_.collection,itemParameter_:item_.itemParameter});
     }
     if(item_ instanceof Question){
-      _item=new Question(item_.key,item_.name,item_.value);
+      _item=new Question({key_:item_._key,name_:item_._name,value_:item_._value,collection_:item_.collection,itemParameter_:item_.itemParameter});
     }
     if(item_ instanceof Answer){
-      _item=new Answer(item_.key,item_.name,item_.value);
+      _item=new Answer({key_:item_._key,name_:item_._name,value_:item_._value,collection_:item_.collection,itemParameter_:item_.itemParameter});
     }
     return _item;
   }
   static saveTo(from_:NodeCollection,to_:NodeCollection){
-    to_.name=from_.name;
-    to_.value=from_.value;
+    to_._name=from_._name;
+    to_._value=from_._value;
+    to_.collection=from_.collection;
+    if(from_ instanceof Question && to_ instanceof Question){
+      to_.itemParameter=from_.itemParameter;
+    }
+  }
+
+  static nodeCopySelect(n_:NodeCollection){
+    let type_:string=n_.typeName;
+    ServiceCl.log(["nodeAdd emitted",n_,type_]);
+    let nd_:any;
+
+    if(n_ instanceof QuizItem){
+      nd_=n_._Clone();
+    }
+
+    //ModelContainer.nodeToEdit=nd_;
+
+    ModelContainer.nodeAdded.emit(nd_);
+
   }
 
   static nodeNewSelect(n_:NodeCollection){
     let type_:string=n_.typeName;
     ServiceCl.log(["nodeAdd emitted",n_,type_]);
     let nd_:any;
-    if(type_ == "Quiz"){
+    if(n_ instanceof NodeCollection){
       nd_=new Quiz({key_:0,name_:"Add new Quiz",value_:"Add new Quiz",collection_:null,itemParameter_:null});
     }
-    if(type_ == "Question"){
-      nd_=new Question(0,"Add new question","Add new question");
+    if(n_ instanceof Quiz){
+      nd_=new Question({key_:0,name_:"Add new question",value_:"Add new question"});
     }
-    if(type_ == "Answer"){
-      nd_=new Answer(0,"Add new answer","Add new answer");
+    if(n_ instanceof Question){
+      nd_=new Answer({key_:0,name_:"Add new answer",value_:"Add new answer",collection_:null,itemParameter_:null});
     }
     //ModelContainer.nodeToEdit=nd_;
+
     ModelContainer.nodeAdded.emit(nd_);
   }
   static nodeSaveNew(n_:NodeCollection){
@@ -1010,16 +1280,18 @@ export class ModelContainer{
     }
     if(n_ instanceof Quiz)
     {
-        ServiceCl.log(["Quiz",n_]);
-        this.nodesPassed_.collection.add(n_);
-        this.AnswerToEdit=null;
-        this.QuestionToEdit=null;
-        this.QuizToEdit=null;
+        ServiceCl.log(["Quiz to collection",n_,this.nodesPassed_]);
+        ModelContainer.nodesPassed_.collection.add(n_);
+        ModelContainer.AnswerToEdit=null;
+        ModelContainer.QuestionToEdit=null;
+        ModelContainer.QuizToEdit=null;
     }
     ModelContainer.nodeSavedNew.emit(n_);
   }
 
   static nodeSelect(n_:NodeCollection){
+    ServiceCl.log(["nodeSelect:",n_]);
+
     ModelContainer.nodeToEdit=n_;
 
     ModelContainer.classDetectNState(n_);
@@ -1029,7 +1301,28 @@ export class ModelContainer{
     ServiceCl.log(["ModelContainer:",ModelContainer]);
   }
   static nodeDelete(n_:NodeCollection){
-      ServiceCl.log(["nodeDelete",n_,ModelContainer]);
+    if(n_ instanceof Answer ){
+      if(ModelContainer.QuestionToEdit != null){
+        ModelContainer.QuestionToEdit.collection.delete(n_);
+      }
+    }
+    if(n_ instanceof Question ){
+      if(ModelContainer.QuizToEdit!=null){
+        ModelContainer.QuizToEdit.collection.delete(n_);
+        ModelContainer.QuestionToEdit=null;
+        ModelContainer.AnswerToEdit=null;
+      }
+    }
+    if(n_ instanceof Quiz ){
+      if(ModelContainer.nodesPassed_ != null){
+        ModelContainer.nodesPassed_.collection.delete(n_);
+        ModelContainer.QuizToEdit=null;
+        ModelContainer.QuestionToEdit=null;
+        ModelContainer.AnswerToEdit=null;
+      }
+    }
+    ModelContainer.nodeDeleted.emit(n_);
+    ServiceCl.log(["nodeDelete",n_,ModelContainer]);
   }
 
   static nodeSave(n_:NodeCollection){
@@ -1066,14 +1359,17 @@ export class ModelContainer{
       ServiceCl.log(["checkedToggle: " ,a]);
       a.valueVal=!a.valueVal;
     }
+
   }
+
+  //Checks if cycle controlls need to be shown
 
   static CheckCycleDisplay(){
     if(ModelContainer.nodeToEdit instanceof Quiz)
     {
-      let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name=="QuizCircle");
+      let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s._name=="QuizCircle");
       if(b!=null){
-        let c=b.collection.array.find(s=>s.name=="Cicle");
+        let c=b.collection.array.find(s=>s._name=="Cicle");
         if(c!=null){
           if(c instanceof HtmlItem){
             console.log(["CheckCycleDisplay",c]);
@@ -1084,8 +1380,9 @@ export class ModelContainer{
 
     }
   }
+
   static toggleCycleShow(cb_:HtmlItem){
-    if(cb_.name=="Cicle"){
+    if(cb_._name=="Cicle"){
       this.toggleShowStatus(cb_,["DateGap","CalendarControls"]);
     }
   }
@@ -1098,7 +1395,7 @@ export class ModelContainer{
       if(ModelContainer.nodeToEdit instanceof Quiz && toChangeName_.length>0){
         console.log(["toggleShowStatus: ",checkbox_]);
         for(let i=0;i<toChangeName_.length;i++){
-          let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s.name==toChangeName_[i]);
+          let b=ModelContainer.nodeToEdit.itemParameter.collection.array.find(s=>s._name==toChangeName_[i]);
 
           if(b instanceof HtmlItem){
             a=b;
@@ -1126,6 +1423,72 @@ export class ModelContainer{
     if(i instanceof DropDownControlMulti){return "DropDownControlMulti"}
   }
 
+
+  static CheckAnswerAmount(isNew_:boolean){
+
+    let bntObj=ModelContainer.saveButtons_;
+    let btn_:Button;
+    if(bntObj instanceof Button){
+      btn_=bntObj;
+    }
+
+    let addNewToggle_:boolean=false;
+    btn_.disabled_=false;
+
+    console.log(["ModelContainer.nodeToEdit: ",ModelContainer.nodeToEdit]);
+    if(ModelContainer.nodeToEdit !=null){
+      if(ModelContainer.nodeToEdit instanceof Question){
+
+        let tx=ModelContainer.nodeToEdit.scan("QuestionTypes",ModelContainer.nodeToEdit.itemParameter)
+        console.log(["tx: ",tx]);
+
+        btn_.disabled_=false;
+
+        if(tx instanceof HtmlItem){
+          if(tx.HtmlSubmittedValue=="Text answer"){
+
+            console.log(["not disabled_: ",btn_,tx])
+
+            //disable add new button for question answers if text answer and answers >0
+
+            if(ModelContainer.nodeToEdit.collection.array.length>0)
+            {
+              addNewToggle_=true;
+            }
+
+            //Inform save Questionreceivers about wrong answer amount
+            //for TextAnswer type
+
+            if(ModelContainer.nodeToEdit.collection.array.length>1){
+              console.log(["disabled_: ",btn_,tx])
+              btn_.disabled_=true;
+
+              ModelContainer.questionTypeAlert.emit(Factory_.questionTypeAlert());
+            }
+
+          }
+        }
+
+
+        //if adding new item enable buttons
+
+        if(!isNew_){
+          console.log(["!isNew_: "])
+          if(ModelContainer.nodeToEdit.collection.array.length<=0){
+            console.log(["disabled_: ",btn_,tx])
+            btn_.disabled_=true;
+          }
+        }else{
+          console.log(["isNew_: "])
+            console.log(["not disabled_: ",btn_,tx])
+            btn_.disabled_=false;
+        }
+      }
+    }
+    ModelContainer.addNewToggle.emit(addNewToggle_);
+    ModelContainer.saveDisabled.emit(btn_.disabled_);
+  }
+
 }
 
 export class Factory_{
@@ -1142,7 +1505,7 @@ export class Factory_{
     var answer:ICollection_<Answer>=new Collection_<Answer>();
     answer.tolog=false;
     for(var i=0;i<n;i++){
-      answer.add(new Answer(i,"Answer " +i,"Answer " +i));
+      answer.add(new Answer({key_:i,name_:"Answer " +i,value_:"Answer " +i,collection_:null,itemParameter_:null}));
     }
     return answer;
   }
@@ -1150,7 +1513,7 @@ export class Factory_{
     var question:ICollection_<Question>=new Collection_<Question>();
     question.tolog=false;
     for(var i=0;i<n;i++){
-      question.add(new Question(i,"Question " +i,"Question " +i));
+      question.add(new Question({key_:i,name_:"Question " +i,value_:"Question " +i}));
     }
     return question;
   }
@@ -1173,7 +1536,7 @@ export class Factory_{
       static QuizCheckboxes(){
         let r = new Collection_<HtmlItem>();
 
-        let cssClass_="fxvr";
+        let cssClass_="fxvt";
 
         r= new Collection_<HtmlItem>([
           new CheckBoxControl(0,"Anonimous","Is question anonimous?",true,true,cssClass_)
@@ -1189,7 +1552,7 @@ export class Factory_{
         let r = new Collection_<HtmlItem>();
 
         r= new Collection_<HtmlItem>([
-          new DatePickerControl(0,"StartDate","Choose quiz start date",new Date(),true,"row")
+          new DatePickerControl(0,"StartDate","Choose quiz start date",new Date(),true,"fxhr")
         ])
 
         return r;
@@ -1258,10 +1621,10 @@ export class Factory_{
           r.add(new DropDownControlNg(0,"MonthInYear","MonthInYear","Month",true,"fxvt"
           ,Factory_.MonthsInYear()))
 
-          r.add(new DropDownControlMulti(0,"WeeksInYear","WeeksInYear","Weeks",true,"fxvt"
+          r.add(new DropDownControlMultiNg(0,"WeeksInYear","WeeksInYear","Weeks",true,"fxvt"
           ,Factory_.WeeksInYear()))
 
-          r.add(new DropDownControlMultiNg(0,"DaysInMonth","DaysInMonth","Days",true,"fxvt"
+          r.add(new DropDownControlMulti(0,"DaysInMonth","DaysInMonth","Days",true,"fxvt"
           ,Factory_.DaysInMonth()))
 
           r.add(new DropDownControlMulti(0,"DaysInWeek","DaysInWeek","Days",true,"fxvt"
@@ -1272,7 +1635,7 @@ export class Factory_{
 
       static QuizControlsGen(){
 
-        let checkboxes=new HtmlItem(0,"Checkboxes","Select Quiz parameters","","","Select Quiz parameters",true,"row"
+        let checkboxes=new HtmlItem(0,"Checkboxes","Select Quiz parameters","","","Select Quiz parameters",true,"fxhr"
           , Factory_.QuizCheckboxes()
           );
 
@@ -1306,6 +1669,161 @@ export class Factory_{
     //--------------------
 
 
+    //Question html controls
+
+    //--------------------
+
+
+    //Question answer types drop box values
+
+    static QuestionTypes(){
+      let q:Collection_<HtmlItem>=null;
+
+        q=new Collection_<HtmlItem>([
+          new HtmlItem(0,"TextControl","Text answer","","","Text answer",true,"fxhr",null)
+          ,new HtmlItem(1,"CheckBoxControl","Select any answers","","","Text answer",true,"fxhr",null)
+          ,new HtmlItem(2,"RadioButtonControl","Select one answer","","","Text answer",true,"fxhr",null)
+          ,new HtmlItem(3,"DropDownControlMulti","Rating answer","","","Text answer",true,"fxhr",null)
+        ]);
+
+      return q;
+    }
+
+
+
+    //Question text controll
+
+    static QuestionTextControl(){
+      let q:Collection_<HtmlItem>=null;
+      q=new Collection_<HtmlItem>([
+        new TextControl(0,"QuestionTextControl","Question text: ","enter text here",null,null,null,null,true,"fxvt")
+      ]);
+      return q;
+    }
+
+    //Dropdown control for answer types
+
+    static QuestionTypeControl(){
+      let q:Collection_<HtmlItem>=null;
+        q=new Collection_<HtmlItem>([
+          new DropDownControlNg(1,"QuestionTypes","Select answers type for question","Answer type",true,"fxvt"
+          ,Factory_.QuestionTypes())
+        ])
+      return q;
+    }
+
+    //Answer text controll
+
+    static AnswerTextControl(){
+      let q=new Collection_<HtmlItem>([
+        new TextControl(0,"AnswerTextControl","Answer text: ","enter text here",null,null,null,null,true,"fxvt")
+      ]);
+      return q;
+    }
+
+    //Generates controlls for Question
+
+    static QuestionControlsGen(){
+      let q:Collection_<HtmlItem>=null;
+
+      let txtCtrl=new HtmlItem(0,"QuestionTextContainer","","","","",true,"fxhr",
+        Factory_.QuestionTextControl());
+
+      let tpCtrl=new HtmlItem(0,"DropBoxControl","Select question answer type","","","Select question answer type",true,"fxhr",
+        Factory_.QuestionTypeControl());
+
+      q=new Collection_<HtmlItem>([
+        txtCtrl,tpCtrl
+      ]);
+
+      return q;
+    }
+
+    static AnswerControlsGen(){
+      let q:Collection_<HtmlItem>=null;
+
+      let txtCtrl=new HtmlItem(0,"AnswerTextContainer","","","","",true,"fxhr",
+        Factory_.AnswerTextControl());
+
+      q=new Collection_<HtmlItem>([
+        txtCtrl
+      ]);
+
+      return q;
+    }
+
+    //--------------------
+
+    //Buttons
+
+    static saveButton(){
+      let q=new Button(null,"Save_","Save",null,"btn btn-darkgreen",false,"Save currently edited object");
+      //q.disabled_=true;
+      return q
+    }
+
+    static saveNewButton(){
+      let q=new Button(null,"SaveNew_","Save",null,"btn btn-darkgreen",false,"Save currently created object");
+      return q;
+    }
+
+    static addButton(){
+      let q=new Button(null,"Add_","Add new",null,"btn btn-purple-gradient",false,null);
+      return q;
+    }
+
+    static editButton(){
+      let q=new Button(null,"Edit_","Edit",null,"btn btn-purple",false,"Edit ");
+      return q;
+    }
+
+    static deleteButton(){
+      let q=new Button(null,"Delete_","Delete",null,"btn btn-unique",false,"Delete ");
+      return q;
+    }
+
+    static copyButton(){
+      let q=new Button(null,"Cpoy_","Copy",null,"btn btn-unique",false,"Copy ");
+      return q;
+    }
+
+    static itemButtons(){
+      return new Button(0,"ItemCollection","ItemCollection",
+        new Collection_<Button>([
+          new Button(null,"Edit_","Edit",null,"btn btn-purple",false,"Edit ")
+          ,new Button(null,"Copy_","Copy",null,"btn btn-warning",false,"Copy ")
+          ,new Button(null,"Delete_","Delete",null,"btn btn-danger",false,"Delete ")
+        ])
+        ,"fvhr",false,"")
+    }
+
+    //--------------------
+
+    //Alerts
+
+    //--------------------
+
+    static questionTypeAlert(){
+      return "Wrong qnswers count for this type. Only 1 allowed.";
+    }
+
+
+    static CloneItemByClass(n_:NodeCollection){
+      let r_:any=null;
+      if(n_ instanceof QuizItem){
+        r_=new QuizItem({key_:n_._key,name_:n_._name,value_:n_._value,collection_:new Collection_<QuizItem>()})
+      }
+      if(n_ instanceof Quiz){
+        r_=new Quiz({key_:n_._key,name_:n_._name,value_:n_._value,collection_:new Collection_<Question>(),itemParameter_:new QuizControls()})
+      }
+      if(n_ instanceof Question){
+        r_=new Question({key_:n_._key,name_:n_._name,value_:n_._value,collection_:new Collection_<Answer>(),itemParameter_:new QuestionControls()})
+      }
+      if(n_ instanceof Answer){
+        r_=new Answer({key_:n_._key,name_:n_._name,value_:n_._value,collection_:null,itemParameter_:new AnswerControls()})
+      }
+      return r_;
+    }
 }
 
 export class Test{
@@ -1647,63 +2165,141 @@ export class Test{
 
     }
 
-    public static GO(){
+    public static CheckNullArr(){
 
+      //collection null
+
+      let ncCn=new NodeCollection(null,null,null,null);
+
+      //array null
+
+      let ncAn=new NodeCollection(null,null,null,new Collection_<NodeCollection>());
+
+      //no nulls
+
+      let ncNN=new NodeCollection(null,null,null,new Collection_<NodeCollection>([new NodeCollection()]));
+
+      Test.checkNull("ncCn",ncCn);
+      Test.checkNull("ncAn",ncAn);
+      Test.checkNull("ncNN",ncNN);
+
+      Test.checkNull2("ncCn",ncCn);
+      Test.checkNull2("ncAn",ncAn);
+      Test.checkNull2("ncNN",ncNN);
+
+    }
+    public static checkNull(name:string,ns:NodeCollection){
+
+      if(ns.collection!=null){
+        console.log([name,"ns.collection!=null",ns])
+        if(ns.collection.array!=null){
+          console.log([name,"ns.collection.array!=null",ns])
+          if(ns.collection.array.length>0){
+            console.log([name,"ns.collection.array.length>0",ns])
+          }
+        }
+      }
+
+    }
+    public static checkNull2(name:string,ns:NodeCollection){
+
+      if(
+        (ns.collection!=null)
+        && (ns.collection.array!=null)
+        && (ns.collection.array.length>0)
+      ){
+        console.log([name,"ns.collection.array.length>0",ns])
+      }
+
+    }
+
+
+    //shallow copy test
+
+    public static CheckShallowCopy(){
+      let cl0=new NodeCollection(0,"Cl00","Cl00"
+      ,new Collection_<NodeCollection>([
+        new NodeCollection(1,"Cl01","Cl01",
+            new Collection_<NodeCollection>([
+              new NodeCollection(0,"Cl10","Cl10",null)
+              ,new NodeCollection(0,"Cl11","Cl11",null)
+            ])
+        )
+        ,new NodeCollection(1,"Cl02","Cl02",null)
+      ])
+
+      );
+
+      let cl1=cl0._deepСopy(cl0);
+
+      let cl_0_10=cl0.scan("Cl10",cl0);
+      let cl_1_10=cl1.scan("Cl10",cl1);
+
+      cl_1_10._name="cl_1_10";
+
+      console.log(["CheckshallowCopy, cl0 to cl1. item",cl0,cl1]);
+      console.log(["Items, cl_0_10cl_1_10",cl_0_10,cl_1_10]);
+
+      let qrr0=new NodeCollection(0,"Node_00","Node_00",new Collection_<NodeCollection>([
+        new NodeCollection(0,"Node_01",null,null)
+        ,new NodeCollection(1,"Node_02",null,null)
+      ]));
+
+      let qrr1=qrr0._deepСopy(qrr0.collection.array);
+      // qrr0.collection.array[0]._name="namechanged";
+      qrr0.collection.array[0]._name="namechanged";
+      console.log(["Qrr1:",qrr1])
+    }
+
+    public static CheckDeepCopy(){
+
+      let qz_0=new QuizItem({key_:0,name_:"qz00",value_:"qz00",collection_:new Collection_<QuizItem>(
+        [
+          new QuizItem({key_:1,name_:"qz01",value_:"qz01",collection_:null})
+          ,new QuizItem({key_:2,name_:"qz02",value_:"qz02",collection_:null})
+        ]
+      )
+      });
+
+      let qz_1=new QuizItem({key_:0,name_:"qz10",value_:"qz10",collection_:null});
+      qz_1=qz_0._Clone();
+      qz_0.collection.array[0]._name="changedName"
+      console.log(["CheckDeepCopy: ",qz_0,qz_1]);
+    }
+
+    public static CheckInstanceOfDeriveredClasses(){
+
+        let qz = new Quiz();
+        let qt = new Question();
+        let aw = new Answer();
+
+        console.log(["qz instanceof Quiz: ",qz instanceof Quiz])
+        console.log(["qz instanceof QuizItem: ",qz instanceof QuizItem])
+        console.log(["qt instanceof Question: ",qt instanceof Question])
+    }
+
+    public static GO(){
 
       //Test.GenNewColl(false);
       //Test.Gen(false,1,3);
-
       //Test.GenClasses(true,1,3);
 
-      /*
-      //item facory test
-      let fct=new Factory();
-      ServiceCl.log(["Factory Item: ",fct.createItem()]);
-      ServiceCl.log(["Factory ItemG: ",fct.createItemG()]);
 
-      //item anf itemg factory test
-      let fctCol=new FactoryCollection();
-      let collG:Collection<ItemG>=fctCol.createCollection();
-      collG.add(fct.createItemG());
-      ServiceCl.log(["Factory CollG: ",collG.array]);
+      //test of shallow copy
 
-      //itemG collection factory test
-      let fctItmColl=new FactoryItemColection();
-      ServiceCl.log(["Item: ",new Item()]);
-      ServiceCl.log(["ItemG: ",new ItemG()]);
-      ServiceCl.log(["ItemCollection: ",new ItemCollection()]);
-
-      ServiceCl.log(new Button(1,"a","b",null,"button1",false));
-
-      //checking collection type get
-      var cl_:Collection_<NodeCollection>=new Collection_<Quiz>();
-      cl_.add(new Quiz(0,"Quiz " +0,"Quiz " +0));
-      ServiceCl.log(["Test GO :", "Quizes type ",cl_.array[0].constructor.name])
+      //Test.CheckshallowCopy();
 
 
-      var cl2:NodeCollection=new NodeCollection();
-      cl2.collection.add(new Quiz(0,"Quiz " +0,"Quiz " +0));
-      ServiceCl.log(["Test GO :", "Quizes type ",cl2.collection.array[0].constructor.name,cl2.collection.getType(),cl2.getType_()])
-      ServiceCl.log(["Test GO2 :",cl2.getType_(),cl2.collection.type_,cl2.typeName]);
+      //DeepCopy check
 
-      let cl3:NodeCollection=this.GenClasses(false,2,3);
+      this.CheckDeepCopy();
 
 
-      let text_:TextControl=new TextControl(0,"Tb","display val cl",null,null,2,4);
-      let check_:CheckBoxControl=new CheckBoxControl(0,"Tb",true,null);
-      let itemPassed_:NodeCollection;
-      itemPassed_=text_;
-      */
+      //Inheritance check
 
-      let qzSt:QuizStatistic= new QuizStatistic();
-      let qzCt:QuizControls=new QuizControls();
+      //this.CheckInstanceOfDeriveredClasses()
 
-      let cc=Factory_.CalendarDropDowns();
-      for(let i of cc.array){
-        ServiceCl.log(["Calendars: ",ModelContainer.HtmlItemType(i)]);
-      }
-
-      ServiceCl.log(["GO ",qzSt,qzCt]);
+      ServiceCl.log(["GO " ]);
     }
 
 }

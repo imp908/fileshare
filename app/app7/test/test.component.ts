@@ -19,6 +19,7 @@ export class TestComponent implements OnInit {
   nodesToPass_:NodeCollection;
   itemsToPass_:HtmlItem;
   nodeToPass_:NodeCollection;
+  buttonsToPass_:Button;
 
   constructor(private service:Service_){
     //service.test=false;
@@ -38,8 +39,13 @@ export class TestComponent implements OnInit {
   }
 
   ngOnInit(){
-    this.genTest();
+    // this.itemsToPass_=new HtmlItem(0,"months","1","option","",null,true,null,null);
+    // console.log(["Items: ",this.itemsToPass_]);
 
+    ModelContainer.Init();
+
+    this.genTest();
+    this.checkButton();
     ServiceCl.log(["Inited: " + this.constructor.name,this.nodesToPass_]);
   }
   click_($event){
@@ -53,4 +59,24 @@ export class TestComponent implements OnInit {
     this.nodesToPass_.collection=Factory_.CalendarDropDowns();
     ServiceCl.log(["checkDropBox: ",this.itemsToPass_]);
   }
+  checkButton(){
+    this.buttonsToPass_=new Button;
+
+    // this.buttonsToPass_.collection.add(Factory_.addButton());
+    // this.buttonsToPass_.collection.add(Factory_.saveButton());
+    // this.buttonsToPass_.collection.add(Factory_.saveNewButton());
+    // this.buttonsToPass_.collection.add(Factory_.editButton());
+    // this.buttonsToPass_.collection.add(Factory_.deleteButton());
+
+    this.buttonsToPass_.collection.add(ModelContainer.saveButtons_.collection.array[0]);
+    this.buttonsToPass_.collection.add(ModelContainer.saveNewButtons_.collection.array[0]);
+
+  }
+  disable(){
+    let qz=Factory_.questionsCL(1);
+    let cl=this.nodesToPass_.scan("Question 0",this.nodesToPass_);
+    // console.log(["disable_: ",cl])
+    ModelContainer.nodeToEdit=cl;
+    ModelContainer.CheckAnswerAmount(false);
+   }
 }

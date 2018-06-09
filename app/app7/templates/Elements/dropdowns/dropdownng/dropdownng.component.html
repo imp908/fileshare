@@ -5,7 +5,7 @@
     <button class="btn btn-outline-primary" id="dropdownMenu3" ngbDropdownToggle>{{htmlItem_.HtmlSubmittedValue}}</button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenu3" ngbDropdownMenu>
       <ng-container *ngFor="let i of htmlItem_.collection.array">
-        <button class="dropdown-item" (click)="changed(i)">{{i.value}}</button>
+        <button class="dropdown-item" (click)="changed(i)">{{i._value}}</button>
         <!-- <button class="dropdown-item">Another Action</button>
         <button class="dropdown-item">Something else is here</button> -->
       </ng-container>
@@ -20,11 +20,11 @@
     <button class="btn btn-outline-primary" id="dropdownMenu3" ngbDropdownToggle>{{htmlItem_.HtmlSubmittedValue}}</button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenu3" ngbDropdownMenu>
       <ng-container *ngFor="let i of htmlItem_.collection.array">
-        <button class="dropdown-item" (click)="changed(i)">{{i.value}}</button>
+        <button class="dropdown-item" (click)="changed(i)">{{i._value}}</button>
         <!-- <button class="dropdown-item">Another Action</button>
         <button class="dropdown-item">Something else is here</button> -->
       </ng-container>
     </div>
   </div>
-
+  <div *ngIf="this.alert_!=null"><label>{{this.alert_}}</label></div>
 </ng-container>

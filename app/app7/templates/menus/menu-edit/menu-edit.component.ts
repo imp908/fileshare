@@ -1,6 +1,8 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
-import {Test,NodeCollection,ModelContainer,Quiz,Question,editButtons,editNewButtons,Button} from 'app/app7/Models/inits.component'
+import {Test,NodeCollection,ModelContainer,Quiz,Question,Button} from 'app/app7/Models/inits.component'
+
+import {Factory_} from 'app/app7/Models/inits.component'
 
 @Component({
   selector: 'app-menu-edit',
@@ -12,49 +14,68 @@ export class MenuEditComponent implements OnInit {
   test: boolean;
 
   @Input() nodeToEdit_:NodeCollection;
-  editButtons_:Button;
+  saveButtons_:Button;
 
   constructor(private service:Service_){
     //service.test=false;
     //ServiceCl.toLog=true;
     this.test=service.test;
     this.cName=this.constructor.name;
-    this.editButtons_ = new editButtons();
+    // this.saveButtons_ = ModelContainer.saveButtons_;
 
-    ServiceCl.log(['Constructor : ' + this.constructor.name, this.editButtons_,this.nodeToEdit_])
+    ServiceCl.log(['Constructor : ' + this.constructor.name, this.saveButtons_, this.nodeToEdit_])
   }
   nodeTypeGet(){
     return this.nodeToEdit_.getType_();
   }
   ngOnInit(){
+    ServiceCl.log(['Inited  : ' + this.constructor.name, this.saveButtons_, this.nodeToEdit_])
 
-    //edit new item
-    ModelContainer.nodeAdded.subscribe(s=>{
-      ServiceCl.log(['nodeAdded Received : ' + this.constructor.name,s])
-      this.editButtons_=new editNewButtons();
+      //edit new item
+
+      ModelContainer.nodeAdded.subscribe(s=>{
+        ServiceCl.log(['nodeAdded Received start: ' + this.constructor.name
+      ,s])
+
+      // this.saveButtons_=ModelContainer.saveButtons_;
+      this.saveButtons_=ModelContainer.saveNewButtons_;
       this.nodeToEdit_=s;
-      ModelContainer.nodeToEdit=  this.nodeToEdit_;
-      ServiceCl.log(['nodeToEdit_ :',this.nodeToEdit_])
+      ModelContainer.nodeToEdit=this.nodeToEdit_;
+      ServiceCl.log(['nodeAdded Received finished: ' + this.constructor.name
+      ,this.nodeToEdit_,this.saveButtons_,ModelContainer.saveNewButtons_])
+
     })
 
     //edit existing item
     ModelContainer.nodeEmitted.subscribe(s=>{
-      ServiceCl.log(['nodeEmitted Received : ' + this.constructor.name, this.editButtons_,this.nodeToEdit_])
-      ServiceCl.log([this.constructor.name+" NodeEmitted: ",s])
-      this.editButtons_ = new editButtons();
+      this.saveButtons_ = ModelContainer.saveButtons_;
+      // this.saveButtons_=Factory_.saveButton();
       this.nodeToEdit_=s;
-      ModelContainer.nodeToEdit=  this.nodeToEdit_;
-      ServiceCl.log(['nodeToEdit_ :',this.nodeToEdit_])
+      ModelContainer.nodeToEdit=this.nodeToEdit_;
+      ServiceCl.log(['nodeEmitted Received : ' + this.constructor.name, this.saveButtons_,this.nodeToEdit_,s])
     });
 
     ModelContainer.nodeSavedNew.subscribe(s=>{
       ServiceCl.log([this.constructor.name + " nodeSave: ",s])
+        this.saveButtons_ = ModelContainer.saveNewButtons_;
       this.nodeToEdit_=null;
     });
     ModelContainer.nodeSaved.subscribe(s=>{
       ServiceCl.log([this.constructor.name + " nodeSave: ",s])
       this.nodeToEdit_=null;
     });
+
+    ModelContainer.nodeDeleted.subscribe(s=>{
+      ServiceCl.log(['nodeDeleted Received : ' + this.constructor.name,s])
+      ModelContainer.nodeToEdit=null;
+    });
+
+    ModelContainer.saveDisabled.subscribe(s=>{
+      this.saveButtons_.disabled_=s;
+      ServiceCl.log(["received saveDisabled " + this.constructor.name,s]);
+    });
+
+
   }
 
   nodeSave(n_:NodeCollection){

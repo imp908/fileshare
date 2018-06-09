@@ -3,7 +3,7 @@ import { Component, OnInit,Input } from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
 import {Test,ModelContainer,HtmlItem} from 'app/app7/Models/inits.component'
 
-import * as d from 'assets/dropdownMulti.js'
+
 
 @Component({
   selector: 'app-dropdownmulti',
@@ -25,7 +25,7 @@ export class DropdownmultiComponent implements OnInit {
     ServiceCl.log(["Constructor: " + this.constructor.name,this.htmlItem_]);
   }
 
-  ngOnInit() {
+  ngOnInit(){
     // d.ctmCheck();
     this._mouseover=false;
     this._mouseout=true;
@@ -34,6 +34,7 @@ export class DropdownmultiComponent implements OnInit {
   clicked_(event_,obj_){
     ServiceCl.log(["clicked_ in " +  this.constructor.name,event_,obj_])
     this.toggle_(obj_);
+
   }
   isSelected(i_){
     if(i_.HtmlSubmittedValue==null){

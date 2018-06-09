@@ -30,28 +30,6 @@ export class DatepickerPopupComponent implements OnInit {
     });
     this.dateToModel();
 
-    /*
-    ModelContainer.nodeEmitted.subscribe(s=>{
-        ServiceCl.log(['nodeEmitted Rreceived: ' + this.constructor.name, s])
-      if(s instanceof Quiz){
-
-        let a=s.itemParameter.collection.array.find(s=>s.name=="StartDate");
-        ServiceCl.log(['ItemParameter StartDate: ' + this.constructor.name, a])
-        if(a instanceof ItemParameter){
-          this.htmlItem_=a;
-        }
-
-          if((this.htmlItem_!=null)){
-            if((this.htmlItem_.valueVal!=null)){
-              this.dateToModel();
-            }
-          }
-
-        }
-      });
-
-    */
-
     ServiceCl.log(['Inited : ' + this.constructor.name,this.htmlItem_,this.model])
   }
   navigate_($event){
@@ -70,20 +48,21 @@ export class DatepickerPopupComponent implements OnInit {
     ServiceCl.log(["selectToday ",this.model,this.htmlItem_.HtmlSubmittedValue])
   }
   modelToItemDate(){
+      ServiceCl.log(["modelToItemDate ",this.model,this.htmlItem_])
       if(this.model!=null){
         this.htmlItem_.HtmlSubmittedValue.getFullYear=this.model.year;
         this.htmlItem_.HtmlSubmittedValue.getMonth=this.model.month-1;
         this.htmlItem_.HtmlSubmittedValue.getDate=this.model.day;
         //=new Date(this.model.year,this.model.month-1,this.model.day,0,0,0);
       }
-      ServiceCl.log(["modelToItemDate ",this.model,this.htmlItem_])
+
   }
   dateToModel(){
       if((this.htmlItem_!=null) && (this.htmlItem_.HtmlSubmittedValue!=null)){
         this.model={
-          year: this.htmlItem_.HtmlSubmittedValue.getFullYear()
-          , month: this.htmlItem_.HtmlSubmittedValue.getMonth()+1
-          , day:this.htmlItem_.HtmlSubmittedValue.getDate()};
+          year: this.htmlItem_.HtmlSubmittedValue.getFullYear
+          , month: this.htmlItem_.HtmlSubmittedValue.getMonth+1
+          , day:this.htmlItem_.HtmlSubmittedValue.getDate};
       }
       ServiceCl.log(["dateToModel ",this.model,this.htmlItem_])
   }

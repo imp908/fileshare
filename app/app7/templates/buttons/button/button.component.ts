@@ -1,5 +1,5 @@
 import { Component, OnInit,Input } from '@angular/core';
-import {NodeCollection,ModelContainer} from 'app/app7/Models/inits.component'
+import {NodeCollection,ModelContainer,Button} from 'app/app7/Models/inits.component'
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
 
 
@@ -11,7 +11,7 @@ import {ServiceCl,Service_} from 'app/app7/Services/services.component'
 
 export class ButtonComponent implements OnInit {
 
-  @Input() _buttons:NodeCollection;
+  @Input() _buttons:Button;
   @Input() _obj:any;
 
   @Input() _e:any;
@@ -26,8 +26,7 @@ export class ButtonComponent implements OnInit {
   }
 
   ngOnInit() {
-    //ServiceCl.log(["Inited " + this.constructor.name,this._buttons,this._obj])
-
+    ServiceCl.log(["Inited " + this.constructor.name,this._buttons,this._obj])
   }
 
   clicked_(event: any){

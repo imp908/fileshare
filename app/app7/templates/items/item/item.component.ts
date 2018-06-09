@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component';
-import {NodeCollection,ModelContainer,Quiz,itemButtons,Button} from 'app/app7/Models/inits.component';
+import {NodeCollection,ModelContainer,Quiz,itemButtons,Button,Factory_} from 'app/app7/Models/inits.component';
 
 @Component({
   selector: 'app-item',
@@ -19,7 +19,8 @@ export class ItemComponent implements OnInit {
     //service.test=false;
     this.test=service.test;
     this.cName=this.constructor.name;
-    this.buttons_=new itemButtons();
+    // this.buttons_=new itemButtons();
+    this.buttons_=Factory_.itemButtons();
     service.log('Constructor : ' + this.constructor.name)
     //service.test=true;
   }

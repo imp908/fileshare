@@ -27,7 +27,7 @@ export class NodesGroups implements OnInit {
 
   ngOnInit(){
     this.bindItems();
-    
+
     ServiceCl.log(["Inited: " + this.constructor.name,this.nodePassed_,this.htmlItemsGroup_]);
   }
   bindItems(){
@@ -37,14 +37,5 @@ export class NodesGroups implements OnInit {
       ServiceCl.log(["bindItems: " + this.constructor.name , this.htmlItemsGroup_]);
     }
   }
-  clicked_(n:HtmlItem){
-    ServiceCl.log(["clicked_: " , this.htmlItemsGroup_,n]);
-    ModelContainer.checkedToggle(this.nodePassed_,n);
-    if(this.htmlItemsGroup_ instanceof QuizParameter){
-      this.htmlItemsGroup_.conditionsCheck();
-    }
-    /* if(n.name=="Replayabe"){
-      this.items=ModelContainer.changeShowStatus("GapPicker");
-    }*/
-  }
+
 }

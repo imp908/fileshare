@@ -12,8 +12,8 @@
 </ng-container>
 
 <ng-container *ngIf="test==false">
-  <div class="row">
-    DropDownControlMultiNg
+  <div [class]="this.htmlItem_.cssClass">
+    <!-- DropDownControlMultiNg -->
     <ss-multiselect-dropdown
       [options]="myOptions"
       [(ngModel)]="optionsModel"

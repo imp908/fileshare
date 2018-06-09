@@ -1,6 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import {ServiceCl,Service_} from 'app/app7/Services/services.component'
-import {NodeCollection,menuButtons,Button,ModelContainer} from 'app/app7/Models/inits.component'
+import {NodeCollection,menuButtons,Button,ModelContainer,Question,Factory_} from 'app/app7/Models/inits.component'
 
 @Component({
   selector: 'app-list',
@@ -20,7 +20,7 @@ export class ListComponent implements OnInit {
     //ServiceCl.toLog=false;
     this.test=service.test;
     this.cName=this.constructor.name;
-    this.buttons_= new menuButtons();
+    this.buttons_= Factory_.addButton();
     //this.nodes_=new Quiz();
     ServiceCl.log('Constructor : ' + this.constructor.name)
     //service.test=true;
@@ -28,7 +28,14 @@ export class ListComponent implements OnInit {
 
   ngOnInit(){
     ServiceCl.log('Inited : ' + this.constructor.name)
-  
+
+    ModelContainer.addNewToggle.subscribe(s=>{
+      if(this.nodes_ instanceof Question){
+        this.buttons_.disabled_=s;
+      }
+      ServiceCl.log(["received saveDisabled " + this.constructor.name,s,this.buttons_,this.nodes_]);
+    });
+
   }
 
 }
