@@ -523,7 +523,6 @@ export class NodeCollection extends Node{
 
     return r;
   }
-
   _sliceArr(nc:NodeCollection){
 
     if(
@@ -542,11 +541,22 @@ export class NodeCollection extends Node{
         if(this.collection.array==null){this.collection.array=new Array<NodeCollection>()}
       }
 
-      bindArr.array=this.collection.array.slice();
+      for(let i=0;i<this.collection.array.length;i++){
+        bindArr.array[i]=this.collection.array[i];
+      }
       let r=new NodeCollection(nc._key,nc._name,nc._value,bindArr);
       nc=r;
     }
     return nc;
+  }
+  _deepСopy(o:any){
+     var output, v, key;
+     output = Array.isArray(o) ? [] : {};
+       for (key in o) {
+           v = o[key];
+           output[key] = (typeof v === "object") ? this._deepСopy(v) : v;
+       }
+     return output;
   }
 
 }
@@ -844,12 +854,12 @@ export class QuizItem extends NodeCollection{
   constructor(
     option:{key_?:number,name_?:string, value_?:string,collection_?:ICollection_<INodeCollection>
     ,itemParameter_?:NodeCollection,quizStatistic_?:NodeCollection}
-    ={key_:0,name_:"Quiz",value_:null,collection_:null,itemParameter_:new NodeCollection()}
+    ={key_:0,name_:"QuizItem",value_:null,collection_:null,itemParameter_:new NodeCollection()}
     ){
       super(option.key_,option.name_,option.value_,option.collection_);
 
 
-      this.typeName="Question";
+      this.typeName="QuizItem";
       if(option.collection_==null){
         this.collection=new Collection_<NodeCollection>();
       }
@@ -858,6 +868,53 @@ export class QuizItem extends NodeCollection{
         this.itemParameter=option.itemParameter_;
       }else{this.itemParameter=new NodeCollection();}
 
+  }
+
+  _checkArray(n_:Collection_<NodeCollection>){
+    if(n_.array!=null){
+      if(n_.array.length>0){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  _checkCollection(n_:QuizItem){
+    if((n_!=null)
+    && (n_.collection!=null)
+    ){
+      return true;
+    }else{return false;}
+  }
+  _Clone(){
+    let r=new QuizItem();
+      this._deepClone(this,r);
+    return r;
+  }
+  _deepClone(nc_:QuizItem,r_:QuizItem){
+
+      if(this._checkCollection(nc_)){
+
+      r_=new QuizItem({key_:this._key+1,name_:this._name,value_:this._value,collection_:null});
+
+        if(this._checkArray(nc_.collection)){
+          for(let n_ of nc_.collection.array){
+            if(n_ instanceof QuizItem){
+              this._deepClone(n_,r_);
+            }
+          }
+        }
+
+      }else{
+
+        let new_=Factory_.CloneItemByClass(nc_);
+
+        if(this._checkCollection(r_)!=null){
+          r_.collection.array.push(new_);
+        }
+      }
+
+      return r_;
     }
 
 }
@@ -1180,17 +1237,12 @@ export class ModelContainer{
     ServiceCl.log(["nodeAdd emitted",n_,type_]);
     let nd_:any;
 
-    if(n_ instanceof Quiz){
-      nd_=n_.shallowCopy();
-    }
-    if(n_ instanceof Question){
-        nd_=n_.shallowCopy();
-    }
-    if(n_ instanceof Answer){
-      nd_=n_.shallowCopy();
+    if(n_ instanceof QuizItem){
+      nd_=n_._Clone();
     }
 
     //ModelContainer.nodeToEdit=nd_;
+
     ModelContainer.nodeAdded.emit(nd_);
 
   }
@@ -1755,6 +1807,23 @@ export class Factory_{
       return "Wrong qnswers count for this type. Only 1 allowed.";
     }
 
+
+    static CloneItemByClass(n_:NodeCollection){
+      let r_:any=null;
+      if(n_ instanceof QuizItem){
+        r_=new QuizItem({key_:n_._key,name_:n_._name,value_:n_._value,collection_:new Collection_<QuizItem>()})
+      }
+      if(n_ instanceof Quiz){
+        r_=new Quiz({key_:n_._key,name_:n_._name,value_:n_._value,collection_:new Collection_<Question>(),itemParameter_:new QuizControls()})
+      }
+      if(n_ instanceof Question){
+        r_=new Question({key_:n_._key,name_:n_._name,value_:n_._value,collection_:new Collection_<Answer>(),itemParameter_:new QuestionControls()})
+      }
+      if(n_ instanceof Answer){
+        r_=new Answer({key_:n_._key,name_:n_._name,value_:n_._value,collection_:null,itemParameter_:new AnswerControls()})
+      }
+      return r_;
+    }
 }
 
 export class Test{
@@ -2147,7 +2216,7 @@ export class Test{
 
     //shallow copy test
 
-    public static CheckshallowCopy(){
+    public static CheckShallowCopy(){
       let cl0=new NodeCollection(0,"Cl00","Cl00"
       ,new Collection_<NodeCollection>([
         new NodeCollection(1,"Cl01","Cl01",
@@ -2161,8 +2230,52 @@ export class Test{
 
       );
 
-      let cl1=cl0.shallowCopy();
-      console.log(["CheckshallowCopy, cl0 to cl1",cl0,cl1]);
+      let cl1=cl0._deepСopy(cl0);
+
+      let cl_0_10=cl0.scan("Cl10",cl0);
+      let cl_1_10=cl1.scan("Cl10",cl1);
+
+      cl_1_10._name="cl_1_10";
+
+      console.log(["CheckshallowCopy, cl0 to cl1. item",cl0,cl1]);
+      console.log(["Items, cl_0_10cl_1_10",cl_0_10,cl_1_10]);
+
+      let qrr0=new NodeCollection(0,"Node_00","Node_00",new Collection_<NodeCollection>([
+        new NodeCollection(0,"Node_01",null,null)
+        ,new NodeCollection(1,"Node_02",null,null)
+      ]));
+
+      let qrr1=qrr0._deepСopy(qrr0.collection.array);
+      // qrr0.collection.array[0]._name="namechanged";
+      qrr0.collection.array[0]._name="namechanged";
+      console.log(["Qrr1:",qrr1])
+    }
+
+    public static CheckDeepCopy(){
+
+      let qz_0=new QuizItem({key_:0,name_:"qz00",value_:"qz00",collection_:new Collection_<QuizItem>(
+        [
+          new QuizItem({key_:1,name_:"qz01",value_:"qz01",collection_:null})
+          ,new QuizItem({key_:2,name_:"qz02",value_:"qz02",collection_:null})
+        ]
+      )
+      });
+
+      let qz_1=new QuizItem({key_:0,name_:"qz10",value_:"qz10",collection_:null});
+      qz_1=qz_0._Clone();
+      qz_0.collection.array[0]._name="changedName"
+      console.log(["CheckDeepCopy: ",qz_0,qz_1]);
+    }
+
+    public static CheckInstanceOfDeriveredClasses(){
+
+        let qz = new Quiz();
+        let qt = new Question();
+        let aw = new Answer();
+
+        console.log(["qz instanceof Quiz: ",qz instanceof Quiz])
+        console.log(["qz instanceof QuizItem: ",qz instanceof QuizItem])
+        console.log(["qt instanceof Question: ",qt instanceof Question])
     }
 
     public static GO(){
@@ -2175,6 +2288,16 @@ export class Test{
       //test of shallow copy
 
       //Test.CheckshallowCopy();
+
+
+      //DeepCopy check
+
+      this.CheckDeepCopy();
+
+
+      //Inheritance check
+
+      //this.CheckInstanceOfDeriveredClasses()
 
       ServiceCl.log(["GO " ]);
     }

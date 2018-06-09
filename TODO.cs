@@ -437,15 +437,12 @@ TnT[
 
 			actual[
 
-
--> Add question type check for answer amount to type accordance
--> Add inform about question invalid
--> Add save, add new button disabled
--> copy question
-
+-> Repair array shalloow copy
+-> New event sheme
+			
 -> Add new Answers according to Quiz,Answer types[
 	0 or Correct only for text, 1-* for radio,check,picture, rate. rate max points:number
-	-> textbox answer (1-5 for dropbox)	
+	-> textbox answer (1-5 for dropbox)
 	-> Correct answer for victorine according to type
 	-> Answers according to type
 ]
@@ -467,7 +464,6 @@ Generate Html according to type
 more then 3 events listen ignore issue to repair  ]
 -> Http POST/GET front
 -> Http back
-
 
 	<- 17.04.2018 done -> New model menu,list-menu,edit-menu added 
 	<- done -> New model create templates rebuild 
@@ -525,7 +521,12 @@ more then 3 events listen ignore issue to repair  ]
 		-> pictures? type
 		]
 	<- done 30.05.2018-> repair edit menu buttons disable
-	
+	<- 31.05.2018 done -> Add save, add new button disabled
+	<- 31.05.2018 done -> Add question type check for answer amount to type accordance
+	<- 31.05.2018 done -> Add inform about question amount invalid to type
+	<- done 02.06.2018 -> Delete item
+	<- done 02.06.2018 -> Add Question button disable	
+	<- done 02.06.2018 -> Copy question
 	
 ]
 	
@@ -988,6 +989,77 @@ passpage{
 
 ////////////////////////////////////////////////////////////				
 			]
+			EventArhitecture[
+			
+Stage_1:
+	Items:
+		NdTE,QzTE,QsTE,AwTE - null;
+	Buttons:
+		AddNew-[Obj_.typeOf:NodeCollection]->NodeToEdit=Qz;QzTE=Qz;
+		Edit-[Obj_.InstanceOf:Qz]->NodeToEdit=Qz;QzTE=Qz;
+			->[Stage_2]
+		Copy-[==Edit create copyTo new object]
+			->[Stage_2]
+		Save-[Obj_.InstanceOf:Qz]->NodeToEdit:Obj_;QzTE,NdTE=null;
+		Delete-[Obj_.InstanceOf:Qz]->NodeToEdit:Obj_;QzTE,QsTE,AwTE=null;NdTE=null;
+	
+	OnIn:		
+		checkQuestionType();
+	
+Stage_2:
+	Items:
+		NdTE:Quiz;QzTe:Quiz;
+		QsE,AwTE-null;
+	Buttons:
+		AddNew,Edit,Copy,Delete,Save-[==Stage_1 Qz replace Qt]->;
+		DropBox QuestionType-[HtmlItem]
+			->checkQuestionType()			
+			
+		checkQuestionType(){
+			->if TextAnswer 
+				{Answers >1} disable Save,SaveNew,AddNew:Aw;
+				{Answers =1} enable Save,SaveNew
+				{Answers =0} enable AddNew;
+			->if !TextAnswer {} enable Save,SaveNew,AddNew:Aw;
+		}
+	
+	OnIn:
+		checkQuestionType();
+	OnOut:
+		checkQuestionType();
+
+Stage_3:(Qz==Aw)
+	AddNew,Delete-[]->
+		checkQuestionType();
+	
+			]
+			BusinessFunctionalRequirements[
+				http://confluence.nspk.ru/pages/viewpage.action?pageId=11380023
+				
+				questions[
+				
+-> Как решать конфликты списков пользователей?
+-> Когда актуализировать  списки?
+-> Как осуществляется публикация опроса? (по таймеру с даты доступности, кликом инициатора, кликом админа)
+-> Как осуществляется информирование пользователей, в какой момент?
+-> Кто и что имеет право создавать (Админ только роли или еще Quiz, Инициаторы только Quiz или редактировать чужие, создание и привязка FocusGroups на ком?)
+
+				]
+			]
+			MileStones[
+			
+				1 я очередь – предполагаю последнюю неделю июня
+					Показываем функционал и стиль страницы формирования Quiz, страницу прохождения.
+					Результат – утверждаем интерфейс и стили. По желанию дополняем параметры Quiz.
+				2я – очередь – если надо меняем интерфейс/стиль,  добавляем викторину – правильные ответы, 
+					Статистика прохождения (и для викторины обычных Опросов тоже) (%, количество, правильный ответ, сразу, после показывать).
+				3я – очередь если интерфейс им подходит, на том же чем создаются квизы,  конструктор ролей –для  
+					админов, конструктор фокус групп. 
+					Если интерфейс не подходит – опять интерфейс , показ далее к этому пункту
+					+ полный бэк для этого дела (создание ролей групп, связи, таймер)
+
+			]
+			
 		]
 		
 		DocsVision[

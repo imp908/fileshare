@@ -288,7 +288,12 @@ https://docs.microsoft.com/en-us/dotnet/core/rid-catalog#linux-rids
 https://github.com/aspnet/KestrelHttpServer
 //iis host
 https://metanit.com/sharp/aspnet5/20.1.php
-
+//build on win deploy to Unix
+https://pioneercode.com/post/developing-a-net-core-site-in-windows-and-deploying-it-to-a-budget-linux-host
+//Linux prerequisites
+https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites?tabs=netcore2x
+//self contained 
+https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-apps.md
 	]
 	
 	//angular routing and injection
@@ -309,7 +314,10 @@ https://metanit.com/sharp/aspnet5/20.1.php
 		https://medium.com/meduza-how-it-works/ddos-ab63424e595e
 		https://hackernoon.com/		
 	]						   
-		
+	
+	//IBM code patterns
+	https://developer.ibm.com/code/?S_PKG=ov23102&cm_mmc=Search_Google-_-Developer+(PLN1063)_Innovation+(PRG1257)-_-ICE_RU-_-+TypeScript_Broad_ov23102&cm_mmca1=000029KH&cm_mmca2=10004805&mkwid=b74771c8-252c-4fe0-8ad4-c2587270b73b|703|3450
+	
 	//DAG directed acyclic graph
 	https://en.wikipedia.org/wiki/Directed_acyclic_graph
 								 
@@ -325,6 +333,10 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	//The Art of Unit Testing: with Examples in .NET
 	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
 	//JS
+	//10 rich text editors
+	https://www.sitepoint.com/10-best-html-wysiwyg-plugins/
+	//10 modules
+	http://www.discoversdk.com/blog/10-angular-2-modules-and-tools-you-need-to-learn-in-2017
 	//Angular 2 to WebComponents
 	https://angular.io/guide/elements  
 	//dynamic external lib load
@@ -457,6 +469,8 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	
 	
 	//BLOGS
+	//Juan
+	http://www.whoisjuan.me/
 	//Jon Skeet's
 	https://codeblog.jonskeet.uk/
 	//CoddingHorror
@@ -872,7 +886,7 @@ https://metanit.com/sharp/aspnet5/20.1.php
 	elma
 	https://www.naumen.ru
 	
-  //code gen
+	//code gen
 	https://swagger.io/
 	//tizen
 	https://www.tizen.org/
@@ -882,6 +896,9 @@ https://metanit.com/sharp/aspnet5/20.1.php
 		
 	//Shodan
 	https://www.shodan.io/
+	
+	//Hosting 
+	https://www.netlify.com/
 	
 	}
 	
@@ -2309,8 +2326,18 @@ StringBuilder.
 						4) Add site in iis -> set folder -> configure bindings (no name possible)
 					}
 					
+					public void AngularISSOprions(){
+												
+						IIS -> AllowAnonimousAuthentiaction:enabled =>
+							JS -> Withcredentials :true => Gets GUID
+								-> Withcredentials :false => WelcomeGuest 
+						IIS -> AllowAnonimousAuthentiaction:disabled =>
+							JS -> Withcredentials :false => Err:Get unauthorized
+								-> Withcredentials :false => Err:OPTIONS unauthorized
+								
+					}
 				}
-			
+				
 			}
 			
 			public class VisualStudio()
@@ -8101,6 +8128,11 @@ http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentL
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
 
+public DeleteAllReferencesToObjects(){
+	select from Authorship where in in (
+select @rid from News where name ='nw1'
+)
+}
 public ByDateSelect(){
 	
 select from Quiz where 1=1
@@ -9279,7 +9311,7 @@ return b;
 			public void FU()
 			{
 
-	
+
 //<< I (try it out)
 //inverted V E In Out
 (v)-[e]->(v)
