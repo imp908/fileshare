@@ -437,15 +437,26 @@ TnT[
 
 			actual[
 
--> Repair array shalloow copy
+-> move nsql manager to core
+-> analyze quiz model to array without collection change costs 
+	-> change if days
+-> Back model arrange for itemparameters and quizcontrolls
+-> manager CRUD QuizeList with ref to person
+-> add id to Quiz, edited state
+-> add,delete,update edited quizes
+-> angular get by id
+-> manager send by id
+-> angular draw quiz by quizControlls
+
+-> ubuntu host check
+
+-> test question itemparameters copy
 -> New event sheme
-			
--> Add new Answers according to Quiz,Answer types[
-	0 or Correct only for text, 1-* for radio,check,picture, rate. rate max points:number
-	-> textbox answer (1-5 for dropbox)
+
+-> answer types to add 
+	-> picture
 	-> Correct answer for victorine according to type
-	-> Answers according to type
-]
+
 
 -> Quiz Pass page[exmpls
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
@@ -460,10 +471,10 @@ Generate Html according to type
 	-> final page results show , repeat for repeatable
 ]
 
+-> moove all toggling from factory to classes
 -> Ignore event issue to repair [
 more then 3 events listen ignore issue to repair  ]
--> Http POST/GET front
--> Http back
+
 
 	<- 17.04.2018 done -> New model menu,list-menu,edit-menu added 
 	<- done -> New model create templates rebuild 
@@ -517,8 +528,12 @@ more then 3 events listen ignore issue to repair  ]
 	<- done 29.05.2018-> custom multi dropdown CSS, events
 	<- done 30.05.2018 -> Add new Question parameters [
 	<- done 30.05.2018 -> question text 
-		<- done 30.05.2018 -> question type with dropdown {textbox,checkbox,radio,rate with dropdown}
-		-> pictures? type
+		<- done 30.05.2018 -> question type with dropdown {textbox,checkbox,radio,rate with dropdown}		
+		]			
+	<- done 30.05.2018 -> Add new Answers according to Quiz,Answer types[
+		0 or Correct only for text, 1-* for radio,check,rate. rate max points:number
+		-> textbox answer (1-5 for dropbox)	
+		-> Answers according to type
 		]
 	<- done 30.05.2018-> repair edit menu buttons disable
 	<- 31.05.2018 done -> Add save, add new button disabled
@@ -527,6 +542,16 @@ more then 3 events listen ignore issue to repair  ]
 	<- done 02.06.2018 -> Delete item
 	<- done 02.06.2018 -> Add Question button disable	
 	<- done 02.06.2018 -> Copy question
+	<- done 11.06.2018 12:31-> array deep clone recursive. No class segregation
+	<- done 12.06.18 16:42 -> Classes nested array deep copy[
+		<- done 12.06.18 14:00 -> Repair array deep copy, add nested itemparameter recursive copy
+		<- done 12.06.18 15:00 -> rearrange HtmlItem, QuizItem classes to deep copy ItemParameters
+	]
+	<- done 14.06.18 23:27-> moove nodeToEdit =null from menu-edit to CheckAnswerAmount
+	[ delete question enables save_,add_new_ buttons even if >1 question present and Text type selected.
+	cause ModelContainer.nodeDeleted nodeToEdit =null]
+	<- done 22.06.2018 20:41 -> Http POST/GET 
+	<- done 22.06.2018 20:41 -> angular POST CORS
 	
 ]
 	
@@ -748,6 +773,7 @@ ConstructorForm.json
 				
 				MDB //Boostrap material design
 				https://mdbootstrap.com/components/buttons/
+								
 				
 			]
 			Description[
@@ -1048,7 +1074,7 @@ Stage_3:(Qz==Aw)
 			]
 			MileStones[
 			
-				1 я очередь – предполагаю последнюю неделю июня
+				1я очередь – предполагаю последнюю неделю июня
 					Показываем функционал и стиль страницы формирования Quiz, страницу прохождения.
 					Результат – утверждаем интерфейс и стили. По желанию дополняем параметры Quiz.
 				2я – очередь – если надо меняем интерфейс/стиль,  добавляем викторину – правильные ответы, 
@@ -1096,7 +1122,6 @@ Stage_3:(Qz==Aw)
 
 		]			
 		
-
 		ApiTester	
 			-> JSON response objects count and expect			
 			
@@ -1241,6 +1266,10 @@ new MediaTypeHeaderValue("application/octet-stream");
 				Readymag 
 				Reveal.js
 				Redis
+				
+				//tinyMCE
+				//text editor
+				https://www.tinymce.com/
 				
 				http://slides.com/gsklee/functional-programming-in-5-minutes#/
 			]

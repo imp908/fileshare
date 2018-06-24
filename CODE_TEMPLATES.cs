@@ -293,7 +293,7 @@ https://pioneercode.com/post/developing-a-net-core-site-in-windows-and-deploying
 //Linux prerequisites
 https://docs.microsoft.com/en-us/dotnet/core/linux-prerequisites?tabs=netcore2x
 //self contained 
-https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-apps.md
+https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-apps.md																		 
 	]
 	
 	//angular routing and injection
@@ -305,6 +305,7 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	
 	//blogs
 	[
+	
 		https://medium.com/reverdev/why-we-moved-from-angular-2-to-vue-js-and-why-we-didnt-choose-react-ef807d9f4163
 		https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3
 		https://blog.angularindepth.com/the-new-angular-httpclient-api-9e5c85fe3361
@@ -312,11 +313,13 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 		https://codecraft.tv/courses/angular/http/http-with-observables/
 		https://medium.com/meduza-how-it-works/%D1%85%D0%BE%D1%87%D1%83-%D1%81%D0%B2%D0%BE%D0%B9-vpn-%D0%B7%D0%B0-5-%D0%BC%D0%B8%D0%BD%D1%83%D1%82-%D1%87%D1%82%D0%BE-%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-5581e536650a
 		https://medium.com/meduza-how-it-works/ddos-ab63424e595e
-		https://hackernoon.com/		
+		https://hackernoon.com/
+		https://www.ryanatkinson.io/
+		
 	]						   
 	
 	//IBM code patterns
-	https://developer.ibm.com/code/?S_PKG=ov23102&cm_mmc=Search_Google-_-Developer+(PLN1063)_Innovation+(PRG1257)-_-ICE_RU-_-+TypeScript_Broad_ov23102&cm_mmca1=000029KH&cm_mmca2=10004805&mkwid=b74771c8-252c-4fe0-8ad4-c2587270b73b|703|3450
+	https://developer.ibm.com/code/patterns/
 	
 	//DAG directed acyclic graph
 	https://en.wikipedia.org/wiki/Directed_acyclic_graph
@@ -332,15 +335,66 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	//Books
 	//The Art of Unit Testing: with Examples in .NET
 	https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
+	
+	//Web
+	//different communication techniques on the web
+	//AJAX,Long poll,WebSockets,WebRTC,Server-Sent Events
+	https://stackoverflow.com/questions/10028770/in-what-situations-would-ajax-long-short-polling-be-preferred-over-html5-websock
+	
+	//IoT
+	//NodeCoppter
+	http://www.nodecopter.com/
+	
+	//Web
+	//mooving data technicues
+	https://blog.safe.com/2014/08/websockets-ajax-webhooks-comparison/
+	
+	//HTML 5
+	//dashbord web sockets
+	https://knowledge.safe.com/articles/1112/live-spatial-dashboard.html
+	//HTML5 plupload
+	http://www.plupload.com/
+	//web api
+	https://www.sitepoint.com/10-html5-apis-worth-looking/
+	//websockets vs ajax
+	https://lostechies.com/chrismissal/2013/08/06/browser-wars-websockets-vs-ajax/
+	
 	//JS
+	//Mozilla learn
+	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide
+	//NodeJs docs 
+	https://nodejs.org/api/index.html
+	https://nodejs.org/en/docs/guides/
+	//object initializer
+	https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
+	//Mozilla spiderMonkey
+	https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
+	//AirBnB styleguide
+	http://airbnb.io/javascript/#functions--mutate-params
 	//10 rich text editors
 	https://www.sitepoint.com/10-best-html-wysiwyg-plugins/
 	//10 modules
 	http://www.discoversdk.com/blog/10-angular-2-modules-and-tools-you-need-to-learn-in-2017
+	//Angular 2 css
+	https://houssein.me/javascript/angular/2016/05/29/event-and-style-binding-in-angular2.html
+	https://www.radzen.com/blog/angular-event-bubbling/
+	https://alligator.io/angular/style-binding-ngstyle-angular/
+	http://blog.sodhanalibrary.com/2016/10/change-image-source-on-mouseover-using.html#.Www-80iFOHs
+	https://blog.angular-university.io/angular-ngclass-ngstyle/
+	//Angular 2 events binding
+	https://lishman.io/angular-2-event-binding	
 	//Angular 2 to WebComponents
 	https://angular.io/guide/elements  
 	//dynamic external lib load
 	https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
+	//custom dome
+	https://www.bennadel.com/blog/3025-creating-custom-dom-and-host-event-bindings-in-angular-2-beta-6.htm
+	
+	//rxjs
+	https://netbasal.com/understanding-subjects-in-rxjs-55102a190f3
+	https://netbasal.com/event-emitters-in-angular-13e84ee8d28c
+	https://netbasal.com/understanding-subjects-in-rxjs-55102a190f3
+	
 	//Cloud I9 editor
 	//Ace editor
 	//Json to html
@@ -452,13 +506,14 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	https://modeling-languages.com/javascript-drawing-libraries-diagrams/
 	
 	//with images
-	http://bl.ocks.org/eesur/be2abfb3155a38be4de4
+	http://bl.ocks.org/eesur/be2abfb3155a38be4de4	
+	
 	
 	http://leaverou.github.io/awesomplete/
 	https://primitive.lol/
 	//ECMAScript 6
 	http://exploringjs.com/es6/index.html#toc_ch_modules
-												 
+										 
 	//web components
 	https://hackernoon.com/the-wonderful-world-of-web-components-e4c1675c6901
 	//HAML jade sass less
@@ -470,7 +525,7 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	
 	//BLOGS
 	//Juan
-	http://www.whoisjuan.me/
+	http://www.whoisjuan.me/			 
 	//Jon Skeet's
 	https://codeblog.jonskeet.uk/
 	//CoddingHorror
@@ -643,8 +698,6 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	//sql commands types
 	https://msdn.microsoft.com/en-us/library/yy6y35y8(v=vs.110).aspx
 
-	//HTML5 plupload
-	http://www.plupload.com/
 
 	//How to add Dynamic Behavior to Data-Bound Controls
 	https://msdn.microsoft.com/en-us/library/cc488562.aspx
@@ -886,7 +939,7 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	elma
 	https://www.naumen.ru
 	
-	//code gen
+  //code gen
 	https://swagger.io/
 	//tizen
 	https://www.tizen.org/
@@ -896,9 +949,6 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 		
 	//Shodan
 	https://www.shodan.io/
-	
-	//Hosting 
-	https://www.netlify.com/
 	
 	}
 	
@@ -952,8 +1002,8 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 				
 			},
 			
-			public GIT hub
-			{https://git-scm.com/book/en/v2
+			public GIT hub{
+				https://git-scm.com/book/en/v2
 				
 				public ProxyAdd
 				{
@@ -998,6 +1048,9 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 				public NEW_BRANCH[
 					create new branch in web
 					git checkout -b \\url to branch
+					
+				]
+					
 				public BranchMerge()
 				{// Master->br1. stage 1 master+ stage 2 master+ br1--
 
@@ -1092,7 +1145,7 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 					https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
 					git symbolic-ref HEAD refs/heads/another-branch
 					http://matthew-brett.github.io/pydagogue/gh_delete_master.html
-		  }
+				}
 		  
 				PullProgects
 				{
@@ -1182,6 +1235,7 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 					git-ls-tree 
 					git-ls-remote
 				]
+			
 			}
 
 		}
@@ -1236,9 +1290,7 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 		}
 
 	#endregion
-	
-	#endregion 
-	
+
 	#region C#
 
 	//Forums
@@ -2337,7 +2389,7 @@ StringBuilder.
 								
 					}
 				}
-				
+			
 			}
 			
 			public class VisualStudio()
@@ -3947,8 +3999,13 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 
 	#endregion	
 	
-	#region JS5
-
+	#region JS5	
+	
+	public souces[
+		//Air bnb styleguide
+		http://airbnb.io/javascript/#functions--mutate-params
+	]
+	
 	//js templates
 	public void JS_templates()
 	{
@@ -4058,545 +4115,699 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 	return table;
 	}
 		}
-		
- public void Templates(){
-			
-			public void select2Template(){
 				
-var data_arr={};
-
-function query_cleverence(processF,bindF){
-
-	var restServerURL = "http://10.31.14.76/cleverence_ui/hs/IntraService/location/full"; 
-	
-	$.ajax({
-	  type:"GET",
-	  url: restServerURL ,
-	  accepts: "application/json",
-	  dataType:"json",	 	 	  
-	  success: function(data, xhr, textStatus){
-					 
-		console.log("query_cleverenceSt")
-		data_arr = processF(data);
-		//console.log(data_arr);
-		bindF('#input1');
-		return data_arr;
-		
-	  },
-	  error:function(jqXHR, textStatus, errorThrown){
-					   alert(errorThrown);
-	  }
-	});
-}
-
-function processData(data){
-	console.log('processData');
-	var res = Object.keys(data).map(function(k) { return { id: data[k].GUID, text: data[k]["Адрес"] } });
-	//console.log(res);
-	return res;
-}
-function bindSelect2ToItem(item){
-	var dt =[];	
-	console.log("bindSelect2ToItem");
-	$(item).select2({data: data_arr});	
-}	
-
-function registerSelect2(item,placeholder){
-	$(item).select2({
-		placeholder: placeholder,
-		minimumInputLength: 3
-	});
-}
-function registerSelect2Data(item)
-{
-	console.log("dt2 change");
-	$(item).select2({data:data_arr});
-}
-function registerSelect2_FIO(item,placeholder){
-	$(item).select2({
-		tags: false,
-		minimumInputLength: 3,
-		placeholder: placeholder,
-		language: "ru",
-		ajax: {
-			url: 'http://msk1-vm-inapp01.nspk.ru:81/api/structure/searchperson/',
-			headers: {
-					"authorization": "Basic cm9vdDptUiVtekpVR3ExRQ=="
-				},
-			dataType: "json",
-			type: "GET",
-			data: function (params) {
-
-				var queryParameters = {
-					p2: params.term
-				}
-				return queryParameters;
-			},
-			processResults: function (data) {
-					console.log(data);
-				return {
+		public void Templates(){
 				
-					results: $.map(data, function (item) {
-						return {
-							text: item.label ,
-							id: item.login
+			Patterns[
+				
+				ModulePattern[
+					//IIFE
+					
+					(function(){
+							//private 
+						return{
+							//public 
 						}
-					})
-				};
-			}
-			
-		}
-	});
-}
+						})();
+				]
+			]
+				
+			public void Examples()
+			{
+				
+				public void select2Template(){
+					
+	var data_arr={};
 
+	function query_cleverence(processF,bindF){
 
-
-function FireAndRegister(){
-	query_cleverence(processData,bindSelect2ToItem);	
-	registerSelect2("#input1",'Поиск GUID по адресу');
-	registerSelect2Data("#input1");
-	registerSelect2_FIO("#input2",'Поиск ФИО из 1С');
-}
-
-$(document).ready(function(){
-	
-	//console.log("Doc ready started")
-	FireAndRegister()	
-	
-	// $("#input1").on("select2:focus", function(e) { console.log ("focus");})
-	// .on("select2:selecting", function(e) { console.log ("selecting");})
-	// .on("select2:highlight", function(e) { console.log ("highlight");})
-	// .on("select2:change", function(e) { console.log ("change");})
-	// .on("change", function(e) { console.log ("change2");})
-	// .on("select2-blur", function(e) { console.log ("blur");})
-	// .on("select2:blur", function(e) { console.log ("blur2");})
-	
-	//$("#input3").mouseenter(function(e){  registerSelect2Data("#input1"); console.log("mouseenter");})
-	//$('.select2-search__field').on('keyup',function(e){  console.log("hover"); })
-	//console.log("Doc ready finished")
-	
-});
-
-
-			}
-			
-			public void CallBackSample1(){
-											
-				function f1(a,b){
-					console.log("F1 " + a);
-					b(a);
-				};
-				function f2(c)
-				{
-					console.log("F2 " + c);
-				};
-
-				function f3(a,b){
-					console.log("F3 " + a);	
-				};
-				function f4()
-				{
-					console.log("F4 cb");
-				};
-
-function callbk(a,b){b(a);}
-function cl(a){console.log(a);}
-function fnameToPrint(){}
-//>>>callbk(fnameToPrint,cl);
-
-			}
-			
-			public void CallBackSample2(){
-	function cl(){ return "cl"; }
-
-	function ret(a){ return a; }
-
-	function cla(b){ return ret(b); }
-
-	function call_cl(){
-		return cl();
-	}
-	function call_ret(){
-		return ret("ret");
-	}
-	function call_cla(){
-		return cla("cla");	
-	}
-
-	function call_cl_a(){
-		setTimeout ( function(){return cl();},1000);
-	}
-	function call_ret_a(){ 
-		setTimeout ( function(){return ret("ret");},1000);
-	}
-	function call_cla_a(){
-		setTimeout ( function(){return cla("cla");	},1000);
-	}
-
-	function sync_call() {
-		clog(call_cl());
-		clog(call_ret());
-		clog(call_cla());
+		var restServerURL = "http://10.31.14.76/cleverence_ui/hs/IntraService/location/full"; 
 		
-	};
-	function async_call() {
-		
+		$.ajax({
+		  type:"GET",
+		  url: restServerURL ,
+		  accepts: "application/json",
+		  dataType:"json",	 	 	  
+		  success: function(data, xhr, textStatus){
+						 
+			console.log("query_cleverenceSt")
+			data_arr = processF(data);
+			//console.log(data_arr);
+			bindF('#input1');
+			return data_arr;
 			
-		clog(call_cl_a());
-		clog(call_ret_a());
-		clog(call_cla_a());
-	};
+		  },
+		  error:function(jqXHR, textStatus, errorThrown){
+						   alert(errorThrown);
+		  }
+		});
+	}
 
-	function clog(a){ console.log(a); }
+	function processData(data){
+		console.log('processData');
+		var res = Object.keys(data).map(function(k) { return { id: data[k].GUID, text: data[k]["Адрес"] } });
+		//console.log(res);
+		return res;
+	}
+	function bindSelect2ToItem(item){
+		var dt =[];	
+		console.log("bindSelect2ToItem");
+		$(item).select2({data: data_arr});	
+	}	
+
+	function registerSelect2(item,placeholder){
+		$(item).select2({
+			placeholder: placeholder,
+			minimumInputLength: 3
+		});
+	}
+	function registerSelect2Data(item)
+	{
+		console.log("dt2 change");
+		$(item).select2({data:data_arr});
+	}
+	function registerSelect2_FIO(item,placeholder){
+		$(item).select2({
+			tags: false,
+			minimumInputLength: 3,
+			placeholder: placeholder,
+			language: "ru",
+			ajax: {
+				url: 'http://msk1-vm-inapp01.nspk.ru:81/api/structure/searchperson/',
+				headers: {
+						"authorization": "Basic cm9vdDptUiVtekpVR3ExRQ=="
+					},
+				dataType: "json",
+				type: "GET",
+				data: function (params) {
+
+					var queryParameters = {
+						p2: params.term
+					}
+					return queryParameters;
+				},
+				processResults: function (data) {
+						console.log(data);
+					return {
+					
+						results: $.map(data, function (item) {
+							return {
+								text: item.label ,
+								id: item.login
+							}
+						})
+					};
+				}
+				
+			}
+		});
+	}
+
+
+
+	function FireAndRegister(){
+		query_cleverence(processData,bindSelect2ToItem);	
+		registerSelect2("#input1",'Поиск GUID по адресу');
+		registerSelect2Data("#input1");
+		registerSelect2_FIO("#input2",'Поиск ФИО из 1С');
+	}
 
 	$(document).ready(function(){
-		console.log("Doc ready started")
-		async_call();
-		sync_call();
-		console.log("Doc ready finished")
+		
+		//console.log("Doc ready started")
+		FireAndRegister()	
+		
+		// $("#input1").on("select2:focus", function(e) { console.log ("focus");})
+		// .on("select2:selecting", function(e) { console.log ("selecting");})
+		// .on("select2:highlight", function(e) { console.log ("highlight");})
+		// .on("select2:change", function(e) { console.log ("change");})
+		// .on("change", function(e) { console.log ("change2");})
+		// .on("select2-blur", function(e) { console.log ("blur");})
+		// .on("select2:blur", function(e) { console.log ("blur2");})
+		
+		//$("#input3").mouseenter(function(e){  registerSelect2Data("#input1"); console.log("mouseenter");})
+		//$('.select2-search__field').on('keyup',function(e){  console.log("hover"); })
+		//console.log("Doc ready finished")
 		
 	});
 
-			}
-			
-			public void Clousures(){
+
+				}
 				
-var x = "abovec";
-
-function placeElement(e,v){
-	v(e);
-}
-function log(e){
-	console.log(e);
-}
-function mult(i_){
-	for(i=0;i<i_;i++)
-	{
-		console.log(i);
-	}
-}
-
-//self containing clousure
-var z = (function(){return function(){console.log(z)}})();
-//minimal closure
-var a = (function(){
-	return function () {
-		return console.log("a");
-	}
-})();
-//parametrized closure 
-//can be used for function text exposure
-var b = (function(d){
-	return function (d) {
-	return console.log(d);
-	}
-})();
-//clousure exmpl
-var add = (function(){
-    var counter = 0;
-    return function(){ console.log(counter); return counter += 1;}
-})(); 
-
-$(document).ready(function(){
-	console.log("Document ready st");
-	add();
-	a();
-	b(a);
-	b(b);
-	z();
-	console.log("Document ready fn");
-})
-
-			}
-						
-			public void Callbacks(){
-				
-				
-function log(a){console.log(a)}
-
-//callback
-function a(n){return function(b){console.log("A->" + n + " B->" + b)}}
-//function callback
-function L1(l1){return function(L2){ l1(L2); }}
-
-//function reference callback
-function cond1(a,b)
-{
-	if(a){ b() ;}
-}
-function ex(a,b)
-{
-	for(var i=0;i<a;i++)
-	{
-		b(i);
-	}
-}
-
-var a_ = a("A1");
-
-
-$(document).ready(function(){
-	console.log("Document ready st");	
-	a_();
-	a_("B1");
-	a("C1")("D1");
-	
-	L1(log)("L2");
-	
-	//condition callback
-	cond1(5>2,function(){log(5)});
-	
-	//repeat callback
-	ex(3,function(n){log(n);});
-	
-	//repeat from condition callback
-	ex(5,function(n){
-		cond1(n%2,function(){
-			log(n);
-		})
-	});
-	
-	console.log("Document ready fn");
-	
-})
-
-
-				
-			}
-			
-		public void Examples()
-		{
-			
-			public void Select2OnInter03(){
-				
-								
-				var data_arr={};
-
-				function query_cleverence(processF,bindF,item){
-
-					var restServerURL = "http://"; 
-					
-					$.ajax({
-					  type:"GET",
-					  url: restServerURL ,
-					  accepts: "application/json",
-					  dataType:"json",	 	 	  
-					  success: function(data, xhr, textStatus){
-									 
-						console.log("query_cleverenceSt")
-						data_arr = processF(data);
-						//console.log(data_arr);
-						bindF(item);
-						return data_arr;
-						
-					  },
-					  error:function(jqXHR, textStatus, errorThrown){
-									   alert(errorThrown);
-					  }
-					});
-				}
-
-				function processData(data){
-					console.log('processData');
-					var res = Object.keys(data).map(function(k) { return { id: data[k].GUID, text: data[k]["Адрес"] } });
-					//console.log(res);
-					return res;
-				}
-				function bindSelect2ToItem(item){
-					var dt =[];	
-					console.log("bindSelect2ToItem");
-					$(item).select2({data: data_arr});	
-				}	
-
-				function registerSelect2(item,placeholder){
-					$(item).select2({
-						placeholder: placeholder,
-						minimumInputLength: 3
-					});
-				}
-				function registerSelect2Data(item)
-				{
-					console.log("dt2 change");
-					$(item).select2({data:data_arr});
-				}
-				function registerSelect2_FIO(item,placeholder){
-					$(item).select2({
-						tags: false,
-						minimumInputLength: 3,
-						placeholder: placeholder,
-						language: "ru",
-						ajax: {
-							url: 'http://',
-							dataType: "json",
-							type: "GET",
-							data: function (params) {
-
-								var queryParameters = {
-									p2: params.term
-								}
-								return queryParameters;
-							},
-							processResults: function (data) {
-									console.log(data);
-								return {
-								
-									results: $.map(data, function (item) {
-										return {
-											text: item.label ,
-											id: item.login
-										}
-									})
-								};
-							}
-							
-						}
-					});
-				}
-
-				function ChangeNodeToSelect(d)
-				{
-					var f1 = $(d);
-					var f2 = f1.clone();
-					
-					console.log(f1);
-					console.log(f2);
-					
-					var attrs = { };
-
-				$.each($(d)[0].attributes, function(idx, attr) {
-					attrs[attr.nodeName] = attr.nodeValue;
-				});
-
-
-
-				$(d).replaceWith(function () {
-					return $("<select />", attrs).append($(this).contents());
-				});
-
-					
-				}
-
-
-				function ItemCSS(item)
-				{
-					$(item).css({'width':'500px'});
-					
-				}
-
-
-				function registerSelectByID(item1,item2)
-				{
-					console.log("registerSelectByID" + "st");
-					query_cleverence(processData,bindSelect2ToItem,item1);	
-					ChangeNodeToSelect(item1);
-					ChangeNodeToSelect(item2);
-					registerSelect2(item1,'Поиск GUID по адресу');
-					registerSelect2(item2,'Поиск по ФИО');
-					registerSelect2Data(item1);
-					registerSelect2_FIO(item2,'Поиск ФИО из 1С');
-					ItemCSS(item1);
-					ItemCSS(item2);
-					console.log("registerSelectByID" + "fn");
-					
-				}
-
-				function registerSelectByIDOne(item1)
-				{
-					console.log("registerSelectByIDOne" + "st");
-					query_cleverence(processData,bindSelect2ToItem,item1);	
-					ChangeNodeToSelect(item1);
-					registerSelect2(item1,'Поиск GUID по адресу');
-					registerSelect2Data(item1);
-					ItemCSS(item1);
-					console.log("registerSelectByIDOne" + "fn");
-					
-				}
-
-				function FireAndRegister(){
-					
-						
-					var EqId1="#field4114";
-					var FIOId1="#field4112";	
-					
-					var EqId2="#field4108";
-					var FIOId2="#field4110";	
-					
-					var EqId3="#field4107";
-					var FIOId3="#field4104";
-					var FIOId32="#field4109";
-					
-					try{
-						registerSelectByID(EqId1,FIOId1);
-					}catch(e)
+				public void CallBackSample1(){
+												
+					function f1(a,b){
+						console.log("F1 " + a);
+						b(a);
+					};
+					function f2(c)
 					{
-						console.log('1lvlfl')
-					}
-						
-					try{
-						registerSelectByID(EqId2,FIOId2);
-					}catch(e)
+						console.log("F2 " + c);
+					};
+
+					function f3(a,b){
+						console.log("F3 " + a);	
+					};
+					function f4()
 					{
-						console.log('2lvlfl')
-					}
-					
-					try{
-						registerSelectByID(EqId3,FIOId3);
-					}catch(e)
-					{
-						console.log('3lvlfl')
-					}
-					
-					
-					try{
-						//registerSelectByIDOne(FIOId32);
-					}catch(e)
-					{
-						console.log('32lvlfl')
-					}
-					
+						console.log("F4 cb");
+					};
+
+	function callbk(a,b){b(a);}
+	function cl(a){console.log(a);}
+	function fnameToPrint(){}
+	//>>>callbk(fnameToPrint,cl);
+
 				}
-
-
-				$(document).ready(function(){
-					
-					//console.log("Doc ready started")
-					FireAndRegister()	
-					
-					// $("#input1").on("select2:focus", function(e) { console.log ("focus");})
-					// .on("select2:selecting", function(e) { console.log ("selecting");})
-					// .on("select2:highlight", function(e) { console.log ("highlight");})
-					// .on("select2:change", function(e) { console.log ("change");})
-					// .on("change", function(e) { console.log ("change2");})
-					// .on("select2-blur", function(e) { console.log ("blur");})
-					// .on("select2:blur", function(e) { console.log ("blur2");})
-					
-					//$("#input3").mouseenter(function(e){  registerSelect2Data("#input1"); console.log("mouseenter");})
-					//$('.select2-search__field').on('keyup',function(e){  console.log("hover"); })
-					//console.log("Doc ready finished")
-					
-				});
-
-
 				
-			}
-			
+				public void CallBackSample2(){
+		function cl(){ return "cl"; }
+
+		function ret(a){ return a; }
+
+		function cla(b){ return ret(b); }
+
+		function call_cl(){
+			return cl();
 		}
-	
+		function call_ret(){
+			return ret("ret");
+		}
+		function call_cla(){
+			return cla("cla");	
+		}
+
+		function call_cl_a(){
+			setTimeout ( function(){return cl();},1000);
+		}
+		function call_ret_a(){ 
+			setTimeout ( function(){return ret("ret");},1000);
+		}
+		function call_cla_a(){
+			setTimeout ( function(){return cla("cla");	},1000);
+		}
+
+		function sync_call() {
+			clog(call_cl());
+			clog(call_ret());
+			clog(call_cla());
+			
+		};
+		function async_call() {
+			
+				
+			clog(call_cl_a());
+			clog(call_ret_a());
+			clog(call_cla_a());
+		};
+
+		function clog(a){ console.log(a); }
+
+		$(document).ready(function(){
+			console.log("Doc ready started")
+			async_call();
+			sync_call();
+			console.log("Doc ready finished")
+			
+		});
+
+				}
+				
+				public void Clousures(){
+					
+	var x = "abovec";
+
+	function placeElement(e,v){
+		v(e);
 	}
-	//JS vendors
-	public void JSvendors()
-	{
-	<!--Links from vendors JQuery, jQyery UI, Bootstrap, D3 + styles-->
-	<!--
-	<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-	<link rel="nofollow" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/smoothness/jquery-ui.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
-	<script type="application/javascript" charset="utf-8" src="http://d3js.org/d3.v3.min.js"></script>
-	<link rel="nofollow" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	-->
+	function log(e){
+		console.log(e);
+	}
+	function mult(i_){
+		for(i=0;i<i_;i++)
+		{
+			console.log(i);
+		}
 	}
 
+	//self containing clousure
+	var z = (function(){return function(){console.log(z)}})();
+	//minimal closure
+	var a = (function(){
+		return function () {
+			return console.log("a");
+		}
+	})();
+	//parametrized closure 
+	//can be used for function text exposure
+	var b = (function(d){
+		return function (d) {
+		return console.log(d);
+		}
+	})();
+	//clousure exmpl
+	var add = (function(){
+		var counter = 0;
+		return function(){ console.log(counter); return counter += 1;}
+	})(); 
+
+	$(document).ready(function(){
+		console.log("Document ready st");
+		add();
+		a();
+		b(a);
+		b(b);
+		z();
+		console.log("Document ready fn");
+	})
+
+				}
+							
+				public void Callbacks(){
+					
+					
+	function log(a){console.log(a)}
+
+	//callback
+	function a(n){return function(b){console.log("A->" + n + " B->" + b)}}
+	//function callback
+	function L1(l1){return function(L2){ l1(L2); }}
+
+	//function reference callback
+	function cond1(a,b)
+	{
+		if(a){ b() ;}
+	}
+	function ex(a,b)
+	{
+		for(var i=0;i<a;i++)
+		{
+			b(i);
+		}
+	}
+
+	var a_ = a("A1");
+
+
+	$(document).ready(function(){
+		console.log("Document ready st");	
+		a_();
+		a_("B1");
+		a("C1")("D1");
+		
+		L1(log)("L2");
+		
+		//condition callback
+		cond1(5>2,function(){log(5)});
+		
+		//repeat callback
+		ex(3,function(n){log(n);});
+		
+		//repeat from condition callback
+		ex(5,function(n){
+			cond1(n%2,function(){
+				log(n);
+			})
+		});
+		
+		console.log("Document ready fn");
+		
+	})
+
+
+					
+				}
+				
+				
+				public void Select2OnInter03(){
+					
+									
+					var data_arr={};
+
+					function query_cleverence(processF,bindF,item){
+
+						var restServerURL = "http://"; 
+						
+						$.ajax({
+						  type:"GET",
+						  url: restServerURL ,
+						  accepts: "application/json",
+						  dataType:"json",	 	 	  
+						  success: function(data, xhr, textStatus){
+										 
+							console.log("query_cleverenceSt")
+							data_arr = processF(data);
+							//console.log(data_arr);
+							bindF(item);
+							return data_arr;
+							
+						  },
+						  error:function(jqXHR, textStatus, errorThrown){
+										   alert(errorThrown);
+						  }
+						});
+					}
+
+					function processData(data){
+						console.log('processData');
+						var res = Object.keys(data).map(function(k) { return { id: data[k].GUID, text: data[k]["Адрес"] } });
+						//console.log(res);
+						return res;
+					}
+					function bindSelect2ToItem(item){
+						var dt =[];	
+						console.log("bindSelect2ToItem");
+						$(item).select2({data: data_arr});	
+					}	
+
+					function registerSelect2(item,placeholder){
+						$(item).select2({
+							placeholder: placeholder,
+							minimumInputLength: 3
+						});
+					}
+					function registerSelect2Data(item)
+					{
+						console.log("dt2 change");
+						$(item).select2({data:data_arr});
+					}
+					function registerSelect2_FIO(item,placeholder){
+						$(item).select2({
+							tags: false,
+							minimumInputLength: 3,
+							placeholder: placeholder,
+							language: "ru",
+							ajax: {
+								url: 'http://',
+								dataType: "json",
+								type: "GET",
+								data: function (params) {
+
+									var queryParameters = {
+										p2: params.term
+									}
+									return queryParameters;
+								},
+								processResults: function (data) {
+										console.log(data);
+									return {
+									
+										results: $.map(data, function (item) {
+											return {
+												text: item.label ,
+												id: item.login
+											}
+										})
+									};
+								}
+								
+							}
+						});
+					}
+
+					function ChangeNodeToSelect(d)
+					{
+						var f1 = $(d);
+						var f2 = f1.clone();
+						
+						console.log(f1);
+						console.log(f2);
+						
+						var attrs = { };
+
+					$.each($(d)[0].attributes, function(idx, attr) {
+						attrs[attr.nodeName] = attr.nodeValue;
+					});
+
+
+
+					$(d).replaceWith(function () {
+						return $("<select />", attrs).append($(this).contents());
+					});
+
+						
+					}
+
+
+					function ItemCSS(item)
+					{
+						$(item).css({'width':'500px'});
+						
+					}
+
+
+					function registerSelectByID(item1,item2)
+					{
+						console.log("registerSelectByID" + "st");
+						query_cleverence(processData,bindSelect2ToItem,item1);	
+						ChangeNodeToSelect(item1);
+						ChangeNodeToSelect(item2);
+						registerSelect2(item1,'Поиск GUID по адресу');
+						registerSelect2(item2,'Поиск по ФИО');
+						registerSelect2Data(item1);
+						registerSelect2_FIO(item2,'Поиск ФИО из 1С');
+						ItemCSS(item1);
+						ItemCSS(item2);
+						console.log("registerSelectByID" + "fn");
+						
+					}
+
+					function registerSelectByIDOne(item1)
+					{
+						console.log("registerSelectByIDOne" + "st");
+						query_cleverence(processData,bindSelect2ToItem,item1);	
+						ChangeNodeToSelect(item1);
+						registerSelect2(item1,'Поиск GUID по адресу');
+						registerSelect2Data(item1);
+						ItemCSS(item1);
+						console.log("registerSelectByIDOne" + "fn");
+						
+					}
+
+					function FireAndRegister(){
+						
+							
+						var EqId1="#field4114";
+						var FIOId1="#field4112";	
+						
+						var EqId2="#field4108";
+						var FIOId2="#field4110";	
+						
+						var EqId3="#field4107";
+						var FIOId3="#field4104";
+						var FIOId32="#field4109";
+						
+						try{
+							registerSelectByID(EqId1,FIOId1);
+						}catch(e)
+						{
+							console.log('1lvlfl')
+						}
+							
+						try{
+							registerSelectByID(EqId2,FIOId2);
+						}catch(e)
+						{
+							console.log('2lvlfl')
+						}
+						
+						try{
+							registerSelectByID(EqId3,FIOId3);
+						}catch(e)
+						{
+							console.log('3lvlfl')
+						}
+						
+						
+						try{
+							//registerSelectByIDOne(FIOId32);
+						}catch(e)
+						{
+							console.log('32lvlfl')
+						}
+						
+					}
+
+
+					$(document).ready(function(){
+						
+						//console.log("Doc ready started")
+						FireAndRegister()	
+						
+						// $("#input1").on("select2:focus", function(e) { console.log ("focus");})
+						// .on("select2:selecting", function(e) { console.log ("selecting");})
+						// .on("select2:highlight", function(e) { console.log ("highlight");})
+						// .on("select2:change", function(e) { console.log ("change");})
+						// .on("change", function(e) { console.log ("change2");})
+						// .on("select2-blur", function(e) { console.log ("blur");})
+						// .on("select2:blur", function(e) { console.log ("blur2");})
+						
+						//$("#input3").mouseenter(function(e){  registerSelect2Data("#input1"); console.log("mouseenter");})
+						//$('.select2-search__field').on('keyup',function(e){  console.log("hover"); })
+						//console.log("Doc ready finished")
+						
+					});
+
+
+					
+				}
+				
+				public static CreateClassInstance(obj_:any){
+				  let  r_ = Object.assign(
+					Object.create(
+					  Object.getPrototypeOf(obj_)
+					)  ,obj_
+				  );
+				  return r_;
+				}
+				
+				//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures
+				public void ClosureScopes(){
+					
+					//closure
+
+					var cl=(function(){
+						//local vars
+						
+						//global names
+						return {
+							n1:function(){}
+							n2:function(){}
+						}
+					})();
+
+
+
+					//function factory
+
+					var f1=function(var_){
+						//action
+					}
+
+					var f2 = function(var_){
+						return function(){
+							f1(var_);
+						}
+					}
+
+
+					var f3= function(){
+						//html loop generation ...
+						f2(_var);
+					}
+
+
+					//.. OR 
+					//closure inside loop
+
+					// .. OR
+					//ES 2015 use let
+
+
+
+					//object initialization
+
+					//closure like - redefining of prototype not recommended
+
+					function obj(){
+						this.key=0;
+						this.name="name1";
+						
+						obj.prototype={
+							getKey: function(){
+							return this.key;
+						}
+					}
+
+					//pseudo class - all objects methods share same memory addresses
+
+					function obj(){
+						this.key=0;
+						this.name="name1";
+						
+						obj.prototype.getKey=function(){
+							return this.key;
+						}
+					}
+
+				}
+				
+				//https://www.ryanatkinson.io/javascript-instantiation-patterns/
+				public static InstantiationPatterns[
+					
+										
+					//Functional
+
+					var House= function(color_){
+					  var obj={};
+					  obj._color=color_;
+					  obj.opened=true;
+
+					  obj.open=function(){
+						obj.opened=true;
+					  }
+					  obj.close=function(){
+						obj.opened=false;
+					  }
+
+					  return obj;
+					}
+
+					//Pseudo class
+
+					var HousePS=function(color_){
+					  this._color=color_;
+					  this._opened=true;
+
+					  HousePS.prototype.open=function(){
+						this._opened=true;
+					  }
+					  HousePS.prototype.close=function(){
+						this._opened=false;
+					  }
+
+					}
+
+
+					function FunctionalPseudoCheck(){
+					  var house = House('red');
+					  var housePS = new HousePS('red');
+
+					  console.log(["FunctionalPseudoCheck",house,housePS])
+
+					  var house1=Object.assign(
+									Object.create(
+									  Object.getPrototypeOf(house)
+									),house
+								  );
+					  var housePS1=Object.assign(Object.create(Object.getPrototypeOf(housePS))
+					  ,housePS);
+					  house.close();
+					  housePS.close();
+					  console.log(["FunctionalPseudoCheck closed:",house1,housePS1])
+					}
+					
+				]
+			
+			}
+		
+		}
+		
+		//JS vendors
+		public void JSvendors()
+		{
+			<!--Links from vendors JQuery, jQyery UI, Bootstrap, D3 + styles-->
+			<!--
+			<script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+			<link rel="nofollow" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/themes/smoothness/jquery-ui.css">
+			<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.0/jquery-ui.min.js"></script>
+			<script type="application/javascript" charset="utf-8" src="http://d3js.org/d3.v3.min.js"></script>
+			<link rel="nofollow" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+			<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+			-->
+		}
+
+		}
 	}
 	//----------------------------------------------	
 	
@@ -4900,6 +5111,12 @@ html -> <childHtml (outEm)="method($event)">
   </div>
 			
 			}
+			ChangeNgStyleIntemplate{
+				<a class="dd-item"
+        (mouseover)="hover=true" (mouseleave)="hover=false"
+        [ngStyle]="{background: hover==true ? 'red' : 'green'}">
+				
+			}
 		}
 	
 		 	public void TipsAndTricks{
@@ -4966,11 +5183,10 @@ html -> <childHtml (outEm)="method($event)">
 			NgMOdelOverridsHtmlAttr[
 			inpyt type="textbox" - > binding [(ngModel)]="val" overrides any placeholders value attr
 			]
-			
 			customJSusage[
 				if custom js references elment DOM exmpl: toggles class by css class name
 				then undefined erro would fire, while action performs OK
-			]
+			]															 
 		}
 	}
 	
@@ -5026,7 +5242,16 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 	
 	public void TipsAndTricks{
 		
-		CSS{
+		vanillaJS[
+			
+			deepCopyClass[
+				instantiating tore up clones of complex classes with factory
+				or 
+				instantiation patterns
+			]
+			
+		]		
+		,CSS{
 			FlexBoxRowWrap{
 				not working if flexbox child of some unflex parent;
 				need flexbow with height attr;
@@ -5034,7 +5259,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 		}
 		,DOMevents{
 			
-			ClickVsMouseUp{
+			ClickVsMouseUp(
 			click will trigger MouseEvent and will intercept other KeyDown events.
 			if different actions on mouseclick and keybord click (enter for example ) expected=>
 				use mouseup
@@ -5045,8 +5270,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 						<button (mouseup/click)="selectToday($event)">Select Today</button>
 					</div>
 			
-			}
-		
+			)
 			MouseEnterLeave_MOuseOverOut{
 				https://javascript.info/mousemove-mouseover-mouseout-mouseenter-mouseleave
 				mouseover,mouseout($e)
@@ -5060,9 +5284,9 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 				Nobubbling !!! children ignored
 				
 			}
-				
 		}
 	}
+	
 	#endregion	
 		
 	#region Python
@@ -5160,1564 +5384,1197 @@ pip install ipython
 		public void PL_SQL()
 		{
 			
-			public protected class ScriptExmaples()
+			public protected class ORACLE()
 			{
-				
-				public internal class TestDB()
-				{
-
-					public void WithConstraints() {
-	/*
-	alter table test3
-	add primary key (C3)
-
-	alter table test2
-	add constraint test_pk 
-	foreign key (c3) 
-	references test3(c3)
-	;
-
-	delete from test2;
-
-	insert into test2 (c1,c2) values ('TEST1','TEST1');
-	insert into test2 (c1,c2) values ('TEST2','TEST2');
-	insert into test2 (c1,c2) values ('TEST3','TEST3');
-	commit;
-
-	select to_char(c3,'dd.mm.yyyy hh24:mi:ss') from test2;
-	commit;
-
-	drop table purge;
-	*/
-
-
-
-					create table test_product(
-					ID number constraint prod_id_pk primary key,
-					INS_DATE date,
-					product_name varchar(50)
-					);
-
-					create table test_types(
-					ID number  constraint type_id_pk primary key,
-					INS_DATE date,
-					product_type varchar(50)
-					);
-
-					create table test_price(
-					ID number ,
-					INS_DATE date,
-					DATE_FROM date,
-					DATE_TO date,
-					price number,
-					prodcut_id  constraint test_product_price_PK references test_product(ID)
-					);
-
-					create table test_product_type (
-					ID number ,
-					INS_DATE date,
-					product_id number,
-					type_id number
-					);
-
-
-					/*Product table ID, date trigger on insert*/
-					create or replace trigger test_prod_trg_ins
-					before insert on test_product
-					for each row
-					declare 
-					var_1 number;
-					begin
-					select max(ID) into var_1 from test_product;
-					if var_1 is null
-					then var_1 := 0;
-					else
-					var_1 := var_1+1;
-					end if;
-					:new.ID :=var_1;
-					select sysdate into :new.INS_DATE from dual;
-					end;
-					/
-
-
-
-					/*Product table date trigger on update*/
-					create or replace trigger test_prod_trg_upd
-					before update on test_product
-					for each row
-					begin
-					select sysdate into :new.INS_DATE from dual;
-					end;
-					/
-
-
-
-
-					/*Product table ID, date trigger on insert*/
-					create or replace trigger test_prod_type_ins
-					before insert on test_types
-					for each row
-					declare 
-					var_1 number;
-					begin
-					select max(ID) into var_1 from test_types;
-					if var_1 is null
-					then var_1 := 0;
-					else
-					var_1 := var_1+1;
-					end if;
-					:new.ID :=var_1;
-					select sysdate into :new.INS_DATE from dual;
-					end;
-					/
-
-					/*Product table date trigger on update*/
-					create or replace trigger test_prod_type_upd
-					before update on test_types
-					for each row
-					begin
-					select sysdate into :new.INS_DATE from dual;
-					end;
-					/
-
-
-
-					/*Product table ID, date trigger on insert*/
-					create or replace trigger test_price_ins
-					before insert on test_price
-					for each row
-					declare 
-					var_1 number;
-					begin
-					select max(ID) into var_1 from test_price;
-					if var_1 is null
-					then var_1 := 0;
-					else
-					var_1 := var_1+1;
-					end if;
-					:new.ID :=var_1;
-					select sysdate into :new.INS_DATE from dual;
-					end;
-					/
-
-					/*Product table date trigger on update*/
-					create or replace trigger test_price_upd
-					before update on test_price
-					for each row
-					begin
-					select sysdate into :new.INS_DATE from dual;
-					end;
-					/
-
-
-					alter table test_product_type
-					add constraint test_product_type_PK
-					foreign key (product_id) 
-					references test_product(ID)
-					;
-
-					alter table test_product_type
-					add constraint test_product_types_PK
-					foreign key (type_id) 
-					references test_types(ID)
-					;
-
-
-
-					insert into test_product (product_name) values ('Product_3');
-					insert into test_product (product_name) values ('Product_5');
-					insert into test_product (product_name) values ('Product_6');
-					insert into test_product (product_name) values ('Product_7');
-					insert into test_product (product_name) values ('Product_8');
-
-					update test_product set product_name ='Product_3' where product_name='Product_2';
-					update test_product set product_name ='Product_2' where product_name='Product_3';
-
-
-					insert into test_types (product_type) values ('Product_type_1');
-					insert into test_types (product_type) values ('Product_type_2');
-					insert into test_types (product_type) values ('Product_type_3');
-
-
-					insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),1,10);
-					insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),1,20);
-					insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,1,15);
-
-					insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),2,25);
-					insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),2,30);
-					insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,2,45);
-
-
-					insert into test_product_type(product_id,type_id) values (1,1);
-					insert into test_product_type(product_id,type_id) values (2,1);
-					insert into test_product_type(product_id,type_id) values (3,2);
-					insert into test_product_type(product_id,type_id) values (4,2);
-					insert into test_product_type(product_id,type_id) values (0,3);
-
-					select * from test_product;
-					select * from test_types; 
-					select * from test_product_type;
-					select * from test_price;
-
-
-					/* !!!DANGER!!!
-					execute maintain();
-					*/
-
-				}
-					
-					public void GollandDB()
-					{
-						
-	--create 
-	-------------------
-	drop table employees;
-	drop table project;
-	drop table emp_pro;
-
-	create table employees (
-	emp_no int primary key,Name varchar(15), Address varchar(15), Profession varchar(15), dept_no int,
-	manager_no int, Salary number );
-
-	create table project (pro_name varchar(10), pro_no int , pro_mng int );
-
-	create table emp_pro ( p_no int, emp_no int , precent_time number  );
-	-------------------
-
-
-	--insert
-	-------------------
-	insert into employees values (1001,'NAME 1001','Address_4','Proffession_7',1,1015,20000);
-	insert into employees values (1002,'NAME 1002','Address_3','Proffession_4',4,1015,45000);
-	insert into employees values (1003,'NAME 1003','Address_4','Proffession_7',1,1010,15000);
-	insert into employees values (1004,'NAME 1004','Address_3','Proffession_2',3,1015,50000);
-	insert into employees values (1005,'NAME 1005','Address_1','Proffession_3',4,1015,10000);
-	insert into employees values (1006,'NAME 1006','Address_2','Proffession_3',2,1009,40000);
-	insert into employees values (1007,'NAME 1007','Address_4','Proffession_5',2,1012,20000);
-	insert into employees values (1008,'NAME 1008','Address_2','Proffession_7',1,1014,20000);
-	insert into employees values (1009,'NAME 1009','Address_1','Proffession_3',4,1015,35000);
-	insert into employees values (1010,'NAME 1010','Address_4','Proffession_7',4,1013,15000);
-	insert into employees values (1011,'NAME 1011','Address_2','Proffession_5',2,1012,20000);
-	insert into employees values (1012,'NAME 1012','Address_1','Proffession_3',2,1013,20000);
-	insert into employees values (1013,'NAME 1013','Address_3','Proffession_3',4,1014,45000);
-	insert into employees values (1014,'NAME 1014','Address_5','Proffession_2',4,1016,50000);
-	insert into employees values (1015,'NAME 1015','Address_1','Proffession_3',4,1016,55000);
-	insert into employees values (1016,'NAME 1016','Address_1','Proffession_7',3,1016,45000);
-
-
-
-	insert into project values ('Prog 1',1,1001);
-	insert into project values ('Prog 2',2,1003);
-	insert into project values ('Prog 3',3,1001);
-	insert into project values ('Prog 4',4,1001);
-	insert into project values ('Prog 5',5,1003);
-	insert into project values ('Prog 6',6,1008);
-	insert into project values ('Prog 7',7,1001);
-	insert into project values ('Prog 8',8,1001);
-	insert into project values ('Prog 9',9,1003);
-	insert into project values ('Prog 10',10,1008);
-	insert into project values ('Prog 11',11,1002);
-	insert into project values ('Prog 12',12,1004);
-	insert into project values ('Prog 13',13,1004);
-	insert into project values ('Prog 14',14,1003);
-	insert into project values ('Prog 15',15,1004);
-	insert into project values ('Prog 16',16,1005);
-
-
-
-	insert into emp_pro values (1,1001,50);
-	insert into emp_pro values (2,1003,21);
-	insert into emp_pro values (3,1001,41);
-	insert into emp_pro values (4,1001,76);
-	insert into emp_pro values (5,1003,63);
-	insert into emp_pro values (6,1008,3);
-	insert into emp_pro values (7,1001,60);
-	insert into emp_pro values (8,1001,98);
-	insert into emp_pro values (9,1003,97);
-	insert into emp_pro values (10,1008,68);
-	insert into emp_pro values (11,1002,91);
-	insert into emp_pro values (12,1004,55);
-	insert into emp_pro values (13,1004,97);
-	insert into emp_pro values (14,1003,5);
-	insert into emp_pro values (15,1004,62);
-	insert into emp_pro values (16,1005,74);
-	-------------------
-
-
-
-
-	--Q/A
-	-------------------
-
-	--1) All employes with the same Profession,dept_no as employee with id 1006
-	with t as (
-	select Profession,dept_no from employees
-	where emp_no = '1006')
-	, t2 as (
-	select * from employees
-	)
-	select * from t2 
-	join t on t2.Profession = t.Profession and t2.dept_no=t.dept_no;
-
-	--2) progect number and progect manager name
-	/*
-	assuming, that manager of project is employee and we need not his name but
-	to populate name of employee who is manager of an employee who is, in his turn,
-	manager of a progect 
-	*/
-	select ep.pro_name,em2.Name from project ep
-	left join employees em on ep.pro_mng = em.emp_no
-	left join employees em2 on em2.emp_no=em.manager_no
-	;
-
-	--3) select amployees with salary > then their manager
-	select em.emp_no,em.Name from employees em
-	join employees em2 on em.manager_no=em2.emp_no
-	where (em.salary > em2.salary)
-	;
-
-	--4) all amployees working on > 3 projects
-	select * from employees em where em.emp_no in (
-	select emp_no from emp_pro group by emp_no having (count (emp_no) >3)
-	);
-
-	--5) professions and salary of employees from same address as employee with max salary
-	with t as(
-	select em.profession,em.salary,em.address from employees em
-	where em.salary =( select max(salary) from employees)
-	)
-	select em2.profession,em2.salary 
-	from employees em2 join t on em2.address = t.address
-	;
-	-------------------
-
-					}
-				
-				}
-				
-				public internal class Selection()
+				public protected class ScriptExmaples()
 				{
 					
-					public datetime()
+					public internal class TestDB()
 					{
-						
-						define ReqFnDate=to_date('30.06.2017 23:59:59','dd.mm.yyyy hh24:mi:ss');
-						define ReqStDate=add_months(trunc(&ReqFnDate,'mm'),0);
-						define TrStDate=add_months(&ReqStDate,-5);
-						define TrFnDate=add_months(&ReqFnDate,+1);
-						
-					}
 
-					public tableCreate()
-					{
-						
-						//table with prim,sec keys
-						create table teble(
-						ID int not null identity(0,1), --not nullable id increasing from 0 by 1 every insert
-						SEC_ID int null, --foreign key
-						primary key(ID), -- indicates primary key
-						foreign key(SEC_ID) references SEC_NAMES(ID), -- indicates secondary key and according key in other table
-						)
+						public void WithConstraints() {
+		/*
+		alter table test3
+		add primary key (C3)
 
-						//create table add key add foreign key
-						create table DWH_replica.dbo.table2 (
-						ID int not null identity(0,1),
-						TXT varchar(50),
-						DT Datetime);
+		alter table test2
+		add constraint test_pk 
+		foreign key (c3) 
+		references test3(c3)
+		;
 
-						alter table DWH_replica.dbo.table2
-						add primary key (ID);
+		delete from test2;
 
-						create table DWH_replica.dbo.table1 (
-						ID int not null identity(0,1),
-						SEC_ID int null,
-						primary key (ID),
-						foreign key (SEC_ID) references DWH_replica.dbo.table2(ID));
+		insert into test2 (c1,c2) values ('TEST1','TEST1');
+		insert into test2 (c1,c2) values ('TEST2','TEST2');
+		insert into test2 (c1,c2) values ('TEST3','TEST3');
+		commit;
 
-					}
-								
-					public join_update()
-					{
-						
-						/*update from join*/
-						--\\\\\\\\\\\\\\\\\\
-						update acquiring_month tt
-						set (center,division) = (
-						select f.rc,f.rp from tms.v_merchants t 
-						join mtr_rc_rp_fins f on f.GEOGRAPHIC=t.GEOGRAPHIC_GID 
-						where t.merchant=tt.merchant
-						)
-						where exists(
-						select t.merchant,f.rc,f.rp from tms.v_merchants t 
-						join mtr_rc_rp_fins f on f.GEOGRAPHIC=t.GEOGRAPHIC_GID 
-						where t.merchant=tt.merchant
-						)
-						and tt.center is null and tt.division is null 
-						--//////////////////
+		select to_char(c3,'dd.mm.yyyy hh24:mi:ss') from test2;
+		commit;
+
+		drop table purge;
+		*/
 
 
-						--update from join with merge into 
-						--\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-						select * from test1;
-						select * from test2;
+						create table test_product(
+						ID number constraint prod_id_pk primary key,
+						INS_DATE date,
+						product_name varchar(50)
+						);
 
-						delete from test1; delete from test2;
+						create table test_types(
+						ID number  constraint type_id_pk primary key,
+						INS_DATE date,
+						product_type varchar(50)
+						);
 
-						insert into test1 (c1,c2) values ('A','1');
-						insert into test1 (c1,c2) values ('B','1');
-						insert into test1 (c1,c2) values ('C','1');
-						insert into test1 (c1,c2) values ('D','1');
-						insert into test1 (c1,c2) values ('E','1');
-						insert into test1 (c1,c2) values ('F','1');
+						create table test_price(
+						ID number ,
+						INS_DATE date,
+						DATE_FROM date,
+						DATE_TO date,
+						price number,
+						prodcut_id  constraint test_product_price_PK references test_product(ID)
+						);
 
-						insert into test2 (c1,c2) values ('A','2');
-						insert into test2 (c1,c2) values ('B','3');
-						insert into test2 (c1,c2) values ('C','4');
+						create table test_product_type (
+						ID number ,
+						INS_DATE date,
+						product_id number,
+						type_id number
+						);
 
-						merge into test1 t1
-						using (select * from test2 t2) p
-						on (t1.c1=p.c1)
-						when matched then
-						update set t1.c2=p.c2
-						;
 
-						--//////////////////////////////
-
-					}
-
-					public LEVEL()
-					{
-						
-					--//level1
-					SELECT * FROM
-
-					(SELECT LEVEL R0 FROM dual CONNECT BY LEVEL <3),
-					(SELECT LEVEL R1 FROM dual CONNECT BY LEVEL <5),
-					(SELECT LEVEL R2 FROM dual CONNECT BY LEVEL <4)
-					--///
-
-					--// levle2
-					select * from 
-					( select level "C1" from dual connect by level <=10 ) t1
-					full outer join ( select level "C1" from dual connect by level <=3 ) t2 on t1.c1<>t2.c1
-
-					union all
-
-					select * from 
-					( select level "C1" from dual connect by level <=10 ) t1
-					join ( select level "C1" from dual connect by level <=3 ) t2 on t1.c1=t2.c1
-					--///
-
-					}
-
-					public partition_over()
-					{
-						
-					select 
-					min(rownum) 
-					from (
-					select t.*,count(*) over (partition by t.bin,t.bank) "CNT" from neprintsev_ia.ref_bin t
-					) where cnt>1 group by bin,bank
-
-					}
-
-					public delete_duplicates()
-					{
-						
-					delete from neprintsev_ia.ref_bin 
-					where rowid in (
-					select min(rowid) "RN" from neprintsev_ia.ref_bin  where bin in (
-					select bin from neprintsev_ia.ref_bin having count(bin)>1 group by bin
-					) group by bin
-					)
-
-					}
-
-					public CURSOR()
-					{
-						/*SAMPLE CURSOR*/
-						set serveroutput on;
+						/*Product table ID, date trigger on insert*/
+						create or replace trigger test_prod_trg_ins
+						before insert on test_product
+						for each row
+						declare 
+						var_1 number;
 						begin
-						for cr in ( select merchant,reg_nr from ref_merchants )
-						loop 
-						  dbms_output.put_line('drop table ' || cr.merchant || ';');
-						end loop;
-						end ;
-
-					}
-					
-					public CrossReference()
-					{
-											
-											
-						drop table Customers;
-						drop table Invoices;
-
-						create table customers ("ID" int primary key not null, Name varchar(10), "REF" int,
-						constraint fk_ref foreign key("REF") references customers ("ID"));
-
-						create table Invoices (id int primary key not null, Billing date,CustomerID int,
-						constraint fk_inv foreign key(CustomerID) references customers (ID) );
-
-
-						insert into customers values (0,'A',null);
-						insert into customers values (1,'B',null);
-						insert into customers values (2,'C',0);
-						insert into customers values (3,'D',null);
-						insert into customers values (4,'F',0);
-						insert into customers values (5,'G',2);
-						insert into customers values (6,'H',3);
-						insert into customers values (7,'I',0);
-
-						insert into invoices values (0,sysdate,0);
-						insert into invoices values (1,sysdate,0);
-						insert into invoices values (2,sysdate,2);
-						insert into invoices values (3,sysdate,4);
-						insert into invoices values (4,sysdate,3);
-						insert into invoices values (5,sysdate,6);
-						insert into invoices values (6,sysdate,7);
-						insert into invoices values (7,sysdate,null);
-
-						select * from Customers;
-						select * from invoices t;
-
-						select t.id,t.billing,t2.name,t3.name 
-						from invoices t
-						--left
-						join Customers t2 on t2.id=t.customerId
-						left join Customers t3 on t3.ID = t2.REF
-						order by t.BILLING;
+						select max(ID) into var_1 from test_product;
+						if var_1 is null
+						then var_1 := 0;
+						else
+						var_1 := var_1+1;
+						end if;
+						:new.ID :=var_1;
+						select sysdate into :new.INS_DATE from dual;
+						end;
+						/
 
 
 
-					}
-					
-					public UpdateCase()
-					{
-						
-						drop table swap;
-						create table swap (id int,c1 varchar(10), c2 varchar(10));
-						insert into swap values (0,'f','m');
-						insert into swap values (1,'m','f');
-						insert into swap values (2,'f','m');
+						/*Product table date trigger on update*/
+						create or replace trigger test_prod_trg_upd
+						before update on test_product
+						for each row
+						begin
+						select sysdate into :new.INS_DATE from dual;
+						end;
+						/
 
-						update swap t
-						set c1 = case when c1 is null then null when c1 = 'f' then 'm' else 'f' end  ;
 
-						select * from swap;
-					}
-					
-					public IntersectMinus()
-					{
-											
-						drop table test_a;
-						drop table test_b;
 
-						create table test_a(id numeric,val varchar(10));
-						create table test_b(id numeric,val varchar(10));
 
-						insert into test_a values (10,'a');
-						insert into test_a values (20,'b');
-						insert into test_a values (30,'c');
-						insert into test_a values (40,'d');
-						insert into test_a values (50,'f');
+						/*Product table ID, date trigger on insert*/
+						create or replace trigger test_prod_type_ins
+						before insert on test_types
+						for each row
+						declare 
+						var_1 number;
+						begin
+						select max(ID) into var_1 from test_types;
+						if var_1 is null
+						then var_1 := 0;
+						else
+						var_1 := var_1+1;
+						end if;
+						:new.ID :=var_1;
+						select sysdate into :new.INS_DATE from dual;
+						end;
+						/
 
-						insert into test_b values (10,'a');
-						insert into test_b values (30,'d');
-						insert into test_b values (50,'f');
+						/*Product table date trigger on update*/
+						create or replace trigger test_prod_type_upd
+						before update on test_types
+						for each row
+						begin
+						select sysdate into :new.INS_DATE from dual;
+						end;
+						/
 
-						with t as (select * from test_a t) ,
-						t2 as (select * from test_b t)
-						select * from t
-						intersect
-						select * from t2
+
+
+						/*Product table ID, date trigger on insert*/
+						create or replace trigger test_price_ins
+						before insert on test_price
+						for each row
+						declare 
+						var_1 number;
+						begin
+						select max(ID) into var_1 from test_price;
+						if var_1 is null
+						then var_1 := 0;
+						else
+						var_1 := var_1+1;
+						end if;
+						:new.ID :=var_1;
+						select sysdate into :new.INS_DATE from dual;
+						end;
+						/
+
+						/*Product table date trigger on update*/
+						create or replace trigger test_price_upd
+						before update on test_price
+						for each row
+						begin
+						select sysdate into :new.INS_DATE from dual;
+						end;
+						/
+
+
+						alter table test_product_type
+						add constraint test_product_type_PK
+						foreign key (product_id) 
+						references test_product(ID)
 						;
 
-						with t as (select * from test_a t) ,
-						t2 as (select * from test_b t)
-						select * from t
-						minus
-						select * from t2
-						;
-					}
-					
-					public Rank()
-					{
-						
-						--For Golland DbContext
-						--RANK
-	select * from (
-	select ep.*, row_number() over(order by ep.salary desc) "RN"
-	from employees ep
-	) where "RN" = 10
-	;
-
-	with t as (
-	select t.*,row_number() over (order by t.SAL desc ) "RN" from (
-	select distinct ep.salary "SAL" from employees ep order by "SAL" desc
-	) t ) 
-	, t2 as (
-	select * from employees ep
-	)
-	select * from t2
-	join t on t2.salary = t.sal
-	;
-
-	select ep.dept_no,ep.name,max(ep.salary) "MAX",
-	dense_rank() over (partition by ep.dept_no order by max(ep.salary) desc) "RANK"
-	from employees ep
-	group by ep.dept_no,ep.name
-	order by "MAX" desc;
-
-
-	select ep.*,
-	max(ep.salary)  over (partition by ep.dept_no) as "MAX_DEP_SAL",
-	avg(ep.salary)  over (partition by ep.dept_no) as "AVG_DEP_SAL",
-	avg(ep.salary)  over (partition by ep.profession) as "AVG_PROF_SAL"
-	from employees ep
-	order by "MAX_DEP_SAL" desc;
-
-
-	select 
-	ep.*, 
-	max(ep.salary) over() as "SAL"
-	from employees ep
-	;
-
-
-	select ep.name,ep.dept_no
-	--, max(ep.salary) over (partition by ep.dept_no order by ep.salary desc) "RANK"
-	, max(ep.salary) keep (dense_rank first order by ep.salary desc) "RANK"
-	from employees ep
-	group by ep.name,ep.dept_no
-	order by"RANK" desc
-
-	; 
-
-
-					}
-					
-				}
-				
-				public internal class MAINTANANCE()
-				{
-					
-					public REFERENCES()
-					{
-						
-						--//roles
-						select * from role_tab_privs
-						--//granted privileges
-						select * from table_privileges
-						revoke  select on acquiring_month from kokorina_jv
-						--//all  user objects
-						select * from user_objects
-						--// TABLE modifications INSERT,DELETE,UPDATE
-						select * from user_tab_modifications;
-						//Objects source code
-						select * from all_source
-						//Procedure texts 
-						select * from user_source  
-						
-						/*Unreferenced table names*/
-						select distinct table_name,'select * from ' || table_name || ';' from all_tables where owner like '%NEPRIN%'
-						and table_name not in (
-						select distinct "REFERENCED_NAME" from user_dependencies 
-						)
+						alter table test_product_type
+						add constraint test_product_types_PK
+						foreign key (type_id) 
+						references test_types(ID)
 						;
 
-						/*Unref and ungranted tables*/
-						select distinct table_name,'select * from ' || table_name || ';' from all_tables where 1=1 
-						and owner like '%NEPRIN%'
-						--all tables that referenced from smwh
-						and table_name not in (select distinct "REFERENCED_NAME" from user_dependencies )
-						--all tables granted to somb
-						and table_name not in (select table_name from user_tab_privs where owner like '%NEPRIN%')
-						and table_name not like 'REF%'
-						order by table_name asc
-						;
 
-						/*TABLE SIZE*/
-						select segment_name "TABLE_NAME",bytes /1024/1024  "SIZE_MB" from 
-						user_segments 
-						order by "SIZE_MB" desc 
-						;
+
+						insert into test_product (product_name) values ('Product_3');
+						insert into test_product (product_name) values ('Product_5');
+						insert into test_product (product_name) values ('Product_6');
+						insert into test_product (product_name) values ('Product_7');
+						insert into test_product (product_name) values ('Product_8');
+
+						update test_product set product_name ='Product_3' where product_name='Product_2';
+						update test_product set product_name ='Product_2' where product_name='Product_3';
+
+
+						insert into test_types (product_type) values ('Product_type_1');
+						insert into test_types (product_type) values ('Product_type_2');
+						insert into test_types (product_type) values ('Product_type_3');
+
+
+						insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),1,10);
+						insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),1,20);
+						insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,1,15);
+
+						insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('01.01.2017','dd.mm.yyyy'),to_date('10.01.2017','dd.mm.yyyy'),2,25);
+						insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('15.01.2017','dd.mm.yyyy'),to_date('20.01.2017','dd.mm.yyyy'),2,30);
+						insert into test_price (date_from,date_to,prodcut_id,price) values (to_date('25.01.2017','dd.mm.yyyy'),null,2,45);
+
+
+						insert into test_product_type(product_id,type_id) values (1,1);
+						insert into test_product_type(product_id,type_id) values (2,1);
+						insert into test_product_type(product_id,type_id) values (3,2);
+						insert into test_product_type(product_id,type_id) values (4,2);
+						insert into test_product_type(product_id,type_id) values (0,3);
+
+						select * from test_product;
+						select * from test_types; 
+						select * from test_product_type;
+						select * from test_price;
+
+
+						/* !!!DANGER!!!
+						execute maintain();
+						*/
+
+					}
 						
-					}			
-								
-					public Priviledges
-					{
-						revoke  select on acquiring_month from kokorina_jv
-					}
-					
-					public TABLES_ALTER()
-					{
-						//change column type
-						alter table ref_mc_ird_rates modify mcc varchar (50) 
-					}
-					
-					public EXPLAIN_PLAN()
-					{
-
-						--//eplain table
-						delete from PLAN_TABLE;
-						EXPLAIN PLAN for
-						select * from dual;
-						select operation,options,object_name,cost , t.* from PLAN_TABLE t;
-						SELECT * FROM TABLE (dbms_xplan.display);
-						--//
-
-
-						--//display cursor
-						select * from table (DBMS_XPLAN.DISPLAY_CURSOR(null,null,'basic'))
-						--// privilege needed: SELECT privilege on V$SQL_PLAN, V$SQL_PLAN_DETAIL,SELECT_CATALOG_ROLE
-						--//
-
-						--//Gather statistic
-						Execute DBMS_STATS.GATHER_TABLE_STATS('neprintsev_ia','AMS_MC_BINS_',method_opt=>'FOR COLUMNS SIZE 254 columnName')
-						--//
-
-					}
-					
-					public DB_LINK()
-					{
-						
-						
-					drop  DATABASE LINK "DB_LINK.US.ORACLE.COM";
-
-					CREATE DATABASE LINK "DB_LINK.US.ORACLE.COM"
-					CONNECT TO DACQ_NEPRINTSEV
-					IDENTIFIED BY  x2y4uecbbo
-					USING '  (DESCRIPTION=
-						(ADDRESS=
-						  (PROTOCOL=TCP)
-						  (HOST=exdt01-scan.rs.ru)
-						  (PORT=1521)
-						)
-						(CONNECT_DATA=
-						  (SERVER=dedicated)
-						  (SERVICE_NAME=BUS)
-						)
-					  )
-					'
-					;
-					}
+						public void GollandDB()
+						{
 							
-					public JOBS()
-					{
-						
-						select job,broken,interval,what,last_date,last_sec,next_date,next_sec from user_jobs order by job desc;
+		--create 
+		-------------------
+		drop table employees;
+		drop table project;
+		drop table emp_pro;
+
+		create table employees (
+		emp_no int primary key,Name varchar(15), Address varchar(15), Profession varchar(15), dept_no int,
+		manager_no int, Salary number );
+
+		create table project (pro_name varchar(10), pro_no int , pro_mng int );
+
+		create table emp_pro ( p_no int, emp_no int , precent_time number  );
+		-------------------
+
+
+		--insert
+		-------------------
+		insert into employees values (1001,'NAME 1001','Address_4','Proffession_7',1,1015,20000);
+		insert into employees values (1002,'NAME 1002','Address_3','Proffession_4',4,1015,45000);
+		insert into employees values (1003,'NAME 1003','Address_4','Proffession_7',1,1010,15000);
+		insert into employees values (1004,'NAME 1004','Address_3','Proffession_2',3,1015,50000);
+		insert into employees values (1005,'NAME 1005','Address_1','Proffession_3',4,1015,10000);
+		insert into employees values (1006,'NAME 1006','Address_2','Proffession_3',2,1009,40000);
+		insert into employees values (1007,'NAME 1007','Address_4','Proffession_5',2,1012,20000);
+		insert into employees values (1008,'NAME 1008','Address_2','Proffession_7',1,1014,20000);
+		insert into employees values (1009,'NAME 1009','Address_1','Proffession_3',4,1015,35000);
+		insert into employees values (1010,'NAME 1010','Address_4','Proffession_7',4,1013,15000);
+		insert into employees values (1011,'NAME 1011','Address_2','Proffession_5',2,1012,20000);
+		insert into employees values (1012,'NAME 1012','Address_1','Proffession_3',2,1013,20000);
+		insert into employees values (1013,'NAME 1013','Address_3','Proffession_3',4,1014,45000);
+		insert into employees values (1014,'NAME 1014','Address_5','Proffession_2',4,1016,50000);
+		insert into employees values (1015,'NAME 1015','Address_1','Proffession_3',4,1016,55000);
+		insert into employees values (1016,'NAME 1016','Address_1','Proffession_7',3,1016,45000);
+
+
+
+		insert into project values ('Prog 1',1,1001);
+		insert into project values ('Prog 2',2,1003);
+		insert into project values ('Prog 3',3,1001);
+		insert into project values ('Prog 4',4,1001);
+		insert into project values ('Prog 5',5,1003);
+		insert into project values ('Prog 6',6,1008);
+		insert into project values ('Prog 7',7,1001);
+		insert into project values ('Prog 8',8,1001);
+		insert into project values ('Prog 9',9,1003);
+		insert into project values ('Prog 10',10,1008);
+		insert into project values ('Prog 11',11,1002);
+		insert into project values ('Prog 12',12,1004);
+		insert into project values ('Prog 13',13,1004);
+		insert into project values ('Prog 14',14,1003);
+		insert into project values ('Prog 15',15,1004);
+		insert into project values ('Prog 16',16,1005);
+
+
+
+		insert into emp_pro values (1,1001,50);
+		insert into emp_pro values (2,1003,21);
+		insert into emp_pro values (3,1001,41);
+		insert into emp_pro values (4,1001,76);
+		insert into emp_pro values (5,1003,63);
+		insert into emp_pro values (6,1008,3);
+		insert into emp_pro values (7,1001,60);
+		insert into emp_pro values (8,1001,98);
+		insert into emp_pro values (9,1003,97);
+		insert into emp_pro values (10,1008,68);
+		insert into emp_pro values (11,1002,91);
+		insert into emp_pro values (12,1004,55);
+		insert into emp_pro values (13,1004,97);
+		insert into emp_pro values (14,1003,5);
+		insert into emp_pro values (15,1004,62);
+		insert into emp_pro values (16,1005,74);
+		-------------------
+
+
+
+
+		--Q/A
+		-------------------
+
+		--1) All employes with the same Profession,dept_no as employee with id 1006
+		with t as (
+		select Profession,dept_no from employees
+		where emp_no = '1006')
+		, t2 as (
+		select * from employees
+		)
+		select * from t2 
+		join t on t2.Profession = t.Profession and t2.dept_no=t.dept_no;
+
+		--2) progect number and progect manager name
+		/*
+		assuming, that manager of project is employee and we need not his name but
+		to populate name of employee who is manager of an employee who is, in his turn,
+		manager of a progect 
+		*/
+		select ep.pro_name,em2.Name from project ep
+		left join employees em on ep.pro_mng = em.emp_no
+		left join employees em2 on em2.emp_no=em.manager_no
+		;
+
+		--3) select amployees with salary > then their manager
+		select em.emp_no,em.Name from employees em
+		join employees em2 on em.manager_no=em2.emp_no
+		where (em.salary > em2.salary)
+		;
+
+		--4) all amployees working on > 3 projects
+		select * from employees em where em.emp_no in (
+		select emp_no from emp_pro group by emp_no having (count (emp_no) >3)
+		);
+
+		--5) professions and salary of employees from same address as employee with max salary
+		with t as(
+		select em.profession,em.salary,em.address from employees em
+		where em.salary =( select max(salary) from employees)
+		)
+		select em2.profession,em2.salary 
+		from employees em2 join t on em2.address = t.address
+		;
+		-------------------
+
+						}
 					
-						DECLARE
-						l_job NUMBER := 0;
-						BEGIN
-						DBMS_JOB.SUBMIT( l_job,what=>'P_TEMPLATE_DATE(sysdate,null,null);', 
-						next_date=>trunc(sysdate,'dd')+1+2.5/24/60/60, -- start next hour 
-						interval => 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+3+2.5/24');
-						commit;
-						END;
-						
-						DECLARE
-						l_job NUMBER := 0;
-						BEGIN
-						DBMS_JOB.SUBMIT( l_job,what=>'p_gns_date(add_months(trunc(sysdate,''mm''),-1),add_months(trunc(sysdate,''mm''),0)-1/24/60/60,''GNS_JOB'');', 
-						next_date=>trunc(sysdate,'dd')+1+2.5/24/60/60, -- start next hour 
-						interval => 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+2+2.5/24');
-						commit;
-						END;
-
-						exec dbms_job.run(163038);commit;
-
-						BEGIN
-						DBMS_JOB.REMOVE(131572);
-						COMMIT;
-						END;
-					
-					
-						begin
-						dbms_job.change(210250, null,to_date('19.08.2017 08:00:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
-						end;
-						begin
-						dbms_job.change(214250, null,to_date('19.08.2017 08:15:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
-						end;
-						
-						
-						
-						select * from user_jobs where job in (210250,214250,213974);
-
-
-						begin
-						dbms_job.change(210250, null,to_date('23.08.2017 13:30:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
-						commit;
-						end;
-						begin
-						dbms_job.change(214250, null,to_date('08.09.2017 08:15:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
-						commit;
-						end;
-						begin
-						dbms_job.change(213974, null,to_date('23.08.2017 14:20:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
-						commit;
-						end;
-
-						
-						
-						execute DBMS_JOB.BROKEN(212730,FALSE);
-						execute dbms_job.change(212730, null,sysdate+0.15/24, 'next_day(trunc(sysdate,''dd''),''ВТОРНИК'')+0.3/24');
-
-		
-						begin
-						dbms_job.change(212730, null,to_date('08.08.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'), 'next_day(trunc(sysdate,' || '''' || 'mm' || '''' ||'),' || '''' || 'ВТОРНИК' || '''' ||  ')+0.3/24');
-						end;
-
-						--unBroke JOB
-						EXEC DBMS_JOB.BROKEN(206923,FALSE);
-
-						--change next date time
-						EXECUTE dbms_job.change(206923,null,to_date('03.04.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'),'add_months(trunc(sysdate,''mm''),1)+3');
-				
-				 begin 
-				 DBMS_JOB.CHANGE
-				   (213653
-				   ,'P_BANK_FN(sysdate,''%*%'');'
-				   ,trunc(sysdate,'dd')+1+1.5/24/60
-				   ,'add_months(TRUNC(SYSDATE,''mm''),1)+3+1.5/24');
-				   end ;
-				   
-					exec dbms_job.run(131571);commit;
-
-					BEGIN
-					   DBMS_JOB.REMOVE(131572);
-					   COMMIT;
-					END;
-					
-					/*JOBS UNBROKE*/
-					/* Filename on companion disk: job5.sql */*
-					CREATE OR REPLACE PROCEDURE job_fixer
-					AS
-				   /*
-				   || calls DBMS_JOB.BROKEN to try and set
-				   || any broken jobs to unbroken
-				   */
-				   
-				   /* cursor selects user's broken jobs */
-				   CURSOR broken_jobs_cur
-				   IS
-				   SELECT job
-					 FROM user_jobs
-					WHERE broken = 'Y';
-						
-					BEGIN
-					   FOR job_rec IN broken_jobs_cur
-					   LOOP
-						  DBMS_JOB.BROKEN(job_rec.job,FALSE);
-					   END LOOP;
-					END job_fixer;
-																				
 					}
 					
-					public alter_session_lang()
-					{
-						ALTER SESSION SET NLS_DATE_LANGUAGE = 'ENGLISH'
-						select to_char(sysdate,'Month') from dual 
-					}
-					
-					public DROP_TABLES_BY_LIST()
-					{
-					-------------------------
-					drop table temp3;
-					drop table temp4;
-
-					create table temp3 (c1 varchar (10));
-					create table temp4 (c1 varchar (10),C2 INT);
-
-					insert into temp3 (c1) values ('aa b aa');
-					insert into temp3 (c1) values ('aa c aa');
-					insert into temp3 (c1) values ('aa d aa');
-					insert into temp3 (c1) values ('aa e aa');
-
-					insert into temp4 (c1) values ('c');
-					insert into temp4 (c1) values ('e');
-
-					commit;
-
-					set serveroutput on
-					begin
-					for c_c1 in (select c1 from temp3) loop
-						for c_c2 in (select c1 from temp4) loop         
-						  if c_c1.c1  like  '%' || c_c2.c1  || '%' then 
-						  dbms_output.put_line(c_c1.c1  || ' like ' || '''%' || c_c2.c1  || '%'''); 
-						  --insert into T_output (c1) VALUES (c_c1.c1  || ' like ' || '''%' || c_c2.c1  || '%''');
-						  UPDATE TEMP4 SET C2 =1 WHERE C1=c_c2.C1;
-						  end if;
-						end loop;
-					  end loop;
-					end;
-					-------------------------
-
-
-					--BATTLE--
-					-------------------------
-
-					drop table t_table_to_delete;
-					create table t_table_to_delete (t_name varchar(250),inprocedures int);
-
-					--search selected tables in procedures and if used mark inprocedures as 1
-					set serveroutput on
-					begin
-					for c_c1 in ( SELECT TEXT  FROM USER_SOURCE) loop
-						for c_c2 in ( SELECT T_NAME   FROM T_TABLE_TO_DELETE) loop         
-						  if c_c1.TEXT  like  '%' || c_c2.T_NAME  || '%' then 
-						  dbms_output.put_line(c_c1.TEXT  || ' like ' || '''%' || c_c2.T_NAME  || '%'''); 
-						  update T_TABLE_TO_DELETE set inprocedures =1 where t_name =c_c2.T_NAME and t_name not in 
-						  (select distinct table_name from table_privileges );
-						  end if;
-						end loop;
-					  end loop;
-					end;
-
-
-					--very very bad drop;
-					set serveroutput on
-					begin
-					for c_c in (select * from t_table_to_delete where inprocedures !=1 and t_name not in 
-						  (select distinct table_name from table_privileges )) loop
-					  execute immediate ('drop table ' || c_c.t_name );
-					  dbms_output.put_line('dropped :' || c_c.t_name);
-					end loop;
-					end ;
-					-------------------------
-					}
-											
-				}
-				
-				public internal class Functions()
-				{
-					
-					public P_TEMPLATE()
+					public internal class Selection()
 					{
 						
-						create or replace
-						PROCEDURE P_EWALLET_D (ReqStIn date, ReqFnIn date, comment_ varchar )
-						AUTHID CURRENT_USER
-						IS
-						jobStarted date; --sysdate of currentprocedure started
-						jobFinished date; --sysdate of currentprocedure finished
+						public datetime()
+						{
+							
+							define ReqFnDate=to_date('30.06.2017 23:59:59','dd.mm.yyyy hh24:mi:ss');
+							define ReqStDate=add_months(trunc(&ReqFnDate,'mm'),0);
+							define TrStDate=add_months(&ReqStDate,-5);
+							define TrFnDate=add_months(&ReqFnDate,+1);
+							
+						}
 
-						ReqStDate date;
-						ReqFnDate date;
+						public tableCreate()
+						{
+							
+							//table with prim,sec keys
+							create table teble(
+							ID int not null identity(0,1), --not nullable id increasing from 0 by 1 every insert
+							SEC_ID int null, --foreign key
+							primary key(ID), -- indicates primary key
+							foreign key(SEC_ID) references SEC_NAMES(ID), -- indicates secondary key and according key in other table
+							)
 
-						rows_processed number;
-						commentary varchar(200);
+							//create table add key add foreign key
+							create table DWH_replica.dbo.table2 (
+							ID int not null identity(0,1),
+							TXT varchar(50),
+							DT Datetime);
 
-						BEGIN
-						DBMS_OUTPUT.PUT_LINE('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\');
-						DBMS_OUTPUT.PUT_LINE('P_EWALLET_D STARTED');
-						jobStarted := sysdate;
-						rows_processed := 0;
+							alter table DWH_replica.dbo.table2
+							add primary key (ID);
 
+							create table DWH_replica.dbo.table1 (
+							ID int not null identity(0,1),
+							SEC_ID int null,
+							primary key (ID),
+							foreign key (SEC_ID) references DWH_replica.dbo.table2(ID));
 
-
-						if(comment_ is null or comment_ = '' ) then 
-						commentary := 'UNKNOWN' ;
-						else
-						commentary := comment_;
-						end if;
-
-						if(ReqStIn is not null and ReqFnIn is not null ) then
-						ReqStDate := trunc(ReqStIn,'mm') ;
-						ReqFnDate := trunc(ReqFnIn,'mm') ;
-						else
-						if(ReqStIn is null and ReqFnIn is null ) then
-						ReqStDate := add_months(trunc(sysdate,'mm'),-1);
-						ReqFnDate := add_months(ReqStDate,1)-1/24/60/60;
-						else
-
-						if(ReqStIn is null) then
-						ReqStDate := trunc(ReqFnIn,'mm');
-						ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
-						end if;
-
-						if(ReqFnIn is null) then 
-						ReqStDate := trunc(ReqStIn,'mm');
-						ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
-						end if;
-						end if;
-
-						end if;
-
-
-
-
-
-
-
-
-
-						--printing all date values to log
-
-						DBMS_OUTPUT.PUT_LINE('Actual sysdate - ' || to_char(sysdate,'dd.mm.yyyy hh24:mi:ss') || ';');
-						DBMS_OUTPUT.PUT_LINE('Received sysdate - ' || to_char(jobStarted,'dd.mm.yyyy hh24:mi:ss') || ';');
-						DBMS_OUTPUT.PUT_LINE('Data period start date  - ' || to_char(ReqStDate,'dd.mm.yyyy hh24:mi:ss') || ';');
-						DBMS_OUTPUT.PUT_LINE('Data period finish date  - ' || to_char(ReqFnDate,'dd.mm.yyyy hh24:mi:ss') || ';');
+						}
+									
+						public join_update()
+						{
+							
+							/*update from join*/
+							--\\\\\\\\\\\\\\\\\\
+							update acquiring_month tt
+							set (center,division) = (
+							select f.rc,f.rp from tms.v_merchants t 
+							join mtr_rc_rp_fins f on f.GEOGRAPHIC=t.GEOGRAPHIC_GID 
+							where t.merchant=tt.merchant
+							)
+							where exists(
+							select t.merchant,f.rc,f.rp from tms.v_merchants t 
+							join mtr_rc_rp_fins f on f.GEOGRAPHIC=t.GEOGRAPHIC_GID 
+							where t.merchant=tt.merchant
+							)
+							and tt.center is null and tt.division is null 
+							--//////////////////
 
 
-						--all procedure specific code goes here
-						-->>>HERE<<<
+							--update from join with merge into 
+							--\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
-						/*
-						delete from T_EWALLETS_D where DATE_D between ReqStDate  and ReqFnDate;
+							select * from test1;
+							select * from test2;
 
-						insert into T_EWALLETS_D
+							delete from test1; delete from test2;
 
+							insert into test1 (c1,c2) values ('A','1');
+							insert into test1 (c1,c2) values ('B','1');
+							insert into test1 (c1,c2) values ('C','1');
+							insert into test1 (c1,c2) values ('D','1');
+							insert into test1 (c1,c2) values ('E','1');
+							insert into test1 (c1,c2) values ('F','1');
 
+							insert into test2 (c1,c2) values ('A','2');
+							insert into test2 (c1,c2) values ('B','3');
+							insert into test2 (c1,c2) values ('C','4');
+
+							merge into test1 t1
+							using (select * from test2 t2) p
+							on (t1.c1=p.c1)
+							when matched then
+							update set t1.c2=p.c2
+							;
+
+							--//////////////////////////////
+
+						}
+
+						public LEVEL()
+						{
+							
+						--//level1
+						SELECT * FROM
+
+						(SELECT LEVEL R0 FROM dual CONNECT BY LEVEL <3),
+						(SELECT LEVEL R1 FROM dual CONNECT BY LEVEL <5),
+						(SELECT LEVEL R2 FROM dual CONNECT BY LEVEL <4)
+						--///
+
+						--// levle2
+						select * from 
+						( select level "C1" from dual connect by level <=10 ) t1
+						full outer join ( select level "C1" from dual connect by level <=3 ) t2 on t1.c1<>t2.c1
+
+						union all
+
+						select * from 
+						( select level "C1" from dual connect by level <=10 ) t1
+						join ( select level "C1" from dual connect by level <=3 ) t2 on t1.c1=t2.c1
+						--///
+
+						}
+
+						public partition_over()
+						{
+							
 						select 
-						trunc(m.request_date,'dd') "DATE_D",
-						cast(fld_042 as varchar(10)) "MERCHANT",
-						CASE
-						WHEN fld_119 LIKE '%061150139059239%'
-						THEN 'APP'
-						WHEN fld_119 LIKE '%061150110030273%'
-						THEN 'SMP'
-						WHEN fld_119 LIKE '%061150120834693%'
-						THEN 'ARP'
-						ELSE '0'
-						END "EWALLET",
+						min(rownum) 
+						from (
+						select t.*,count(*) over (partition by t.bin,t.bank) "CNT" from neprintsev_ia.ref_bin t
+						) where cnt>1 group by bin,bank
 
-						sum(m.FLD_004/100) "AMT",
-						count(m.FLD_004) "CNT"
+						}
 
-						FROM tms.RTPS_MESSAGES_LOG m
-						where 1=1
-						and m.request_date between ReqStDate  and ReqFnDate
-						and cast(fld_042 as varchar(10)) in (
-						select merchant from ref_merchants --where reg_nr = '7743543761'
+						public delete_duplicates()
+						{
+							
+						delete from neprintsev_ia.ref_bin 
+						where rowid in (
+						select min(rowid) "RN" from neprintsev_ia.ref_bin  where bin in (
+						select bin from neprintsev_ia.ref_bin having count(bin)>1 group by bin
+						) group by bin
 						)
-						and FLD_039 = '000'
 
-						group by trunc(m.request_date,'dd') , cast(m.fld_042 as varchar(10)) ,
-						CASE
-						WHEN fld_119 LIKE '%061150139059239%'
-						THEN 'APP'
-						WHEN fld_119 LIKE '%061150110030273%'
-						THEN 'SMP'
-						WHEN fld_119 LIKE '%061150120834693%'
-						THEN 'ARP'
-						ELSE '0'
-						END
-						;
+						}
 
-						commit;
-						*/
+						public CURSOR()
+						{
+							/*SAMPLE CURSOR*/
+							set serveroutput on;
+							begin
+							for cr in ( select merchant,reg_nr from ref_merchants )
+							loop 
+							  dbms_output.put_line('drop table ' || cr.merchant || ';');
+							end loop;
+							end ;
 
-						--ref_report_table
-						--select max(rownum) into rows_processed from neprintsev_ia.T_ACQ_D where "DATE" between startRefresh and endRefresh;
-						jobFinished:=sysdate;
-						insert into neprintsev_ia.ref_report_table ("NAME",job_started,job_finished,data_start,data_finish,rows_processed, commentary) 
-						values ('P_EWALLET_D', jobStarted,jobFinished,ReqStDate,ReqFnDate,rows_processed,commentary);
-						DBMS_OUTPUT.PUT_LINE('P_EWALLET_D EXECUTED');
-						DBMS_OUTPUT.PUT_LINE('//////////////////////////////////////////////////////////');
+						}
+						
+						public CrossReference()
+						{
+												
+												
+							drop table Customers;
+							drop table Invoices;
 
-						--current procedure execution example
-						/*
-						set serveroutput on;
-						execute P_TEMPLATE(sysdate);
-						*/
-						END P_EWALLET_D;
+							create table customers ("ID" int primary key not null, Name varchar(10), "REF" int,
+							constraint fk_ref foreign key("REF") references customers ("ID"));
+
+							create table Invoices (id int primary key not null, Billing date,CustomerID int,
+							constraint fk_inv foreign key(CustomerID) references customers (ID) );
+
+
+							insert into customers values (0,'A',null);
+							insert into customers values (1,'B',null);
+							insert into customers values (2,'C',0);
+							insert into customers values (3,'D',null);
+							insert into customers values (4,'F',0);
+							insert into customers values (5,'G',2);
+							insert into customers values (6,'H',3);
+							insert into customers values (7,'I',0);
+
+							insert into invoices values (0,sysdate,0);
+							insert into invoices values (1,sysdate,0);
+							insert into invoices values (2,sysdate,2);
+							insert into invoices values (3,sysdate,4);
+							insert into invoices values (4,sysdate,3);
+							insert into invoices values (5,sysdate,6);
+							insert into invoices values (6,sysdate,7);
+							insert into invoices values (7,sysdate,null);
+
+							select * from Customers;
+							select * from invoices t;
+
+							select t.id,t.billing,t2.name,t3.name 
+							from invoices t
+							--left
+							join Customers t2 on t2.id=t.customerId
+							left join Customers t3 on t3.ID = t2.REF
+							order by t.BILLING;
+
+
+
+						}
+						
+						public UpdateCase()
+						{
+							
+							drop table swap;
+							create table swap (id int,c1 varchar(10), c2 varchar(10));
+							insert into swap values (0,'f','m');
+							insert into swap values (1,'m','f');
+							insert into swap values (2,'f','m');
+
+							update swap t
+							set c1 = case when c1 is null then null when c1 = 'f' then 'm' else 'f' end  ;
+
+							select * from swap;
+						}
+						
+						public IntersectMinus()
+						{
+												
+							drop table test_a;
+							drop table test_b;
+
+							create table test_a(id numeric,val varchar(10));
+							create table test_b(id numeric,val varchar(10));
+
+							insert into test_a values (10,'a');
+							insert into test_a values (20,'b');
+							insert into test_a values (30,'c');
+							insert into test_a values (40,'d');
+							insert into test_a values (50,'f');
+
+							insert into test_b values (10,'a');
+							insert into test_b values (30,'d');
+							insert into test_b values (50,'f');
+
+							with t as (select * from test_a t) ,
+							t2 as (select * from test_b t)
+							select * from t
+							intersect
+							select * from t2
+							;
+
+							with t as (select * from test_a t) ,
+							t2 as (select * from test_b t)
+							select * from t
+							minus
+							select * from t2
+							;
+						}
+						
+						public Rank()
+						{
+							
+							--For Golland DbContext
+							--RANK
+		select * from (
+		select ep.*, row_number() over(order by ep.salary desc) "RN"
+		from employees ep
+		) where "RN" = 10
+		;
+
+		with t as (
+		select t.*,row_number() over (order by t.SAL desc ) "RN" from (
+		select distinct ep.salary "SAL" from employees ep order by "SAL" desc
+		) t ) 
+		, t2 as (
+		select * from employees ep
+		)
+		select * from t2
+		join t on t2.salary = t.sal
+		;
+
+		select ep.dept_no,ep.name,max(ep.salary) "MAX",
+		dense_rank() over (partition by ep.dept_no order by max(ep.salary) desc) "RANK"
+		from employees ep
+		group by ep.dept_no,ep.name
+		order by "MAX" desc;
+
+
+		select ep.*,
+		max(ep.salary)  over (partition by ep.dept_no) as "MAX_DEP_SAL",
+		avg(ep.salary)  over (partition by ep.dept_no) as "AVG_DEP_SAL",
+		avg(ep.salary)  over (partition by ep.profession) as "AVG_PROF_SAL"
+		from employees ep
+		order by "MAX_DEP_SAL" desc;
+
+
+		select 
+		ep.*, 
+		max(ep.salary) over() as "SAL"
+		from employees ep
+		;
+
+
+		select ep.name,ep.dept_no
+		--, max(ep.salary) over (partition by ep.dept_no order by ep.salary desc) "RANK"
+		, max(ep.salary) keep (dense_rank first order by ep.salary desc) "RANK"
+		from employees ep
+		group by ep.name,ep.dept_no
+		order by"RANK" desc
+
+		; 
+
+
+						}
+						
 					}
 					
-					public P_TEMPLATE_DATE()
+					public internal class MAINTANANCE()
 					{
 						
-						create or replace
-						PROCEDURE P_TEMPLATE_DATE (ReqStIn date, ReqFnIn date, comment_ varchar )
-						AUTHID CURRENT_USER
-						IS
-						jobStarted date; --sysdate of currentprocedure started
-						jobFinished date; --sysdate of currentprocedure finished
+						public REFERENCES()
+						{
+							
+							--//roles
+							select * from role_tab_privs
+							--//granted privileges
+							select * from table_privileges
+							revoke  select on acquiring_month from kokorina_jv
+							--//all  user objects
+							select * from user_objects
+							--// TABLE modifications INSERT,DELETE,UPDATE
+							select * from user_tab_modifications;
+							//Objects source code
+							select * from all_source
+							//Procedure texts 
+							select * from user_source  
+							
+							/*Unreferenced table names*/
+							select distinct table_name,'select * from ' || table_name || ';' from all_tables where owner like '%NEPRIN%'
+							and table_name not in (
+							select distinct "REFERENCED_NAME" from user_dependencies 
+							)
+							;
 
-						dataDate date;  --date wich is default for data quering (sysdate-2 for acquiring queries)
-						dataStart date; --data period start date
-						dataFinish date; --data period finish date
+							/*Unref and ungranted tables*/
+							select distinct table_name,'select * from ' || table_name || ';' from all_tables where 1=1 
+							and owner like '%NEPRIN%'
+							--all tables that referenced from smwh
+							and table_name not in (select distinct "REFERENCED_NAME" from user_dependencies )
+							--all tables granted to somb
+							and table_name not in (select table_name from user_tab_privs where owner like '%NEPRIN%')
+							and table_name not like 'REF%'
+							order by table_name asc
+							;
 
-						rows_processed number;
-						commentary varchar(200);
+							/*TABLE SIZE*/
+							select segment_name "TABLE_NAME",bytes /1024/1024  "SIZE_MB" from 
+							user_segments 
+							order by "SIZE_MB" desc 
+							;
+							
+						}			
+									
+						public Priviledges
+						{
+							revoke  select on acquiring_month from kokorina_jv
+						}
+						
+						public GrantOverall(){
+							/*GRANT OVERAL*/
+							begin 
+							for temp_name in (
+							  select table_name from user_tables 
+							  --where table_name in ('TEMP','TEMP2','TEMP3','TEMP4') 
+							  ) loop
+							  execute immediate 'grant select,insert,delete  on neprintsev_ia.' || temp_name.table_name || ' to neprintsev_ia';
+							  end loop;
+							  end ;
+						}
+						
+						public TABLES_ALTER()
+						{
+							//change column type
+							alter table ref_mc_ird_rates modify mcc varchar (50) 
+						}
+						
+						public EXPLAIN_PLAN()
+						{
 
-						ReqStDate date;
-						ReqFnDate date;
+							--//eplain table
+							delete from PLAN_TABLE;
+							EXPLAIN PLAN for
+							select * from dual;
+							select operation,options,object_name,cost , t.* from PLAN_TABLE t;
+							SELECT * FROM TABLE (dbms_xplan.display);
+							--//
 
+
+							--//display cursor
+							select * from table (DBMS_XPLAN.DISPLAY_CURSOR(null,null,'basic'))
+							--// privilege needed: SELECT privilege on V$SQL_PLAN, V$SQL_PLAN_DETAIL,SELECT_CATALOG_ROLE
+							--//
+
+							--//Gather statistic
+							Execute DBMS_STATS.GATHER_TABLE_STATS('neprintsev_ia','AMS_MC_BINS_',method_opt=>'FOR COLUMNS SIZE 254 columnName')
+							--//
+
+						}
+						
+						public DB_LINK()
+						{
+							
+							
+						drop  DATABASE LINK "DB_LINK.US.ORACLE.COM";
+
+						CREATE DATABASE LINK "DB_LINK.US.ORACLE.COM"
+						CONNECT TO DACQ_NEPRINTSEV
+						IDENTIFIED BY  x2y4uecbbo
+						USING '  (DESCRIPTION=
+							(ADDRESS=
+							  (PROTOCOL=TCP)
+							  (HOST=exdt01-scan.rs.ru)
+							  (PORT=1521)
+							)
+							(CONNECT_DATA=
+							  (SERVER=dedicated)
+							  (SERVICE_NAME=BUS)
+							)
+						  )
+						'
+						;
+						}
+								
+						public JOBS()
+						{
+							
+							select job,broken,interval,what,last_date,last_sec,next_date,next_sec from user_jobs order by job desc;
+						
+							DECLARE
+							l_job NUMBER := 0;
+							BEGIN
+							DBMS_JOB.SUBMIT( l_job,what=>'P_TEMPLATE_DATE(sysdate,null,null);', 
+							next_date=>trunc(sysdate,'dd')+1+2.5/24/60/60, -- start next hour 
+							interval => 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+3+2.5/24');
+							commit;
+							END;
+							
+							DECLARE
+							l_job NUMBER := 0;
+							BEGIN
+							DBMS_JOB.SUBMIT( l_job,what=>'p_gns_date(add_months(trunc(sysdate,''mm''),-1),add_months(trunc(sysdate,''mm''),0)-1/24/60/60,''GNS_JOB'');', 
+							next_date=>trunc(sysdate,'dd')+1+2.5/24/60/60, -- start next hour 
+							interval => 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+2+2.5/24');
+							commit;
+							END;
+
+							exec dbms_job.run(163038);commit;
+
+							BEGIN
+							DBMS_JOB.REMOVE(131572);
+							COMMIT;
+							END;
+						
+						
+							begin
+							dbms_job.change(210250, null,to_date('19.08.2017 08:00:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
+							end;
+							begin
+							dbms_job.change(214250, null,to_date('19.08.2017 08:15:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
+							end;
+							
+							
+							
+							select * from user_jobs where job in (210250,214250,213974);
+
+
+							begin
+							dbms_job.change(210250, null,to_date('23.08.2017 13:30:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
+							commit;
+							end;
+							begin
+							dbms_job.change(214250, null,to_date('08.09.2017 08:15:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
+							commit;
+							end;
+							begin
+							dbms_job.change(213974, null,to_date('23.08.2017 14:20:00','dd.mm.yyyy hh24:mi:ss'), 'add_months(trunc(sysdate,' || '''' || 'mm' || '''' ||'),1)+7+8/24');
+							commit;
+							end;
+
+							
+							
+							execute DBMS_JOB.BROKEN(212730,FALSE);
+							execute dbms_job.change(212730, null,sysdate+0.15/24, 'next_day(trunc(sysdate,''dd''),''ВТОРНИК'')+0.3/24');
+
+			
+							begin
+							dbms_job.change(212730, null,to_date('08.08.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'), 'next_day(trunc(sysdate,' || '''' || 'mm' || '''' ||'),' || '''' || 'ВТОРНИК' || '''' ||  ')+0.3/24');
+							end;
+
+							--unBroke JOB
+							EXEC DBMS_JOB.BROKEN(206923,FALSE);
+
+							--change next date time
+							EXECUTE dbms_job.change(206923,null,to_date('03.04.2017 00:00:00','dd.mm.yyyy hh24:mi:ss'),'add_months(trunc(sysdate,''mm''),1)+3');
+					
+					 begin 
+					 DBMS_JOB.CHANGE
+					   (213653
+					   ,'P_BANK_FN(sysdate,''%*%'');'
+					   ,trunc(sysdate,'dd')+1+1.5/24/60
+					   ,'add_months(TRUNC(SYSDATE,''mm''),1)+3+1.5/24');
+					   end ;
+					   
+						exec dbms_job.run(131571);commit;
 
 						BEGIN
-						DBMS_OUTPUT.PUT_LINE('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\');
-						DBMS_OUTPUT.PUT_LINE('P_TEMPLATE_DATE STARTED');
-						jobStarted := sysdate;
-						rows_processed := 0;
-
-
-						if(comment_ is null or comment_ = '' ) then 
-						commentary := 'UNKNOWN' ;
-						else
-						commentary := comment_;
-						end if;
-
-						if(ReqStIn is not null and ReqFnIn is not null ) then
-						ReqStDate := trunc(ReqStIn,'mm') ;
-						ReqFnDate := trunc(ReqFnIn,'mm') ;
-						else
-						if(ReqStIn is null and ReqFnIn is null ) then
-						ReqStDate := add_months(trunc(sysdate,'mm'),-1);
-						ReqFnDate := add_months(ReqStDate,1)-1/24/60/60;
-						else
-
-						if(ReqStIn is null) then
-						ReqStDate := trunc(ReqFnIn,'mm');
-						ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
-						end if;
-
-						if(ReqFnIn is null) then 
-						ReqStDate := trunc(ReqStIn,'mm');
-						ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
-						end if;
-						end if;
-
-						end if;
-
-						dataDate:=sysdate-2; --data default for most reports sysdate - 2
-						dataStart:=trunc(dataDate,'mm'); --defining data date range start of month 
-						dataFinish:=trunc(dataStart,'dd')-1/24/60/60; --defining data date range finish of month
-
-						--printing all date values to log
-
-						DBMS_OUTPUT.PUT_LINE('Actual sysdate - ' || to_char(sysdate,'dd.mm.yyyy hh24:mi:ss') || ';');
-						DBMS_OUTPUT.PUT_LINE('Received sysdate - ' || to_char(jobStarted,'dd.mm.yyyy hh24:mi:ss') || ';');
-						DBMS_OUTPUT.PUT_LINE('Data sysdate defined - ' || to_char(dataDate,'dd.mm.yyyy hh24:mi:ss') || ';');
-						DBMS_OUTPUT.PUT_LINE('Data period start date  - ' || to_char(dataStart,'dd.mm.yyyy hh24:mi:ss') || ';');
-						DBMS_OUTPUT.PUT_LINE('Data period finish date  - ' || to_char(dataFinish,'dd.mm.yyyy hh24:mi:ss') || ';');
-
-
-						--all procedure specific code goes here
-						-->>>HERE<<<
-
-
-						--ref_report_table
-						--select max(rownum) into rows_processed from neprintsev_ia.T_ACQ_D where "DATE" between startRefresh and endRefresh;
-						jobFinished:=sysdate;
-						insert into neprintsev_ia.ref_report_table ("NAME",job_started,job_finished,data_start,data_finish,rows_processed, commentary) 
-						values ('P_TEMPLATE_DATE', jobStarted,jobFinished,dataStart,dataFinish,rows_processed,comment_);
-						DBMS_OUTPUT.PUT_LINE('P_TEMPLATE_DATE EXECUTED');
-						DBMS_OUTPUT.PUT_LINE('//////////////////////////////////////////////////////////');
-
-						--current procedure execution example
-						/*
-						set serveroutput on;
-						execute P_TEMPLATE(sysdate);
-						*/
-						END P_TEMPLATE_DATE;
+						   DBMS_JOB.REMOVE(131572);
+						   COMMIT;
+						END;
 						
-					}
-					
-					public LoopByNumWithLevel()
-					{
+						/*JOBS UNBROKE*/
+						/* Filename on companion disk: job5.sql */*
+						CREATE OR REPLACE PROCEDURE job_fixer
+						AS
+					   /*
+					   || calls DBMS_JOB.BROKEN to try and set
+					   || any broken jobs to unbroken
+					   */
+					   
+					   /* cursor selects user's broken jobs */
+					   CURSOR broken_jobs_cur
+					   IS
+					   SELECT job
+						 FROM user_jobs
+						WHERE broken = 'Y';
+							
+						BEGIN
+						   FOR job_rec IN broken_jobs_cur
+						   LOOP
+							  DBMS_JOB.BROKEN(job_rec.job,FALSE);
+						   END LOOP;
+						END job_fixer;
+																					
+						}
 						
-						set serveroutput on
-						begin 
-						for c1 in ( SELECT LEVEL R0 FROM dual CONNECT BY LEVEL <3 ) loop
+						public alter_session_lang()
+						{
+							ALTER SESSION SET NLS_DATE_LANGUAGE = 'ENGLISH'
+							select to_char(sysdate,'Month') from dual 
+						}
+						
+						public DROP_TABLES_BY_LIST()
+						{
+						-------------------------
+						drop table temp3;
+						drop table temp4;
 
-						/*
-						define dt = add_months(trunc(sysdate,'dd'),0) ;
-						set serveroutput on
-						execute P_ECOM_M_REFRESH(&dt);
+						create table temp3 (c1 varchar (10));
+						create table temp4 (c1 varchar (10),C2 INT);
+
+						insert into temp3 (c1) values ('aa b aa');
+						insert into temp3 (c1) values ('aa c aa');
+						insert into temp3 (c1) values ('aa d aa');
+						insert into temp3 (c1) values ('aa e aa');
+
+						insert into temp4 (c1) values ('c');
+						insert into temp4 (c1) values ('e');
+
 						commit;
-						*/
-						DBMS_OUTPUT.put_line('Print ' || c1.R0 );
 
+						set serveroutput on
+						begin
+						for c_c1 in (select c1 from temp3) loop
+							for c_c2 in (select c1 from temp4) loop         
+							  if c_c1.c1  like  '%' || c_c2.c1  || '%' then 
+							  dbms_output.put_line(c_c1.c1  || ' like ' || '''%' || c_c2.c1  || '%'''); 
+							  --insert into T_output (c1) VALUES (c_c1.c1  || ' like ' || '''%' || c_c2.c1  || '%''');
+							  UPDATE TEMP4 SET C2 =1 WHERE C1=c_c2.C1;
+							  end if;
+							end loop;
+						  end loop;
+						end;
+						-------------------------
+
+
+						--BATTLE--
+						-------------------------
+
+						drop table t_table_to_delete;
+						create table t_table_to_delete (t_name varchar(250),inprocedures int);
+
+						--search selected tables in procedures and if used mark inprocedures as 1
+						set serveroutput on
+						begin
+						for c_c1 in ( SELECT TEXT  FROM USER_SOURCE) loop
+							for c_c2 in ( SELECT T_NAME   FROM T_TABLE_TO_DELETE) loop         
+							  if c_c1.TEXT  like  '%' || c_c2.T_NAME  || '%' then 
+							  dbms_output.put_line(c_c1.TEXT  || ' like ' || '''%' || c_c2.T_NAME  || '%'''); 
+							  update T_TABLE_TO_DELETE set inprocedures =1 where t_name =c_c2.T_NAME and t_name not in 
+							  (select distinct table_name from table_privileges );
+							  end if;
+							end loop;
+						  end loop;
+						end;
+
+
+						--very very bad drop;
+						set serveroutput on
+						begin
+						for c_c in (select * from t_table_to_delete where inprocedures !=1 and t_name not in 
+							  (select distinct table_name from table_privileges )) loop
+						  execute immediate ('drop table ' || c_c.t_name );
+						  dbms_output.put_line('dropped :' || c_c.t_name);
 						end loop;
 						end ;
-
+						-------------------------
+						}
+										
 					}
-				
+					
+					public internal class Functions()
+					{
+						
+						public P_TEMPLATE()
+						{
+							
+							create or replace
+							PROCEDURE P_EWALLET_D (ReqStIn date, ReqFnIn date, comment_ varchar )
+							AUTHID CURRENT_USER
+							IS
+							jobStarted date; --sysdate of currentprocedure started
+							jobFinished date; --sysdate of currentprocedure finished
+
+							ReqStDate date;
+							ReqFnDate date;
+
+							rows_processed number;
+							commentary varchar(200);
+
+							BEGIN
+							DBMS_OUTPUT.PUT_LINE('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\');
+							DBMS_OUTPUT.PUT_LINE('P_EWALLET_D STARTED');
+							jobStarted := sysdate;
+							rows_processed := 0;
+
+
+
+							if(comment_ is null or comment_ = '' ) then 
+							commentary := 'UNKNOWN' ;
+							else
+							commentary := comment_;
+							end if;
+
+							if(ReqStIn is not null and ReqFnIn is not null ) then
+							ReqStDate := trunc(ReqStIn,'mm') ;
+							ReqFnDate := trunc(ReqFnIn,'mm') ;
+							else
+							if(ReqStIn is null and ReqFnIn is null ) then
+							ReqStDate := add_months(trunc(sysdate,'mm'),-1);
+							ReqFnDate := add_months(ReqStDate,1)-1/24/60/60;
+							else
+
+							if(ReqStIn is null) then
+							ReqStDate := trunc(ReqFnIn,'mm');
+							ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
+							end if;
+
+							if(ReqFnIn is null) then 
+							ReqStDate := trunc(ReqStIn,'mm');
+							ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
+							end if;
+							end if;
+
+							end if;
+
+
+
+
+
+
+
+
+
+							--printing all date values to log
+
+							DBMS_OUTPUT.PUT_LINE('Actual sysdate - ' || to_char(sysdate,'dd.mm.yyyy hh24:mi:ss') || ';');
+							DBMS_OUTPUT.PUT_LINE('Received sysdate - ' || to_char(jobStarted,'dd.mm.yyyy hh24:mi:ss') || ';');
+							DBMS_OUTPUT.PUT_LINE('Data period start date  - ' || to_char(ReqStDate,'dd.mm.yyyy hh24:mi:ss') || ';');
+							DBMS_OUTPUT.PUT_LINE('Data period finish date  - ' || to_char(ReqFnDate,'dd.mm.yyyy hh24:mi:ss') || ';');
+
+
+							--all procedure specific code goes here
+							-->>>HERE<<<
+
+
+							--ref_report_table
+							--select max(rownum) into rows_processed from neprintsev_ia.T_ACQ_D where "DATE" between startRefresh and endRefresh;
+							jobFinished:=sysdate;
+							insert into neprintsev_ia.ref_report_table ("NAME",job_started,job_finished,data_start,data_finish,rows_processed, commentary) 
+							values ('P_EWALLET_D', jobStarted,jobFinished,ReqStDate,ReqFnDate,rows_processed,commentary);
+							DBMS_OUTPUT.PUT_LINE('P_EWALLET_D EXECUTED');
+							DBMS_OUTPUT.PUT_LINE('//////////////////////////////////////////////////////////');
+
+							--current procedure execution example
+							/*
+							set serveroutput on;
+							execute P_TEMPLATE(sysdate);
+							*/
+							END P_EWALLET_D;
+						}
+						
+						public P_TEMPLATE_DATE()
+						{
+							
+							create or replace
+							PROCEDURE P_TEMPLATE_DATE (ReqStIn date, ReqFnIn date, comment_ varchar )
+							AUTHID CURRENT_USER
+							IS
+							jobStarted date; --sysdate of currentprocedure started
+							jobFinished date; --sysdate of currentprocedure finished
+
+							dataDate date;  --date wich is default for data quering (sysdate-2 for acquiring queries)
+							dataStart date; --data period start date
+							dataFinish date; --data period finish date
+
+							rows_processed number;
+							commentary varchar(200);
+
+							ReqStDate date;
+							ReqFnDate date;
+
+
+							BEGIN
+							DBMS_OUTPUT.PUT_LINE('\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\');
+							DBMS_OUTPUT.PUT_LINE('P_TEMPLATE_DATE STARTED');
+							jobStarted := sysdate;
+							rows_processed := 0;
+
+
+							if(comment_ is null or comment_ = '' ) then 
+							commentary := 'UNKNOWN' ;
+							else
+							commentary := comment_;
+							end if;
+
+							if(ReqStIn is not null and ReqFnIn is not null ) then
+							ReqStDate := trunc(ReqStIn,'mm') ;
+							ReqFnDate := trunc(ReqFnIn,'mm') ;
+							else
+							if(ReqStIn is null and ReqFnIn is null ) then
+							ReqStDate := add_months(trunc(sysdate,'mm'),-1);
+							ReqFnDate := add_months(ReqStDate,1)-1/24/60/60;
+							else
+
+							if(ReqStIn is null) then
+							ReqStDate := trunc(ReqFnIn,'mm');
+							ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
+							end if;
+
+							if(ReqFnIn is null) then 
+							ReqStDate := trunc(ReqStIn,'mm');
+							ReqFnDate :=  add_months(ReqStDate,1)-1/24/60/60;
+							end if;
+							end if;
+
+							end if;
+
+							dataDate:=sysdate-2; --data default for most reports sysdate - 2
+							dataStart:=trunc(dataDate,'mm'); --defining data date range start of month 
+							dataFinish:=trunc(dataStart,'dd')-1/24/60/60; --defining data date range finish of month
+
+							--printing all date values to log
+
+							DBMS_OUTPUT.PUT_LINE('Actual sysdate - ' || to_char(sysdate,'dd.mm.yyyy hh24:mi:ss') || ';');
+							DBMS_OUTPUT.PUT_LINE('Received sysdate - ' || to_char(jobStarted,'dd.mm.yyyy hh24:mi:ss') || ';');
+							DBMS_OUTPUT.PUT_LINE('Data sysdate defined - ' || to_char(dataDate,'dd.mm.yyyy hh24:mi:ss') || ';');
+							DBMS_OUTPUT.PUT_LINE('Data period start date  - ' || to_char(dataStart,'dd.mm.yyyy hh24:mi:ss') || ';');
+							DBMS_OUTPUT.PUT_LINE('Data period finish date  - ' || to_char(dataFinish,'dd.mm.yyyy hh24:mi:ss') || ';');
+
+
+							--all procedure specific code goes here
+							-->>>HERE<<<
+
+
+							--ref_report_table
+							--select max(rownum) into rows_processed from neprintsev_ia.T_ACQ_D where "DATE" between startRefresh and endRefresh;
+							jobFinished:=sysdate;
+							insert into neprintsev_ia.ref_report_table ("NAME",job_started,job_finished,data_start,data_finish,rows_processed, commentary) 
+							values ('P_TEMPLATE_DATE', jobStarted,jobFinished,dataStart,dataFinish,rows_processed,comment_);
+							DBMS_OUTPUT.PUT_LINE('P_TEMPLATE_DATE EXECUTED');
+							DBMS_OUTPUT.PUT_LINE('//////////////////////////////////////////////////////////');
+
+							--current procedure execution example
+							/*
+							set serveroutput on;
+							execute P_TEMPLATE(sysdate);
+							*/
+							END P_TEMPLATE_DATE;
+							
+						}
+						
+						public LoopByNumWithLevel()
+						{
+							
+							set serveroutput on
+							begin 
+							for c1 in ( SELECT LEVEL R0 FROM dual CONNECT BY LEVEL <3 ) loop
+
+							/*
+							define dt = add_months(trunc(sysdate,'dd'),0) ;
+							set serveroutput on
+							execute P_ECOM_M_REFRESH(&dt);
+							commit;
+							*/
+							DBMS_OUTPUT.put_line('Print ' || c1.R0 );
+
+							end loop;
+							end ;
+
+						}
+						
+						public RegexProc(){
+							/*REGEX proc*/
+			create or replace
+			PROCEDURE P_REGEX
+			AUTHID CURRENT_USER
+			IS
+			pattern  varchar(250);
+			Cursor CR is select t.REGEX_PATTERN from neprintsev_ia.ref_regex_pattern t where t.REGEX_PATTERN is not null;
+
+			BEGIN
+			delete from neprintsev_ia.ref_regex_ent;
+			 DBMS_OUTPUT.PUT_LINE('Deleted from ref_regex_ent');  
+			 
+			  for C1 in CR loop
+				insert into neprintsev_ia.ref_regex_ent(ENTITY,REGEX_PATTERN) select m.merchant,C1.REGEX_PATTERN  from neprintsev_ia.ref_merchants m where regexp_like(upper(m.street),trim(upper(C1.REGEX_PATTERN))) and m.city ='MOSKVA';
+				--insert into neprintsev_ia.ref_regex_ent(ENTITY,REGEX_PATTERN) select m.merchant,C1.REGEX_PATTERN from neprintsev_ia.ref_merchants m;--regexp_like(upper(m.street),upper(C1.C3));
+				DBMS_OUTPUT.PUT_LINE(C1.REGEX_PATTERN);    
+			  end loop;  
+			END P_REGEX;
+			
+			set serveroutput on
+			DECLARE
+			   TYPE EmpCurTyp IS REF CURSOR;
+			   emp_cv   EmpCurTyp;
+			   emp_rec  ref_regex_pattern%ROWTYPE;
+			   sql_stmt VARCHAR2(250);
+			   sql_stmt2 varchar(250);
+			   v_job   number := 10;
+			BEGIN
+			   sql_stmt := 'SELECT * FROM ref_regex_pattern WHERE rownum <= :j';
+			   sql_stmt2 := 'INSERT INTO temp7(c1) select m.merchant from ref_merchants m where regexp_like(upper(m.street),upper(:a)) ';
+			   OPEN emp_cv FOR sql_stmt USING v_job;
+			   LOOP
+				 FETCH emp_cv INTO emp_rec;
+				 EXIT WHEN emp_cv%NOTFOUND;
+				 DBMS_OUTPUT.PUT_LINE('Name: ' || emp_rec."NAME");
+				 execute immediate sql_stmt2 using emp_rec."NAME";
+			   END LOOP;
+			   CLOSE emp_cv;
+			END;
+						}
+					
+					}
+								
 				}
-				
-				public internal class UNSORTED()
-				{
-				
-		  
-		"
-		"set serveroutput on
-		"
-		http://www.f-notes.info/oracle:what_where
-		"/*PARTITION BY DATE + SUBPARTIOTION BY PAY_SYS + ROWMOVEMENT*/
-		create table test5_p (
-		C1 NUMBER,
-		C2 VARCHAR2(50 BYTE),
-		C3 date)
-
-		partition by range (c3)
-		subpartition by list (c2)
-		(
-		   partition P_1 values less than (to_date('01.01.2014 00:00:00','dd.mm.yyyy hh24:mi:ss'))
-			  (
-			  subpartition A_1 values ('A'),
-			  subpartition V_1 values ('V'),
-			  subpartition MC_1 values ('M'),
-			  subpartition OTHER_1 values('OTHER'),
-			  subpartition DEFAULT_1 values (DEFAULT)
-			  ),
-			 partition P_2 values less than (to_date('01.02.2014 00:00:00','dd.mm.yyyy hh24:mi:ss'))
-			  (
-			  subpartition A_2 values ('A'),
-			  subpartition V_2 values ('V'),
-			  subpartition MC_2 values ('M'),
-			  subpartition OTHER_2 values('OTHER'),
-			  subpartition DEFAULT_2 values (DEFAULT)
-			  )
-
-		)ENABLE ROW MOVEMENT;"
-		"/*testing for unique values*/
-
-		insert into test3 values (1,'a',1);
-		insert into test3 values (1,'b',2);
-		insert into test3 values (2,'a',2);
-		insert into test3 values (3,'a',2);
-		insert into test3 values (3,'b',1);
-		insert into test3 values (4,'b',1);
-
-
-
-		insert into test3 values (1,'c',1);
-		insert into test3 values (2,'a',3);
-		insert into test3 values (3,'c',3);
-		insert into test3 values (4,'b',3);
-
-
-
-		with t1 as (
-
-		select  distinct c1,case when c2 ='b'  then  'b' else 'nb' end "C2"  from test3 where c2='b'
-
-		union all
-
-		select distinct  c1,case when c2 = 'b' then 'b' else 'nb' end "C2"  from test3 where c2<>'b'
-		and c1 not in (select c1 from test3 where c2='b')
-
-		), 
-		t2 as (
-		/*select if just one 2 then 2 if none 2 then a unique c3*/
-		select  distinct c1,case when c3 =2 then 'two' else 'ntwo' end "C3"  from test3 where c3=2
-
-		union all
-
-		select  distinct c1,case when c3 =2 then 'two' else 'ntwo' end "C3"  from test3 where c3<>2
-		and c1 not in (
-		select  c1 from test3 where c3=2)
-
-		)
-		select 
-		t1.c1,t1.c2,t2.c3
-		from t1 
-		join t2 on t2.c1=t1.c1
-
-
-		/*GRANT OVERAL*/
-		begin 
-		for temp_name in (
-		  select table_name from user_tables 
-		  --where table_name in ('TEMP','TEMP2','TEMP3','TEMP4') 
-		  ) loop
-		  execute immediate 'grant select,insert,delete  on neprintsev_ia.' || temp_name.table_name || ' to neprintsev_ia';
-		  end loop;
-		  end ;
-	
-		/*DISTINCT LEFT JOIN SELECT FOR SEVERAL LISTS*/
-		create table test1(c1 varchar(10),c2 date,c3 number);
-		create table test2(c1 varchar(10),c2 date,c3 number);
-		create table test3(c1 varchar(10),c2 date,c3 number);
-
-		insert into test1 values  ('A',sysdate-3,1);
-		insert into test1 values ('A',sysdate-3,2);
-		insert into test1 values ('A',sysdate-3,3);
-		insert into test1 values ('B',sysdate-3,1);
-		insert into test1 values ('B',sysdate-3,2);
-		insert into test1 values ('B',sysdate-3,3);
-
-		insert into test1 values  ('A',sysdate-4,1);
-		insert into test1 values ('A',sysdate-4,2);
-		insert into test1 values ('A',sysdate-4,3);
-		insert into test1 values ('B',sysdate-4,1);
-		insert into test1 values ('B',sysdate-4,2);
-		insert into test1 values ('B',sysdate-4,3);
-
-		insert into test2 values ('A',sysdate-4,1);
-		insert into test2 values ('A',sysdate-4,2);
-		insert into test2 values ('A',sysdate-4,3);
-		insert into test2 values ('B',sysdate-3,1);
-		insert into test2 values ('B',sysdate-3,2);
-		insert into test2 values ('B',sysdate-3,3);
-
-		insert into test3 (c1) values ('A');
-		insert into test3 (c1) values ('B');
-		insert into test3 (c1) values ('C');
-		insert into test3 (c1) values ('D');
-
-
-		with t3 as (select t3.c1 "C1" from test3 t3 ),
-		t2 as(
-		select t1.c1 "C1",sum(t2.c3*t1.c3) "C3" from test1 t1
-		left join test2 t2 on t1.c1=t2.c1
-		where trunc(t1.c2,'dd') = trunc(sysdate-3,'dd')
-		group by  t1.c1
-		)
-		select 
-		t3.c1,t2.c3 from t3 
-		left join t2 on t2.c1=t3.c1;"
-		"/*IB*/
-		select * from ORAWH.IB_CLIENT_MV where client_name like '%?????????%'
-		select * from ORAWH.IB_REQ_MV where client_id ='3595559'
-		select * from ORAWH.IB_QNA_MV where user_id = '3576169'
-		select * from ORAWH.IB_USERS_MV where user_id = '3576169'
-
-		
-		/*REGEX proc*/
-		create or replace
-		PROCEDURE P_REGEX
-		AUTHID CURRENT_USER
-		IS
-		pattern  varchar(250);
-		Cursor CR is select t.REGEX_PATTERN from neprintsev_ia.ref_regex_pattern t where t.REGEX_PATTERN is not null;
-
-		BEGIN
-		delete from neprintsev_ia.ref_regex_ent;
-		 DBMS_OUTPUT.PUT_LINE('Deleted from ref_regex_ent');  
-		 
-		  for C1 in CR loop
-			insert into neprintsev_ia.ref_regex_ent(ENTITY,REGEX_PATTERN) select m.merchant,C1.REGEX_PATTERN  from neprintsev_ia.ref_merchants m where regexp_like(upper(m.street),trim(upper(C1.REGEX_PATTERN))) and m.city ='MOSKVA';
-			--insert into neprintsev_ia.ref_regex_ent(ENTITY,REGEX_PATTERN) select m.merchant,C1.REGEX_PATTERN from neprintsev_ia.ref_merchants m;--regexp_like(upper(m.street),upper(C1.C3));
-			DBMS_OUTPUT.PUT_LINE(C1.REGEX_PATTERN);    
-		  end loop;  
-		END P_REGEX;
-		
-		set serveroutput on
-		DECLARE
-		   TYPE EmpCurTyp IS REF CURSOR;
-		   emp_cv   EmpCurTyp;
-		   emp_rec  ref_regex_pattern%ROWTYPE;
-		   sql_stmt VARCHAR2(250);
-		   sql_stmt2 varchar(250);
-		   v_job   number := 10;
-		BEGIN
-		   sql_stmt := 'SELECT * FROM ref_regex_pattern WHERE rownum <= :j';
-		   sql_stmt2 := 'INSERT INTO temp7(c1) select m.merchant from ref_merchants m where regexp_like(upper(m.street),upper(:a)) ';
-		   OPEN emp_cv FOR sql_stmt USING v_job;
-		   LOOP
-			 FETCH emp_cv INTO emp_rec;
-			 EXIT WHEN emp_cv%NOTFOUND;
-			 DBMS_OUTPUT.PUT_LINE('Name: ' || emp_rec."NAME");
-			 execute immediate sql_stmt2 using emp_rec."NAME";
-		   END LOOP;
-		   CLOSE emp_cv;
-		END;
-
-		
-		"define fnRegDate = trunc(sysdate,'dd')-1/24/60/60
-		define stRegDate = trunc(&fnRegDate,'mm')
-
-		define stSLDate = add_months(trunc(&stRegDate,'mm'),-5)
-		define fnSLDate = trunc(add_months(trunc(&fnRegDate,'mm'),+2),'mm')-(1/24/60/60)
-
-
-		select
-		to_char(&fnRegDate,'dd.mm.yyyy hh24:mi:ss') "FNREG",
-		to_char(&stRegDate,'dd.mm.yyyy hh24:mi:ss') "STREG",
-		to_char(&fnSLDate,'dd.mm.yyyy hh24:mi:ss') "FNSL",
-		to_char(&stSLDate,'dd.mm.yyyy hh24:mi:ss') "STSL"
-		from dual;
-		
-		create type emp_obj is object (empno number, ename varchar2(10));
-		create type emp_tab is table of emp_obj;
-
-		create or replace function all_emps return emp_tab
-			is
-			  l_emp_tab emp_tab := emp_tab();
-			   n integer := 0;
-		   begin
-		   
-			  for r in (select c1 empno, c2 ename from temp)
-			  
-			  loop
-				  l_emp_tab.extend;
-				  n := n + 1;
-				l_emp_tab(n) := emp_obj(r.empno, r.ename);
-			  end loop;
-			  
-			  return l_emp_tab;
-		   end;
-		   
-		select * from table (all_emps);
-		CREATE OR REPLACE function get_daily
-		  RETURN SYS_REFCURSOR
-		AS
-		  my_cursor SYS_REFCURSOR;
-		BEGIN
-		  OPEN my_cursor FOR SELECT * FROM temp_acq_d;
-		  RETURN my_cursor;
-		END get_daily;
-
-
-
-		create table t_daily_d
-		(
-		"ID" number not null,
-		"PAY_SYS" varchar(10) not null,
-		constraint pk_daily_id primary key ("ID")
-		)
-
-		------------------------------------
-		drop sequence seq_d ;
-		Create sequence seq_d start with 1
-		increment by 1
-		minvalue 1
-		maxvalue 1000000000;
-
-		------------------------------------
-
-		insert into t_daily_d 
-		values
-		(seq_d.nextval,'A')
-
-		------------------------------------"
-		"create table test1 (c1 date,c2 varchar(10),c3 varchar(10),c4 number) ;
-
-
-		insert into test1 select sysdate-68,'2','10',0.564032697547684  from dual ;
-		insert into test1 select sysdate-97,'4','15',0.329087048832272  from dual ;
-		insert into test1 select sysdate-140,'1','15',1.66015625  from dual ;
-		insert into test1 select sysdate-165,'4','12',0.630021141649049  from dual ;
-		insert into test1 select sysdate-171,'5','14',1.21212121212121  from dual ;
-		insert into test1 select sysdate-220,'2','13',0.805111821086262  from dual ;
-		insert into test1 select sysdate-227,'3','10',0.878048780487805  from dual ;
-		insert into test1 select sysdate-283,'4','10',1.50922509225092  from dual ;
-		insert into test1 select sysdate-338,'3','10',0.868217054263566  from dual ;
-		insert into test1 select sysdate-383,'3','14',2.36526946107784  from dual ;
-		insert into test1 select sysdate-429,'1','13',0.316062176165803  from dual ;
-		insert into test1 select sysdate-499,'3','13',0.92817679558011  from dual ;
-		insert into test1 select sysdate-547,'3','15',0.226299694189602  from dual ;
-		insert into test1 select sysdate-609,'1','13',0.809128630705394  from dual ;
-		insert into test1 select sysdate-628,'5','13',0.0595238095238095  from dual ;
-		insert into test1 select sysdate-635,'3','13',1.03562945368171  from dual ;
-		insert into test1 select sysdate-674,'3','12',0.242811501597444  from dual ;
-		insert into test1 select sysdate-715,'1','11',0.80672268907563  from dual ;
-		insert into test1 select sysdate-787,'4','15',2.21739130434783  from dual ;
-		insert into test1 select sysdate-834,'5','15',0.651764705882353  from dual ;
-		insert into test1 select sysdate-879,'2','10',0.799086757990868  from dual ;
-		insert into test1 select sysdate-944,'1','13',0.60958904109589  from dual ;
-		insert into test1 select sysdate-958,'1','10',0.462222222222222  from dual ;
-		insert into test1 select sysdate-1021,'5','10',2.50617283950617  from dual ;
-		insert into test1 select sysdate-1054,'1','11',1.04618937644342  from dual ;
-		insert into test1 select sysdate-1076,'1','11',0.0290909090909091  from dual ;
-		insert into test1 select sysdate-1109,'2','11',1.10096153846154  from dual ;
-		insert into test1 select sysdate-1143,'3','14',0.514285714285714  from dual ;
-		insert into test1 select sysdate-1191,'2','13',0.123711340206186  from dual ;
-		insert into test1 select sysdate-1211,'4','15',0.469565217391304  from dual ;
-		insert into test1 select sysdate-1245,'1','10',0.176339285714286  from dual ;
-		insert into test1 select sysdate-1322,'5','15',0.324786324786325  from dual ;
-		insert into test1 select sysdate-1384,'5','11',1.01793721973094  from dual ;
-		insert into test1 select sysdate-1437,'4','13',0.264018691588785  from dual ;
-		insert into test1 select sysdate-1466,'3','13',0.794029850746269  from dual ;
-		insert into test1 select sysdate-1486,'5','11',0.507418397626113  from dual ;
-		insert into test1 select sysdate-1513,'1','10',0.302884615384615  from dual ;
-		insert into test1 select sysdate-1555,'5','12',0.864406779661017  from dual ;
-		insert into test1 select sysdate-1633,'3','15',0.612385321100917  from dual ;
-		insert into test1 select sysdate-1661,'4','10',0.545454545454545  from dual ;
-		insert into test1 select sysdate-1731,'4','12',0.51875  from dual ;
-		insert into test1 select sysdate-1747,'3','12',0.952479338842975  from dual ;
-		insert into test1 select sysdate-1823,'1','12',0.35978835978836  from dual ;
-		insert into test1 select sysdate-1894,'3','15',0.380129589632829  from dual ;
-		insert into test1 select sysdate-1924,'5','10',0.603723404255319  from dual ;
-		insert into test1 select sysdate-1936,'3','10',0.665271966527197  from dual ;
-		insert into test1 select sysdate-1944,'2','11',1.48262548262548  from dual ;
-		insert into test1 select sysdate-2009,'2','11',0.0341463414634146  from dual ;
-		insert into test1 select sysdate-2082,'2','13',2.70285714285714  from dual ;
-		insert into test1 select sysdate-2123,'2','14',0.912955465587045  from dual ;
-		insert into test1 select sysdate-2203,'5','11',4.46728971962617  from dual ;
-		insert into test1 select sysdate-2279,'4','10',0.127348643006263  from dual ;
-		insert into test1 select sysdate-2296,'1','12',1.04892966360856  from dual ;
-		insert into test1 select sysdate-2354,'5','13',1  from dual ;
-		insert into test1 select sysdate-2412,'4','12',1.02762430939227  from dual ;
-		insert into test1 select sysdate-2440,'3','10',0.911458333333333  from dual ;
-
-
-		--select maximum by indexed column from date
-		with t as (
-		select
-		--c4 "RT",
-		c2 || '_' || c3 "IND",
-		max(c1) "DATE"
-		from test1
-		group by c2 || '_' || c3
-		)
-		,
-		t2 as (
-		select
-		c4 "RT",
-		c2 || '_' || c3 "IND",
-		c1 "DATE"
-		from test1
-		)
-
-		select t2.* from t2
-		join t on t.IND = t2.IND and t."DATE"=t2."DATE"
-		"
-		"drop table test_number;
-		drop table test_number_min_max;
-
-		CREATE TABLE test_number("ID_T" NUMBER,SEQ NUMBER,text VARCHAR2(5));
-		INSERT INTO test_number VALUES(1,1,'AA');
-		INSERT INTO test_number VALUES(1,3,'CC');
-		INSERT INTO test_number VALUES(1,4,'DD');
-		INSERT INTO test_number VALUES(1,5,'EE');
-		INSERT INTO test_number VALUES(1,6,'FF');
-		INSERT INTO test_number VALUES(1,7,'GG');
-		INSERT INTO test_number VALUES(1,8,'HH');
-		INSERT INTO test_number VALUES(1,10,'JJ');
-		INSERT INTO test_number VALUES(2,1,'KK');
-		INSERT INTO test_number VALUES(2,2,'LL');
-		INSERT INTO test_number VALUES(2,3,'MM');
-		INSERT INTO test_number VALUES(2,4,'NN');
-		INSERT INTO test_number VALUES(2,6,'PP');
-		INSERT INTO test_number VALUES(2,7,'QQ');
-		INSERT INTO test_number VALUES(3,1,'TT');
-		INSERT INTO test_number VALUES(3,4,'ZZ');
-		INSERT INTO test_number VALUES(3,5,'XX');
-
-		--///////////////////
-		--//min max
-		create table test_number_min_max("ID_T2" number,"MIN" number,"MAX" number);
-		INSERT INTO test_number_min_max VALUES(1,1,12);
-		INSERT INTO test_number_min_max VALUES(2,1,9);
-		INSERT INTO test_number_min_max VALUES(3,1,5);
-
-		--"oldschool" syntax
-		SELECT "RWN" "ID_T3","ROWN" seq FROM 
-
-		(SELECT ROWNUM "ROWN" FROM all_objects WHERE ROWNUM <13),
-		(SELECT ROWNUM "RWN" FROM all_objects WHERE ROWNUM <4),
-		test_number_min_max m
-
-		WHERE "RWN"="ID_T2" AND "ROWN" >= "MIN" AND "ROWN" <= "MAX" AND ("RWN","ROWN") NOT IN
-		(SELECT "ID_T",seq FROM test_number)
-
-
-		--join syntax
-		select t."RWN",t3."ROWN" from
-		(SELECT ROWNUM "RWN" FROM all_objects WHERE ROWNUM <4) t
-		join test_number_min_max t2 on t2."ID_T2" = t."RWN"
-		join (SELECT ROWNUM "ROWN" FROM all_objects WHERE ROWNUM <13) t3 on t3."ROWN" >= t2."MIN" and  t3."ROWN" <= t2."MAX"
-
-		where (t."RWN",t3."ROWN" ) not in (SELECT "ID_T",seq FROM test_number)
-
-		--//\\\\\\\\\\\\\\\\\\\\\\\
-				}
-			}
 				
 				public class procedures()
 				{
@@ -6800,10 +6657,7 @@ pip install ipython
 				
 				}
 			
-			}
-
-			public protected class ORACLE()
-			{
+				
 				public internal class Insertion()
 				{
 					
@@ -6837,10 +6691,13 @@ pip install ipython
 					}
 				
 				}
+			
+				
 			}
 			
 		}
-
+		
+		
 		//SQL SERVER
 		//T SQL
 		public void T_SQL()
@@ -7098,6 +6955,15 @@ AVG( [Target]) for [UserID] in ([1],[1112])
 
 		public void OrientDB()
 		{
+			
+			installation[
+			
+				//correct JAVA-HOME for 64 bits 
+				//or allocate stack error
+				-add orient as ORIENTDB_HOME to run server at all
+				-add orient bin to PATH to run server from cmd				
+				
+			]
 			
 			public void REST_API()
 			{				
@@ -8128,11 +7994,11 @@ http://msk1-vm-ovisp02:2480/function/news_test5/GetStructureByUnitGUIDAtCurrentL
 https://stackoverflow.com/questions/35323242/orientdb-sql-check-if-multiple-pairs-of-vertices-are-connected
 https://stackoverflow.com/questions/33345305/orientdb-traverse-until-condition-on-node
 
-public DeleteAllReferencesToObjects(){
+ public DeleteAllReferencesToObjects(){
 	select from Authorship where in in (
 select @rid from News where name ='nw1'
 )
-}
+}												
 public ByDateSelect(){
 	
 select from Quiz where 1=1
@@ -9311,7 +9177,7 @@ return b;
 			public void FU()
 			{
 
-
+	
 //<< I (try it out)
 //inverted V E In Out
 (v)-[e]->(v)
@@ -10075,13 +9941,33 @@ RAW JSON
     
 		public void MongoDb()
 		{
-		  Maintenance:[
-			//install
-			https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
-			//initial start with custom data path
-			"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath d:\test\mongodb\data
+			Maintenance:[
+			
+				//install
+				https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
+				//initial start with custom data path
+				"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath G:\disk\Progs\MongoDB\data
+				
+				//mongod.conf
+				https://docs.mongodb.com/manual/reference/configuration-options/#storage-options
+				
+				//mongod docs
+				https://docs.mongodb.com/manual/reference/program/mongod/#bin.mongod
+				
+							
+				//mongod - > server
+				//mongo -> client from shell
+				
+				//shell commands 
+				https://docs.mongodb.com/manual/reference/method/
+				//shell scripts
+				https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/#mongo-shell-new-connections
+				//drivers
+				https://docs.mongodb.com/manual/applications/drivers/
 			
 			]
+			
+			//mongo shell
 			,BoilerPlate[
 			  //insert doucment
 			  use test
@@ -10112,6 +9998,22 @@ RAW JSON
 			  db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
 			  SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
 			  
+			]
+			
+			,shell[
+			
+				//show db,use db,show collections
+				db
+				use db			
+				show collections
+					
+				//mogoexport //from new cmd
+				//export who;e db
+				mongodump -d test -o G:\disk\Progs\MongoDB\export
+				
+				//export collection //from new cmd
+				mongoexport --db test --collection users --out G:\disk\Progs\MongoDB\export\users.json
+			
 			]
 		}
 		
