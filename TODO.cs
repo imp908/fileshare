@@ -438,8 +438,10 @@ TnT[
 			actual[
 
 -> move nsql manager to core
--> analyze quiz model to array without collection change costs 
-	-> change if days
+-> analyze quiz model to array without collection change costs [	
+		<- done 26.06.2018 -> New HtmlItems, new QuizItems
+		-> new FactoryNew
+	]
 -> Back model arrange for itemparameters and quizcontrolls
 -> manager CRUD QuizeList with ref to person
 -> add id to Quiz, edited state
