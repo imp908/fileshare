@@ -19,17 +19,19 @@ export class NodeNew{
       this._value=o.value_;
       this._typeName=o.typeName_;
 
-    if(o.key_==null){this._key=0;}
-    if(o.typeName_==null){this._typeName="NodeNew"}
-
-    }
-    else{
+      if(o.key_==null){this._key=0;}
+      if(o.typeName_==null){this._typeName=this.constructor.name}
+    }else{
       this._key=0;
-      this._typeName="NodeNew";
+      this._typeName=this.constructor.name;
     }
   }
 }
 export class CollectionNew<T extends NodeNew> extends NodeNew{
+  tolog:boolean;
+  ret:T;
+  array:Array<T>;
+  collectionType:string;
 
   constructor(o:{key_?:number,
   name_?:string,
@@ -39,13 +41,13 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
       super(o)
       this.array=new Array<T>();
       if(o.array_!=null){
-        this.addUpdateArr(o.array_);
+        // this.addUpdateArr(o.array_);
+          this.array=o.array_;
       }
-    }
+    }else{this._typeName=this.constructor.name}
   }
-  tolog:boolean;
-  ret:T;
-  array:Array<T>;
+
+
   add(item:T){
     var max=0;
     var toPsuh:boolean=false;
@@ -56,7 +58,7 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
       if(this.tolog){
         console.log("PrimitiveCollection array Undefined")
       }
-      this.array=Array<T>();
+      this.array=new Array<T>();
     }
 
     max=this.getMaxKey();
@@ -120,7 +122,7 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
       if(this.tolog){console.log(["pushing item with key: ",item,max])}
       this.array.push(item);
     }
-    this.setType(item._name);
+    this.collectionType=item._typeName;
 
     // console.log(["Array added",this.array]);
     return item;
@@ -198,10 +200,15 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
     return null;
   }
   getByItem(item:T){
-    if(typeof(this.array)!=null){
-      var index_=this.array.findIndex(s=>s._key===item._key);
-      if(index_!=-1){
-        return this.array[index_];
+    if((typeof(this.array)!=null) && item!=null){
+      try{
+        var index_=this.array.findIndex(s=>s._key===item._key);
+
+        if(index_!=-1){
+          return this.array[index_];
+        }
+      }catch(e){
+        if(this.tolog==true){console.log(e)}
       }
     }
     return null;
@@ -248,14 +255,10 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
   }
 
   getType():string {
-    if(this.ret!=null){
-      return this.ret._typeName;
-    }
+    return this._typeName;
   }
   setType(type_:string){
-    if(this.ret!=null){
-      this.ret._typeName=type_;
-    }
+    this._typeName=type_;
   }
 
   sortAsc(a:T,b:T){
@@ -287,93 +290,6 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
 
 }
 
-// export class NodeCollectionNew extends CollectionNew<NodeNew>{
-//
-//   constructor(o:{key_:number, name_:string, value_:string, typeName_:string,
-//     collection_:CollectionNew<NodeNew>}){
-//     super(o);
-//     this.collection=o.collection_;
-//
-//     // this.collection.addUpdateArr(o.collection_.array);
-//
-//   }
-//
-//   a:number;
-//   collection:CollectionNew<NodeCollectionNew>;
-//
-//
-//   getType_():string {
-//
-//       //return this.collection.getType();
-//     if(this.collection!=null){
-//       return this.constructor.name;
-//     }
-//   }
-//   sortHierarhy(asc:boolean){
-//     if((this.collection!=null)){
-//       // console.log("sort");
-//       this.collection.sort(asc);
-//       if((this.collection.array!=null) && (this.collection.array.length!=-1)){
-//           for(let i =0;i<this.collection.array.length;i++){
-//             // console.log("go deeper");
-//             this.collection.array[i].sortHierarhy(asc);
-//           }
-//       }
-//     }
-//   }
-//
-//   //Recursive array collection search
-//
-//   scan(name_:string,col_:NodeCollectionNew){
-//     let ret_:NodeCollectionNew=null;
-//     ret_=this.findInParams(name_,col_,ret_);
-//     return ret_;
-//   }
-//   findInParams(name_:string,col_:NodeCollectionNew,ret_:NodeCollectionNew){
-//     // console.log(["findInParams: ",col_])
-//
-//     if(col_.collection!=null){
-//       if(col_.collection.array!=null){
-//         if(col_.collection.array.length>0){
-//           for(let i=0;i<=col_.collection.array.length;i++){
-//             let tCol_=col_.collection.array[i];
-//             // console.log(["For: ",tCol_])
-//             if(tCol_!=null){
-//               if(tCol_._name==name_){
-//                 // console.log(["Return: ",tCol_])
-//                 ret_=tCol_;
-//               }
-//               if(tCol_.collection!=null){
-//                 ret_=this.findInParams(name_,tCol_,ret_);
-//               }
-//             }
-//           }
-//         }
-//       }
-//     }
-//
-//       return ret_;
-//   }
-//
-//   _hasArray(){
-//     if(this._hasCollection()){
-//       if(this.collection.array!=null){
-//         if(this.collection.array.length>0){
-//           return true;
-//         }
-//       }
-//     }
-//     return false;
-//   }
-//   _hasCollection(){
-//     if((this.collection!=null)
-//     ){
-//       return true;
-//     }else{return false;}
-//   }
-// }
-
-
 //html objects from button to form items
 //------
 
@@ -402,7 +318,7 @@ export class HtmlItemNew extends CollectionNew<HtmlItemNew>{
       this.HtmlSubmittedValue=o.HtmlSubmittedValue_;
     }
     else{
-      this._typeName="HtmlItemNew"
+      this._typeName=this.constructor.name
     }
   }
 }
@@ -418,7 +334,7 @@ export class TextControlNew extends HtmlItemNew{
   constructor(o:{key_?:number,
   name_?:string,
   value_?:string,
-  typeName_?:string,array_:TextControlNew[]
+  typeName_?:string,array_:HtmlItemNew[]
   ,cssClass_:string
   ,show_:boolean
   ,HtmlTypeAttr_:string
@@ -433,7 +349,7 @@ export class TextControlNew extends HtmlItemNew{
       this.minLength=o.minLength_;
     }
     else{
-      this._typeName="TextControlNew"
+      this._typeName=this.constructor.name
     }
   }
 }
@@ -446,17 +362,72 @@ export class CheckBoxControlNew extends HtmlItemNew{
   constructor(o:{key_?:number,
   name_?:string,
   value_?:string,
-  typeName_?:string,array_:CheckBoxControlNew[]
+  typeName_?:string,array_:HtmlItemNew[]
   ,cssClass_:string
   ,show_:boolean
   ,HtmlTypeAttr_:string
   ,HtmlSubmittedValue_:any}){
     if(o!=null){
       super(o);
-
     }
     else{
-      this._typeName="CheckBoxControlNew"
+      this._typeName=this.constructor.name
+    }
+  }
+}
+export class RadioButtonControlNew extends HtmlItemNew{
+
+}
+export class DropDownControlNgNew extends HtmlItemNew{
+
+}
+export class DropDownControlMultiNgNew extends HtmlItemNew{
+
+}
+export class DropDownControlMultiNew extends HtmlItemNew{
+
+}
+export class DatePickerControl extends HtmlItemNew{
+  constructor(o:{key_?:number,
+  name_?:string,
+  value_?:string,
+  typeName_?:string
+  ,array_:HtmlItemNew[]
+  ,cssClass_:string
+  ,show_:boolean
+  ,HtmlTypeAttr_:string
+  ,HtmlSubmittedValue_:Date}){
+    if(o!=null){
+      super(o);
+    }
+    else{
+      this._typeName=this.constructor.name
+    }
+  }
+}
+export class NumberPickerControl extends HtmlItemNew{
+
+  minN?:number;
+  maxN?:number;
+
+  constructor(o:{key_?:number,
+  name_?:string,
+  value_?:string,
+  typeName_?:string
+  ,array_:HtmlItemNew[]
+  ,cssClass_:string
+  ,show_:boolean
+  ,HtmlTypeAttr_:string
+  ,HtmlSubmittedValue_:number
+  ,minN?:number
+  ,maxN?:number}){
+    if(o!=null){
+      super(o);
+      this.minN=o.minN;
+      this.maxN=o.maxN;
+    }
+    else{
+      this._typeName=this.constructor.name
     }
   }
 }
@@ -468,7 +439,7 @@ export class CheckBoxControlNew extends HtmlItemNew{
 
 //base quiz object
 
-export class QuizItemNew extends CollectionNew<QuizItemNew>{
+export class QuizItemNew extends HtmlItemNew{
   show:boolean;
   itemControlls:HtmlItemNew[];
 
@@ -477,12 +448,20 @@ export class QuizItemNew extends CollectionNew<QuizItemNew>{
   value_?:string,
   typeName_?:string,array_:QuizItemNew[],
   itemControlls_:HtmlItemNew[]
-  ,cssClass_:string,show_:boolean}){
+  ,cssClass_:string,show_:boolean,HtmlTypeAttr_:string
+    ,HtmlSubmittedValue_:any}){
+
     if(o!=null){
       super(o);
       this.itemControlls=o.itemControlls_;
+      this.show=o.show_;
+      this.cssClass=o.cssClass_;
+      this.HtmlTypeAttr=o.HtmlTypeAttr_;
+      this.HtmlSubmittedValue=o.HtmlSubmittedValue_;
     }
-
+    else{
+      this._typeName=this.constructor.name
+    }
   }
 }
 
@@ -490,45 +469,11 @@ export class QuizItemNew extends CollectionNew<QuizItemNew>{
 
 export class AnswerNew extends QuizItemNew{
 
-  constructor(o:{key_?:number,
-  name_?:string,
-  value_?:string,
-  typeName_?:string,array_:QuizItemNew[]
-  ,itemControlls_:HtmlItemNew[]
-  ,cssClass_:string,show_:boolean}){
-    if(o!=null){
-      super(o);
-      this.itemControlls=o.itemControlls_;
-    }
-
-  }
 }
 export class QuestionNew extends QuizItemNew{
 
-  constructor(o:{key_?:number,
-  name_?:string,
-  value_?:string,
-  typeName_?:string,array_:AnswerNew[]
-  ,itemControlls_:HtmlItemNew[]
-  ,cssClass_:string,show_:boolean}){
-    if(o!=null){
-      super(o);
-      this.itemControlls=o.itemControlls_;
-    }
-
-  }
 }
 export class QuizNew extends QuizItemNew{
 
-  constructor(o:{key_?:number,
-  name_?:string,
-  value_?:string,
-  typeName_?:string,array_:QuestionNew[]
-  ,itemControlls_:HtmlItemNew[]
-  ,cssClass_:string,show_:boolean}){
-    if(o!=null){
-      super(o);
-      this.itemControlls=o.itemControlls_;
-    }
-  }
+
 }

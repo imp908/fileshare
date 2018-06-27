@@ -1842,10 +1842,6 @@ export class Factory_{
 }
 
 
-import {NodeNew,CollectionNew
-  ,AnswerNew,QuestionNew,QuizNew
-,TextControlNew,CheckBoxControlNew} from './POCOnew.component';
-
 export class Test{
 
     //genes html items
@@ -2257,95 +2253,6 @@ export class Test{
       console.log(["JSON CheckDeepCopyVanilaJS:",qz_1]);
     }
 
-
-    public static NodeCollectionNewCheck(){
-
-      let n0:CollectionNew<NodeNew>=new CollectionNew<NodeNew>({key_:2,
-      name_:"Answer1",
-      value_:"Answer1",
-      typeName_:"NodeCollectionNew2",array_:null});
-
-      let n1: CollectionNew<NodeNew>=new  CollectionNew<NodeNew>({key_:1,
-      name_:"Answer2",
-      value_:"Answer2",
-      typeName_:"NodeCollectionNew1",array_:null});
-
-      let c0:CollectionNew<NodeNew>=new CollectionNew<NodeNew>({key_:1,
-      name_:"Question1",
-      value_:"Question1",
-      typeName_:"NodeCollectionNew1",array_:[n0,n1]});
-
-
-      let r:CollectionNew<NodeNew>=new CollectionNew<NodeNew>({key_:0,
-      name_:"Quiz0",
-      value_:"Quiz0",
-      typeName_:"NodeCollectionNew0",array_:[c0]});
-      console.log(["NodeCollectionNewCheck",r]);
-      console.log(JSON.stringify(r));
-
-    }
-
-
-    public static HtmlItemCheck(){
-
-      let a0=new AnswerNew({key_:100,
-      name_:"Answer1",
-      value_:"Answer1",
-      typeName_:"AnswerNew",array_:null
-      ,itemControlls_:null,cssClass_:"",show_:true});
-
-      let a1=new AnswerNew({key_:99,
-      name_:"Answer2",
-      value_:"Answer2",
-      typeName_:"AnswerNew",array_:null
-      ,itemControlls_:null,cssClass_:"",show_:true});
-
-      let q0=new QuestionNew({key_:89,
-      name_:"Question1",
-      value_:"Question1",
-      typeName_:"QuestionNew",array_:[a0,a1]
-      ,itemControlls_:null,cssClass_:"",show_:true});
-
-      let q1=new QuestionNew({key_:88,
-      name_:"Question2",
-      value_:"Question2",
-      typeName_:"QuestionNew",array_:[a1]
-      ,itemControlls_:null,cssClass_:"",show_:true});
-
-      let qz0=new QuizNew({key_:87,
-      name_:"Quiz1",
-      value_:"Quiz1",
-      typeName_:"QuizNew",array_:[q1]
-      ,itemControlls_:null,cssClass_:"",show_:true});
-
-
-      let t0=new TextControlNew({key_:70,
-      name_:"Textctrl1",
-      value_:"Textctrl1",
-      typeName_:"TextControlNew"
-      ,array_:null
-      ,cssClass_:"",show_:true
-      ,HtmlTypeAttr_:"div"
-      ,HtmlSubmittedValue_:"text value"
-      ,pattern_:null
-      ,maxLength_:null
-      ,minLength_:null});
-      let cb0=new CheckBoxControlNew({key_:69,
-      name_:"Checkbox1",
-      value_:"Checkbox1",
-      typeName_:"CheckBoxControlNew"
-      ,array_:null
-      ,cssClass_:"",show_:true
-      ,HtmlTypeAttr_:"div"
-      ,HtmlSubmittedValue_:true
-      });
-
-      qz0.itemControlls=[t0,cb0];
-
-      console.log(qz0);
-
-    }
-
     public static GO(){
 
       //Test.GenNewColl(false);
@@ -2378,13 +2285,6 @@ export class Test{
       //this.CheckDeepCopyVanilaJS();
 
       //ModelContainer.Init();
-
-
-
-      //check node collection new
-      //Test.NodeCollectionNewCheck();
-
-      Test.HtmlItemCheck();
 
 
 
