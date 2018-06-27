@@ -32,7 +32,8 @@ export class MenuComponent implements OnInit {
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
   ngOnInit(){
-    this.nodesPassed_=Test.GenClasses(false,1,4);
+    ModelContainer.Init();
+    this.nodesPassed_=ModelContainer.nodesPassed_;
 
     ServiceCl.log(["Inited: " + this.constructor.name,this.nodesPassed_]);
   }

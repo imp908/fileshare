@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ServiceCl,Service_} from './Services/services.component'
 import {Test} from './Models/inits.component'
+import {TestNew} from './Models/initsNew.component'
 
 
 
@@ -15,18 +16,17 @@ export class App7Component implements OnInit {
 
 
   constructor(private service:Service_){
+    service.test=false;
+    service.toLog=false;
+    ServiceCl.toLog=true;
+    this.test=service.test;
+    this.cName=this.constructor.name;
+    service.log(service.test)
+    service.log(this.test)
+    service.log(ServiceCl.toLog)
+    service.log('Constructor : ' + this.constructor.name)
 
-      service.test=false;
-      service.toLog=false;
-      ServiceCl.toLog=true;
-      this.test=service.test;
-      this.cName=this.constructor.name;
-      service.log(service.test)
-      service.log(this.test)
-      service.log(ServiceCl.toLog)
-      service.log('Constructor : ' + this.constructor.name)
-
-      Test.GO();
+    TestNew.GO();
   }
 
   ngOnInit() {
