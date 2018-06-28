@@ -14,6 +14,7 @@ import {NodeNew,CollectionNew
   ,AnswerNew,QuestionNew,QuizNew
   ,TextControlNew,CheckBoxControlNew
   ,DropDownControlMultiNew,DropDownControlNgNew,RadioButtonControlNew
+  ,DatePickerControlNew,NumberPickerControlNew
 } from './POCOnew.component';
 
 
@@ -87,15 +88,68 @@ export class FactoryNew{
               name_:"Textctrl_"+i,
               value_:"Textctrl_"+i,
               typeName_:null
-              ,array_:null
+              ,array_:FactoryNew.TextControlNewTest(3).array
               ,cssClass_:"",show_:true
               ,HtmlTypeAttr_:"div"
-              ,HtmlSubmittedValue_:new Date(2018,1,1)
+              ,HtmlSubmittedValue_:""
               }));
       }
 
       return r;
   }
+  static DatePickerControlTest(n:number){
+      var r= new HtmlItemNew(null);
+      for(var i=0;i<n;i++){
+        r.add( new DatePickerControlNew({
+              key_:0,
+              name_:"Datepicker_"+i,
+              value_:"Datepicker_"+i,
+              typeName_:null
+              ,array_:null
+              ,cssClass_:"",show_:true
+              ,HtmlTypeAttr_:"div"
+              ,HtmlSubmittedValue_:new Date(2018,1,1+i)
+              }));
+      }
+
+      return r;
+  }
+
+  //service genes
+
+  static MonthsInYear(){
+    let r = new DropDownControlMultiNew({
+      key_:0,
+      name_:"MonthsInYearDrop",
+      value_:"Months in year",
+      typeName_:null
+      ,array_:null
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+    });
+
+    for(let i=0;i<12;i++){
+      r.add(
+        new TextControlNew({
+          key_:i,
+          name_:"Textctrl",
+          value_:"Month " + (i+1),
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:"text value"
+          ,pattern_:null
+          ,maxLength_:null
+          ,minLength_:null
+        })
+      )
+    }
+    return r;
+  }
+
+  //Quiz object parameters
 
   static quizItemParametersNewGen(){
 
@@ -110,33 +164,241 @@ export class FactoryNew{
       ,HtmlSubmittedValue_:"Quiz controlls"
     });
 
-    r.add(new CheckBoxControlNew({
+    let checkboxes = new HtmlItemNew({
       key_:1,
-      name_:"IsAnonimous",
-      value_:"is question anonimous?",
+      name_:"QuizCheckboxControlls",
+      value_:"QuizCheckboxControlls",
       typeName_:null
-      ,array_:null
+      ,array_:new Array<CheckBoxControlNew>(
+        new CheckBoxControlNew({
+          key_:2,
+          name_:"IsAnonimous",
+          value_:"Is question anonimous?",
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:false
+        })
+        ,  new CheckBoxControlNew({
+            key_:3,
+            name_:"QuizStat",
+            value_:"Show quiz statistics?",
+            typeName_:null
+            ,array_:null
+            ,cssClass_:"",show_:true
+            ,HtmlTypeAttr_:"div"
+            ,HtmlSubmittedValue_:false
+          })
+          ,  new CheckBoxControlNew({
+              key_:4,
+              name_:"ListItem",
+              value_:"Place questions on list?",
+              typeName_:null
+              ,array_:null
+              ,cssClass_:"",show_:true
+              ,HtmlTypeAttr_:"div"
+              ,HtmlSubmittedValue_:false
+            })
+            ,  new CheckBoxControlNew({
+                key_:5,
+                name_:"Replayable",
+                value_:"Can quiz be replayed?",
+                typeName_:null
+                ,array_:null
+                ,cssClass_:"",show_:true
+                ,HtmlTypeAttr_:"div"
+                ,HtmlSubmittedValue_:false
+              })
+      )
       ,cssClass_:"",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:false
-    }));
+    });
 
-    r.add(new TextControlNew({
+    let stardate = new HtmlItemNew({
       key_:2,
-      name_:"Textctrl",
-      value_:"Textctrl ",
+      name_:"QuizStartDate",
+      value_:"Datepicker",
+      typeName_:null
+      ,array_:new Array<DatePickerControlNew>(
+        new DatePickerControlNew({
+          key_:0,
+          name_:"QuizStartDate",
+          value_:"Datepicker",
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:new Date(2018,1,1)
+        }))
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:""
+    });
+
+    let cycleCheckbox = new HtmlItemNew({
+      key_:3,
+      name_:"CycleCheckbox",
+      value_:"CycleCheckbox",
+      typeName_:null
+      ,array_: new Array<CheckBoxControlNew>(
+        new CheckBoxControlNew({
+         key_:0,
+         name_:"Cicle",
+         value_:"Does quiz need to be cicled?",
+         typeName_:null
+         ,array_:null
+         ,cssClass_:"",show_:true
+         ,HtmlTypeAttr_:"div"
+         ,HtmlSubmittedValue_:false
+       }))
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:""
+    });
+
+    let quizNumbers = new HtmlItemNew({
+      key_:4,
+      name_:"NumberPickerGroup",
+      value_:"NumberPickerGroup",
+      typeName_:null
+      ,array_:new Array<NumberPickerControlNew>(
+        new NumberPickerControlNew({
+          key_:0,
+          name_:"YearGap",
+          value_:"Years gap",
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:0
+          ,minN:0
+          ,maxN:2
+        })
+        ,new NumberPickerControlNew({
+          key_:0,
+          name_:"MonthsGap",
+          value_:"Months gap",
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:0
+          ,minN:-2
+          ,maxN:3
+        })
+      )
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:""
+    });
+
+    r.add(checkboxes);
+    r.add(stardate);
+    r.add(cycleCheckbox);
+    r.add(quizNumbers);
+
+    return r;
+  }
+  static questionParametersNewGen(){
+
+    let r = new HtmlItemNew({
+      key_:0,
+      name_:"Question controlls",
+      value_:"Question controlls",
       typeName_:null
       ,array_:null
       ,cssClass_:"",show_:true
       ,HtmlTypeAttr_:"div"
-      ,HtmlSubmittedValue_:"text value "
+      ,HtmlSubmittedValue_:"Question controlls"
+    });
+
+    let textboxes=new TextControlNew({
+      key_:2,
+      name_:"Textctrl",
+      value_:"Question text",
+      typeName_:null
+      ,array_:null
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
       ,pattern_:null
       ,maxLength_:null
       ,minLength_:null
-    }));
+    });
+
+    let questionType = new DropDownControlMultiNew({
+        key_:0,
+        name_:"Answer Type",
+        value_:"Select answers type for question",
+        typeName_:null
+        ,array_:new Array<TextControlNew>(
+          new TextControlNew({
+            key_:0,
+            name_:"Text answer",
+            value_:"Text answer",
+            typeName_:null
+            ,array_:null
+            ,cssClass_:"",show_:true
+            ,HtmlTypeAttr_:"div"
+            ,HtmlSubmittedValue_:""
+            ,pattern_:null
+            ,maxLength_:null
+            ,minLength_:null
+          })
+          ,new TextControlNew({
+            key_:1,
+            name_:"Select one answer",
+            value_:"Select one answer",
+            typeName_:null
+            ,array_:null
+            ,cssClass_:"",show_:true
+            ,HtmlTypeAttr_:"div"
+            ,HtmlSubmittedValue_:""
+            ,pattern_:null
+            ,maxLength_:null
+            ,minLength_:null
+          })
+          ,new TextControlNew({
+            key_:2,
+            name_:"Select any answer",
+            value_:"Select any answer",
+            typeName_:null
+            ,array_:null
+            ,cssClass_:"",show_:true
+            ,HtmlTypeAttr_:"div"
+            ,HtmlSubmittedValue_:""
+            ,pattern_:null
+            ,maxLength_:null
+            ,minLength_:null
+          })
+          ,new TextControlNew({
+            key_:3,
+            name_:"Rating answer",
+            value_:"Rating answer",
+            typeName_:null
+            ,array_:null
+            ,cssClass_:"",show_:true
+            ,HtmlTypeAttr_:"div"
+            ,HtmlSubmittedValue_:""
+            ,pattern_:null
+            ,maxLength_:null
+            ,minLength_:null
+          })
+        )
+        ,cssClass_:"",show_:true
+        ,HtmlTypeAttr_:"div"
+        ,HtmlSubmittedValue_:null
+      });
+
+
+    r.add(textboxes)
+    r.add(questionType)
 
     return r;
   }
+
 
   //quiz objects generating
 
@@ -195,16 +457,17 @@ export class FactoryNew{
     let nodes=new QuizItemNew({key_:0,
     name_:"Quizes",
     value_:"Quizes",
-    typeName_:null,array_:new Array<QuizNew>()
-    ,itemControlls_:null,cssClass_:"",show_:true
-    ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
+    typeName_:null,array_:new Array<QuizNew>(),
+    itemControlls_:null,cssClass_:"",show_:true,
+    HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
 
     for(let i=0;i<qn;i++){
       let qzNew=new QuizNew({key_:i,
       name_:"Quiz_"+i,
       value_:"Quiz_"+i,
       typeName_:null,array_:new Array<QuestionNew>()
-      ,itemControlls_:null,cssClass_:"",show_:true
+      ,itemControlls_:FactoryNew.quizItemParametersNewGen().array
+      ,cssClass_:"",show_:true
       ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
 
         for(let i2=0;i2<qtn;i2++){
@@ -212,7 +475,8 @@ export class FactoryNew{
           name_:"Question_"+(i+i2),
           value_:"Question_"+(i+i2),
           typeName_:"QuestionNew",array_:new Array<AnswerNew>()
-          ,itemControlls_:null,cssClass_:"",show_:true
+          ,itemControlls_:FactoryNew.questionParametersNewGen().array
+          ,cssClass_:"",show_:true
           ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
 
             for(let i3=0;i3<an;i3++){
@@ -443,6 +707,7 @@ export class TestNew{
         if(qs===qsn){console.log(["getByName OK",qsn])}
 
       }
+      console.log(["FactoryQuizGenCheck ",r])
   }
 
   public static FactoryCheck(){

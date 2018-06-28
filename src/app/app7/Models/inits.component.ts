@@ -1370,7 +1370,6 @@ export class ModelContainer{
     if(i instanceof DropDownControlMulti){return "DropDownControlMulti"}
   }
 
-
   static CheckAnswerAmount(isNew_:boolean){
 
     let bntObj=ModelContainer.saveButtons_;

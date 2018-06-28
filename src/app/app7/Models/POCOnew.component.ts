@@ -387,7 +387,7 @@ export class DropDownControlMultiNgNew extends HtmlItemNew{
 export class DropDownControlMultiNew extends HtmlItemNew{
 
 }
-export class DatePickerControl extends HtmlItemNew{
+export class DatePickerControlNew extends HtmlItemNew{
   constructor(o:{key_?:number,
   name_?:string,
   value_?:string,
@@ -405,7 +405,7 @@ export class DatePickerControl extends HtmlItemNew{
     }
   }
 }
-export class NumberPickerControl extends HtmlItemNew{
+export class NumberPickerControlNew extends HtmlItemNew{
 
   minN?:number;
   maxN?:number;
@@ -443,14 +443,10 @@ export class QuizItemNew extends HtmlItemNew{
   show:boolean;
   itemControlls:HtmlItemNew[];
 
-  constructor(o:{key_?:number,
-  name_?:string,
-  value_?:string,
-  typeName_?:string,array_:QuizItemNew[],
+  constructor(o:{key_?:number,name_?:string,value_?:string,typeName_?:string
+  ,array_:QuizItemNew[],
   itemControlls_:HtmlItemNew[]
-  ,cssClass_:string,show_:boolean,HtmlTypeAttr_:string
-    ,HtmlSubmittedValue_:any}){
-
+  ,cssClass_:string,show_:boolean,HtmlTypeAttr_:string,HtmlSubmittedValue_:any}){
     if(o!=null){
       super(o);
       this.itemControlls=o.itemControlls_;
@@ -475,5 +471,31 @@ export class QuestionNew extends QuizItemNew{
 }
 export class QuizNew extends QuizItemNew{
 
+
+}
+
+
+//Buttons
+
+export class ButtonNew extends HtmlItemNew{
+  _clicked:boolean;
+  _toolTipText:string;
+  _disabled:boolean;
+
+  constructor(o:{key_?:number,name_?:string,value_?:string,typeName_?:string
+    ,array_:QuizItemNew[],
+    itemControlls_:HtmlItemNew[]
+    ,cssClass_:string,show_:boolean,HtmlTypeAttr_:string
+    ,HtmlSubmittedValue_:any
+    ,clicked_:boolean,toolTipText_:string,disabled_:boolean}){
+    if(o!=null){
+      super(o);
+      this._clicked=o.clicked_;
+      this._toolTipText=o.toolTipText_
+      this._disabled=o.disabled_;
+    }else{
+      this._typeName=this.constructor.name
+    }
+  }
 
 }
