@@ -318,6 +318,10 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 		
 	]						   
 	
+	
+	//Software architecture
+	https://hackernoon.com/38-actions-and-insights-to-become-a-better-software-architect-f135e2de9a1b
+	
 	//IBM code patterns
 	https://developer.ibm.com/code/patterns/
 	
@@ -389,6 +393,18 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
 	//custom dome
 	https://www.bennadel.com/blog/3025-creating-custom-dom-and-host-event-bindings-in-angular-2-beta-6.htm
+	//Managing state
+	https://blog.nrwl.io/managing-state-in-angular-applications-22b75ef5625f
+	tps://blog.oasisdigital.com/2016/managing-state-angular-2/
+	https://medium.com/front-end-developers/managing-state-in-angular-2-using-rxjs-b849d6bbd5a5
+	//centralized state mangement
+	https://blog.oasisdigital.com/2016/angular-2-elm-redux-architecture/
+	//AsyncPipe
+	https://codecraft.tv/courses/angular/pipes/async-pipe/#_asyncpipe_with_promises	
+	//routing 
+	https://codecraft.tv/courses/angular/routing/route-configuration/
+	//states 
+	http://krasimirtsonev.com/blog/article/managing-state-in-javascript-with-state-machines-stent
 	
 	//rxjs
 	https://netbasal.com/understanding-subjects-in-rxjs-55102a190f3
@@ -410,7 +426,9 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	//primeng
 	https://www.primefaces.org/primeng/#/ 
 	
-	TOREAD_SORT
+	//TOREAD SORT
+	//TS interfaces vs types
+	https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c
 	//JS maddness external files load
 	http://unixpapa.com/js/dyna.html
 	//Load files
@@ -545,6 +563,13 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	https://stackoverflow.com/questions/21893401/big-data-visualization-using-search-show-context-and-expand-on-demand-concep
 	//MSDN linq, expressions
 	https://weblogs.asp.net/dixin					  
+	//BitCoin
+	https://hackernoon.com/meet-spoofy-how-a-single-entity-dominates-the-price-of-bitcoin-39c711d28eb4
+	//whiteboard interviews
+	https://hackernoon.com/how-to-lose-an-it-job-in-10-minutes-3d63213c8370
+	//machine lerning algoritm
+	https://hackernoon.com/choosing-the-right-machine-learning-algorithm-68126944ce1f
+	
 	
 	//D3.js
 	//essentials v4
@@ -616,8 +641,8 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	http://www.amazedsaint.com/2008/01/design-patterns-part-i-and-ii.html
 	//Extensible design
 	http://www.codemag.com/article/0801041
-	
-	
+	//state patern
+	https://en.wikipedia.org/wiki/State_pattern
 	
 	//TOPTAL
 	https://www.toptal.com/developers/blog
