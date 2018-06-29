@@ -778,7 +778,8 @@ ConstructorForm.json
 				
 				MDB //Boostrap material design
 				https://mdbootstrap.com/components/buttons/
-								
+				
+				https://meduza.io/games/perezhit-tyurmu-maloy-krovyu
 				
 			]
 			Description[
@@ -1062,7 +1063,59 @@ Stage_2:
 Stage_3:(Qz==Aw)
 	AddNew,Delete-[]->
 		checkQuestionType();
+
+		
+		
+ItemEditWindow{
+	Save
 	
+	Question:AnswerTypeDropDown(isTextAnswer?)
+}
+
+ItemSelect{
+	Add New,Edit,Copy,Delete
+}
+
+button with object
+every click to modelstate(button_,obj_){
+	detect button type, change state 
+	
+	send efresh evvent // all components subscribe
+}
+
+
+
+|Menu|QuizList
+
+[Quiz,Question,Answer]
+Menu|AddNew Quiz|MenuEdit|new Quiz
+Menu|AddNew Quiz|Menu|QuizToEdit selected Quiz
+Menu|Edit Quiz|MenuEdit|existing Quiz
+Menu|Copy Quiz|MenuEdit|clonned Quiz
+Menu|Delete Quiz|Menu|Quiz list selected
+
+MenuEdit Quiz|AddNew Question|MenuEdit|new Question (save button is on)
+MenuEdit Quiz|Edit Question|MenuEdit|existing Question{
+	checkQuestionState();
+}
+MenuEdit Quiz|DropDownChange|MenuEdit|Question{
+	checkQuestionState();
+}
+MenuEdit Quiz|Copy Question|MenuEdit|clonned Question{
+	checkQuestionState();
+}
+MenuEdit Quiz|Delete Question|MenuEdit|Question list selected
+
+
+checkQuestionState(){
+	if((Answers>1 && Type=="Text")){
+		disable AddNew
+	}
+	if(Answers=0){
+		disable Save
+	}	
+}
+
 			]
 			BusinessFunctionalRequirements[
 				http://confluence.nspk.ru/pages/viewpage.action?pageId=11380023

@@ -319,6 +319,7 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	]						   
 	
 	
+	
 	//Software architecture
 	https://hackernoon.com/38-actions-and-insights-to-become-a-better-software-architect-f135e2de9a1b
 	
@@ -4850,6 +4851,8 @@ https://medium.com/@swarnakishore/how-to-include-and-use-jquery-in-angular-cli-p
 		
 		public void CMD_commands(){
 			
+			npm install -g @angular/cli
+			npm install --save @ng-bootstrap/ng-bootstrap
 			
 			//create new project 
 			ng new my_app
