@@ -13,6 +13,7 @@ import {NodeNew,CollectionNew
   ,TextControlNew,CheckBoxControlNew
   ,DropDownControlMultiNew,DropDownControlNgNew,RadioButtonControlNew
   ,DatePickerControlNew,NumberPickerControlNew
+  ,ButtonNew
 } from './POCOnew.component';
 
 
@@ -35,7 +36,8 @@ export class FactoryNew{
             ,HtmlSubmittedValue_:"text value"+i
             ,pattern_:null
             ,maxLength_:null
-            ,minLength_:null}));
+            ,minLength_:null})
+          );
         }
 
       return r;
@@ -503,6 +505,8 @@ export class StateContainerNew{
 
 }
 
+
+
 export class TestNew{
 
   public static QuizItemsCheck(){
@@ -721,6 +725,35 @@ export class TestNew{
     TestNew.QuizHierarhyCheck();
     TestNew.FactoryQuizGenCheck();
 
+  }
+
+  public static Buttons(){
+
+    let r :{buttons_:HtmlItemNew;object_:HtmlItemNew;}[];
+    r=[{
+        buttons_:new HtmlItemNew({key_:0,name_:"Button1",value_:"Test button 1"
+        ,typeName_:null,array_:[
+          new ButtonNew({key_:0,name_:"Button1",value_:"Test button 1"
+          ,typeName_:null,array_:null,itemControlls_:null,cssClass_:"btn"
+          ,show_:true,HtmlTypeAttr_:"",HtmlSubmittedValue_:"",clicked_:false
+          ,toolTipText_:"test 1",disabled_:false})
+          ,new ButtonNew({key_:1,name_:"Button2",value_:"Test button 2"
+          ,typeName_:null,array_:null,itemControlls_:null,cssClass_:"btn btn-purple-gradient"
+          ,show_:true,HtmlTypeAttr_:"",HtmlSubmittedValue_:"",clicked_:false
+          ,toolTipText_:"test 2",disabled_:false})
+          ,new ButtonNew({key_:2,name_:"Button3",value_:"Test button 3"
+          ,typeName_:null,array_:null,itemControlls_:null,cssClass_:"btn btn-purple"
+          ,show_:true,HtmlTypeAttr_:"",HtmlSubmittedValue_:"",clicked_:false
+          ,toolTipText_:null,disabled_:false})
+        ],cssClass_:"row",show_:true,HtmlTypeAttr_:""
+        ,HtmlSubmittedValue_:""})
+        ,object_:new TextControlNew({
+        key_:0,name_:"Textctrl"+0,value_:"Textctrl"+0,typeName_:null
+        ,array_:null,cssClass_:"",show_:true,HtmlTypeAttr_:"div"
+        ,HtmlSubmittedValue_:"text value"+0,pattern_:null,maxLength_:null
+        ,minLength_:null})
+    }];
+    return r;
   }
 
   public static GO(){

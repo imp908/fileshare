@@ -1,0 +1,14 @@
+<p>
+  items works!
+</p>
+
+<ng-container *ngIf="_items!=null">
+  <ng-container *ngIf="_items.hasCollection()">
+    <div class={{_items.cssClass}}>
+      <ng-container  *ngFor="let i of _items.array">
+        <app-item [_item]="i"></app-item>
+      </ng-container>
+    </div>
+  </ng-container>
+
+</ng-container>

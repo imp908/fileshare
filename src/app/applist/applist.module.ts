@@ -12,9 +12,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ButtonComponent } from './Templates/Elements/button/button.component';
 import { ItemComponent } from './Templates/Elements/item/item.component';
 import { MenuComponent } from './Templates/menu/menu.component';
+import { TestComponent } from './Templates/test/test.component';
+import { ItemsComponent } from './Templates/Elements/items/items.component';
 
 @NgModule({
-  declarations: [ApplistComponent,DatepickerPopupComponent, ButtonComponent, ItemComponent, MenuComponent],
+  declarations: [ApplistComponent,DatepickerPopupComponent, ButtonComponent, ItemComponent, MenuComponent, TestComponent, ItemsComponent],
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
     ,NgbModule.forRoot()

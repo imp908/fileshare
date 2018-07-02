@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import {ServiceCl} from 'src/app/applist/Services/services.component'
-import {NumberPickerControlNew} from 'src/app/applist/Models/POCOnew.component'
+import {ButtonNew,HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
 
 @Component({
   selector: 'app-button',
@@ -10,12 +10,18 @@ import {NumberPickerControlNew} from 'src/app/applist/Models/POCOnew.component'
 })
 export class ButtonComponent implements OnInit {
 
-  constructor() {
+  @Input() _button:ButtonNew;
+  @Input() _object:HtmlItemNew;
 
+  constructor(){
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
 
-  ngOnInit() {
+  ngOnInit(){
+    ServiceCl.log(["Inited: " + this.constructor.name,this._button]);
   }
-
+  clicked_(){
+    this._button._clicked=true;
+    ServiceCl.log(["Clicked button with object",this._button,this._object]);
+  }
 }

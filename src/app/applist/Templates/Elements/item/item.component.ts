@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import {ServiceCl} from 'src/app/applist/Services/services.component'
-import {NumberPickerControlNew} from 'src/app/applist/Models/POCOnew.component'
+import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
 
 @Component({
   selector: 'app-item',
@@ -10,12 +10,13 @@ import {NumberPickerControlNew} from 'src/app/applist/Models/POCOnew.component'
 })
 export class ItemComponent implements OnInit {
 
-  constructor() {
-
+  @Input() _item:HtmlItemNew;
+  constructor(){
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
 
-  ngOnInit() {
+  ngOnInit(){
+    ServiceCl.log(["Inited: " + this.constructor.name]);
   }
 
 }

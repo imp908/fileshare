@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import {TestNew} from 'src/app/applist/Models/initsNew.component'
 
 @Component({
   selector: 'app-applist',
@@ -8,7 +8,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ApplistComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+    TestNew.GO();
+  }
 
   ngOnInit() {
   }

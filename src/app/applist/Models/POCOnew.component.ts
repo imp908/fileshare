@@ -288,6 +288,11 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
 
   }
 
+  hasCollection(){
+    if(this.array!=null){if(this.array.length>0){return true;}}
+    return false;
+  }
+
 }
 
 //html objects from button to form items
@@ -499,7 +504,6 @@ export class ButtonNew extends HtmlItemNew{
   }
 
 }
-
 
 
 //Buttons used in Quiz
