@@ -8249,26 +8249,28 @@ and d=$b.d[0]
 }
 
 public traversePath(){
-//path 
-traverse inE('MainAssignment','SubUnit'),outV() 
+	
+	//path 
+	traverse inE('MainAssignment','SubUnit'),outV() 
 
 
-traverse inE('MainAssignment','SubUnit'),outV()  from (
-select from person where 1=1 and sAMAccountName='lobanovamg'
-/* and in().Out('MainAssignment').inE() is null */
-and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
-(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
-)
+	traverse inE('MainAssignment','SubUnit'),outV()  from (
+	select from person where 1=1 and sAMAccountName='lobanovamg'
+	/* and in().Out('MainAssignment').inE() is null */
+	and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
+	(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+	)
+
 }
 
 public PersonFilter(){
 
-//default person select no Fired or in maternity leave
-select expand(in().Out('MainAssignment').inE()) as p
-from person where 1=1 and sAMAccountName='lobanovamg'
-/* and in().Out('MainAssignment').inE() is null */
-and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
-(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+	//default person select no Fired or in maternity leave
+	select expand(in().Out('MainAssignment').inE()) as p
+	from person where 1=1 and sAMAccountName='lobanovamg'
+	/* and in().Out('MainAssignment').inE() is null */
+	and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
+	(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
 
 }
 

@@ -788,10 +788,12 @@ ConstructorForm.json
 				npm install
 
 				//for ng-bootstrap (ngbbootstrap) used for datepicker, toltips, dropdown
+				//for Quiz 4
 				//https://github.com/ng-bootstrap/ng-bootstrap
 				npm install --save @ng-bootstrap/ng-bootstrap
 
-				//for bootstrap css datepicker 
+				//for bootstrap css datepicker in Quiz 2 and 3
+				//obsolette in Quiz 4
 				npm install jquery — save
 				npm install jquery jquery-ui --save
 				//+ bootstrap css in styles import
