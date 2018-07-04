@@ -816,7 +816,7 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	http://blog.sodhanalibrary.com/2016/10/change-image-source-on-mouseover-using.html#.Www-80iFOHs
 	https://blog.angular-university.io/angular-ngclass-ngstyle/
 	//angular 2 custom themes
-	https://medium.com/atom-platform/angular-6-dynamic-themes-without-a-library-c21dfb2cb580
+	https://medium.com/atom-platform/angular-6-dynamic-themes-without-a-library-c21dfb2cb580															 
 	//Angular 2 events binding
 	https://lishman.io/angular-2-event-binding	
 	//Angular 2 to WebComponents
@@ -836,7 +836,7 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	//routing 
 	https://codecraft.tv/courses/angular/routing/route-configuration/
 	//states 
-	http://krasimirtsonev.com/blog/article/managing-state-in-javascript-with-state-machines-stent
+	http://krasimirtsonev																		  
 	
 	//rxjs
 	https://netbasal.com/understanding-subjects-in-rxjs-55102a190f3
@@ -858,9 +858,9 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	//primeng
 	https://www.primefaces.org/primeng/#/ 
 	
-	//TOREAD SORT
+	TOREAD_SORT
 	//TS interfaces vs types
-	https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c
+	https://medium.com/@martin_hotell/interface-vs-type-alias-in-typescript-2-7-2a8f1777af4c																 
 	//JS maddness external files load
 	http://unixpapa.com/js/dyna.html
 	//Load files
@@ -1001,7 +1001,6 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	https://hackernoon.com/how-to-lose-an-it-job-in-10-minutes-3d63213c8370
 	//machine lerning algoritm
 	https://hackernoon.com/choosing-the-right-machine-learning-algorithm-68126944ce1f
-	
 	
 	//D3.js
 	//essentials v4
@@ -5284,6 +5283,7 @@ https://medium.com/@swarnakishore/how-to-include-and-use-jquery-in-angular-cli-p
 			
 			npm install -g @angular/cli
 			npm install --save @ng-bootstrap/ng-bootstrap
+				  
 			
 			//create new project 
 			ng new my_app
@@ -5578,7 +5578,7 @@ html -> <childHtml (outEm)="method($event)">
 			}
 		}
 	
-		public void TipsAndTricks{
+		 	public void TipsAndTricks{
 			
 			generateTemplateIncolumns[
 			
@@ -5647,7 +5647,6 @@ html -> <childHtml (outEm)="method($event)">
 				then undefined erro would fire, while action performs OK
 			]															 
 		}
-		
 		migrationTO6[
 			
 			https://update.angular.io/
@@ -5762,13 +5761,12 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 				
 			}
 		}
-		,Bootstrap{
+		 ,Bootstrap{
 			
 			//buttons in column with CSS class
 			//btn-group-vertical
 			
 		}
-	
 	}
 	
 	#endregion	
@@ -8705,28 +8703,26 @@ and d=$b.d[0]
 }
 
 public traversePath(){
-	
-	//path 
-	traverse inE('MainAssignment','SubUnit'),outV() 
+//path 
+traverse inE('MainAssignment','SubUnit'),outV() 
 
 
-	traverse inE('MainAssignment','SubUnit'),outV()  from (
-	select from person where 1=1 and sAMAccountName='lobanovamg'
-	/* and in().Out('MainAssignment').inE() is null */
-	and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
-	(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
-	)
-
+traverse inE('MainAssignment','SubUnit'),outV()  from (
+select from person where 1=1 and sAMAccountName='lobanovamg'
+/* and in().Out('MainAssignment').inE() is null */
+and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
+(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+)
 }
 
 public PersonFilter(){
 
-	//default person select no Fired or in maternity leave
-	select expand(in().Out('MainAssignment').inE()) as p
-	from person where 1=1 and sAMAccountName='lobanovamg'
-	/* and in().Out('MainAssignment').inE() is null */
-	and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
-	(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
+//default person select no Fired or in maternity leave
+select expand(in().Out('MainAssignment').inE()) as p
+from person where 1=1 and sAMAccountName='lobanovamg'
+/* and in().Out('MainAssignment').inE() is null */
+and (inE("MainAssignment")[0].Disabled is null or inE("MainAssignment")[0].Disabled >= sysdate() ) and (Disabled is null) and
+(inE().State != 'Отпуск по уходу за ребенком' and inE().State != 'Отпуск по беременности и родам' )
 
 }
 
@@ -10563,7 +10559,7 @@ RAW JSON
 					
 					netsat -> ips with ports
 					netsh [http] [add,delete] [iplisten] -> bind http listener
-					
+					net config workstation
 				}
 				
 				public void PS()			
@@ -10676,7 +10672,7 @@ RAW JSON
 					--no-create-home --quiet _apt || true
 					
 					//Windows 7 don't have a permission to brows Ubuntu Fileshare
-					uncomment browseable = yes in etc/samba/smb.conf
+					uncomment browseable = yes in /etc/samba/smb.conf
 					https://askubuntu.com/questions/569333/windows-7-8-1-ubuntu-14-folder-sharing
 				}
 			
@@ -10684,7 +10680,9 @@ RAW JSON
 				{
 					public Samba
 					{
-						
+
+https://losst.ru/nastrojka-samba-v-ubuntu-15-10
+
 https://help.ubuntu.com/community/How%20to%20Create%20a%20Network%20Share%20Via%20Samba%20Via%20CLI%20(Command-line%20interface/Linux%20Terminal)%20-%20Uncomplicated,%20Simple%20and%20Brief%20Way!
 sudo apt-get update
 sudo apt-get install samba
@@ -10703,7 +10701,7 @@ read only = no
 sudo service smbd restart
 
 //in windows file explorere
-\\192.168.0.103\sharefolder
+\\192.168.0.100\sharefolder
 
 					}
 					
@@ -10727,7 +10725,26 @@ sudo service smbd restart
 						sudo pip install psutil logutils bottle batinfo https://bitbucket.org/gleb_zhulik/py3sensors/get/tip.tar.gz zeroconf netifaces pymdstat influxdb elasticsearch potsdb statsd pystache docker-py pysnmp pika py-cpuinfo bernhard
 						sudo pip install glances
 					}
-				
+					
+					vim[
+						
+						links[
+							https://www.radford.edu/~mhtay/CPSC120/VIM_Editor_Commands.htm
+							http://vim.wikia.com/wiki/Copy,_cut_and_paste
+							http://vim.wikia.com/wiki/Undo_and_Redo
+						]
+						
+						cmd[
+							:wq -> (write file and exit vim)
+							v -> copy
+							ctrl -v -> rectangular copy
+							d -> cut
+							y -> copy 
+							p -> paste after
+							P -> paster before
+						]
+						
+					]
 				}
 			}
 			

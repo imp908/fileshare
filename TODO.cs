@@ -437,14 +437,8 @@ TnT[
 
 			actual[
 
+-> new Quiz events test
 -> move nsql manager to core
--> analyze quiz model to array without collection change costs [
-		<- done 26.06.2018 -> New HtmlItems, new QuizItems
-		<- done 27.06.2018-> new ItemParameters + test
-		<- done 27.06.2018-> new FactoryNew + test
-		-> new Quiz events test
-		-> new Html Templates
-	]
 -> Back model arrange for itemparameters and quizcontrolls
 -> manager CRUD QuizeList with ref to person
 -> add id to Quiz, edited state
@@ -462,7 +456,6 @@ TnT[
 	-> picture
 	-> Correct answer for victorine according to type
 
-
 -> Quiz Pass page[exmpls
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
 quiz with correct answers
@@ -479,7 +472,6 @@ Generate Html according to type
 -> moove all toggling from factory to classes
 -> Ignore event issue to repair [
 more then 3 events listen ignore issue to repair  ]
-
 
 	<- 17.04.2018 done -> New model menu,list-menu,edit-menu added 
 	<- done -> New model create templates rebuild 
@@ -508,8 +500,8 @@ more then 3 events listen ignore issue to repair  ]
 	<- done with css display atr, mouseup and ngModelChange-> repair click need
 	<- 15.05.2018 done -> new GapPicker
 	<- 16.05.2018 done -> Input most usefull types test (textbox,radio,check,date,color,range,files) with NgBinding,value display and form submit model + template
-	<- 17.05.2018 done with HtmlItem class and its childs-> Change ItemParameter model to NodeCollection with input type specific attrs 
-	x- 17.05.2018 cancelled   (no need cause model updates)-> Rep nested tmplate ngModel update 								 
+	<- 17.05.2018 done with HtmlItem class and its childs -> Change ItemParameter model to NodeCollection with input type specific attrs 
+	x- 17.05.2018 cancelled (no need cause model updates) -> Rep nested tmplate ngModel update 								 
 	<- 18.05.2108 done -> Edit Node for HtmlItem
 	<- 18.05.2108 done -> Edit Nodes list for HtmlItem collection
 	<- 20.05.2018 done -> check flex [
@@ -523,14 +515,14 @@ more then 3 events listen ignore issue to repair  ]
 	<- 21.05.2018 14:19 done  -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows.
 	<- 22.05.2018 done -> change every HtmlItem child class to cssType receive
 	<- done 24.05.2018 -> handle cssClass in all nodes for all HtmlItem types [
-	<- done 22.05.2018-> nodeItem rewrite for one item.csstype binding
+	<- done 22.05.2018 -> nodeItem rewrite for one item.csstype binding
 	<- done 22.05.2018 -> change nodes and nodegr to cssType
 		]	
 	<- done 22.05.2018 -> repeat checkbox	
-	<- done 27.05.2018-> add dropbox ts 
-	<- done 27.05.2018-> change item-ng
-	<- done 28.05.2018-> custom multi dropdown
-	<- done 29.05.2018-> custom multi dropdown CSS, events
+	<- done 27.05.2018 -> add dropbox ts 
+	<- done 27.05.2018 -> change item-ng
+	<- done 28.05.2018 -> custom multi dropdown
+	<- done 29.05.2018 -> custom multi dropdown CSS, events
 	<- done 30.05.2018 -> Add new Question parameters [
 	<- done 30.05.2018 -> question text 
 		<- done 30.05.2018 -> question type with dropdown {textbox,checkbox,radio,rate with dropdown}		
@@ -540,23 +532,28 @@ more then 3 events listen ignore issue to repair  ]
 		-> textbox answer (1-5 for dropbox)	
 		-> Answers according to type
 		]
-	<- done 30.05.2018-> repair edit menu buttons disable
+	<- done 30.05.2018 -> repair edit menu buttons disable
 	<- 31.05.2018 done -> Add save, add new button disabled
 	<- 31.05.2018 done -> Add question type check for answer amount to type accordance
 	<- 31.05.2018 done -> Add inform about question amount invalid to type
 	<- done 02.06.2018 -> Delete item
 	<- done 02.06.2018 -> Add Question button disable	
 	<- done 02.06.2018 -> Copy question
-	<- done 11.06.2018 12:31-> array deep clone recursive. No class segregation
+	<- done 11.06.2018 12:31 -> array deep clone recursive. No class segregation
 	<- done 12.06.18 16:42 -> Classes nested array deep copy[
 		<- done 12.06.18 14:00 -> Repair array deep copy, add nested itemparameter recursive copy
 		<- done 12.06.18 15:00 -> rearrange HtmlItem, QuizItem classes to deep copy ItemParameters
 	]
-	<- done 14.06.18 23:27-> moove nodeToEdit =null from menu-edit to CheckAnswerAmount
+	<- done 14.06.18 23:27 -> moove nodeToEdit =null from menu-edit to CheckAnswerAmount
 	[ delete question enables save_,add_new_ buttons even if >1 question present and Text type selected.
 	cause ModelContainer.nodeDeleted nodeToEdit =null]
 	<- done 22.06.2018 20:41 -> Http POST/GET 
 	<- done 22.06.2018 20:41 -> angular POST CORS
+	<- done 26.06.2018 -> analyze quiz model to array without collection change costs 
+	<- done 26.06.2018 -> New HtmlItems, new QuizItems
+	<- done 27.06.2018 -> new ItemParameters + test
+	<- done 27.06.2018 -> new FactoryNew + test		
+	<- done 04.07.2018 -> new Html Templates
 	
 ]
 	
@@ -778,8 +775,8 @@ ConstructorForm.json
 				
 				MDB //Boostrap material design
 				https://mdbootstrap.com/components/buttons/
-				
-				https://meduza.io/games/perezhit-tyurmu-maloy-krovyu
+								
+				https://meduza.io/games/perezhit-tyurmu-maloy-krovyu										
 				
 			]
 			Description[
@@ -788,11 +785,10 @@ ConstructorForm.json
 				npm install
 
 				//for ng-bootstrap (ngbbootstrap) used for datepicker, toltips, dropdown
-				//for Quiz 4
 				//https://github.com/ng-bootstrap/ng-bootstrap
 				npm install --save @ng-bootstrap/ng-bootstrap
 
-				//for bootstrap css datepicker in Quiz 2 and 3
+				//for bootstrap css datepicker 
 				//obsolette in Quiz 4
 				npm install jquery — save
 				npm install jquery jquery-ui --save
@@ -1065,9 +1061,6 @@ Stage_2:
 Stage_3:(Qz==Aw)
 	AddNew,Delete-[]->
 		checkQuestionType();
-
-		
-		
 ItemEditWindow{
 	Save
 	
@@ -1117,7 +1110,6 @@ checkQuestionState(){
 		disable Save
 	}	
 }
-
 			]
 			BusinessFunctionalRequirements[
 				http://confluence.nspk.ru/pages/viewpage.action?pageId=11380023
