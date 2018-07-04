@@ -10,16 +10,29 @@ import { DatepickerPopupComponent } from
 
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { ButtonComponent } from './Templates/Elements/button/button.component';
-import { ItemComponent } from './Templates/Elements/item/item.component';
-import { MenuComponent } from './Templates/menu/menu.component';
+import { ItemComponent } from './Templates/Elements/items/item/item.component';
 import { TestComponent } from './Templates/test/test.component';
 import { ItemsComponent } from './Templates/Elements/items/items.component';
+import { MenuListComponent } from './Templates/QuizMenus/menu-list/menu-list.component';
+import { MenuEditComponent } from './Templates/QuizMenus/menu-edit/menu-edit.component';
+import { MenuMainComponent } from './Templates/QuizMenus/menu-main/menu-main.component';
+
+import { DropdownmultiComponent } from './Templates/Elements/dropdowns/dropdownmulti/dropdownmulti.component';
+
+import { GappickerNgComponent } from './Templates/Elements/gappicker-ng/gappicker-ng.component';
+
 
 @NgModule({
-  declarations: [ApplistComponent,DatepickerPopupComponent, ButtonComponent, ItemComponent, MenuComponent, TestComponent, ItemsComponent],
+  declarations: [ApplistComponent,DatepickerPopupComponent
+    , ButtonComponent, ItemComponent, TestComponent
+    , ItemsComponent, MenuListComponent, MenuEditComponent, MenuMainComponent
+    ,DropdownmultiComponent
+    ,GappickerNgComponent
+    ],
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
     ,NgbModule.forRoot()
+
 
   ]
   ,bootstrap:[ApplistComponent]

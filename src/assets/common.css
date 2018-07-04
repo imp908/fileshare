@@ -51,9 +51,11 @@ input[type="text"]{
 /*vertical gaps between menu and lsit items*/
 .item{
  position: relative;
- margin-top: 2%;
- padding-top: 5%;
- padding-bottom: 0%;
+
+ padding-top: 0.5vh;
+ padding-bottom: 0.5vh;
+ padding-left: 0.5vw;
+ padding-right: 0.5vw;
 
 }
 
@@ -276,6 +278,9 @@ h1 {
   transform:rotate(180deg);
 }
 
-.label_{
+.label{
+  position: relative;
+  padding-left: 2em;
    font-weight: 450;
+
 }

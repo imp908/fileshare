@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import {ServiceCl} from 'src/app/applist/Services/services.component'
-import {NumberPickerControlNew} from 'src/app/applist/Models/POCOnew.component'
+import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
 
 @Component({
   selector: 'app-gappicker-ng',
@@ -10,7 +10,7 @@ import {NumberPickerControlNew} from 'src/app/applist/Models/POCOnew.component'
 })
 export class GappickerNgComponent implements OnInit {
 
-  @Input() itemValue_:NumberPickerControlNew;
+  @Input() itemValue_:HtmlItemNew;
   min?:number;
   max?:number;
 

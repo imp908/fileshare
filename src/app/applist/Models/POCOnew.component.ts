@@ -127,7 +127,11 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
     // console.log(["Array added",this.array]);
     return item;
   }
-
+  addArr(items:T[]){
+    for(let i of items){
+      this.add(i);
+    }
+  }
   delete(item:T){
     if(typeof(this.array)!=null){
       var index_:number=this.getIndexByItem(item)
@@ -328,7 +332,7 @@ export class HtmlItemNew extends CollectionNew<HtmlItemNew>{
   }
 }
 
-//html iytems for form createion and quiz elements controls display
+//html iytems for Form Controlls createion and quiz elements controls display
 
 export class TextControlNew extends HtmlItemNew{
 
@@ -437,6 +441,7 @@ export class NumberPickerControlNew extends HtmlItemNew{
   }
 }
 
+export class LabelControlNew extends HtmlItemNew{}
 
 //Quiz objects
 //-----------

@@ -11,109 +11,43 @@ import {NodeNew,CollectionNew
   ,QuizItemNew
   ,AnswerNew,QuestionNew,QuizNew
   ,TextControlNew,CheckBoxControlNew
-  ,DropDownControlMultiNew,DropDownControlNgNew,RadioButtonControlNew
+  ,DropDownControlNgNew,DropDownControlMultiNgNew,DropDownControlMultiNew
+  ,RadioButtonControlNew
   ,DatePickerControlNew,NumberPickerControlNew
   ,ButtonNew
+  ,LabelControlNew
 } from './POCOnew.component';
 
 
 export class FactoryNew{
 
-  //intrinsic collections test
+  static TypeCheck(i_:any){
 
-  static TextControlNewTest(n:number){
-      var r = new HtmlItemNew(null);
+    if(i_ == null ){return null}
 
-        for(var i=0;i<n;i++){
-          r.add(new TextControlNew({
-            key_:i,
-            name_:"Textctrl"+i,
-            value_:"Textctrl"+i,
-            typeName_:null
-            ,array_:null
-            ,cssClass_:"",show_:true
-            ,HtmlTypeAttr_:"div"
-            ,HtmlSubmittedValue_:"text value"+i
-            ,pattern_:null
-            ,maxLength_:null
-            ,minLength_:null})
-          );
-        }
+    if(i_ instanceof LabelControlNew){ return "LabelControlNew"}
 
-      return r;
+    if(i_ instanceof QuizItemNew){ return "QuizItemNew"}
+    if(i_ instanceof QuizNew){ return "QuizNew"}
+    if(i_ instanceof AnswerNew){ return "AnswerNew"}
+    if(i_ instanceof QuestionNew){ return "QuestionNew"}
+
+    if(i_ instanceof TextControlNew){ return "TextControlNew"}
+    if(i_ instanceof CheckBoxControlNew){ return 'CheckBox'}
+    if(i_ instanceof DropDownControlNgNew){ return "DropDownControlNgNew"}
+    if(i_ instanceof DropDownControlMultiNgNew){ return "DropDownControlMultiNgNew"}
+    if(i_ instanceof DropDownControlMultiNew){ return "DropDownControlMultiNew"}
+    if(i_ instanceof RadioButtonControlNew){ return "RadioButton"}
+    if(i_ instanceof DatePickerControlNew){ return "DatePickerControlNew"}
+    if(i_ instanceof NumberPickerControlNew){ return "NumberPickerControlNew"}
+
+    if(i_ instanceof ButtonNew){ return "Button"}
+
+    if(i_ instanceof HtmlItemNew){ return "HtmlItemNew"}
+
+    return null;
   }
-  static CheckBoxControlNewTest(n:number){
-      var r= new CheckBoxControlNew(null);
 
-      for(var i=0;i<n;i++){
-        r.add(
-          new CheckBoxControlNew({
-              key_:0,
-              name_:"Textctrl_"+i,
-              value_:"Textctrl_"+i,
-              typeName_:null
-              ,array_:FactoryNew.TextControlNewTest(3).array
-              ,cssClass_:"",show_:true
-              ,HtmlTypeAttr_:"div"
-              ,HtmlSubmittedValue_:null
-            }));
-      }
-
-      return r;
-  }
-  static RadioButtonControlNewTest(n:number){
-      var r= new RadioButtonControlNew(null);
-      for(var i=0;i<n;i++){
-        r.add( new TextControlNew({
-              key_:0,
-              name_:"Textctrl_"+i,
-              value_:"Textctrl_"+i,
-              typeName_:null
-              ,array_:FactoryNew.TextControlNewTest(3).array
-              ,cssClass_:"",show_:true
-              ,HtmlTypeAttr_:"div"
-              ,HtmlSubmittedValue_:"text value "+0
-              ,pattern_:null
-              ,maxLength_:null
-              ,minLength_:null}));
-      }
-
-      return r;
-  }
-  static DropDownControlMultiNewTest(n:number){
-      var r= new HtmlItemNew(null);
-      for(var i=0;i<n;i++){
-        r.add( new DropDownControlMultiNew({
-              key_:0,
-              name_:"Textctrl_"+i,
-              value_:"Textctrl_"+i,
-              typeName_:null
-              ,array_:FactoryNew.TextControlNewTest(3).array
-              ,cssClass_:"",show_:true
-              ,HtmlTypeAttr_:"div"
-              ,HtmlSubmittedValue_:""
-              }));
-      }
-
-      return r;
-  }
-  static DatePickerControlTest(n:number){
-      var r= new HtmlItemNew(null);
-      for(var i=0;i<n;i++){
-        r.add( new DatePickerControlNew({
-              key_:0,
-              name_:"Datepicker_"+i,
-              value_:"Datepicker_"+i,
-              typeName_:null
-              ,array_:null
-              ,cssClass_:"",show_:true
-              ,HtmlTypeAttr_:"div"
-              ,HtmlSubmittedValue_:new Date(2018,1,1+i)
-              }));
-      }
-
-      return r;
-  }
 
   //service genes
 
@@ -505,15 +439,150 @@ export class StateContainerNew{
 
 }
 
-
-
 export class TestNew{
 
-  public static QuizItemsCheck(){
-    console.log(["TextControlNew ",FactoryNew.TextControlNewTest(3)])
-    console.log(["CheckBoxControlNew ",FactoryNew.CheckBoxControlNewTest(3)])
-    console.log(["RadioButtonControlNew ",FactoryNew.RadioButtonControlNewTest(3)])
-    console.log(["DropDownControlMultiNewTest ",FactoryNew.DropDownControlMultiNewTest(3)])
+  //intrinsic collections test
+
+  static LabelControlNewTest(n:number,cssItem_:string,){
+    var r = new HtmlItemNew(null);
+
+      for(var i=0;i<n;i++){
+        r.add(new LabelControlNew({
+          key_:i,
+          name_:"LabelCtrl_"+i,
+          value_:"LabelCtrl_"+i,
+          typeName_:null
+          ,array_:null
+          ,cssClass_:cssItem_,show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:"text value"+i
+          })
+        );
+      }
+    r.cssClass=cssItem_;
+    return r;
+  }
+
+  static TextControlNewTest(n:number,cssGroup_:string,cssItem_:string){
+    var r = new HtmlItemNew(null);
+
+      for(var i=0;i<n;i++){
+        r.add(new TextControlNew({
+          key_:i,
+          name_:"Textctrl"+i,
+          value_:"Textctrl"+i,
+          typeName_:null
+          ,array_:null
+          ,cssClass_:cssItem_,show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:"text value"+i
+          ,pattern_:null
+          ,maxLength_:null
+          ,minLength_:null})
+        );
+      }
+    r.cssClass=cssGroup_;
+    return r;
+  }
+  static CheckBoxControlNewTest(n:number,cssGroup_:string,cssItem_:string){
+    var r= new HtmlItemNew(null);
+
+    for(var i=0;i<n;i++){
+      r.add(
+        new CheckBoxControlNew({
+          key_:0,
+          name_:"Textctrl_"+i,
+          value_:"Textctrl_"+i,
+          typeName_:null
+          ,array_:null
+          ,cssClass_:cssItem_,show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:true
+        }));
+    }
+    r.cssClass=cssGroup_;
+    return r;
+  }
+  static RadioButtonControlNewTest(n:number,cssGroup_:string,cssItem_:string){
+    var r= new HtmlItemNew(null);
+
+    for(var i=0;i<n;i++){
+      r.add(
+        new RadioButtonControlNew({
+          key_:0,
+          name_:"RadioCtrl_"+i,
+          value_:"RadioCtrl_"+i,
+          typeName_:null
+          ,array_:TestNew.LabelControlNewTest(n,"col").array
+          ,cssClass_:cssItem_,show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:true
+        }));
+    }
+    r.cssClass=cssGroup_;
+    return r;
+  }
+  static DropDownControlMultiNewTest(n:number){
+      var r= new HtmlItemNew(null);
+      for(var i=0;i<n;i++){
+        r.add( new DropDownControlMultiNew({
+              key_:0,
+              name_:"Textctrl_"+i,
+              value_:"Textctrl_"+i,
+              typeName_:null
+              ,array_:TestNew.TextControlNewTest(3,"row","row").array
+              ,cssClass_:"",show_:true
+              ,HtmlTypeAttr_:"div"
+              ,HtmlSubmittedValue_:""
+              }));
+      }
+
+      return r;
+  }
+  static DatePickerControlTest(n:number){
+      var r= new HtmlItemNew(null);
+      for(var i=0;i<n;i++){
+        r.add( new DatePickerControlNew({
+              key_:0,
+              name_:"Datepicker_"+i,
+              value_:"Datepicker_"+i,
+              typeName_:null
+              ,array_:null
+              ,cssClass_:"",show_:true
+              ,HtmlTypeAttr_:"div"
+              ,HtmlSubmittedValue_:new Date(2018,1,1+i)
+              }));
+      }
+
+      return r;
+  }
+  public static HtmlItemNestedCollectionsCheck(){
+    console.log(["TextControlNew ",TestNew.TextControlNewTest(3,"row","row")])
+    console.log(["CheckBoxControlNew ",TestNew.CheckBoxControlNewTest(3,"row","row")])
+    console.log(["RadioButtonControlNew ",TestNew.RadioButtonControlNewTest(3,"row","row")])
+    console.log(["DropDownControlMultiNewTest ",TestNew.DropDownControlMultiNewTest(3)])
+    console.log(["DatePickerControlTest ",TestNew.DatePickerControlTest(5)])
+
+  }
+  public static NumberPickerControlTest(n:number,cssGroup_:string,cssItem_:string){
+    var r = new HtmlItemNew(null);
+
+      for(var i=0;i<n;i++){
+        r.add(new NumberPickerControlNew({
+          key_:i,
+          name_:"NmberPicker "+i,
+          value_:"NmberPicker "+i,
+          typeName_:null
+          ,array_:null
+          ,cssClass_:cssItem_,show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:0
+          ,minN:-2
+          ,maxN:3})
+        );
+      }
+    r.cssClass=cssGroup_;
+    return r;
   }
 
   public static NodeCollectionNewTypeNamesCheck(){
@@ -680,7 +749,7 @@ export class TestNew{
       }
     }
   }
-  public static FactoryQuizGenCheck(){
+  public static FactoryNewQuizGenCheck(){
       let min=3;
       let max=10;
 
@@ -716,22 +785,15 @@ export class TestNew{
       console.log(["FactoryQuizGenCheck ",r])
   }
 
-  public static FactoryCheck(){
 
-    TestNew.QuizItemsCheck();
-
-    TestNew.NodeCollectionNewTypeNamesCheck();
-    TestNew.NodeCollectionNewCheck();
-    TestNew.QuizHierarhyCheck();
-    TestNew.FactoryQuizGenCheck();
-
-  }
+  //Generates array of buttons with object for items render
 
   public static Buttons(){
 
     let r :{buttons_:HtmlItemNew;object_:HtmlItemNew;}[];
+
     r=[{
-        buttons_:new HtmlItemNew({key_:0,name_:"Button1",value_:"Test button 1"
+        buttons_:new HtmlItemNew({key_:0,name_:"Test button 0",value_:"Test button 0"
         ,typeName_:null,array_:[
           new ButtonNew({key_:0,name_:"Button1",value_:"Test button 1"
           ,typeName_:null,array_:null,itemControlls_:null,cssClass_:"btn"
@@ -752,17 +814,236 @@ export class TestNew{
         ,array_:null,cssClass_:"",show_:true,HtmlTypeAttr_:"div"
         ,HtmlSubmittedValue_:"text value"+0,pattern_:null,maxLength_:null
         ,minLength_:null})
+    } ,{
+      buttons_:new HtmlItemNew({key_:0,name_:"Test button 1",value_:"Test button 1"
+      ,typeName_:null,array_:[
+        new ButtonNew({key_:0,name_:"Button10",value_:"Test button 10"
+        ,typeName_:null,array_:null,itemControlls_:null,cssClass_:"btn"
+        ,show_:true,HtmlTypeAttr_:"",HtmlSubmittedValue_:"",clicked_:false
+        ,toolTipText_:"test 10",disabled_:false})
+        ,new ButtonNew({key_:1,name_:"Button11",value_:"Test button 11"
+        ,typeName_:null,array_:null,itemControlls_:null,cssClass_:"btn btn-purple-gradient"
+        ,show_:true,HtmlTypeAttr_:"",HtmlSubmittedValue_:"",clicked_:false
+        ,toolTipText_:"test 11",disabled_:false})
+        ,new ButtonNew({key_:2,name_:"Button12",value_:"Test button 12"
+        ,typeName_:null,array_:null,itemControlls_:null,cssClass_:"btn btn-purple"
+        ,show_:true,HtmlTypeAttr_:"",HtmlSubmittedValue_:"",clicked_:false
+        ,toolTipText_:null,disabled_:false})
+      ],cssClass_:"btn-group-vertical",show_:true,HtmlTypeAttr_:""
+      ,HtmlSubmittedValue_:""})
+      ,object_:new QuizNew({
+      key_:0,name_:"Textctrl"+0,value_:"Textctrl"+0,typeName_:null
+      ,array_:null,itemControlls_:null,cssClass_:"",show_:true,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:"text value"+0})
     }];
+
+    return r;
+
+  }
+
+
+  public static CheckBoxes(n_:number,cssGroup_:string,cssItem_:string){
+    let r = TestNew.CheckBoxControlNewTest(n_,cssGroup_,cssItem_);
+      r.cssClass=cssGroup_;
     return r;
   }
 
+  public static RadioButton(n_:number,cssGroup_:string,cssItem_:string){
+    let r = TestNew.RadioButtonControlNewTest(n_,cssGroup_,cssItem_);
+      r.cssClass=cssGroup_;
+    return r;
+  }
+
+  public static DropBoxCheckBox(n_:number,i_:number,cssGroup_:string,cssItem_:string){
+    let r = new HtmlItemNew(null);
+    for(let i=0;i<n_;i++){
+      r.add(
+        new DropDownControlMultiNew({key_:i,name_:"Drop box "+i,value_:"Drop box "+i
+        ,typeName_:null
+        ,array_:TestNew.CheckBoxControlNewTest(i_,"row","row").array
+        ,cssClass_:cssItem_,show_:true,HtmlTypeAttr_:null,HtmlSubmittedValue_:null})
+      );
+    }
+
+    r.cssClass=cssGroup_;
+    return r;
+  }
+  public static DropBoxLabelBox(n_:number,i_:number,cssGroup_:string,cssItem_:string){
+    let r = new HtmlItemNew(null);
+    for(let i =0;i<n_;i++){
+      r.add(
+        new DropDownControlMultiNew({key_:i,name_:"Drop box "+i,value_:"Drop box "+i
+        ,typeName_:null
+        ,array_:TestNew.LabelControlNewTest(i_,"row").array
+        ,cssClass_:cssItem_,show_:true,HtmlTypeAttr_:null,HtmlSubmittedValue_:null})
+      );
+    }
+
+    r.cssClass=cssGroup_;
+    return r;
+  }
+  public static DropBoxAssorty(n_:number,i_:number,cssGroup_:string,cssItem_:string){
+    let r = new HtmlItemNew(null);
+    for(let i =0;i<n_;i++){
+      r.addArr([
+        new DropDownControlMultiNew({key_:i,name_:"Drop box "+i,value_:"Drop box "+i
+        ,typeName_:null
+        ,array_:TestNew.TextControlNewTest(i_,"row","row").array
+        ,cssClass_:cssItem_,show_:true,HtmlTypeAttr_:null,HtmlSubmittedValue_:null})
+        ,new DropDownControlMultiNew({key_:i,name_:"Drop box "+i,value_:"Drop box "+i
+        ,typeName_:null
+        ,array_:TestNew.CheckBoxControlNewTest(i_,"row","row").array
+        ,cssClass_:cssItem_,show_:true,HtmlTypeAttr_:null,HtmlSubmittedValue_:null})
+        ,new DropDownControlMultiNew({key_:i,name_:"Drop box "+i,value_:"Drop box "+i
+        ,typeName_:null
+        ,array_:TestNew.LabelControlNewTest(i_,"row").array
+        ,cssClass_:cssItem_,show_:true,HtmlTypeAttr_:null,HtmlSubmittedValue_:null})
+      ] );
+    }
+
+    r.cssClass=cssGroup_;
+    return r;
+  }
+
+  //tests typechecker correct type return
+
+  public static TypeCheckTest(){
+
+    let arr=new Array<string>();
+    let _ok=" OK";let _not=" NOT OK";
+
+    let res="Type check null";
+    if(FactoryNew.TypeCheck(null)==null){res+=_ok}else{res+=_not}
+    arr.push(res);
+
+    res="Type check HtmlItemNew";
+    if(FactoryNew.TypeCheck(new HtmlItemNew(null))=="HtmlItemNew"){res+=_ok}else{res+=_not}
+    arr.push(res);
+
+    res="Type check TextControlNew";
+    if(FactoryNew.TypeCheck(new TextControlNew(null))=="TextControlNew"){res+=_ok}else{res+=_not}
+    arr.push(res);
+
+    res="Type check ButtonNew";
+    if(FactoryNew.TypeCheck(new ButtonNew(null))=='Button'){res+=_ok}else{res+=_not}
+    arr.push(res);
+
+    res="Type check CheckBox";
+    if(FactoryNew.TypeCheck(new CheckBoxControlNew(null))=='CheckBox'){res+=_ok}else{res+=_not}
+    arr.push(res);
+
+    res="Type check DropDownControlNgNew";
+    if(FactoryNew.TypeCheck(new DropDownControlNgNew(null))=='DropDownControlNgNew'){res+=_ok}else{res+=_not}
+    arr.push(res);
+    res="Type check DropDownControlMultiNgNew";
+    if(FactoryNew.TypeCheck(new DropDownControlMultiNgNew(null))=='DropDownControlMultiNgNew'){res+=_ok}else{res+=_not}
+    arr.push(res);
+    res="Type check DropDownControlMultiNew";
+    if(FactoryNew.TypeCheck(new DropDownControlMultiNew(null))=='DropDownControlMultiNew'){res+=_ok}else{res+=_not}
+    arr.push(res);
+
+    res="Type check RadioButtonControlNew";
+    if(FactoryNew.TypeCheck(new RadioButtonControlNew(null))=='RadioButton'){res+=_ok}else{res+=_not}
+    arr.push(res);
+
+    res="Type check NumberPickerControlNew";
+    if(FactoryNew.TypeCheck(new NumberPickerControlNew(null))=='NumberPickerControlNew'){res+=_ok}else{res+=_not}
+    arr.push(res);
+
+    console.log(["TypeCheckTest: ",arr])
+
+  }
+
+  public static ControllsBulkGen(){
+    return new Array<HtmlItemNew>(
+      TestNew.CheckBoxes(5,"row item","col")
+      ,TestNew.CheckBoxes(6,"col item","row")
+      ,TestNew.DropBoxCheckBox(3,5,"row item","col")
+      ,TestNew.DropBoxLabelBox(4,5,"col item","row")
+      ,TestNew.DropBoxAssorty(1,3,"row item","col")
+      ,TestNew.TextControlNewTest(4,"row item","col")
+      ,TestNew.TextControlNewTest(3,"col item","row")
+      ,TestNew.LabelControlNewTest(3,"row")
+      ,TestNew.LabelControlNewTest(3,"col")
+      ,TestNew.LabelControlNewTest(3,"col")
+    );
+  }
+  public static ControllsGroupsGen(){
+    let r = new HtmlItemNew(null);
+
+    let a0=new HtmlItemNew({
+      key_:0, name_:"Textctrl"+0,value_:"Textctrl"+0, typeName_:null
+      ,array_: new Array<HtmlItemNew>(
+        TestNew.CheckBoxes(2,"col","row")
+        ,TestNew.CheckBoxes(4,"col","row")
+        ,TestNew.CheckBoxes(3,"col","row")
+      )
+      ,cssClass_:"row item",show_:true ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:"text value"+0});
+
+    let a1=new HtmlItemNew({
+      key_:0, name_:"Textctrl"+0,value_:"Textctrl"+0, typeName_:null
+      ,array_: new Array<HtmlItemNew>(
+        TestNew.CheckBoxes(3,"col item","row item")
+        ,TestNew.DropBoxCheckBox(3,5,"row item","col")
+        ,TestNew.DropBoxLabelBox(4,5,"col item","row")
+      )
+      ,cssClass_:"row item",show_:true ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:"text value"+0});
+
+    let a2=new HtmlItemNew({
+      key_:0, name_:"Textctrl"+0,value_:"Textctrl"+0, typeName_:null
+      ,array_: new Array<HtmlItemNew>(
+        TestNew.CheckBoxes(3,"col item","row item")
+        ,TestNew.DropBoxAssorty(1,5,"row item","row")
+        ,TestNew.TextControlNewTest(3,"row item","row item")
+        ,TestNew.LabelControlNewTest(3,"col item")
+      )
+      ,cssClass_:"col item",show_:true ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:"text value"+0});
+
+    let a3 = new HtmlItemNew({
+      key_:0, name_:"Textctrl"+0,value_:"Textctrl"+0, typeName_:null
+      ,array_: new Array<HtmlItemNew>(
+        TestNew.RadioButtonControlNewTest(3,"col item","row")
+      )
+      ,cssClass_:"",show_:true ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:"text value"+0});
+
+    let a4=new HtmlItemNew({
+      key_:0, name_:"NmbrCtrl "+0,value_:"NmbrCtrl "+0, typeName_:null
+      ,array_: new Array<HtmlItemNew>(
+        TestNew.NumberPickerControlTest(3,"col item","row")
+      ),cssClass_:"",show_:true ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:"text value"+0});
+
+    r.cssClass=""
+    r.add(a0)
+    r.add(a1)
+    r.add(a2)
+    r.add(a3)
+    return r;
+  }
   public static GO(){
-    //check node collection new
-    //Test.NodeCollectionNewCheck();
 
-    //Test.HtmlItemCheck();
+    //collection tests
 
-    TestNew.FactoryCheck();
+    //TestNew.NodeCollectionNewTypeNamesCheck();
+    //TestNew.NodeCollectionNewCheck();
+    //TestNew.QuizHierarhyCheck();
+
+
+    //test newsted collections
+    //TestNew.HtmlItemNestedCollectionsCheck();
+
+
+    //check factory
+    //TestNew.FactoryNewQuizGenCheck();
+
+
+    //type checker Test
+    //TestNew.TypeCheckTest();
+
   }
 
 }

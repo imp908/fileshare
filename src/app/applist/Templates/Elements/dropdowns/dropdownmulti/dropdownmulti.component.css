@@ -1,25 +1,45 @@
 /*for git not empty file*/
+  :host  {
+    /*Drop down styles  */
+    --dropDownGrad3: linear-gradient( 45deg
+      ,rgba(93, 54, 220,1)
+      ,rgba(80, 41, 142,1)
+      ,rgba(160, 100, 150,1)
+      );
+    --dropDownMouseOver2:linear-gradient( 45deg
+      ,rgba(88, 99, 183,0.2)
+      ,rgba(88, 99, 183,1)
+      );
+    --dropDownMenu2:rgba(218, 212, 249,1.0);
+    --dropDownSelected2:rgba(80, 80, 160,1.0);
+
+}
+
+
+
+/*for git not empty file*/
 
 .dropdownmultifield{
   border: solid;
   border-radius: 2px;
   border-color: rgba(210,210,210,0.8);
-
 }
-
 
 .dd{
   position: relative;
   pointer-events: none;
-  z-index: 1000;
 }
 
 .ddTgl{
   pointer-events: visiblePainted;
+
 }
 .ddBtn{
-  background-image: var(--dropDownGrad);
+  background-image: var(--dropDownGrad3);
+  overflow: visible;
+  border-radius: 0.5rem;
 }
+
 .dd-menu{
   pointer-events: visiblePainted;
   position: absolute;
@@ -36,10 +56,11 @@
   text-align: left;
   list-style: none;
   /* background-color: #fff; */
-  background: var(--dropDownMenu);
+  background: var(--dropDownMenu2);
   /* background-clip: padding-box; */
   border: 1px solid rgba(0, 0, 0, 0.15);
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
+  z-index:10;
 }
 
 .dd-item {
@@ -55,19 +76,20 @@
   white-space: nowrap;
   /* background-color: transparent; */
   border: 0;
+
 }
 
 
 
 .ddMouseOut{
-  background: var(--dropDownMenu);
+  background: var(--dropDownMenu2);
   /* background: blue; */
 }
 .ddSelected{
-  background: var(--dropDownSelected);
+  background: var(--dropDownSelected2);
   /* background: red; */
 }
 .ddMouseOver{
-  background: var(--dropDownMouseOver);
+  background: var(--dropDownMouseOver2);
   /* background: green; */
 }

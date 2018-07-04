@@ -1,10 +1,9 @@
-<p>
-  button works!
-</p>
+<!-- <p> button works!</p> -->
 
 <ng-container>
   <ng-container *ngIf="_button!=null">
     <ng-container *ngIf="_button._toolTipText!=null">
+    
       <button [disabled]=_button._disabled
       [class]="_button.cssClass"
       data-toggle="tooltip"
@@ -12,6 +11,7 @@
       title="{{_button._toolTipText}}"
       (click)="clicked_()">{{_button._value}}
       </button>
+
     </ng-container>
     <ng-container *ngIf="_button._toolTipText==null">
       <button [disabled]=_button._disabled

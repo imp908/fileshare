@@ -9,7 +9,9 @@ import {ServiceCl} from 'src/app/applist/Services/services.component';
 })
 export class ItemsComponent implements OnInit {
 
-  @Input() _items:HtmlItemNew[];
+  @Input() _items:HtmlItemNew;
+  @Input() _itemsObject:HtmlItemNew;
+
   constructor(){
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
@@ -18,4 +20,9 @@ export class ItemsComponent implements OnInit {
     ServiceCl.log(["Inited: " + this.constructor.name,this._items]);
   }
 
+  typeName(i_:HtmlItemNew){
+    if(i_!=null){
+      return i_.getType();
+    }
+  }
 }
