@@ -436,8 +436,15 @@ TnT[
 ]
 
 			actual[
-
--> new Quiz events test
+			
+-> to new model 
+	<- done 05.07.2018 11:00 -> numberpicker
+	<- done 05.07.2018 11:00 -> datepicker
+	-> Quiz ItemParameters
+	-> Question ItemParameters	
+	
+-> events 
+	
 -> move nsql manager to core
 -> Back model arrange for itemparameters and quizcontrolls
 -> manager CRUD QuizeList with ref to person
@@ -507,53 +514,53 @@ more then 3 events listen ignore issue to repair  ]
 	<- 20.05.2018 done -> check flex [
 	<- 20.05.2018 done -> correct CSS flex container display
 	<- 20.05.2018 done -> JS gen div add flex and CSS [
-		<-  19.05.2018 done -> gen div
-		<-  19.05.2018 done -> load JS lib external
-		<-  19.05.2018 done with  script.onreadystatechange = callback; script.onload = callback; -> use external lib
+		<- 19.05.2018 done -> gen div
+		<- 19.05.2018 done -> load JS lib external
+		<- 19.05.2018 done with  script.onreadystatechange = callback; script.onload = callback; -> use external lib
 			]
 		]
-	<- 21.05.2018 14:19 done  -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows.
+	<- 21.05.2018 14:19 done -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows.
 	<- 22.05.2018 done -> change every HtmlItem child class to cssType receive
-	<- done 24.05.2018 -> handle cssClass in all nodes for all HtmlItem types [
-	<- done 22.05.2018 -> nodeItem rewrite for one item.csstype binding
-	<- done 22.05.2018 -> change nodes and nodegr to cssType
+	<- 24.05.2018 done -> handle cssClass in all nodes for all HtmlItem types [
+	<- 22.05.2018 done -> nodeItem rewrite for one item.csstype binding
+	<- 22.05.2018 done -> change nodes and nodegr to cssType
 		]	
-	<- done 22.05.2018 -> repeat checkbox	
-	<- done 27.05.2018 -> add dropbox ts 
-	<- done 27.05.2018 -> change item-ng
-	<- done 28.05.2018 -> custom multi dropdown
-	<- done 29.05.2018 -> custom multi dropdown CSS, events
-	<- done 30.05.2018 -> Add new Question parameters [
-	<- done 30.05.2018 -> question text 
-		<- done 30.05.2018 -> question type with dropdown {textbox,checkbox,radio,rate with dropdown}		
-		]			
-	<- done 30.05.2018 -> Add new Answers according to Quiz,Answer types[
+	<- 22.05.2018 done -> repeat checkbox
+	<- 27.05.2018 done -> add dropbox ts
+	<- 27.05.2018 done -> change item-ng
+	<- 28.05.2018 done -> custom multi dropdown
+	<- 29.05.2018 done -> custom multi dropdown CSS, events
+	<- 30.05.2018 done -> Add new Question parameters [
+	<- 30.05.2018 done -> question text
+		<- 30.05.2018 done -> question type with dropdown {textbox,checkbox,radio,rate with dropdown}
+		]
+	<- 30.05.2018 done -> Add new Answers according to Quiz,Answer types[
 		0 or Correct only for text, 1-* for radio,check,rate. rate max points:number
-		-> textbox answer (1-5 for dropbox)	
+		-> textbox answer (1-5 for dropbox)
 		-> Answers according to type
 		]
-	<- done 30.05.2018 -> repair edit menu buttons disable
+	<- 30.05.2018 done -> repair edit menu buttons disable
 	<- 31.05.2018 done -> Add save, add new button disabled
 	<- 31.05.2018 done -> Add question type check for answer amount to type accordance
 	<- 31.05.2018 done -> Add inform about question amount invalid to type
-	<- done 02.06.2018 -> Delete item
-	<- done 02.06.2018 -> Add Question button disable	
-	<- done 02.06.2018 -> Copy question
-	<- done 11.06.2018 12:31 -> array deep clone recursive. No class segregation
-	<- done 12.06.18 16:42 -> Classes nested array deep copy[
-		<- done 12.06.18 14:00 -> Repair array deep copy, add nested itemparameter recursive copy
-		<- done 12.06.18 15:00 -> rearrange HtmlItem, QuizItem classes to deep copy ItemParameters
+	<- 02.06.2018 done -> Delete item
+	<- 02.06.2018 done -> Add Question button disable	
+	<- 02.06.2018 done -> Copy question
+	<- 11.06.2018 12:31 done -> array deep clone recursive. No class segregation
+	<- 12.06.18 16:42 done -> Classes nested array deep copy[
+		<- 12.06.18 14:00 done -> Repair array deep copy, add nested itemparameter recursive copy
+		<- 12.06.18 15:00 done -> rearrange HtmlItem, QuizItem classes to deep copy ItemParameters
 	]
-	<- done 14.06.18 23:27 -> moove nodeToEdit =null from menu-edit to CheckAnswerAmount
+	<- 14.06.18 23:27 done -> moove nodeToEdit =null from menu-edit to CheckAnswerAmount
 	[ delete question enables save_,add_new_ buttons even if >1 question present and Text type selected.
 	cause ModelContainer.nodeDeleted nodeToEdit =null]
-	<- done 22.06.2018 20:41 -> Http POST/GET 
-	<- done 22.06.2018 20:41 -> angular POST CORS
-	<- done 26.06.2018 -> analyze quiz model to array without collection change costs 
-	<- done 26.06.2018 -> New HtmlItems, new QuizItems
-	<- done 27.06.2018 -> new ItemParameters + test
-	<- done 27.06.2018 -> new FactoryNew + test		
-	<- done 04.07.2018 -> new Html Templates
+	<- 22.06.2018 20:41 done -> Http POST/GET 
+	<- 22.06.2018 20:41 done -> angular POST CORS
+	<- 26.06.2018 done -> analyze quiz model to array without collection change costs 
+	<- 26.06.2018 done -> New HtmlItems, new QuizItems
+	<- 27.06.2018 done -> new ItemParameters + test
+	<- 27.06.2018 done -> new FactoryNew + test		
+	<- 04.07.2018 done -> new Html Templates (ItemList,Item,Check,radio,text)
 	
 ]
 	
