@@ -807,6 +807,20 @@ ConstructorForm.json
 				
 				//ngx-bootstrap
 				
+				//Upgrade 5.1 to Angular 6
+				https://update.angular.io/
+				
+				npm install -g @angular/cli
+				npm install @angular/cli
+				ng update @angular/cli				
+				ng update @angular/core				
+				ng update @angular/material				
+				ng update
+
+				
+				//angular 6  Cannot find module 'rxjs-compat/Observable
+				npm i rxjs-compat
+				npm install rxjs@6 rxjs-compat@6 --save 
 			]
 	
   сейчас есть:
