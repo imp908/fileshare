@@ -21,7 +21,8 @@
 }
 
 .shevron{
-
+  position: relative;
+  
   width: var(--shsz);
   height: var(--shsz);
 
@@ -54,4 +55,12 @@
     /* display: none; <- Crashes Chrome on hover */
     -webkit-appearance: none;
     margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+
+.nbpkctrl{
+  margin-top: 1ch;
+  margin-bottom: 1ch;
+  margin-left: 1ch;
+  margin-right: 1ch;
 }

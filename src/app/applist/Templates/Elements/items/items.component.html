@@ -2,17 +2,17 @@
 
 <ng-container *ngIf="_items!=null">
   <ng-container *ngIf="_items.hasCollection()">
+
     <div class={{_items.cssClass}}>
       <ng-container *ngFor="let i of _items.array">
-
         <ng-container *ngIf="typeName(i)=='HtmlItemNew'">
           <app-items [_items]="i" [_itemsObject]="_itemsObject"></app-items>
         </ng-container>
         <ng-container *ngIf="typeName(i)!='HtmlItemNew'">
           <app-item [_item]="i" [_object]="_itemsObject"></app-item>
         </ng-container>
-
       </ng-container>
     </div>
+
   </ng-container>
 </ng-container>

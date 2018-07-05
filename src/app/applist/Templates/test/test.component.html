@@ -4,20 +4,27 @@
 
 <!-- elements pure start test  -->
 <ng-container *ngIf="1!=1">
+
   <app-menu-main></app-menu-main>
   <app-menu-list></app-menu-list>
   <app-menu-edit></app-menu-edit>
   <app-button></app-button>
   <app-item></app-item>
+
+  <!-- html controls test -->
+  <div class="container">
+    <app-items [_items]="items_[0].buttons_" [_itemsObject]="items_[0].object_"></app-items>
+    <p></p>
+    <app-items [_items]="items_[1].buttons_" [_itemsObject]="items_[1].object_"></app-items>
+
+    <ng-container *ngFor="let i of controlls_.array">
+      <div class="itemGroup">
+        <hr>
+        <app-items [_items]="i"></app-items>
+      </div>
+    </ng-container>
+  </div>
+
 </ng-container>
 
-<!-- html controls test -->
-<div class="container">
-  <app-items [_items]="items_[0].buttons_" [_itemsObject]="items_[0].object_"></app-items>
-  <app-items [_items]="items_[1].buttons_" [_itemsObject]="items_[1].object_"></app-items>
-
-  <ng-container >
-    <app-items [_items]="controlls_"></app-items>
-  </ng-container>
-
-</div>
+<app-menu-list></app-menu-list>

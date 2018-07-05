@@ -305,6 +305,7 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
 //base html item
 
 export class HtmlItemNew extends CollectionNew<HtmlItemNew>{
+
   cssClass:string;
   HtmlTypeAttr:string;
   HtmlSubmittedValue:any;
@@ -418,6 +419,8 @@ export class NumberPickerControlNew extends HtmlItemNew{
 
   minN?:number;
   maxN?:number;
+  DisplayValue:number;
+  overflow:boolean;
 
   constructor(o:{key_?:number,
   name_?:string,
@@ -428,17 +431,52 @@ export class NumberPickerControlNew extends HtmlItemNew{
   ,show_:boolean
   ,HtmlTypeAttr_:string
   ,HtmlSubmittedValue_:number
+  ,DisplayValue_:number
   ,minN?:number
   ,maxN?:number}){
     if(o!=null){
       super(o);
       this.minN=o.minN;
       this.maxN=o.maxN;
+      this.DisplayValue=o.DisplayValue_;
     }
     else{
       this._typeName=this.constructor.name
     }
   }
+
+  checkInput(res:number){
+    let ok:boolean=null;
+
+    if(this.maxCheck(res) &&
+    this.minCheck(res) ) {
+      this.DisplayValue=res;
+      this.HtmlSubmittedValue=this.DisplayValue;
+      this.overflow=false;
+    }else{
+      console.log("not ok", this.HtmlSubmittedValue,this.DisplayValue)
+      this.HtmlSubmittedValue=null;
+      this.overflow=true;
+    }
+
+  }
+  maxCheck(res:number){
+    if(this.minN!=null){
+      if(res>=this.minN){
+        return true;
+      }else{return false;}
+    }
+    return true;
+  }
+  minCheck(res:number){
+    if(this.maxN!=null){
+      if(res<=this.maxN){
+        return true;
+      }else{return false;}
+    }
+    return true;
+  }
+
 }
 
 export class LabelControlNew extends HtmlItemNew{}

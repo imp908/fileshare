@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {NgbDateStruct} from '@ng-bootstrap/ng-bootstrap';
 import {ServiceCl} from 'src/app/applist/Services/services.component'
-import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
+import {DatePickerControlNew} from 'src/app/applist/Models/POCOnew.component'
 
 
 @Component({
@@ -11,7 +11,7 @@ import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
 })
 export class DatepickerPopupComponent implements OnInit {
 
-  @Input() htmlItem_:HtmlItemNew;
+  @Input() htmlItem_:DatePickerControlNew;
   startDate_:Date;
   model:NgbDateStruct;
 
@@ -23,7 +23,7 @@ export class DatepickerPopupComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.htmlItem_=new HtmlItemNew(null);
+    // this.htmlItem_=new DatePickerControlNew(null);
     this.dateToModel();
 
     ServiceCl.log(['Inited : ' + this.constructor.name,this.htmlItem_,this.model])
@@ -51,14 +51,13 @@ export class DatepickerPopupComponent implements OnInit {
         this.htmlItem_.HtmlSubmittedValue.getDate=this.model.day;
         //=new Date(this.model.year,this.model.month-1,this.model.day,0,0,0);
       }
-
   }
   dateToModel(){
       if((this.htmlItem_!=null) && (this.htmlItem_.HtmlSubmittedValue!=null)){
         this.model={
-          year: this.htmlItem_.HtmlSubmittedValue.getFullYear
-          , month: this.htmlItem_.HtmlSubmittedValue.getMonth+1
-          , day:this.htmlItem_.HtmlSubmittedValue.getDate};
+        year:this.htmlItem_.HtmlSubmittedValue.getFullYear
+        ,month:this.htmlItem_.HtmlSubmittedValue.getMonth+1
+        ,day:this.htmlItem_.HtmlSubmittedValue.getDate};
       }
       ServiceCl.log(["dateToModel ",this.model,this.htmlItem_])
   }

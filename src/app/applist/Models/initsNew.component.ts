@@ -207,6 +207,7 @@ export class FactoryNew{
           ,cssClass_:"",show_:true
           ,HtmlTypeAttr_:"div"
           ,HtmlSubmittedValue_:0
+          ,DisplayValue_:0
           ,minN:0
           ,maxN:2
         })
@@ -219,6 +220,7 @@ export class FactoryNew{
           ,cssClass_:"",show_:true
           ,HtmlTypeAttr_:"div"
           ,HtmlSubmittedValue_:0
+          ,DisplayValue_:0
           ,minN:-2
           ,maxN:3
         })
@@ -491,8 +493,8 @@ export class TestNew{
       r.add(
         new CheckBoxControlNew({
           key_:0,
-          name_:"Textctrl_"+i,
-          value_:"Textctrl_"+i,
+          name_:"CheckBox_"+i,
+          value_:"CheckBox_"+i,
           typeName_:null
           ,array_:null
           ,cssClass_:cssItem_,show_:true
@@ -539,21 +541,21 @@ export class TestNew{
 
       return r;
   }
-  static DatePickerControlTest(n:number){
+  static DatePickerControlTest(n:number,cssGroup_:string,cssItem_:string){
       var r= new HtmlItemNew(null);
       for(var i=0;i<n;i++){
-        r.add( new DatePickerControlNew({
-              key_:0,
-              name_:"Datepicker_"+i,
-              value_:"Datepicker_"+i,
-              typeName_:null
-              ,array_:null
-              ,cssClass_:"",show_:true
-              ,HtmlTypeAttr_:"div"
-              ,HtmlSubmittedValue_:new Date(2018,1,1+i)
-              }));
+        r.add(new DatePickerControlNew({
+        key_:0,
+        name_:"Datepicker_"+i,
+        value_:"Datepicker_"+i,
+        typeName_:null
+        ,array_:null
+        ,cssClass_:cssItem_,show_:true
+        ,HtmlTypeAttr_:"div"
+        ,HtmlSubmittedValue_:new Date(2018,1,1+i)
+        }));
       }
-
+      r.cssClass=cssGroup_;
       return r;
   }
   public static HtmlItemNestedCollectionsCheck(){
@@ -561,7 +563,7 @@ export class TestNew{
     console.log(["CheckBoxControlNew ",TestNew.CheckBoxControlNewTest(3,"row","row")])
     console.log(["RadioButtonControlNew ",TestNew.RadioButtonControlNewTest(3,"row","row")])
     console.log(["DropDownControlMultiNewTest ",TestNew.DropDownControlMultiNewTest(3)])
-    console.log(["DatePickerControlTest ",TestNew.DatePickerControlTest(5)])
+    console.log(["DatePickerControlTest ",TestNew.DatePickerControlTest(5,"row","row")])
 
   }
   public static NumberPickerControlTest(n:number,cssGroup_:string,cssItem_:string){
@@ -576,7 +578,8 @@ export class TestNew{
           ,array_:null
           ,cssClass_:cssItem_,show_:true
           ,HtmlTypeAttr_:"div"
-          ,HtmlSubmittedValue_:0
+          ,HtmlSubmittedValue_:null
+          ,DisplayValue_:0
           ,minN:-2
           ,maxN:3})
         );
@@ -841,7 +844,17 @@ export class TestNew{
 
   }
 
+  public static Quizes(){
 
+    let r=new HtmlItemNew({key_:0,name_:"Quiz List",value_:"Quiz List"
+    ,typeName_:null
+    ,array_:null
+    ,cssClass_:"row",show_:true,HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
+
+    return r;
+  }
+
+  //Specific parametrized generation
   public static CheckBoxes(n_:number,cssGroup_:string,cssItem_:string){
     let r = TestNew.CheckBoxControlNewTest(n_,cssGroup_,cssItem_);
       r.cssClass=cssGroup_;
@@ -954,6 +967,8 @@ export class TestNew{
 
   }
 
+  //html controlls
+
   public static ControllsBulkGen(){
     return new Array<HtmlItemNew>(
       TestNew.CheckBoxes(5,"row item","col")
@@ -995,7 +1010,7 @@ export class TestNew{
       key_:0, name_:"Textctrl"+0,value_:"Textctrl"+0, typeName_:null
       ,array_: new Array<HtmlItemNew>(
         TestNew.CheckBoxes(3,"col item","row item")
-        ,TestNew.DropBoxAssorty(1,5,"row item","row")
+        ,TestNew.DropBoxAssorty(1,5,"row item","col")
         ,TestNew.TextControlNewTest(3,"row item","row item")
         ,TestNew.LabelControlNewTest(3,"col item")
       )
@@ -1005,7 +1020,7 @@ export class TestNew{
     let a3 = new HtmlItemNew({
       key_:0, name_:"Textctrl"+0,value_:"Textctrl"+0, typeName_:null
       ,array_: new Array<HtmlItemNew>(
-        TestNew.RadioButtonControlNewTest(3,"col item","row")
+        TestNew.RadioButtonControlNewTest(3,"fxvt","fxhr")
       )
       ,cssClass_:"",show_:true ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:"text value"+0});
@@ -1013,7 +1028,29 @@ export class TestNew{
     let a4=new HtmlItemNew({
       key_:0, name_:"NmbrCtrl "+0,value_:"NmbrCtrl "+0, typeName_:null
       ,array_: new Array<HtmlItemNew>(
-        TestNew.NumberPickerControlTest(3,"col item","row")
+        TestNew.NumberPickerControlTest(3,"fxhr","fxvt")
+      ),cssClass_:"",show_:true ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:"text value"+0});
+
+    let a42=new HtmlItemNew({
+      key_:0, name_:"NmbrCtrl "+0,value_:"NmbrCtrl "+0, typeName_:null
+      ,array_: new Array<HtmlItemNew>(
+        TestNew.NumberPickerControlTest(3,"fxvt","fxhr")
+      ),cssClass_:"",show_:true ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:"text value"+0});
+
+
+    let a5=new HtmlItemNew({
+      key_:0, name_:"DateCtrl "+0,value_:"DateCtrl "+0, typeName_:null
+      ,array_: new Array<HtmlItemNew>(
+        TestNew.DatePickerControlTest(2,"fxhr","fxvt")
+      ),cssClass_:"",show_:true ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:"text value"+0});
+
+    let a6=new HtmlItemNew({
+      key_:0, name_:"DateCtrl "+0,value_:"DateCtrl "+0, typeName_:null
+      ,array_: new Array<HtmlItemNew>(
+        TestNew.DatePickerControlTest(2,"fxvt","fxhr")
       ),cssClass_:"",show_:true ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:"text value"+0});
 
@@ -1022,8 +1059,13 @@ export class TestNew{
     r.add(a1)
     r.add(a2)
     r.add(a3)
+    r.add(a4)
+    r.add(a42)
+    r.add(a5)
+    r.add(a6)
     return r;
   }
+
   public static GO(){
 
     //collection tests

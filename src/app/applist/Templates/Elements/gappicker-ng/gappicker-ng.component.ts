@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import {ServiceCl} from 'src/app/applist/Services/services.component'
-import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
+import {NumberPickerControlNew} from 'src/app/applist/Models/POCOnew.component'
 
 @Component({
   selector: 'app-gappicker-ng',
@@ -10,7 +10,7 @@ import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
 })
 export class GappickerNgComponent implements OnInit {
 
-  @Input() itemValue_:HtmlItemNew;
+  @Input() itemValue_:NumberPickerControlNew;
   min?:number;
   max?:number;
 
@@ -48,20 +48,15 @@ export class GappickerNgComponent implements OnInit {
     return this.second;
   }
   increase(){
-    if(this.max!=null){
-      if(this.itemValue_.HtmlSubmittedValue+1<=this.max){
-      this.itemValue_.HtmlSubmittedValue+=1;}
-    }else{ this.itemValue_.HtmlSubmittedValue+=1;}
+    this.itemValue_.checkInput(this.itemValue_.DisplayValue+1);
     ServiceCl.log(['increased to : ',this.itemValue_.HtmlSubmittedValue])
   }
   decrease(){
-    if((this.min!=null)){
-      if(this.itemValue_.HtmlSubmittedValue-1>=this.min){
-      this.itemValue_.HtmlSubmittedValue-=1;}
-    }else{  this.itemValue_.HtmlSubmittedValue-=1;}
+    this.itemValue_.checkInput(this.itemValue_.DisplayValue-1);
     ServiceCl.log(['decreased to : ',this.itemValue_.HtmlSubmittedValue])
   }
   input_(){
+    this.itemValue_.checkInput(this.itemValue_.DisplayValue);
     ServiceCl.log(['inputed to : ',this.itemValue_.HtmlSubmittedValue])
   }
 }

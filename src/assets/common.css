@@ -281,6 +281,9 @@ h1 {
 .label{
   position: relative;
   padding-left: 2em;
-   font-weight: 450;
+  font-weight: 450;
+}
 
+.itemGroup{
+  margin-top: 10ch;
 }

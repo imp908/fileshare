@@ -51,6 +51,10 @@
           <app-gappicker-ng [itemValue_]="this._item"></app-gappicker-ng>
         </div>
 
+        <div *ngIf="typeCheck()=='DatePickerControlNew'">
+          <app-datepicker-popup [htmlItem_]="this._item"></app-datepicker-popup>
+        </div>
+
     </div>
   </div>
 
