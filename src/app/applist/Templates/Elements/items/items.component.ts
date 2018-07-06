@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component';
+import {HtmlItemNew,QuizItemNew} from 'src/app/applist/Models/POCOnew.component';
 import {ServiceCl} from 'src/app/applist/Services/services.component';
 
 @Component({
@@ -23,6 +23,11 @@ export class ItemsComponent implements OnInit {
   typeName(i_:HtmlItemNew){
     if(i_!=null){
       return i_.getType();
+    }
+  }
+  isQuizItem(i_:HtmlItemNew){
+    if(i_ instanceof QuizItemNew){
+      return true;
     }
   }
 }

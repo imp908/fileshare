@@ -5,26 +5,83 @@
 <!-- elements pure start test  -->
 <ng-container *ngIf="1!=1">
 
+  <!-- Components test-->
+  <!-- =======================================     -->
   <app-menu-main></app-menu-main>
   <app-menu-list></app-menu-list>
   <app-menu-edit></app-menu-edit>
   <app-button></app-button>
   <app-item></app-item>
+  <!-- =======================================     -->
+
 
   <!-- html controls test -->
   <div class="container">
+
+    <!-- Buttons test -->
+    <!-- =======================================     -->
     <app-items [_items]="items_[0].buttons_" [_itemsObject]="items_[0].object_"></app-items>
     <p></p>
     <app-items [_items]="items_[1].buttons_" [_itemsObject]="items_[1].object_"></app-items>
+    <!-- =======================================     -->
 
+
+    <!-- Controlls with quis items test -->
+    <!-- =======================================     -->
     <ng-container *ngFor="let i of controlls_.array">
       <div class="itemGroup">
+        {{i._value}}
         <hr>
         <app-items [_items]="i"></app-items>
       </div>
     </ng-container>
-  </div>
+    <!-- =======================================     -->
 
+
+    <!-- quiz items test  -->
+    <!-- =======================================     -->
+    <ng-container *ngFor="let i of controlls_.array">
+      <div class="itemGroup">
+        {{i._value}}
+        <hr>
+        <app-items [_items]="i"></app-items>
+      </div>
+    </ng-container>
+    <!-- =======================================     -->
+
+
+    <!-- quiz items test -->
+    <!-- =======================================     -->
+    <div class="itemGroup">
+      <app-items [_items]="this.quizItems_"></app-items>
+    </div>
+    <!-- =======================================     -->
+
+
+    <!-- Quizes and buttons check -->
+    <!-- =======================================     -->
+    <div class="itemGroup">
+      <app-menu-list [_quizes]="this.quizes_"></app-menu-list>
+    </div>
+    <div class="itemGroup">
+      <app-items [_items]="this.QuizItemButtons_"></app-items>
+    </div>
+    <!-- =======================================     -->
+
+  </div>
 </ng-container>
 
-<app-menu-list></app-menu-list>
+
+    <!-- Publish area  -->
+    <!-- =======================================     -->
+    <app-items [_items]="items_[0].buttons_" [_itemsObject]="items_[0].object_"></app-items>
+    <p></p>
+    <app-items [_items]="items_[1].buttons_" [_itemsObject]="items_[1].object_"></app-items>
+    
+    <div class="itemGroup">
+      <app-menu-list [_quizes]="this.quizes_"></app-menu-list>
+    </div>
+    <div class="itemGroup">
+      <app-items [_items]="this.QuizItemButtons_"></app-items>
+    </div>
+    <!-- =======================================     -->

@@ -16,6 +16,7 @@ import {NodeNew,CollectionNew
   ,DatePickerControlNew,NumberPickerControlNew
   ,ButtonNew
   ,LabelControlNew
+  ,NewAddNew,SaveNew,EditNew,CopyNew,DeleteNew
 } from './POCOnew.component';
 
 
@@ -27,10 +28,11 @@ export class FactoryNew{
 
     if(i_ instanceof LabelControlNew){ return "LabelControlNew"}
 
-    if(i_ instanceof QuizItemNew){ return "QuizItemNew"}
+
     if(i_ instanceof QuizNew){ return "QuizNew"}
     if(i_ instanceof AnswerNew){ return "AnswerNew"}
     if(i_ instanceof QuestionNew){ return "QuestionNew"}
+
 
     if(i_ instanceof TextControlNew){ return "TextControlNew"}
     if(i_ instanceof CheckBoxControlNew){ return 'CheckBox'}
@@ -41,13 +43,25 @@ export class FactoryNew{
     if(i_ instanceof DatePickerControlNew){ return "DatePickerControlNew"}
     if(i_ instanceof NumberPickerControlNew){ return "NumberPickerControlNew"}
 
-    if(i_ instanceof ButtonNew){ return "Button"}
 
+    if(i_ instanceof NewAddNew){ return "NewAddNew"}
+    if(i_ instanceof SaveNew){ return "SaveNew"}
+    if(i_ instanceof EditNew){ return "EditNew"}
+    if(i_ instanceof CopyNew){ return "CopyNew"}
+    if(i_ instanceof DeleteNew){ return "DeleteNew"}
+
+
+    if(i_ instanceof ButtonNew){ return "Button"}
+    if(i_ instanceof QuizItemNew){ return "QuizItemNew"}
     if(i_ instanceof HtmlItemNew){ return "HtmlItemNew"}
 
     return null;
   }
-
+  static InstanceCheck(i_:any){
+    if(i_ instanceof ButtonNew){return 'Button'}
+    if(i_ instanceof QuizItemNew){return 'QuizItem'}
+    if(i_ instanceof HtmlItemNew){return 'HtmlItem'}
+  }
 
   //service genes
 
@@ -377,48 +391,50 @@ export class FactoryNew{
 
       r.push(new QuizNew(
         {key_:i,
-        name_:"Quiz"+i,
-        value_:"Quiz"+i,
+        name_:"Quiz name"+i,
+        value_:"Quiz value"+i,
         typeName_:"QuizNew",array_:null
         ,itemControlls_:FactoryNew.quizItemParametersNewGen().array
         ,cssClass_:"",show_:true
         ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""}
       ));
+
     }
     return r;
   }
 
-  static GenQuizes(qn:number,qtn:number,an:number){
+  static GenQuizes(qn:number,qtn:number,an:number
+  ,qzCss:string,qtCss:string,awCss:string){
 
     let nodes=new QuizItemNew({key_:0,
     name_:"Quizes",
     value_:"Quizes",
     typeName_:null,array_:new Array<QuizNew>(),
-    itemControlls_:null,cssClass_:"",show_:true,
+    itemControlls_:null,cssClass_:qzCss,show_:true,
     HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
 
     for(let i=0;i<qn;i++){
       let qzNew=new QuizNew({key_:i,
-      name_:"Quiz_"+i,
-      value_:"Quiz_"+i,
+      name_:"Quiz_name "+i,
+      value_:"Quiz_value "+i,
       typeName_:null,array_:new Array<QuestionNew>()
       ,itemControlls_:FactoryNew.quizItemParametersNewGen().array
-      ,cssClass_:"",show_:true
+      ,cssClass_:qtCss,show_:true
       ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
 
         for(let i2=0;i2<qtn;i2++){
           let qtNew=new QuestionNew({key_:i+i2,
-          name_:"Question_"+(i+i2),
-          value_:"Question_"+(i+i2),
+          name_:"Question_name "+(i+i2),
+          value_:"Question_value "+(i+i2),
           typeName_:"QuestionNew",array_:new Array<AnswerNew>()
           ,itemControlls_:FactoryNew.questionParametersNewGen().array
-          ,cssClass_:"",show_:true
+          ,cssClass_:awCss,show_:true
           ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
 
             for(let i3=0;i3<an;i3++){
               let awNew=new AnswerNew({key_:i+i2+i3,
-              name_:"Answer"+(i+i2+i3),
-              value_:"Answer"+(i+i2+i3),
+              name_:"Answer_name "+(i+i2+i3),
+              value_:"Answer_value "+(i+i2+i3),
               typeName_:"AnswerNew",array_:null
               ,itemControlls_:null,cssClass_:"",show_:true
               ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
@@ -435,11 +451,11 @@ export class FactoryNew{
     return nodes;
   }
 
+
+
+
 }
 
-export class StateContainerNew{
-
-}
 
 export class TestNew{
 
@@ -769,7 +785,7 @@ export class TestNew{
       console.log(["Rand arr: ", arr.length,Math.min.apply(min,arr),Math.max.apply(min,arr)])
       */
 
-      let r=FactoryNew.GenQuizes(qzRnd,qtRnd,awRnd)
+      let r=FactoryNew.GenQuizes(qzRnd,qtRnd,awRnd,"col","col","col")
 
       if(r!=null){
 
@@ -844,14 +860,61 @@ export class TestNew{
 
   }
 
-  public static Quizes(){
+  public static QuizItemButtonsByType(i_:ButtonNew,cnt_:number
+    ,cssGroup_:string,cssItem_:string){
+    let r = new HtmlItemNew(null);
+    let a = new Array<ButtonNew>();
+      for(let i =0; i< cnt_;i++){
+        let o ={key_:i,
+        name_:"Button name " +i,
+        value_:"Month value" + (i+1),
+        typeName_:null
+        ,array_:null
+        ,itemControlls_:null
+        ,cssClass_:cssItem_,show_:true
+        ,HtmlTypeAttr_:"div"
+        ,HtmlSubmittedValue_:null
+        ,clicked_:false,toolTipText_:"test button to click "+i,disabled_:false};
 
-    let r=new HtmlItemNew({key_:0,name_:"Quiz List",value_:"Quiz List"
-    ,typeName_:null
-    ,array_:null
-    ,cssClass_:"row",show_:true,HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
+        if(i_ instanceof NewAddNew){
+          let oR=new NewAddNew(o);
+          oR._value=oR._typeName+i;
+          a.push(oR)
+        }
+        if(i_ instanceof SaveNew){
+          let oR=new SaveNew(o);
+          oR._value=oR._typeName + ' ' +i;
+          a.push(oR)}
+        if(i_ instanceof EditNew){
+          let oR=new EditNew(o);
+          oR._value=oR._typeName+i;
+          a.push(oR)}
+      }
+
+    r.array=a;
+    r.cssClass=cssGroup_;
+    return r;
+  }
+
+  public static QuizItemButtons(){
+    let r = new HtmlItemNew(null);
+
+      r.add(TestNew.QuizItemButtonsByType(new NewAddNew(null),2,"fxhr","btn"))
+      r.add(TestNew.QuizItemButtonsByType(new SaveNew(null),1,"fhvt","btn btn-success"))
+      r.add(TestNew.QuizItemButtonsByType(new EditNew(null),5,"fxhr","btn btn-danger"))
+
+    r.cssClass="fhvt";
+    return r;
+  }
+
+  //Generating quizes
+
+  public static QuizList(){
+
+    let r=FactoryNew.GenQuizes(3,4,5,"fxvt","fxvt","fxvt");
 
     return r;
+
   }
 
   //Specific parametrized generation
@@ -1054,6 +1117,8 @@ export class TestNew{
       ),cssClass_:"",show_:true ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:"text value"+0});
 
+    let a7 = FactoryNew.GenQuizes(2,1,1,"fxvt","fxhr","fxvt");
+
     r.cssClass=""
     r.add(a0)
     r.add(a1)
@@ -1063,6 +1128,10 @@ export class TestNew{
     r.add(a42)
     r.add(a5)
     r.add(a6)
+
+    //Exclude quizitems from list
+    // r.add(a7)
+
     return r;
   }
 

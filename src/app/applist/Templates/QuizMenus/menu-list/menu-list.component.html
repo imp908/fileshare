@@ -2,4 +2,12 @@
   menu-list works!
 </p>
 
-{{quizItem_._typeName}}
+<ng-container>
+  <div>
+    <ng-container *ngIf="_quizes!=null">
+    <div *ngFor="let i of _quizes">
+      <app-item [_item]="i"></app-item>
+    </div>
+    </ng-container>
+  </div>
+</ng-container>

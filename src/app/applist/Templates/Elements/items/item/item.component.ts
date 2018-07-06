@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import {ServiceCl} from 'src/app/applist/Services/services.component'
-import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
+import {HtmlItemNew,QuizItemNew} from 'src/app/applist/Models/POCOnew.component'
 import {FactoryNew} from 'src/app/applist/Models/initsNew.component';
 
 @Component({
@@ -24,6 +24,9 @@ export class ItemComponent implements OnInit {
   typeCheck(){
     return FactoryNew.TypeCheck(this._item);
   }
+  instanceCheck(){
+    return FactoryNew.InstanceCheck(this._item);
+  }
   clicked_(e_){
     if(FactoryNew.TypeCheck(this._item)=='CheckBox'){
       this._item.HtmlSubmittedValue=!this._item.HtmlSubmittedValue;
@@ -34,5 +37,15 @@ export class ItemComponent implements OnInit {
   changeTextbox_(e){
     this._item.HtmlSubmittedValue=e;
     ServiceCl.log(["changeTextbox_: ",e,this._item])
+  }
+  isQuizItem(i_:HtmlItemNew){
+    console.log(["isQuizItem ",i_,i_ instanceof QuizItemNew])
+    if(i_ != null){
+      if(i_ instanceof QuizItemNew){
+        return true;
+      }
+      return false;
+    }
+    return null;
   }
 }

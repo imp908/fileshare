@@ -492,8 +492,7 @@ export class QuizItemNew extends HtmlItemNew{
   itemControlls:HtmlItemNew[];
 
   constructor(o:{key_?:number,name_?:string,value_?:string,typeName_?:string
-  ,array_:QuizItemNew[],
-  itemControlls_:HtmlItemNew[]
+  ,array_:QuizItemNew[],itemControlls_:HtmlItemNew[]
   ,cssClass_:string,show_:boolean,HtmlTypeAttr_:string,HtmlSubmittedValue_:any}){
     if(o!=null){
       super(o);
