@@ -28,6 +28,8 @@ namespace Parts{
 	//Usefull links
 	public void mostUsefullLinks()
 	{
+		http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0006481
+		
 		https://sharpc.livejournal.com/67583.html
 		http://www.securitynewspaper.com/2015/10/15/how-to-scan-whole-internet-3-7-billion-ip-addresses-in-few-minutes/
 																							 
@@ -195,6 +197,17 @@ usd\rub(62.01)/
 				$100 mlrd IPO shares cap.
 			
 			]
+			
+			reserve_currencies[
+				Swiss franc, Singapore dollar, U.S. dollar and Japanese yen
+			]
+			
+			Calendar[
+				12.07.2018 CPI https://www.bls.gov/cpi/ https://www.investopedia.com/terms/c/consumerpriceindex.asp
+						Jobless claims https://www.bls.gov/bls/newsrels.htm https://www.investopedia.com/terms/j/jobless-claims.asp				
+				13.07.2018 CCI https://www.investopedia.com/terms/c/cci.asp https://www.conference-board.org/data/consumerconfidence.cfm
+							SCI http://www.sca.isr.umich.edu/
+			]
 		]
 		
 		platforms[
@@ -211,7 +224,8 @@ usd\rub(62.01)/
 			https://www.bloomberg.com/news/articles/2018-05-09/ex-goldman-trader-hires-former-rivals-to-build-a-crypto-empire
 			https://www.panteracapital.com/
 		]
-	
+		
+		
 	]
 	
 	 //startups
@@ -5272,6 +5286,7 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 
 		}
 	}
+	
 	//----------------------------------------------	
 	
 	public void Angular_IO()

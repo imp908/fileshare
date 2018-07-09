@@ -437,7 +437,7 @@ TnT[
 
 			actual[
 			
--> to new model 
+-> to new model
 	<- done 05.07.2018 11:00 -> numberpicker
 	<- done 05.07.2018 11:00 -> datepicker
 	<- done 06.07.2018 16:00 -> QuizHtmlItems to component
@@ -445,9 +445,11 @@ TnT[
 	<- done 06.07.2018 16:00 -> Buttons to component
 	<- done 07.07.2018 15:00 -> Buttons with objects
 	<- done 07.07.2018 15:00 -> QuizHtmlItem
-	-> add weeks in year , days in week to Factory
+	<- done 09.07.2018 17:00 -> new Flexbox with classes and flex columns formatting
+	<- done 09.07.2018 17:00 -> menu-item, new menulist
+	<- done 09.07.2018 17:00 -> Quiz itemControlls
 	
-	-> Quiz itemControlls
+	-> add weeks in year, days in week to Factory		
 	-> Question ItemParameters
 	-> list menu 
 	-> edit menu
