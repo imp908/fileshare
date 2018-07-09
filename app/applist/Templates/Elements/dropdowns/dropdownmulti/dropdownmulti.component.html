@@ -1,0 +1,16 @@
+
+  <div class="container-fluid">
+    <div class="dd">
+      <button class="btn btn-secondary dropdown-toggle ddTgl ddBtn" (click)="dm.hidden=!dm.hidden">MultiDrop</button>
+      <div class="dd-menu" hidden="true" #dm>
+        <ng-container *ngFor="let i_ of htmlItem_.array">
+          <div #di class="dd-item" (click)="clicked_($event,i_)"
+          [class.ddSelected]="isSelected(i_)"
+          (mouseenter)="mouseenter_($event)"
+          (mouseleave)="mouseleave_($event)">
+          <app-item [_item]="i_"></app-item>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </div>

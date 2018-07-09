@@ -1,0 +1,17 @@
+<div class="itemGroup">
+<ng-container *ngIf="_quizes!=null">
+  <app-menuitem [_quizes]="_quizes" [_buttons]="_buttons"></app-menuitem>
+</ng-container>
+</div>
+
+<div class="itemGroup">
+<ng-container *ngIf="_questions!=null">
+  <app-menuitem [_quizes]="_questions" [_buttons]="_buttons"></app-menuitem>
+</ng-container>
+</div>
+
+<div class="itemGroup">
+<ng-container *ngIf="_answers!=null">
+  <app-menuitem [_quizes]="_answers" [_buttons]="_buttons"></app-menuitem>
+</ng-container>
+</div>

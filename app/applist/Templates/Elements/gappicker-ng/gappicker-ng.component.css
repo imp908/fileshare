@@ -1,0 +1,66 @@
+/*for git not empty file*/
+::ng-deep :root{
+   --shsz: 3ch;
+   --shszi: 6.4ch;
+}
+
+.ngb-datepicker{
+  position: absolute;
+  display:block;
+  z-index:1;
+}
+
+.gappicker{
+  width: var(--shszi);
+  height: var(--shsz);
+  border-radius: 7px;
+
+/*  fill:lime;*/
+  stroke:purple;
+  stroke-width:1
+}
+
+.shevron{
+  position: relative;
+  
+  width: var(--shsz);
+  height: var(--shsz);
+
+  -webkit-clip-path: polygon(100% 0, 55% 50%, 100% 100%, 45% 100%, 5% 55%, 0% 50%, 5% 45%, 45% 0);
+  clip-path: polygon(100% 0, 55% 50%, 100% 100%, 45% 100%, 0% 50%, 45% 0);
+  border: 1px solid red;
+
+  background: linear-gradient(-90deg, #153669, #005a8f, #0080b0, #00a7cb, #1ecfe0,#eaf4f6);
+  border-color: white;
+}
+
+.shevron:hover{
+  background: linear-gradient(90deg, #153669, #005a8f, #0080b0, #00a7cb, #1ecfe0,#eaf4f6);
+  clip-path: polygon(100% 0%, 30% 50%, 100% 100%, 25% 100%, 0% 50%, 25% 0);
+}
+
+.shevron:active{
+  opacity:0.8;
+    clip-path: polygon(100% 0%, 59% 51%, 100% 100%, 65% 100%, 0% 50%, 58% 1%);
+
+}
+
+.flex-container{
+  display: flex;
+  flex-direction: column;
+}
+
+#ship::-webkit-outer-spin-button,
+#ship::-webkit-inner-spin-button {
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+
+.nbpkctrl{
+  margin-top: 1ch;
+  margin-bottom: 1ch;
+  margin-left: 1ch;
+  margin-right: 1ch;
+}
