@@ -437,7 +437,7 @@ TnT[
 
 			actual[
 			
--> to new model
+-> to new model 
 	<- done 05.07.2018 11:00 -> numberpicker
 	<- done 05.07.2018 11:00 -> datepicker
 	<- done 06.07.2018 16:00 -> QuizHtmlItems to component
@@ -449,11 +449,12 @@ TnT[
 	<- done 09.07.2018 17:00 -> menu-item, new menulist
 	<- done 09.07.2018 17:00 -> Quiz itemControlls
 	
-	-> add weeks in year, days in week to Factory		
-	-> Question ItemParameters
-	-> list menu 
-	-> edit menu
-	-> events
+	-> Add new Button
+	-> Edit menu buttons Save, Cancel + events
+	-> Question,Answer button names
+	-> Question ItemParameters change to textbox and drop box with events
+	-> Question edit events (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
+	-> add weeks in year, days in week to Factory
 	-> Http POST,GET
 	
 -> move nsql manager to core
