@@ -20,6 +20,7 @@ import { MenuMainComponent } from './Templates/QuizMenus/menu-main/menu-main.com
 import { DropdownmultiComponent } from './Templates/Elements/dropdowns/dropdownmulti/dropdownmulti.component';
 
 import { GappickerNgComponent } from './Templates/Elements/gappicker-ng/gappicker-ng.component';
+import { MenuitemComponent } from './Templates/QuizMenus/menuitem/menuitem.component';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { GappickerNgComponent } from './Templates/Elements/gappicker-ng/gappicke
     , ButtonComponent, ItemComponent, TestComponent
     , ItemsComponent, MenuListComponent, MenuEditComponent, MenuMainComponent
     ,DropdownmultiComponent
-    ,GappickerNgComponent
+    ,GappickerNgComponent, MenuitemComponent
     ],
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule

@@ -17,7 +17,7 @@ export class ItemsComponent implements OnInit {
   }
 
   ngOnInit(){
-    ServiceCl.log(["Inited: " + this.constructor.name,this._items]);
+    ServiceCl.log(["Inited: " + this.constructor.name,this._items,this._itemsObject]);
   }
 
   typeName(i_:HtmlItemNew){

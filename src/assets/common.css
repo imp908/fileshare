@@ -29,6 +29,16 @@ html, body { height: 100%; padding: 0; margin: 0; }
   /* padding-right: 15vw; */
 }
 
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
 #input_edit{
   width: 70%;
   height: 35px;
@@ -244,10 +254,52 @@ h1 {
   margin-top:var(--fxhrMargWidth);
   margin-bottom:var(--fxhrMargWidth);
 
+
   /* justify-content: flex-start; */
   /* align-items: flex-start; */
   /* border-color:blue;  border-width : 1px;   border-style: solid; */
 }
+.fxbx{
+  display: -webkit-flex;
+  display: flex;
+}
+.fxlt{
+  display: -webkit-flex;
+  display: flex;
+
+  flex-direction:column;
+  flex-wrap: nowrap;
+  /* align-items: flex-start; */
+
+  /* align-items:flex-start; */
+}
+
+
+
+/* Test Flexbox */
+/* ==================================================================== */
+.flexCtnr{display:flex;}
+
+ /* flex-direction: row | row-reverse | column | column-reverse; */
+
+.flexCol{flex-direction:column;}
+.flexRow{flex-direction:row;}
+
+ /*  flex-wrap: nowrap | wrap | wrap-reverse;*/
+.fxWp{flex-wrap: wrap}
+.fxnWp{flex-wrap: nowrap}
+
+ /* justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly; */
+.fxHrLt{ justify-content: flex-start}
+.fxHrRt{ justify-content: flex-end}
+
+ /* align-self: auto | flex-start | flex-end | center | baseline | stretch; */
+ .fxVtUp{align-self:flex-start}
+ .fxVtDw{align-self:flex-end}
+
+/* ==================================================================== */
+
+
 
 .chevron::before {
 	border-style: solid;

@@ -1,3 +1,5 @@
-<p>
-  menu-edit works!
-</p>
+  <ng-container *ngFor="let i of _item.itemControlls">
+    <div [class]="_item.cssClass">
+      <app-items [_items]="i" [_itemsObject]="_item"></app-items>
+    </div>
+  </ng-container>

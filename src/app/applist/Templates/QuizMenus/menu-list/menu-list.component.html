@@ -1,13 +1,3 @@
-<p>
-  menu-list works!
-</p>
-
-<ng-container>
-  <div>
-    <ng-container *ngIf="_quizes!=null">
-    <div *ngFor="let i of _quizes">
-      <app-item [_item]="i"></app-item>
-    </div>
-    </ng-container>
-  </div>
-</ng-container>
+  <ng-container *ngIf="_quizes!=null">
+    <app-menuitem [_quizes]="_quizes" [_buttons]="_buttons"></app-menuitem>
+  </ng-container>

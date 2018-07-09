@@ -6,6 +6,7 @@ import { EventEmitter,Output } from '@angular/core';
 
 // import * as Collections from 'typescript-collections';
 
+
 import {NodeNew,CollectionNew
   ,HtmlItemNew
   ,QuizItemNew
@@ -79,19 +80,16 @@ export class FactoryNew{
 
     for(let i=0;i<12;i++){
       r.add(
-        new TextControlNew({
+        new LabelControlNew({
           key_:i,
-          name_:"Textctrl",
-          value_:"Month " + (i+1),
+          name_:"Text control",
+          value_:"Month "+(i+1),
           typeName_:null
           ,array_:null
           ,cssClass_:"",show_:true
           ,HtmlTypeAttr_:"div"
-          ,HtmlSubmittedValue_:"text value"
-          ,pattern_:null
-          ,maxLength_:null
-          ,minLength_:null
-        })
+          ,HtmlSubmittedValue_:null
+          })
       )
     }
     return r;
@@ -113,7 +111,7 @@ export class FactoryNew{
     });
 
     let checkboxes = new HtmlItemNew({
-      key_:1,
+      key_:0,
       name_:"QuizCheckboxControlls",
       value_:"QuizCheckboxControlls",
       typeName_:null
@@ -124,9 +122,9 @@ export class FactoryNew{
           value_:"Is question anonimous?",
           typeName_:null
           ,array_:null
-          ,cssClass_:"",show_:true
+          ,cssClass_:"fxhr",show_:true
           ,HtmlTypeAttr_:"div"
-          ,HtmlSubmittedValue_:false
+          ,HtmlSubmittedValue_:true
         })
         ,  new CheckBoxControlNew({
             key_:3,
@@ -134,7 +132,7 @@ export class FactoryNew{
             value_:"Show quiz statistics?",
             typeName_:null
             ,array_:null
-            ,cssClass_:"",show_:true
+            ,cssClass_:"fxhr",show_:true
             ,HtmlTypeAttr_:"div"
             ,HtmlSubmittedValue_:false
           })
@@ -144,7 +142,7 @@ export class FactoryNew{
               value_:"Place questions on list?",
               typeName_:null
               ,array_:null
-              ,cssClass_:"",show_:true
+              ,cssClass_:"fxhr",show_:true
               ,HtmlTypeAttr_:"div"
               ,HtmlSubmittedValue_:false
             })
@@ -154,39 +152,39 @@ export class FactoryNew{
                 value_:"Can quiz be replayed?",
                 typeName_:null
                 ,array_:null
-                ,cssClass_:"",show_:true
+                ,cssClass_:"fxhr",show_:true
                 ,HtmlTypeAttr_:"div"
                 ,HtmlSubmittedValue_:false
               })
       )
-      ,cssClass_:"",show_:true
+      ,cssClass_:"fxvt",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:false
     });
 
     let stardate = new HtmlItemNew({
-      key_:2,
+      key_:1,
       name_:"QuizStartDate",
-      value_:"Datepicker",
+      value_:"Quiz start date",
       typeName_:null
       ,array_:new Array<DatePickerControlNew>(
         new DatePickerControlNew({
           key_:0,
           name_:"QuizStartDate",
-          value_:"Datepicker",
+          value_:"Quiz start date",
           typeName_:null
           ,array_:null
-          ,cssClass_:"",show_:true
+          ,cssClass_:"fxhr",show_:true
           ,HtmlTypeAttr_:"div"
           ,HtmlSubmittedValue_:new Date(2018,1,1)
         }))
-      ,cssClass_:"",show_:true
+      ,cssClass_:"fxhr",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:""
     });
 
     let cycleCheckbox = new HtmlItemNew({
-      key_:3,
+      key_:2,
       name_:"CycleCheckbox",
       value_:"CycleCheckbox",
       typeName_:null
@@ -197,11 +195,11 @@ export class FactoryNew{
          value_:"Does quiz need to be cicled?",
          typeName_:null
          ,array_:null
-         ,cssClass_:"",show_:true
+         ,cssClass_:"fxhr",show_:true
          ,HtmlTypeAttr_:"div"
          ,HtmlSubmittedValue_:false
        }))
-      ,cssClass_:"",show_:true
+      ,cssClass_:"fxhr",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:""
     });
@@ -218,12 +216,12 @@ export class FactoryNew{
           value_:"Years gap",
           typeName_:null
           ,array_:null
-          ,cssClass_:"",show_:true
+          ,cssClass_:"fxvt",show_:true
           ,HtmlTypeAttr_:"div"
           ,HtmlSubmittedValue_:0
           ,DisplayValue_:0
           ,minN:0
-          ,maxN:2
+          ,maxN:9999
         })
         ,new NumberPickerControlNew({
           key_:0,
@@ -231,15 +229,46 @@ export class FactoryNew{
           value_:"Months gap",
           typeName_:null
           ,array_:null
-          ,cssClass_:"",show_:true
+          ,cssClass_:"fxvt",show_:true
           ,HtmlTypeAttr_:"div"
           ,HtmlSubmittedValue_:0
           ,DisplayValue_:0
-          ,minN:-2
-          ,maxN:3
+          ,minN:0
+          ,maxN:9999
         })
       )
+      ,cssClass_:"fxhr",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:""
+    });
+
+    let DropBoxes = new HtmlItemNew({
+      key_:5,
+      name_:"DropBoxes",
+      value_:"Time periods",
+      typeName_:null
+      ,array_:new Array<DropDownControlMultiNew>(
+      FactoryNew.MonthsInYear()
+      ,new DropDownControlMultiNew({
+      key_:1,
+      name_:"Weeks in year",
+      value_:"Weeks in year",
+      typeName_:null
+      ,array_:TestNew.LabelControlNewTest(3,"row").array
       ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:""})
+      ,new DropDownControlMultiNew({
+      key_:2,
+      name_:"Days in week",
+      value_:"Days in week",
+      typeName_:null
+      ,array_:TestNew.LabelControlNewTest(3,"row").array
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:""})
+      )
+      ,cssClass_:"fxhr",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:""
     });
@@ -248,7 +277,9 @@ export class FactoryNew{
     r.add(stardate);
     r.add(cycleCheckbox);
     r.add(quizNumbers);
+    r.add(DropBoxes);
 
+    r.sort(true);
     return r;
   }
   static questionParametersNewGen(){
@@ -349,6 +380,43 @@ export class FactoryNew{
     return r;
   }
 
+  public static ItemButtons(){
+    let r = new HtmlItemNew(null);
+
+      r.addArr([new EditNew({key_:0,
+      name_:"Edit Quiz",
+      value_:"Edit Quiz",
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-purple",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Edit Quiz",disabled_:false})
+      ,new CopyNew({key_:0,
+      name_:"Copy Quiz",
+      value_:"Copy Quiz",
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-unique",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Copy Quiz",disabled_:false})
+      ,new DeleteNew({key_:0,
+      name_:"Delete Quiz",
+      value_:"Delete Quiz",
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-danger",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Delete Quiz",disabled_:false})]);
+
+    r.cssClass="flexCtnr flexRow";
+    return r;
+  }
 
   //quiz objects generating
 
@@ -404,7 +472,7 @@ export class FactoryNew{
   }
 
   static GenQuizes(qn:number,qtn:number,an:number
-  ,qzCss:string,qtCss:string,awCss:string){
+    ,qzCss:string,qtCss:string,awCss:string){
 
     let nodes=new QuizItemNew({key_:0,
     name_:"Quizes",
@@ -451,11 +519,54 @@ export class FactoryNew{
     return nodes;
   }
 
-
-
-
 }
 
+export class ModelContainerNew{
+
+  static nodeSelected:HtmlItemNew;
+  static quizSelected:QuizNew;
+  static questionSelected:QuestionNew;
+  static answerSelected:AnswerNew;
+
+  @Output() static stateChanged=new EventEmitter();
+  @Output() static nodeEdit=new EventEmitter();
+
+  public static buttonClicked(btn_:ButtonNew,obj:HtmlItemNew,e:any){
+    console.log(["buttonClicked :",btn_,obj,e])
+
+    if(btn_ instanceof EditNew){
+      console.log("edit")
+      if(obj != null){if(obj instanceof QuizItemNew){
+        ModelContainerNew.objectDetectAndBind(obj);
+        ModelContainerNew.nodeEdit.emit();
+      }}
+    }
+    if(btn_ instanceof CopyNew){console.log("copy")}
+    if(btn_ instanceof DeleteNew){console.log("delete")}
+
+    ModelContainerNew.stateChanged.emit();
+  }
+  static objectDetectAndBind(obj:HtmlItemNew){
+
+    if(obj instanceof QuizItemNew){
+      ModelContainerNew.nodeSelected=obj;
+    }
+    if(obj instanceof QuizNew){
+      ModelContainerNew.answerSelected=null;
+      ModelContainerNew.questionSelected=null;
+      ModelContainerNew.quizSelected=obj;
+    }
+    if(obj instanceof QuestionNew){
+      ModelContainerNew.answerSelected=null;
+      ModelContainerNew.questionSelected=obj;
+    }
+    if(obj instanceof AnswerNew){
+      ModelContainerNew.answerSelected=obj;
+    }
+
+  }
+
+}
 
 export class TestNew{
 
@@ -860,7 +971,9 @@ export class TestNew{
 
   }
 
-  public static QuizItemButtonsByType(i_:ButtonNew,cnt_:number
+  //detect button type and create instance
+
+  public static TestItemButtonsByType(i_:ButtonNew,cnt_:number
     ,cssGroup_:string,cssItem_:string){
     let r = new HtmlItemNew(null);
     let a = new Array<ButtonNew>();
@@ -896,28 +1009,32 @@ export class TestNew{
     return r;
   }
 
-  public static QuizItemButtons(){
+  //generate buttons
+
+  public static TestItemButtons(cssGp:string,cssItems:string){
     let r = new HtmlItemNew(null);
 
-      r.add(TestNew.QuizItemButtonsByType(new NewAddNew(null),2,"fxhr","btn"))
-      r.add(TestNew.QuizItemButtonsByType(new SaveNew(null),1,"fhvt","btn btn-success"))
-      r.add(TestNew.QuizItemButtonsByType(new EditNew(null),5,"fxhr","btn btn-danger"))
+      r.add(TestNew.TestItemButtonsByType(new NewAddNew(null),2,cssItems,"btn"))
+      r.add(TestNew.TestItemButtonsByType(new SaveNew(null),1,cssItems,"btn btn-success"))
+      r.add(TestNew.TestItemButtonsByType(new EditNew(null),3,cssItems,"btn btn-danger"))
 
-    r.cssClass="fhvt";
+    r.cssClass=cssGp;
     return r;
   }
+
 
   //Generating quizes
 
   public static QuizList(){
 
-    let r=FactoryNew.GenQuizes(3,4,5,"fxvt","fxvt","fxvt");
+    let r=FactoryNew.GenQuizes(3,4,5,"flexCtnr flexRow","flexCtnr flexRow","flexCtnr flexCol");
 
     return r;
 
   }
 
   //Specific parametrized generation
+
   public static CheckBoxes(n_:number,cssGroup_:string,cssItem_:string){
     let r = TestNew.CheckBoxControlNewTest(n_,cssGroup_,cssItem_);
       r.cssClass=cssGroup_;
