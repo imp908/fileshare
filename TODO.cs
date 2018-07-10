@@ -437,7 +437,7 @@ TnT[
 
 			actual[
 			
--> to new model 
+-> to new model
 	<- done 05.07.2018 11:00 -> numberpicker
 	<- done 05.07.2018 11:00 -> datepicker
 	<- done 06.07.2018 16:00 -> QuizHtmlItems to component
@@ -447,11 +447,12 @@ TnT[
 	<- done 07.07.2018 15:00 -> QuizHtmlItem
 	<- done 09.07.2018 17:00 -> new Flexbox with classes and flex columns formatting
 	<- done 09.07.2018 17:00 -> menu-item, new menulist
-	<- done 09.07.2018 17:00 -> Quiz itemControlls
+	<- done 09.07.2018 17:00 -> Quiz itemControlls	
+	<- done 10.07.2018 13:30 -> Add new Button
+	<- done 10.07.2018 13:30 -> Question,Answer button names
 	
-	-> Add new Button
 	-> Edit menu buttons Save, Cancel + events
-	-> Question,Answer button names
+	-> Remove @Input, generate buttons from Menu List and Edit List with object names	
 	-> Question ItemParameters change to textbox and drop box with events
 	-> Question edit events (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
 	-> add weeks in year, days in week to Factory
