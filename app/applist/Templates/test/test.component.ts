@@ -20,6 +20,7 @@ export class TestComponent implements OnInit {
   controlls_:HtmlItemNew;
 
   ItemButtons_:HtmlItemNew;
+  editButtons_:HtmlItemNew;
   quizItems_:QuizItemNew;
 
   quizes_: Array<QuizNew>;
@@ -37,7 +38,14 @@ export class TestComponent implements OnInit {
 
   _buttons:ButtonNew[];
 
+
   constructor(){
+
+    TestNew.GO();
+
+    ModelContainerNew.QuizesPassed=
+    FactoryNew.GenQuizes(5,5,5,"flexCtnr flexRow","flexCtnr flexRow","flexCtnr flexCol");
+
     this.quizes_=new Array<QuizNew>();
     this.items_=TestNew.Buttons();
 
@@ -50,8 +58,8 @@ export class TestComponent implements OnInit {
     //
 
     this.quizItems_=TestNew.QuizList();
-    this.ItemButtons_=FactoryNew.ItemButtons();
-
+    this.ItemButtons_=FactoryNew.ItemButtons("");
+    this.editButtons_=FactoryNew.EditButtons("");
 
     this.TestItemButtons_=new HtmlItemNew(null);
     this.TestItemButtons_.array=new Array<HtmlItemNew>(

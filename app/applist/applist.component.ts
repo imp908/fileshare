@@ -9,7 +9,7 @@ import {TestNew} from 'src/app/applist/Models/initsNew.component'
 export class ApplistComponent implements OnInit {
 
   constructor() {
-    TestNew.GO();
+    
   }
 
   ngOnInit() {

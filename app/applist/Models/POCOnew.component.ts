@@ -331,6 +331,42 @@ export class HtmlItemNew extends CollectionNew<HtmlItemNew>{
       this._typeName=this.constructor.name
     }
   }
+
+  static findInParams(name_:string,col_:any,ret_:HtmlItemNew){
+    console.log(["findInParams: ",col_])
+    if(col_.array!=null){
+      if(col_.array.length>0){
+        for(let i=0;i<=col_.array.length;i++){
+          let tCol_=col_.array[i];
+          console.log(["For: ",tCol_])
+          if(tCol_!=null){
+            if(tCol_._name==name_){
+              console.log(["Return: ",tCol_])
+              ret_=tCol_;
+            }
+            if(tCol_!=null){
+              ret_=this.findInParams(name_,tCol_,ret_);
+            }
+          }
+        }
+      }
+    }
+    return ret_;
+  }
+  scan(name_:string,f_:HtmlItemNew){
+    let r_=new HtmlItemNew(null);
+      r_=HtmlItemNew.findInParams("",f_,r_)
+    return r_;
+  }
+  static DeepClone(obj_:any){
+    let  r_ = Object.assign(
+      Object.create(
+        Object.getPrototypeOf(obj_)
+      ),obj_
+      );
+      return r_;
+  }
+
 }
 
 //html iytems for Form Controlls createion and quiz elements controls display
@@ -491,9 +527,99 @@ export class QuizItemNew extends HtmlItemNew{
   show:boolean;
   itemControlls:HtmlItemNew[];
 
+
+  static CloneItemByClass(n_:QuizItemNew){
+      let r_:any=null;
+      if(n_ instanceof QuizItemNew){
+        r_=new QuizItemNew({key_:n_._key,
+        name_:n_._name,
+        value_:n_._value,
+        typeName_:null,array_:this.DeepClone(n_.array)
+        ,itemControlls_:this.DeepClone(n_.itemControlls)
+        ,cssClass_:n_.cssClass,show_:n_.show
+        ,HtmlTypeAttr_:n_.HtmlTypeAttr,HtmlSubmittedValue_:n_.HtmlSubmittedValue});
+      }
+      if(n_ instanceof QuizNew){
+        r_=new QuizNew({key_:n_._key,
+        name_:n_._name,
+        value_:n_._value,
+        typeName_:null,array_:new Array<QuestionNew>()
+        ,itemControlls_:new Array<HtmlItemNew>()
+        ,cssClass_:n_.cssClass,show_:n_.show
+        ,HtmlTypeAttr_:n_.HtmlTypeAttr,HtmlSubmittedValue_:n_.HtmlSubmittedValue});
+      }
+      if(n_ instanceof QuestionNew){
+        r_=new QuestionNew({key_:n_._key,
+        name_:n_._name,
+        value_:n_._value,
+        typeName_:null,array_:new Array<AnswerNew>()
+        ,itemControlls_:new Array<HtmlItemNew>()
+        ,cssClass_:n_.cssClass,show_:n_.show
+        ,HtmlTypeAttr_:n_.HtmlTypeAttr,HtmlSubmittedValue_:n_.HtmlSubmittedValue});
+      }
+      if(n_ instanceof AnswerNew){
+        r_=new AnswerNew({key_:n_._key,
+        name_:n_._name,
+        value_:n_._value,
+        typeName_:null,array_:null
+        ,itemControlls_:new Array<HtmlItemNew>()
+        ,cssClass_:n_.cssClass,show_:n_.show
+        ,HtmlTypeAttr_:n_.HtmlTypeAttr,HtmlSubmittedValue_:n_.HtmlSubmittedValue});
+      }
+      return r_;
+    }
+  static _Clone(n_:QuizItemNew){
+        let r=this.CloneItemByClass(n_);
+        let num=-1;
+          r=this._deepClone(n_,r,num);
+        return r;
+      }
+  static _deepClone(from_:QuizItemNew,to_:QuizItemNew,num_:number){
+
+      num_+=1;
+      let temp_=new QuizItemNew(null);
+
+      if(from_.array!=null){
+      // console.log(["Parent create from,to:",from_,to_,num_]);
+
+        if(from_.array!=null){
+
+        //has children
+
+          for(let n_ of from_.array){
+          //console.log(["Collection loop:item,of",n_,from_]);
+
+            if(n_ instanceof QuizItemNew){
+              //console.log(["Pushed to parent from,to:",from_,to_]);
+
+              temp_=this.CloneItemByClass(n_);
+              this._deepClone(n_,temp_,num_);
+            }
+
+            to_.add(temp_);
+
+          }
+
+        }else{
+          //head element
+
+          to_=this.CloneItemByClass(from_);
+        }
+
+      }
+
+      num_-=1;
+
+      // console.log(["Return :",to_,to_._key]);
+
+      return to_;
+
+    }
+
+
   constructor(o:{key_?:number,name_?:string,value_?:string,typeName_?:string
-  ,array_:QuizItemNew[],itemControlls_:HtmlItemNew[]
-  ,cssClass_:string,show_:boolean,HtmlTypeAttr_:string,HtmlSubmittedValue_:any}){
+    ,array_:QuizItemNew[],itemControlls_:HtmlItemNew[]
+    ,cssClass_:string,show_:boolean,HtmlTypeAttr_:string,HtmlSubmittedValue_:any}){
     if(o!=null){
       super(o);
       this.itemControlls=o.itemControlls_;
@@ -506,6 +632,7 @@ export class QuizItemNew extends HtmlItemNew{
       this._typeName=this.constructor.name
     }
   }
+
 }
 
 //child quiz objects
@@ -556,3 +683,4 @@ export class SaveNew extends ButtonNew{}
 export class EditNew extends ButtonNew{}
 export class CopyNew extends ButtonNew{}
 export class DeleteNew extends ButtonNew{}
+export class Cancel extends ButtonNew{}

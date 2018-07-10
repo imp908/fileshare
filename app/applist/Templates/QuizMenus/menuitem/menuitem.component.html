@@ -1,3 +1,10 @@
+
+  <ng-container *ngIf="_AddNewButton!=null">
+    <div *ngFor="let i2 of _AddNewButton">
+      <app-item [_item]="i2" [_object]="_addObj"></app-item>
+    </div>
+  </ng-container>
+
   <ng-container *ngIf="_quizes!=null">
     <div *ngFor="let i of _quizes.array">
         <div class="flexCtnr flexRow" style="width:100%">

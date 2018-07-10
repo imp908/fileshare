@@ -12,12 +12,21 @@ import {ModelContainerNew} from 'src/app/applist/Models/initsNew.component';
 export class MenuEditComponent implements OnInit {
 
   @Input() _item:QuizItemNew;
+  @Input() _editButtons:ButtonNew[];
+
   constructor(){
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
 
   ngOnInit(){
-    ServiceCl.log(["Inited: " + this.constructor.name,this._item]);
+    ServiceCl.log(["Inited: " + this.constructor.name,this._item,this._editButtons]);
+
+    ModelContainerNew.stateChanged.subscribe(s=>{
+      this._item=ModelContainerNew.nodeSelected;
+      ServiceCl.log(["stateChanged received by " + this.constructor.name
+      ,this._item,this._editButtons]);
+    });
+
   }
 
 }

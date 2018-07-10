@@ -1,5 +1,31 @@
-  <ng-container *ngFor="let i of _item.itemControlls">
-    <div [class]="_item.cssClass">
-      <app-items [_items]="i" [_itemsObject]="_item"></app-items>
-    </div>
+<ng-container *ngIf="_item!=null">
+
+  <ng-container>
+  <div class="flexCtnr" style="justify-content: center">
+    <H1>Current editing {{_item._value}}</H1>
+  </div>
   </ng-container>
+
+  <ng-container *ngIf="_editButtons !=null">
+  <div class="flexCtnr flexRow" style="width:100%">
+    <div class="flexCtnr flexCol" style="flex:1"></div>
+    <div class="flexCtnr flexCol" style="flex:0">
+      <div [class]="_editButtons.cssClass">
+
+        <ng-container *ngFor="let i2 of _editButtons.array">
+          <app-item [_item]="i2" [_object]="_item"></app-item>
+        </ng-container>
+      </div>
+    </div>
+    <div class="flexCtnr flexCol" style="flex:1"></div>
+  </div>
+  </ng-container>
+
+
+  <ng-container *ngFor="let i of _item.itemControlls">
+  <div [class]="_item.cssClass">
+    <app-items [_items]="i" [_itemsObject]="_item"></app-items>
+  </div>
+  </ng-container>
+
+</ng-container>

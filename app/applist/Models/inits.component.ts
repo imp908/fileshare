@@ -4,7 +4,7 @@ import { EventEmitter,Output } from '@angular/core';
 //TS Collections
 //npm install typescript-collections [-g] --save
 
-// import * as Collections from 'typescript-collections';
+import * as Collections from 'typescript-collections';
 
 import {INode,ICollection_,INodeCollection} from './POCO.component';
 
@@ -1785,7 +1785,6 @@ export class Factory_{
 
       return r_;
     }
-
     static _Clone(n_:NodeCollection){
         let r=Factory_.CloneItemByClass(n_);
         let num=-1;

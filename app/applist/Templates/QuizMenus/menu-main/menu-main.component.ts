@@ -4,7 +4,7 @@ import {QuizNew,QuestionNew,AnswerNew
 ,ButtonNew
 ,QuizItemNew} from 'src/app/applist/Models/POCOnew.component';
 
-import {ModelContainerNew} from 'src/app/applist/Models/initsNew.component';
+import {ModelContainerNew,FactoryNew} from 'src/app/applist/Models/initsNew.component';
 
 @Component({
   selector: 'app-menu-main',
@@ -15,16 +15,18 @@ export class MenuMainComponent implements OnInit {
 
   @Input() _quizItems:QuizItemNew;
   @Input() _buttons:ButtonNew[];
+  @Input() editButtons_:ButtonNew[];
 
   _editItem:QuizItemNew;
-
   constructor(){
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
 
   ngOnInit(){
+  
+    this._quizItems=ModelContainerNew.QuizesPassed;
     ModelContainerNew.nodeEdit.subscribe(s=>{
-      this._editItem=ModelContainerNew.nodeSelected;        
+      this._editItem=ModelContainerNew.nodeSelected;
 
       ServiceCl.log(["nodeEdit received by " + this.constructor.name
         ,this._editItem

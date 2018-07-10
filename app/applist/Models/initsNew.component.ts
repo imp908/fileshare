@@ -17,7 +17,7 @@ import {NodeNew,CollectionNew
   ,DatePickerControlNew,NumberPickerControlNew
   ,ButtonNew
   ,LabelControlNew
-  ,NewAddNew,SaveNew,EditNew,CopyNew,DeleteNew
+  ,NewAddNew,SaveNew,EditNew,CopyNew,DeleteNew,Cancel
 } from './POCOnew.component';
 
 
@@ -380,42 +380,124 @@ export class FactoryNew{
     return r;
   }
 
-  public static ItemButtons(){
+  public static ItemButtons(itmNm:string){
     let r = new HtmlItemNew(null);
 
       r.addArr([new EditNew({key_:0,
-      name_:"Edit Quiz",
-      value_:"Edit Quiz",
+      name_:"Edit "+itmNm,
+      value_:"Edit "+itmNm,
       typeName_:null
       ,array_:null
       ,itemControlls_:null
       ,cssClass_:"btn btn-purple",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:null
-      ,clicked_:false,toolTipText_:"Edit Quiz",disabled_:false})
+      ,clicked_:false,toolTipText_:"Edit "+itmNm,disabled_:false})
       ,new CopyNew({key_:0,
-      name_:"Copy Quiz",
-      value_:"Copy Quiz",
+      name_:"Copy "+itmNm,
+      value_:"Copy "+itmNm,
       typeName_:null
       ,array_:null
       ,itemControlls_:null
       ,cssClass_:"btn btn-unique",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:null
-      ,clicked_:false,toolTipText_:"Copy Quiz",disabled_:false})
+      ,clicked_:false,toolTipText_:"Copy "+itmNm,disabled_:false})
       ,new DeleteNew({key_:0,
-      name_:"Delete Quiz",
-      value_:"Delete Quiz",
+      name_:"Delete "+itmNm,
+      value_:"Delete "+itmNm,
       typeName_:null
       ,array_:null
       ,itemControlls_:null
       ,cssClass_:"btn btn-danger",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:null
-      ,clicked_:false,toolTipText_:"Delete Quiz",disabled_:false})]);
+      ,clicked_:false,toolTipText_:"Delete "+itmNm,disabled_:false})]);
 
     r.cssClass="flexCtnr flexRow";
     return r;
+  }
+  public static EditButtons(itmNm:string){
+    let r = new HtmlItemNew(null);
+
+      r.addArr([new SaveNew({key_:0,
+      name_:"Save "+itmNm,
+      value_:"Save "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-darkgreen",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Save "+itmNm,disabled_:false})
+      ,new Cancel({key_:0,
+      name_:"Cancel "+itmNm,
+      value_:"Cancel "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-evening-night",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Cancel "+itmNm,disabled_:false})
+      ,new CopyNew({key_:0,
+      name_:"Copy "+itmNm,
+      value_:"Copy "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-unique",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Copy "+itmNm,disabled_:false})
+      ,new DeleteNew({key_:0,
+      name_:"Delete "+itmNm,
+      value_:"Delete "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-danger",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Delete "+itmNm,disabled_:false})
+      ]);
+
+    r.cssClass="flexCtnr flexRow";
+    return r;
+  }
+  public static AddNewButton(itmNm:string){
+    let r = new HtmlItemNew(null);
+
+      r.addArr([new NewAddNew({key_:0,
+      name_:"Add new "+itmNm,
+      value_:"Add new "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-darkgreen",show_:true
+      ,HtmlTypeAttr_:"Add new"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Add new "+itmNm,disabled_:false})
+      ]);
+
+    r.cssClass="flexCtnr flexRow";
+    // return r;
+
+    let r2 = new Array<ButtonNew>(
+      new NewAddNew({key_:0,
+      name_:"Add new "+itmNm,
+      value_:"Add new "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-darkgreen",show_:true
+      ,HtmlTypeAttr_:"Add new"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Add new "+itmNm,disabled_:false})
+    );
+
+    return r2;
+
   }
 
   //quiz objects generating
@@ -471,6 +553,37 @@ export class FactoryNew{
     return r;
   }
 
+  static NewQuizItemObj(obj:QuizItemNew){
+    let r: QuizItemNew;
+
+    if(obj instanceof QuizNew){
+      r= new QuizNew({key_:0,
+      name_:"Quiz name",
+      value_:"new quiz",
+      typeName_:null,array_:new Array<QuestionNew>()
+      ,itemControlls_:FactoryNew.quizItemParametersNewGen().array
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"",HtmlSubmittedValue_:"Enter quiz name"});
+    }
+    if(obj instanceof QuestionNew){
+      r= new QuestionNew({key_:0,
+      name_:"Question name",
+      value_:"new question",
+      typeName_:null,array_:new Array<AnswerNew>()
+      ,itemControlls_:FactoryNew.questionParametersNewGen().array
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"",HtmlSubmittedValue_:"Enter question name"});
+    }
+    if(obj instanceof AnswerNew){
+      r=new AnswerNew({key_:0,
+      name_:"Answer name",
+      value_:"new answer",
+      typeName_:null,array_:null
+      ,itemControlls_:null,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""})
+    }
+    return r;
+  }
   static GenQuizes(qnM:number,qtnM:number,anM:number
     ,qzCss:string,qtCss:string,awCss:string){
 
@@ -527,13 +640,17 @@ export class FactoryNew{
   static rnd(min:number,max:number){
     return Math.floor(Math.random()*(max-min)+min)
   }
+
 }
 
 export class ModelContainerNew{
 
+  static QuizesPassed:QuizItemNew;
+
   static nodeSelected:QuizItemNew;
   static quizSelected:QuizNew;
   static questionSelected:QuestionNew;
+
   static answerSelected:AnswerNew;
 
   @Output() static stateChanged=new EventEmitter();
@@ -542,15 +659,27 @@ export class ModelContainerNew{
   public static buttonClicked(btn_:ButtonNew,obj:HtmlItemNew,e:any){
     console.log(["buttonClicked :",btn_,obj,e])
 
-    if(btn_ instanceof EditNew){
-      console.log("edit")
+    if(btn_ instanceof NewAddNew){
       if(obj != null){if(obj instanceof QuizItemNew){
         ModelContainerNew.objectDetectAndBind(obj);
         ModelContainerNew.nodeEdit.emit();
       }}
+      console.log("add new");
+    }
+    if(btn_ instanceof Cancel){console.log("cancel");
+      this.nodeSelected=null;
+    }
+
+    if(btn_ instanceof EditNew){
+      if(obj != null){if(obj instanceof QuizItemNew){
+        ModelContainerNew.objectDetectAndBind(obj);
+        ModelContainerNew.nodeEdit.emit();
+      }}
+      console.log("edit")
     }
     if(btn_ instanceof CopyNew){console.log("copy")}
     if(btn_ instanceof DeleteNew){console.log("delete")}
+
 
     ModelContainerNew.stateChanged.emit();
   }
@@ -573,7 +702,6 @@ export class ModelContainerNew{
     }
 
   }
-
 }
 
 export class TestNew{
@@ -1260,6 +1388,39 @@ export class TestNew{
     return r;
   }
 
+  public static QuizItemCloneCheck(){
+    let qz = new QuizItemNew({
+      key_:0,
+      name_:"Quiz name",
+      value_:"new quiz",
+      typeName_:null,array_:new Array<QuestionNew>()
+      ,itemControlls_:FactoryNew.quizItemParametersNewGen().array
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"",HtmlSubmittedValue_:"Enter quiz name"
+    });
+
+    let hi0=new HtmlItemNew(null);
+    let hi1=new HtmlItemNew(null);
+    let hi2=new HtmlItemNew(null);
+
+    hi1._name="nm1";
+    hi2._name="nm2";
+
+    hi0.array=new Array<HtmlItemNew>(
+       hi1,hi2
+    );
+
+    let res=hi0.scan("nm2",hi0);
+    let res2=HtmlItemNew.DeepClone(hi0);
+    res._name="nm3";
+
+    let qzCp=HtmlItemNew.DeepClone(qz);
+    let qzItm=new HtmlItemNew(null);
+    qzItm.array=qzCp.itemParameter;
+    let qzFn=qzCp.scan("IsAnonimous",qzItm);
+    console.log(["QuizItemCloneCheck: ",hi0,res,res2]);
+  }
+
   public static GO(){
 
     //collection tests
@@ -1279,6 +1440,11 @@ export class TestNew{
 
     //type checker Test
     //TestNew.TypeCheckTest();
+
+
+    //check cloning
+
+    TestNew.QuizItemCloneCheck();
 
   }
 
