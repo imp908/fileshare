@@ -5267,7 +5267,16 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 				]
 			
 			}
-		
+				
+				static deppUpperlevelClone(obj_:any){
+					let  r_ = Object.assign(
+						Object.create(
+						Object.getPrototypeOf(obj_)
+						),obj_
+					);
+					return r_;
+				}
+				
 		}
 		
 		//JS vendors

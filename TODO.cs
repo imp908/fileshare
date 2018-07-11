@@ -450,7 +450,9 @@ TnT[
 	<- done 09.07.2018 17:00 -> Quiz itemControlls	
 	<- done 10.07.2018 13:30 -> Add new Button
 	<- done 10.07.2018 13:30 -> Question,Answer button names
+	<- done 11.07.2018 14:00 -> new Deep copy with object instance, nad nested collections
 	
+	-> itemControls Nmae to object name bind
 	-> Edit menu buttons Save, Cancel + events
 	-> Remove @Input, generate buttons from Menu List and Edit List with object names	
 	-> Question ItemParameters change to textbox and drop box with events
