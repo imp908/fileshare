@@ -74,7 +74,7 @@ export class TestComponent implements OnInit {
   ngOnInit(){
 
     ModelContainerNew.stateChanged.subscribe(s=>{
-      ServiceCl.log(["stateChanged received"]);
+      ServiceCl.log(["stateChanged received by " + this.constructor.name]);
     });
 
 

@@ -110,6 +110,29 @@ export class FactoryNew{
       ,HtmlSubmittedValue_:"Quiz controlls"
     });
 
+    let textboxes = new HtmlItemNew({
+      key_:0,
+      name_:"Quiztexts",
+      value_:"Quiztexts",
+      typeName_:null
+      ,array_:new Array<TextControlNew>(
+        new TextControlNew({
+          key_:0,
+          name_:"ItemName",
+          value_:"Enter quiz name",
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"fxhr",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:""
+          ,DisplayValue_:""
+        })
+      )
+      ,cssClass_:"fxvt",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:false
+    });
+
     let checkboxes = new HtmlItemNew({
       key_:0,
       name_:"QuizCheckboxControlls",
@@ -273,6 +296,7 @@ export class FactoryNew{
       ,HtmlSubmittedValue_:""
     });
 
+    r.add(textboxes);
     r.add(checkboxes);
     r.add(stardate);
     r.add(cycleCheckbox);
@@ -300,10 +324,23 @@ export class FactoryNew{
       name_:"Textctrl",
       value_:"Question text",
       typeName_:null
-      ,array_:null
+      ,array_:new Array<TextControlNew>(
+          new TextControlNew({
+            key_:0,
+            name_:"ItemName",
+            value_:"Enter question name",
+            typeName_:null
+            ,array_:null
+            ,cssClass_:"fxhr",show_:true
+            ,HtmlTypeAttr_:"div"
+            ,HtmlSubmittedValue_:""
+            ,DisplayValue_:""
+          })
+        )
       ,cssClass_:"",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:null
+      ,DisplayValue_:"dsp"
       ,pattern_:null
       ,maxLength_:null
       ,minLength_:null
@@ -324,6 +361,7 @@ export class FactoryNew{
             ,cssClass_:"",show_:true
             ,HtmlTypeAttr_:"div"
             ,HtmlSubmittedValue_:""
+            ,DisplayValue_:""
             ,pattern_:null
             ,maxLength_:null
             ,minLength_:null
@@ -337,6 +375,7 @@ export class FactoryNew{
             ,cssClass_:"",show_:true
             ,HtmlTypeAttr_:"div"
             ,HtmlSubmittedValue_:""
+            ,DisplayValue_:""
             ,pattern_:null
             ,maxLength_:null
             ,minLength_:null
@@ -350,6 +389,7 @@ export class FactoryNew{
             ,cssClass_:"",show_:true
             ,HtmlTypeAttr_:"div"
             ,HtmlSubmittedValue_:""
+            ,DisplayValue_:""
             ,pattern_:null
             ,maxLength_:null
             ,minLength_:null
@@ -363,6 +403,7 @@ export class FactoryNew{
             ,cssClass_:"",show_:true
             ,HtmlTypeAttr_:"div"
             ,HtmlSubmittedValue_:""
+            ,DisplayValue_:""
             ,pattern_:null
             ,maxLength_:null
             ,minLength_:null
@@ -557,7 +598,7 @@ export class FactoryNew{
     let r: QuizItemNew;
 
     if(obj instanceof QuizNew){
-      r= new QuizNew({key_:0,
+      r= new QuizNew({key_:null,
       name_:"Quiz name",
       value_:"new quiz",
       typeName_:null,array_:new Array<QuestionNew>()
@@ -566,7 +607,7 @@ export class FactoryNew{
       ,HtmlTypeAttr_:"",HtmlSubmittedValue_:"Enter quiz name"});
     }
     if(obj instanceof QuestionNew){
-      r= new QuestionNew({key_:0,
+      r= new QuestionNew({key_:null,
       name_:"Question name",
       value_:"new question",
       typeName_:null,array_:new Array<AnswerNew>()
@@ -575,7 +616,7 @@ export class FactoryNew{
       ,HtmlTypeAttr_:"",HtmlSubmittedValue_:"Enter question name"});
     }
     if(obj instanceof AnswerNew){
-      r=new AnswerNew({key_:0,
+      r=new AnswerNew({key_:null,
       name_:"Answer name",
       value_:"new answer",
       typeName_:null,array_:null
@@ -655,19 +696,20 @@ export class ModelContainerNew{
 
   @Output() static stateChanged=new EventEmitter();
   @Output() static nodeEdit=new EventEmitter();
+  @Output() static nodeCopy=new EventEmitter();
 
   public static buttonClicked(btn_:ButtonNew,obj:HtmlItemNew,e:any){
     console.log(["buttonClicked :",btn_,obj,e])
 
     if(btn_ instanceof NewAddNew){
       if(obj != null){if(obj instanceof QuizItemNew){
-        ModelContainerNew.objectDetectAndBind(obj);
+        ModelContainerNew.objectDetectAndCreate(obj);
         ModelContainerNew.nodeEdit.emit();
       }}
       console.log("add new");
     }
     if(btn_ instanceof Cancel){console.log("cancel");
-      this.nodeSelected=null;
+      ModelContainerNew.nodeSelected=null;
     }
 
     if(btn_ instanceof EditNew){
@@ -677,31 +719,88 @@ export class ModelContainerNew{
       }}
       console.log("edit")
     }
-    if(btn_ instanceof CopyNew){console.log("copy")}
-    if(btn_ instanceof DeleteNew){console.log("delete")}
+    if(btn_ instanceof CopyNew){
+      ModelContainerNew.objectCopy(obj);
+      ModelContainerNew.nodeCopy.emit();
+      console.log("copy")
+    }
+    if(btn_ instanceof SaveNew){
+      ModelContainerNew.objectDetectAndSave(obj);
+      ModelContainerNew.nodeSelected=null;
+
+      console.log("save")
+    }
+    if(btn_ instanceof DeleteNew){
+      ModelContainerNew.objectDelete(obj);
+      console.log("delete")
+    }
 
 
     ModelContainerNew.stateChanged.emit();
+  }
+
+  static objectCopy(obj:HtmlItemNew){
+    if(obj instanceof QuizItemNew){
+      obj.nameObjectToItem();
+      ModelContainerNew.nodeSelected=obj.DeepClone();
+      ModelContainerNew.nodeSelected._key=null;
+    }
+  }
+
+  static objectDetectAndCreate(obj:HtmlItemNew){
+    if(obj instanceof QuizNew){
+      ModelContainerNew.nodeSelected=FactoryNew.NewQuizItemObj(new QuizNew(null));
+    }
+    ModelContainerNew.nodeSelected._key=null;
   }
   static objectDetectAndBind(obj:HtmlItemNew){
 
     if(obj instanceof QuizItemNew){
       ModelContainerNew.nodeSelected=obj;
-    }
-    if(obj instanceof QuizNew){
-      ModelContainerNew.answerSelected=null;
-      ModelContainerNew.questionSelected=null;
-      ModelContainerNew.quizSelected=obj;
-    }
-    if(obj instanceof QuestionNew){
-      ModelContainerNew.answerSelected=null;
-      ModelContainerNew.questionSelected=obj;
-    }
-    if(obj instanceof AnswerNew){
-      ModelContainerNew.answerSelected=obj;
-    }
+      obj.nameObjectToItem();
+      if(obj instanceof QuizNew){
+        ModelContainerNew.answerSelected=null;
+        ModelContainerNew.questionSelected=null;
+        ModelContainerNew.quizSelected=obj;
+      }
+      if(obj instanceof QuestionNew){
+        ModelContainerNew.answerSelected=null;
+        ModelContainerNew.questionSelected=obj;
+      }
+      if(obj instanceof AnswerNew){
+        ModelContainerNew.answerSelected=obj;
+      }
 
+    }
   }
+  static objectDetectAndSave(obj:HtmlItemNew){
+    if(obj instanceof QuizItemNew){
+      obj.nameItemToObject();
+      if(obj instanceof QuizNew){
+        ModelContainerNew.QuizesPassed.addUpdate(obj);
+      }
+      if(obj instanceof QuestionNew){
+        ModelContainerNew.quizSelected.addUpdate(obj);
+      }
+      if(obj instanceof AnswerNew){
+        ModelContainerNew.questionSelected.addUpdate(obj);
+      }
+    }
+  }
+  static objectDelete(obj:HtmlItemNew){
+    if(obj instanceof QuizItemNew){
+      if(obj instanceof QuizNew){
+        this.QuizesPassed.delete(obj);
+      }
+      if(obj instanceof QuestionNew){
+        this.quizSelected.delete(obj);
+      }
+      if(obj instanceof AnswerNew){
+        this.questionSelected.delete(obj);
+      }
+    }
+  }
+
 }
 
 export class TestNew{
@@ -741,6 +840,7 @@ export class TestNew{
           ,cssClass_:cssItem_,show_:true
           ,HtmlTypeAttr_:"div"
           ,HtmlSubmittedValue_:"text value"+i
+          ,DisplayValue_:""
           ,pattern_:null
           ,maxLength_:null
           ,minLength_:null})
@@ -966,6 +1066,7 @@ export class TestNew{
       ,cssClass_:"",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:"text value"
+      ,DisplayValue_:""
       ,pattern_:null
       ,maxLength_:null
       ,minLength_:null});
@@ -981,13 +1082,13 @@ export class TestNew{
 
     let tbdd0=new TextControlNew({key_:60,name_:"Textctrl20",value_:"Textctrl20",
     typeName_:"TextControlNew",array_:null,cssClass_:"",show_:true,HtmlTypeAttr_:"div"
-    ,HtmlSubmittedValue_:"drop box tb1",pattern_:null,maxLength_:null,minLength_:null});
+    ,HtmlSubmittedValue_:"drop box tb1",DisplayValue_:"",pattern_:null,maxLength_:null,minLength_:null});
     let tbdd1=new TextControlNew({key_:61,name_:"Textctrl21",value_:"Textctrl21",
     typeName_:"TextControlNew",array_:null,cssClass_:"",show_:true,HtmlTypeAttr_:"div"
-    ,HtmlSubmittedValue_:"drop box tb2",pattern_:null,maxLength_:null,minLength_:null});
+    ,HtmlSubmittedValue_:"drop box tb2",DisplayValue_:"",pattern_:null,maxLength_:null,minLength_:null});
     let tbdd2=new TextControlNew({key_:62,name_:"Textctrl22",value_:"Textctrl22",
     typeName_:"TextControlNew",array_:null,cssClass_:"",show_:true,HtmlTypeAttr_:"div"
-    ,HtmlSubmittedValue_:"drop box tb3",pattern_:null,maxLength_:null,minLength_:null});
+    ,HtmlSubmittedValue_:"drop box tb3",DisplayValue_:"",pattern_:null,maxLength_:null,minLength_:null});
     let tddArr=[tbdd0,tbdd1,tbdd2]
     let ddC0=new DropDownControlNgNew({key_:68,
     name_:"DropDownControlNgNew1",
@@ -1078,7 +1179,7 @@ export class TestNew{
         ,object_:new TextControlNew({
         key_:0,name_:"Textctrl"+0,value_:"Textctrl"+0,typeName_:null
         ,array_:null,cssClass_:"",show_:true,HtmlTypeAttr_:"div"
-        ,HtmlSubmittedValue_:"text value"+0,pattern_:null,maxLength_:null
+        ,HtmlSubmittedValue_:"text value"+0,DisplayValue_:"",pattern_:null,maxLength_:null
         ,minLength_:null})
     } ,{
       buttons_:new HtmlItemNew({key_:0,name_:"Test button 1",value_:"Test button 1"
@@ -1388,37 +1489,24 @@ export class TestNew{
     return r;
   }
 
-  public static QuizItemCloneCheck(){
-    let qz = new QuizItemNew({
-      key_:0,
-      name_:"Quiz name",
-      value_:"new quiz",
-      typeName_:null,array_:new Array<QuestionNew>()
-      ,itemControlls_:FactoryNew.quizItemParametersNewGen().array
-      ,cssClass_:"",show_:true
-      ,HtmlTypeAttr_:"",HtmlSubmittedValue_:"Enter quiz name"
-    });
+  public static DeepCopyTest(){
 
-    let hi0=new HtmlItemNew(null);
-    let hi1=new HtmlItemNew(null);
-    let hi2=new HtmlItemNew(null);
+    let qz=
+      FactoryNew.GenQuizes(5,5,5,"flexCtnr flexRow","flexCtnr flexRow","flexCtnr flexCol").array[0];
+    let qzCp=qz.recObj();
 
-    hi1._name="nm1";
-    hi2._name="nm2";
+    let qzItm:HtmlItemNew;
+    let qzItmCp:HtmlItemNew;
 
-    hi0.array=new Array<HtmlItemNew>(
-       hi1,hi2
-    );
+    if(qz instanceof QuizNew){
+      qzItm=qz.scan("MonthsGap",qz.itemControlls);
+    }
+    if(qzCp instanceof QuizNew){
+      qzItmCp=qzCp.scan("MonthsGap",qzCp.itemControlls);
+    }
+    qzItm._value="cahnged";
+    console.log(["Quiz recursive check: ",qz,qzCp,qzItm,qzItmCp])
 
-    let res=hi0.scan("nm2",hi0);
-    let res2=HtmlItemNew.DeepClone(hi0);
-    res._name="nm3";
-
-    let qzCp=HtmlItemNew.DeepClone(qz);
-    let qzItm=new HtmlItemNew(null);
-    qzItm.array=qzCp.itemParameter;
-    let qzFn=qzCp.scan("IsAnonimous",qzItm);
-    console.log(["QuizItemCloneCheck: ",hi0,res,res2]);
   }
 
   public static GO(){
@@ -1444,7 +1532,7 @@ export class TestNew{
 
     //check cloning
 
-    TestNew.QuizItemCloneCheck();
+    TestNew.DeepCopyTest();
 
   }
 

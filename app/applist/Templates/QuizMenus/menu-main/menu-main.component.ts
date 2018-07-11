@@ -23,16 +23,23 @@ export class MenuMainComponent implements OnInit {
   }
 
   ngOnInit(){
-  
+
     this._quizItems=ModelContainerNew.QuizesPassed;
+
     ModelContainerNew.nodeEdit.subscribe(s=>{
       this._editItem=ModelContainerNew.nodeSelected;
-
       ServiceCl.log(["nodeEdit received by " + this.constructor.name
         ,this._editItem
       ]);
-
     });
+
+    ModelContainerNew.nodeCopy.subscribe(s=>{
+      this._editItem=ModelContainerNew.nodeSelected;
+      ServiceCl.log(["nodeCopy received by " + this.constructor.name
+        ,this._editItem
+      ]);
+    });
+
     ServiceCl.log(["Inited: " + this.constructor.name,this._quizItems,this._buttons]);
   }
 
