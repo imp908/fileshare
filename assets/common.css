@@ -29,6 +29,16 @@ html, body { height: 100%; padding: 0; margin: 0; }
   /* padding-right: 15vw; */
 }
 
+hr {
+    display: block;
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    margin-left: auto;
+    margin-right: auto;
+    border-style: inset;
+    border-width: 1px;
+}
+
 #input_edit{
   width: 70%;
   height: 35px;
@@ -44,13 +54,18 @@ input[type="text"],input[type="number"]{
 input[type="number"]{
   width:5ch;
 }
+input[type="text"]{
+  width: 70vw;
+}
 
 /*vertical gaps between menu and lsit items*/
 .item{
  position: relative;
- margin-top: 2%;
- padding-top: 5%;
- padding-bottom: 0%;
+
+ padding-top: 0.5vh;
+ padding-bottom: 0.5vh;
+ padding-left: 0.5vw;
+ padding-right: 0.5vw;
 
 }
 
@@ -63,17 +78,28 @@ input[type="number"]{
 }
 
 .editarea{
-  display: -webkit-flex;
+  z-index: var(--menuZ);
+
+  position: fixed;
+  position: -webkit-sticky;
+
   display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+
   align-items: end;
 
   padding-left: 5vh;
-
+  background-image: var(--tealBackgroundTop);
   top: 3vh;
   margin-top: 0%;
   padding-top: var(--shadowHeight);
   z-index: var(--menuZ);
   border-radius: var(--menuBorderRads);
+  height: var(--listAreaH);
+  width: 99vw;
+  overflow-y: scroll;
+  left:0;
 }
 
 
@@ -103,7 +129,8 @@ input[type="number"]{
 
 }
 
-.textinputarea{
+
+.textinputEditArea{
   position: fixed;
 
   height: 5vh;
@@ -136,21 +163,9 @@ padding-bottom: var(--editAreaPadBtm);
 display: flex;
 flex-direction: column;
 flex-wrap: nowrap;
-/*
-flex-flow: column wrap;
-justify-content: flex-center; */
-
-
 height: var(--listAreaH);
 width: 99vw;
-
-/* max-height:1ch;
-
-margin-top: 1ch;*/
-/* border-style: double; */
-/* border-width: 0.1ch; */
-/* color: yellow; */
-background-image: var(--tealBackground);
+background-image: var(--tealBackgroundBottom);
 overflow-y: scroll;
 left:0;
 }
@@ -215,6 +230,13 @@ h1 {
   flex-direction:column;
   flex-wrap: wrap;
   align-items: flex-start;
+
+  margin-left:var(--fxhrMargWidth);
+  margin-right:var(--fxhrMargWidth);
+  margin-top:var(--fxhrMargWidth);
+  margin-bottom:var(--fxhrMargWidth);
+
+
   /* justify-content: flex-end; */
   /* border-color: green;  border-width : 1px;   border-style: solid; */
 }
@@ -229,11 +251,55 @@ h1 {
 
   margin-left:var(--fxhrMargWidth);
   margin-right:var(--fxhrMargWidth);
+  margin-top:var(--fxhrMargWidth);
+  margin-bottom:var(--fxhrMargWidth);
+
 
   /* justify-content: flex-start; */
   /* align-items: flex-start; */
   /* border-color:blue;  border-width : 1px;   border-style: solid; */
 }
+.fxbx{
+  display: -webkit-flex;
+  display: flex;
+}
+.fxlt{
+  display: -webkit-flex;
+  display: flex;
+
+  flex-direction:column;
+  flex-wrap: nowrap;
+  /* align-items: flex-start; */
+
+  /* align-items:flex-start; */
+}
+
+
+
+/* Test Flexbox */
+/* ==================================================================== */
+.flexCtnr{display:flex;}
+
+ /* flex-direction: row | row-reverse | column | column-reverse; */
+
+.flexCol{flex-direction:column;}
+.flexRow{flex-direction:row;}
+
+ /*  flex-wrap: nowrap | wrap | wrap-reverse;*/
+.fxWp{flex-wrap: wrap}
+.fxnWp{flex-wrap: nowrap}
+
+ /* justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly; */
+.fxHrLt{ justify-content: flex-start}
+.fxHrRt{ justify-content: flex-end}
+
+ /* align-self: auto | flex-start | flex-end | center | baseline | stretch; */
+ .fxVtUp{align-self:flex-start}
+ .fxVtDw{align-self:flex-end}
+
+/* ==================================================================== */
+
+
 
 .chevron::before {
 	border-style: solid;
@@ -264,6 +330,12 @@ h1 {
   transform:rotate(180deg);
 }
 
-.label_{
-   font-weight: 450;
+.label{
+  position: relative;
+  padding-left: 2em;
+  font-weight: 450;
+}
+
+.itemGroup{
+  margin-top: 10ch;
 }
