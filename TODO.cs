@@ -451,12 +451,14 @@ TnT[
 	<- done 10.07.2018 13:30 -> Add new Button
 	<- done 10.07.2018 13:30 -> Question,Answer button names
 	<- done 11.07.2018 14:00 -> new Deep copy with object instance, nad nested collections
+	<- done 11.07.2018 17:00 -> Edit menu buttons Save, Cancel + events
+	<- done 12.07.2018 12:00 -> correct collection add,update with null key
+	<- done 12.07.2018 12:00 -> itemControls Name to object name bind
+	<- done 12.07.2018 12:00 -> Question ItemParameters change to textbox and drop box with events
+	<- done 12.07.2018 13:50 -> Quiz checlbox cycle change event, display
 	
-	-> itemControls Nmae to object name bind
-	-> Edit menu buttons Save, Cancel + events
-	-> Remove @Input, generate buttons from Menu List and Edit List with object names	
-	-> Question ItemParameters change to textbox and drop box with events
 	-> Question edit events (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
+	-> Remove @Input, generate buttons from Menu List and Edit List with object names			
 	-> add weeks in year, days in week to Factory
 	-> Http POST,GET
 	
