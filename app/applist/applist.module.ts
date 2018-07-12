@@ -18,6 +18,7 @@ import { MenuEditComponent } from './Templates/QuizMenus/menu-edit/menu-edit.com
 import { MenuMainComponent } from './Templates/QuizMenus/menu-main/menu-main.component';
 
 import { DropdownmultiComponent } from './Templates/Elements/dropdowns/dropdownmulti/dropdownmulti.component';
+import { DropdownComponent } from './Templates/Elements/dropdowns/dropdownng/dropdownng.component';
 
 import { GappickerNgComponent } from './Templates/Elements/gappicker-ng/gappicker-ng.component';
 import { MenuitemComponent } from './Templates/QuizMenus/menuitem/menuitem.component';
@@ -27,7 +28,7 @@ import { MenuitemComponent } from './Templates/QuizMenus/menuitem/menuitem.compo
   declarations: [ApplistComponent,DatepickerPopupComponent
     , ButtonComponent, ItemComponent, TestComponent
     , ItemsComponent, MenuListComponent, MenuEditComponent, MenuMainComponent
-    ,DropdownmultiComponent
+    ,DropdownmultiComponent,DropdownComponent
     ,GappickerNgComponent, MenuitemComponent
     ],
   imports: [

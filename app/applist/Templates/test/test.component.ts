@@ -43,8 +43,7 @@ export class TestComponent implements OnInit {
 
     TestNew.GO();
 
-    ModelContainerNew.QuizesPassed=
-    FactoryNew.GenQuizes(5,5,5,"flexCtnr flexRow","flexCtnr flexRow","flexCtnr flexCol");
+    ModelContainerNew.Init();
 
     this.quizes_=new Array<QuizNew>();
     this.items_=TestNew.Buttons();

@@ -14,7 +14,7 @@ import {ModelContainerNew,FactoryNew} from 'src/app/applist/Models/initsNew.comp
 export class MenuMainComponent implements OnInit {
 
   @Input() _quizItems:QuizItemNew;
-  @Input() _buttons:ButtonNew[];
+  @Input() _buttonsQuiz:ButtonNew[];
   @Input() editButtons_:ButtonNew[];
 
   _editItem:QuizItemNew;
@@ -40,7 +40,7 @@ export class MenuMainComponent implements OnInit {
       ]);
     });
 
-    ServiceCl.log(["Inited: " + this.constructor.name,this._quizItems,this._buttons]);
+    ServiceCl.log(["Inited: " + this.constructor.name,this._quizItems,this._buttonsQuiz]);
   }
 
 

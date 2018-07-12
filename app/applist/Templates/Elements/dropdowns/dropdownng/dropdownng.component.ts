@@ -2,6 +2,7 @@ import { Component, OnInit ,Input} from '@angular/core';
 
 import {ServiceCl} from 'src/app/applist/Services/services.component'
 import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
+import {ModelContainerNew} from 'src/app/applist/Models/initsNew.component'
 
 @Component({
   selector: 'app-dropdownng',
@@ -19,13 +20,11 @@ export class DropdownComponent implements OnInit {
   }
 
   ngOnInit(){
-
-
     ServiceCl.log(["Inited: " + this.constructor.name,this.htmlItem_]);
   }
   changed(i){
     this.htmlItem_.HtmlSubmittedValue=i._value;
-
+    ModelContainerNew.dropboxClicked(this.htmlItem_);
     ServiceCl.log(["changed",this.htmlItem_,i]);
   }
 }

@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import {HtmlItemNew,QuizItemNew} from 'src/app/applist/Models/POCOnew.component';
 import {ServiceCl} from 'src/app/applist/Services/services.component';
 
+import {FactoryNew} from 'src/app/applist/Models/initsNew.component';
+
 @Component({
   selector: 'app-items',
   templateUrl: './items.component.html',
@@ -29,5 +31,11 @@ export class ItemsComponent implements OnInit {
     if(i_ instanceof QuizItemNew){
       return true;
     }
+  }
+  typeCheck(i_:HtmlItemNew){
+    return FactoryNew.TypeCheck(i_);
+  }
+  instanceCheck(i_:HtmlItemNew){
+    return FactoryNew.InstanceCheck(i_);
   }
 }

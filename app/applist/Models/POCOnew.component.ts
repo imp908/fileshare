@@ -19,7 +19,7 @@ export class NodeNew{
       this._value=o.value_;
       this._typeName=o.typeName_;
 
-      if(o.key_==null){this._key=0;}
+      // if(o.key_==null){this._key=0;}
       if(o.typeName_==null){this._typeName=this.constructor.name}
     }else{
       this._key=0;
@@ -49,7 +49,7 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
 
 
   add(item:T){
-    console.log(["Add",this,item]);
+    // console.log(["Add",this,item]);
 
     var max=0;
     var toPsuh:boolean=false;
@@ -145,7 +145,7 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
     return null;
   }
   update(item:T){
-    console.log(["Update",this,item]);
+    // console.log(["Update",this,item]);
     var max=0;
     var toPsuh:boolean=false;
 
@@ -176,7 +176,7 @@ export class CollectionNew<T extends NodeNew> extends NodeNew{
         if(this.tolog){
           // console.log(index_);
         }
-        console.log(["addUpdate",this,item,index_]);
+        // console.log(["addUpdate",this,item,index_]);
         if(index_!=null){
           // console.log("Update");
           this.update(item);
@@ -604,6 +604,19 @@ export class QuizItemNew extends HtmlItemNew{
     return ret_;
   }
 
+  getControllItem(name:string){
+    if(this.itemControlls!=null){
+      if(this.itemControlls.length>0){
+        let itm=this.scan(name,this.itemControlls);
+        // console.log("------------------------")
+        // console.log(["nameExtractBind",this.itemControlls,itm])
+        if(itm!=null){
+          return itm;
+        }
+      }
+    }
+    return null;
+  }
   nameItem(){
     if(this.itemControlls!=null){
       if(this.itemControlls.length>0){

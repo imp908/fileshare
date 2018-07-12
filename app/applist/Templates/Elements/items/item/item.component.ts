@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 
 import {ServiceCl} from 'src/app/applist/Services/services.component'
 import {HtmlItemNew,QuizItemNew,TextControlNew} from 'src/app/applist/Models/POCOnew.component'
-import {FactoryNew} from 'src/app/applist/Models/initsNew.component';
+import {FactoryNew,ModelContainerNew} from 'src/app/applist/Models/initsNew.component';
 
 @Component({
   selector: 'app-item',
@@ -30,7 +30,8 @@ export class ItemComponent implements OnInit {
   clicked_(e_){
     if(FactoryNew.TypeCheck(this._item)=='CheckBox'){
       this._item.HtmlSubmittedValue=!this._item.HtmlSubmittedValue;
-      ServiceCl.log(["Checkbox clicked",this._item]);
+      ModelContainerNew.checkboxClicked(this._item,this._object);
+      ServiceCl.log(["Checkbox clicked",this._item,this._object]);
     }
     ServiceCl.log(["Item clicked event for item and object: ",e_,this._item,this._object]);
   }

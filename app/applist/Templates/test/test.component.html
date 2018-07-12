@@ -94,13 +94,13 @@
     <!-- Menu list check -->
     <!-- =======================================     -->
     <div class="itemGroup">
-      <app-menu-list [_quizes]="this.quizItems_.array"[_buttons]="this.ItemButtons_"></app-menu-list>
+      <app-menu-list [_quizes]="this.quizItems_.array"[_buttonsQuiz]="this.ItemButtons_"></app-menu-list>
     </div>
     <div class="itemGroup">
-      <app-menu-list [_quizes]="this.quizItems_.array[0].array"[_buttons]="this.ItemButtons_"></app-menu-list>
+      <app-menu-list [_quizes]="this.quizItems_.array[0].array"[_buttonsQuiz]="this.ItemButtons_"></app-menu-list>
     </div>
     <div class="itemGroup">
-      <app-menu-list [_quizes]="this.quizItems_.array[0].array[0].array"[_buttons]="this.ItemButtons_"></app-menu-list>
+      <app-menu-list [_quizes]="this.quizItems_.array[0].array[0].array"[_buttonsQuiz]="this.ItemButtons_"></app-menu-list>
     </div>
     <!-- =======================================     -->
 
@@ -118,7 +118,7 @@
     </div>
 
     <div class="itemGroup">
-      <app-menu-main  [_buttons]="this.ItemButtons_" [editButtons_]="this.editButtons_"></app-menu-main>
+      <app-menu-main [_buttonsQuiz]="this.ItemButtons_" [editButtons_]="this.editButtons_"></app-menu-main>
     </div>
 
     <!-- =======================================     -->

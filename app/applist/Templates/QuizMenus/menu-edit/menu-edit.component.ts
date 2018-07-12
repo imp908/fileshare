@@ -26,7 +26,7 @@ export class MenuEditComponent implements OnInit {
       ServiceCl.log(["stateChanged received by " + this.constructor.name
       ,this._item,this._editButtons]);
     });
-
+  
   }
 
 }

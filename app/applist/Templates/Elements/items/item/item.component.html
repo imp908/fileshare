@@ -1,7 +1,7 @@
 <!-- <p>item works!</p> -->
 
 <ng-container *ngIf="_item!=null">
-
+  <ng-container *ngIf="_item.show==true">
 
 <!-- Buttons items -->
 <!-- ======================================================================= -->
@@ -35,6 +35,7 @@
 <!-- Html controlls  -->
 <!-- ======================================================================= -->
   <div *ngIf="(instanceCheck()=='HtmlItem')">
+
     <div [class]="_item.cssClass">
       <div class="label">{{_item._value}}</div>
 
@@ -42,10 +43,13 @@
         <input type="checkbox" value="check" [(ngModel)]="this._item.HtmlSubmittedValue" (click)="clicked_($event)">
       </div>
 
-      <div>
+
       <div *ngIf="typeCheck()=='DropDownControlMultiNew'">
         <app-dropdownmulti [htmlItem_]="this._item"></app-dropdownmulti>
       </div>
+
+      <div *ngIf="typeCheck()=='DropDownControlNgNew'">
+        <app-dropdownng [htmlItem_]="this._item"></app-dropdownng>
       </div>
 
       <div *ngIf="typeCheck()=='LabelControlNew'">
@@ -83,7 +87,9 @@
       </div>
 
     </div>
+
   </div>
 <!-- ======================================================================= -->
 
+</ng-container>
 </ng-container>

@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import {ServiceCl} from 'src/app/applist/Services/services.component'
 import {QuizNew,QuestionNew,AnswerNew
 ,ButtonNew
+,HtmlItemNew
 ,QuizItemNew} from 'src/app/applist/Models/POCOnew.component';
 
 import {ModelContainerNew,FactoryNew} from 'src/app/applist/Models/initsNew.component';
@@ -15,11 +16,11 @@ import {ModelContainerNew,FactoryNew} from 'src/app/applist/Models/initsNew.comp
 export class MenuitemComponent implements OnInit {
 
   @Input() _quizes:QuizItemNew;
-  @Input() _buttons:ButtonNew[];
+  @Input() _buttons:HtmlItemNew;
 
   _AddNewButton:ButtonNew[];
   _addObj:QuizItemNew;
-  constructor() {
+  constructor(){
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
 
@@ -32,6 +33,7 @@ export class MenuitemComponent implements OnInit {
     if(this._quizes instanceof QuestionNew){_itmName="Answer";this._addObj=FactoryNew.NewQuizItemObj(new AnswerNew(null));}
 
     this._AddNewButton=FactoryNew.AddNewButton(_itmName);
+
     ServiceCl.log(["Inited: " + this.constructor.name,this._quizes]);
   }
 
