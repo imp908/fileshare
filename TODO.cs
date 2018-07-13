@@ -456,11 +456,17 @@ TnT[
 	<- done 12.07.2018 12:00 -> itemControls Name to object name bind
 	<- done 12.07.2018 12:00 -> Question ItemParameters change to textbox and drop box with events
 	<- done 12.07.2018 13:50 -> Quiz checlbox cycle change event, display
+	<- done 12.07.2018 21:00 -> Question edit events (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
+	<- done 13.07.2018 15:00 -> add weeks in year, days in week to Factory
+	<- done 13.07.2018 15:00 -> Question,answer Item parameters
 	
-	-> Question edit events (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
-	-> Remove @Input, generate buttons from Menu List and Edit List with object names			
-	-> add weeks in year, days in week to Factory
+	-> Htmlitem changed status
+	-> share save functionaity betweeen other buttons
+	-> save only on post 
+	-> Remove @Input, generate buttons from Menu List and Edit List with object names				
 	-> Http POST,GET
+	-> pass page 
+
 	
 -> move nsql manager to core
 -> Back model arrange for itemparameters and quizcontrolls
