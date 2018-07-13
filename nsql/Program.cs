@@ -43,10 +43,10 @@ namespace NSQLManager
             //ManagerCheck.GenDevDB();
 
             //FUCNTIONAL CHECK
-            //ManagerCheck.UOWFunctionalCheck();
+            ManagerCheck.UOWFunctionalCheck();
 
             //check linq to context
-            LinqToContextPOC.LinqToContextCheck.GO();            
+            LinqToContextPOC.LinqToContextCheck.GO();
       
             //START API TEST
             ManagerCheck.APItester_sngltnCheck();
@@ -269,6 +269,26 @@ namespace NSQLManager
             AdinTce.AdinTceRepo adinTceRepo = new AdinTce.AdinTceRepo();
             string res=adinTceRepo.HoliVation("ba124b8e-9857-11e7-8119-005056813668");
         }
+        public static void AdinTceTest()
+        {
+            AdinTce.AdinTceRepo adinTceRepo = new AdinTce.AdinTceRepo();
+
+            IOrientRepo repo = RepoFactory.NewOrientRepo("Orgchart_prod_2", "http://msk1-vm-indb01:2480","root", "mR%mzJUGq1E");
+            
+            IUOWs.UOW uow = new IUOWs.UOW(repo);
+
+            IEnumerable<Person> persons = uow.GetItems<Person>();
+            string res="";
+            foreach (Person i in persons)
+            {
+                res = adinTceRepo.HoliVation(i.GUID);
+            }
+
+            //"0629685d-7e6b-11e7-8119-005056813668"
+            //"f58c67e4-ab78-11e4-b308-f80f41d3dd35"
+            
+
+        }
 
 
         //API testing mehod
@@ -279,7 +299,7 @@ namespace NSQLManager
             at.GO();
         }
         //DATABASE BOILERPLATE
-        public static void GenDevDB(bool cleanUpAter=false,bool newsGen=true)
+        public static void GenDevDB(bool recreate = false,bool cleanUpAter=false,bool newsGen=true)
         {
 
     List<News> news_=new List<News>(){};
@@ -287,7 +307,7 @@ namespace NSQLManager
 
     Managers.Manager mng=new Managers.Manager("dev_db");
     //CREATE DB
-    mng.GenDB(cleanUpAter);
+    mng.GenDB(true, cleanUpAter);
     //GENERATE NEWS,COMMENTS
     mng.GenNewsComments(newsGen,true);
 
@@ -309,9 +329,11 @@ namespace NSQLManager
         //FUNCTIONAL TESTS
         public static void UOWFunctionalCheck()
         {
-            //AdinTceCheck();
+            AdinTceTest();
 
-            QuizNewCheck();
+            AdinTceCheck();
+
+            //QuizNewCheck();
 
             //GetPersonCheck();
 
