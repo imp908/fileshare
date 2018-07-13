@@ -292,10 +292,12 @@ h1 {
  /* justify-content: flex-start | flex-end | center | space-between | space-around | space-evenly; */
 .fxHrLt{ justify-content: flex-start}
 .fxHrRt{ justify-content: flex-end}
+.fxHrCt{ justify-content: center}
 
  /* align-self: auto | flex-start | flex-end | center | baseline | stretch; */
  .fxVtUp{align-self:flex-start}
  .fxVtDw{align-self:flex-end}
+ .fxVtCn{align-self:center}
 
 /* ==================================================================== */
 
