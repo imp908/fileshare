@@ -28,10 +28,11 @@ export class ItemComponent implements OnInit {
     return FactoryNew.InstanceCheck(this._item);
   }
   clicked_(e_){
+    ServiceCl.log(["clicked: ",e_])
     if(FactoryNew.TypeCheck(this._item)=='CheckBox'){
       this._item.HtmlSubmittedValue=!this._item.HtmlSubmittedValue;
       ModelContainerNew.checkboxClicked(this._item,this._object);
-      ServiceCl.log(["Checkbox clicked",this._item,this._object]);
+      ServiceCl.log(["Checkbox clicked_",this._item,this._object]);
     }
     ServiceCl.log(["Item clicked event for item and object: ",e_,this._item,this._object]);
   }
@@ -43,7 +44,7 @@ export class ItemComponent implements OnInit {
     ServiceCl.log(["changeTextbox_: ",e,this._item])
   }
   isQuizItem(i_:HtmlItemNew){
-    console.log(["isQuizItem ",i_,i_ instanceof QuizItemNew])
+    ServiceCl.log(["isQuizItem ",i_,i_ instanceof QuizItemNew])
     if(i_ != null){
       if(i_ instanceof QuizItemNew){
         return true;

@@ -608,8 +608,10 @@ export class QuizItemNew extends HtmlItemNew{
     if(this.itemControlls!=null){
       if(this.itemControlls.length>0){
         let itm=this.scan(name,this.itemControlls);
+
         // console.log("------------------------")
         // console.log(["nameExtractBind",this.itemControlls,itm])
+
         if(itm!=null){
           return itm;
         }
@@ -633,13 +635,14 @@ export class QuizItemNew extends HtmlItemNew{
   nameObjectToItem(){
     let extrName=this.nameItem();
     if(extrName!=null){
-      extrName.HtmlSubmittedValue=this._name;
+      console.log(["nameObjectToItem: ",extrName,this])
+      extrName.HtmlSubmittedValue=this._value;
     }
   }
   nameItemToObject(){
     let extrName=this.nameItem();
     if(extrName!=null){
-      this._name=extrName.HtmlSubmittedValue;
+      this._value=extrName.HtmlSubmittedValue;
     }
   }
 

@@ -17,13 +17,13 @@
 
     <div [class]="_item.cssClass">
       <div *ngIf="typeCheck()=='AnswerNew'">
-        {{this._item._name}}
+        {{this._item._value}}
       </div>
       <div *ngIf="typeCheck()=='QuizNew'">
-        {{this._item._name}}
+        {{this._item._value}}
       </div>
       <div *ngIf="typeCheck()=='QuestionNew'">
-        {{this._item._name}}
+        {{this._item._value}}
       </div>
     </div>
 
@@ -47,6 +47,7 @@
       <div *ngIf="typeCheck()=='DropDownControlMultiNew'">
         <app-dropdownmulti [htmlItem_]="this._item"></app-dropdownmulti>
       </div>
+
 
       <div *ngIf="typeCheck()=='DropDownControlNgNew'">
         <app-dropdownng [htmlItem_]="this._item"></app-dropdownng>

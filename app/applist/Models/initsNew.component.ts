@@ -95,6 +95,37 @@ export class FactoryNew{
     return r;
   }
 
+  static DaysInWeek(){
+    let r = new DropDownControlMultiNew({
+      key_:0,
+      name_:"DaysInWeek",
+      value_:"Days in week",
+      typeName_:null
+      ,array_:null
+      ,cssClass_:"",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+    });
+
+    for(let i=0;i<7;i++){
+      r.add(
+        new LabelControlNew({
+          key_:i,
+          name_:"Label control",
+          value_:"Day "+(i+1),
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:null
+          })
+      )
+    }
+    return r;
+  }
+
+
+
   //Quiz object parameters
 
   static quizItemParametersNewGen(){
@@ -119,7 +150,7 @@ export class FactoryNew{
         new TextControlNew({
           key_:0,
           name_:"ItemName",
-          value_:"Enter quiz name",
+          value_:"Enter quiz text",
           typeName_:null
           ,array_:null
           ,cssClass_:"fxhr",show_:true
@@ -132,9 +163,8 @@ export class FactoryNew{
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:false
     });
-
     let checkboxes = new HtmlItemNew({
-      key_:0,
+      key_:1,
       name_:"QuizCheckboxControlls",
       value_:"QuizCheckboxControlls",
       typeName_:null
@@ -186,7 +216,7 @@ export class FactoryNew{
     });
 
     let stardate = new HtmlItemNew({
-      key_:1,
+      key_:2,
       name_:"QuizStartDate",
       value_:"Quiz start date",
       typeName_:null
@@ -197,17 +227,67 @@ export class FactoryNew{
           value_:"Quiz start date",
           typeName_:null
           ,array_:null
-          ,cssClass_:"fxhr",show_:true
+          ,cssClass_:"flexCtnr flexRow",show_:true
           ,HtmlTypeAttr_:"div"
           ,HtmlSubmittedValue_:new Date(2018,1,1)
         }))
-      ,cssClass_:"fxhr",show_:true
+      ,cssClass_:"flexCtnr",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:""
+    });
+    let startTime =  new HtmlItemNew({
+      key_:3,
+      name_:"NumberPickerGroup",
+      value_:"Quiz start time",
+      typeName_:null
+      ,array_:new Array<NumberPickerControlNew>(
+        new NumberPickerControlNew({
+          key_:0,
+          name_:"HourSelect",
+          value_:"Start hour (24H)",
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"fxvt",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:0
+          ,DisplayValue_:0
+          ,minN:0
+          ,maxN:23
+        })
+        , new NumberPickerControlNew({
+            key_:0,
+            name_:"MinutesSelect",
+            value_:"Start minutes",
+            typeName_:null
+            ,array_:null
+            ,cssClass_:"fxvt",show_:true
+            ,HtmlTypeAttr_:"div"
+            ,HtmlSubmittedValue_:0
+            ,DisplayValue_:0
+            ,minN:0
+            ,maxN:59
+          })
+      )
+      ,cssClass_:"flexCtnr flexRow",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:""
     });
 
+    let startGroup=new HtmlItemNew({
+      key_:1,
+      name_:"QuizStartGroup",
+      value_:"QuizStartGroup",
+      typeName_:null
+      ,array_:new Array<HtmlItemNew>(
+      stardate,startTime
+      )
+      ,cssClass_:"flexCtnr flexRow fxHrCt",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:false
+    });
+
     let cycleCheckbox = new HtmlItemNew({
-      key_:2,
+      key_:10,
       name_:"CycleCheckbox",
       value_:"CycleCheckbox",
       typeName_:null
@@ -227,12 +307,33 @@ export class FactoryNew{
       ,HtmlSubmittedValue_:""
     });
 
+    let labels = new HtmlItemNew({
+      key_:2,
+      name_:"CycleLableGroup",
+      value_:"CycleLable",
+      typeName_:null
+      ,array_: new Array<LabelControlNew>(
+        new LabelControlNew({
+         key_:0,
+         name_:"CycleCheckboxItemLabel",
+         value_:"Cycle quiz every time gap",
+         typeName_:null
+         ,array_:null
+         ,cssClass_:"fxvt",show_:true
+         ,HtmlTypeAttr_:"div"
+         ,HtmlSubmittedValue_:true
+       }))
+      ,cssClass_:"fxvt",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:""
+    });
     let quizNumbers = new HtmlItemNew({
       key_:4,
       name_:"NumberPickerGroup",
       value_:"NumberPickerGroup",
       typeName_:null
       ,array_:new Array<NumberPickerControlNew>(
+
         new NumberPickerControlNew({
           key_:0,
           name_:"YearGap",
@@ -247,7 +348,7 @@ export class FactoryNew{
           ,maxN:9999
         })
         ,new NumberPickerControlNew({
-          key_:0,
+          key_:1,
           name_:"MonthsGap",
           value_:"Months gap",
           typeName_:null
@@ -259,53 +360,78 @@ export class FactoryNew{
           ,minN:0
           ,maxN:9999
         })
+        ,new NumberPickerControlNew({
+          key_:2,
+          name_:"WeeksGap",
+          value_:"Weeks gap",
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"fxvt",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:0
+          ,DisplayValue_:0
+          ,minN:0
+          ,maxN:9999
+        })
+        ,new NumberPickerControlNew({
+          key_:3,
+          name_:"DaysGap",
+          value_:"Days gap",
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"fxvt",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:0
+          ,DisplayValue_:0
+          ,minN:0
+          ,maxN:9999
+        })
+
       )
-      ,cssClass_:"fxhr",show_:false
+      ,cssClass_:"fxhr",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:""
     });
-
-    let DropBoxes = new HtmlItemNew({
+    let dropBoxes = new HtmlItemNew({
       key_:5,
       name_:"DropBoxesGroup",
-      value_:"Time periods",
+      value_:"Start report every time gap",
       typeName_:null
       ,array_:new Array<DropDownControlMultiNew>(
       FactoryNew.MonthsInYear()
-      ,new DropDownControlMultiNew({
-      key_:1,
-      name_:"Weeks in year",
-      value_:"Weeks in year",
-      typeName_:null
-      ,array_:TestNew.LabelControlNewTest(3,"row").array
-      ,cssClass_:"",show_:false
-      ,HtmlTypeAttr_:"div"
-      ,HtmlSubmittedValue_:""})
-      ,new DropDownControlMultiNew({
-      key_:2,
-      name_:"Days in week",
-      value_:"Days in week",
-      typeName_:null
-      ,array_:TestNew.LabelControlNewTest(3,"row").array
-      ,cssClass_:"",show_:true
-      ,HtmlTypeAttr_:"div"
-      ,HtmlSubmittedValue_:""})
+      ,FactoryNew.DaysInWeek()
       )
       ,cssClass_:"fxhr",show_:true
       ,HtmlTypeAttr_:"div"
       ,HtmlSubmittedValue_:""
     });
 
+    let cycleGroup=new HtmlItemNew({
+      key_:15,
+      name_:"CycleGtoup",
+      value_:"CycleGtoup",
+      typeName_:null
+      ,array_: new Array<HtmlItemNew>(
+        labels,quizNumbers,dropBoxes)
+      ,cssClass_:"fxvt",show_:false
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:""
+    });
 
     r.add(textboxes);
     r.add(checkboxes);
-    r.add(stardate);
-    r.add(cycleCheckbox);
-    r.add(quizNumbers);
-    r.add(DropBoxes);
 
-    DropBoxes.show=false;
-    quizNumbers.show=false;
+    r.add(startGroup);
+    // r.add(startTime);
+    // r.add(stardate);
+
+    r.add(cycleCheckbox);
+
+    r.add(cycleGroup);
+
+    // r.add(labels);
+    // r.add(quizNumbers);
+    // r.add(DropBoxes);
 
     r.sort(true);
     return r;
@@ -323,35 +449,31 @@ export class FactoryNew{
       ,HtmlSubmittedValue_:"Question controlls"
     });
 
-    let textboxes = new TextControlNew({
-      key_:2,
-      name_:"Textctrl",
-      value_:"Question text",
+    let textboxes =new HtmlItemNew({
+      key_:0,
+      name_:"Questiontexts",
+      value_:"Questiontexts",
       typeName_:null
       ,array_:new Array<TextControlNew>(
-          new TextControlNew({
-            key_:0,
-            name_:"ItemName",
-            value_:"Enter question text",
-            typeName_:null
-            ,array_:null
-            ,cssClass_:"fxhr",show_:true
-            ,HtmlTypeAttr_:"div"
-            ,HtmlSubmittedValue_:""
-            ,DisplayValue_:""
-          })
-        )
-      ,cssClass_:"",show_:true
+        new TextControlNew({
+          key_:0,
+          name_:"ItemName",
+          value_:"Enter question text",
+          typeName_:null
+          ,array_:null
+          ,cssClass_:"fxhr",show_:true
+          ,HtmlTypeAttr_:"div"
+          ,HtmlSubmittedValue_:""
+          ,DisplayValue_:""
+        })
+      )
+      ,cssClass_:"fxvt",show_:true
       ,HtmlTypeAttr_:"div"
-      ,HtmlSubmittedValue_:null
-      ,DisplayValue_:"dsp"
-      ,pattern_:null
-      ,maxLength_:null
-      ,minLength_:null
+      ,HtmlSubmittedValue_:false
     });
 
     let dropboxes = new DropDownControlNgNew({
-        key_:0,
+        key_:1,
         name_:"QuestionTypes",
         value_:"Select answers type for question",
         typeName_:null
@@ -410,6 +532,48 @@ export class FactoryNew{
 
     return r;
   }
+  static answerParametersNewGen(){
+
+    let r=new HtmlItemNew({
+       key_:0,
+       name_:"AnswerControlls",
+       value_:"Answer controlls",
+       typeName_:null
+       ,array_:new Array<HtmlItemNew>()
+       ,cssClass_:"",show_:true
+       ,HtmlTypeAttr_:"div"
+       ,HtmlSubmittedValue_:""
+     });
+
+     let textboxes=new HtmlItemNew({
+       key_:0,
+       name_:"AnswerName",
+       value_:"AnswerName",
+       typeName_:null
+       ,array_:new Array<TextControlNew>(
+         new TextControlNew({
+           key_:0,
+           name_:"ItemName",
+           value_:"Enter answer text",
+           typeName_:null
+           ,array_:null
+           ,cssClass_:"fxhr",show_:true
+           ,HtmlTypeAttr_:"div"
+           ,HtmlSubmittedValue_:""
+           ,DisplayValue_:""
+         })
+       )
+       ,cssClass_:"fxvt",show_:true
+       ,HtmlTypeAttr_:"div"
+       ,HtmlSubmittedValue_:false
+     });
+
+     r.add(textboxes);
+
+     return r;
+  }
+
+
 
   public static ItemButtons(itmNm:string){
     let r = new HtmlItemNew(null);
@@ -614,7 +778,8 @@ export class FactoryNew{
       name_:"Answer name",
       value_:"new answer",
       typeName_:null,array_:null
-      ,itemControlls_:null,cssClass_:"",show_:true
+      ,itemControlls_:FactoryNew.answerParametersNewGen().array
+      ,cssClass_:"",show_:true
       ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""})
     }
     return r;
@@ -657,7 +822,8 @@ export class FactoryNew{
               name_:"Answer_name "+(i3),
               value_:"Answer_value "+(i3),
               typeName_:"AnswerNew",array_:null
-              ,itemControlls_:null,cssClass_:"",show_:true
+              ,itemControlls_:FactoryNew.answerParametersNewGen().array
+              ,cssClass_:"",show_:true
               ,HtmlTypeAttr_:"",HtmlSubmittedValue_:""});
 
               qtNew.array.push(awNew);
@@ -706,6 +872,7 @@ export class ModelContainerNew{
     this.questionSelected=null;
 
   }
+
   public static buttonClicked(btn_:ButtonNew,obj:HtmlItemNew,e:any){
     console.log(["buttonClicked :",btn_,obj,e])
 
@@ -750,12 +917,12 @@ export class ModelContainerNew{
       ModelContainerNew.nodeEdit.emit();
     }
 
-
+    ModelContainerNew.questionButtonsToggle();
     ModelContainerNew.stateChanged.emit();
   }
   public static checkboxClicked(item_:HtmlItemNew,object_:HtmlItemNew){
     ModelContainerNew.CycleCheckboxCheck(item_,object_);
-    console.log(["checkboxClicked: ",object_,item_])
+    console.log(["checkboxClicked: ",item_,object_])
   }
   public static dropboxClicked(item_:HtmlItemNew){
     ModelContainerNew.DropBoxCheck(item_);
@@ -769,11 +936,11 @@ export class ModelContainerNew{
       ModelContainerNew.questionSelected=null;
     }
     if(ModelContainerNew.nodeSelected instanceof QuestionNew){
-      console.log("QuestionNew cancel")
+      ServiceCl.log("QuestionNew cancel")
       ModelContainerNew.questionSelected=null;
     }
     if(ModelContainerNew.nodeSelected instanceof AnswerNew){
-      console.log("AnswerNew cancel")
+      ServiceCl.log("AnswerNew cancel")
 
     }
     ModelContainerNew.nodeSelected=null;
@@ -804,8 +971,8 @@ export class ModelContainerNew{
   static objectDetectAndBind(obj:HtmlItemNew){
 
     if(obj instanceof QuizItemNew){
-      ModelContainerNew.nodeSelected=obj;
       obj.nameObjectToItem();
+      ModelContainerNew.nodeSelected=obj;
       if(obj instanceof QuizNew){
         ModelContainerNew.answerSelected=null;
         ModelContainerNew.questionSelected=null;
@@ -852,38 +1019,71 @@ export class ModelContainerNew{
   }
 
   static CycleCheckboxCheck(item_:HtmlItemNew,object_:HtmlItemNew){
-    if(item_._name="CycleCheckboxItem"){
+    if(item_._name=="CycleCheckboxItem"){
       if(object_ instanceof QuizItemNew){
+
+        /*
         let nbGroup=object_.getControllItem("NumberPickerGroup");
         let dbGroup=object_.getControllItem("DropBoxesGroup");
+        let clGroup=object_.getControllItem("CycleLableGroup");
         if(nbGroup!=null){nbGroup.show=item_.HtmlSubmittedValue;}
         if(dbGroup!=null){dbGroup.show=item_.HtmlSubmittedValue;}
+        if(clGroup!=null){clGroup.show=item_.HtmlSubmittedValue;}
+        */
+
+        let cGroup=object_.getControllItem("CycleGtoup");
+        if(cGroup!=null){cGroup.show=item_.HtmlSubmittedValue;}
+
       }
     }
   }
   static DropBoxCheck(item_:HtmlItemNew){
-    if(item_.HtmlSubmittedValue=="Text answer"){
+    if(item_._name=="QuestionTypes"){
+      ModelContainerNew.questionButtonsToggle();
+    }
+  }
 
-      if(ModelContainerNew.nodeSelected instanceof QuestionNew){
+  static questionButtonsToggle(){
+    if(ModelContainerNew.nodeSelected instanceof QuestionNew){
 
+      let ctr=ModelContainerNew.nodeSelected
+      .getControllItem("QuestionTypes");
 
-        if(ModelContainerNew.questionSelected.array.length==1){
-          // ServiceCl.log(["Disable NewAddNew"])
-          ModelContainerNew.disable.emit({btn:new NewAddNew(null)
-            ,obj:new QuestionNew(null)});
-        }
+      if(ctr!=null){
+      if(ctr.HtmlSubmittedValue=="Text answer"){
 
-        if(ModelContainerNew.questionSelected.array.length>1){
-          // ServiceCl.log(["Disable NewAddNew,SaveNew"])
-          ModelContainerNew.disable.emit({btn:new SaveNew(null)
-            ,obj:new QuestionNew(null)});
-          ModelContainerNew.disable.emit({btn:new NewAddNew(null)
-            ,obj:new QuestionNew(null)});
-        }
+          if(ModelContainerNew.questionSelected.array.length==1){
+            ServiceCl.log(["Disable NewAddNew"])
 
+            ModelContainerNew.disable.emit({btn:new NewAddNew(null)
+              ,obj:new AnswerNew(null),act:true});
+            ModelContainerNew.disable.emit({btn:new SaveNew(null)
+              ,obj:new QuestionNew(null),act:false});
+          }
+          if(ModelContainerNew.questionSelected.array.length>1){
+            ServiceCl.log(["Disable NewAddNew,SaveNew"])
 
+            ModelContainerNew.disable.emit({btn:new SaveNew(null)
+              ,obj:new QuestionNew(null),act:true});
+            ModelContainerNew.disable.emit({btn:new NewAddNew(null)
+              ,obj:new AnswerNew(null),act:true});
+          }
 
+          if(ModelContainerNew.questionSelected.array.length==0){
+            ModelContainerNew.disable.emit({btn:new SaveNew(null)
+              ,obj:new QuestionNew(null),act:false});
+            ModelContainerNew.disable.emit({btn:new NewAddNew(null)
+              ,obj:new AnswerNew(null),act:false});
+          }
+
+      }else{
+        ModelContainerNew.disable.emit({btn:new SaveNew(null)
+          ,obj:new QuestionNew(null),act:false});
+        ModelContainerNew.disable.emit({btn:new NewAddNew(null)
+          ,obj:new AnswerNew(null),act:false});
       }
+      }
+
     }
   }
 

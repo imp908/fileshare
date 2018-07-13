@@ -22,12 +22,23 @@ export class ButtonComponent implements OnInit {
   ngOnInit(){
 
     ModelContainerNew.disable.subscribe(s=>{
-      if(this._object instanceof QuestionNew && this._button instanceof SaveNew){
-        this._button._disabled=true;
+
+      if(s.obj instanceof AnswerNew){
+      if(this._object instanceof AnswerNew ){
+        if( this._button instanceof NewAddNew){
+          this._button._disabled=s.act
+        }
       }
-      if(this._object instanceof AnswerNew && this._button instanceof NewAddNew){
-        this._button._disabled=true;
       }
+
+      if(s.obj instanceof QuestionNew){
+      if(this._object instanceof QuestionNew ){
+        if( this._button instanceof SaveNew){
+          this._button._disabled=s.act
+        }
+      }
+      }
+
       ServiceCl.log(["disable received by " + this.constructor.name,s])
     })
 
