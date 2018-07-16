@@ -1,4 +1,4 @@
-<div class="editarea">
+<div class="editarea2">
   <ng-container *ngIf="this._editItem!=null">
     <div class="itemGroup">
       <app-menu-edit [_item]="this._editItem" [_editButtons]="editButtons_"></app-menu-edit>
@@ -7,10 +7,10 @@
 </div>
 
 <div align="center">
-  <input type="text" maxlength="20"><button>Post</button><button>Get</button>
+  <input type="text" #d><button (click)="Post(d.value)">Post</button><button (click)="Get(d.value)">Get</button>
 </div>
 
-<div class="listarea">
+<div class="listarea2">
   <ng-container *ngIf="this._quizItems!=null">
   <div class="itemGroup">
     <app-menu-list [_quizes]="this._quizItems" [_buttonsQuiz]="this._buttonsQuiz"></app-menu-list>

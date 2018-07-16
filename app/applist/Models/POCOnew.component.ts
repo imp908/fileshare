@@ -556,7 +556,7 @@ export class LabelControlNew extends HtmlItemNew{}
 //base quiz object
 
 export class QuizItemNew extends HtmlItemNew{
-  show:boolean;
+
   itemControlls:HtmlItemNew[];
 
   constructor(o:{key_?:number,name_?:string,value_?:string,typeName_?:string

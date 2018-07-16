@@ -23,6 +23,7 @@ import { DropdownComponent } from './Templates/Elements/dropdowns/dropdownng/dro
 import { GappickerNgComponent } from './Templates/Elements/gappicker-ng/gappicker-ng.component';
 import { MenuitemComponent } from './Templates/QuizMenus/menuitem/menuitem.component';
 
+import {HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [ApplistComponent,DatepickerPopupComponent
@@ -34,8 +35,7 @@ import { MenuitemComponent } from './Templates/QuizMenus/menuitem/menuitem.compo
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
     ,NgbModule.forRoot()
-
-
+    ,HttpClientModule 
   ]
   ,bootstrap:[ApplistComponent]
 })

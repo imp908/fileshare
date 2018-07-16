@@ -1,8 +1,8 @@
 import { HttpClient, HttpHeaders , HttpResponse} from '@angular/common/http';
 
-import { Injectable } from '@angular/core';
+import {Injectable } from '@angular/core';
 
-import {HtmlItemNew} from 'src/app/applist/Models/POCOnew.component'
+import {QuizItemNew} from 'src/app/applist/Models/POCOnew.component'
 
 import {Observable} from 'rxjs/Observable';
 
@@ -12,40 +12,42 @@ const httpOptions = {
   })
 };
 
-@Injectable()
-export class HttpService {
+@Injectable({providedIn: 'root' })
+export class HttpService{
 
-  nodesPassed_:HtmlItemNew;
+  nodesPassed_:QuizItemNew;
 
-  private url:string = 'http://localhost:3208//api//quiz';
+  private url:string = 'http://localhost:63282//api//quiz2/any';
 
   constructor(private http: HttpClient){
-    this.nodesPassed_=new HtmlItemNew(null);
+    // this.nodesPassed_=new QuizItemNew(null);
   }
 
-  addQuiz (quiz: HtmlItemNew): Observable<HtmlItemNew[]>{
-    return this.http.post<HtmlItemNew[]>(this.url, quiz, httpOptions);
+  addQuiz(url_:string,quiz: QuizItemNew): Observable<QuizItemNew[]>{
+    if(url_==null){url_=this.url};
+    return this.http.post<QuizItemNew[]>(url_, quiz, httpOptions);
   }
 
-  getQuiz(){
-    return this.http.get<HtmlItemNew[]>(this.url);
+  getQuiz(url_:string){
+    if(url_==null){url_=this.url};
+    return this.http.get<QuizItemNew[]>(url_);
   }
 
-  addQuizTs(){
+  addQuizTs(str_:string){
 
-    this.addQuiz(this.nodesPassed_)
+    this.addQuiz(str_,this.nodesPassed_)
     .subscribe(
-      (s:HtmlItemNew[]) =>{
-        console.log(["Post: ",s])
+      (s:QuizItemNew[]) =>{
+        console.log(["addQuizTs: ",s])
       }
     );
 
   }
 
-  getQuizTs(){
-    this.getQuiz().subscribe(
-      (s:HtmlItemNew[]) =>{
-        console.log(["Get: ",s])
+  getQuizTs(str_:string){
+    this.getQuiz(str_).subscribe(
+      (s:QuizItemNew[]) =>{
+        console.log(["getQuizTs: ",s])
       }
     );
   }

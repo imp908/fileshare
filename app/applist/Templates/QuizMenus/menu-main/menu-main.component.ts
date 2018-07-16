@@ -6,6 +6,8 @@ import {QuizNew,QuestionNew,AnswerNew
 
 import {ModelContainerNew,FactoryNew} from 'src/app/applist/Models/initsNew.component';
 
+import {HttpService} from 'src/app/applist/Services/http.service';
+
 @Component({
   selector: 'app-menu-main',
   templateUrl: './menu-main.component.html',
@@ -18,14 +20,16 @@ export class MenuMainComponent implements OnInit {
   @Input() editButtons_:ButtonNew[];
 
   _editItem:QuizItemNew;
-  constructor(){
+
+  constructor(private hs_:HttpService){
+
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
 
   ngOnInit(){
 
     this._quizItems=ModelContainerNew.QuizesPassed;
-
+    this.hs_.nodesPassed_=this._quizItems;
     ModelContainerNew.nodeEdit.subscribe(s=>{
       this._editItem=ModelContainerNew.nodeSelected;
       ServiceCl.log(["nodeEdit received by " + this.constructor.name
@@ -43,5 +47,13 @@ export class MenuMainComponent implements OnInit {
     ServiceCl.log(["Inited: " + this.constructor.name,this._quizItems,this._buttonsQuiz]);
   }
 
+  Post(str_:string){
+    this.hs_.addQuizTs(str_);
+    ServiceCl.log(["Post: " + str_,this.constructor.name]);
+  }
+  Get(str_:string){
+    this.hs_.getQuizTs(str_);
+    ServiceCl.log(["Get: " + str_,this.constructor.name]);
+  }
 
 }
