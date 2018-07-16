@@ -176,8 +176,7 @@ namespace LinqToContextPOC
             double result = function(1, 2, 3, 4, 5); // 12
         }
         public void ExpressionBuild(){
-            double a = 2;
-            double b = 3;
+        
             BinaryExpression be = Expression.Power(Expression.Constant(2D), Expression.Constant(3D));
             Expression<Func<double>> fd = Expression.Lambda<Func<double>>(be);
             Func<double> ce = fd.Compile();
@@ -668,7 +667,9 @@ namespace LinqToContextPOC
 
     internal class TokenCommandChain : TokenChain
     {
-        public TokenCommandChain() {
+        public TokenCommandChain()
+        {
+        }
 
     }
 
@@ -1215,11 +1216,12 @@ namespace LinqToContextPOC
             CommandBuilder commandBuilder;
 
             evc.@in<POCO.Authorship>(s=>s.id=="'25:26'");
-            string res=evc.Translate();
+            string res=evc.Translate();        
 
             POCO.Unit unit = new POCO.Unit() {Name="НСПК"};
 
             evc.Refresh();
+
             evc
             .From(typeof(POCO.News))
             .Where<POCO.News>(s => s.pinned.isTrue == false
@@ -1227,7 +1229,8 @@ namespace LinqToContextPOC
                     || s.Likes != 0 && s.created <= DateTime.Now
                     && s.commentDepth >= 1)
             .Select<POCO.News>(s => new POCO.News { id = s.id, authAcc = s.authAcc, GUID = s.GUID })
-          ;
+            ;
+
             string res2=evc.Translate();
 
             evc.Refresh();

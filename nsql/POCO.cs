@@ -339,8 +339,9 @@ namespace POCO
 
       [JsonProperty("content_")]
       public virtual string content { get; set; }
-           
-      public virtual ToggledProperty pinned { get; set; } = new ToggledProperty();
+        public virtual string description { get; set; }
+
+        public virtual ToggledProperty pinned { get; set; } = new ToggledProperty();
       public virtual ToggledProperty published  { get; set; } = new ToggledProperty();
     
       public int? Likes {get;set;} 
@@ -351,7 +352,7 @@ namespace POCO
       public bool? hasComments { get; set; }
     
     }
-    public class News:Note{
+    public class News : Note{
       //[JsonProperty("content_")]
       //public override string content { get; set; }
       //[Updatable(false)]
@@ -591,33 +592,61 @@ namespace POCO
         public string link { get; set; } = null;
         public string target { get; set; } = "_self";
     }
-    
+
     #endregion
 
     #region QuizNew
 
-    public class QuiznewType{
-      
-    }
-    public class QuizItem :V
+    public interface IQuizItem
     {
-      public int key {get;set;}
-      public string name {get;set;}
-      public string value {get;set;}
+        int _key { get; set; }
+        string _name { get; set; }
+        string _value { get; set; }
+        string _typeName { get; set; }
 
-      public List<QuizItem> options {get;set;} 
+        string cssClass { get; set; }
+        string HtmlTypeAttr { get; set; }
+        string HtmlSubmittedValue { get; set; }
+        bool Show { get; set; }
+
+        IEnumerable<IQuizItem> array { get; set; }
+    }
+    public class HtmlItem : V,IQuizItem
+    {   
+        public int _key { get; set; }
+        public string _name { get; set; }
+        public string _value { get; set; }
+        public string _typeName { get; set; }
+
+        public string cssClass { get; set; }
+        public string HtmlTypeAttr { get; set; }
+        public string HtmlSubmittedValue { get; set; }
+        public bool Show { get; set; }
+
+        public IEnumerable<IQuizItem> array { get; set; } = new List<IQuizItem>();
+
+        public HtmlItem()
+        {
+            this._typeName = this.GetType().ToString();
+        }
+
+    }
+
+    public class QuizItem : HtmlItem, IQuizItem
+    {
+        public List<IQuizItem> itemControlls { get;set;} 
     }
     public class Question : QuizItem
     {
-        public bool toStore { get; set; } = true;
-        public string type { get; set; } = "";
-        
-        public List<Answer> answers { get; set; }
+       
     }
-    public class Answer :QuizItem
+    public class Answer : QuizItem
     {
-        public bool isChecked { get; set; } = true;
-        public bool toStore { get; set; } = true;
+       
+    }
+    public class QuizNew : QuizItem
+    {
+
     }
 
     public class QuizNewGet : QuizItem

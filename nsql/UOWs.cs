@@ -908,7 +908,7 @@ namespace Managers
         PersonUOW _personUOW;
         QuizUOW _quizUOW;
 
-        QuizNewUOW _quizUOWNew;
+        QuizNewUOW _quizUOWNew=null;
 
         /// <summary>
         /// Dictionary for storing new UOWs
@@ -1614,7 +1614,6 @@ namespace DbSync
         {
             OrientDatabase result = null;
 
-            bool allreadyExists = false;
 
             if (to_ == null) { throw new Exception("No from DB passed"); }
             targetRepo_ = to_.GetRepo();
@@ -2648,83 +2647,91 @@ namespace Quizes
             _repo.Delete<QuizNewGet>(null, typeof(V), null, this._repo.getDbName());
             _repo.CreateClass<QuizNewGet, V>(this._repo.getDbName());
             _repo.CreateProperty<QuizNewGet>(new QuizNewGet(), null);
+
+            _repo.Delete<Question>(null, typeof(V), null, this._repo.getDbName());
+            _repo.CreateClass<Question, V>(this._repo.getDbName());
+            _repo.CreateProperty<Question>(new Question(), null);
+
+            _repo.Delete<Answer>(null, typeof(V), null, this._repo.getDbName());
+            _repo.CreateClass<Answer, V>(this._repo.getDbName());
+            _repo.CreateProperty<Answer>(new Answer(), null);
         }
 
-        public void QuizGenerate()
+        public QuizItem QuizGenerate()
         {
-            this.InitClasses();
-            List<QuizNewGet> qzSend = new List<QuizNewGet>(){
-                    new QuizNewGet(){key=0,name="quiz 1", dateFrom=DateTime.Now,dateTo=DateTime.Now,
-                    questions_= new List<Question>(){
-
-                    new Question(){key=0,name="quiestion 1",value="question 1",toStore=true,type="checkbox",answers=new List<Answer>(){
-                    new Answer(){key=0,name="answer 1",value="answer 1"}
-                    ,new Answer(){key=1,name="answer 2",value="answer 2"}}}
-
-                    ,new Question(){key=0,name="quiestion 2",value="question 2",toStore=true,type="checkbox",answers=new List<Answer>(){
-                    new Answer(){key=0,name="answer 1",value="answer 1"}
-                    ,new Answer(){key=1,name="answer 2",value="answer 2"}
-                    ,new Answer(){key=2,name="answer 3",value="answer 3"}}}
-
-                    }
-                }
-                , new QuizNewGet(){key=0,name="quiz 2", dateFrom=DateTime.Now,dateTo=DateTime.Now,
-                      questions_= new List<Question>(){
-
-                        new Question(){key=0,name="quiestion 1",value="question 1",toStore=true,type="text"}
-
-                        ,new Question(){key=0,name="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
-                        new Answer(){key=0,name="answer 1",value="answer 1"}
-                        ,new Answer(){key=1,name="answer 2",value="answer 2"}
-                        ,new Answer(){key=2,name="answer 3",value="answer 3"}}}
-
+            QuizItem r = new QuizItem()
+            {
+                array = new List<QuizNew>()
+                {
+                    new QuizNew()
+                    {
+                        _key = 0,
+                        _name = "QuizName",
+                        _value = "QuizValue",
+                        Show = true
+                        ,
+                        array = new List<Question>() {
+                        new Question() { _key = 0, _name = "name0", _value = "value0", Show = true
+                            ,array = new List<Answer>() {
+                                new Answer(){_key = 0, _name = "name0", _value = "value0", Show = true}
+                                }
+                            }
+                        }
                     }
                 }
             };
-            this.QuizDelete(this.QuizGet());
-            this.QuizPost(qzSend);
+
+            return r;
         }
 
-        public IEnumerable<QuizNewGet> QuizGet()
+        public IEnumerable<QuizItem> QuizGet()
         {
-            IEnumerable<QuizNewGet> quizes = null;
-            quizes = _repo.SelectFromType<QuizNewGet>(null, this._repo.getDbName());
+            IEnumerable<QuizItem> quizes = null;
+            quizes = _repo.SelectFromType<QuizItem>(null, this._repo.getDbName());
             return quizes;
-        }
-        public QuizNewGet QuizGetItem(string guid_)
+        }     
+
+        public void QuizPost(IEnumerable<QuizItem> quizes_)
         {
-            QuizNewGet quizes = null;
-            quizes = _repo.SelectSingle<QuizNewGet>("GUID=='" + guid_ + "'", this._repo.getDbName());
+            QuizDelete(QuizGet());
+            foreach (QuizItem qz_ in quizes_)
+            {
+                _repo.CreateVertex<QuizItem>(qz_, this._repo.getDbName());
+            }
+        }
+        public void QuizPost(QuizItem quize_)
+        {
+           
+            _repo.CreateVertex<QuizItem>(quize_, this._repo.getDbName());
+            
+        }
+
+        public void QuizDelete(IEnumerable<QuizItem> quizes_)
+        {
+            foreach (QuizItem qz_ in quizes_)
+            {
+                QuizItem qzToDelete = this.QuizGetItem(qz_.GUID);
+                if (qzToDelete != null)
+                {
+                    _repo.Delete<QuizItem>(qzToDelete, typeof(V), null, this._repo.getDbName());
+                }
+            }
+        }
+
+        public QuizItem QuizGetItem(string key_)
+        {
+            QuizItem quizes = null;
+            quizes = _repo.SelectSingle<QuizItem>("_key=='" + key_ + "'", this._repo.getDbName());
             return quizes;
         }
         public string QuizGetStr()
         {
             string result = null;
-            result = _repo.ObjectToContentString<QuizNewGet>(QuizGet());
+            result = _repo.ObjectToContentString<QuizItem>(QuizGet());
             return result;
         }
 
-        public void QuizPost(IEnumerable<QuizNewGet> quizes_)
-        {
-            QuizDelete(QuizGet());
-            foreach (QuizNewGet qz_ in quizes_)
-            {
-                _repo.CreateVertex<QuizNewGet>(qz_, this._repo.getDbName());
-            }
-        }
-
-        public void QuizDelete(IEnumerable<QuizNewGet> quizes_)
-        {
-            foreach (QuizNewGet qz_ in quizes_)
-            {
-                QuizNewGet qzToDelete = this.QuizGetItem(qz_.GUID);
-                if (qzToDelete != null)
-                {
-                    _repo.Delete<QuizNewGet>(qzToDelete, typeof(V), null, this._repo.getDbName());
-                }
-            }
-        }
-
     }
+
 }
 

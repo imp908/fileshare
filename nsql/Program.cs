@@ -80,14 +80,19 @@ namespace NSQLManager
           }
         }
 
-        static OrientRepo DefaultManagerInit(string databaseName=null,string hostPort_=null)
+        static OrientRepo DefaultManagerInit(string databaseName=null,string hostPort_=null,string login_=null,string password_=null)
         {
           string dbName;
           string login = ConfigurationManager.AppSettings["orient_login"];
           string password = ConfigurationManager.AppSettings["orient_pswd"];
-          string dbHost = string.Format("{0}:{1}"
+
+            if (login_ == null) { login = ConfigurationManager.AppSettings["orient_login"]; } else { login = login_; }
+            if (password_ == null) { password = ConfigurationManager.AppSettings["orient_pswd"]; } else { password = password_; }
+
+            string dbHost = string.Format("{0}:{1}"
               , ConfigurationManager.AppSettings["OrientDevHost"]
               , ConfigurationManager.AppSettings["OrientPort"]);
+
           if (databaseName == null)
           {
             dbName = ConfigurationManager.AppSettings["OrientDevDB"];
@@ -224,44 +229,22 @@ namespace NSQLManager
             Quizes.QuizNewUOW quizUOW=new Quizes.QuizNewUOW(repo);
 
             quizUOW.InitClasses();
-          
-          List<QuizNewGet> qzReceive = new List<QuizNewGet>();
 
-          List<QuizNewGet> qzSend = new List<QuizNewGet>(){
-                    new QuizNewGet(){key=0,value="quiz 1", dateFrom=DateTime.Now,dateTo=DateTime.Now,
-                      questions_= new List<Question>(){
-
-                        new Question(){key=0,value="quiestion 1",toStore=true,type="checkbox",answers=new List<Answer>(){
-                          new Answer(){key=0,value="answer 1"}
-                          ,new Answer(){key=1,value="answer 2"}}}
-                        
-                        ,new Question(){key=0,value="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
-                        new Answer(){key=0,value="answer 1"}
-                        ,new Answer(){key=1,value="answer 2"}
-                        ,new Answer(){key=2,value="answer 3"}}}
-
-                    }
-                }
-                , new QuizNewGet(){key=0,value="quiz 2", dateFrom=DateTime.Now,dateTo=DateTime.Now,
-                      questions_= new List<Question>(){
-
-                        new Question(){key=0,value="quiestion 1",toStore=true,type="text"}
-                        
-                        ,new Question(){key=0,value="quiestion 2",toStore=true,type="checkbox",answers=new List<Answer>(){
-                        new Answer(){key=0,value="answer 1"}
-                        ,new Answer(){key=1,value="answer 2"}
-                        ,new Answer(){key=2,value="answer 3"}}}
-
+            QuizItem qitm = new QuizItem() {
+                _key = 0, _name = "QuizName0", _value = "QuizValue0", Show = true
+                ,array = new List<Question>() {
+                    new Question() { _key = 0, _name = "name0", _value = "value0", Show = true
+                    ,array = new List<Answer>() {
+                        new Answer(){_key = 0, _name = "name0", _value = "value0", Show = true}
+                        }
                     }
                 }
             };
 
-            string snd=jm.SerializeObject(qzSend);
-
-            quizUOW.QuizPost(qzSend);
-
-            qzReceive = quizUOW.QuizGet().ToList();
-
+            string snd=jm.SerializeObject(qitm);
+            QuizItem q = null;
+            quizUOW.QuizPost(q);
+        
             //quizUOW.QuizDelete(qzReceive);
 
         }
@@ -329,11 +312,11 @@ namespace NSQLManager
         //FUNCTIONAL TESTS
         public static void UOWFunctionalCheck()
         {
-            AdinTceTest();
+            //AdinTceTest();
 
-            AdinTceCheck();
+            //AdinTceCheck();
 
-            //QuizNewCheck();
+            QuizNewCheck();
 
             //GetPersonCheck();
 
