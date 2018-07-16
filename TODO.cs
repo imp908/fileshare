@@ -459,12 +459,14 @@ TnT[
 	<- done 12.07.2018 21:00 -> Question edit events Button enable,disable (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
 	<- done 12.07.2018 21:00 -> Question name, values to item imp exp	
 	<- done 12.07.2018 21:30 -> display question value (text)
+	<- done 12.07.2018 21:30 -> Answer item parameters 
+	<- done 13.07.2018 15:00 -> add weeks in year, days in week to Factory
+	<- done 13.07.2018 15:00 -> Question,answer Item parameters
+	<- done 16.07.2018 22:30 -> Http POST,GET
 	
-	-> Answer item parameters 
 	-> Remove @Input, generate buttons from Menu List and Edit List with object names			
 	-> Quiz item parameters add weeks in year, days in week to Factory	
-	-> radio button
-	-> Http POST,GET
+	-> radio button	
 	-> Answer type visual element (checkbox, radio)
 	
 -> move nsql manager to core
