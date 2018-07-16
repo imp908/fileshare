@@ -28,8 +28,7 @@ namespace Parts{
 	//Usefull links
 	public void mostUsefullLinks()
 	{
-		http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0006481
-		
+		http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0006481																  
 		https://sharpc.livejournal.com/67583.html
 		http://www.securitynewspaper.com/2015/10/15/how-to-scan-whole-internet-3-7-billion-ip-addresses-in-few-minutes/
 																							 
@@ -197,7 +196,6 @@ usd\rub(62.01)/
 				$100 mlrd IPO shares cap.
 			
 			]
-			
 			reserve_currencies[
 				Swiss franc, Singapore dollar, U.S. dollar and Japanese yen
 			]
@@ -224,8 +222,7 @@ usd\rub(62.01)/
 			https://www.bloomberg.com/news/articles/2018-05-09/ex-goldman-trader-hires-former-rivals-to-build-a-crypto-empire
 			https://www.panteracapital.com/
 		]
-		
-		
+	
 	]
 	
 	 //startups
@@ -769,11 +766,8 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	//website prototypes 
 	https://medium.com/@denysergushkin/20-%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%B2-%D0%B4%D0%BB%D1%8F-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D1%82%D0%B8%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BE%D1%82-%D0%B1%D1%8B%D1%81%D1%82%D1%80%D0%BE%D0%B3%D0%BE-%D0%B8-%D0%B3%D1%80%D1%8F%D0%B7%D0%BD%D0%BE%D0%B3%D0%BE-wireframe-%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%BC%D1%83-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D1%82%D0%B8%D0%BF%D1%83-210f223323fe
 	https://mobirise.com/_l/bootstrap-website-builder/?gclid=EAIaIQobChMIgJrLp-6H3AIVhYQZCh3Buwh6EAEYASAAEgJAKPD_BwE
-	https://marvelapp.com/features/prototyping
-	https://www.silex.me/
-	https://mobirise.com/
 	
-	//Software architecturehttps://www.silex.me/
+	//Software architecture
 	https://hackernoon.com/38-actions-and-insights-to-become-a-better-software-architect-f135e2de9a1b
 
 	//IBM code patterns
@@ -5270,16 +5264,7 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 				]
 			
 			}
-				
-				static deppUpperlevelClone(obj_:any){
-					let  r_ = Object.assign(
-						Object.create(
-						Object.getPrototypeOf(obj_)
-						),obj_
-					);
-					return r_;
-				}
-				
+		
 		}
 		
 		//JS vendors
@@ -5298,7 +5283,6 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 
 		}
 	}
-	
 	//----------------------------------------------	
 	
 	public void Angular_IO()
