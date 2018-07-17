@@ -27,7 +27,7 @@ export class MenuMainComponent implements OnInit {
   }
 
   ngOnInit(){
-
+    ModelContainerNew.Init();
     this._quizItems=ModelContainerNew.QuizesPassed;
     this.hs_.nodesPassed_=this._quizItems;
     ModelContainerNew.nodeEdit.subscribe(s=>{
@@ -49,10 +49,28 @@ export class MenuMainComponent implements OnInit {
 
   Post(str_:string){
     this.hs_.addQuizTs(str_);
+
     ServiceCl.log(["Post: " + str_,this.constructor.name]);
   }
   Get(str_:string){
-    this.hs_.getQuizTs(str_);
+    // this.hs_.getQuizTs(str_);
+    this.hs_.getQuiz(str_).subscribe(
+      (s:QuizItemNew) =>{
+
+        //Check Strings
+        //-----------------------
+        // ServiceCl.log(["getQuiz received objects: ", ModelContainerNew.QuizesPassed,s]);
+        // ServiceCl.log(JSON.stringify(ModelContainerNew.QuizesPassed));
+        // ServiceCl.log(JSON.stringify(s));
+
+        //check JSON parse object
+        //-----------------------
+        // ModelContainerNew.Init();
+        // ModelContainerNew.QuizesPassed=JSON.parse(JSON.stringify(ModelContainerNew.QuizesPassed));
+        // this._quizItems=ModelContainerNew.QuizesPassed;
+
+      }
+    );
     ServiceCl.log(["Get: " + str_,this.constructor.name]);
   }
 

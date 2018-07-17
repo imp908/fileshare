@@ -23,21 +23,24 @@ export class HttpService{
     // this.nodesPassed_=new QuizItemNew(null);
   }
 
-  addQuiz(url_:string,quiz: QuizItemNew): Observable<QuizItemNew[]>{
+  addQuiz(url_:string,quiz: QuizItemNew): Observable<QuizItemNew>{
     if(url_==null){url_=this.url};
-    return this.http.post<QuizItemNew[]>(url_, quiz, httpOptions);
+    console.log(JSON.stringify(quiz));
+    return this.http.post<QuizItemNew>(url_, quiz, httpOptions);
   }
 
-  getQuiz(url_:string){
+  getQuiz(url_:string): Observable<QuizItemNew>{
     if(url_==null){url_=this.url};
-    return this.http.get<QuizItemNew[]>(url_);
+    return this.http.get<QuizItemNew>(url_);
   }
+
+
 
   addQuizTs(str_:string){
 
     this.addQuiz(str_,this.nodesPassed_)
     .subscribe(
-      (s:QuizItemNew[]) =>{
+      (s:QuizItemNew) =>{
         console.log(["addQuizTs: ",s])
       }
     );
@@ -46,7 +49,7 @@ export class HttpService{
 
   getQuizTs(str_:string){
     this.getQuiz(str_).subscribe(
-      (s:QuizItemNew[]) =>{
+      (s:QuizItemNew) =>{
         console.log(["getQuizTs: ",s])
       }
     );

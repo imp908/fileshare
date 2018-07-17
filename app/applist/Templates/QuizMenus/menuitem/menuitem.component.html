@@ -7,6 +7,8 @@
 
   <ng-container *ngIf="_quizes!=null">
     <div *ngFor="let i of _quizes.array">
+      <ng-container *ngIf="i!=null">
+  
         <div class="flexCtnr flexRow" style="width:100%">
           <hr>
           <div class="flexCtnr flexCol" style="flex:1">
@@ -20,5 +22,7 @@
             </div>
           </div>
         </div>
+
+      </ng-container>
     </div>
   </ng-container>

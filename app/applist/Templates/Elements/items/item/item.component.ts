@@ -15,7 +15,7 @@ export class ItemComponent implements OnInit {
   @Input() _item:HtmlItemNew;
   @Input() _object:HtmlItemNew;
   constructor(){
-    ServiceCl.log(["Constructor: " + this.constructor.name]);
+    ServiceCl.log(["Constructor: " + this.constructor.name,this._item,this._object]);
   }
 
   ngOnInit(){

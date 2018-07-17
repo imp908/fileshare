@@ -15,7 +15,7 @@ export class ItemsComponent implements OnInit {
   @Input() _itemsObject:HtmlItemNew;
 
   constructor(){
-    ServiceCl.log(["Constructor: " + this.constructor.name]);
+    ServiceCl.log(["Constructor: " + this.constructor.name,this._items,this._itemsObject]);
   }
 
   ngOnInit(){
@@ -33,9 +33,11 @@ export class ItemsComponent implements OnInit {
     }
   }
   typeCheck(i_:HtmlItemNew){
+    console.log(["typeCheck: ", i_,FactoryNew.TypeCheck(i_)]);
     return FactoryNew.TypeCheck(i_);
   }
   instanceCheck(i_:HtmlItemNew){
+    console.log(["instanceCheck: ",i_,FactoryNew.InstanceCheck(i_)]);
     return FactoryNew.InstanceCheck(i_);
   }
 }

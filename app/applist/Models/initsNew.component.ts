@@ -1886,6 +1886,18 @@ export class TestNew{
     qz.getControllItem("");
   }
 
+  public static JSONparseCheck(){
+
+
+
+      // let q= Object.assign(new QuizItemNew(null),"'{_name:1}'");
+      let q:QuizItemNew;
+      q = new QuizItemNew(JSON.parse('{"_key": 0,"_name": "QuizItems","_value": "QuizItems",	"_typeName": "QuizItemNew",	"cssClass": "fxvt",	"show": true,	"created": "2018-07-17 16:43:05",	"changed": "2018-07-17 16:43:05"}'));
+
+      console.log("JSON parsed: ");
+      console.log(q);
+  }
+
   public static GO(){
 
     //collection tests
@@ -1915,6 +1927,11 @@ export class TestNew{
     //check collection array beahaviour
 
     // TestNew.ItemColelctionTest();
+
+
+    //Check JSON convert
+
+    TestNew.JSONparseCheck();
 
   }
 
