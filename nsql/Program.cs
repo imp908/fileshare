@@ -224,25 +224,16 @@ namespace NSQLManager
         {
             string res=UserAuthenticationMultiple.UserAcc();
         }
-        public static void QuizNewCheck(){
+        public static void QuizNewCheck(){            
+
             OrientRepo repo=DefaultManagerInit();
             Quizes.QuizNewUOW quizUOW=new Quizes.QuizNewUOW(repo);
+            POCO.QuizItemNew qitm = quizUOW.QuizGenerate();
 
             quizUOW.InitClasses();
-
-            QuizItem qitm = new QuizItem() {
-                _key = 0, _name = "QuizName0", _value = "QuizValue0", Show = true
-                ,array = new List<Question>() {
-                    new Question() { _key = 0, _name = "name0", _value = "value0", Show = true
-                    ,array = new List<Answer>() {
-                        new Answer(){_key = 0, _name = "name0", _value = "value0", Show = true}
-                        }
-                    }
-                }
-            };
-
+           
             string snd=jm.SerializeObject(qitm);
-            QuizItem q = null;
+            QuizItemNew q = null;
             quizUOW.QuizPost(q);
         
             //quizUOW.QuizDelete(qzReceive);

@@ -2657,77 +2657,112 @@ namespace Quizes
             _repo.CreateProperty<Answer>(new Answer(), null);
         }
 
-        public QuizItem QuizGenerate()
+        public QuizItemNew QuizGenerate()
         {
-            QuizItem r = new QuizItem()
+            QuizItemNew r = new QuizItemNew()
             {
+                _key = 0,_name = "QuizItems",_value = "QuizItems",show = true,cssClass = "fxvt",
                 array = new List<QuizNew>()
                 {
+
                     new QuizNew()
-                    {
-                        _key = 0,
-                        _name = "QuizName",
-                        _value = "QuizValue",
-                        Show = true
-                        ,
-                        array = new List<Question>() {
-                        new Question() { _key = 0, _name = "name0", _value = "value0", Show = true
-                            ,array = new List<Answer>() {
-                                new Answer(){_key = 0, _name = "name0", _value = "value0", Show = true}
-                                }
-                            }
+                    {_key = 0,_name = "QuizName0",_value = "QuizValue0",show = true,cssClass="fxvt",array = new List<Question>() {
+
+                        new Question() { _key = 0, _name = "QuestionName0", _value = "QuestionValue0", show = true,cssClass="fxvt"
+                        ,array = new List<Answer>(){
+                        new Answer(){_key = 0, _name = "AnswerName0", _value = "AnswerValue0", show = true}
+                        ,new Answer(){_key = 1, _name = "AnswerName1", _value = "AnswerValue1", show = true}}}
+                        ,new Question() { _key = 1, _name = "QuestionName1", _value = "QuestionValue1", show = true,cssClass="fxvt"
+                        ,array = new List<Answer>(){
+                        new Answer(){_key = 0, _name = "AnswerName0", _value = "AnswerValue0", show = true}
+                        ,new Answer(){_key = 1, _name = "AnswerName1", _value = "AnswerValue1", show = true}}}
+
                         }
                     }
+                    , new QuizNew()
+                    {_key = 1,_name = "QuizName1",_value = "QuizValue1",show = true,cssClass="fxvt",array = new List<Question>() {
+
+                        new Question() { _key = 0, _name = "QuestionName0", _value = "QuestionValue0", show = true,cssClass="fxvt"
+                        ,array = new List<Answer>(){
+                        new Answer(){_key = 0, _name = "AnswerName0", _value = "AnswerValue0", show = true}
+                        ,new Answer(){_key = 1, _name = "AnswerName1", _value = "AnswerValue1", show = true}}}
+                        ,new Question() { _key = 1, _name = "QuestionName1", _value = "QuestionValue1", show = true,cssClass="fxvt"
+                        ,array = new List<Answer>(){
+                        new Answer(){_key = 0, _name = "AnswerName0", _value = "AnswerValue0", show = true}
+                        ,new Answer(){_key = 1, _name = "AnswerName1", _value = "AnswerValue1", show = true}}}
+
+                        }
+                    }
+                    , new QuizNew()
+                    {_key = 2,_name = "QuizName3",_value = "QuizValue3",show = true,cssClass="fxvt",array = new List<Question>() {
+
+                        new Question() { _key = 0, _name = "QuestionName0", _value = "QuestionValue0", show = true,cssClass="fxvt"
+                        ,array = new List<Answer>(){
+                        new Answer(){_key = 0, _name = "AnswerName0", _value = "AnswerValue0", show = true}
+                        ,new Answer(){_key = 1, _name = "AnswerName1", _value = "AnswerValue1", show = true}}}
+                        ,new Question() { _key = 1, _name = "QuestionName1", _value = "QuestionValue1", show = true,cssClass="fxvt"
+                        ,array = new List<Answer>(){
+                        new Answer(){_key = 0, _name = "AnswerName0", _value = "AnswerValue0", show = true}
+                        ,new Answer(){_key = 1, _name = "AnswerName1", _value = "AnswerValue1", show = true}}}
+                         ,new Question() { _key = 2, _name = "QuestionName2", _value = "QuestionValue2", show = true,cssClass="fxvt"
+                        ,array = new List<Answer>(){
+                        new Answer(){_key = 0, _name = "AnswerName0", _value = "AnswerValue0", show = true}
+                        ,new Answer(){_key = 1, _name = "AnswerName1", _value = "AnswerValue1", show = true}
+                        ,new Answer(){_key = 2, _name = "AnswerName2", _value = "AnswerValue2", show = true}} }
+
+                        }
+                    }
+
                 }
             };
 
             return r;
         }
 
-        public IEnumerable<QuizItem> QuizGet()
+        public IEnumerable<QuizItemNew> QuizGet()
         {
-            IEnumerable<QuizItem> quizes = null;
-            quizes = _repo.SelectFromType<QuizItem>(null, this._repo.getDbName());
+            IEnumerable<QuizItemNew> quizes = null;
+            quizes = _repo.SelectFromType<QuizItemNew>(null, this._repo.getDbName());
             return quizes;
         }     
 
-        public void QuizPost(IEnumerable<QuizItem> quizes_)
+        public void QuizPost(IEnumerable<QuizItemNew> quizes_)
         {
             QuizDelete(QuizGet());
-            foreach (QuizItem qz_ in quizes_)
+            foreach (QuizItemNew qz_ in quizes_)
             {
-                _repo.CreateVertex<QuizItem>(qz_, this._repo.getDbName());
+                _repo.CreateVertex<QuizItemNew>(qz_, this._repo.getDbName());
             }
         }
-        public void QuizPost(QuizItem quize_)
+        public void QuizPost(QuizItemNew quize_)
         {
            
-            _repo.CreateVertex<QuizItem>(quize_, this._repo.getDbName());
+            _repo.CreateVertex<QuizItemNew>(quize_, this._repo.getDbName());
             
         }
 
-        public void QuizDelete(IEnumerable<QuizItem> quizes_)
+        public void QuizDelete(IEnumerable<QuizItemNew> quizes_)
         {
-            foreach (QuizItem qz_ in quizes_)
+            foreach (QuizItemNew qz_ in quizes_)
             {
-                QuizItem qzToDelete = this.QuizGetItem(qz_.GUID);
+                QuizItemNew qzToDelete = this.QuizGetItem(qz_.GUID);
                 if (qzToDelete != null)
                 {
-                    _repo.Delete<QuizItem>(qzToDelete, typeof(V), null, this._repo.getDbName());
+                    _repo.Delete<QuizItemNew>(qzToDelete, typeof(V), null, this._repo.getDbName());
                 }
             }
         }
 
-        public QuizItem QuizGetItem(string key_)
+        public QuizItemNew QuizGetItem(string key_)
         {
-            QuizItem quizes = null;
-            quizes = _repo.SelectSingle<QuizItem>("_key=='" + key_ + "'", this._repo.getDbName());
+            QuizItemNew quizes = null;
+            quizes = _repo.SelectSingle<QuizItemNew>("_key=='" + key_ + "'", this._repo.getDbName());
             return quizes;
         }
         public string QuizGetStr()
         {
             string result = null;
-            result = _repo.ObjectToContentString<QuizItem>(QuizGet());
+            result = _repo.ObjectToContentString<QuizItemNew>(QuizGet());
             return result;
         }
 

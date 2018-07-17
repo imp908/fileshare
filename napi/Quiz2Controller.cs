@@ -13,7 +13,8 @@ namespace NewsAPI.Controllers
     {
         OrientRealization.IOrientRepo repo_;
         Quizes.QuizNewUOW quizUow;
-        
+        JsonManagers.JSONManager jm = new JsonManagers.JSONManager();
+
         public Quiz2Controller(){
             string host= string.Format("{0}:{1}"
             ,ConfigurationManager.AppSettings["OrientTestHost"],ConfigurationManager.AppSettings["OrientPort"]);
@@ -30,12 +31,11 @@ namespace NewsAPI.Controllers
         
         [HttpGet]
         [Route("api/Quiz2/Gen")]
-        public IHttpActionResult Gen(){
+        public POCO.QuizItemNew Gen(){
             WebManagers.ReturnEntities response = null;
-            string result = string.Empty;
-            quizUow.QuizGenerate();
-            response=new WebManagers.ReturnEntities(result, Request);
-        return response;
+            POCO.QuizItemNew result = quizUow.QuizGenerate();
+            //response=new WebManagers.ReturnEntities(result, Request);
+        return result;
         }
         [HttpGet]
         [Route("api/Quiz2/Init")]
@@ -51,14 +51,13 @@ namespace NewsAPI.Controllers
         public IHttpActionResult Get()
         {
             WebManagers.ReturnEntities response = null;
-            string result = string.Empty;
-            result=quizUow.QuizGetStr();
+            string result = string.Empty;            
             response=new WebManagers.ReturnEntities(result, Request);
             return response;
         }
         [HttpPost]
         [Route("api/Quiz2")]
-        public IHttpActionResult Post(POCO.QuizItem qz_)
+        public IHttpActionResult Post(POCO.QuizItemNew qz_)
         {
             WebManagers.ReturnEntities response = null;
             string result = string.Empty;

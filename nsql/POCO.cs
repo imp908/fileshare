@@ -606,12 +606,16 @@ namespace POCO
 
         string cssClass { get; set; }
         string HtmlTypeAttr { get; set; }
-        string HtmlSubmittedValue { get; set; }
-        bool Show { get; set; }
+
+        //For TypeScript any type Only, to emulate Angrular IO
+        //html [(ngModel)] value for submited form values receive (string,bool,int)
+        dynamic HtmlSubmittedValue { get; set; }
+
+        bool show { get; set; }
 
         IEnumerable<IQuizItem> array { get; set; }
     }
-    public class HtmlItem : V,IQuizItem
+    public class HtmlItemNew : V,IQuizItem
     {   
         public int _key { get; set; }
         public string _name { get; set; }
@@ -620,40 +624,69 @@ namespace POCO
 
         public string cssClass { get; set; }
         public string HtmlTypeAttr { get; set; }
-        public string HtmlSubmittedValue { get; set; }
-        public bool Show { get; set; }
 
-        public IEnumerable<IQuizItem> array { get; set; } = new List<IQuizItem>();
+        //For TypeScript any type Only, to emulate Angrular IO
+        //html [(ngModel)] value for submited form values receive (string,bool,int)
+        public dynamic HtmlSubmittedValue { get; set; }
 
-        public HtmlItem()
+        public bool show { get; set; } = true;
+
+        public virtual IEnumerable<IQuizItem> array { get; set; } = new List<HtmlItemNew>();
+
+        public HtmlItemNew()
         {
-            this._typeName = this.GetType().ToString();
+            this._typeName = this.GetType().Name;
         }
 
     }
 
-    public class QuizItem : HtmlItem, IQuizItem
+    public class QuizItemNew : HtmlItemNew, IQuizItem
     {
-        public List<IQuizItem> itemControlls { get;set;} 
+        public override IEnumerable<IQuizItem> array { get; set; } = new List<QuizNew>();
+        public List<HtmlItemNew> itemControlls { get;set; } = new List<HtmlItemNew>();
     }
-    public class Question : QuizItem
+    public class QuizNew : QuizItemNew
+    {
+
+        public QuizNew()
+        {
+            this.itemControlls = QuizNew.itemControllsGen();
+        }
+        public override IEnumerable<IQuizItem> array { get; set; } = new List<Question>();
+
+        static List<HtmlItemNew> itemControllsGen(){         
+            List<HtmlItemNew> ret = null ;
+
+            ret = new List<HtmlItemNew>(){new HtmlItemNew()
+            {
+                _name = "Quiztexts",_value = "Quiztexts",cssClass = "fxvt",show = true,HtmlSubmittedValue = false,
+                array = new List<TextControlNew>() { new TextControlNew() { _name = "ItemName", _value = "Enter quiz text", cssClass = "fxhr", show = true, HtmlSubmittedValue = false, _displayValue="" } }
+            }
+            };
+
+            return ret;
+        }
+    }
+    public class Question : QuizItemNew
+    {
+        public override IEnumerable<IQuizItem> array { get; set; } = new List<Answer>();
+    }
+    public class Answer : QuizItemNew
     {
        
     }
-    public class Answer : QuizItem
-    {
-       
-    }
-    public class QuizNew : QuizItem
-    {
+        
 
-    }
-
-    public class QuizNewGet : QuizItem
+    public class QuizNewGet : QuizItemNew
     {
         public DateTime dateFrom { get; set; }
         public DateTime dateTo { get; set; }
         public List<Question> questions_ { get; set; }
+    }
+
+    public class TextControlNew : HtmlItemNew
+    {
+        public string _displayValue { get; set; }
     }
 
     #endregion
