@@ -465,7 +465,9 @@ TnT[
 	<- done 16.07.2018 22:30 -> Http POST,GET
 	
 	//responses
+	//https://github.com/angular/angular/issues/23778
 	//https://github.com/imp908/Quiz/blob/538b2c368da3db045ad7e86cd7e36a933452f6d4/src/quest/Quiz/Http/quiz.service.ts
+	
 	//https://stackoverflow.com/questions/22875636/how-do-i-cast-a-json-object-to-a-typescript-class
 	//https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object/22886730#22886730
 	-> from JSON to QuizItems, ItemControlls convert
