@@ -456,15 +456,16 @@ TnT[
 	<- done 12.07.2018 12:00 -> itemControls Name to object name bind
 	<- done 12.07.2018 12:00 -> Question ItemParameters change to textbox and drop box with events
 	<- done 12.07.2018 13:50 -> Quiz checlbox cycle change event, display
-	<- done 12.07.2018 21:00 -> Question edit events (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)	
 	<- done 12.07.2018 21:00 -> Question edit events Button enable,disable (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
 	<- done 12.07.2018 21:00 -> Question name, values to item imp exp	
 	<- done 12.07.2018 21:30 -> display question value (text)
 	<- done 12.07.2018 21:30 -> Answer item parameters 
 	<- done 13.07.2018 15:00 -> add weeks in year, days in week to Factory
 	<- done 13.07.2018 15:00 -> Question,answer Item parameters
-	<- done 17.07.2018 11:00 -> Http POST,GET
+	<- done 16.07.2018 22:30 -> Http POST,GET
 	
+	//responses
+	//https://github.com/imp908/Quiz/blob/538b2c368da3db045ad7e86cd7e36a933452f6d4/src/quest/Quiz/Http/quiz.service.ts
 	//https://stackoverflow.com/questions/22875636/how-do-i-cast-a-json-object-to-a-typescript-class
 	//https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object/22886730#22886730
 	-> from JSON to QuizItems, ItemControlls convert
@@ -476,7 +477,10 @@ TnT[
 	-> Remove @Input, generate buttons from Menu List and Edit List with object names						 		
  	-> Answer type visual element (checkbox, radio)
 	-> pass page 
-
+	-> Remove @Input, generate buttons from Menu List and Edit List with object names			
+	-> Quiz item parameters add weeks in year, days in week to Factory	
+	-> radio button																				  
+	-> Answer type visual element (checkbox, radio)			  
 	
 -> move nsql manager to core
 -> Back model arrange for itemparameters and quizcontrolls
