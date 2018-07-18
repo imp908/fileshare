@@ -38,11 +38,11 @@ namespace NewsAPI.Controllers
         return result;
         }
         [HttpGet]
-        [Route("api/Quiz2/Init")]
+        [Route("api/Quiz2/ReInit")]
         public IHttpActionResult Initialize(){
             WebManagers.ReturnEntities response = null;
             string result = string.Empty;
-            quizUow.InitClasses();
+            quizUow.ReInitClasses();
             response=new WebManagers.ReturnEntities(result, Request);
         return response;
         }
@@ -51,10 +51,21 @@ namespace NewsAPI.Controllers
         public IHttpActionResult Get()
         {
             WebManagers.ReturnEntities response = null;
-            string result = string.Empty;            
-            response=new WebManagers.ReturnEntities(result, Request);
+            string result = string.Empty;
+            POCO.QuizItemNew qitm = null;
+            try
+            {
+                qitm=quizUow.QuizItemGet();
+                result = quizUow.UOWserialize<POCO.QuizItemNew>(qitm);
+            }
+            catch (Exception e)
+            {
+                result = e.Message;           
+            }
+            response = new WebManagers.ReturnEntities(result, Request);
             return response;
         }
+         
         [HttpPost]
         [Route("api/Quiz2")]
         public IHttpActionResult Post(POCO.QuizItemNew qz_)
@@ -62,7 +73,7 @@ namespace NewsAPI.Controllers
             WebManagers.ReturnEntities response = null;
             string result = string.Empty;
             try{
-              quizUow.QuizPost(qz_);
+              quizUow.QuizItemAdd(qz_);
             }catch(Exception e){
               result = e.Message;
             }
