@@ -463,8 +463,8 @@ namespace WebManagers
         {
            
             CheckReq();
-            SetBase64AuthHeader();                    
-            bindTimeout();                
+            SetBase64AuthHeader();
+            bindTimeout();
             SwapMethod(method);
             bindContent();
 

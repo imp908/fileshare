@@ -547,7 +547,12 @@ namespace OrientRealization
           return new OrientUUIDToken();
       }
 
-      public ITypeToken DoubleQuotes()
+        public ITypeToken DropToken()
+        {
+            return new OrientDropToken();
+        }
+
+        public ITypeToken DoubleQuotes()
       {
           return new OrientDoubleQuotesToken();
       }
@@ -1482,12 +1487,27 @@ namespace OrientRealization
           return GetBuilder();
       }
 
-      /// <summary>
-      /// Returns select from command when null passed. when any commandbuilderpassed returns select {0} from command
-      /// </summary>
-      /// <param name="param_">Command builder containining what to select </param>
-      /// <returns></returns>
-      public ICommandBuilder Select(ICommandBuilder param_=null)
+        public ICommandBuilder Drop(ITypeToken param_ = null)
+        {
+            List<ITypeToken> tokens_ = new List<ITypeToken>();
+
+            tokens_.Add(_queryFactory.DropToken());
+            if (param_ != null)
+            {
+                tokens_.Add(_miniFactory.Gap());
+                tokens_.Add(param_);
+            }
+
+            ParametrizedCommand(tokens_, null);
+            return GetBuilder();
+        }
+
+        /// <summary>
+        /// Returns select from command when null passed. when any commandbuilderpassed returns select {0} from command
+        /// </summary>
+        /// <param name="param_">Command builder containining what to select </param>
+        /// <returns></returns>
+        public ICommandBuilder Select(ICommandBuilder param_=null)
       {
           List<ITypeToken> tokens_=new List<ITypeToken>();
           List<ICommandBuilder> builders_= new List<ICommandBuilder>();
@@ -2525,25 +2545,43 @@ namespace OrientRealization
 
           return this;
       }
-        
-      public CommandsChain Create(ITypeToken param_=null)
-      {
 
-          this._commands=new List<ICommandBuilder>();
+        public CommandsChain Drop(ITypeToken param_ = null)
+        {
 
-          if (this._commandBuilder.Tokens != null)
-          {
-              this._commands.Add(this._commandBuilder);
-          }
+            this._commands = new List<ICommandBuilder>();
 
-          this._commands.Add(_commandShemas.Create(param_));
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
 
-          this._commandBuilder.BindBuilders(this._commands
-              , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
-          this._commandBuilder.Build();
+            this._commands.Add(_commandShemas.Drop(param_));
 
-          return this;
-      }
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
+        public CommandsChain Create(ITypeToken param_=null)
+        {
+
+            this._commands=new List<ICommandBuilder>();
+
+            if (this._commandBuilder.Tokens != null)
+            {
+                this._commands.Add(this._commandBuilder);
+            }
+
+            this._commands.Add(_commandShemas.Create(param_));
+
+            this._commandBuilder.BindBuilders(this._commands
+                , this._formatGenerator.FromatFromTokenArray(this._commands, _tokenMiniFactory.EmptyString()));
+            this._commandBuilder.Build();
+
+            return this;
+        }
       public CommandsChain Class(ITypeToken param_=null)
       {
           this._commands=new List<ICommandBuilder>();
@@ -3719,7 +3757,41 @@ namespace OrientRealization
       return this;
     }
 
-  
+    public K DropClassTp<K>(Type class_,string dbName_ = null)
+        where K : class, IOrientEntity
+    {
+        CheckDbName(dbName_);
+
+        ITypeToken clTk = _typeConverter.Get(class_);
+      
+        K ret_ = null;
+        CommandsChain ch = NewChain();
+
+        if (clTk != null)
+        {
+            ch.Drop().Class(clTk);
+        }
+      
+
+        this.commandBody = ch.GetBuilder().Build();
+
+        BindCommandUrl();
+        BindCommandBody();
+        BindWebRequest();
+        ReadResponseStr("POST", _miniFactory.Created());
+
+        if (this.response_ != null && this.response_ != string.Empty)
+        {
+            try
+            {
+                ret_ = _jsonmanager.DeserializeFromParentNode<K>(this.response_, "result").FirstOrDefault();
+            }
+            catch (Exception e) { System.Diagnostics.Trace.WriteLine(e.Message); }
+        }
+
+        return ret_;
+    }
+
     public IOrientRepo CreateClass(string class_,string extends_,string dbName_=null)
     {      
       CheckDbName(dbName_);
@@ -3736,7 +3808,7 @@ namespace OrientRealization
       {
         ch.Extends(extTk);                
       }
-      this.commandBody = ch .GetBuilder().Build();
+      this.commandBody = ch.GetBuilder().Build();
 
       CheckDbName(dbName_);
 
@@ -5117,6 +5189,7 @@ propertiesTo[i2].SetValue(result, propertiesFrom[i].GetValue(fromObject, null), 
     void BindDbName(string dbName_);
     void BindUrlName(string input_);
     T ContentStringToObject<T>(string item_) where T : class, IOrientDefaultObject;
+    K DropClassTp<K>(Type class_, string dbName_ = null) where K : class, IOrientEntity;
     IOrientRepo CreateClass(string class_, string extends_, string dbName_ = null);
     Type CreateClass<T, K>(string dbName_ = null)
       where T : IOrientEntity

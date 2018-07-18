@@ -49,7 +49,7 @@ namespace NSQLManager
             LinqToContextPOC.LinqToContextCheck.GO();
       
             //START API TEST
-            ManagerCheck.APItester_sngltnCheck();
+            //ManagerCheck.APItester_sngltnCheck();
       
             //QUIZ CHECK
             //ManagerCheck.QuizCheck();
@@ -227,16 +227,27 @@ namespace NSQLManager
         public static void QuizNewCheck(){            
 
             OrientRepo repo=DefaultManagerInit();
+            JSONManager jm = new JSONManager();
+            POCO.QuizItemNew quizItemAdd = null;            
             Quizes.QuizNewUOW quizUOW=new Quizes.QuizNewUOW(repo);
-            POCO.QuizItemNew qitm = quizUOW.QuizGenerate();
+            
+            //generate quizes from C# code to send to Angular IO test only
+            //POCO.QuizItemNew qitm = quizUOW.QuizGenerate();
 
-            quizUOW.InitClasses();
-           
-            string snd=jm.SerializeObject(qitm);
-            QuizItemNew q = null;
-            quizUOW.QuizPost(q);
-        
-            //quizUOW.QuizDelete(qzReceive);
+            //init quizes from json exported from Angular for test purposes only
+            string str = File.ReadAllText(@"C:\111\quizes_ang.json");
+            quizItemAdd = quizUOW.UOWdeserialize<POCO.QuizItemNew>(str);
+
+            //delete all quiz objects and classes and recreate Quiz classes
+            quizUOW.ReInitClasses();
+            
+            //create quiz item
+            quizUOW.QuizItemAdd(quizItemAdd);
+
+            POCO.QuizItemNew quizItemGet = null;
+            quizItemGet = quizUOW.QuizItemGet();
+            string snd=jm.SerializeObject(quizItemGet);
+            File.WriteAllText(@"C:\111\quizes_sharp.json",snd);
 
         }
         public static void AdinTceCheck(){

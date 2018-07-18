@@ -597,6 +597,16 @@ namespace POCO
 
     #region QuizNew
 
+    /// <summary>
+    /// New quiz hierarhy model for Angular IO 6 with form generation
+    /// hierarhy in TS achieved by property array<T> T:QuizItemNew
+    /// QuizItemNew->QuizNew->QuestionNew->AnswerNew
+    /// HtmlItem is for TS model sync to render quizes and form controlls
+    /// dynamic value used for TS any type emulating which can be string,int or boolean
+    /// displays Html submited value for different controls
+    /// </summary>
+    
+    //TS sync parent classes replaces Node,Collection,Htmlitem from Angular Quiz
     public interface IQuizItem
     {
         int _key { get; set; }
@@ -640,6 +650,7 @@ namespace POCO
 
     }
 
+    //Quiz objects, Nodes
     public class QuizItemNew : HtmlItemNew, IQuizItem
     {
         public override IEnumerable<IQuizItem> array { get; set; } = new List<QuizNew>();
@@ -652,7 +663,7 @@ namespace POCO
         {
             this.itemControlls = QuizNew.itemControllsGen();
         }
-        public override IEnumerable<IQuizItem> array { get; set; } = new List<Question>();
+        public override IEnumerable<IQuizItem> array { get; set; } = new List<QuestionNew>();
 
         static List<HtmlItemNew> itemControllsGen(){         
             List<HtmlItemNew> ret = null ;
@@ -667,27 +678,34 @@ namespace POCO
             return ret;
         }
     }
-    public class Question : QuizItemNew
+    public class QuestionNew : QuizItemNew
     {
-        public override IEnumerable<IQuizItem> array { get; set; } = new List<Answer>();
+        public override IEnumerable<IQuizItem> array { get; set; } = new List<AnswerNew>();
     }
-    public class Answer : QuizItemNew
+    public class AnswerNew : QuizItemNew
     {
        
     }
-        
 
-    public class QuizNewGet : QuizItemNew
-    {
-        public DateTime dateFrom { get; set; }
-        public DateTime dateTo { get; set; }
-        public List<Question> questions_ { get; set; }
-    }
-
+    //Quiz form controlls classes
     public class TextControlNew : HtmlItemNew
     {
         public string _displayValue { get; set; }
     }
+
+
+    //relations for quiz 
+    public class HasQuestions : E { }
+    public class HasAnswers : E { }
+
+    //object to send back
+    [Obsolete]
+    public class QuizNewGet : QuizItemNew
+    {
+        public DateTime dateFrom { get; set; }
+        public DateTime dateTo { get; set; }
+        public List<QuestionNew> questions_ { get; set; }
+    }    
 
     #endregion
 
