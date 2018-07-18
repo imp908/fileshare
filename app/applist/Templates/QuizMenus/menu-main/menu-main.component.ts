@@ -30,6 +30,7 @@ export class MenuMainComponent implements OnInit {
     ModelContainerNew.Init();
     this._quizItems=ModelContainerNew.QuizesPassed;
     this.hs_.nodesPassed_=this._quizItems;
+    console.log(JSON.stringify(this._quizItems));
     ModelContainerNew.nodeEdit.subscribe(s=>{
       this._editItem=ModelContainerNew.nodeSelected;
       ServiceCl.log(["nodeEdit received by " + this.constructor.name
@@ -48,30 +49,22 @@ export class MenuMainComponent implements OnInit {
   }
 
   Post(str_:string){
-    this.hs_.addQuizTs(str_);
+    this.hs_.addQuiz(str_,ModelContainerNew.QuizesPassed).subscribe(s=>{
+      ServiceCl.log(["Post received: " + str_,this.constructor.name, s]);
+    });
 
     ServiceCl.log(["Post: " + str_,this.constructor.name]);
   }
   Get(str_:string){
-    // this.hs_.getQuizTs(str_);
-    this.hs_.getQuiz(str_).subscribe(
-      (s:QuizItemNew) =>{
 
-        //Check Strings
-        //-----------------------
-        // ServiceCl.log(["getQuiz received objects: ", ModelContainerNew.QuizesPassed,s]);
-        // ServiceCl.log(JSON.stringify(ModelContainerNew.QuizesPassed));
-        // ServiceCl.log(JSON.stringify(s));
+    this.hs_.getQuiz(str_).subscribe((s:QuizItemNew)=>{
+      let r2=FactoryNew.cloneByKey(s);
+      ModelContainerNew.QuizesPassed=r2;
+      this._quizItems=ModelContainerNew.QuizesPassed;
+      ServiceCl.log(["Get received: ",this._quizItems,r2]);
+    })
 
-        //check JSON parse object
-        //-----------------------
-        // ModelContainerNew.Init();
-        // ModelContainerNew.QuizesPassed=JSON.parse(JSON.stringify(ModelContainerNew.QuizesPassed));
-        // this._quizItems=ModelContainerNew.QuizesPassed;
-
-      }
-    );
-    ServiceCl.log(["Get: " + str_,this.constructor.name]);
+    ServiceCl.log(["Get: " + str_,this.constructor.name, ModelContainerNew.QuizesPassed]);
   }
 
 }

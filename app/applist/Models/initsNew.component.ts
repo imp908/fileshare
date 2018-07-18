@@ -63,6 +63,36 @@ export class FactoryNew{
     if(i_ instanceof QuizItemNew){return 'QuizItem'}
     if(i_ instanceof HtmlItemNew){return 'HtmlItem'}
   }
+  static InstanceFromString(i_:string){
+    let r = null;
+
+      if(i_==="HtmlItemNew"){r=new HtmlItemNew(null);}
+
+      if(i_==="QuizItemNew"){r=new QuizItemNew(null);}
+
+      if(i_==="QuizNew"){r=new QuizNew(null);}
+      if(i_==="QuestionNew"){r=new QuestionNew(null);}
+      if(i_==="AnswerNew"){r=new AnswerNew(null);}
+
+      if(i_==="TextControlNew"){r=new TextControlNew(null);}
+      if(i_==="CheckBox"){r=new CheckBoxControlNew(null);}
+      if(i_==="DropDownControlNgNew"){r=new DropDownControlNgNew(null);}
+      if(i_==="DropDownControlMultiNgNew"){r=new DropDownControlMultiNgNew(null);}
+      if(i_==="DropDownControlMultiNew"){r=new DropDownControlMultiNew(null);}
+      if(i_==="RadioButton"){r=new RadioButtonControlNew(null);}
+      if(i_==="DatePickerControlNew"){r=new DatePickerControlNew(null);}
+      if(i_==="NumberPickerControlNew"){r=new NumberPickerControlNew(null);}
+
+      if(i_==="NewAddNew"){r=new NewAddNew(null);}
+      if(i_==="SaveNew"){r=new SaveNew(null);}
+      if(i_==="EditNew"){r=new EditNew(null);}
+      if(i_==="CopyNew"){r=new CopyNew(null);}
+      if(i_==="DeleteNew"){r=new DeleteNew(null);}
+
+      if(i_==="ButtonNew"){r=new ButtonNew(null);}
+
+    return r;
+  }
 
   //service genes
 
@@ -842,6 +872,51 @@ export class FactoryNew{
     return Math.floor(Math.random()*(max-min)+min)
   }
 
+  static cloneFromProt(to_:any,from_:any){
+    let  r_ = Object.assign(
+      to_,Object.create(
+        Object.getPrototypeOf(from_)
+      )
+    );
+    return r_;
+  }
+  static cloneFromObj(to_:any,from_:any){
+    return Object.assign(to_,from_);
+  }
+  static cloneByKey(from_:QuizItemNew){
+    let r = FactoryNew.InstanceFromString(from_._typeName);
+
+    // console.log(["cloneByKey for: ",from_,r]);
+
+    if(r!=null){
+      if(from_!=null){
+        let keys_=Object.keys(from_);
+        // console.log(keys_);
+        if(keys_!=null && keys_.length>0){
+          for(let i of keys_){
+            if(from_[i]!=null){
+
+              if(Array.isArray(from_[i])){
+                r[i]=new Array<QuizItemNew>();
+                for(let i2 of from_[i]){
+                  r[i].push(FactoryNew.cloneByKey(i2));
+                  FactoryNew.cloneByKey(i2);
+                  // console.log(["cloneByKey arr: ",from_[i],i2,r,i,r[i]])
+                }
+              }else{
+                // console.log(["cloneByKey from: ",r,from_,i])
+                r[i]=from_[i];
+              }
+
+            }
+          }
+        }
+      }
+    }else{r=from_}
+
+    return r;
+  }
+
 }
 
 export class ModelContainerNew{
@@ -865,7 +940,7 @@ export class ModelContainerNew{
   @Output() static disable=new EventEmitter();
 
   public static Init(){
-    this.QuizesPassed=FactoryNew.GenQuizes(5,5,5,"flexCtnr flexRow","flexCtnr flexRow","flexCtnr flexCol");
+    this.QuizesPassed=FactoryNew.GenQuizes(7,5,5,"flexCtnr flexRow","flexCtnr flexRow","flexCtnr flexCol");
 
     this.nodeSelected=null;
     this.quizSelected=null;
@@ -1888,8 +1963,6 @@ export class TestNew{
 
   public static JSONparseCheck(){
 
-
-
       // let q= Object.assign(new QuizItemNew(null),"'{_name:1}'");
       let q:QuizItemNew;
       q = new QuizItemNew(JSON.parse('{"_key": 0,"_name": "QuizItems","_value": "QuizItems",	"_typeName": "QuizItemNew",	"cssClass": "fxvt",	"show": true,	"created": "2018-07-17 16:43:05",	"changed": "2018-07-17 16:43:05"}'));
@@ -1931,7 +2004,7 @@ export class TestNew{
 
     //Check JSON convert
 
-    TestNew.JSONparseCheck();
+    //TestNew.JSONparseCheck();
 
   }
 

@@ -56,7 +56,7 @@ export class TestComponent implements OnInit {
 
     //
 
-    this.quizItems_=TestNew.QuizList();
+    this.quizItems_=TestNew.QuizList();  
     this.ItemButtons_=FactoryNew.ItemButtons("");
     this.editButtons_=FactoryNew.EditButtons("");
 
