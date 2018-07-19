@@ -176,6 +176,13 @@ namespace IUOWs
             result = _repo.ContentStringToObject<T>(item_);
             return result;
         }
+        public T UOWdeserialize<T>(string item_,JsonConverter js_)
+            where T : class, IOrientObjects.IOrientDefaultObject
+        {
+            T result = null;
+            result = JsonConvert.DeserializeObject<T>(item_, js_);
+            return result;
+        }
 
         string ConvertToBase64(string input)
         {
@@ -2674,7 +2681,7 @@ namespace Quizes
                 {
 
                     new QuizNew()
-                    {_key = 0,_name = "QuizName0",_value = "QuizValue0",show = true,cssClass="fxvt",array = new List<QuestionNew>() {
+                    {_key = 0,_name = "QuizName0",_value = "QuizValue0",show = true,cssClass="fxvt",itemControlls = QuizNew.testitemControllsGen(),array = new List<QuestionNew>() {
 
                         new QuestionNew() { _key = 0, _name = "QuestionName0", _value = "QuestionValue0", show = true,cssClass="fxvt"
                         ,array = new List<AnswerNew>(){
@@ -2688,7 +2695,7 @@ namespace Quizes
                         }
                     }
                     , new QuizNew()
-                    {_key = 1,_name = "QuizName1",_value = "QuizValue1",show = true,cssClass="fxvt",array = new List<QuestionNew>() {
+                    {_key = 1,_name = "QuizName1",_value = "QuizValue1",show = true,cssClass="fxvt",itemControlls = QuizNew.testitemControllsGen(),array = new List<QuestionNew>() {
 
                         new QuestionNew() { _key = 0, _name = "QuestionName0", _value = "QuestionValue0", show = true,cssClass="fxvt"
                         ,array = new List<AnswerNew>(){
@@ -2702,7 +2709,7 @@ namespace Quizes
                         }
                     }
                     , new QuizNew()
-                    {_key = 2,_name = "QuizName3",_value = "QuizValue3",show = true,cssClass="fxvt",array = new List<QuestionNew>() {
+                    {_key = 2,_name = "QuizName3",_value = "QuizValue3",show = true,cssClass="fxvt",itemControlls = QuizNew.testitemControllsGen(),array = new List<QuestionNew>() {
 
                         new QuestionNew() { _key = 0, _name = "QuestionName0", _value = "QuestionValue0", show = true,cssClass="fxvt"
                         ,array = new List<AnswerNew>(){
@@ -2780,7 +2787,18 @@ namespace Quizes
             return result;
         }
 
+        public QuizItemNew QuizItemGetFromFileTest(string str_)
+        {
+            string _str = File.ReadAllText(str_);
+            QuizItemNew r = this.UOWdeserialize<POCO.QuizItemNew>(_str);
+            return r;
+        }
+        public void QuizItemAddToFileTest(QuizItemNew item_,string str_)
+        {
+            string _str = this.UOWserialize<QuizItemNew>(item_);
+            File.WriteAllText(str_, _str);
+        }
+
     }
 
 }
-

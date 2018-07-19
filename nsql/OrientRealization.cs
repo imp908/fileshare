@@ -5189,7 +5189,7 @@ propertiesTo[i2].SetValue(result, propertiesFrom[i].GetValue(fromObject, null), 
     void BindDbName(string dbName_);
     void BindUrlName(string input_);
     T ContentStringToObject<T>(string item_) where T : class, IOrientDefaultObject;
-    K DropClassTp<K>(Type class_, string dbName_ = null) where K : class, IOrientEntity;
+        K DropClassTp<K>(Type class_, string dbName_ = null) where K : class, IOrientEntity;
     IOrientRepo CreateClass(string class_, string extends_, string dbName_ = null);
     Type CreateClass<T, K>(string dbName_ = null)
       where T : IOrientEntity

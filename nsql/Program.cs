@@ -28,14 +28,14 @@ using System.Text.RegularExpressions;
 
 
 namespace NSQLManager
-{
+{   
 
     class OrientDriverConnnect
     {
 
         static void Main(string[] args)
         {
-
+            
             //EFcheck.EFqueryCheck();
 
             //GENERATING DATABASES
@@ -224,20 +224,39 @@ namespace NSQLManager
         {
             string res=UserAuthenticationMultiple.UserAcc();
         }
-        public static void QuizNewCheck(){            
+        public static void QuizNewCheck(){
 
+      
             OrientRepo repo=DefaultManagerInit();
             JSONManager jm = new JSONManager();
             POCO.QuizItemNew quizItemAdd = null;            
             Quizes.QuizNewUOW quizUOW=new Quizes.QuizNewUOW(repo);
-            
+
+            ///generating class from shrp, serializing with type names, deserializing with types
+            //check with types Types Stored
+            //------------------------------------------------------------------------------------
+            var jss = new JsonSerializerSettings() { TypeNameHandling = TypeNameHandling.All };            
             //generate quizes from C# code to send to Angular IO test only
-            //POCO.QuizItemNew qitm = quizUOW.QuizGenerate();
+            POCO.QuizItemNew qitm = quizUOW.QuizGenerate();
+            string str0 = jm.SerializeObject(qitm, jss);
+            File.WriteAllText(@"C:\111\quizes_sharp_clss.json", str0);
+            //read string without inherited props and try to parse convert it to types
+            string strSh = File.ReadAllText(@"C:\111\quizes_sharp_clss.json");
+            POCO.QuizItemNew quizSh = JsonConvert.DeserializeObject<POCO.QuizItemNew>(strSh, jss);
+
+            ///generating class from shrp, serializing with type names, deserializing with types
+            //check without types Types not stored
+            //------------------------------------------------------------------------------------
+            string strNoType = jm.SerializeObject(qitm);
+            File.WriteAllText(@"C:\111\quizes_sharp_Noclss.json", strNoType);
+            string strShnocl = File.ReadAllText(@"C:\111\quizes_sharp_Noclss.json");
+            quizSh = JsonConvert.DeserializeObject<POCO.QuizItemNew>(strSh, new QuizItemConverter());
 
             //init quizes from json exported from Angular for test purposes only
             string str = File.ReadAllText(@"C:\111\quizes_ang.json");
-            quizItemAdd = quizUOW.UOWdeserialize<POCO.QuizItemNew>(str);
-
+            quizItemAdd = quizUOW.UOWdeserialize<POCO.QuizItemNew>(str);           
+                    
+           
             //delete all quiz objects and classes and recreate Quiz classes
             quizUOW.ReInitClasses();
             

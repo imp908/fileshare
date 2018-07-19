@@ -637,7 +637,7 @@ namespace POCO
 
         //For TypeScript any type Only, to emulate Angrular IO
         //html [(ngModel)] value for submited form values receive (string,bool,int)
-        public dynamic HtmlSubmittedValue { get; set; }
+        public virtual dynamic HtmlSubmittedValue { get; set; }
 
         public bool show { get; set; } = true;
 
@@ -654,25 +654,163 @@ namespace POCO
     public class QuizItemNew : HtmlItemNew, IQuizItem
     {
         public override IEnumerable<IQuizItem> array { get; set; } = new List<QuizNew>();
-        public List<HtmlItemNew> itemControlls { get;set; } = new List<HtmlItemNew>();
+        public IEnumerable<IQuizItem> itemControlls { get;set; } = new List<HtmlItemNew>();
     }
+    public abstract class JsonCreationConverter<T> : JsonConverter
+    {
+        /// <summary>
+        /// Create an instance of objectType, based properties in the JSON object
+        /// </summary>
+        /// <param name="objectType">type of object expected</param>
+        /// <param name="jObject">
+        /// contents of JSON object that will be deserialized
+        /// </param>
+        /// <returns></returns>
+        protected abstract T Create(Type objectType, JObject jObject);
+
+        public override bool CanConvert(Type objectType)
+        {
+            return typeof(T).IsAssignableFrom(objectType);
+        }
+
+        public override bool CanWrite
+        {
+            get { return false; }
+        }
+
+        public override object ReadJson(JsonReader reader,
+                                        Type objectType,
+                                         object existingValue,
+                                         JsonSerializer serializer)
+        {
+            // Load JObject from stream
+            JObject jObject = JObject.Load(reader);
+
+            // Create target object based on JObject
+            T target = Create(objectType, jObject);
+
+            // Populate the object properties
+            serializer.Populate(jObject.CreateReader(), target);
+
+            return target;
+        }
+    }
+    public class QuizItemConverter : JsonCreationConverter<HtmlItemNew>
+    {
+        protected override HtmlItemNew Create(Type type_,JObject object_)
+        {
+            if (FieldExists("_displayValue", object_))
+            {
+                return new TextControlNew();
+            }
+            if (FieldExists("DisplayValue", object_))
+            {
+                return new NumberPickerControlNew();
+            }
+            if (FieldExists("_typeName", object_))
+            {
+                if (object_["_typeName"].Value<string>() == "DropDownControlNgNew")
+                {
+                    return new DropDownControlNgNew();
+                }
+                if (object_["_typeName"].Value<string>() == "DropDownControlMultiNew")
+                {
+                    return new DropDownControlMultiNew();
+                }
+                if (object_["_typeName"].Value<string>() == "NumberPickerControlNew")
+                {
+                    return new NumberPickerControlNew();
+                }
+
+                if (object_["_typeName"].Value<string>() == "TextControlNew")
+                {
+                    return new TextControlNew();
+                }
+                if (object_["_typeName"].Value<string>() == "CheckBoxControlNew")
+                {
+                    return new CheckBoxControlNew();
+                }
+                if (object_["_typeName"].Value<string>() == "DatePickerControlNew")
+                {
+                    return new DatePickerControlNew();
+                }
+                if (object_["_typeName"].Value<string>() == "LabelControlNew")
+                {
+                    return new LabelControlNew();
+                }
+
+                if (object_["_typeName"].Value<string>() == "QuizNew")
+                {
+                    return new QuizNew();
+                }
+                if (object_["_typeName"].Value<string>() == "QuestionNew")
+                {
+                    return new QuestionNew();
+                }
+                if (object_["_typeName"].Value<string>() == "AnswerNew")
+                {
+                    return new AnswerNew();
+                }
+
+                if (object_["_typeName"].Value<string>() == "QuizItemNew")
+                {
+                    return new QuizItemNew();
+                }
+            }
+
+            return new HtmlItemNew();
+        }
+        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        {
+            throw new NotImplementedException();
+        }
+        private bool FieldExists(string fieldName, JObject jObject)
+        {
+            return jObject[fieldName] != null;
+        }
+    }
+
     public class QuizNew : QuizItemNew
     {
 
         public QuizNew()
         {
-            this.itemControlls = QuizNew.itemControllsGen();
+            
+        }
+        public void Init()
+        {
+            this.itemControlls = QuizNew.testitemControllsGen();
         }
         public override IEnumerable<IQuizItem> array { get; set; } = new List<QuestionNew>();
 
-        static List<HtmlItemNew> itemControllsGen(){         
+        public static List<HtmlItemNew> testitemControllsGen(){         
             List<HtmlItemNew> ret = null ;
 
             ret = new List<HtmlItemNew>(){new HtmlItemNew()
-            {
-                _name = "Quiztexts",_value = "Quiztexts",cssClass = "fxvt",show = true,HtmlSubmittedValue = false,
-                array = new List<TextControlNew>() { new TextControlNew() { _name = "ItemName", _value = "Enter quiz text", cssClass = "fxhr", show = true, HtmlSubmittedValue = false, _displayValue="" } }
-            }
+                {
+                    _name = "Quiztexts",_value = "Quiztexts",cssClass = "fxvt",show = true,HtmlSubmittedValue = false,
+                    array = new List<TextControlNew>() { new TextControlNew() { _name = "ItemName", _value = "Enter quiz text", cssClass = "fxhr", show = true, HtmlSubmittedValue = "", _displayValue="" } }
+                }
+                ,new HtmlItemNew()
+                {
+                    _name = "QuizCheckboxControlls",_value = "QuizCheckboxControlls",cssClass = "fxvt",show = true,HtmlSubmittedValue = false,
+                    array = new List<CheckBoxControlNew>() { new CheckBoxControlNew() { _name = "IsAnonimous", _value = "Is question anonimous?", cssClass = "fxhr", show = true, HtmlSubmittedValue = false } }
+                }
+                ,new HtmlItemNew()
+                {
+                    _name = "QuizNumberPicker",_value = "QuizNumberPicker",cssClass = "fxvt",show = true,HtmlSubmittedValue = false,
+                    array = new List<NumberPickerControlNew>() { new NumberPickerControlNew() { _name = "NumberPickerTest", _value = "NumberPickerTest", cssClass = "fxhr", show = true, HtmlSubmittedValue = 0, DisplayValue=0 } }
+                }
+                ,new HtmlItemNew()
+                {
+                    _name = "DropBox",_value = "DropBox",cssClass = "fxvt",show = true,HtmlSubmittedValue = false,
+                    array = new List<DropDownControlMultiNew>() { new DropDownControlMultiNew() { _name = "DropBox", _value = "DropBox", cssClass = "fxhr", show = true, HtmlSubmittedValue = "Month 1"
+                    ,array=new List<LabelControlNew>() {
+                        new LabelControlNew(){_name="Month 1",_value="month 1"}
+                        ,new LabelControlNew(){_name="Month 2",_value="month 2"}
+                    } } }
+                }
+
             };
 
             return ret;
@@ -692,7 +830,25 @@ namespace POCO
     {
         public string _displayValue { get; set; }
     }
-
+    public class CheckBoxControlNew : HtmlItemNew
+    {
+        public string pattern { get; set; }
+        public int maxLength { get; set; }
+        public int minLength { get; set; }
+    }
+    public class DropDownControlNgNew : HtmlItemNew{}
+    public class DropDownControlMultiNew : HtmlItemNew { }
+    public class DatePickerControlNew : HtmlItemNew {
+        //public new DateTime HtmlSubmittedValue { get; set; }        
+    }
+    public class NumberPickerControlNew : HtmlItemNew {
+        public int minN { get; set; }
+        public int maxN { get; set; }
+        public int DisplayValue { get; set; }
+        public bool overflow { get; set; }
+        //public new int HtmlSubmittedValue { get; set; }
+    }
+    public class LabelControlNew : HtmlItemNew { }
 
     //relations for quiz 
     public class HasQuestions : E { }

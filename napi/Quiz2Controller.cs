@@ -65,11 +65,33 @@ namespace NewsAPI.Controllers
             response = new WebManagers.ReturnEntities(result, Request);
             return response;
         }
-         
+
+        [HttpGet]
+        [Route("api/Quiz2/getf")]
+        public IHttpActionResult GetFromFile() {
+            WebManagers.ReturnEntities response = null;
+            string result = string.Empty;
+            POCO.QuizItemNew _item = quizUow.QuizItemGetFromFileTest(@"C:\111\quizes_ang.json");
+            result = quizUow.UOWserialize<POCO.QuizItemNew>(_item);
+            response = new WebManagers.ReturnEntities(result, Request);
+            return response;
+        }
+        [HttpPost]
+        [Route("api/Quiz2/postf")]
+        public IHttpActionResult PostToFile(POCO.QuizItemNew item_)
+        {
+            WebManagers.ReturnEntities response = null;
+            string result = string.Empty;
+            result = quizUow.UOWserialize<POCO.QuizItemNew>(item_);       
+            response = new WebManagers.ReturnEntities(result, Request);
+            return response;
+        }
+
+
         [HttpPost]
         [Route("api/Quiz2")]
         public IHttpActionResult Post(POCO.QuizItemNew qz_)
-        {
+        {                        
             WebManagers.ReturnEntities response = null;
             string result = string.Empty;
             try{
