@@ -27,7 +27,7 @@ export class FactoryNew{
 
     if(i_ == null ){return null}
 
-    if(i_ instanceof LabelControlNew){ return "LabelControlNew"}
+
 
 
     if(i_ instanceof QuizNew){ return "QuizNew"}
@@ -36,6 +36,7 @@ export class FactoryNew{
 
 
     if(i_ instanceof TextControlNew){ return "TextControlNew"}
+    if(i_ instanceof LabelControlNew){ return "LabelControlNew"}
     if(i_ instanceof CheckBoxControlNew){ return 'CheckBox'}
     if(i_ instanceof DropDownControlNgNew){ return "DropDownControlNgNew"}
     if(i_ instanceof DropDownControlMultiNgNew){ return "DropDownControlMultiNgNew"}
@@ -75,11 +76,14 @@ export class FactoryNew{
       if(i_==="AnswerNew"){r=new AnswerNew(null);}
 
       if(i_==="TextControlNew"){r=new TextControlNew(null);}
+      if(i_==="LabelControlNew"){r=new LabelControlNew(null);}
       if(i_==="CheckBox"){r=new CheckBoxControlNew(null);}
+      if(i_==="CheckBoxControlNew"){r=new CheckBoxControlNew(null);}
       if(i_==="DropDownControlNgNew"){r=new DropDownControlNgNew(null);}
       if(i_==="DropDownControlMultiNgNew"){r=new DropDownControlMultiNgNew(null);}
       if(i_==="DropDownControlMultiNew"){r=new DropDownControlMultiNew(null);}
       if(i_==="RadioButton"){r=new RadioButtonControlNew(null);}
+      if(i_==="RadioButtonControlNew"){r=new RadioButtonControlNew(null);}
       if(i_==="DatePickerControlNew"){r=new DatePickerControlNew(null);}
       if(i_==="NumberPickerControlNew"){r=new NumberPickerControlNew(null);}
 
@@ -90,6 +94,8 @@ export class FactoryNew{
       if(i_==="DeleteNew"){r=new DeleteNew(null);}
 
       if(i_==="ButtonNew"){r=new ButtonNew(null);}
+
+
 
     return r;
   }

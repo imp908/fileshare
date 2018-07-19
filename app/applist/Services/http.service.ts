@@ -26,8 +26,9 @@ export class HttpService{
 
   addQuiz(url_:string,quiz: QuizItemNew): Observable<QuizItemNew>{
     if(url_==null || url_=="" || url_==" "){url_=this.url};
-    // console.log(JSON.stringify(quiz));
-    return this.http.post<QuizItemNew>(url_, quiz, httpOptions);
+    let body = JSON.stringify(quiz);
+    console.log(body);
+    return this.http.post<QuizItemNew>(url_, body, httpOptions);
   }
 
   getQuiz(url_:string): Observable<QuizItemNew>{

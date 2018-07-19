@@ -33,11 +33,11 @@ export class ItemsComponent implements OnInit {
     }
   }
   typeCheck(i_:HtmlItemNew){
-    console.log(["typeCheck: ", i_,FactoryNew.TypeCheck(i_)]);
+    // console.log(["typeCheck: ", i_,FactoryNew.TypeCheck(i_)]);
     return FactoryNew.TypeCheck(i_);
   }
   instanceCheck(i_:HtmlItemNew){
-    console.log(["instanceCheck: ",i_,FactoryNew.InstanceCheck(i_)]);
+    // console.log(["instanceCheck: ",i_,FactoryNew.InstanceCheck(i_)]);
     return FactoryNew.InstanceCheck(i_);
   }
 }

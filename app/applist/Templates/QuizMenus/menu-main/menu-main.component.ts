@@ -49,11 +49,11 @@ export class MenuMainComponent implements OnInit {
   }
 
   Post(str_:string){
-    this.hs_.addQuiz(str_,ModelContainerNew.QuizesPassed).subscribe(s=>{
-      ServiceCl.log(["Post received: " + str_,this.constructor.name, s]);
+    this.hs_.addQuiz(str_,ModelContainerNew.QuizesPassed).subscribe((s:QuizItemNew)=>{
+      ServiceCl.log(["Post received: " + str_,this.constructor.name,s]);
     });
 
-    ServiceCl.log(["Post: " + str_,this.constructor.name]);
+    ServiceCl.log(["Post: " + str_,this.constructor.name,ModelContainerNew.QuizesPassed]);
   }
   Get(str_:string){
 
@@ -61,7 +61,7 @@ export class MenuMainComponent implements OnInit {
       let r2=FactoryNew.cloneByKey(s);
       ModelContainerNew.QuizesPassed=r2;
       this._quizItems=ModelContainerNew.QuizesPassed;
-      ServiceCl.log(["Get received: ",this._quizItems,r2]);
+      ServiceCl.log(["Get received: ",this._quizItems,r2,s]);
     })
 
     ServiceCl.log(["Get: " + str_,this.constructor.name, ModelContainerNew.QuizesPassed]);
