@@ -226,7 +226,21 @@ namespace NSQLManager
         }
         public static void QuizNewCheck(){
 
-      
+            string s1 = "test";
+            String s2 = "test";
+            string s3 = "test";
+            string s4 = "te" + "st";
+            String s5 = "te" + "st";
+            string st1 = "te";
+            string st2 = "st";
+            string s6 = st1 + st2;
+
+            bool b1 = object.ReferenceEquals(s1, s2);
+            bool b2 = object.ReferenceEquals(s1, s3);
+            bool b3 = object.ReferenceEquals(s1, s4);
+            bool b4 = object.ReferenceEquals(s1, s5);
+            bool b5 = object.ReferenceEquals(s1, s6);
+
             OrientRepo repo=DefaultManagerInit();
             JSONManager jm = new JSONManager();
             POCO.QuizItemNew quizItemAdd = null;            

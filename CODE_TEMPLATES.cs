@@ -760,8 +760,15 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 
 	]
 	
+	
+	//ultimate full stack guide
+	https://codeburst.io/the-ultimate-guide-to-learning-full-stack-web-development-in-6-months-for-30-72b3854a7458
+	
 	//mokups
 	https://www.creativebloq.com/ux/3-way-create-website-mockups-11513936
+	
+	//socket io
+	https://medium.com/@REPTILEHAUS/angular-2-and-socket-io-chat-app-f56afb9ceeb2
 	
 	//website prototypes 
 	https://medium.com/@denysergushkin/20-%D0%B8%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BC%D0%B5%D0%BD%D1%82%D0%BE%D0%B2-%D0%B4%D0%BB%D1%8F-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D1%82%D0%B8%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F-%D0%BE%D1%82-%D0%B1%D1%8B%D1%81%D1%82%D1%80%D0%BE%D0%B3%D0%BE-%D0%B8-%D0%B3%D1%80%D1%8F%D0%B7%D0%BD%D0%BE%D0%B3%D0%BE-wireframe-%D0%BA-%D1%84%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%BC%D1%83-%D0%BF%D1%80%D0%BE%D1%82%D0%BE%D1%82%D0%B8%D0%BF%D1%83-210f223323fe
@@ -780,6 +787,9 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	https://stackoverflow.com/questions/12876865/is-there-anyway-to-generate-razor-views-cshtml-based-on-a-template-beside-t4
 	http://www.umbraworks.net/bl0g/rebuildall/2009/11/17/ASP_NET_MVC_and_virtual_views
 	
+	//angular observables
+	https://scotch.io/tutorials/angular-2-http-requests-with-observables
+
 	//C
 	//TCC compiler
 	https://bellard.org/tcc/
@@ -855,6 +865,8 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	https://codecraft.tv/courses/angular/routing/route-configuration/
 	//states 
 	http://krasimirtsonev																		  
+	//JS to json serialization
+	https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object/22886730#22886730
 	
 	//rxjs
 	https://netbasal.com/understanding-subjects-in-rxjs-55102a190f3
@@ -933,6 +945,12 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	https://icons8.com/
 	
 	//c#
+		
+	//IL 
+	https://gunnarpeipman.com/books/expert-net-2-0-il-assembler/
+	https://gunnarpeipman.com/net/var-keyword/
+	https://dolinkamark.wordpress.com/2015/10/21/cil-programming-tutorial-the-basics/
+	
 	//Effective C# (Covers C# 4.0): 50 Specific Ways to Improve Your C#, 2nd Edition
 	http://www.informit.com/store/effective-c-sharp-covers-c-sharp-4.0-50-specific-ways-9780321658708
 	//editing
@@ -5723,6 +5741,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 		]						
 		
 		tipsandtricks[
+		
 			cannotreturnTypeStringOnly[			
 				exists=>
 				a typeof b
@@ -5730,6 +5749,19 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 				not exists=>
 				return type, can only string return <= this.constructor.name
 			]
+		
+			HTTPresponses[
+			
+				JSON responses must be converted to types in Agular IO
+			
+				//Angular IO http GET,POST responses
+				//https://github.com/angular/angular/issues/23778
+				//https://github.com/imp908/Quiz/blob/538b2c368da3db045ad7e86cd7e36a933452f6d4/src/quest/Quiz/Http/quiz.service.ts	
+				//https://stackoverflow.com/questions/22875636/how-do-i-cast-a-json-object-to-a-typescript-class
+				//https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object/22886730#22886730
+				
+			]
+			
 		]
 	
 	}
@@ -5737,6 +5769,18 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 	public void TipsAndTricks{
 		
 		vanillaJS[
+			
+			mapVsForEach[
+			https://codeburst.io/javascript-map-vs-foreach-f38111822c0f
+				foreach
+					-> exec function once for every leem
+					-> not returns 
+					-> faster
+				map 
+					-> array of executing function for every element
+					-> returns 
+					-> slower
+			]
 			
 			deepCopyClass[
 				instantiating tore up clones of complex classes with factory
@@ -10279,7 +10323,7 @@ in v out
 			
 			public void CustomDBBoilerPlate()
 			{
-					
+				
 				public Queries(){
 			
 	//(Keanu)-[:ACTED_IN {roles:['Neo']}]->(TheMatrix),
@@ -10435,7 +10479,7 @@ RAW JSON
 
 				}
 			
-		}
+			}
 
 		}
     

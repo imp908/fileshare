@@ -437,44 +437,7 @@ TnT[
 
 			actual[
 			
--> to new model
-	<- done 05.07.2018 11:00 -> numberpicker
-	<- done 05.07.2018 11:00 -> datepicker
-	<- done 06.07.2018 16:00 -> QuizHtmlItems to component
-	<- done 06.07.2018 16:00 -> Instance checker
-	<- done 06.07.2018 16:00 -> Buttons to component
-	<- done 07.07.2018 15:00 -> Buttons with objects
-	<- done 07.07.2018 15:00 -> QuizHtmlItem
-	<- done 09.07.2018 17:00 -> new Flexbox with classes and flex columns formatting
-	<- done 09.07.2018 17:00 -> menu-item, new menulist
-	<- done 09.07.2018 17:00 -> Quiz itemControlls	
-	<- done 10.07.2018 13:30 -> Add new Button
-	<- done 10.07.2018 13:30 -> Question,Answer button names
-	<- done 11.07.2018 14:00 -> new Deep copy with object instance, nad nested collections
-	<- done 11.07.2018 17:00 -> Edit menu buttons Save, Cancel + events
-	<- done 12.07.2018 12:00 -> correct collection add,update with null key
-	<- done 12.07.2018 12:00 -> itemControls Name to object name bind
-	<- done 12.07.2018 12:00 -> Question ItemParameters change to textbox and drop box with events
-	<- done 12.07.2018 13:50 -> Quiz checlbox cycle change event, display
-	<- done 12.07.2018 21:00 -> Question edit events Button enable,disable (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
-	<- done 12.07.2018 21:00 -> Question name, values to item imp exp	
-	<- done 12.07.2018 21:30 -> display question value (text)
-	<- done 12.07.2018 21:30 -> Answer item parameters 
-	<- done 13.07.2018 15:00 -> add weeks in year, days in week to Factory
-	<- done 13.07.2018 15:00 -> Question,answer Item parameters
-	<- done 16.07.2018 22:30 -> Http POST,GET
-	<- done 18.07.2018 14:40 -> Quiz nested class hierarhy from json instantiate
-	<- done 18.07.2018 14:40 -> from JSON to QuizItems, ItemControlls convert done with [
-		//responses
-		//https://github.com/angular/angular/issues/23778
-		//https://github.com/imp908/Quiz/blob/538b2c368da3db045ad7e86cd7e36a933452f6d4/src/quest/Quiz/Http/quiz.service.ts	
-		//https://stackoverflow.com/questions/22875636/how-do-i-cast-a-json-object-to-a-typescript-class
-		//https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object/22886730#22886730
-	]
-	<- done 18.07.2018 17:00 -> Quiz NSQL repo,UOW
-	<- done 18.07.2018 17:00 -> Quiz Back Napi get,post
 	
-	-> Http POST,GET model sync
 	-> radio button
 	-> Htmlitem changed status
 	-> share save functionaity betweeen other buttons
@@ -486,7 +449,8 @@ TnT[
 	-> Quiz item parameters add weeks in year, days in week to Factory	
 	-> radio button																				  
 	-> Answer type visual element (checkbox, radio)			  
-	
+
+
 -> move nsql manager to core
 -> Back model arrange for itemparameters and quizcontrolls
 -> manager CRUD QuizeList with ref to person
@@ -495,21 +459,16 @@ TnT[
 -> angular get by id
 -> manager send by id
 -> angular draw quiz by quizControlls
-
 -> ubuntu host check
-
 -> test question itemparameters copy
 -> New event sheme
-
 -> answer types to add 
 	-> picture
 	-> Correct answer for victorine according to type
-
 -> Quiz Pass page[exmpls
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
 quiz with correct answers
 https://meduza.io/quiz/bublik-ili-prettsel
-
 Generate Html according to type
 	-> plain all questoins with answers on one page 
 		one submit
@@ -517,10 +476,11 @@ Generate Html according to type
 		multiple mini submits 
 	-> final page results show , repeat for repeatable
 ]
-
 -> moove all toggling from factory to classes
 -> Ignore event issue to repair [
 more then 3 events listen ignore issue to repair  ]
+
+
 
 	<- 17.04.2018 done -> New model menu,list-menu,edit-menu added 
 	<- done -> New model create templates rebuild 
@@ -603,7 +563,54 @@ more then 3 events listen ignore issue to repair  ]
 	<- 27.06.2018 done -> new ItemParameters + test
 	<- 27.06.2018 done -> new FactoryNew + test		
 	<- 04.07.2018 done -> new Html Templates (ItemList,Item,Check,radio,text)
+	<- done 18.07.2018 14:40 -> to new model
+	[
+		<- done 05.07.2018 11:00 -> numberpicker
+		<- done 05.07.2018 11:00 -> datepicker
+		<- done 06.07.2018 16:00 -> QuizHtmlItems to component
+		<- done 06.07.2018 16:00 -> Instance checker
+		<- done 06.07.2018 16:00 -> Buttons to component
+		<- done 07.07.2018 15:00 -> Buttons with objects
+		<- done 07.07.2018 15:00 -> QuizHtmlItem
+		<- done 09.07.2018 17:00 -> new Flexbox with classes and flex columns formatting
+		<- done 09.07.2018 17:00 -> menu-item, new menulist
+		<- done 09.07.2018 17:00 -> Quiz itemControlls	
+		<- done 10.07.2018 13:30 -> Add new Button
+		<- done 10.07.2018 13:30 -> Question,Answer button names
+		<- done 11.07.2018 14:00 -> new Deep copy with object instance, nad nested collections
+		<- done 11.07.2018 17:00 -> Edit menu buttons Save, Cancel + events
+		<- done 12.07.2018 12:00 -> correct collection add,update with null key
+		<- done 12.07.2018 12:00 -> itemControls Name to object name bind
+		<- done 12.07.2018 12:00 -> Question ItemParameters change to textbox and drop box with events
+		<- done 12.07.2018 13:50 -> Quiz checlbox cycle change event, display
+		<- done 12.07.2018 21:00 -> Question edit events Button enable,disable (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
+		<- done 12.07.2018 21:00 -> Question name, values to item imp exp	
+		<- done 12.07.2018 21:30 -> display question value (text)
+		<- done 12.07.2018 21:30 -> Answer item parameters 
+		<- done 13.07.2018 15:00 -> add weeks in year, days in week to Factory
+		<- done 13.07.2018 15:00 -> Question,answer Item parameters
+		<- done 16.07.2018 22:30 -> Http POST,GET
+		<- done 18.07.2018 14:40 -> Quiz nested class hierarhy from json instantiate
+		<- done 18.07.2018 14:40 -> from JSON to QuizItems, ItemControlls convert done with [
+			//Angular IO http GET,POST responses
+			//https://github.com/angular/angular/issues/23778
+			//https://github.com/imp908/Quiz/blob/538b2c368da3db045ad7e86cd7e36a933452f6d4/src/quest/Quiz/Http/quiz.service.ts	
+			//https://stackoverflow.com/questions/22875636/how-do-i-cast-a-json-object-to-a-typescript-class
+			//https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object/22886730#22886730
+		]
+		<- done 18.07.2018 17:00 -> Quiz NSQL repo,UOW
+		<- done 18.07.2018 17:00 -> Quiz Back Napi get,post		
+	]
+	<- done 19.07.2018 17:00 -> Http POST,GET model sync [
 	
+		<- done 19.07.2018 17:00 -> Nested JSON object to type convert
+		<- done 19.07.2018 17:00 -> Datepicker error
+		<- done 19.07.2018 12:25 -> Drop downs values collection
+		<- done 19.07.2018 11:27 -> Back POCO new added
+		<- done 19.07.2018 11:27 -> Back POCO item controlls gen remove
+		<- done 19.07.2018 11:27 -> Angular POCO typeinit added
+		
+	]
 ]
 	
 	
@@ -826,7 +833,7 @@ ConstructorForm.json
 				https://mdbootstrap.com/components/buttons/
 								
 				https://meduza.io/games/perezhit-tyurmu-maloy-krovyu										
-				
+				https://www.theuselesswebindex.com/error/
 			]
 			Description[
 				I. install packages
