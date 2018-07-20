@@ -27,6 +27,7 @@ export class MenuMainComponent implements OnInit {
   }
 
   ngOnInit(){
+
     ModelContainerNew.Init();
     this._quizItems=ModelContainerNew.QuizesPassed;
     this.hs_.nodesPassed_=this._quizItems;

@@ -17,7 +17,7 @@ import {NodeNew,CollectionNew
   ,DatePickerControlNew,NumberPickerControlNew
   ,ButtonNew
   ,LabelControlNew
-  ,NewAddNew,SaveNew,EditNew,CopyNew,DeleteNew,Cancel
+  ,NewAddNew,SaveNew,EditNew,CopyNew,DeleteNew,Cancel,PassQuiz
 } from './POCOnew.component';
 
 
@@ -649,6 +649,54 @@ export class FactoryNew{
     r.show=true;
     return r;
   }
+  public static QuizButtons(itmNm:string){
+    let r = new HtmlItemNew(null);
+
+      r.addArr([new PassQuiz({key_:0,
+      name_:"Pass "+itmNm,
+      value_:"Pass "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Pass "+itmNm,disabled_:false})
+      ,new EditNew({key_:0,
+      name_:"Edit "+itmNm,
+      value_:"Edit "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-purple",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Edit "+itmNm,disabled_:false})
+      ,new CopyNew({key_:0,
+      name_:"Copy "+itmNm,
+      value_:"Copy "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-unique",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Copy "+itmNm,disabled_:false})
+      ,new DeleteNew({key_:0,
+      name_:"Delete "+itmNm,
+      value_:"Delete "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-danger",show_:true
+      ,HtmlTypeAttr_:"div"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Delete "+itmNm,disabled_:false})]);
+
+    r.cssClass="flexCtnr flexRow";
+    r.show=true;
+    return r;
+  }
   public static EditButtons(itmNm:string){
     let r = new HtmlItemNew(null);
 
@@ -878,6 +926,7 @@ export class FactoryNew{
     return Math.floor(Math.random()*(max-min)+min)
   }
 
+  //cloning objects
   static cloneFromProt(to_:any,from_:any){
     let  r_ = Object.assign(
       to_,Object.create(
@@ -921,6 +970,68 @@ export class FactoryNew{
     }else{r=from_}
 
     return r;
+  }
+
+  static GradientGen(){
+
+    var cssGrad="background: linear-gradient("
+    var degs="deg"
+    var comma=",";
+    var strClose=");";
+
+    var toDeg=true;
+
+    var res:string[]=new Array<string>();
+
+    if(toDeg){
+      res.push(Math.floor(Math.random()*360).toString());
+    }
+
+    var blues:string[]=[
+      "#001f3f","#0074D9","#7FDBFF","#39CCCC"
+    ];
+    var greens:string[]=[
+      "#39CCCC","#3D9970","#2ECC40","#01FF70"
+    ];
+    var oranges:string[]=[
+      "#FFDC00","#FF851B","#FF4136 "
+    ];
+    var violets:string[]=[
+      "#85144b ","#F012BE","#B10DC9"
+    ];
+
+    var colors:Array<string[]>=
+    new Array<string[]>(blues,greens,oranges,violets) ;
+
+    var localMax=Math.floor(Math.random()*colors.length);
+    console.log(["localMax: ",localMax]);
+    for(var i=0;i<=localMax;i++){
+      var localMax2=Math.floor(Math.random()*colors[i].length);
+      console.log(["localMax2: ",localMax2]);
+        for(var i2=0;i2<=localMax2;i2++){
+          res.push(colors[i][i2]);
+        }
+    }
+
+    for(var i3 =0; i3<res.length;i3++){
+      console.log(["res: ",res[i3]]);
+
+      if(toDeg && i3==0){
+        cssGrad+=res[i3];
+        cssGrad+=degs;
+        cssGrad+=comma;
+      }else{
+        cssGrad+=res[i3];
+        if(i3<(res.length-1)){
+          cssGrad+=comma;
+        }
+      }
+    }
+    cssGrad+=strClose;
+
+    console.log(["cssGrad: ",cssGrad]);
+
+    return cssGrad;
   }
 
 }
@@ -1977,6 +2088,10 @@ export class TestNew{
       console.log(q);
   }
 
+  public static ColorCheck(){
+    FactoryNew.GradientGen();
+  }
+
   public static GO(){
 
     //collection tests
@@ -2011,6 +2126,10 @@ export class TestNew{
     //Check JSON convert
 
     //TestNew.JSONparseCheck();
+
+    //color checker
+
+    // TestNew.ColorCheck();
 
   }
 

@@ -22,20 +22,29 @@ import { DropdownComponent } from './Templates/Elements/dropdowns/dropdownng/dro
 
 import { GappickerNgComponent } from './Templates/Elements/gappicker-ng/gappicker-ng.component';
 import { MenuitemComponent } from './Templates/QuizMenus/menuitem/menuitem.component';
+import { PasspageComponent } from './Templates/QuizMenus/passpage/passpage.component';
+
+import { PageNotFoundComponent } from './Templates/Pages/page-not-found/page-not-found.component';
+
+
+import { AppRoutingModule } from 'src/app/applist/app-routing.module';
 
 import {HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [ApplistComponent,DatepickerPopupComponent
-    , ButtonComponent, ItemComponent, TestComponent
-    , ItemsComponent, MenuListComponent, MenuEditComponent, MenuMainComponent
+    ,ButtonComponent, ItemComponent, TestComponent
+    ,ItemsComponent, MenuListComponent, MenuEditComponent, MenuMainComponent
     ,DropdownmultiComponent,DropdownComponent
     ,GappickerNgComponent, MenuitemComponent
+    ,PageNotFoundComponent, PasspageComponent
     ],
   imports: [
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
     ,NgbModule.forRoot()
-    ,HttpClientModule 
+    ,HttpClientModule
+    ,AppRoutingModule
   ]
   ,bootstrap:[ApplistComponent]
 })
