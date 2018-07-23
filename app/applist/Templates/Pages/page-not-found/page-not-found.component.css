@@ -12,5 +12,17 @@ h2 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   position: relative;
- text-align: center;
+  text-align: center;
+}
+
+.passPage{
+
+  background-color: red;
+  position: absolute;
+  height: 15%;
+  width: 10%;
+  margin-top: 15%;
+  margin-left: 15%;
+  z-index: 1;
+
 }

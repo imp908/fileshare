@@ -13,7 +13,7 @@ export class ApplistComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TestNew.GO();
+    TestNew.GO();
   }
 
 }

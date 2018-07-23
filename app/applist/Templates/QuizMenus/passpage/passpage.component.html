@@ -1,5 +1,38 @@
-<ng-container> <div [class]="cssback" [style]="this.style_"> draw</div> </ng-container>
+<ng-container>
+  <div class="back" [ngStyle]='style_'>
+    <div class="jumbotron2">
 
-<p>
-  passpage works!
-</p>
+      <div class="header">
+        <button>Menu</button>
+      </div>
+    </div>
+    <div class="foreGround" [ngStyle]="fgImage_">
+
+    </div>
+    <div #d class="passCard" (mouseenter)="mouseenter_($event,d)" (mouseleave)="mouseleave_($event,d)">
+        <div class="cardHdr">
+          Quiz name
+        </div>
+        <div class="cardTxt">
+          Quiz text Quiz text Quiz text Quiz text
+          Quiz text Quiz text Quiz text Quiz text
+        </div>
+        <div class="rate">
+          <div>Rate this Quiz</div>
+          <img src="assets/img/store/favStar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer; border-radius: 15px;"/>
+          <img src="assets/img/store/favStar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer; border-radius: 15px;"/>
+          <img src="assets/img/store/favStar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer; border-radius: 15px;"/>
+          <img src="assets/img/store/favStar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer; border-radius: 15px;"/>
+          <img src="assets/img/store/favStar.svg" style="width: 1.2rem; height: 1rem; cursor: pointer; border-radius: 15px;"/>
+        </div>
+    </div>
+ </div>
+ <div>
+   <input type="range">
+   <select>
+     <option value="colors">Color count</option>
+     <option value="deg">Gradient degree</option>
+     <option value="alph">Brightness</option>
+   </select>
+ </div>
+</ng-container>
