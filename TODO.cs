@@ -437,6 +437,8 @@ TnT[
 
 			actual[
 			
+	<- 23.07.2018 -> pass page CSS
+	-> 
 	
 	-> radio button
 	-> Htmlitem changed status
@@ -450,7 +452,8 @@ TnT[
 	-> radio button																				  
 	-> Answer type visual element (checkbox, radio)			  
 
-
+-> colorChange component with range and dropbox provides values for grad gen
+-> pass page
 -> move nsql manager to core
 -> Back model arrange for itemparameters and quizcontrolls
 -> manager CRUD QuizeList with ref to person

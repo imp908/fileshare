@@ -761,6 +761,9 @@ https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-ap
 	]
 	
 	
+	//css compatible colors
+	http://paletton.com/#uid=75C0W0klllljw6Jkre1mfsEnaGR
+	
 	//ultimate full stack guide
 	https://codeburst.io/the-ultimate-guide-to-learning-full-stack-web-development-in-6-months-for-30-72b3854a7458
 	
@@ -4374,7 +4377,7 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
   
 		
 	#endregion 	
-	
+
 	#region C++ 
 
 	public Code theory
@@ -4490,7 +4493,7 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 	}
 
 	#endregion	
-	
+
 	#region JS5	
 	
 	public souces[
@@ -5797,7 +5800,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 		}
 		,DOMevents{
 			
-			ClickVsMouseUp(
+			ClickVsMouseUp{
 			click will trigger MouseEvent and will intercept other KeyDown events.
 			if different actions on mouseclick and keybord click (enter for example ) expected=>
 				use mouseup
@@ -5808,7 +5811,8 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 						<button (mouseup/click)="selectToday($event)">Select Today</button>
 					</div>
 			
-			)
+			}
+			
 			MouseEnterLeave_MOuseOverOut{
 				https://javascript.info/mousemove-mouseover-mouseout-mouseenter-mouseleave
 				mouseover,mouseout($e)
@@ -5832,7 +5836,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 	}
 	
 	#endregion	
-		
+
 	#region Python
 		
 		public void Python{
@@ -5917,7 +5921,7 @@ pip install ipython
 		}
 	
 	#endregion		
-	
+
 	#region DB
 	
 	public void SQL()
@@ -10564,7 +10568,7 @@ RAW JSON
 	}
 		
 	#endregion
-	
+
  	#region Editors
 	
 	Atom{
@@ -10575,7 +10579,7 @@ RAW JSON
 	}
 		
 	#endregion	
-			
+
 	#region OS		
 		
 		public Windows
