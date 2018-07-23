@@ -436,221 +436,215 @@ TnT[
 ]
 
 			actual[
+	
+	-> Quiz Pass page[
+	
+		<- 23.07.2018 -> pass page CSS
+		-> Start,paging buttons, 
+		-> skip replay funct from mock
+		-> rate
+
+		Generate Html according to type
+		-> plain all questoins with answers on one page 
+			one submit
+		-> scroll one question by page 
+			multiple mini submits 
+		-> final page results show, repeat for repeatable
 			
-	<- 23.07.2018 -> pass page CSS
-	-> 
+		exmpls
+		http://angular-data-grid.github.io/demo/bootstrap/multiple.html
+		quiz with correct answers
+		https://meduza.io/quiz/bublik-ili-prettsel
+	]
 	
-	-> radio button
-	-> Htmlitem changed status
-	-> share save functionaity betweeen other buttons
-	-> save only on post
-	-> Remove @Input, generate buttons from Menu List and Edit List with object names						 		
- 	-> Answer type visual element (checkbox, radio)
-	-> pass page 
-	-> Remove @Input, generate buttons from Menu List and Edit List with object names			
-	-> Quiz item parameters add weeks in year, days in week to Factory	
-	-> radio button																				  
-	-> Answer type visual element (checkbox, radio)			  
+	-> bugs[
+	
+		-> moove all toggling from factory to classes
+		-> Ignore event issue to repair [
+			more then 3 events listen ignore issue to repair  
+		]
 
--> colorChange component with range and dropbox provides values for grad gen
--> pass page
--> move nsql manager to core
--> Back model arrange for itemparameters and quizcontrolls
--> manager CRUD QuizeList with ref to person
--> add id to Quiz, edited state
--> add,delete,update edited quizes
--> angular get by id
--> manager send by id
--> angular draw quiz by quizControlls
+	]
+	
+	-> tech debt cleanup [
+		-> radio button
+		-> Htmlitem changed status
+		-> share save functionaity betweeen other buttons
+		-> save only on post
+		-> Remove @Input, generate buttons from Menu List and Edit List with object names						 		
+		-> Answer type visual element (checkbox, radio)
+		-> pass page 
+		-> Remove @Input, generate buttons from Menu List and Edit List with object names			
+		-> Quiz item parameters add weeks in year, days in week to Factory	
+		-> radio button																				  
+		-> Answer type visual element (checkbox, radio)			  
+	]
+	
+	-> features[
+		-> split add htmlItem to <label> <item> templates. Pass cssClass to 
+		Item and to Item group to change label control display direction 
+		-> change model to linked list	
+		-> Model tree change to contain selected
+		-> Save model tree
+		-> colorChange component with range and dropbox provides values for grad gen
+		-> pass page
+		-> move nsql manager to core
+		-> Back model arrange for itemparameters and quizcontrolls
+		-> manager CRUD QuizeList with ref to person
+		-> add id to Quiz, edited state
+		-> add,delete,update edited quizes
+		-> angular get by id
+		-> manager send by id
+		-> angular draw quiz by quizControlls
 
--> ubuntu host check
+		-> ubuntu host check
 
--> test question itemparameters copy
--> New event sheme
+		-> test question itemparameters copy
+		-> New event sheme
 
--> answer types to add 
-	-> picture
-	-> Correct answer for victorine according to type
+		-> answer types to add 
+			-> picture
+			-> Correct answer for victorine according to type	
+	]
 
--> Quiz Pass page[exmpls
-http://angular-data-grid.github.io/demo/bootstrap/multiple.html
-quiz with correct answers
-https://meduza.io/quiz/bublik-ili-prettsel
-
-Generate Html according to type
-	-> plain all questoins with answers on one page 
-		one submit
-	-> scroll one question by page 
-		multiple mini submits 
-	-> final page results show , repeat for repeatable
-]
-
--> moove all toggling from factory to classes
--> Ignore event issue to repair [
-more then 3 events listen ignore issue to repair  ]
-
-
-
-	<- 17.04.2018 done -> New model menu,list-menu,edit-menu added 
-	<- done -> New model create templates rebuild 
-	<- done -> drop down question type model
-	<- done -> question type init
-	<- done -> dropdown select event DOM change
-	<- done -> questions model add
-	{textbox,radio button,checkbox{pic realization},dropdowns to names}
-	<- done -> draw question DOM
-	<- done -> receive input
-	<- done -> print input on submit					 
-	<- done -> remove events duplicates in edit-menu, edit existing and add new differ by flow
-	<- done -> Detect current nested Nodecollection class type, to add new Items to empty collection 
-	<- done -> Make editable instance of item [
-	<- done -> to mmake it discardable
-	<- done	-> make converter from item to new]		
-	<- done -> parameters collection ItemParameters
-	<- done -> QuizParameters
-	<- done -> Collection sort asc|desc
-	<- done -> Node key init rep
-	<- done -> ModelContainer checkToggle for itemparameter
-	<- done -> ModelContainer show trigger for itemparameter
-	<- done -> DatePicker select current date with mouseup 
-	<- done -> add correct two way binding to node.html checkboxes, datetime
-	<- done with static ModelContainer fields.-> add Form nad Subbmit to menu-edit.html
-	<- done with css display atr, mouseup and ngModelChange-> repair click need
-	<- 15.05.2018 done -> new GapPicker
-	<- 16.05.2018 done -> Input most usefull types test (textbox,radio,check,date,color,range,files) with NgBinding,value display and form submit model + template
-	<- 17.05.2018 done with HtmlItem class and its childs -> Change ItemParameter model to NodeCollection with input type specific attrs 
-	x- 17.05.2018 cancelled (no need cause model updates) -> Rep nested tmplate ngModel update 								 
-	<- 18.05.2108 done -> Edit Node for HtmlItem
-	<- 18.05.2108 done -> Edit Nodes list for HtmlItem collection
-	<- 20.05.2018 done -> check flex [
-	<- 20.05.2018 done -> correct CSS flex container display
-	<- 20.05.2018 done -> JS gen div add flex and CSS [
-		<- 19.05.2018 done -> gen div
-		<- 19.05.2018 done -> load JS lib external
-		<- 19.05.2018 done with  script.onreadystatechange = callback; script.onload = callback; -> use external lib
+	<- done[
+		
+		<- 17.04.2018 done -> New model menu,list-menu,edit-menu added 
+		<- done -> New model create templates rebuild 
+		<- done -> drop down question type model
+		<- done -> question type init
+		<- done -> dropdown select event DOM change
+		<- done -> questions model add
+		{textbox,radio button,checkbox{pic realization},dropdowns to names}
+		<- done -> draw question DOM
+		<- done -> receive input
+		<- done -> print input on submit					 
+		<- done -> remove events duplicates in edit-menu, edit existing and add new differ by flow
+		<- done -> Detect current nested Nodecollection class type, to add new Items to empty collection 
+		<- done -> Make editable instance of item [
+		<- done -> to mmake it discardable
+		<- done	-> make converter from item to new]		
+		<- done -> parameters collection ItemParameters
+		<- done -> QuizParameters
+		<- done -> Collection sort asc|desc
+		<- done -> Node key init rep
+		<- done -> ModelContainer checkToggle for itemparameter
+		<- done -> ModelContainer show trigger for itemparameter
+		<- done -> DatePicker select current date with mouseup 
+		<- done -> add correct two way binding to node.html checkboxes, datetime
+		<- done with static ModelContainer fields.-> add Form nad Subbmit to menu-edit.html
+		<- done with css display atr, mouseup and ngModelChange-> repair click need
+		<- 15.05.2018 done -> new GapPicker
+		<- 16.05.2018 done -> Input most usefull types test (textbox,radio,check,date,color,range,files) with NgBinding,value display and form submit model + template
+		<- 17.05.2018 done with HtmlItem class and its childs -> Change ItemParameter model to NodeCollection with input type specific attrs 
+		x- 17.05.2018 cancelled (no need cause model updates) -> Rep nested tmplate ngModel update 								 
+		<- 18.05.2108 done -> Edit Node for HtmlItem
+		<- 18.05.2108 done -> Edit Nodes list for HtmlItem collection
+		<- 20.05.2018 done -> check flex [
+		<- 20.05.2018 done -> correct CSS flex container display
+		<- 20.05.2018 done -> JS gen div add flex and CSS [
+			<- 19.05.2018 done -> gen div
+			<- 19.05.2018 done -> load JS lib external
+			<- 19.05.2018 done with  script.onreadystatechange = callback; script.onload = callback; -> use external lib
+				]
 			]
+		<- 21.05.2018 14:19 done -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows.
+		<- 22.05.2018 done -> change every HtmlItem child class to cssType receive
+		<- 24.05.2018 done -> handle cssClass in all nodes for all HtmlItem types [
+		<- 22.05.2018 done -> nodeItem rewrite for one item.csstype binding
+		<- 22.05.2018 done -> change nodes and nodegr to cssType
+			]	
+		<- 22.05.2018 done -> repeat checkbox
+		<- 27.05.2018 done -> add dropbox ts
+		<- 27.05.2018 done -> change item-ng
+		<- 28.05.2018 done -> custom multi dropdown
+		<- 29.05.2018 done -> custom multi dropdown CSS, events
+		<- 30.05.2018 done -> Add new Question parameters [
+		<- 30.05.2018 done -> question text
+			<- 30.05.2018 done -> question type with dropdown {textbox,checkbox,radio,rate with dropdown}
+			]
+		<- 30.05.2018 done -> Add new Answers according to Quiz,Answer types[
+			0 or Correct only for text, 1-* for radio,check,rate. rate max points:number
+			-> textbox answer (1-5 for dropbox)
+			-> Answers according to type
+			]
+		<- 30.05.2018 done -> repair edit menu buttons disable
+		<- 31.05.2018 done -> Add save, add new button disabled
+		<- 31.05.2018 done -> Add question type check for answer amount to type accordance
+		<- 31.05.2018 done -> Add inform about question amount invalid to type
+		<- 02.06.2018 done -> Delete item
+		<- 02.06.2018 done -> Add Question button disable	
+		<- 02.06.2018 done -> Copy question
+		<- 11.06.2018 12:31 done -> array deep clone recursive. No class segregation
+		<- 12.06.18 16:42 done -> Classes nested array deep copy[
+			<- 12.06.18 14:00 done -> Repair array deep copy, add nested itemparameter recursive copy
+			<- 12.06.18 15:00 done -> rearrange HtmlItem, QuizItem classes to deep copy ItemParameters
 		]
-	<- 21.05.2018 14:19 done -> CSS calculated var heights, top, bottom, gradients. Tob bottom shadows.
-	<- 22.05.2018 done -> change every HtmlItem child class to cssType receive
-	<- 24.05.2018 done -> handle cssClass in all nodes for all HtmlItem types [
-	<- 22.05.2018 done -> nodeItem rewrite for one item.csstype binding
-	<- 22.05.2018 done -> change nodes and nodegr to cssType
-		]	
-	<- 22.05.2018 done -> repeat checkbox
-	<- 27.05.2018 done -> add dropbox ts
-	<- 27.05.2018 done -> change item-ng
-	<- 28.05.2018 done -> custom multi dropdown
-	<- 29.05.2018 done -> custom multi dropdown CSS, events
-	<- 30.05.2018 done -> Add new Question parameters [
-	<- 30.05.2018 done -> question text
-		<- 30.05.2018 done -> question type with dropdown {textbox,checkbox,radio,rate with dropdown}
+		<- 14.06.18 23:27 done -> moove nodeToEdit =null from menu-edit to CheckAnswerAmount
+		[ delete question enables save_,add_new_ buttons even if >1 question present and Text type selected.
+		cause ModelContainer.nodeDeleted nodeToEdit =null]
+		<- 22.06.2018 20:41 done -> Http POST/GET 
+		<- 22.06.2018 20:41 done -> angular POST CORS
+		<- 26.06.2018 done -> analyze quiz model to array without collection change costs 
+		<- 26.06.2018 done -> New HtmlItems, new QuizItems
+		<- 27.06.2018 done -> new ItemParameters + test
+		<- 27.06.2018 done -> new FactoryNew + test		
+		<- 04.07.2018 done -> new Html Templates (ItemList,Item,Check,radio,text)
+		<- done 18.07.2018 14:40 -> to new model
+		[
+			<- done 05.07.2018 11:00 -> numberpicker
+			<- done 05.07.2018 11:00 -> datepicker
+			<- done 06.07.2018 16:00 -> QuizHtmlItems to component
+			<- done 06.07.2018 16:00 -> Instance checker
+			<- done 06.07.2018 16:00 -> Buttons to component
+			<- done 07.07.2018 15:00 -> Buttons with objects
+			<- done 07.07.2018 15:00 -> QuizHtmlItem
+			<- done 09.07.2018 17:00 -> new Flexbox with classes and flex columns formatting
+			<- done 09.07.2018 17:00 -> menu-item, new menulist
+			<- done 09.07.2018 17:00 -> Quiz itemControlls	
+			<- done 10.07.2018 13:30 -> Add new Button
+			<- done 10.07.2018 13:30 -> Question,Answer button names
+			<- done 11.07.2018 14:00 -> new Deep copy with object instance, nad nested collections
+			<- done 11.07.2018 17:00 -> Edit menu buttons Save, Cancel + events
+			<- done 12.07.2018 12:00 -> correct collection add,update with null key
+			<- done 12.07.2018 12:00 -> itemControls Name to object name bind
+			<- done 12.07.2018 12:00 -> Question ItemParameters change to textbox and drop box with events
+			<- done 12.07.2018 13:50 -> Quiz checlbox cycle change event, display
+			<- done 12.07.2018 21:00 -> Question edit events Button enable,disable (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
+			<- done 12.07.2018 21:00 -> Question name, values to item imp exp	
+			<- done 12.07.2018 21:30 -> display question value (text)
+			<- done 12.07.2018 21:30 -> Answer item parameters 
+			<- done 13.07.2018 15:00 -> add weeks in year, days in week to Factory
+			<- done 13.07.2018 15:00 -> Question,answer Item parameters
+			<- done 16.07.2018 22:30 -> Http POST,GET
+			<- done 18.07.2018 14:40 -> Quiz nested class hierarhy from json instantiate
+			<- done 18.07.2018 14:40 -> from JSON to QuizItems, ItemControlls convert done with [
+				//Angular IO http GET,POST responses
+				//https://github.com/angular/angular/issues/23778
+				//https://github.com/imp908/Quiz/blob/538b2c368da3db045ad7e86cd7e36a933452f6d4/src/quest/Quiz/Http/quiz.service.ts	
+				//https://stackoverflow.com/questions/22875636/how-do-i-cast-a-json-object-to-a-typescript-class
+				//https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object/22886730#22886730
+			]
+			<- done 18.07.2018 17:00 -> Quiz NSQL repo,UOW
+			<- done 18.07.2018 17:00 -> Quiz Back Napi get,post		
 		]
-	<- 30.05.2018 done -> Add new Answers according to Quiz,Answer types[
-		0 or Correct only for text, 1-* for radio,check,rate. rate max points:number
-		-> textbox answer (1-5 for dropbox)
-		-> Answers according to type
+		<- done 19.07.2018 17:00 -> Http POST,GET model sync [
+		
+			<- done 19.07.2018 17:00 -> Nested JSON object to type convert
+			<- done 19.07.2018 17:00 -> Datepicker error
+			<- done 19.07.2018 12:25 -> Drop downs values collection
+			<- done 19.07.2018 11:27 -> Back POCO new added
+			<- done 19.07.2018 11:27 -> Back POCO item controlls gen remove
+			<- done 19.07.2018 11:27 -> Angular POCO typeinit added			
 		]
-	<- 30.05.2018 done -> repair edit menu buttons disable
-	<- 31.05.2018 done -> Add save, add new button disabled
-	<- 31.05.2018 done -> Add question type check for answer amount to type accordance
-	<- 31.05.2018 done -> Add inform about question amount invalid to type
-	<- 02.06.2018 done -> Delete item
-	<- 02.06.2018 done -> Add Question button disable	
-	<- 02.06.2018 done -> Copy question
-	<- 11.06.2018 12:31 done -> array deep clone recursive. No class segregation
-	<- 12.06.18 16:42 done -> Classes nested array deep copy[
-		<- 12.06.18 14:00 done -> Repair array deep copy, add nested itemparameter recursive copy
-		<- 12.06.18 15:00 done -> rearrange HtmlItem, QuizItem classes to deep copy ItemParameters
+		<- done 21.07.2018 01:40 -> Routing, erropage404,passpage style gen
+		
 	]
-	<- 14.06.18 23:27 done -> moove nodeToEdit =null from menu-edit to CheckAnswerAmount
-	[ delete question enables save_,add_new_ buttons even if >1 question present and Text type selected.
-	cause ModelContainer.nodeDeleted nodeToEdit =null]
-	<- 22.06.2018 20:41 done -> Http POST/GET 
-	<- 22.06.2018 20:41 done -> angular POST CORS
-	<- 26.06.2018 done -> analyze quiz model to array without collection change costs 
-	<- 26.06.2018 done -> New HtmlItems, new QuizItems
-	<- 27.06.2018 done -> new ItemParameters + test
-	<- 27.06.2018 done -> new FactoryNew + test		
-	<- 04.07.2018 done -> new Html Templates (ItemList,Item,Check,radio,text)
-	<- done 18.07.2018 14:40 -> to new model
-	[
-		<- done 05.07.2018 11:00 -> numberpicker
-		<- done 05.07.2018 11:00 -> datepicker
-		<- done 06.07.2018 16:00 -> QuizHtmlItems to component
-		<- done 06.07.2018 16:00 -> Instance checker
-		<- done 06.07.2018 16:00 -> Buttons to component
-		<- done 07.07.2018 15:00 -> Buttons with objects
-		<- done 07.07.2018 15:00 -> QuizHtmlItem
-		<- done 09.07.2018 17:00 -> new Flexbox with classes and flex columns formatting
-		<- done 09.07.2018 17:00 -> menu-item, new menulist
-		<- done 09.07.2018 17:00 -> Quiz itemControlls	
-		<- done 10.07.2018 13:30 -> Add new Button
-		<- done 10.07.2018 13:30 -> Question,Answer button names
-		<- done 11.07.2018 14:00 -> new Deep copy with object instance, nad nested collections
-		<- done 11.07.2018 17:00 -> Edit menu buttons Save, Cancel + events
-		<- done 12.07.2018 12:00 -> correct collection add,update with null key
-		<- done 12.07.2018 12:00 -> itemControls Name to object name bind
-		<- done 12.07.2018 12:00 -> Question ItemParameters change to textbox and drop box with events
-		<- done 12.07.2018 13:50 -> Quiz checlbox cycle change event, display
-		<- done 12.07.2018 21:00 -> Question edit events Button enable,disable (Disable Save when TextBox and answer =0 or >1; Disable AddNew when TextBox and questions >0)
-		<- done 12.07.2018 21:00 -> Question name, values to item imp exp	
-		<- done 12.07.2018 21:30 -> display question value (text)
-		<- done 12.07.2018 21:30 -> Answer item parameters 
-		<- done 13.07.2018 15:00 -> add weeks in year, days in week to Factory
-		<- done 13.07.2018 15:00 -> Question,answer Item parameters
-		<- done 16.07.2018 22:30 -> Http POST,GET
-		<- done 18.07.2018 14:40 -> Quiz nested class hierarhy from json instantiate
-		<- done 18.07.2018 14:40 -> from JSON to QuizItems, ItemControlls convert done with [
-			//Angular IO http GET,POST responses
-			//https://github.com/angular/angular/issues/23778
-			//https://github.com/imp908/Quiz/blob/538b2c368da3db045ad7e86cd7e36a933452f6d4/src/quest/Quiz/Http/quiz.service.ts	
-			//https://stackoverflow.com/questions/22875636/how-do-i-cast-a-json-object-to-a-typescript-class
-			//https://stackoverflow.com/questions/22885995/how-do-i-initialize-a-typescript-object-with-a-json-object/22886730#22886730
-		]
-		<- done 18.07.2018 17:00 -> Quiz NSQL repo,UOW
-		<- done 18.07.2018 17:00 -> Quiz Back Napi get,post		
-	]
-	<- done 19.07.2018 17:00 -> Http POST,GET model sync [
-	
-		<- done 19.07.2018 17:00 -> Nested JSON object to type convert
-		<- done 19.07.2018 17:00 -> Datepicker error
-		<- done 19.07.2018 12:25 -> Drop downs values collection
-		<- done 19.07.2018 11:27 -> Back POCO new added
-		<- done 19.07.2018 11:27 -> Back POCO item controlls gen remove
-		<- done 19.07.2018 11:27 -> Angular POCO typeinit added			
-	]
-	<- done 21.07.2018 01:40 -> Routing, erropage404,passpage style gen
-	
-]
 
+				]		
 
-//--------------------------------------------------------------
+			]
 			
-			feature[
--> split add htmlItem to <label> <item> templates. Pass cssClass to 
-	Item and to Item group to change label control display direction 
--> change model to linked list	
--> Model tree change to contain selected
--> Save model tree
-			]
-
-->
-[
-	back sends and receives Json or JsonShema
-	Fron draws receive JSON or sh, redraws by user input and returns new JSON/JSNshm
-]
--> Generate Form from JSON or JSONshema
-[
-	Linq Angular to MVC
-]
--> Get JSON or JSONshema from Form
-[
-	angular-schema-form.min.js,
-	https://github.com/json-schema-form/angular-schema-form/blob/master/docs/index.md#basic-usage
-]
-
-
-			]
 			Deployed[
 				FrontHost
 				http://my.nspk.ru/Quiz/List
@@ -1253,7 +1247,7 @@ checkQuestionState(){
 
 		]			
 		
-		ApiTester	
+		ApiTester
 			-> JSON response objects count and expect			
 			
 			-> POST with NTLM <- done
