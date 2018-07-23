@@ -462,16 +462,21 @@ TnT[
 -> angular get by id
 -> manager send by id
 -> angular draw quiz by quizControlls
+
 -> ubuntu host check
+
 -> test question itemparameters copy
 -> New event sheme
+
 -> answer types to add 
 	-> picture
 	-> Correct answer for victorine according to type
+
 -> Quiz Pass page[exmpls
 http://angular-data-grid.github.io/demo/bootstrap/multiple.html
 quiz with correct answers
 https://meduza.io/quiz/bublik-ili-prettsel
+
 Generate Html according to type
 	-> plain all questoins with answers on one page 
 		one submit
@@ -479,6 +484,7 @@ Generate Html according to type
 		multiple mini submits 
 	-> final page results show , repeat for repeatable
 ]
+
 -> moove all toggling from factory to classes
 -> Ignore event issue to repair [
 more then 3 events listen ignore issue to repair  ]
@@ -611,12 +617,12 @@ more then 3 events listen ignore issue to repair  ]
 		<- done 19.07.2018 12:25 -> Drop downs values collection
 		<- done 19.07.2018 11:27 -> Back POCO new added
 		<- done 19.07.2018 11:27 -> Back POCO item controlls gen remove
-		<- done 19.07.2018 11:27 -> Angular POCO typeinit added
-		
+		<- done 19.07.2018 11:27 -> Angular POCO typeinit added			
 	]
+	<- done 21.07.2018 01:40 -> Routing, erropage404,passpage style gen
+	
 ]
-	
-	
+
 
 //--------------------------------------------------------------
 			
@@ -836,7 +842,7 @@ ConstructorForm.json
 				https://mdbootstrap.com/components/buttons/
 								
 				https://meduza.io/games/perezhit-tyurmu-maloy-krovyu										
-				https://www.theuselesswebindex.com/error/
+				
 			]
 			Description[
 				I. install packages
@@ -1469,6 +1475,66 @@ http://www.ratingruneta.ru/agency-aic/prices/
 	]
 	
 	,job[
+		testCases{
+			LATOKEN:{
+				
+				bitmex:[
+				TODO:[
+					REST API
+					-	Connect
+					-	Disconnect
+					-	RegisterOrder
+					-	CancelOrder
+					-	SubscribeOrderbook
+					WebSockets
+					-	NewOrderbook
+					-	NewTrade
+					-	OrderChanged
+				]
+				Refs:[
+					https://github.com/BitMEX/api-connectors/tree/master/official-http/csharp
+					https://testnet.bitmex.com/app/apiKeysUsage
+					https://testnet.bitmex.com/app/apiOverview
+					https://testnet.bitmex.com/api/explorer/#!/Quote/Quote_get
+				]
+				fiddler:[
+					https://testnet.bitmex.com/api/v1/apiKey
+					https://testnet.bitmex.com/api/v1/
+					/announcement 
+					/announcement/urgent 
+
+					api-nonce:1000
+					api-key:LAqUlngMIQkIUjXMUreyu3qn
+					api-signature:c7682d435d0cfe87c16098df34ef2eb5a549d4c5a3c2b1f0f77b8af73423bf00
+
+					User-Agent: Fiddler
+					Host: testnet.bitmex.com
+					Content-Length: 0
+					Content-type: application/json
+					api-nonce: 1000
+					api-key: API_KEY
+					api-signature: asds
+
+
+					https://testnet.bitmex.com/api/v1/instrument/active
+					https://testnet.bitmex.com/api/v1/leaderboard
+					https://testnet.bitmex.com/api/v1/quote
+					https://testnet.bitmex.com/api/v1/schema 
+
+					User-Agent: Fiddler
+					Host: testnet.bitmex.com
+					Content-Length: 0
+					Content-type: application/json
+
+					get /order x
+
+					get /schema 
+				]
+
+				]
+					
+			}
+		}
 quiz
 domen pass [
 http://help.nspk.ru/Task/view/62582
@@ -1478,6 +1544,7 @@ prod mynspk Olga
 [
 deploy testOnProd
 ]
+
 	]
 	
 	,DONE[
