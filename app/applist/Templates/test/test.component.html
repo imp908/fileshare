@@ -1,7 +1,5 @@
 
-<p>
-  test works!
-</p>
+<!-- <p> test works!</p> -->
 
 <!-- elements pure start test  -->
 
@@ -105,6 +103,18 @@
     </div>
     <!-- =======================================     -->
 
+
+    <!-- Menu main and edit check -->
+    <!-- =======================================     -->
+    <div class="itemGroup">
+      <!-- <app-menu-edit [_item]="this.quizItems_.array[0]"  [_editButtons]="editButtons_"></app-menu-edit> -->
+    </div>
+
+    <div class="itemGroup">
+      <!-- <app-menu-main [_buttonsQuiz]="this.ItemButtons_" [editButtons_]="this.editButtons_"></app-menu-main> -->
+    </div>
+    <!-- =======================================     -->
+
   </div>
 
 </ng-container>
@@ -114,13 +124,7 @@
     <!-- Publish area  -->
     <!-- =======================================     -->
 
-    <div class="itemGroup">
-      <!-- <app-menu-edit [_item]="this.quizItems_.array[0]"  [_editButtons]="editButtons_"></app-menu-edit> -->
-    </div>
-
-    <div class="itemGroup">
-      <app-menu-main [_buttonsQuiz]="this.ItemButtons_" [editButtons_]="this.editButtons_"></app-menu-main>
-    </div>
+    <app-passpage [_quiz]="this.quizNew" [_button]="this.passButton"></app-passpage>
 
     <!-- =======================================     -->
 

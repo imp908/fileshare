@@ -778,10 +778,31 @@ export class FactoryNew{
       ,clicked_:false,toolTipText_:"Add new "+itmNm,disabled_:false})
     );
 
-
     return r2;
 
   }
+
+  public static PassButton(itmNm:string){
+    let r = new HtmlItemNew(null);
+
+      r.addArr([new PassQuiz({key_:0,
+      name_:"Start Quiz"+" "+itmNm,
+      value_:"Start Quiz"+" "+itmNm,
+      typeName_:null
+      ,array_:null
+      ,itemControlls_:null
+      ,cssClass_:"btn btn-darkgreen",show_:true
+      ,HtmlTypeAttr_:"Start Quiz"
+      ,HtmlSubmittedValue_:null
+      ,clicked_:false,toolTipText_:"Start Quiz"+" "+itmNm,disabled_:false})
+      ]);
+
+    r.cssClass="flexCtnr flexRow";
+    r.show=true;
+    return r;
+
+  }
+
 
   //quiz objects generating
 
@@ -1101,6 +1122,8 @@ export class ModelContainerNew{
   static buttonsQuiz_:ButtonNew[]
   static buttonsQuestions_:ButtonNew[]
   static buttonsAnswers_:ButtonNew[]
+
+  static buttonPass:ButtonNew;
 
   @Output() static stateChanged=new EventEmitter();
   @Output() static nodeEdit=new EventEmitter();
@@ -2182,7 +2205,7 @@ export class TestNew{
 
     //color checker
 
-    TestNew.ColorCheck();
+    //TestNew.ColorCheck();
 
   }
 

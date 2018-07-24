@@ -13,6 +13,7 @@ import {TestNew} from 'src/app/applist/Models/initsNew.component';
   templateUrl: './test.component.html',
   styleUrls: ['./test.component.css']
 })
+
 export class TestComponent implements OnInit {
 
   //test for nuttons collection with item object
@@ -38,25 +39,26 @@ export class TestComponent implements OnInit {
 
   _buttons:ButtonNew[];
 
-
+  quizNew:QuizNew;
+  passButton:ButtonNew;
   constructor(){
 
     TestNew.GO();
 
     ModelContainerNew.Init();
 
-    this.quizes_=new Array<QuizNew>();
+
     this.items_=TestNew.Buttons();
 
-    this.controlls_= new HtmlItemNew(null);
+    this.controlls_=new HtmlItemNew(null);
 
     // this.controlls_.array=TestNew.ControllsBulkGen();
 
+    this.quizes_=new Array<QuizNew>();
+
     this.controlls_=TestNew.ControllsGroupsGen();
 
-    //
-
-    this.quizItems_=TestNew.QuizList();  
+    this.quizItems_=TestNew.QuizList();
     this.ItemButtons_=FactoryNew.ItemButtons("");
     this.editButtons_=FactoryNew.EditButtons("");
 
@@ -67,6 +69,11 @@ export class TestComponent implements OnInit {
     this.objectOne=this.quizes_[0];
     this.objectTwo=this.quizes_[1];
 
+    //pass page quiz test
+    let qzTmp=ModelContainerNew.QuizesPassed.array[0];
+    if(qzTmp instanceof QuizNew){this.quizNew=qzTmp;}
+    let btnPs=FactoryNew.PassButton("Quiz").array[0];
+    if(btnPs instanceof ButtonNew){ this.passButton=btnPs;}
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }
 
@@ -75,7 +82,6 @@ export class TestComponent implements OnInit {
     ModelContainerNew.stateChanged.subscribe(s=>{
       ServiceCl.log(["stateChanged received by " + this.constructor.name]);
     });
-
 
     ServiceCl.log(["Inited: " + this.constructor.name, this.quizItems_]);
   }

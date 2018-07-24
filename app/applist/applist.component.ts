@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TestNew} from 'src/app/applist/Models/initsNew.component'
+import {TestNew,ModelContainerNew} from 'src/app/applist/Models/initsNew.component'
 
 @Component({
   selector: 'app-applist',

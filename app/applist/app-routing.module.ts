@@ -8,10 +8,10 @@ import { PasspageComponent } from './Templates/QuizMenus/passpage/passpage.compo
 
 
 const appListRoutes : Routes =[
-  { path: 'qt',component: TestComponent },
+  { path: 'ts',component: TestComponent },
   { path: 'edit',component: MenuMainComponent },
   { path: 'pass',component: PasspageComponent },
-  { path: '',redirectTo: '/qt' , pathMatch:'full'},
+  { path: '',redirectTo: '/ts' , pathMatch:'full'},
   { path: '**', component: PageNotFoundComponent}
 ];
 
