@@ -9157,6 +9157,9 @@ RAW JSON
 			
 	#region OS		
 		
+		//loading
+		//https://www.tecmint.com/linux-boot-process/
+		
 		public Windows
 		{
 			public CMD
@@ -9240,8 +9243,18 @@ RAW JSON
 		
 		public UNIX
 		{
-			public Ubuntu
-			{
+			
+			guides[
+				//for beginners
+				https://www.tecmint.com/free-online-linux-learning-guide-for-beginners/
+				
+				//TLPI
+				http://man7.org/tlpi/
+				https://doc.lagout.org/programmation/unix/The%20Linux%20Programming%20Interface.pdf
+			]
+			
+			public Ubuntu{
+				
 				public HotKeys
 				{
 					
@@ -9387,6 +9400,50 @@ sudo service smbd restart
 						
 					]
 				}
+			
+			}
+			
+			public CentOS{
+				
+				createUser[
+					[root@msk1-portaldb03 ~]# useradd neo4j
+					[root@msk1-portaldb03 ~]# id neo4j
+					uid=1000(neo4j) gid=1000(neo4j) groups=1000(neo4j)
+					[root@msk1-portaldb03 ~]# su - neo4j
+
+					/apps/neo4j/bin/neo4j stop
+					/apps/neo4j/bin/neo4j start
+				]
+				
+				//neo4j.service
+				//etc/systemd/system/neo4j.service
+				//systemctl start neo4j
+				//systemctl stop neo4j
+				//systemctl status neo4j
+				neo4jRestart[
+					[Unit]
+					Description=Neo4j DBMS
+					After=syslog.target
+					After=network.target
+
+					[Service]
+					Environment="CONFFILE=/apps/neo4j/conf/neo4j.conf"
+					Type=simple
+					Restart=on-failure
+					PIDFile=/apps/neo4j/run/neo4j.pid
+					WorkingDirectory=/apps/neo4j
+					User=neo4j
+					Group=neo4j
+					KillMode=control-group
+					ExecStart=/apps/neo4j/bin/neo4j start
+					ExecStop=/apps/neo4j/bin/neo4j stop
+					Restart=always
+					RestartSec=10s
+
+					[Install]
+					WantedBy=multi-user.target
+				]
+			
 			}
 			
 		}
