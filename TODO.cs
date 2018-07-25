@@ -438,18 +438,18 @@ TnT[
 			actual[
 	
 	-> Quiz Pass page[
-	
+			
 		<- 25.07.2018 17:40 -> pass page CSS
-		<- 25.07.2018 17:40 -> Start,paging buttons
-		-> skip replay funct from mock
-		-> rate
-		-> svg shevrons, css, right left
-		-> svg click action 
-		
+		<- 25.07.2018 17:40 -> paging Start,paging buttons
+		<- 25.07.2018 23:23 -> paging events
+		-> skip/replay/ list/page question of all
+		-> rate				
+		o- postponned due to clickable svg issue , generate inline CSS svg to ng onclick activate-> svg shevrons, css, right left
+
 		Generate Html according to type
 		-> plain all questoins with answers on one page 
 			one submit
-		-> scroll one question by page 
+		-> scroll one question by page
 			multiple mini submits 
 		-> final page results show, repeat for repeatable
 			
