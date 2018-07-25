@@ -32,6 +32,13 @@ namespace Parts{
 		//css tranlate
 		https://codepen.io/kattixie/pen/ezzGKY
 		https://codepen.io/adamaoc/pen/PwevMj
+		//svg
+		https://www.sitepoint.com/add-svg-to-web-page/
+		https://www.w3.org/wiki/SVG_Links
+		https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
+		https://developer.mozilla.org/kab/docs/Web/SVG
+		https://teropa.info/blog/2016/12/12/graphics-in-angular-2.html
+		
 		
 		https://sps.northwestern.edu/advanced-graduate-certificate/
 	
