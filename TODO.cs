@@ -439,11 +439,13 @@ TnT[
 	
 	-> Quiz Pass page[
 	
-		<- 23.07.2018 -> pass page CSS
-		-> Start,paging buttons, 
+		<- 25.07.2018 17:40 -> pass page CSS
+		<- 25.07.2018 17:40 -> Start,paging buttons
 		-> skip replay funct from mock
 		-> rate
-
+		-> svg shevrons, css, right left
+		-> svg click action 
+		
 		Generate Html according to type
 		-> plain all questoins with answers on one page 
 			one submit

@@ -24,7 +24,21 @@ namespace Parts{
 	#endregion
 	
 }
-
+	
+	WatchList[
+		
+		//CSS animated 
+		http://www.transformicons.com/
+		//css tranlate
+		https://codepen.io/kattixie/pen/ezzGKY
+		https://codepen.io/adamaoc/pen/PwevMj
+		
+		https://sps.northwestern.edu/advanced-graduate-certificate/
+	
+		https://www.3ds.com/ru/
+		
+	]
+	
 	#region SourceControl
 
 		public Bug Trackers
@@ -4352,8 +4366,10 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 			mapVsForEach[
 			https://codeburst.io/javascript-map-vs-foreach-f38111822c0f
 				foreach
-					-> exec function once for every leem
-					-> not returns 
+					-> exec function once for every item
+					-> stops only by exception
+					-> returns undefined
+					-> not chainable
 					-> faster
 				map 
 					-> array of executing function for every element
