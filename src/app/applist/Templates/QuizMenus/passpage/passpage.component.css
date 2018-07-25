@@ -1,0 +1,215 @@
+/*for git not empty file*/
+
+.back{
+  position:fixed;
+  /* background: url(/assets/bkgd/10.jpg); */
+  min-width: 100%;
+  min-height: 1024px;
+  height:auto;
+  width:100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background: no-repeat center center fixed;
+  overflow: hidden;
+  /* z-index: -5; */
+}
+
+.jumbotron2{
+    background:rgba(30,40,45,1);
+    height:8ch;
+    width:100%;
+
+  /* position:fixed;
+  background:rgba(30,40,45,1);
+  margin-top: 0ch;
+  height:13ch;
+  width:100%; */
+}
+
+.header{
+  background:rgba(50,60,60,1);
+  height:6ch;
+  width:100%;
+  border-bottom: solid white;
+
+  /* position:fixed;
+  background:rgba(50,60,60,1);
+  z-index:0;
+  margin-top: 13ch;
+  height:7ch;
+  width:100%;
+  margin-top: 0%;
+  border-bottom: solid white; */
+}
+
+.foreGround{
+
+  position:absolute;
+
+  width: 80%;
+  margin-left: 10%;
+  min-height: 1024px;
+  height:auto;
+  z-index: -4;
+  filter: blur(25px);
+
+  /* position: fixed;
+  background-color:rgba(255,255,255,1);
+
+  background: url(/assets/bkgd/10.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+
+  margin-left: 10%;
+  margin-right: 10%;
+
+  height:105vh;
+  width: 80%;
+  margin-top: -20ch;
+  z-index: -1;
+  border-radius: 5px;
+
+  filter: blur(25px); */
+}
+
+.passCard{
+  /* box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2); */
+  position: relative;
+  transition: 0.1s;
+  z-index: 0;
+  background-color:rgba(250,250,250,0.8);
+  height:45vh;
+  width:80%;
+  margin-top:15ch;
+  margin-left:10%;
+
+  border-radius: 6px;
+
+  box-shadow:5px 5px 10px 1px rgba(50, 50, 50, 0.5),inset 5px 5px 15px 1px rgba(150, 150, 150,0.5),inset -5px -5px 15px 1px rgba(150, 150, 150,0.5);
+
+  /* background-color:rgba(250,250,250,0.8);
+  height: 45vh;
+  width: 80%;
+  margin-top:30ch;
+  margin-left: 10%;
+  margin-right: auto;
+
+  z-index: 0;
+  border-radius: 5px;
+
+  box-shadow:5px 5px 10px 1px rgba(50, 50, 50, 0.5),inset 5px 5px 15px 1px rgba(150, 150, 150,0.5),inset -5px -5px 15px 1px rgba(150, 150, 150,0.5); */
+}
+
+.passCard:hover {
+  box-shadow: 10px 10px 15px 1px rgba(60, 60, 60, 0.4),inset 2px 2px 10px 1px rgba(150, 150, 150,0.5),inset -2px -2px 10px 1px rgba(150, 150, 150,0.5)
+}
+
+.cardHdr{
+  position: absolute;
+  text-align: center;
+  width: 100%;
+  top:2ch;
+  /* position: relative;
+  top:2vh;
+  text-align: center; */
+}
+
+.cardTxt{
+  position: absolute;
+  text-align: left;
+  width: 100%;
+  top: 4ch;
+  /* position: relative;
+  top: 2vh;
+  left:2%; */
+}
+
+.start{
+  position: absolute;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  bottom: 7ch;
+}
+
+.startQs{
+  position: absolute;
+  width: 80%;
+  margin-left: 10%;
+  display: flex;
+  flex-direction: row;
+  justify-content:space-between;
+  bottom: 7ch;
+}
+
+.rate{
+
+  position: absolute;
+  width: 100%;
+  bottom:1ch;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* position: relative;
+  margin-top: 33vh;
+  left:45%;
+  width: 10vw; */
+}
+
+.arr{
+  width: 45px;
+  height: 35px;
+  /* background:  url(/assets/svg/arRtAng.svg); */
+  /* background: url(/assets/bkgd/10.jpg); */
+}
+
+
+  /* box-shadow: 10px 10px 15px 1px rgba(60, 60, 60, 0.4) */
+.arrLt{
+  /* background: url(/assets/svg/arRtAng.svg); */
+  width: 45px;
+  height: 35px;
+  background-size: 45px 40px;
+  transform: rotate(-180deg);
+}
+
+.arrLt:hover{
+  -webkit-filter: drop-shadow(-7px -7px 3px rgba(0,0,0,0.5));
+  filter: drop-shadow(-7px -7px 3px rgba(0,0,0,0.5));
+}
+.arrRt:hover{
+  -webkit-filter: drop-shadow(7px 7px 3px rgba(0,0,0,0.5));
+  filter: drop-shadow(7px 7px 3px rgba(0,0,0,0.5));
+}
+
+.arrLt:active{
+  -webkit-filter: drop-shadow(-5px -5px 3px rgba(0,0,0,0.6));
+  filter: drop-shadow(-5px -5px 3px rgba(0,0,0,0.6));
+  /* transform: rotate(-180deg); */
+  /* transform: rotate(-10 50 100); */
+  transition: all 100ms linear;
+}
+.arrRt:active{
+  -webkit-filter: drop-shadow(5px 5px 3px rgba(0,0,0,0.6));
+  filter: drop-shadow(5px 5px 3px rgba(0,0,0,0.6));
+  transition: all 100ms linear;
+}
+
+/* covers element for click */
+.a{
+  position: absolute;
+  display: inline-block;
+}
+c:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left:0;
+}

@@ -1,0 +1,117 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<div class="back" [ngStyle]='style_'>
+
+  <div class="foreGround" [ngStyle]="fgImage_">
+    <!-- <div class="foreGround"><img [src]="this.fgImage_" style="position:fixed;width:80%;height:100%"></div> -->
+  </div>
+
+  <div class="jumbotron2">
+  </div>
+
+  <div class="header">
+    <button style="margin-left:2%;margin-top:0.5%" class="btn btn-primary">Menu</button>
+  </div>
+
+  <ng-container *ngIf="this._question==null">
+    <div #d class="passCard">
+       <!-- (mouseenter)="mouseenter_($event,d)" (mouseleave)="mouseleave_($event,d)"> -->
+      <div class="cardHdr">
+        <h3 id="crdhdr" style="font-size:18px;">{{_quiz._value}}</h3>
+      </div>
+      <div class="cardTxt">
+        <h3 id="crdtxt" style="font-size:15px;">{{_quiz._value}}</h3>
+      </div>
+      <div class="start">
+        <app-button [_button]="_button" [_object]="_quiz"></app-button>
+      </div>
+      <div class="rate">
+        <div class="fxvt">
+          <h3 style="font-size:12px;">Rate this Quiz</h3>
+          <div class="fxhr">
+            <img src="assets/img/store/favStar.svg" style="width: 2vw; height: 2vh; cursor: pointer; border-radius: 1%;"/>
+            <img src="assets/img/store/favStar.svg" style="width: 2vw; height: 2vh; cursor: pointer; border-radius: 1%;"/>
+            <img src="assets/img/store/favStar.svg" style="width: 2vw; height: 2vh; cursor: pointer; border-radius: 1%;"/>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="this._question!=null">
+    <div #d class="passCard" (mouseenter)="mouseenter_($event,d)" (mouseleave)="mouseleave_($event,d)">
+      <div class="cardHdr">
+        <h3 id="crdhdr" style="font-size:18px;">{{_question._value}}</h3>
+      </div>
+      <div class="cardTxt">
+        <h3 id="crdtxt" style="font-size:15px;">{{_question._value}}</h3>
+      </div>
+      <div class="startQs">
+
+        <!-- svg from model -> sanitizer issue -->
+        <!-- <svg><use [attr.xlink:href]="svgs" class="arr arrLt"></use></svg> -->
+        <!-- svg from CSS fail -->
+        <!-- <a class="arr arrLt"></a> -->
+        <!-- <svg class="arrLt"></svg> -->
+
+        <!-- svg in html -->
+
+        <!-- <svg class="arr arrLt" version="1.1"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+        	 width="306px" height="306px" viewBox="0 0 306 306" style="enable-background:new 0 0 306 306;" xml:space="preserve">
+          <g>
+          	<g >
+          		<polygon points="94.35,0 58.65,35.7 175.95,153 58.65,270.3 94.35,306 247.35,153 		" />
+          	</g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+          <g>
+          </g>
+        </svg> -->
+
+        <!-- svg from file  -->
+        <!-- <object id="pv" type="image/svg+xml" data="assets/svg/arrRtRd.svg" class="arr arrLt"></object> -->
+        <app-button [_button]="_buttonPrevious" [_object]="_question"></app-button>
+        <app-button [_button]="_buttonNext" [_object]="_question"></app-button>
+        <!-- <object id="nx" type="image/svg+xml" data="assets/svg/arrRtRd.svg" class="arr arrRt"></object> -->
+
+
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+<div>
+ <input type="range">
+ <select>
+   <option value="colors">Color count</option>
+   <option value="deg">Gradient degree</option>
+   <option value="alph">Brightness</option>
+ </select>
+</div>

@@ -1,6 +1,5 @@
-<p>
-  test works!
-</p>
+
+<!-- <p> test works!</p> -->
 
 <!-- elements pure start test  -->
 
@@ -94,13 +93,25 @@
     <!-- Menu list check -->
     <!-- =======================================     -->
     <div class="itemGroup">
-      <app-menu-list [_quizes]="this.quizItems_.array"[_buttons]="this.ItemButtons_"></app-menu-list>
+      <app-menu-list [_quizes]="this.quizItems_.array"[_buttonsQuiz]="this.ItemButtons_"></app-menu-list>
     </div>
     <div class="itemGroup">
-      <app-menu-list [_quizes]="this.quizItems_.array[0].array"[_buttons]="this.ItemButtons_"></app-menu-list>
+      <app-menu-list [_quizes]="this.quizItems_.array[0].array"[_buttonsQuiz]="this.ItemButtons_"></app-menu-list>
     </div>
     <div class="itemGroup">
-      <app-menu-list [_quizes]="this.quizItems_.array[0].array[0].array"[_buttons]="this.ItemButtons_"></app-menu-list>
+      <app-menu-list [_quizes]="this.quizItems_.array[0].array[0].array"[_buttonsQuiz]="this.ItemButtons_"></app-menu-list>
+    </div>
+    <!-- =======================================     -->
+
+
+    <!-- Menu main and edit check -->
+    <!-- =======================================     -->
+    <div class="itemGroup">
+      <!-- <app-menu-edit [_item]="this.quizItems_.array[0]"  [_editButtons]="editButtons_"></app-menu-edit> -->
+    </div>
+
+    <div class="itemGroup">
+      <!-- <app-menu-main [_buttonsQuiz]="this.ItemButtons_" [editButtons_]="this.editButtons_"></app-menu-main> -->
     </div>
     <!-- =======================================     -->
 
@@ -112,19 +123,8 @@
 
     <!-- Publish area  -->
     <!-- =======================================     -->
-    <div class="itemGroup">
-      <app-menu-edit [_item]="this.quizItems_.array[0]"></app-menu-edit>
-    </div>
 
-    <div class="itemGroup">
-      <app-menu-list [_quizes]="this.quizItems_" [_buttons]="this.ItemButtons_"></app-menu-list>
-    </div>
-    <div class="itemGroup">
-      <app-menu-list [_quizes]="this.quizItems_.array[0]" [_buttons]="this.ItemButtons_"></app-menu-list>
-    </div>
-    <div class="itemGroup">
-      <app-menu-list [_quizes]="this.quizItems_.array[0].array[0]" [_buttons]="this.ItemButtons_"></app-menu-list>
-    </div>
+    <!-- <app-passpage [_quiz]="this.passingQuiz" [_button]="this.passButton"></app-passpage> -->
 
     <!-- =======================================     -->
 
