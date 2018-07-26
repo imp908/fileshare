@@ -438,18 +438,19 @@ TnT[
 			actual[
 	
 	-> Quiz Pass page[
-			
+	
 		<- 25.07.2018 17:40 -> pass page CSS
 		<- 25.07.2018 17:40 -> paging Start,paging buttons
 		<- 25.07.2018 23:23 -> paging events
+		<- 26.07.2018 12:10 -> arrow buttons and paging events rep
 		-> skip/replay/ list/page question of all
-		-> rate				
-		o- postponned due to clickable svg issue , generate inline CSS svg to ng onclick activate-> svg shevrons, css, right left
-
+		-> rate
+		o- postponned due to clickable svg issue , generate inline CSS svg to ng onclick activate -> svg shevrons, css, right left
+		
 		Generate Html according to type
 		-> plain all questoins with answers on one page 
 			one submit
-		-> scroll one question by page
+		-> scroll one question by page 
 			multiple mini submits 
 		-> final page results show, repeat for repeatable
 			
@@ -1216,7 +1217,70 @@ checkQuestionState(){
 		]
 		
 		DocsVision[
-		
+			
+			testingItems[
+				
+				detailed[
+
+Поправка, БД развернута на "Server=MSK1-VM-DVDB01;Database=is4_32_5
+Раньше был дефицит с местом, поэтому развертывали там
+
+•	БД с новым релизом  развернута на http://msk1-vm-inter02.nspk.ru/Task
+•	Входить можно либо со своей учеткой, либо  через админский  admin  пароль  DHTB54&!cv
+•	Сама база  живет на connectionString="Data Source=MSK1-VM-INTER03;Initial Catalog=is4_32_5;  Это  слепок с боевого интрасервиса 
+в районе мая-июня туда развертывавшийся
+•	Сервер приложения  msk1-vm-inter02.nspk.ru    в папке на ФС C:\IntraService4 
+•	Конфиг к службе, которая расыслает почту пользователям C:\Program Files (x86)\Intravision\IntraService Agent 4.43.3.0603\ IntraService.Agent.Service.exe 
+ За сам процесс отправки в конфиге отвечает строка. Т.е. сейчас, если запустить сервис, то  он будет  обрабатывать почтовый ящик, 
+ на который нужно будет отправить  сообщение. (через обычный аутулук)
+    <!--Время в секундах, через которое сервис отправляет уведомления (если 0, то отключено) [60]-->
+    <add key="SendNotifications_Time" value="0" />
+Можно еще дополнительно очистить   email пользователей
+
+
+На страничке http://confluence.nspk.ru/pages/viewpage.action?pageId=11379760  описывали другую доработку. 
+а, описание тестирование на той страничке в конфлюенсе. Мы описывали как это можно было бы протестировать.
+ Все необходимые либы  для sql на этом сервере  уже установлены. 
+ Там же описан формат письма, который нужно отправить на ящик, что бы проверить работоспособность.
+
+Собственно, компонент, описанный в конлюфенсе  задействован в триггере на таблице с уведомлениями, 
+которые служба, посмотрев на почтовый ящик, перенесла в БД.
+
+				]
+				
+				//test stand
+				http://msk1-vm-inter02.nspk.ru/Task
+				//sending turn on
+				Inter02: C:\Program Files (x86)\Intravision\IntraService Agent 4.43.3.0603
+				
+				<!-Время в секундах, через которое сервис отправляет уведомления (если 0, то отключено) [60]->
+				<add key="SendNotifications_Time" value="0" />
+
+
+				url предполагаемые порты, метод и таблицу
+				msk1-vm-cas01 25,587,465
+
+				dll UserDefinedFunctions.NumberIdName.Encode
+
+				table:[
+					TaskTypeField
+					NameXml
+					typeID
+				]
+				
+				
+				Я правильно понял, что:
+				Плановые работы участников
+				http://confluence.nspk.ru/pages/viewpage.action?pageId=11379764
+				Уведомления о сетевой недоступности
+				http://confluence.nspk.ru/pages/viewpage.action?pageId=11379762
+
+				Основаны на том, что описано здесь:
+				Синхронизация с провайдерами
+				http://confluence.nspk.ru/pages/viewpage.action?pageId=11379760
+
+			]
+			
 			OverallDescription[
 	1CBatch,Newscontroller,AccountControoler,...
 	1C,Ad->ProdOrient
@@ -1246,7 +1310,64 @@ checkQuestionState(){
 
 	Person,manger
 	]
+			
+			fu[
+			
+	$/NSPK DevTeam/DocsVision Development/NSPK.DocsvisionWebClient_DEV/NSPK.Docsvision.WebServerExtensions/Helpers/ApprovalCreator.cs
 
+	boxing in foreach row [
+
+	//120
+	foreach (RowData rowData in (IEnumerable<RowData>)cardData1.Sections[CardReconcile.PathTable.ID].Rows.OrderBy<RowData, int>((Func<RowData, int>)(item => item.GetInt32("Order").GetValueOrDefault())))
+
+	//139
+	conditionGroup.Conditions.AddNew("InstanceID", FieldType.UniqueId, ConditionOperation.Equals, (object)documentId).IsSystemField = true;
+
+	//217
+	//Document initialDocument = this.GetInitialDocument(section1);
+	_context.RefreshObject<BaseCard>(_context.GetObject<BaseCard>((object)reconciliationCard));
+
+	]
+
+	why [
+		//322
+		baseCardSectionRow = section[0] as BaseCardSectionRow;
+		baseCardSectionRow["Author"] = (object)id1;
+		baseCardSectionRow["Initiator"] = (object)id1;
+		baseCardSectionRow["Consolidator"] = (object)Guid.Empty;
+		baseCardSectionRow["Document"] = (object)id2;
+		DateTime deadLine = this.GetDeadLine(reconciliationCard);
+		baseCardSectionRow["ControlDate"] = (object)deadLine;
+	]
+
+
+
+	$/NSPK DevTeam/DocsVision Development/NSPK.DocsvisionWebClient_DEV/NSPK.Docsvision.WebServerExtensions/Helpers/Constants.cs
+
+	what this fuck is [
+	//28
+		--1	Новое задание
+		//						--2	Делегирование задания
+		//						--3	Возврат с делегирования
+		//						--4	Завершение задания на согласование
+		//						--5	Завершение задания на исполнение
+		//						--6	Новое сообщение по документу
+		//						--7	Автоматическая регистрация
+		//						--8	Подписание расходного договора
+		newTaskEvent = 1,
+		newDelegateTaskEvent,
+		returnFromDelegationEvent,
+		completeApprovalTaskEvent,
+		completePerformingTaskEvent,
+		newChatMessageEvent,
+		autoregistrationDocumentEvent,
+		signExpenditureContractEvent
+	]
+	
+
+			
+			]
+		
 		]			
 		
 		ApiTester

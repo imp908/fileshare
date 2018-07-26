@@ -27,7 +27,10 @@ namespace Parts{
 	
 	WatchList[
 		
-		//CSS animated 
+		//architecture 
+		https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html
+		
+		//CSS animated
 		http://www.transformicons.com/
 		//css tranlate
 		https://codepen.io/kattixie/pen/ezzGKY
@@ -38,11 +41,63 @@ namespace Parts{
 		https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
 		https://developer.mozilla.org/kab/docs/Web/SVG
 		https://teropa.info/blog/2016/12/12/graphics-in-angular-2.html
+		//colors
+		https://www.materialpalette.com/colors
+		//styles
+		https://alligator.io/angular/style-binding-ngstyle-angular/
 		
+		
+		//fluid grids
+		https://alistapart.com/article/fluidgrids
+		//Responsive Web Design 
+		https://www.smashingmagazine.com/2011/07/responsive-web-design-techniques-tools-and-design-strategies/
+		//https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/
+		https://www.smashingmagazine.com/2011/01/guidelines-for-responsive-web-design/
+		
+		
+		//gradient
+		https://cssgradient.io/		
 		
 		https://sps.northwestern.edu/advanced-graduate-certificate/
 	
 		https://www.3ds.com/ru/
+		
+		//colorgen
+		https://martin.ankerl.com/2009/12/09/how-to-create-random-colors-programmatically/
+		
+		//webGL
+		https://www.khronos.org/webgl/
+		https://en.wikipedia.org/wiki/WebGL
+				
+		
+		https://threejs.org/
+		https://en.wikipedia.org/wiki/Three.js
+		
+		//whitestorm
+		https://whs.io/
+		
+		https://clara.io/
+		
+		
+		//webgl front examples
+		https://hajimewatanabe.jp/portfolio/
+		
+		//js
+		//custom json converter
+		http://blogs.microsoft.co.il/miziel/2014/09/23/custom-web-api-json-converter-single-property/
+		
+		//angular 
+		//mat design items
+		http://google.github.io/material-design-icons/#icon-font-for-the-web
+		//angular svg
+		https://teropa.info/blog/2016/12/12/graphics-in-angular-2.html
+		//routing
+		https://www.concretepage.com/angular-2/angular-2-routing-and-navigation-example
+		//routing example
+		https://stackblitz.com/angular/akeyovpqapx?file=src%2Fapp%2Fapp-routing.module.ts
+		
+		//graph db
+		https://ontotext.com/free-graphdb-download/?utm_source=dbengines&utm_medium=banner&utm_campaign=graphdb%20free#1507639100937-90364ff6-654d
 		
 	]
 	
@@ -570,8 +625,7 @@ namespace Parts{
 					System.Net : WebRequest,WebResponse, HttpWebRequest,HttpWebResponse -> web iteration puggable protocols
 				}
 								
-				public class StringConcatenation()
-				{
+				public class StringConcatenation(){
 					
 https://stackoverflow.com/questions/21078/most-efficient-way-to-concatenate-strings
 					
@@ -583,6 +637,32 @@ string.Append().
 StringBuilder.
 					
 				}
+			
+				collections{
+					
+					List<T>
+						add,remove, by index to the end 0(1)
+						search 0(n) (searchs all list)
+						
+					dictionary<Tkey,Tvalue>
+						serach 0(1) (searchs by key)
+						hash based 
+					
+					hashset<T> 
+						collection of unique items search 0(1)
+						different order equals
+					
+					stack<T>
+						LIFO
+						push 0(1) if no relocation requered
+						0(n) relocation req
+						pop 0(1)
+						search 0(n)
+					
+					queue<T>
+					
+				}
+				
 			}
 			
 			public void Patterns()
@@ -3093,7 +3173,7 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 
 	#endregion	
 	
-	#region JS5	
+	#region JS5
 	
 	public souces[
 		//Air bnb styleguide
@@ -9472,4 +9552,3 @@ sudo service smbd restart
 		}
 	
 	#endregion
-	
