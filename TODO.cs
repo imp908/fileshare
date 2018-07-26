@@ -438,7 +438,7 @@ TnT[
 			actual[
 	
 	-> Quiz Pass page[
-	
+
 		<- 25.07.2018 17:40 -> pass page CSS
 		<- 25.07.2018 17:40 -> paging Start,paging buttons
 		<- 25.07.2018 23:23 -> paging events
@@ -1280,7 +1280,6 @@ checkQuestionState(){
 				http://confluence.nspk.ru/pages/viewpage.action?pageId=11379760
 
 			]
-			
 			OverallDescription[
 	1CBatch,Newscontroller,AccountControoler,...
 	1C,Ad->ProdOrient
@@ -1310,8 +1309,7 @@ checkQuestionState(){
 
 	Person,manger
 	]
-			
-			fu[
+	  fu[
 			
 	$/NSPK DevTeam/DocsVision Development/NSPK.DocsvisionWebClient_DEV/NSPK.Docsvision.WebServerExtensions/Helpers/ApprovalCreator.cs
 
@@ -1368,7 +1366,7 @@ checkQuestionState(){
 			
 			]
 		
-		]			
+		]		
 		
 		ApiTester
 			-> JSON response objects count and expect			
