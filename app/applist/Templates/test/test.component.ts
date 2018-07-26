@@ -39,8 +39,10 @@ export class TestComponent implements OnInit {
 
   _buttons:ButtonNew[];
 
-  quizNew:QuizNew;
+  passingQuiz:QuizNew;
+  passignQuestion:QuestionNew;
   passButton:ButtonNew;
+
   constructor(){
 
     TestNew.GO();
@@ -71,8 +73,8 @@ export class TestComponent implements OnInit {
 
     //pass page quiz test
     let qzTmp=ModelContainerNew.QuizesPassed.array[0];
-    if(qzTmp instanceof QuizNew){this.quizNew=qzTmp;}
-    let btnPs=FactoryNew.PassButton("Quiz").array[0];
+    if(qzTmp instanceof QuizNew){this.passingQuiz=qzTmp;}
+    let btnPs=FactoryNew.StartButton("Quiz");
     if(btnPs instanceof ButtonNew){ this.passButton=btnPs;}
     ServiceCl.log(["Constructor: " + this.constructor.name]);
   }

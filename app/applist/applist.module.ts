@@ -30,6 +30,7 @@ import { PageNotFoundComponent } from './Templates/Pages/page-not-found/page-not
 import { AppRoutingModule } from 'src/app/applist/app-routing.module';
 
 import {HttpClientModule } from '@angular/common/http';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -44,7 +45,7 @@ import {HttpClientModule } from '@angular/common/http';
     BrowserModule,ReactiveFormsModule,FormsModule,CommonModule
     ,NgbModule.forRoot()
     ,HttpClientModule
-    ,AppRoutingModule
+    ,AppRoutingModule, BrowserAnimationsModule
   ]
   ,bootstrap:[ApplistComponent]
 })

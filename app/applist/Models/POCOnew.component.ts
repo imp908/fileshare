@@ -691,4 +691,8 @@ export class CopyNew extends ButtonNew{}
 export class DeleteNew extends ButtonNew{}
 export class Cancel extends ButtonNew{}
 
-export class PassQuiz extends ButtonNew{}
+export class Pass extends ButtonNew{}
+export class Start extends ButtonNew{}
+
+export class Next extends ButtonNew{}
+export class Previous extends ButtonNew{}

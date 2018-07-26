@@ -11,7 +11,7 @@ const appListRoutes : Routes =[
   { path: 'ts',component: TestComponent },
   { path: 'edit',component: MenuMainComponent },
   { path: 'pass',component: PasspageComponent },
-  { path: '',redirectTo: '/ts' , pathMatch:'full'},
+  { path: '',redirectTo: '/edit' , pathMatch:'full'},
   { path: '**', component: PageNotFoundComponent}
 ];
 
