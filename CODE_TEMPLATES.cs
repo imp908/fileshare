@@ -479,7 +479,7 @@ namespace Parts{
 									
 				}
 				
-				public class OperatorOverload()	{
+				public class OperatorOverload(){
 					...
 					protected static ret operator[+,...,*] (){...};
 					...
@@ -549,8 +549,7 @@ namespace Parts{
 					System.Net : WebRequest,WebResponse, HttpWebRequest,HttpWebResponse -> web iteration puggable protocols
 				}
 								
-				public class StringConcatenation()
-				{
+				public class StringConcatenation(){
 					
 https://stackoverflow.com/questions/21078/most-efficient-way-to-concatenate-strings
 					
@@ -562,8 +561,7 @@ string.Append().
 StringBuilder.
 					
 				}
-				
-				
+								
 				collections{
 					
 					List<T>
@@ -2548,6 +2546,7 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 		}
 			
 			}
+			
 			public SystemReflectionEmit()
 			{
 using System.Reflection.Emit;
