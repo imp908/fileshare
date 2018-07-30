@@ -24,6 +24,24 @@ namespace Parts{
 	#endregion
 	
 }
+	
+	wl[
+		
+		//FIN
+		https://banyanhill.com/
+		
+		//soft 
+		//decompilers 
+		https://www.pnfsoftware.com/
+
+		//CFTC
+		https://www.cftc.gov/
+
+		//net 
+		//in
+		https://blogs.msdn.microsoft.com/seteplia/2018/03/07/the-in-modifier-and-the-readonly-structs-in-c/
+		
+	]
 
 	#region SourceControl
 
@@ -585,8 +603,34 @@ StringBuilder.
 					
 					queue<T>
 					
+					span<T> 
+
 				}
 				
+				references[
+				
+					readonly 
+						-creates defensive copies of classes increases time
+						-not creates def cop for readonly fields, for structures
+					
+					in (C#7.2)
+						-passes parameters to method in as immutable
+						-cannot overload with in,out,ref diff
+						-used in async (ref not)
+						-used in using (ref not)
+						-never non-readonly struct as in poor performance
+				]
+				
+				structs[
+					-readonly structs high performanse
+				]
+				
+				indexer[
+					
+					public T this[int i];
+					
+				]
+			
 			}
 			
 			public void Patterns()

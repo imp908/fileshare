@@ -1326,11 +1326,31 @@ checkQuestionState(){
 					
 					testScenery[
 
-						//testing
+						//test host
 						http://msk1-vm-inter02.nspk.ru/Task
-						table Users
+						DB localhost is4_32_5 kill mail in users
+						adsynch
+						change [Notification] IsSent to 0 [0 not send,1 sended,null queue]
+						//sending turn off 
+						//SET IntraService.Agent.Service.exe.config SendNotifications_Time 0
+						Inter02: C:\Program Files (x86)\Intravision\IntraService Agent 4.43.3.0603												
+						change field ImportMailAccount account where name ProvidersSync to @mailFrom
+						change ImportMailAccount triggers:
+							[network_incident_importmail]  @Mail_from to @mailFrom;  @subject to testSubject
+							[network_incident_availability] -=-
 						
-
+						migrate tables 
+							ImportMailAccount ,ImportMails
+								values from msk1-vm-inter03 to msk1-vm-inter02
+								
+						//sendfrom mail
+						dvtest2015@yandex.ru -> to trigger
+						//tracked mail 
+						integration@nspk.ru -> to ImportMailAccount.ProvidersSync
+						
+						send from dvtest2015@yandex.ru to integration@nspk.ru
+						
+						
 					]
 					
 				]
@@ -1363,7 +1383,7 @@ checkQuestionState(){
 
 				]
 				
-				preliminary [
+				preliminary[
 				
 					http://msk1-vm-inter01.nspk.ru
 					//mail 
@@ -1378,7 +1398,7 @@ checkQuestionState(){
 					//AD sych table kill add synch both profiles
 					adsynch
 					//check table
-					notification 
+					notification
 					0 not send 1 send null queue
 					//sending turn on
 					Inter02: C:\Program Files (x86)\Intravision\IntraService Agent 4.43.3.0603
@@ -1394,7 +1414,7 @@ checkQuestionState(){
 					select * FROM [is4_32_5].[dbo].ImportMailAccount
 					change fields from 03 to 02 
 					select * FROM [is4_32_5].[dbo].ImportMails
-					help@nspk.ru - > net@nspk.ru 
+					help@nspk.ru -> net@nspk.ru 
 					trigger cope from 03 to 02
 					importmail,availability
 					
@@ -1410,14 +1430,16 @@ checkQuestionState(){
 	select * from is4_32_5.dbo.Notification
 	select * from is4_32_5.dbo.AvailabilityLog
 
-					
+
+
 					help@nspk.ru
 					dvtest2015@yandex.ru
-					ProvidersSync integration@nspk.ru	QwESdF123 listening on 993
+					ProvidersSync integration@nspk.ru QwESdF123 listening on 993
 					
 					ImportMails triggers mail from dvtest2015@yandex.ru
 					ImportMailAccount mail to integration@nspk.ru
 					
+		
 					
 					
 					<!-Время в секундах, через которое сервис отправляет уведомления (если 0, то отключено) [60]->
