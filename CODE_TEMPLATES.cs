@@ -24,24 +24,6 @@ namespace Parts{
 	#endregion
 	
 }
-	
-	wl[
-		
-		//FIN
-		https://banyanhill.com/
-		
-		//soft 
-		//decompilers 
-		https://www.pnfsoftware.com/
-
-		//CFTC
-		https://www.cftc.gov/
-
-		//net 
-		//in
-		https://blogs.msdn.microsoft.com/seteplia/2018/03/07/the-in-modifier-and-the-readonly-structs-in-c/
-		
-	]
 
 	#region SourceControl
 
@@ -481,23 +463,23 @@ namespace Parts{
 			public void Theory()
 			{			
 				
+				weak reference[
+					- allows to GC.Collect 
+				]
+				
+				structs vs classes[
+					strucs 
+					- :system.value
+					- all class features without inheritance
+					- strored in stack compared by value not reverence
+
+				]
+				
 				public class Equality(){
 					
-					GetType():
-					a = new b
-					gettype == typeof() -> b
-
-					IS:
-					a = new b
-					a is b -> true => a : b
-					a is b -> false => a !: b || a : Ib
-
-					EQUALS:
-					a.Equals(b) -> true => a=b
-									
 				}
 				
-				public class OperatorOverload(){
+				public class OperatorOverload()	{
 					...
 					protected static ret operator[+,...,*] (){...};
 					...
@@ -567,7 +549,8 @@ namespace Parts{
 					System.Net : WebRequest,WebResponse, HttpWebRequest,HttpWebResponse -> web iteration puggable protocols
 				}
 								
-				public class StringConcatenation(){
+				public class StringConcatenation()
+				{
 					
 https://stackoverflow.com/questions/21078/most-efficient-way-to-concatenate-strings
 					
@@ -579,7 +562,8 @@ string.Append().
 StringBuilder.
 					
 				}
-								
+				
+				
 				collections{
 					
 					List<T>
@@ -603,34 +587,8 @@ StringBuilder.
 					
 					queue<T>
 					
-					span<T> 
-
 				}
 				
-				references[
-				
-					readonly 
-						-creates defensive copies of classes increases time
-						-not creates def cop for readonly fields, for structures
-					
-					in (C#7.2)
-						-passes parameters to method in as immutable
-						-cannot overload with in,out,ref diff
-						-used in async (ref not)
-						-used in using (ref not)
-						-never non-readonly struct as in poor performance
-				]
-				
-				structs[
-					-readonly structs high performanse
-				]
-				
-				indexer[
-					
-					public T this[int i];
-					
-				]
-			
 			}
 			
 			public void Patterns()
@@ -2590,7 +2548,6 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 		}
 			
 			}
-			
 			public SystemReflectionEmit()
 			{
 using System.Reflection.Emit;
