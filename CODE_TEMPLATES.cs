@@ -24,7 +24,17 @@ namespace Parts{
 	#endregion
 	
 }
-
+	
+	wh[
+	
+		//unit test comparison
+		http://www.anarsolutions.com/automated-unit-testing-tools-comparison/
+		
+		//distrib arch
+		https://www.youtube.com/watch?v=tpspO9K28PM
+		https://www.youtube.com/watch?v=5o-kdjv7FD0
+	]
+	
 	#region SourceControl
 
 		public Bug Trackers
