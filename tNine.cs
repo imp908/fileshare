@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Linq;
 
 namespace tNine
 {    
@@ -10,127 +11,125 @@ namespace tNine
 
     }
 
-    public interface IToken
+    public interface ILabel
     {
         //token printed order times too immitate button multiple clicks
         int order { get; }
 
         char[] arr { get; set; }
-        string Value();
-        string ToString();
+        char[] GetCommand();
+        int GetHashCode();
     }
     public interface IButton
     {
-        string Name { get; set; }
+        char[] Name { get; set; }
     }
     public interface IKey
     {
         IButton button { get; set; }
-        Dictionary<int,IToken> signatures { get; set; }
-        char[] command(string str_);
+        Dictionary<int, ILabel> label { get; set; }
+        ILabel GetLabel(char[] str_);
+        List<char> GetCommand(char[] str_);
     }   
     public interface IKeyPad
     {
         List<IKey> keys { get; }
+       
     }
 
 
 
-    public struct Token : IToken
+    public struct Label : ILabel
     {
-        public Token(int order_, char[] arr_) { this.order = order_; this.arr = arr_; }
+        public Label(int order_, char[] arr_) { this.order = order_; this.arr = arr_; }
         public int order { get; }
-        public char[] arr { get; set; }
+        public char[] arr { get; set; }      
 
-        public string Value() { return string.Join(string.Empty,this.arr); }
-        public override string ToString() { return this.Value(); }
+        public char[] GetCommand() {
+
+            char[] ch = new char[this.arr.Length * this.order];
+            for (int i = 1; i <= this.order; i++)
+            {
+                this.arr.CopyTo(ch, this.arr.Length * (i - 1));
+            }
+
+            return ch;
+        }
+        public override int GetHashCode()
+        {            
+            //return ((IStructuralEquatable)this.arr).GetHashCode(EqualityComparer<int>.Default);
+            return this.arr.GetHashCode();
+        }
     }
     public class Button : IButton
     {
         public Button() { }
-        public Button(string name_) { this.Name = name_; }
-        public string Name { get; set; }        
+        public Button(string name_) { this.Name = name_.ToCharArray(); }
+        public char[] Name { get; set; }        
     }
     public class Key : IKey
     {
         public Key(){}
-        public Key(IButton button_,IToken tk_) {           
-            this.signatures.TryAdd(tk_.Value().GetHashCode(), tk_);
+        public Key(IButton button_,ILabel label_) {
+            this.button = button_;this.label.TryAdd(label_.GetHashCode(),label_);
         }
-        public Key(IButton button_, List<IToken> signs_)
+        public Key(IButton button_, List<ILabel> label_)
         {
-            foreach (IToken tk_ in signs_)
+            this.button = button_;
+            foreach (ILabel lb_ in label_)
             {
-                try{
-                    this.signatures.TryAdd(tk_.Value().GetHashCode(), tk_);
-                }catch(ArgumentNullException e) { }
-                catch (ArgumentException e) { }
+                 this.label.Add(lb_.GetHashCode(), lb_);
             }
         }
 
         public IButton button { get; set; }
-        public Dictionary<int, IToken> signatures { get; set; } = new Dictionary<int, IToken>();      
+        public Dictionary<int,ILabel> label { get; set; } = new Dictionary<int, ILabel>();
+        public ILabel GetLabel(char[] str_) {
 
-        public char[] command(IToken tk)
-        {
-            return command(tk.Value());
+            ILabel lb = null;
+            int hs = str_.GetHashCode();
+            var a = this.label;
+
+            return null;
         }
-        public char[] command(string str_){
-            List<char[]> ret = new List<char[]>();
-            char[] ch_1 = str_.ToCharArray();
-            char[] ch_2 = str_.ToCharArray();
-            int hs1 = ch_1.GetHashCode();
-            int hs2 = ch_2.GetHashCode();
-
-            if (signatures.ContainsKey(1))
+        public List<char> GetCommand(char[] str_)
+        {
+            ILabel lb = this.GetLabel(str_);
+            List<char> arr = new List<char>();
+            if (lb != null)
             {
-                IToken tk=signatures.GetValueOrDefault(str_.GetHashCode());
-                for(int i = 0; i < tk.order; i++)
+                for(int i = 1; i <= lb.order; i++)
                 {
-                    ret.Add(tk.arr);                    
+                    arr.AddRange(this.button.Name);
                 }
-                return tk.arr;
+                return arr;
             }
-           
+
             return null;
         }
     }
+
     public class KeyPad : IKeyPad
     {
         public KeyPad() { }
         public KeyPad(List<IKey> keys_) { this.keys = keys_; }
 
-        public List<IKey> keys { get;}
+        public List<IKey> keys { get; set; }
 
-        public string command(string input_,string split)
+        public char[] command(char input_)
         {
-            StringBuilder sb = new StringBuilder();
-            string[] str = input_.Split(split);
-            char[] previous = null;
-            char[] current = null;
-
-            foreach(string str_ in str)
-            {
-                foreach(IKey key in this.keys)
-                {
-                    current = key.command(str_);
-
-                    if (previous != null) {                        
-                        if (previous == current)
-                        {
-                            sb.Append(string.Empty);
-                        }
-                    }
-                    else { previous = current; }
-
-                    sb.Append(key.command(str_));
-                }
-
-                return sb.ToString();
-            }
-            return null;
+            char[] ip_ = new char[] { input_ };
+            return ip_;
         }
-
+        public char[] command(string input_)
+        {
+            List<char> arr = new List<char>();
+            foreach (char ch_ in input_)
+            {
+                arr.AddRange(this.command(ch_));
+            }
+            return arr.ToArray();
+        }
     }
 
 }
