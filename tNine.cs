@@ -29,11 +29,11 @@ namespace tNine
         IButton button { get; set; }
         Dictionary<int, ILabel> label { get; set; }
         ILabel GetLabel(char[] str_);
-        List<char> GetCommand(char[] str_);
+        char[] GetCommand(char[] str_);
     }   
     public interface IKeyPad
     {
-        List<IKey> keys { get; }
+        HashSet<IKey> keys { get; }
        
     }
 
@@ -56,9 +56,14 @@ namespace tNine
             return ch;
         }
         public override int GetHashCode()
-        {            
+        {
             //return ((IStructuralEquatable)this.arr).GetHashCode(EqualityComparer<int>.Default);
-            return this.arr.GetHashCode();
+            StringBuilder sb = new StringBuilder();
+            foreach(char ch_ in this.arr)
+            {
+                sb.Append(ch_);
+            }
+            return sb.ToString().GetHashCode();
         }
     }
     public class Button : IButton
@@ -87,20 +92,31 @@ namespace tNine
         public ILabel GetLabel(char[] str_) {
 
             ILabel lb = null;
-            int hs = str_.GetHashCode();
-            var a = this.label;
+            StringBuilder sb = new StringBuilder();
+            foreach(char ch_ in str_)
+            {
+                sb.Append(ch_);
+            }
+            int hs = sb.ToString().GetHashCode();
+            label.TryGetValue(hs, out lb);
+            if (lb!=null)
+            {
+                return lb;
+            }
 
             return null;
         }
-        public List<char> GetCommand(char[] str_)
+        public char[] GetCommand(char[] str_)
         {
             ILabel lb = this.GetLabel(str_);
-            List<char> arr = new List<char>();
+            char[] arr = new char[lb.order*this.button.Name.Count()];
+            int len = this.button.Name.Count();
+            
             if (lb != null)
             {
-                for(int i = 1; i <= lb.order; i++)
+                for(int i = 0; i < lb.order; i++)
                 {
-                    arr.AddRange(this.button.Name);
+                    this.button.Name.CopyTo(arr, i*len);
                 }
                 return arr;
             }
@@ -112,23 +128,42 @@ namespace tNine
     public class KeyPad : IKeyPad
     {
         public KeyPad() { }
-        public KeyPad(List<IKey> keys_) { this.keys = keys_; }
+        public KeyPad(HashSet<IKey> keys_) { this.keys = keys_; }
 
-        public List<IKey> keys { get; set; }
+        public HashSet<IKey> keys { get; set; }
 
+        public char[] command(char[] input_)
+        {
+            IKey k = (from s in keys where s.GetLabel(input_) != null select s).FirstOrDefault();
+            return k.GetCommand(input_);
+        }
         public char[] command(char input_)
         {
             char[] ip_ = new char[] { input_ };
-            return ip_;
+            return command(ip_);
         }
-        public char[] command(string input_)
+       
+        public string command(string input_)
         {
-            List<char> arr = new List<char>();
-            foreach (char ch_ in input_)
+            char[] char_ = input_.ToCharArray();
+            char[] found=null;
+            char[] previous=null;
+
+            StringBuilder sb = new StringBuilder();
+            foreach (char ch_ in char_)
             {
-                arr.AddRange(this.command(ch_));
+                found = command(ch_);
+                if (previous != null)
+                {
+                    if (found[0]==previous[0])
+                    {
+                        sb.Append(" ");
+                    }
+                }
+                sb.Append(found);
+                previous = found;
             }
-            return arr.ToArray();
+            return sb.ToString();
         }
     }
 
