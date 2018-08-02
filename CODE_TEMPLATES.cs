@@ -24,34 +24,7 @@ namespace Parts{
 	#endregion
 	
 }
-	
-	wh[
-		
-		//cpp
-		https://www.cprogramming.com/tutorial/function-pointers.html
-		
-		//films
-		https://meduza.io/slides/pyat-glavnyh-filmov-dokumentalista-aleksandra-rastorgueva-kotorye-mozhno-posmotret-onlayn-o-kurortnikah-materyah-odinochkah-soldatah-v-chechne-i-oppozitsii
-		
-		//unit test comparison
-		http://www.anarsolutions.com/automated-unit-testing-tools-comparison/
-		
-		//distrib arch
-		https://www.youtube.com/watch?v=tpspO9K28PM
-		https://www.youtube.com/watch?v=5o-kdjv7FD0
-		https://www.youtube.com/watch?v=CZ3wIuvmHeM
-		
-		npm proxy[
-		
-			npm set strict-ssl false –g
-			npm config set registry "http://registry.npmjs.org/" -g
-			npm config set proxy http://msk1.unix.nspk.ru:3128 –g
 
-			npm --registry http://nexus..ru:8081/nexus/content/repositories/npmjs/ install -g react react-dom
-
-		]
-	]
-	
 	#region SourceControl
 
 		public Bug Trackers
