@@ -296,7 +296,183 @@ if not exist -> create relations
 ]
 
 				]
-			
+				
+				,deploy[
+				news api description[
+
+Post news
+[METHOD,URL,HEADER,BODY,RESPONSE]
+POST
+http://msk1-vm-ovisp01:8184/api/news2
+Content-Type: application/json
+{"authAcc":"Neprintsevia","pic":"","name":"TestNews3","content_":"news text","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false}
+{"PGUID":"000","authAcc":"Neprintsevia","authGUID":"000","authName":"Neprintsevia","pic":"","name":"TestNews","content_":"","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"dac34a61-d01c-487c-8d1e-694f8383a21f","Created":"2017-12-19 09:54:59"}
+
+Post comment
+[METHOD,URL,HEADER,BODY,RESPONSE]
+POST
+http://msk1-vm-ovisp01:8184/api/news2/b71bec8b-ebac-40ff-852b-ba2ba1bc6d81
+Content-Type: application/json
+{"authAcc":"Neprintsevia","pic":"","name":"TestComment1","content_":"comment text","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false}
+{"pic":"","name":"TestComment1","content_":"comment text","description":"","commentDepth":1,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"0a35caf2-1045-47e2-bb41-46c931b6b1da","Created":"2017-12-19 09:57:09"}
+
+Put News
+[METHOD,URL,HEADER,BODY,RESPONSE]
+POST
+http://msk1-vm-ovisp01:8184/api/news2/update
+or
+PUT
+http://msk1-vm-ovisp01:8184/api/news2
+Content-Type: application/json
+{"GUID":"dac34a61-d01c-487c-8d1e-694f8383a21f","authAcc":"Neprintsevia","pic":"","name":"TestComment2","content_":"comment text updated","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false}
+{"pic":"","name":"TestComment2","content_":"comment text updated","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"dac34a61-d01c-487c-8d1e-694f8383a21f","Created":"2017-12-19 10:03:11"}
+
+GET News\Comment with comments with depth
+/Guid/depthOffset
+http://msk1-vm-ovisp01:8184/api/news2/b71bec8b-ebac-40ff-852b-ba2ba1bc6d81/2
+[{"Name":"Commentary0","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":3,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"47eb0894-7fb1-4b24-aabd-77f264537678","Created":"2017-12-18 03:30:10"},{"Name":"Commentary6","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":4,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"288fdabd-66c1-4042-be81-d7ff18d864b2","Created":"2017-12-18 03:30:10"},{"Name":"Commentary4","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":5,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"16f8988e-beb5-419a-bfb3-f00da0e57af2","Created":"2017-12-18 03:30:10"},{"Name":"Commentary8","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":6,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"01396598-0a21-476e-b566-98765f9e2011","Created":"2017-12-18 03:30:10"},{"Name":"Commentary5","pic":"","name":"","content_":"fucking bullshit comentary","description":"","commentDepth":6,"hasComments":false,"likes":0,"liked":false,"@class":"Commentary","GUID":"0a4d8a0b-b034-4249-a717-0bf32fa22034","Created":"2017-12-18 03:30:11"}]
+
+GET get News with depth
+http://msk1-vm-ovisp01:8184/api/news2/5
+[{"Name":"Real news","pic":"","name":"","content_":"","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"057ba719-bd7e-4827-84b9-33f013765e4a","Created":"2017-12-18 03:28:03"},{"Name":"News1","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"a47a360a-33d7-46fd-8132-0dcdb4aa88fb","Created":"2017-12-18 03:30:09"},{"Name":"News1","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"73e24beb-84bb-4c55-9735-830412a807ea","Created":"2017-12-18 03:30:09"},{"Name":"News0","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"edec4cc2-d66c-4d51-8691-a762e763abf3","Created":"2017-12-18 03:30:09"},{"Name":"News0","pic":"","name":"","content_":"fucking interesting news","description":"","commentDepth":0,"hasComments":false,"likes":0,"liked":false,"@class":"News","GUID":"82f83601-d5cd-4108-b1b7-d27ac5a3933a","Created":"2017-12-18 03:30:09"}]
+
+GET get news by offset with pinned or published bool conditions. Null values not checkeed so basic Get replacement possible.
+http://msk1-vm-ovisp01:8184/api/news2/GetParam
+shema
+{"offest":[int?],"pinned":[bool?],"published":[bool?]}
+example
+{"offest":"2","pinned":"false","published":"false"}
+
+]
+
+qiuiz[
+
+//return all published
+POST
+http://msk1-vm-ovisp01:8184/api/Quiz
+{"monthDepth":""}
+
+months depth  in the past 
+{"monthDepth":"-5"}
+
+]
+
+GetParams scenery check[
+
+http://msk1-vm-ovisp01:8184/api/news2
+POST
+{"GUID":"111","content_":" c \"a a\" t "}
+{"GUID":"112","content_":" c \"a a\" t "}
+{"GUID":"113","content_":" c \"a a\" t "}
+{"GUID":"114","content_":" c \"a a\" t "}
+
+(4 разных body на один url одним методом или на другой урл другим методом для PUT)
+http://msk1-vm-ovisp01:8184/api/news2/update
+POST 
+или
+http://msk1-vm-ovisp01:8184/api/news2
+PUT
+
+{
+"GUID":"111",
+"pinned": {"isTrue": true}
+}
+
+{
+"GUID":"112",
+"published": {"isTrue": true}
+}
+
+{
+"GUID":"113",
+"pinned": {"isTrue": true,"dateChanged": "2018-01-15 10:58:44"},
+"published": {"isTrue": true,"dateChanged": "2018-01-15 10:58:44"}
+}
+
+{
+"GUID":"114",
+"pinned": {"isTrue": false},
+"published": {"isTrue": false}
+}
+
+(проверяем разные состояния)
+http://msk1-vm-ovisp01:8184/api/news2/GetParam
+POST
+{"offest":"2","pinned":"false","published":"false"}
+
+{"offest":"2","published":"true"}
+->//minimal GUIDs 112,113
+
+{"offest":"2","pinned":"true"}
+->//minimal GUIDs return 113
+
+{"offest":"2","pinned":"false","author":{"GUID":"ba124b8e-9857-11e7-8119-005056813668"}}
+->//minimal GUIDs return 114
+
+GP minimal object 
+//вернет пусутое, только для примера параметра
+{"offest":"2","pinned":"false","published":"false","asc":"true","liked":"true","tagg":{"tagText":"tag1"},"author":{"GUID":"ba124b8e-9857-11e7-8119-005056813668"}}
+
+
+Like, dislike возвращает необновленное значение количества Like. 
+В базе оно у этому моменту ужеменяется. 
+Возврат объекта меняется для новостей в целом, сюда его подключен позднее.
+//LIKES
+http://msk1-vm-ovisp01:8185/api/news2/Like
+POST
+{"GUID":"113"}
+
+http://msk1-vm-ovisp01:8185/api/news2/Dislike
+POST
+{"GUID":"113"}
+
+
+//TAGS
+http://msk1-vm-ovisp01:8185/api/news2/AddTags
+POST
+[{"tagText":"tag1"},{"tagText":"tag2"}]
+
+http://msk1-vm-ovisp01:8185/api/news2/DeleteTags
+POST
+[{"tagText":"tag1"},{"tagText":"tag2"}]
+
+//add tag
+http://msk1-vm-ovisp01:8185/api/news2/ToTag
+//вернет Not Tagged если поввтороно затагать новость на тот же tag
+POST
+{"news_":{"GUID":"112"},"tags_":[{"tagText":"tag3"},{"tagText":"tag4"}]}
+
+//get by tag to check
+http://msk1-vm-ovisp01:8185/api/news2/GetParam
+POST
+{"offest":"2","tagg":{"tagText":"tag3"}}
+
+UnTag
+http://msk1-vm-ovisp01:8185/api/news2/UnTag
+//вернет Untagged если новость была затагана
+POST
+{"news_":{"GUID":"112"},"tags_":[{"tagText":"tag3"},{"tagText":"tag4"}]}
+
+//JSON sheme examples
+//объект для добавления коллекции тэгов
+GP with tagg only
+//вернет, только если были добавлены таги и затагена новость
+[{"tagText":"tag1"},{"tagText":"tag2"}]
+
+обхект для тагания новости рядом тегов
+//Post param object for tags
+{"news_":{"GUID":"112"},"tags_":[{"tagText":"tag3"},{"tagText":"tag4"}]}
+
+
+//Extended object
+"{\"news_\":{\"name\":\"Real news\",\"pinned\":{\"isTrue\":false},\"published\":{\"isTrue\":false},\"hasComments\":true,\"GUID\":\"3644d3ee-f484-4c9c-968b-b97a1b4a0928\",\"Created\":\"2018-01-17 17:24:55\"},\"tags_\":[{\"tagText\":\"tag1\",\"GUID\":\"ebcfcf19-f210-4aa3-aeda-d3f42249600d\",\"Created\":\"2018-01-18 16:54:30\"},{\"tagText\":\"tag3\",\"GUID\":\"8dc4b530-4fbc-4bbd-aa43-fe746754c6f3\",\"Created\":\"2018-01-18 16:54:30\"}]}"
+//Minimal object for news tagging
+"{\"news_\":{\"GUID\":\"3644d3ee-f484-4c9c-968b-b97a1b4a0928\"},\"tags_\":[{\"tagText\":\"tag1\"},{\"tagText\":\"tag2\"}]}"
+
+]
+
+
+				]
 			]
 			
 			,TODO[
