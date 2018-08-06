@@ -49,7 +49,7 @@ namespace SBcr_
             //DelegateCheck.GO();
             //GenericvalueItemsCHeck.GO();
             EventsCheck.GO();
-          
+
         }
     }
 
@@ -74,13 +74,13 @@ namespace SBcr_
         public new string printV() { return "printed from child2 " + this.GetType().Name; }
         public new string log() { return "logged from child2 " + this.GetType().Name; }
     }
-    public static class OverrideCheck{
+    public static class OverrideCheck {
         public static void GO() {
             parent parent = new parent();
             parent parentAsChild1 = new child1();
             parent parentAsChild2 = new child2();
             child1 child = new child1();
-            
+
 
             Console.WriteLine(parent.printV()); //base
             Console.WriteLine(parent.log()); //base
@@ -99,32 +99,32 @@ namespace SBcr_
     //---------------------------------------------
     public static class SwapG
     {
-        public static void Sort<T>(List<T> arr, Func<T, T, bool> cmpr) where T: parent
+        public static void Sort<T>(List<T> arr, Func<T, T, bool> cmpr) where T : parent
         {
             bool sort = true;
             while (sort)
             {
                 sort = false;
-                for (int i = 0; i < arr.Count()-1; i++)
+                for (int i = 0; i < arr.Count() - 1; i++)
                 {
                     if (cmpr(arr[i], arr[i + 1]))
                     {
                         sort = true;
-                        SwapG.swap<T>(arr,arr.IndexOf(arr[i]), arr.IndexOf(arr[i + 1]));
+                        SwapG.swap<T>(arr, arr.IndexOf(arr[i]), arr.IndexOf(arr[i + 1]));
                     }
                 }
             }
         }
 
-        static void swap<T>(List<T> arr,int i1,int i2)
+        static void swap<T>(List<T> arr, int i1, int i2)
         {
             T item;
             item = arr[i1];
             arr[i1] = arr[i2];
-            arr[i2]= item;
+            arr[i2] = item;
         }
-        
-        
+
+
     }
     static class Comparers
     {
@@ -147,19 +147,19 @@ namespace SBcr_
             };
 
             Console.WriteLine("before swap:");
-            foreach(parent p in arr){Console.Write(p.ID);}
+            foreach (parent p in arr) { Console.Write(p.ID); }
             Console.WriteLine();
 
             SwapG.Sort<parent>(arr, Comparers.desc<parent>);
 
             Console.WriteLine("after swap desc:");
-            foreach (parent p in arr){Console.Write(p.ID);}
+            foreach (parent p in arr) { Console.Write(p.ID); }
             Console.WriteLine();
 
             SwapG.Sort<parent>(arr, Comparers.asc<parent>);
 
             Console.WriteLine("after swap asc:");
-            foreach (parent p in arr){Console.Write(p.ID);}
+            foreach (parent p in arr) { Console.Write(p.ID); }
             Console.WriteLine();
 
         }
@@ -203,7 +203,7 @@ namespace SBcr_
     public class DelegateReceiver
     {
         Del1 delHandler;
-        
+
         public void RegisterDel(Del1 del_)
         {
             this.delHandler += del_;
@@ -218,12 +218,12 @@ namespace SBcr_
             this.delHandler.Invoke(i);
         }
     }
-   
+
     public class DelegateEmitter {
         public void GO()
         {
 
-            DelegateReceiver du = new DelegateReceiver();      
+            DelegateReceiver du = new DelegateReceiver();
             du.RegisterDel(print2);
             du.RegisterDel(print3);
 
@@ -233,7 +233,7 @@ namespace SBcr_
         }
         string print2(int i)
         {
-            string ret= "Print2 of str:" + i.ToString();
+            string ret = "Print2 of str:" + i.ToString();
             Console.WriteLine(ret);
             return ret;
         }
@@ -254,7 +254,7 @@ namespace SBcr_
             DelegateEmitter dr = new DelegateEmitter();
             dr.GO();
         }
-      
+
     }
 
 
@@ -262,7 +262,7 @@ namespace SBcr_
     //events
     //---------------------------------------------
     //event argument classes
-    public class SpeedChangedEventArgs : EventArgs{public float speed {get;set;}}
+    public class SpeedChangedEventArgs : EventArgs { public float speed { get; set; } }
     public class EngineBrokeEventArgs : EventArgs { public bool broken { get; set; } }
 
     //event emitter class
@@ -277,7 +277,7 @@ namespace SBcr_
         public virtual void OnSpeedChanged(SpeedChangedEventArgs e)
         {
             EventHandler<SpeedChangedEventArgs> handler = speedChangeEvent;
-            if(handler != null)
+            if (handler != null)
             {
                 handler(this, e);
             }
@@ -290,7 +290,7 @@ namespace SBcr_
                 handler(this, e);
             }
         }
-   
+
         float speed { get; set; }
         public string name { get; set; }
 
@@ -301,11 +301,12 @@ namespace SBcr_
 
             SpeedChangedEventArgs args = new SpeedChangedEventArgs();
             args.speed = this.speed;
+
             OnSpeedChanged(args);
             engineCheck();
         }
         public void engineCheck()
-        {           
+        {
             if (this.speed > 100)
             {
                 EngineBrokeEventArgs args = new EngineBrokeEventArgs();
@@ -319,7 +320,7 @@ namespace SBcr_
     {
         public void ListenToSpeed(object cr_, SpeedChangedEventArgs e)
         {
-            if(cr_.GetType().Equals(typeof(Car)))
+            if (cr_.GetType().Equals(typeof(Car)))
             {
                 Car cr = (Car)cr_;
                 Console.WriteLine("Speed changed: {0}  {1}", cr.name, e.speed);
@@ -328,33 +329,13 @@ namespace SBcr_
     }
     public class EngineListener
     {
-        public void ListenToEngine(object o,EngineBrokeEventArgs e)
+        public void ListenToEngine(object o, EngineBrokeEventArgs e)
         {
             if (o.GetType().Equals(typeof(Car)))
             {
                 Car cr = (Car)o;
                 Console.WriteLine("Car broke: {0}  {1}", cr.name, e.broken);
             }
-        }
-    }
-
-    public class EventsCheck
-    {
-        public static void GO()
-        {
-            
-            Car car0 = new Car() { name = "car0"};
-            Car car1 = new Car() { name = "car1" };
-            SpeedListener sl = new SpeedListener();
-            EngineListener el = new EngineListener();
-
-            car0.speedChangeEvent += sl.ListenToSpeed;
-            car0.brokeChangeEvent += el.ListenToEngine;
-
-            car0.speedIncrease(10.0F);
-            car0.speedIncrease(80.0F);
-            car0.speedIncrease(11.0F);
-
         }
     }
 
@@ -380,6 +361,207 @@ namespace SBcr_
 
     eventToSubscribeAndFire+=Listen;
     */
+
+    //events with cancellation
+    public class PrintOrCancell : EventArgs { public string toPrint { get; set; } public bool stop { get; set; } = false; }
+    public class PrinterEmitter
+    {
+        public event EventHandler<PrintOrCancell> onPrint;
+
+        public void print(List<string> toPrint) {
+            foreach (string str_ in toPrint)
+            {
+                PrintOrCancell args = new PrintOrCancell() { toPrint = str_ };
+                onPrint?.Invoke(this, args);
+                if (args.stop)
+                {
+                    break;
+                }
+            }
+
+        }
+
+    }
+    public class PrintListener {
+        public void lsiten(object e, PrintOrCancell args) {
+            Console.WriteLine(args.toPrint);
+            if (args.toPrint.Length > 6) { args.stop = true; }
+        }
+    }
+
+    //updated event from core, not need to inherit from EventArgs
+    public class CountOrCall { public int toCount { get; set; } public bool stop { get; set; } = false; }
+    public class CountEmitter {
+        public event EventHandler<CountOrCall> onCount;
+        public void count(List<int> cnt_) {
+            EventHandler<CountOrCall> handler = onCount;
+            foreach (int i_ in cnt_)
+            {
+                CountOrCall args = new CountOrCall() { toCount = i_ };
+                handler?.Invoke(this, args);
+                if (args.stop)
+                {
+                    break;
+                }
+            }
+        }
+    }
+    public class CountListener
+    {
+        public void listen(object o, CountOrCall e) {
+            for (int i = 0; i < e.toCount; i++)
+            {
+                Console.Write(i);
+            }
+            Console.WriteLine();
+            if (e.toCount > 2) { e.stop = true; }
+        }
+    }
+
+    public class Countlarge { public int? sum { get; set; } public List<int> arr { get; set; } public int[] arr_ { get; set; } }
+    public class CountAsync
+    {
+        static int st = 0;
+        public event EventHandler<Countlarge> onCnt;
+        public void toCount(List<int> arr_)
+        {            
+            EventHandler<Countlarge> handler = onCnt;
+            Countlarge args = new Countlarge() { arr = arr_ };
+            handler?.Invoke(this,args);
+            while (args.sum==null)
+            {
+                logToConsole();
+            }
+            logResult(args.sum);          
+        }
+        public void toCount(int[] arr__)
+        {
+            EventHandler<Countlarge> handler = onCnt;
+            Countlarge args = new Countlarge() { arr_ = arr__ };
+            handler?.Invoke(this, args);
+            while (args.sum == null)
+            {
+                logToConsole();
+            }
+            logResult(args.sum);
+        }
+
+        void logToConsole()
+        {
+            char[] progress = new char[] { '\\', '|', '/', '-' };            
+            Console.Write("\r Solving: {0}, {1}", DateTime.Now.ToString("dd.MM.yyyy hh:mm:ss"), progress[st].ToString());
+            if (st < progress.Length - 1) { st += 1; } else { st = 0; }
+        }
+        void logResult(int? res)
+        {
+            Console.WriteLine();
+            Console.Write("result={0}", res);
+        }
+    }
+    public class ListenerAsync
+    {
+        public async void Listen(object o,Countlarge args)
+        {
+            //arr vs arr_ for list , int[] inmpl
+            try
+            {
+                int i = await Countlarge(args.arr);
+                args.sum = i;
+            }
+            catch (Exception e) { Console.WriteLine(e.Message); }
+        }
+        async Task<int> Countlarge(List<int> amt)
+        {
+            int res = 0;
+            await Task.Run(() =>
+            {
+                foreach (int i in amt)
+                {
+                    for (int i_ = 0; i_ < i; i_++)
+                    {                        
+                        res += 1;
+                    }
+                }
+            });
+           
+            return res;
+        }
+        async Task<int> Countlarge(int[] amt)
+        {
+            int res = 0;
+            int amtLen = amt.Length;
+            await Task.Run(() =>
+            {
+                for (int i = 0; i < amtLen; i++)
+                {
+                    for (int i_ = 0; i_ < i; i_++)
+                    {
+                        res += 1;
+                    }
+                }
+            });
+
+            return res;
+        }
+    }
+
+    //events check
+    public class EventsCheck
+    {
+        public static void GO()
+        {
+            //SampleEventCheck();
+            //CancelationCheck();
+            //UpdatedCoreEventCheck();
+            AsyncCheck();
+        }
+
+        static void SampleEventCheck() {
+
+            Car car0 = new Car() { name = "car0" };
+            Car car1 = new Car() { name = "car1" };
+            SpeedListener sl = new SpeedListener();
+            EngineListener el = new EngineListener();
+
+            car0.speedChangeEvent += sl.ListenToSpeed;
+            car0.brokeChangeEvent += el.ListenToEngine;
+
+            car0.speedIncrease(10.0F);
+            car0.speedIncrease(80.0F);
+            car0.speedIncrease(11.0F);
+        }
+        static void CancelationCheck() {
+            
+            List<string> strs = new List<string>(){ "a","aa","aaa","aaaa","aaaaa","aaaaaa" };
+            PrinterEmitter pe = new PrinterEmitter();
+            PrintListener pl = new PrintListener();
+            pe.onPrint += pl.lsiten;
+            pe.print(strs);
+        }
+        static void UpdatedCoreEventCheck() {
+            CountEmitter ce = new CountEmitter();
+            CountListener cl = new CountListener();
+            List<int> cnt = new List<int>() {1,2,3,4,5,6 };
+            ce.onCount += cl.listen;
+            ce.count(cnt);
+        }
+        static void AsyncCheck() {
+            CountAsync ca = new CountAsync();
+            ListenerAsync la = new ListenerAsync();
+            ca.onCnt += la.Listen;
+
+            List<int> intL = new List<int>();
+            int[] intArr = new int[100001];
+
+            for (int i = 0; i < 100000; i++) { intL.Add(i); intArr[i] = i; }
+
+            //list implementation, need to e.arr change
+            ca.toCount(intL);
+            
+            //arr implementation, need to e.arr_ change
+            //ca.toCount(intArr);
+        }
+    }
 
 
 
