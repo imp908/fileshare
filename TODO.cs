@@ -296,7 +296,8 @@ if not exist -> create relations
 ]
 
 				]
-			
+				
+				,deploy[
 				news api description[
 
 Post news
@@ -470,6 +471,8 @@ GP with tagg only
 
 ]
 
+
+				]
 			]
 			
 			,TODO[

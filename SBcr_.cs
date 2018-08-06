@@ -46,14 +46,16 @@ namespace SBcr_
         public static void GO() {
             //OverrideCheck.GO();
             //GenericSwapCheck.GO();
-            DelegateCheck.GO();
+            //DelegateCheck.GO();
             //GenericvalueItemsCHeck.GO();
+            EventsCheck.GO();
+          
         }
     }
 
- 
-    //overriding    
 
+    //overriding    
+    //---------------------------------------------
     public class parent {
 
         public int ID { get; set; }
@@ -93,10 +95,8 @@ namespace SBcr_
 
 
 
-
-
     //generic delegate swap 
-
+    //---------------------------------------------
     public static class SwapG
     {
         public static void Sort<T>(List<T> arr, Func<T, T, bool> cmpr) where T: parent
@@ -166,9 +166,9 @@ namespace SBcr_
     }
 
 
-   
-    //delegate
 
+    //delegate
+    //---------------------------------------------
     public delegate string Del1(int i);
 
     public class DelegateInvokation
@@ -200,7 +200,6 @@ namespace SBcr_
 
     }
 
-
     public class DelegateReceiver
     {
         Del1 delHandler;
@@ -219,8 +218,6 @@ namespace SBcr_
             this.delHandler.Invoke(i);
         }
     }
-
-
    
     public class DelegateEmitter {
         public void GO()
@@ -260,12 +257,134 @@ namespace SBcr_
       
     }
 
+
+
+    //events
+    //---------------------------------------------
+    //event argument classes
+    public class SpeedChangedEventArgs : EventArgs{public float speed {get;set;}}
+    public class EngineBrokeEventArgs : EventArgs { public bool broken { get; set; } }
+
+    //event emitter class
+    public class Car
+    {
+
+        //event handlers by classes
+        public event EventHandler<SpeedChangedEventArgs> speedChangeEvent;
+        public event EventHandler<EngineBrokeEventArgs> brokeChangeEvent;
+
+        //event handler method
+        public virtual void OnSpeedChanged(SpeedChangedEventArgs e)
+        {
+            EventHandler<SpeedChangedEventArgs> handler = speedChangeEvent;
+            if(handler != null)
+            {
+                handler(this, e);
+            }
+        }
+        public virtual void OnEngineBroke(EngineBrokeEventArgs e)
+        {
+            EventHandler<EngineBrokeEventArgs> handler = brokeChangeEvent;
+            if (handler != null)
+            {
+                handler(this, e);
+            }
+        }
    
+        float speed { get; set; }
+        public string name { get; set; }
+
+        //event emitting method
+        public void speedIncrease(float speed_)
+        {
+            this.speed += speed_;
+
+            SpeedChangedEventArgs args = new SpeedChangedEventArgs();
+            args.speed = this.speed;
+            OnSpeedChanged(args);
+            engineCheck();
+        }
+        public void engineCheck()
+        {           
+            if (this.speed > 100)
+            {
+                EngineBrokeEventArgs args = new EngineBrokeEventArgs();
+                args.broken = true;
+                OnEngineBroke(args);
+            }
+        }
+    }
+
+    public class SpeedListener
+    {
+        public void ListenToSpeed(object cr_, SpeedChangedEventArgs e)
+        {
+            if(cr_.GetType().Equals(typeof(Car)))
+            {
+                Car cr = (Car)cr_;
+                Console.WriteLine("Speed changed: {0}  {1}", cr.name, e.speed);
+            }
+        }
+    }
+    public class EngineListener
+    {
+        public void ListenToEngine(object o,EngineBrokeEventArgs e)
+        {
+            if (o.GetType().Equals(typeof(Car)))
+            {
+                Car cr = (Car)o;
+                Console.WriteLine("Car broke: {0}  {1}", cr.name, e.broken);
+            }
+        }
+    }
+
+    public class EventsCheck
+    {
+        public static void GO()
+        {
+            
+            Car car0 = new Car() { name = "car0"};
+            Car car1 = new Car() { name = "car1" };
+            SpeedListener sl = new SpeedListener();
+            EngineListener el = new EngineListener();
+
+            car0.speedChangeEvent += sl.ListenToSpeed;
+            car0.brokeChangeEvent += el.ListenToEngine;
+
+            car0.speedIncrease(10.0F);
+            car0.speedIncrease(80.0F);
+            car0.speedIncrease(11.0F);
+
+        }
+    }
+
+    /*
+    class ->
+    eventType : EventArgs {}
+
+    class ->
+    EventHadler<eventType> eventToSubscribeAndFire;
+
+    handler method(eventType e) ->
+    EventHadler<eventType> handler=eventToSubscribeAndFire;
+    handler(this,e)
+
+    emitter method ->
+    eventType et = new eventType();
+    handler method(et) 
+
+
+    method ->
+    Listen(this,e)
+
+
+    eventToSubscribeAndFire+=Listen;
+    */
 
 
 
     //generic value classes
-
+    //---------------------------------------------
     public interface IvalueNode<T>
     {
         T item { get; set; }
@@ -349,7 +468,7 @@ namespace SBcr_
 
 
     //hash from different collections compare check
-
+    //---------------------------------------------
     public static class HashCodeCheck{
 		public static void GO(){			
 

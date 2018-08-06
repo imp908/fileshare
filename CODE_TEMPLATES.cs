@@ -24,7 +24,41 @@ namespace Parts{
 	#endregion
 	
 }
+	
+	wh[
+	
+		//c#
+		//compile
+		https://msdn.microsoft.com/en-us/library/bb384838.aspx
+		//observable 
+		https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
+		//rx
+		https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
+		
+		//async
+		//async paterns
+		https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/
+		https://stackify.com/csharp-async-await-task-performance/
+		https://docs.microsoft.com/en-us/dotnet/csharp/async
+		https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
+		https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
+		https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/control-flow-in-async-programs
+		
+		//Oberver
+		Observer : Iobservable<T> t-> data send  from provider to observers
+		provider,subject,observable -> 
+			List with references to observer implements subscribed
+			
+		observer
+		.OnNext
+		.OnError
+		.OnComplete
 
+		//freelance
+		https://www.upwork.com/
+		
+	]
+	
 	#region SourceControl
 
 		public Bug Trackers
