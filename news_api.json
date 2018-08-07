@@ -1,4 +1,7 @@
 
+NSPK\Neprintsevia
+cfttgbBGTTFC453345
+
 //по итогам тестирования переноса базы
 {DEPLOY LOG}[
 генерируемая база dev_db
@@ -7,16 +10,24 @@ dev_db [msk1-vm-ovisp02] -> dev_db [msk1-vm-ovisp01]
 пользователи взяты с 
 news_test5 [msk1-vm-ovisp02] -> dev_db [msk1-vm-ovisp01]
 
-новый сайт смотрящий на новую,чистую базу, задеплоин на 
-msk1-vm-ovisp02 [news_test5]
+
+deploy name,site name,url:port
+
+News2,Person2(Acc,Holivation),Quiz2
+newstest4,newstest4,http://msk1-vm-ovisp01:8185
+
+
+новый сайт смотрящий на новую,чистую базу, задеплоин на
+[news_test5]
+msk1-vm-ovisp02
 
 все старые api работают на + quiz
 [newstest2]:MarkedAsMain
 http://msk1-vm-ovisp01:8184
 
 все news + like + tag достпуны под
-[newstest4]:{remooved}
-http://msk1-vm-ovisp01:8185
+[newstest4]
+http://msk1-vm-ovisp02:8185
 
 перенос проведен на
 [newstest5]:{remooved}
@@ -27,7 +38,7 @@ http://msk1-vm-inapp01:8185
 [news_prod]
 http://msk1-vm-indb01:2480
 
-хвосты api везде одинаковые.
+хвосты api везде одинаковые
 
 all hosts
 
@@ -39,6 +50,12 @@ http://msk1-vm-ovisp01:8184/
 http://msk1-vm-inapp01:8186/
 [prod]
 http://msk1-vm-inapp01:8185/
+[linux folder]
+\\msk1-inapp02.unix.nspk.ru
+[unix prod]
+http://msk1-inapp02.unix.nspk.ru/
+[unix test]
+http://msk1-oppstest01.unix.nspk.ru
 
 ]
 

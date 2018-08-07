@@ -61,6 +61,10 @@ namespace Parts{
 		//freelance
 		https://www.upwork.com/
 		
+		//companies
+		http://netlab-com.ru
+		
+		
 	]
 	
 	#region SourceControl
