@@ -27,12 +27,25 @@ namespace Parts{
 }
 	
 	wh[
-	
+		
+		//contour
+		https://github.com/mzabolotko/Contour
+		//hostbox
+		https://github.com/SDVentures/HostBox
+		
+		//product docs workflow 
+		БТ-ПТ-ФТ-Спек
+		
+		https://www.epochconverter.com/
+		
 		https://semver.org/
 		http://pubs.opengroup.org/architecture/archimate3-doc/chap01.html#_Toc489945945
 		https://github.com/StyleCop/StyleCop
 		https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
 		https://fsprojects.github.io/Paket/
+		http://restsharp.org/
+		https://www.datadoghq.com/product/
+		https://sentry.io/welcome/
 		
 		//ArchiMate
 		http://pubs.opengroup.org/architecture/archimate3-doc/toc.html
@@ -274,7 +287,19 @@ Apple iOS, MacOS
 					git checkout -b \\url to branch
 					
 				]
+				
+				//push to upstream master
+				STASH_REBASE[
+				https://dev.to/maxwell_dev/the-git-rebase-introduction-i-wish-id-had
+				
+					stash all
+					rebase 
 					
+					rebase --abort -> undo
+					git rebase -i master -> interactive to choose commits
+					
+				]
+				
 				public BranchMerge()
 				{// Master->br1. stage 1 master+ stage 2 master+ br1--
 
@@ -455,6 +480,8 @@ Apple iOS, MacOS
 					git log --graph --pretty=oneline --abbrev-commit
 					git log --graph --oneline --all
 					git log --graph --oneline
+					
+					git log --stat
 					
 					git-ls-tree 
 					git-ls-remote
@@ -9630,4 +9657,3 @@ sudo service smbd restart
 		}
 	
 	#endregion
-	
