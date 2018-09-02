@@ -34,7 +34,45 @@ sharefolder\Files\Repo\Mercurial\SBbr\MainBr\SB3_new_output
 			-> CollectionsComparison -> to SB
 			-> Pluggin/addon architecture -> to SB
 
+		Focus[
+			
+			Commands[
+				
+				mongo[
+					
+					snapshots chain check[
+					
+						db.snapshots.insertMany( [
+							{"_id" : "001","PrevId" : null,"LayoutId" : "100"}
+							,{"_id" : "002","PrevId" : 001,"LayoutId" : "100"}
+							,{"_id" : "003","PrevId" : 002,"LayoutId" : "100"}
+						]);
 
+
+						db.cards.insert(
+						{
+							"_id" : "100",
+							"Tags" : [ 
+							"mall"
+							],
+							"PartnerId" : "testpartner",
+							"LastId" : "001",
+							"Status" : "ready"
+						})
+
+						db.snapshots().find({_id:"001"})
+
+						db.snapshots.remove( {_id:"001"} )
+						db.cards.remove( {_id:"100"} )
+		
+					]
+				
+				]
+			
+			]
+			
+		]
+		
 		NSQLmanager[
 		
 			Info[
@@ -296,8 +334,7 @@ if not exist -> create relations
 ]
 
 				]
-				
-				,deploy[
+			
 				news api description[
 
 Post news
@@ -471,8 +508,6 @@ GP with tagg only
 
 ]
 
-
-				]
 			]
 			
 			,TODO[
@@ -1707,6 +1742,7 @@ checkQuestionState(){
 			]
 
 		]
+		
 		ApiTester
 			-> JSON response objects count and expect			
 			
