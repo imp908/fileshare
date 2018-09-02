@@ -124,7 +124,19 @@ namespace Parts{
 					git checkout -b \\url to branch
 					
 				]
+				
+				CHANGE_COMMIT_MESSAGES_UNPUSHED[
+				
+					https://help.github.com/articles/changing-a-commit-message/
+					git n for commit number-> git rebase -i HEAD~n
+					vim for n ->
+						vim s -> edit mode
+						vim change -> pick to reword
+						vim -> esc , :x
+					git push
 					
+				]
+				
 				public BranchMerge()
 				{// Master->br1. stage 1 master+ stage 2 master+ br1--
 

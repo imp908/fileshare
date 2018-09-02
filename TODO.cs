@@ -36,6 +36,15 @@ sharefolder\Files\Repo\Mercurial\SBbr\MainBr\SB3_new_output
 
 		Focus[
 			
+			Actual[
+				//
+				<- -> git change commit messages
+				-> filter list by parammeter list string[]
+					-> get from mongo to POCO
+				-> sort MSA ref links
+
+			]
+			
 			Commands[
 				
 				mongo[
