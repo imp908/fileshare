@@ -1,5 +1,0 @@
-https://github.com/imp908/Fileshare/raw/br1/CODE_TEMPLATES.cs
-https://github.com/imp908/Fileshare/raw/br1/TODO.txt
-https://github.com/imp908/Fileshare/raw/br1/Program.cs
-https://github.com/imp908/Fileshare/raw/br1/repo.cs
-https://github.com/imp908/Fileshare/raw/br1/App_UOW.config
