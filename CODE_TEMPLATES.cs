@@ -24,8 +24,60 @@ namespace Parts{
 	#endregion
 	
 }
-
 	
+	
+	ASUS services[
+		C1-TECHNOLOGY
+		г. Москва Холодильный пер., д. 3, к. 1, оф. 2212 -2 этаж. (3.6km)
+		(495) 955-29-39, 781-81-56
+
+		ASUS24 - фирменный сервисный центр
+		г. Москва, Нижегородская ул., д. № 29-33, стр.2 (4.1km)
+		(495) 669-74-92
+
+		911NB.RU
+		г. Москва ул. Марксистская, д. 10, стр. 1 (4.6km)
+		(495) 911-18-91, 911-10-85, 201-54-61
+		Пн.-Пт. 09:00-20:00, Сб. 10:00-14:00
+
+		Сервисный центр Респект
+		г. Москва ул. Волгоградский проспект, д. 111 (4.9km)
+		(495) 276-12-10, 276-12-20
+		Пн.-Пт. 10:00-20:00, Сб. 11:00-18:00
+
+		ASUS Премиум сервис ASK-Service
+		г. Москва ул. Орджоникидзе, д. 10 (5.6km)
+		(495) 640-32-75
+		Пн.-Пт. 10:00-19:00, Сб. 10-16, Вс. выходной.
+
+		ТРАНССЕРВИС-95
+		г. Москва 1-й Варшавский проезд, д.1а стр. 3 (6.6km)
+		(495) 744-01-10
+		Пн.-Пт. 10:00-18:00, Сб. 11:00-16:00
+
+
+		Сервисный центр Топаз
+		г. Москва ул. Кузнецкий мост, д. 21/5, 4 подъезд, оф.1 (7.7km)
+		(495) 626-07-75, 626-06-58
+		Пн.-Пт. 10:00-19:00
+
+		CEPCO
+		г. Москва Колодезный переулок, д. 3 стр. 25 (10.7km)
+		(495) 967-38-72, 926-83-13
+		Пн.-Пт. 11:00-20:00, Сб. 11:00-16:00
+
+		CPS-Technical centre
+		г. Москва Шелепихинская наб., д. 18 (11.9km)
+		(499) 553-07-27
+		Пн.-Сб. 10:00-19:00
+
+		ASM-Technical Center
+		г. Красногорск, ул 50 Лет Октября д4 (26.6km)
+		(495) 150-20-05
+		Пн.-Вс. 10:00-20:00
+	]
+			
+		
 	#region SourceControl
 
 		public Bug Trackers
@@ -4470,7 +4522,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 		}
 		,DOMevents{
 			
-			ClickVsMouseUp[
+			ClickVsMouseUp(
 			click will trigger MouseEvent and will intercept other KeyDown events.
 			if different actions on mouseclick and keybord click (enter for example ) expected=>
 				use mouseup
@@ -4481,7 +4533,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 						<button (mouseup/click)="selectToday($event)">Select Today</button>
 					</div>
 			
-			]
+			)
 			MouseEnterLeave_MOuseOverOut{
 				https://javascript.info/mousemove-mouseover-mouseout-mouseenter-mouseleave
 				mouseover,mouseout($e)
