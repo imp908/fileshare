@@ -1974,76 +1974,85 @@ http://www.ratingruneta.ru/agency-aic/prices/
 	]
 	
 	,job[
-		testCases{
-			LATOKEN:{
-				
-				bitmex:[
-				TODO:[
-					REST API
-					-	Connect
-					-	Disconnect
-					-	RegisterOrder
-					-	CancelOrder
-					-	SubscribeOrderbook
-					WebSockets
-					-	NewOrderbook
-					-	NewTrade
-					-	OrderChanged
-				]
-				Refs:[
-					https://github.com/BitMEX/api-connectors/tree/master/official-http/csharp
-					https://testnet.bitmex.com/app/apiKeysUsage
-					https://testnet.bitmex.com/app/apiOverview
-					https://testnet.bitmex.com/api/explorer/#!/Quote/Quote_get
-				]
-				fiddler:[
-					https://testnet.bitmex.com/api/v1/apiKey
-					https://testnet.bitmex.com/api/v1/
-					/announcement 
-					/announcement/urgent 
-
-					api-nonce:1000
-					api-key:LAqUlngMIQkIUjXMUreyu3qn
-					api-signature:c7682d435d0cfe87c16098df34ef2eb5a549d4c5a3c2b1f0f77b8af73423bf00
-
-					User-Agent: Fiddler
-					Host: testnet.bitmex.com
-					Content-Length: 0
-					Content-type: application/json
-					api-nonce: 1000
-					api-key: API_KEY
-					api-signature: asds
-
-
-					https://testnet.bitmex.com/api/v1/instrument/active
-					https://testnet.bitmex.com/api/v1/leaderboard
-					https://testnet.bitmex.com/api/v1/quote
-					https://testnet.bitmex.com/api/v1/schema 
-
-					User-Agent: Fiddler
-					Host: testnet.bitmex.com
-					Content-Length: 0
-					Content-type: application/json
-
-					get /order x
-
-					get /schema 
-				]
-
-				]
+	
+	NSPK[
+	
+			testCases{
+				LATOKEN:{
 					
-			}
-		}
-quiz
-domen pass [
-http://help.nspk.ru/Task/view/62582
-62582
-]
-prod mynspk Olga
-[
-deploy testOnProd
-]
+					bitmex:[
+					TODO:[
+						REST API
+						-	Connect
+						-	Disconnect
+						-	RegisterOrder
+						-	CancelOrder
+						-	SubscribeOrderbook
+						WebSockets
+						-	NewOrderbook
+						-	NewTrade
+						-	OrderChanged
+					]
+					Refs:[
+						https://github.com/BitMEX/api-connectors/tree/master/official-http/csharp
+						https://testnet.bitmex.com/app/apiKeysUsage
+						https://testnet.bitmex.com/app/apiOverview
+						https://testnet.bitmex.com/api/explorer/#!/Quote/Quote_get
+					]
+					fiddler:[
+						https://testnet.bitmex.com/api/v1/apiKey
+						https://testnet.bitmex.com/api/v1/
+						/announcement 
+						/announcement/urgent 
 
+						api-nonce:1000
+						api-key:LAqUlngMIQkIUjXMUreyu3qn
+						api-signature:c7682d435d0cfe87c16098df34ef2eb5a549d4c5a3c2b1f0f77b8af73423bf00
+
+						User-Agent: Fiddler
+						Host: testnet.bitmex.com
+						Content-Length: 0
+						Content-type: application/json
+						api-nonce: 1000
+						api-key: API_KEY
+						api-signature: asds
+
+
+						https://testnet.bitmex.com/api/v1/instrument/active
+						https://testnet.bitmex.com/api/v1/leaderboard
+						https://testnet.bitmex.com/api/v1/quote
+						https://testnet.bitmex.com/api/v1/schema 
+
+						User-Agent: Fiddler
+						Host: testnet.bitmex.com
+						Content-Length: 0
+						Content-type: application/json
+
+						get /order x
+
+						get /schema 
+					]
+
+					]
+						
+				}
+			}
+	quiz
+	domen pass [
+	http://help.nspk.ru/Task/view/62582
+	62582
+	]
+	prod mynspk Olga
+	[
+	deploy testOnProd
+	]
+
+]
+	
+	VatCom[
+		Notifications.emailsender.UserMail.Repository -> id gen only for empty item
+	]
+	
 	]
 	
 	,DONE[
