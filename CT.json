@@ -21,253 +21,10 @@ namespace Parts{
 	,{"Actual":[]}
 ]
 }
-
 	#endregion
 	
 }
-	
-	wh[
-		
-		quartz[
-					
-			//Quartz Template
 
-			---
-			await scheduler.Start();
-			*<
-			await scheduler.Shutdown();
-
-
-			---
-			HelloJob : IJob
-			public Task Execute(IJobExecutionContext context)
-
-
-			---
-			IJobDetail job = JobBuilder.Create<HelloJob>()
-				.WithIdentity("job1", "group1")
-				.Build();
-
-			// Trigger the job to run now, and then repeat every 10 seconds
-			ITrigger trigger = TriggerBuilder.Create()
-				.WithIdentity("trigger1", "group1")
-				.StartNow()
-				.WithSimpleSchedule(x => x
-					.WithIntervalInSeconds(10)
-					.RepeatForever())
-				.Build();
-
-			// Tell quartz to schedule the job using our trigger
-			*<
-			await scheduler.ScheduleJob(job, trigger);
-		]
-		
-		rabbitmqTutor[
-						
-			t1[
-			dotnet new console --name Send
-			dotnet restore
-			cd Send
-			dotnet run
-
-			dotnet new console --name Receive
-			dotnet restore
-			cd Receive
-			dotnet run
-
-			dotnet add package RabbitMQ.Client
-			dotnet restore
-
-
-			cd C:\worflow\progs\rabbitmqHW\Receive
-			dotnet run
-			command.layouts.partner_layout_list.get
-			command.layouts.partner_layout_list.get
-
-			cd C:\worflow\progs\rabbitmqHW\Send
-			dotnet run
-			]
-
-			t2[
-			dotnet new console --name NewTask
-			dotnet new console --name Worker
-
-			cd NewTask
-			dotnet add package RabbitMQ.Client
-			dotnet restore
-
-			cd ../Worker
-			dotnet add package RabbitMQ.Client
-			dotnet restore
-			]
-		]
-		
-		pipelines and actors
-		aka streams for actors 
-		raft algorithm, consul
-		aca net
-		ACA.NET State machine
-		
-		//contour
-		https://github.com/mzabolotko/Contour
-		//hostbox
-		https://github.com/SDVentures/HostBox
-		
-		//product docs workflow 
-		БТ-ПТ-ФТ-Спек
-		
-		https://www.epochconverter.com/
-		
-		https://semver.org/
-		http://pubs.opengroup.org/architecture/archimate3-doc/chap01.html#_Toc489945945
-		https://github.com/StyleCop/StyleCop
-		https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
-		https://fsprojects.github.io/Paket/
-		http://restsharp.org/
-		https://www.datadoghq.com/product/
-		https://sentry.io/welcome/
-		
-		//ArchiMate
-		http://pubs.opengroup.org/architecture/archimate3-doc/toc.html
-		//open API
-		https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.0.md
-		
-		InfluxDB, OpenTSDB, Prometheus
-		 
-		books[
-		
-		C#, .NET
-
-    Andrew Troelsen - Язык программирования C# и платформа .NET 4.pdf
-    Windows Presentation Foundation with .NET 3.5.pdf
-    Сандерсон С., Фримен А. - Microsoft ASP.NET MVC3 Framework с примерами на C# для профессионалов (3-е издание, 2012).pdf
-    Microsoft ASP.NET 4 с примерами на C# 2010 для профессионалов.pdf
-    Джувел Лёве - Создание служб WCF.pdf
-    Microsoft ASP.NET MVC Framework с примерами на C# для профессионалов.pdf
-    Джеффри Рихтер - Программирование на платформе Microsoft .NET Framework.pdf
-    Andrew Troelsen - Язык программирования C# 5.0 и платформа .NET 4.5.pdf
-    C# 4.0 in a Nutshell 4th.Edition.pdf
-
-Web, JavaScript
-
-    Joe Kuan - Learning Highcharts 4.pdf
-    Shelley Powers - Изучаем Node.js.pdf
-    Виктор Петин -Сайт на AJAX под ключ. Готовое решение для интернет-магазина.pdf
-    Ari Lerner - NG-Book.pdf
-        Приложения
-    Дэвид Сойер Макфарланд - Большая книга CSS3. (3-е издание).pdf
-    Дэвид Флэнаган - JavaScript. Подробное руководство (6-е издание).pdf
-    Крокфорд - JavaScript. Сильные стороны.pdf
-    Стоян Стефанов - JavaScript шаблоны.pdf
-    Кристофер Шмитт, Кайл Симпсон - HTML5. Рецепты программирования - 2012.pdf
-    Адам Фримен - jQuery для профессионалов.pdf
-    Николас Закас - JavaScript. Оптимизация производительности - 2012.pdf
-
-DI
-
-    Внедрение зависимостей в .NET (2014).pdf
-
-Проектирование
-
-    Эрик Эванс-Предметно-ориентированное проектирование (DDD).pdf
-    Мартин Фаулер - Шаблоны корпоративных приложений.pdf
-
-Базы данных
-
-    Бен Форта - SQL - 10 минут на урок.pdf
-    Alan Beaulieu - Изучаем SQL.pdf
-    Anthony Molinaro - SQL - сборник рецептов.pdf
-    Репликация SQL Server 2005-2008. Сборник статей от сообщества SQL.RU.pdf
-    Полубояров В.В. - Использование MS SQL Server 2008 Analysis Services для построения хранилищ данных (2010).pdf
-    Сейед Тахагхогхи, Хью Е. Вильямс - Руководство по MySQL.pdf
-    Шварц Б., Зайцев П., Ткаченко В. - MySQL. Оптимизация производительности (2-е издание).pdf
-    Талманн Л., Киндал М., Белл Ч. - Обеспечение высокой доступности систем на MySQL.pdf
-    MC Brown - Getting Started with CouchDB.pdf
-    J. Chris Anderson - CouchDB - The Definitive Guide.pdf
-    MC Brown - Getting Started with Couchbase Server.pdf
-    David Ostrovsky, Yaniv Rodenski - Pro Couchbase Server.pdf
-    Ken Henderson - Профессиональное руководство по Transact-SQL.pdf
-
-Google Android
-
-    Разработка приложений для Android.pdf
-    Android для программистов. Создаем приложения (2012) Дейтел П., Дейтел Х., Дейтел Э., Моргано М..pdf
-    Голощапов А. Л. - Google Android программирование для мобильных устройств - 2011.pdf
-        Голощапов А. Л. - Google Android программирование для мобильных устройств - 2011.rar
-
-Apple iOS, MacOS
-
-    Программируем для iPhone и iPad.pdf
-    Разработка приложений для iPhone, iPad и iPod touch с использованием iOS SDK.pdf
-    Елисеев Д. В. - Разработка и продажа программ для iPhone и iPad (Профессиональное программирование) - 2011.pdf
-    Аарон Хиллегасс - Objective-C Программирование для iOS и MacOS.pdf
-
-Программирование, методики
-
-    Мартин Р. - Чистый код. Создание, анализ и рефакторинг (Библиотека программиста) - 2010.pdf
-    Д. Босуэлл, Т. Фаучер. Читаемый код.pdf
-    Steven C. McConnell - Совершенный код.pdf
-    Кристофидес Н. - Теория графов. Алгоритмический подход.pdf
-    97 вещей, которые должен знать каждый программист.pdf
-    D - Паттерны проектирования с примерами на языке C#.pdf
-    Донис Маршалл, Джон Бруно - Надежный код (Практические рекомендации) - 2010.pdf
-        Донис Маршалл, Джон Бруно - Надежный код (Практические рекомендации) - 2010.rar
-
-Операционные системы
-
-    Microsoft Windows Server 2008 R2. Полное руководство.pdf
-    Робин Никсон - Ubuntu для всех - 2011 .pdf
-    Дэвид А. Карт - Хитрости Windows 7 для проффесионалов (2011).pdf
-
-Прочее
-
-    J. Leskovec, A. Rajaraman, J.D. Ullman - Mining of Massive Datasets.pdf
-    PlantUML Language Reference Guide.pdf
-    Новиков Ф.А. - дискретная математика для программистов.pdf
-    Пол Альбитц, Крикет Ли - DNS и BIND (4th Edition, 2002).pdf
-    Tom White - Hadoop. The Definitive Guide, 2nd Edition.pdf
-
-Нейронные сети
-
-    Stuart J. Russel, P. Norvig - Искусственный интеллект. Современный подход (2-е издание).pdf
-    S. Osowski - Нейронные сети для обработки информации.pdf
-    S. Khaykin - Нейронные сети. Полный курс (2-е издание).pdf
-    J. Heaton - Programming Neural Networks with Encog3 in CSharp.pdf
-    F. Wosserman - Нейрокомпьютерная техника - Теория и практика.pdf
-	
-		]
-		
-		//c#
-		//compile
-		https://msdn.microsoft.com/en-us/library/bb384838.aspx
-		//observable 
-		https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
-		//rx
-		https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
-		
-		//async
-		//async paterns
-		https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/
-		https://stackify.com/csharp-async-await-task-performance/
-		https://docs.microsoft.com/en-us/dotnet/csharp/async
-		https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
-		https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
-		https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/control-flow-in-async-programs
-		
-		//Oberver
-		Observer : Iobservable<T> t-> data send  from provider to observers
-		provider,subject,observable -> 
-			List with references to observer implements subscribed
-			
-		observer
-		.OnNext
-		.OnError
-		.OnComplete
-
-		//freelance
-		https://www.upwork.com/
-		
-	]
 	
 	#region SourceControl
 
@@ -368,15 +125,15 @@ Apple iOS, MacOS
 					
 				]
 				
-				//push to upstream master
-				STASH_REBASE[
-				https://dev.to/maxwell_dev/the-git-rebase-introduction-i-wish-id-had
+				CHANGE_COMMIT_MESSAGES_UNPUSHED[
 				
-					stash all
-					rebase 
-					
-					rebase --abort -> undo
-					git rebase -i master -> interactive to choose commits
+					https://help.github.com/articles/changing-a-commit-message/
+					git n for commit number-> git rebase -i HEAD~n
+					vim for n ->
+						vim s -> edit mode
+						vim change -> pick to reword
+						vim -> esc , :x
+					git push
 					
 				]
 				
@@ -518,6 +275,9 @@ Apple iOS, MacOS
 				]
 				overall 
 				[
+					ADD UNPUSHED LAST CHANGES TO LAST COMMIT
+					git add .
+					git commit --amend
 					//add CAinfo
 					git config http.sslCAinfo G:/disk/Progs/Git/mingw64/ssl/certs/ca-bundle.crt
 					
@@ -561,8 +321,6 @@ Apple iOS, MacOS
 					git log --graph --oneline --all
 					git log --graph --oneline
 					
-					git log --stat
-					
 					git-ls-tree 
 					git-ls-remote
 				]
@@ -572,15 +330,14 @@ Apple iOS, MacOS
 		}
 
 		public Issuer Trackers
-		{	
-		
-			Jira[
+		{
+   	Jira[
 				
 				//find projects i worked on
 				assignee was i.neprintsev
-				
-			]
-			
+				//all assigned on last H
+				assignee changed to currentUser() after -84h
+			]						
 			public TFS()
 			{
 				
@@ -737,7 +494,7 @@ Apple iOS, MacOS
 					strucs 
 					- :system.value
 					- all class features without inheritance
-					- strored in stack compared by value not reverence
+					- strored in stack compared by value not reference
 
 				]
 				
@@ -829,6 +586,12 @@ StringBuilder.
 					
 				}
 				
+				IsAs[
+				
+is check type 
+as safe check ? assign : null with overriding/new functionality
+
+				]
 				
 				collections{
 					
@@ -855,6 +618,61 @@ StringBuilder.
 					
 				}
 				
+				events[
+					
+					-EventArgs created as class to be passed by ref to all subscribbers					
+					- no need to inherit EventArgs in Core
+					
+					boilerPlate[
+						//Emitter
+						//event arg
+						Public class argsName:EventArgs {};
+						
+						public class EventEmitter {...
+							//event type
+							public event EventHandler<argsName> eventName;					
+							//event firing method
+							public virtual void eventHandlerMethod(argsName e){
+								EventHandler<argsName> handler=eventhandler
+								if(handler!=null){handler(this,e);}
+							};
+							public void 
+						...}
+						//Receiver
+						public void eventReceiver{...
+							public void receiver(object o,argsName e){...}
+						...}
+						EventEmitter.eventName+=eventReceiver.receiver;
+					]
+					
+					//invoke event with testing for emty subscribers
+					eventName?.Invoke(this, new argsName(){...} );
+					//empty args
+					EventArgs.Empty;					
+					
+					
+				]
+				
+				async[
+				
+					TPL[
+						Task->
+							async futures 
+							by default run on the same thread
+							Task,Run explicit multithrading
+					]
+					
+					//legacy
+					APL[
+						
+					]
+					
+					//legacy
+					EAP[
+					
+					]
+						
+				]
 			}
 			
 			public void Patterns()
@@ -990,6 +808,10 @@ StringBuilder.
 			public class Collections()
 			{
 				
+				Collections_comparison[
+					https://jacksondunstan.com/articles/3078
+				]
+								
 				public void ListsConcatenate(){
 					this.Tokens = texts_.SelectMany(s => s.Tokens).ToList(); 
 				}
@@ -1002,6 +824,17 @@ StringBuilder.
 					//add jsonserializersettings
 					JsonConvert.SerializeObject(input_, new JsonSerializerSettings() { NullValueHandling = NullValueHandling.Ignore, Formatting = Formatting.None});
 				}
+				
+				IEnumerable_vs_IQueriable[
+					tosql db
+						Expression<Funct<T,bool>>
+						IQueryable -> executes original query
+							expression tree can be returned
+							
+						Funct<T,bool>
+						IEnumerable -> selects objects then filters 
+						
+				]
 				
 			}
 			
@@ -1760,1062 +1593,1059 @@ StringBuilder.
 			
 			public class VisualStudio()
 			{
-					//Nugets
-					public void ConsoleManager()
-					{https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
-					
-			  //install all projects
-						Get-Project -All | Install-Package packageName
-					
-						//install in project subset
-						Get-Project -All | where { $_.Name.EndsWith(".Test") } | Install-Package NSubstitute
-					
-						Update-Package Microsoft.AspNet.Mvc -Reinstall
-						Install-Package Microsoft.AspNet.Mvc -Version 3.2
-						Install-Package Microsoft.ApplicationInsights.Web
-						Update-Package Microsoft.ApplicationInsights.Web -Reinstall
-						
-						
-						-ProjectName
-						Find-Package microsoft.net.http
-						Install-Package microsoft.net.http
-						Install-Package microsoft.net.http -ProjectName ConsoleApp1
-						install-package Newtonsoft.Json -ProjectName NewsAPI, NewsAPI.Tsts
-						
-						Install-Package xunit
-						Install-Package xunit.analyzers 
-						Install-Package xunit.runner.console
-						Install-Package xunit.runner.visualstudio
-						
-						Update-Package -Reinstall
-						
-						//system.web.hhtp
-						Install-Package Microsoft.AspNet.WebApi
-						//using System.Web.Http.Cors;
-						Install-Package Microsoft.AspNet.WebApi.Cors
-
-	//nsql ref
-	Install-Package xunit -ProjectName NSQLManagerIntegrationTests
-	Install-Package moq -ProjectName NSQLManagerIntegrationTests
-	Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
-	Install-Package Microsoft.AspNet.WebApi -ProjectName NSQLManagerIntegrationTests
-
-	Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
-	Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
-	Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
-	Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
-					
-					}
-					public void ConfigurationManager()
-					{
-						reference 
-						FRAMEWORKS -> System.Configuration
-						
-					}
+				//Nugets
+				public void ConsoleManager()
+				{https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
 				
-			public void WebDeploy()
-					{
-						Web Deploy
-						//host name without urls or ports
-						//http://server-name-1:8182 ->
-						server-name-1
-						//Iis sitename 
-						sitename1
-						//Credentials with domen
-						DOMN\user
-						password
-						//site url with protocol and port
-						http://newstest2:8184
-					}
+          //install all projects
+					Get-Project -All | Install-Package packageName
 				
+					//install in project subset
+					Get-Project -All | where { $_.Name.EndsWith(".Test") } | Install-Package NSubstitute
 				
-				public void MSbuild()
-				{
+					Update-Package Microsoft.AspNet.Mvc -Reinstall
+					Install-Package Microsoft.AspNet.Mvc -Version 3.2
+					Install-Package Microsoft.ApplicationInsights.Web
+					Update-Package Microsoft.ApplicationInsights.Web -Reinstall
+					
+					
+					-ProjectName
+					Find-Package microsoft.net.http
+					Install-Package microsoft.net.http
+					Install-Package microsoft.net.http -ProjectName ConsoleApp1
+					install-package Newtonsoft.Json -ProjectName NewsAPI, NewsAPI.Tsts
+					
+					Install-Package xunit
+					Install-Package xunit.analyzers 
+					Install-Package xunit.runner.console
+					Install-Package xunit.runner.visualstudio
+					
+					Update-Package -Reinstall
+					
+					//system.web.hhtp
+					Install-Package Microsoft.AspNet.WebApi
+					//using System.Web.Http.Cors;
+					Install-Package Microsoft.AspNet.WebApi.Cors
 
-				/*				
-				"10.0" указывает на поднабор инструментов .NET Framework 4;
-				"11.0" указывает на поднабор инструментов .NET Framework 4.5;
-				"12.0" указывает на поднабор инструментов .NET Framework 4.5.1.
-				*/
+//nsql ref
+Install-Package xunit -ProjectName NSQLManagerIntegrationTests
+Install-Package moq -ProjectName NSQLManagerIntegrationTests
+Install-Package Newtonsoft.Json -ProjectName NSQLManagerIntegrationTests
+Install-Package Microsoft.AspNet.WebApi -ProjectName NSQLManagerIntegrationTests
 
-					//build v14.0
-					C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe "C:\workflow\projects\Dev\Intranet Development\AddressBook_News2\AddressBook_News2-branch1\AddressBook_News.sln" /p:Configuration=Debug  /p:VisualStudioVersion=14.0;BaseOutputPath=bin\res
+Install-Package NUnit -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.ConsoleRunner -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit.Console -ProjectName NSQLManagerIntegrationTests
+Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 				
 				}
+				public void ConfigurationManager()
+				{
+					reference 
+					FRAMEWORKS -> System.Configuration
 					
-				public class Unsorted
-				{
-					
-				//delete from oracle table and link parametrized insert command to connection
-				public class oracle_queries(){
-				oracleConnection.Open();
-				oracleDeleteCommand.Connection = oracleConnection;
-				oracleDeleteCommand.CommandText = oracleQueriesBank.unparametrizedDelete;
-				oracleDeleteCommand.ExecuteNonQuery();
-
-				OracleCommand oracleInsertCommand = new OracleCommand();
-				oracleInsertCommand.Connection = oracleConnection;
-				oracleInsertCommand.CommandText = oracleQueriesBank.parametrizedInsert;
-
-				oracleConnection.Open();
-				oracleTablePresence.Connection = oracleConnection;
-				oracleTablePresence.CommandText = oracleQueriesBank.tablePresenceTest;
-				oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
-				tablecount = oracleTablePresence.ExecuteScalar().ToString();
-
-				oracleTablePresence.CommandText = oracleQueriesBank.tableColumnTest;
-				oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
-				oracleTablePresence.Parameters.Add(new OracleParameter("columnname", "ID_MERCHANT"));
-				columncount = oracleTablePresence.ExecuteScalar().ToString();
-
-				connectionInitialize(oracleConnection);
-				OracleCommand oracleTableCount = new OracleCommand();
-				oracleConnection.Open();
-				oracleTableCount.Connection = oracleConnection;
-				oracleTableCount.CommandText = oracleQueriesBank.unparametrizedRowCount;
-
-				oracleTableCount.CommandText = oracleQueriesBank.tableColumnTest;
-				rowcount = oracleTableCount.ExecuteScalar().ToString();
-				}
-
-				//oracle service query texts
-				public class servise_queries(){
-				//used for parametrized insert from import datagridview to oracle table
-				//occurs in dataGridView_Import_DoubleClick throught OracleQueryExecutor class
-				sampleInsert = "insert into merchant_list (ID_MERCHANT) values ('test_val')";
-
-				unparametrizedDelete = "delete from merchant_list";
-				parametrizedInsert = "insert into merchant_list values (:value)";
-				unparametrizedRowCount = "select max(rownum) from merchant_list";
-
-				//used for detecting marchant_list table presence and it's creation
-				tablePresenceTest = "select max(rownum) from user_tables where table_name = (:tablename)";
-				//detecting rownumbers in table
-				tableColumnTest = "select max(rownum) from user_tab_columns where table_name = (:tablename) and column_name = (:columnname)";
-				createTable = "create table MERCHANT_LIST (ID_MERCHANT varchar(50))";
-				}
-
-				//SERIALIZE DESERIALIZE
-				public class serealization_deserialization(){
-				public void Serialize(String path, List<OracleQueriesListClass> myArray)
-				{
-				BinaryFormatter formatter = new BinaryFormatter();
-				using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.Write))
-				{
-				formatter.Serialize(stream, myArray);
-				}
-				}
-
-				public List<OracleQueriesListClass> DeserializeList(String path)
-				{
-				BinaryFormatter formatter = new BinaryFormatter();
-				using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
-				{
-				List<OracleQueriesListClass> myList = (List<OracleQueriesListClass>)formatter.Deserialize(stream);
-				return myList;
-				}
-				}
-				}
-
-				//app setting connstrings example
-				public class connstrings(){
-
-				//requesting connString from appsettings
-				System.Configuration.ConfigurationSettings.AppSettings["ConnectionString"];
-				System.Configuration.ConfigurationManager.ConnectionStrings["connectionStringName"].ConnectionString;
-				</startup>
-				<appSettings>
-				<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch" />
-				<add key="ClientSettingsProvider.ServiceUri" value="" />
-				<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;" />
-				</appSettings>
-				}
-
-				public class ExcelIntegration(){
-					
-
-				//create excel xlsx with OPEN xml
-				private void OPENxmlCreate(){
-				string fileName = @"C:\111\test.xlsx";
-				using (SpreadsheetDocument document = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook))
-				{
-				WorkbookPart workbookPart = document.AddWorkbookPart();
-				workbookPart.Workbook = new Workbook();
-
-				WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
-				worksheetPart.Worksheet = new Worksheet(new SheetData());
-
-				Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
-
-				Sheet sheet = new Sheet() { Id = workbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Test Sheet" };
-
-				sheets.Append(sheet);
-
-				workbookPart.Workbook.Save();
-				}
-				}
-
-				}
-
-				/////
-
-				//connection strings
-				public void connectionStrings()
-				{
-
-				//connection to local SQL express from MVC
-				//<add name="BookContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=text_db;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
-
-				//<add name="SoocerContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=tempdb;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
-
-				//connection from console app
-				//string connectionString = @"Initial Catalog=tempdb;Data Source=.\SQLEXPRESS2;Integrated Security=SSPI;";
-
-				//string connectionStringORCL = @"User Id=neprintsev_ia; password = awsedrDRSEAW; Data Source = dwh.rs.ru; Pooling=false;";
-				//string connectionStringSQL = @"Data Source=.\SQLEXPRESS;Initial Catalog=DWH_replica;Integrated Security=SSPI;";
-
-				}
-
-				//----------------------------------------------
-
-
-				//mvc tempaltes
-				public void MVC_templates()
-				{
-
-				//view add button with rediraect
-				<input type="button" value="ClickMe" onclick="location.href='@Url.Action("Migrate","Home")'"
-
-				//view submit button
-				<input type="submit" value="Save" class="btn btn-default" />
-
-				//view actionlink
-				@Html.ActionLink("Back to List", "Index")
-
-				// Refresh model in controller if passing values after changes in layer
-				if(ModelState.IsValid)
-				{
-				ModelState.Clear();
-				}
-
-				//start wcf service async
-				Task.Run(() => migrateService.migrate_((DateTime)DateFrom, (DateTime)DateTo));
-
-				//one of multiple buttons
-				//controller part
-				[HttpPost]
-				[MultipleButton(Name = "action", Argument = "Stop")]
-				public ActionResult Stop(int ID, DateTime? DateFrom, DateTime? DateTo)
-				{}
-
-				//view part
-				<td>
-				<input type="submit" value="Stop" name="action:Stop" />
-				</td>
-
-				//pass multiple parameters to controller from view
-				<td>
-				<input type="text" id="DateTo" name="DateTo" value="@tab.DateTo" />
-				</td>
-
-				//parametrized groupping linq to entity
-				var a = from s in db.FD_ACQ_D
-				where DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month,01,0,0,0) ==
-				DbFunctions.CreateDateTime(fromDate.Year, fromDate.Month, 01, 0, 0, 0)
-				group s by new { DT_REG= DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month, 01, 0, 0, 0), TYPE_TRANSACTION=s.TYPE_TRANSACTION, PAY_SYSTEM=s.PAY_SYS} into g
-				select new
-				{
-				DT_REG = g.Key.DT_REG,
-				TYPE_TRANSACTION = g.Key.TYPE_TRANSACTION,
-				PAY_SYSTEM=g.Key.PAY_SYSTEM,
-				AMT = g.Sum(s => s.AMT)
-				};
-				foreach(var b in a)
-				{
-				this.FD_ACQ_D.Add(new FD_RES { DT_REG = b.DT_REG, TYPE_TRANSACTION = b.TYPE_TRANSACTION, AMT = b.AMT, PAY_SYS=b.PAY_SYSTEM });
-				}
-
-
-				//return json from controller public string GetJson()
-				{
-				ml.GetACQ(db);
-				string jsn = JsonConvert.SerializeObject(ml.FD_ACQ_D);
-				return jsn;
-				}
-
-				}
-
-				//json serialization with newtonsoft dll
-				public void jsonserialization()
-				{
-
-				string json2 = JsonConvert.SerializeObject(jst1, Formatting.Indented);
-				File.WriteAllText(@"C:\test\insert\json.json", json2);
-
-				string json3 = "";
-				json3 = File.ReadAllText(@"C:\test\insert\json.json");
-				json_tst_par jDes = JsonConvert.DeserializeObject<json_tst_par>(json3);
-
-				}
-
-				public void StoreValuesToSettings()
-				{
-
-				//storing values to settings
-				WindowsFormsApplication2.Properties.Settings.Default.Upgrade();
-				//changes
-				WindowsFormsApplication2.Properties.Settings.Default.Save();
-
-				//Initializing Form Elements in form methods
-				TextBox tb = (TextBox)sender;
-
-				//datetime defenition
-				DateTime dt = new DateTime(1, 1, 1, 0, 0, 0)
-				}
-
-				//default connection strings for oracle and excel
-				public void connectionStrings()
-				{
-				<appSettings>
-				<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch;" />
-				<add key="ClientSettingsProvider.ServiceUri" value="" />
-				<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;Pooling=false;" />
-				</appSettings>
-				}
-
-				//List object on excel list REFRESH
-				if (lob.Name == liobName)
-				{
-				lob.QueryTable.CommandText = queryText__;
-				lob.QueryTable.Connection = connectionString;
-				lob.QueryTable.BackgroundQuery = true;
-				lob.QueryTable.SaveData = true;
-				lob.QueryTable.EnableRefresh = true;
-				//lob.QueryTable.Refresh(false);
-				try
-				{
-				lob.QueryTable.Refresh(false);
-				}
-				catch (Exception e)
-				{
-
-				}
-				}
-
-				//List object on excel list PLACE
-				if (ws.Name==wsName)
-				{
-
-				ExcelInterop.Range worksheetRange = ws.get_Range("A1");
-				string tableName=Path.GetRandomFileName().Replace(".","");
-				tableName = Regex.Replace(tableName, @"\d", "");
-
-
-				ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
-				((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
-
-				//ListObject.QueryTable.CommandText = ((object)excelCommand);
-				ListObject.QueryTable.CommandText = ((object)queryText__);
-				ListObject.QueryTable.RowNumbers = false;
-				ListObject.QueryTable.FillAdjacentFormulas = false;
-				ListObject.QueryTable.PreserveFormatting = true;
-				ListObject.QueryTable.RefreshOnFileOpen = false;
-				ListObject.QueryTable.BackgroundQuery = true;
-				ListObject.QueryTable.SavePassword = false;
-				ListObject.QueryTable.SaveData = true;
-				ListObject.QueryTable.AdjustColumnWidth = true;
-				ListObject.QueryTable.RefreshPeriod = 10;
-				ListObject.QueryTable.PreserveColumnInfo = true;
-				ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
-				ListObject.QueryTable.EnableRefresh = true;
-				ListObject.QueryTable.Refresh(false);
-
-				}
-
-				//searchs all processes and finds id for passed main window title
-				//apl.Caption for excell aplications
-				public int GetProcessIdByWindowTitle(string windowTitle)
-				{
-
-				int processID;
-				processID = 0;
-				foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
-				{
-				if (proc.MainWindowTitle == windowTitle)
-				processID = proc.Id;
-				}
-				return processID;
-				}
-
-				//kills process with current ID
-				public void processKill(int ID)
-				{
-				foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
-				{
-				if (proc.Id == ID)
-				proc.Kill();
-				}
-				}
-
-				//creates file for current excel workbook with path
-				public void fileSave(ExcelInterop.Workbook wb, string OutputFileName)
-				{
-				if (!Directory.Exists(Path.GetDirectoryName(OutputFileName)))
-				{
-				Directory.CreateDirectory(Path.GetDirectoryName(OutputFileName));
-				}
-
-				wb.SaveAs(OutputFileName, ExcelInterop.XlFileFormat.xlWorkbookDefault,
-				Missing.Value, Missing.Value, Missing.Value, Missing.Value,
-				ExcelInterop.XlSaveAsAccessMode.xlExclusive,
-				Missing.Value, Missing.Value, Missing.Value,
-				Missing.Value, Missing.Value);
-				wb.Close();
-				}
-
-				//correct excel application killing
-				public void ExcelApplicationTest()
-				{
-				xlNS.Application apl2;
-				apl2 = new xlNS.Application();
-
-				xlNS.Workbooks wbs2;
-				wbs2 = apl2.Workbooks;
-
-				xlNS.Workbook wb2;
-				xlNS.Worksheet ws2;
-
-				 
-
-				if(!File.Exists(ExcelPath))
-				{
-				wb2 = wbs2.Add(xlNS.XlWBATemplate.xlWBATWorksheet);
-				//ws2 = (xlNS.Worksheet)wb2.Worksheets[1];
-				wb2.SaveAs(ExcelPath);
-				}
-				else
-				{
-				wb2 = wbs2.Open(ExcelPath);
-				}
-
-				wb2.Close();
-				apl2.Quit();
-				wbs2.Close();
-
-				Marshal.ReleaseComObject(wb2);
-				Marshal.ReleaseComObject(wbs2);
-				Marshal.ReleaseComObject(apl2);
-
-				wb2 = null;
-				apl2 = null;
-				wbs2 = null;
-
-				}
-
-				//Opens filedialog and inserts results from excel to datagrid view
-				public void dataGridSelectedFill(DataGridView dg, FilePath FilePath_)
-				{
-				OpenFileDialog ofd = new OpenFileDialog();
-				Stream stream = null;
-
-				ofd.Filter = "excel files (*.xls)|*.xls|excel files (*.xlsx)|*.xlsx";
-				ofd.FilterIndex = 2;
-				ofd.RestoreDirectory = true;
-
-				if (ofd.ShowDialog() == DialogResult.OK)
-				{
-				if (File.Exists(ofd.FileName))
-				{
-				FilePath_.inputFilePath = ofd.FileName;
-
-				try
-				{
-				ofd.InitialDirectory = FilePath_.inputFileFolder;
-
-				try
-				{
-				if ((stream = ofd.OpenFile()) != null)
-				{
-				WindowsFormsApplication2.Properties.Settings.Default.InputFilePath = ofd.FileName;
-				WindowsFormsApplication2.Properties.Settings.Default.Save();
-
-				using (stream)
-				{
-				//calls main method for excel file from filedialog open and dataset to datagrid bnding
-				dg.DataSource = StreamToGrid(stream, ofd.FileName);
-				//new BindingSource(result.Tables[0], null);
-				}
-
-				}
-				}
-				catch (Exception ex)
-				{
-				MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-				}
-
-				}
-				catch (Exception ex)
-				{
-				MessageBox.Show("Error: no file folder exists!" + ex.Message);
-				}
-				}
-				}
-				}
-
-				//converts stream of file to datagrid for xls,xlsx
-				//with CodePlex data reader http://exceldatareader.codeplex.com/
-				public DataTable StreamToGrid(Stream stream, string ofd)
-				{
-				IExcelDataReader excelReader = null;
-				DataSet result = new DataSet();
-
-				string ExcelExtension= Path.GetExtension(ofd);
-
-
-				if (ExcelExtension == ".xls")
-				{
-				excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
-				result = excelReader.AsDataSet();
-				}
-
-				if (ExcelExtension == ".xlsx")
-				{
-				excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
-				excelReader.IsFirstRowAsColumnNames = true;
-				result = excelReader.AsDataSet();
-				}
-
-
-				//6. Free resources (IExcelDataReader is IDisposable)
-				excelReader.Close();
-
-				return result.Tables[0];
-
-				}
-
-				 
-
-				//Initializes and starts new form from another one (for excel worksheet selection)
-				private void wsSelectShow(ExcelInterop.Workbook wb, ExcelExport ee, string connectionString)
-				{
-				ListObjects_ liob = new ListObjects_();
-				wsSelect wsSelect_ = new wsSelect(wb, ee, connectionString);
-				wsSelect_.Show();
-				}
-
-				//publishing of excel list object
-				public void listObjectPublish(){
-
-				ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
-				((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
-
-				//ListObject.QueryTable.CommandText = ((object)excelCommand);
-				ListObject.QueryTable.CommandText = ((object)queryText__);
-				ListObject.QueryTable.RowNumbers = false;
-				ListObject.QueryTable.FillAdjacentFormulas = false;
-				ListObject.QueryTable.PreserveFormatting = true;
-				ListObject.QueryTable.RefreshOnFileOpen = false;
-				ListObject.QueryTable.BackgroundQuery = true;
-				ListObject.QueryTable.SavePassword = false;
-				ListObject.QueryTable.SaveData = true;
-				ListObject.QueryTable.AdjustColumnWidth = true;
-				ListObject.QueryTable.RefreshPeriod = 10;
-				ListObject.QueryTable.PreserveColumnInfo = true;
-				ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
-				ListObject.QueryTable.EnableRefresh = true;
-				ListObject.QueryTable.Refresh(false);
-				}
-
-				//refreshing of list objects on excel
-				public void ListObject refresh()
-				{
-				lob.QueryTable.CommandText = queryText__;
-				lob.QueryTable.Connection = connectionString;
-				lob.QueryTable.BackgroundQuery = true;
-				lob.QueryTable.SaveData = true;
-				lob.QueryTable.EnableRefresh = true;
-				lob.QueryTable.Refresh(false);
-				}
-
-				//Connection string and query for reading excel files with OLEDB and storing to datatable to excel
-				public void readExcelOledbStoreDTtoExcel()
-				{
-				//string for oledb to excel query
-				string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
-
-				OleDbConnection oleCon = new OleDbConnection(conString);
-				OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
-				DataTable dt = new DataTable("Output");
-
-				oleCon.Open();
-				dt.Load(oleCmd.ExecuteReader());
-
-				//save dt as xml
-				dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
-
-				Excel.Application excel_ = new Excel.Application();
-				Excel.Workbook wb_ = excel_.Workbooks.Add(true);
-				Excel.Worksheet ws_ = wb_.Worksheets[1];
-
-				ws_ = wb_.Worksheets[1];
-
-
-				//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
-
-
-				//passing datatable to array of objects dim to dim
-				var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
-				int drC = 0;
-				int drR = 0;
-
-				foreach(DataRow dr in dt.Rows)
-				{
-				drR = drR + 1;
-				foreach(DataColumn dc in dt.Columns)
-				{
-				drC = drC + 1;
-				data[drR, drC] = dt.Rows[drR-1][drC-1];
-				}
-				drC = 0;
-				}
-
-				var startCell = (Excel.Range)ws_.Cells[1, 1];
-				var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
-				var writeRange = ws_.Range[startCell, endCell];
-
-				//passing array of objects to excel list
-				writeRange.Value2 = data;
-				wb_.SaveAs(folder + @"\" + @"output.xlsx");
-
-				wb_.Close();
-
-				//read stored xml to datatable increases values if datatable not empty
-				dt.ReadXml(folder + @"\" + @"output.xml");
-				dt.WriteXml(folder + @"\" + @"output2.xml", XmlWriteMode.WriteSchema, false);
-
-				oleCon.Close();
-
-				}
-
-				//Get current application folder console
-				public void ApplicationFolder()
-				{
-				Application.StartupPath
-				System.IO.Path.GetDirectoryName(
-				System.Reflection.Assembly.GetExecutingAssembly().Location)
-				AppDomain.CurrentDomain.BaseDirectory //Priority
-				System.IO.Directory.GetCurrentDirectory()
-				Environment.CurrentDirectory
-				System.IO.Path.GetDirectoryName(
-				System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)
-				System.IO.Path.GetDirectory(Application.ExecutablePath)
-				}
-
-				//Get current application folder models
-				public void Application folder()
-				{
-				AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
-				}
-
-				//Get current application folder view
-				public void Application_view()
-				{
-				HttpContext.Server.MapPath("~/App_Date/");
-				}
-
-				//using Interface IENUMERABLE for looping throught dates in list
-				public void loopThroughDates()
-				{
-
-				public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
-				{
-				for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
-				yield return day;
-				}
-
-				foreach(DateTime date in EachDay(startDate,finishDate))
-				{
-				DatesRequested.Add(date);
-				}
-				}
-
-				//reads excel contents into datatable and stores it as xml
-				public void readExceloledb()
-				{
-
-				public string oledbRequest = "SELECT F2,sum(F3) FROM [????1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
-
-				string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
-
-				OleDbConnection oleCon = new OleDbConnection(conString);
-				OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
-				DataTable dt = new DataTable("Output");
-
-				oleCon.Open();
-
-				//dt is datatable
-				dt.Load(oleCmd.ExecuteReader());
-
-				//save dt as xml
-				dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
-
-				}
-
-				//reads datatable , convets it to excel array on worksheet and saves xlsx
-				public void storeDatatableAsXLSX()
-				{
-
-				Excel.Application excel_ = new Excel.Application();
-				Excel.Workbook wb_ = excel_.Workbooks.Add(true);
-				Excel.Worksheet ws_ = wb_.Worksheets[1];
-
-				ws_ = wb_.Worksheets[1];
-
-
-				//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
-
-
-				//passing datatable to array of objects dim to dim
-				var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
-				int drC = 0;
-				int drR = 0;
-
-				foreach(DataRow dr in dt.Rows)
-				{
-				drR = drR + 1;
-				foreach(DataColumn dc in dt.Columns)
-				{
-				drC = drC + 1;
-				data[drR, drC] = dt.Rows[drR-1][drC-1];
-				}
-				drC = 0;
-				}
-
-
-				var startCell = (Excel.Range)ws_.Cells[1, 1];
-				var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
-				var writeRange = ws_.Range[startCell, endCell];
-
-				//passing array of objects to excel list
-				writeRange.Value2 = data;
-				wb_.SaveAs(folder + @"\" + @"output.xlsx");
-
-				}
-
-
-
-				//openXMLread
-				public void openXML()
-				{
-				// open the document read-only
-				SpreadsheetDocument document = SpreadsheetDocument.Open(fileName, false);
-				SharedStringTable sharedStringTable = document.WorkbookPart.SharedStringTablePart.SharedStringTable;
-				string cellValue = null;
-
-				foreach (WorksheetPart worksheetPart in document.WorkbookPart.WorksheetParts)
-				{
-				foreach (SheetData sheetData in worksheetPart.Worksheet.Elements<SheetData>())
-				{
-				if (sheetData.HasChildren)
-				{
-				foreach (Row row in sheetData.Elements<Row>())
-				{
-				foreach (Cell cell in row.Elements<Cell>())
-				{
-				cellValue = cell.InnerText;
-
-				/*
-				try
-				{
-				if (cell.DataType == CellValues.SharedString)
-				{
-				Console.WriteLine("cell val: " + sharedStringTable.ElementAt(Int32.Parse(cellValue)).InnerText);
-				}
-				else
-				{
-				Console.WriteLine("cell val: " + cellValue);
-				}
-				}
-				catch(Exception e)
-				{
-				if(e.Message=="Error in implicit conversion. Cannot convert null object.")
-				{
-				MessageBox.Show(e.Message);
-				}
-				}
-				* */
-				}
-				}
-				}
-				}
-				}
-				document.Close();
-
-				}
-
-
-				//select max ID from list of classes
-				public void LINQlogic()
-				{
-				//add list of objects to ienumerable
-				IEnumerable<QueryTextNew> Queries =
-				from QueryTextNew in querytextList
-				select QueryTextNew;
-
-				//select max ID catching empty element exception
-				int itemsMax;
-
-				try
-				{
-				itemsMax = Queries.Max(x => x.ID);
 				}
-				catch(Exception e )
-				{
-				itemsMax = 0;
-				}
-
-				}
-
-				//creating procedure for dataset return
-				public void oracleprocedurefordataset()
-				{
-				create or replace
-				procedure get_daily(out_dt out SYS_REFCURSOR)
-				AS
-				BEGIN
-				OPEN out_dt FOR SELECT * FROM neprintsev_ia.temp_acq_d where rownum <=10;
-				END get_daily;
-				}
-
-				//get dataset from oracle procedure and store result datatable in xml
-				public void datasetget()
-				{
-
-				string fileToParse = @"C:\test\daily\output\01022015report + fee2.xlsx";
-				string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [????1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
-				string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
-
-				string connString = @"Data Source=dwh.rs.ru;User ID=neprintsev_ia;Password=awsedrRDESWA;";
-				string oracleQuery = "get_daily";
-
-				OracleConnection oracleConn = new OracleConnection(connString);
-
-				OracleCommand oracleComm = new OracleCommand(oracleQuery, oracleConn);
-				oracleComm.CommandType = CommandType.StoredProcedure;
-				DataSet orads = new DataSet();
-				oracleComm.Parameters.Add("out_dt", OracleType.Cursor).Direction=ParameterDirection.Output;
-
-				oracleConn.Open();
-				oracleComm.ExecuteNonQuery();
-
-				OracleDataReader reader =
-				oracleComm.Parameters["out_dt"].Value as OracleDataReader;
-
-				OracleDataAdapter oracleAdapt = new OracleDataAdapter(oracleComm);
-
-				oracleAdapt.Fill(orads);
-
-				foreach (DataTable dtt in orads.Tables)
-				{
-				dtt.WriteXml(Path.GetDirectoryName(fileToParse) + @"\" + @"f_output.xml", XmlWriteMode.WriteSchema, false);
-				}
-
-
-				}
-
-				//populate datatable to excel for current rowcolumn number
-				public void populatedatatble to excel()
-				{
-
-				public void populateDataTable(DataTable dt,Excel.Worksheet ws_,int x,int y )
-				{
-				var data = new object[dt.Rows.Count , dt.Columns.Count ];
-				int drC = -1;
-				int drR = -1;
-
-				foreach (DataRow drr in dt.Rows)
-				{
-				drR = drR + 1;
-				foreach (DataColumn dcc in dt.Columns)
-				{
-				drC = drC + 1;
-				data[drR, drC] = dt.Rows[drR ][drC];
-				}
-				drC = -1;
-				}
-
-
-				var startCell = (Excel.Range)ws_.Cells[x, y];
-				var endCell = (Excel.Range)ws_.Cells[x+dt.Rows.Count-1, y+dt.Columns.Count-1];
-				var writeRange = ws_.Range[startCell, endCell];
-
-				writeRange.Value2 = data;
-
-				}
-
-				}
-
-				//copy as embedded cahrt to powerpoint (editable) with smoexecute
-				public void copytopowerpoiny(){
-				pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
-				}
-
-
-				//copy as ambeded and select object in powerpoint
-				public void powerPoint(){
-				//chartobject
-				ch.Copy();
-
-				pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
-				Thread.Sleep(1000);
-				var a = pptSlide.Application.ActiveWindow.Selection;
-
-				a.ShapeRange.Left = 10;
-				a.ShapeRange.Top = 10;
-				a.ShapeRange.Height = 200;
-				a.ShapeRange.Width = 200;
-				}
-
-
-				//JSON serialization
-				//Read write to filestream using memorystream
-				public void JSONserialize(){
-
-				MemoryStream ms = new MemoryStream();
-				DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(rQueries_ih));
-				ser.WriteObject(ms, q);
-
-				ms.Position = 0;
-
-				using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
-				FileMode.Create, System.IO.FileAccess.Write))
-				{
-				ms.WriteTo(fs);
-				ms.Close();
-				}
-
-				using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
-				FileMode.Open, System.IO.FileAccess.Read))
-				{
-				MemoryStream ms2 = new MemoryStream();
-				byte[] bytes = new byte[fs.Length];
-				fs.Read(bytes, 0, (int)fs.Length);
-				ms2.Write(bytes, 0, (int)fs.Length);
-
-				ms2.Position = 0;
-				q2 = (rQueries_ih)ser.ReadObject(ms2);
-				ms2.Close();
-				}
-
-				}
-
-
-				//inheritance
-				public Inheritance()
-				{
-				A:B:C:D
-				void -> new (virtual)-> virtual -> override
-				void -> virtual-> override -> override
-				A : D(C) => A
-
-				virtual -> new virtual -> override
-				A:C(D) =>A
-
-				A:B:C:D
-				virtual -> override-> virtual -> override
-				A(B):D => B, C(D):D => D
-
-				A,B:A,C:A
-				virtual -> new
-				B:B => A
-				virtual -> override
-				C:C => C
-
-
-				}
-
-				//copy past excel range to powwerpoint
-				public void CopyRangeEmbeded(xlNS.Range rn_, pptNS.Slide ptSld, pptNS.Shape sh)
-				{
-
-				rn_.Application.Visible = true;
-				rn_.Worksheet.Activate();
-				rn_.Select();
-				rn_.Copy();
-				ptSld.Select();
-				sh.Select();
-
-				//needs thread sleep activation - unstable
-				/*
-				Thread.Sleep(500);
-				sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-				Application.DoEvents();
-				*/
-
-				//copy but with standart format
-				//ptSld.Application.ActiveWindow.View.PasteSpecial();
-				//ptSld.Application.ActiveWindow.View.Paste();
-
-
-				//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
-				//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault,,,,,);
-
-				//ptSld.Application.ActiveWindow.View.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault);
-
-
-				//PasteDestinationTheme
-				//PasteAsEmbedded
-				//PasteSourceFormatting
-				//PasteExcelTableSourceFormatting
-
-
-				//powerpointApplication.ActiveWindow.View.PasteSpecial();
-
-				//only working example with correct shape and format
-				//worked after first type commenting
-				try
-				{
-				sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-				}
-				catch (Exception e)
-				{
-				Logger.LogAddDebug(e.Message);
-				}
-
-				//sh.Application.ActiveWindow.Selection.Unselect();
-				//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-				}
-
-				//copy pasy excel sheet to powwerpoint
-				public void CopyChartEmbeded(xlNS.Shape ch, pptNS.Slide sl, pptNS.Shape sh)
-				{
-				ch.Copy();
-				sl.Select();
-				sh.Select();
-
-				//paste as link
-				//pptSlide.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
-				//sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-				//sh.Application.ActiveWindow.Selection.Unselect();
-				//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
-
-				try
-				{
-				sl.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
-				}
-				catch (Exception e)
-				{
-				Logger.LogAddDebug(e.Message);
-				}
-				//Thread.Sleep(1000);
-				var a = sl.Application.ActiveWindow.Selection;
-				}
-
+			
+        public void WebDeploy()
+				{
+					Web Deploy
+					//host name without urls or ports
+					//http://server-name-1:8182 ->
+					server-name-1
+					//Iis sitename 
+					sitename1
+					//Credentials with domen
+					DOMN\user
+					password
+					//site url with protocol and port
+					http://newstest2:8184
+				}
+			
+			
+			public void MSbuild()
+			{
+
+			/*				
+			"10.0" указывает на поднабор инструментов .NET Framework 4;
+			"11.0" указывает на поднабор инструментов .NET Framework 4.5;
+			"12.0" указывает на поднабор инструментов .NET Framework 4.5.1.
+			*/
+
+				//build v14.0
+				C:\Windows\Microsoft.NET\Framework64\v4.0.30319\MSBuild.exe "C:\workflow\projects\Dev\Intranet Development\AddressBook_News2\AddressBook_News2-branch1\AddressBook_News.sln" /p:Configuration=Debug  /p:VisualStudioVersion=14.0;BaseOutputPath=bin\res
+			
 			}
 				
-				debugDLL[
-					ctrl+alt+p -> atach to process
-				]
+			public class Unsorted
+			{
+				
+			//delete from oracle table and link parametrized insert command to connection
+			public class oracle_queries(){
+			oracleConnection.Open();
+			oracleDeleteCommand.Connection = oracleConnection;
+			oracleDeleteCommand.CommandText = oracleQueriesBank.unparametrizedDelete;
+			oracleDeleteCommand.ExecuteNonQuery();
+
+			OracleCommand oracleInsertCommand = new OracleCommand();
+			oracleInsertCommand.Connection = oracleConnection;
+			oracleInsertCommand.CommandText = oracleQueriesBank.parametrizedInsert;
+
+			oracleConnection.Open();
+			oracleTablePresence.Connection = oracleConnection;
+			oracleTablePresence.CommandText = oracleQueriesBank.tablePresenceTest;
+			oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
+			tablecount = oracleTablePresence.ExecuteScalar().ToString();
+
+			oracleTablePresence.CommandText = oracleQueriesBank.tableColumnTest;
+			oracleTablePresence.Parameters.Add(new OracleParameter("tablename", "MERCHANT_LIST"));
+			oracleTablePresence.Parameters.Add(new OracleParameter("columnname", "ID_MERCHANT"));
+			columncount = oracleTablePresence.ExecuteScalar().ToString();
+
+			connectionInitialize(oracleConnection);
+			OracleCommand oracleTableCount = new OracleCommand();
+			oracleConnection.Open();
+			oracleTableCount.Connection = oracleConnection;
+			oracleTableCount.CommandText = oracleQueriesBank.unparametrizedRowCount;
+
+			oracleTableCount.CommandText = oracleQueriesBank.tableColumnTest;
+			rowcount = oracleTableCount.ExecuteScalar().ToString();
+			}
+
+			//oracle service query texts
+			public class servise_queries(){
+			//used for parametrized insert from import datagridview to oracle table
+			//occurs in dataGridView_Import_DoubleClick throught OracleQueryExecutor class
+			sampleInsert = "insert into merchant_list (ID_MERCHANT) values ('test_val')";
+
+			unparametrizedDelete = "delete from merchant_list";
+			parametrizedInsert = "insert into merchant_list values (:value)";
+			unparametrizedRowCount = "select max(rownum) from merchant_list";
+
+			//used for detecting marchant_list table presence and it's creation
+			tablePresenceTest = "select max(rownum) from user_tables where table_name = (:tablename)";
+			//detecting rownumbers in table
+			tableColumnTest = "select max(rownum) from user_tab_columns where table_name = (:tablename) and column_name = (:columnname)";
+			createTable = "create table MERCHANT_LIST (ID_MERCHANT varchar(50))";
+			}
+
+			//SERIALIZE DESERIALIZE
+			public class serealization_deserialization(){
+			public void Serialize(String path, List<OracleQueriesListClass> myArray)
+			{
+			BinaryFormatter formatter = new BinaryFormatter();
+			using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.Write))
+			{
+			formatter.Serialize(stream, myArray);
+			}
+			}
+
+			public List<OracleQueriesListClass> DeserializeList(String path)
+			{
+			BinaryFormatter formatter = new BinaryFormatter();
+			using (FileStream stream = new FileStream(path, FileMode.Open, FileAccess.Read))
+			{
+			List<OracleQueriesListClass> myList = (List<OracleQueriesListClass>)formatter.Deserialize(stream);
+			return myList;
+			}
+			}
+			}
+
+			//app setting connstrings example
+			public class connstrings(){
+
+			//requesting connString from appsettings
+			System.Configuration.ConfigurationSettings.AppSettings["ConnectionString"];
+			System.Configuration.ConfigurationManager.ConnectionStrings["connectionStringName"].ConnectionString;
+			</startup>
+			<appSettings>
+			<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch" />
+			<add key="ClientSettingsProvider.ServiceUri" value="" />
+			<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;" />
+			</appSettings>
+			}
+
+			public class ExcelIntegration(){
+				
+
+			//create excel xlsx with OPEN xml
+			private void OPENxmlCreate(){
+			string fileName = @"C:\111\test.xlsx";
+			using (SpreadsheetDocument document = SpreadsheetDocument.Create(fileName, SpreadsheetDocumentType.Workbook))
+			{
+			WorkbookPart workbookPart = document.AddWorkbookPart();
+			workbookPart.Workbook = new Workbook();
+
+			WorksheetPart worksheetPart = workbookPart.AddNewPart<WorksheetPart>();
+			worksheetPart.Worksheet = new Worksheet(new SheetData());
+
+			Sheets sheets = workbookPart.Workbook.AppendChild(new Sheets());
+
+			Sheet sheet = new Sheet() { Id = workbookPart.GetIdOfPart(worksheetPart), SheetId = 1, Name = "Test Sheet" };
+
+			sheets.Append(sheet);
+
+			workbookPart.Workbook.Save();
+			}
+			}
+
+			}
+
+			/////
+
+			//connection strings
+			public void connectionStrings()
+			{
+
+			//connection to local SQL express from MVC
+			//<add name="BookContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=text_db;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
+
+			//<add name="SoocerContext" connectionString="Data Source=.\SQLEXPRESS2;Initial Catalog=tempdb;Integrated Security=SSPI;" providerName="System.Data.SqlClient"/>
+
+			//connection from console app
+			//string connectionString = @"Initial Catalog=tempdb;Data Source=.\SQLEXPRESS2;Integrated Security=SSPI;";
+
+			//string connectionStringORCL = @"User Id=neprintsev_ia; password = awsedrDRSEAW; Data Source = dwh.rs.ru; Pooling=false;";
+			//string connectionStringSQL = @"Data Source=.\SQLEXPRESS;Initial Catalog=DWH_replica;Integrated Security=SSPI;";
+
+			}
+
+			//----------------------------------------------
+
+
+			//mvc tempaltes
+			public void MVC_templates()
+			{
+
+			//view add button with rediraect
+			<input type="button" value="ClickMe" onclick="location.href='@Url.Action("Migrate","Home")'"
+
+			//view submit button
+			<input type="submit" value="Save" class="btn btn-default" />
+
+			//view actionlink
+			@Html.ActionLink("Back to List", "Index")
+
+			// Refresh model in controller if passing values after changes in layer
+			if(ModelState.IsValid)
+			{
+			ModelState.Clear();
+			}
+
+			//start wcf service async
+			Task.Run(() => migrateService.migrate_((DateTime)DateFrom, (DateTime)DateTo));
+
+			//one of multiple buttons
+			//controller part
+			[HttpPost]
+			[MultipleButton(Name = "action", Argument = "Stop")]
+			public ActionResult Stop(int ID, DateTime? DateFrom, DateTime? DateTo)
+			{}
+
+			//view part
+			<td>
+			<input type="submit" value="Stop" name="action:Stop" />
+			</td>
+
+			//pass multiple parameters to controller from view
+			<td>
+			<input type="text" id="DateTo" name="DateTo" value="@tab.DateTo" />
+			</td>
+
+			//parametrized groupping linq to entity
+			var a = from s in db.FD_ACQ_D
+			where DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month,01,0,0,0) ==
+			DbFunctions.CreateDateTime(fromDate.Year, fromDate.Month, 01, 0, 0, 0)
+			group s by new { DT_REG= DbFunctions.CreateDateTime(s.DT_REG.Year, s.DT_REG.Month, 01, 0, 0, 0), TYPE_TRANSACTION=s.TYPE_TRANSACTION, PAY_SYSTEM=s.PAY_SYS} into g
+			select new
+			{
+			DT_REG = g.Key.DT_REG,
+			TYPE_TRANSACTION = g.Key.TYPE_TRANSACTION,
+			PAY_SYSTEM=g.Key.PAY_SYSTEM,
+			AMT = g.Sum(s => s.AMT)
+			};
+			foreach(var b in a)
+			{
+			this.FD_ACQ_D.Add(new FD_RES { DT_REG = b.DT_REG, TYPE_TRANSACTION = b.TYPE_TRANSACTION, AMT = b.AMT, PAY_SYS=b.PAY_SYSTEM });
+			}
+
+
+			//return json from controller public string GetJson()
+			{
+			ml.GetACQ(db);
+			string jsn = JsonConvert.SerializeObject(ml.FD_ACQ_D);
+			return jsn;
+			}
+
+			}
+
+			//json serialization with newtonsoft dll
+			public void jsonserialization()
+			{
+
+			string json2 = JsonConvert.SerializeObject(jst1, Formatting.Indented);
+			File.WriteAllText(@"C:\test\insert\json.json", json2);
+
+			string json3 = "";
+			json3 = File.ReadAllText(@"C:\test\insert\json.json");
+			json_tst_par jDes = JsonConvert.DeserializeObject<json_tst_par>(json3);
+
+			}
+
+			public void StoreValuesToSettings()
+			{
+
+			//storing values to settings
+			WindowsFormsApplication2.Properties.Settings.Default.Upgrade();
+			//changes
+			WindowsFormsApplication2.Properties.Settings.Default.Save();
+
+			//Initializing Form Elements in form methods
+			TextBox tb = (TextBox)sender;
+
+			//datetime defenition
+			DateTime dt = new DateTime(1, 1, 1, 0, 0, 0)
+			}
+
+			//default connection strings for oracle and excel
+			public void connectionStrings()
+			{
+			<appSettings>
+			<add key="ConnectionString" value="Data Source=dwh.rs.ru;User ID=LoginReplacePatch;Password=PasswordReplacePatch;" />
+			<add key="ClientSettingsProvider.ServiceUri" value="" />
+			<add key="excelConnectionString" value="OLEDB;Provider=MSDAORA.1;Password=PasswordReplacePatch;User ID=LoginReplacePatch;Data Source=dwh.rs.ru;Pooling=false;" />
+			</appSettings>
+			}
+
+			//List object on excel list REFRESH
+			if (lob.Name == liobName)
+			{
+			lob.QueryTable.CommandText = queryText__;
+			lob.QueryTable.Connection = connectionString;
+			lob.QueryTable.BackgroundQuery = true;
+			lob.QueryTable.SaveData = true;
+			lob.QueryTable.EnableRefresh = true;
+			//lob.QueryTable.Refresh(false);
+			try
+			{
+			lob.QueryTable.Refresh(false);
+			}
+			catch (Exception e)
+			{
+
+			}
+			}
+
+			//List object on excel list PLACE
+			if (ws.Name==wsName)
+			{
+
+			ExcelInterop.Range worksheetRange = ws.get_Range("A1");
+			string tableName=Path.GetRandomFileName().Replace(".","");
+			tableName = Regex.Replace(tableName, @"\d", "");
+
+
+			ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
+			((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
+
+			//ListObject.QueryTable.CommandText = ((object)excelCommand);
+			ListObject.QueryTable.CommandText = ((object)queryText__);
+			ListObject.QueryTable.RowNumbers = false;
+			ListObject.QueryTable.FillAdjacentFormulas = false;
+			ListObject.QueryTable.PreserveFormatting = true;
+			ListObject.QueryTable.RefreshOnFileOpen = false;
+			ListObject.QueryTable.BackgroundQuery = true;
+			ListObject.QueryTable.SavePassword = false;
+			ListObject.QueryTable.SaveData = true;
+			ListObject.QueryTable.AdjustColumnWidth = true;
+			ListObject.QueryTable.RefreshPeriod = 10;
+			ListObject.QueryTable.PreserveColumnInfo = true;
+			ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
+			ListObject.QueryTable.EnableRefresh = true;
+			ListObject.QueryTable.Refresh(false);
+
+			}
+
+			//searchs all processes and finds id for passed main window title
+			//apl.Caption for excell aplications
+			public int GetProcessIdByWindowTitle(string windowTitle)
+			{
+
+			int processID;
+			processID = 0;
+			foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
+			{
+			if (proc.MainWindowTitle == windowTitle)
+			processID = proc.Id;
+			}
+			return processID;
+			}
+
+			//kills process with current ID
+			public void processKill(int ID)
+			{
+			foreach (System.Diagnostics.Process proc in System.Diagnostics.Process.GetProcessesByName("Excel"))
+			{
+			if (proc.Id == ID)
+			proc.Kill();
+			}
+			}
+
+			//creates file for current excel workbook with path
+			public void fileSave(ExcelInterop.Workbook wb, string OutputFileName)
+			{
+			if (!Directory.Exists(Path.GetDirectoryName(OutputFileName)))
+			{
+			Directory.CreateDirectory(Path.GetDirectoryName(OutputFileName));
+			}
+
+			wb.SaveAs(OutputFileName, ExcelInterop.XlFileFormat.xlWorkbookDefault,
+			Missing.Value, Missing.Value, Missing.Value, Missing.Value,
+			ExcelInterop.XlSaveAsAccessMode.xlExclusive,
+			Missing.Value, Missing.Value, Missing.Value,
+			Missing.Value, Missing.Value);
+			wb.Close();
+			}
+
+			//correct excel application killing
+			public void ExcelApplicationTest()
+			{
+			xlNS.Application apl2;
+			apl2 = new xlNS.Application();
+
+			xlNS.Workbooks wbs2;
+			wbs2 = apl2.Workbooks;
+
+			xlNS.Workbook wb2;
+			xlNS.Worksheet ws2;
+
+			 
+
+			if(!File.Exists(ExcelPath))
+			{
+			wb2 = wbs2.Add(xlNS.XlWBATemplate.xlWBATWorksheet);
+			//ws2 = (xlNS.Worksheet)wb2.Worksheets[1];
+			wb2.SaveAs(ExcelPath);
+			}
+			else
+			{
+			wb2 = wbs2.Open(ExcelPath);
+			}
+
+			wb2.Close();
+			apl2.Quit();
+			wbs2.Close();
+
+			Marshal.ReleaseComObject(wb2);
+			Marshal.ReleaseComObject(wbs2);
+			Marshal.ReleaseComObject(apl2);
+
+			wb2 = null;
+			apl2 = null;
+			wbs2 = null;
+
+			}
+
+			//Opens filedialog and inserts results from excel to datagrid view
+			public void dataGridSelectedFill(DataGridView dg, FilePath FilePath_)
+			{
+			OpenFileDialog ofd = new OpenFileDialog();
+			Stream stream = null;
+
+			ofd.Filter = "excel files (*.xls)|*.xls|excel files (*.xlsx)|*.xlsx";
+			ofd.FilterIndex = 2;
+			ofd.RestoreDirectory = true;
+
+			if (ofd.ShowDialog() == DialogResult.OK)
+			{
+			if (File.Exists(ofd.FileName))
+			{
+			FilePath_.inputFilePath = ofd.FileName;
+
+			try
+			{
+			ofd.InitialDirectory = FilePath_.inputFileFolder;
+
+			try
+			{
+			if ((stream = ofd.OpenFile()) != null)
+			{
+			WindowsFormsApplication2.Properties.Settings.Default.InputFilePath = ofd.FileName;
+			WindowsFormsApplication2.Properties.Settings.Default.Save();
+
+			using (stream)
+			{
+			//calls main method for excel file from filedialog open and dataset to datagrid bnding
+			dg.DataSource = StreamToGrid(stream, ofd.FileName);
+			//new BindingSource(result.Tables[0], null);
+			}
+
+			}
+			}
+			catch (Exception ex)
+			{
+			MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+			}
+
+			}
+			catch (Exception ex)
+			{
+			MessageBox.Show("Error: no file folder exists!" + ex.Message);
+			}
+			}
+			}
+			}
+
+			//converts stream of file to datagrid for xls,xlsx
+			//with CodePlex data reader http://exceldatareader.codeplex.com/
+			public DataTable StreamToGrid(Stream stream, string ofd)
+			{
+			IExcelDataReader excelReader = null;
+			DataSet result = new DataSet();
+
+			string ExcelExtension= Path.GetExtension(ofd);
+
+
+			if (ExcelExtension == ".xls")
+			{
+			excelReader = ExcelReaderFactory.CreateBinaryReader(stream);
+			result = excelReader.AsDataSet();
+			}
+
+			if (ExcelExtension == ".xlsx")
+			{
+			excelReader = ExcelReaderFactory.CreateOpenXmlReader(stream);
+			excelReader.IsFirstRowAsColumnNames = true;
+			result = excelReader.AsDataSet();
+			}
+
+
+			//6. Free resources (IExcelDataReader is IDisposable)
+			excelReader.Close();
+
+			return result.Tables[0];
+
+			}
+
+			 
+
+			//Initializes and starts new form from another one (for excel worksheet selection)
+			private void wsSelectShow(ExcelInterop.Workbook wb, ExcelExport ee, string connectionString)
+			{
+			ListObjects_ liob = new ListObjects_();
+			wsSelect wsSelect_ = new wsSelect(wb, ee, connectionString);
+			wsSelect_.Show();
+			}
+
+			//publishing of excel list object
+			public void listObjectPublish(){
+
+			ExcelInterop.ListObject ListObject = ws.ListObjects.Add(ExcelInterop.XlListObjectSourceType.xlSrcQuery,
+			((object)connectionString), false, ExcelInterop.XlYesNoGuess.xlYes, worksheetRange);
+
+			//ListObject.QueryTable.CommandText = ((object)excelCommand);
+			ListObject.QueryTable.CommandText = ((object)queryText__);
+			ListObject.QueryTable.RowNumbers = false;
+			ListObject.QueryTable.FillAdjacentFormulas = false;
+			ListObject.QueryTable.PreserveFormatting = true;
+			ListObject.QueryTable.RefreshOnFileOpen = false;
+			ListObject.QueryTable.BackgroundQuery = true;
+			ListObject.QueryTable.SavePassword = false;
+			ListObject.QueryTable.SaveData = true;
+			ListObject.QueryTable.AdjustColumnWidth = true;
+			ListObject.QueryTable.RefreshPeriod = 10;
+			ListObject.QueryTable.PreserveColumnInfo = true;
+			ListObject.QueryTable.ListObject.DisplayName = tableName; //tabName;
+			ListObject.QueryTable.EnableRefresh = true;
+			ListObject.QueryTable.Refresh(false);
+			}
+
+			//refreshing of list objects on excel
+			public void ListObject refresh()
+			{
+			lob.QueryTable.CommandText = queryText__;
+			lob.QueryTable.Connection = connectionString;
+			lob.QueryTable.BackgroundQuery = true;
+			lob.QueryTable.SaveData = true;
+			lob.QueryTable.EnableRefresh = true;
+			lob.QueryTable.Refresh(false);
+			}
+
+			//Connection string and query for reading excel files with OLEDB and storing to datatable to excel
+			public void readExcelOledbStoreDTtoExcel()
+			{
+			//string for oledb to excel query
+			string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
+
+			OleDbConnection oleCon = new OleDbConnection(conString);
+			OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
+			DataTable dt = new DataTable("Output");
+
+			oleCon.Open();
+			dt.Load(oleCmd.ExecuteReader());
+
+			//save dt as xml
+			dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
+
+			Excel.Application excel_ = new Excel.Application();
+			Excel.Workbook wb_ = excel_.Workbooks.Add(true);
+			Excel.Worksheet ws_ = wb_.Worksheets[1];
+
+			ws_ = wb_.Worksheets[1];
+
+
+			//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
+
+
+			//passing datatable to array of objects dim to dim
+			var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
+			int drC = 0;
+			int drR = 0;
+
+			foreach(DataRow dr in dt.Rows)
+			{
+			drR = drR + 1;
+			foreach(DataColumn dc in dt.Columns)
+			{
+			drC = drC + 1;
+			data[drR, drC] = dt.Rows[drR-1][drC-1];
+			}
+			drC = 0;
+			}
+
+			var startCell = (Excel.Range)ws_.Cells[1, 1];
+			var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
+			var writeRange = ws_.Range[startCell, endCell];
+
+			//passing array of objects to excel list
+			writeRange.Value2 = data;
+			wb_.SaveAs(folder + @"\" + @"output.xlsx");
+
+			wb_.Close();
+
+			//read stored xml to datatable increases values if datatable not empty
+			dt.ReadXml(folder + @"\" + @"output.xml");
+			dt.WriteXml(folder + @"\" + @"output2.xml", XmlWriteMode.WriteSchema, false);
+
+			oleCon.Close();
+
+			}
+
+			//Get current application folder console
+			public void ApplicationFolder()
+			{
+			Application.StartupPath
+			System.IO.Path.GetDirectoryName(
+			System.Reflection.Assembly.GetExecutingAssembly().Location)
+			AppDomain.CurrentDomain.BaseDirectory //Priority
+			System.IO.Directory.GetCurrentDirectory()
+			Environment.CurrentDirectory
+			System.IO.Path.GetDirectoryName(
+			System.Reflection.Assembly.GetExecutingAssembly().GetName().CodeBase)
+			System.IO.Path.GetDirectory(Application.ExecutablePath)
+			}
+
+			//Get current application folder models
+			public void Application folder()
+			{
+			AppDomain.CurrentDomain.GetData("DataDirectory").ToString();
+			}
+
+			//Get current application folder view
+			public void Application_view()
+			{
+			HttpContext.Server.MapPath("~/App_Date/");
+			}
+
+			//using Interface IENUMERABLE for looping throught dates in list
+			public void loopThroughDates()
+			{
+
+			public IEnumerable<DateTime> EachDay(DateTime from, DateTime thru)
+			{
+			for (var day = from.Date; day.Date <= thru.Date; day = day.AddDays(1))
+			yield return day;
+			}
+
+			foreach(DateTime date in EachDay(startDate,finishDate))
+			{
+			DatesRequested.Add(date);
+			}
+			}
+
+			//reads excel contents into datatable and stores it as xml
+			public void readExceloledb()
+			{
+
+			public string oledbRequest = "SELECT F2,sum(F3) FROM [????1$] where F4 like '929%' or F4 like '959%' and F2 <> '' and F2 is not null group by F2 ";
+
+			string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
+
+			OleDbConnection oleCon = new OleDbConnection(conString);
+			OleDbCommand oleCmd = new OleDbCommand(req, oleCon);
+			DataTable dt = new DataTable("Output");
+
+			oleCon.Open();
+
+			//dt is datatable
+			dt.Load(oleCmd.ExecuteReader());
+
+			//save dt as xml
+			dt.WriteXml(folder + @"\" + @"output.xml",XmlWriteMode.WriteSchema, false);
+
+			}
+
+			//reads datatable , convets it to excel array on worksheet and saves xlsx
+			public void storeDatatableAsXLSX()
+			{
+
+			Excel.Application excel_ = new Excel.Application();
+			Excel.Workbook wb_ = excel_.Workbooks.Add(true);
+			Excel.Worksheet ws_ = wb_.Worksheets[1];
+
+			ws_ = wb_.Worksheets[1];
+
+
+			//worksheet.Cells["A1"].LoadFromDataTable(dataToExcel, true,
+
+
+			//passing datatable to array of objects dim to dim
+			var data = new object[dt.Rows.Count+1, dt.Columns.Count+1];
+			int drC = 0;
+			int drR = 0;
+
+			foreach(DataRow dr in dt.Rows)
+			{
+			drR = drR + 1;
+			foreach(DataColumn dc in dt.Columns)
+			{
+			drC = drC + 1;
+			data[drR, drC] = dt.Rows[drR-1][drC-1];
+			}
+			drC = 0;
+			}
+
+
+			var startCell = (Excel.Range)ws_.Cells[1, 1];
+			var endCell = (Excel.Range)ws_.Cells[dt.Rows.Count + 1, dt.Columns.Count + 1];
+			var writeRange = ws_.Range[startCell, endCell];
+
+			//passing array of objects to excel list
+			writeRange.Value2 = data;
+			wb_.SaveAs(folder + @"\" + @"output.xlsx");
+
+			}
+
+
+
+			//openXMLread
+			public void openXML()
+			{
+			// open the document read-only
+			SpreadsheetDocument document = SpreadsheetDocument.Open(fileName, false);
+			SharedStringTable sharedStringTable = document.WorkbookPart.SharedStringTablePart.SharedStringTable;
+			string cellValue = null;
+
+			foreach (WorksheetPart worksheetPart in document.WorkbookPart.WorksheetParts)
+			{
+			foreach (SheetData sheetData in worksheetPart.Worksheet.Elements<SheetData>())
+			{
+			if (sheetData.HasChildren)
+			{
+			foreach (Row row in sheetData.Elements<Row>())
+			{
+			foreach (Cell cell in row.Elements<Cell>())
+			{
+			cellValue = cell.InnerText;
+
+			/*
+			try
+			{
+			if (cell.DataType == CellValues.SharedString)
+			{
+			Console.WriteLine("cell val: " + sharedStringTable.ElementAt(Int32.Parse(cellValue)).InnerText);
+			}
+			else
+			{
+			Console.WriteLine("cell val: " + cellValue);
+			}
+			}
+			catch(Exception e)
+			{
+			if(e.Message=="Error in implicit conversion. Cannot convert null object.")
+			{
+			MessageBox.Show(e.Message);
+			}
+			}
+			* */
+			}
+			}
+			}
+			}
+			}
+			document.Close();
+
+			}
+
+
+			//select max ID from list of classes
+			public void LINQlogic()
+			{
+			//add list of objects to ienumerable
+			IEnumerable<QueryTextNew> Queries =
+			from QueryTextNew in querytextList
+			select QueryTextNew;
+
+			//select max ID catching empty element exception
+			int itemsMax;
+
+			try
+			{
+			itemsMax = Queries.Max(x => x.ID);
+			}
+			catch(Exception e )
+			{
+			itemsMax = 0;
+			}
+
+			}
+
+			//creating procedure for dataset return
+			public void oracleprocedurefordataset()
+			{
+			create or replace
+			procedure get_daily(out_dt out SYS_REFCURSOR)
+			AS
+			BEGIN
+			OPEN out_dt FOR SELECT * FROM neprintsev_ia.temp_acq_d where rownum <=10;
+			END get_daily;
+			}
+
+			//get dataset from oracle procedure and store result datatable in xml
+			public void datasetget()
+			{
+
+			string fileToParse = @"C:\test\daily\output\01022015report + fee2.xlsx";
+			string oledbRequest = @"SELECT F5,F4,sum(F9) FROM [????1$] where F2 like '929%' or F2 like '959%' and F3 <> '' and F3 is not null group by F5,F4 ";
+			string conString = @"Provider=Microsoft.ACE.OLEDB.12.0;" + "Data Source=" + fileToParse + ";" + "Extended Properties=" + "\"" + @"Excel 12.0;HDR=NO;TypeGuessRows=0;ImportMixedTypes=Text""";
+
+			string connString = @"Data Source=dwh.rs.ru;User ID=neprintsev_ia;Password=awsedrRDESWA;";
+			string oracleQuery = "get_daily";
+
+			OracleConnection oracleConn = new OracleConnection(connString);
+
+			OracleCommand oracleComm = new OracleCommand(oracleQuery, oracleConn);
+			oracleComm.CommandType = CommandType.StoredProcedure;
+			DataSet orads = new DataSet();
+			oracleComm.Parameters.Add("out_dt", OracleType.Cursor).Direction=ParameterDirection.Output;
+
+			oracleConn.Open();
+			oracleComm.ExecuteNonQuery();
+
+			OracleDataReader reader =
+			oracleComm.Parameters["out_dt"].Value as OracleDataReader;
+
+			OracleDataAdapter oracleAdapt = new OracleDataAdapter(oracleComm);
+
+			oracleAdapt.Fill(orads);
+
+			foreach (DataTable dtt in orads.Tables)
+			{
+			dtt.WriteXml(Path.GetDirectoryName(fileToParse) + @"\" + @"f_output.xml", XmlWriteMode.WriteSchema, false);
+			}
+
+
+			}
+
+			//populate datatable to excel for current rowcolumn number
+			public void populatedatatble to excel()
+			{
+
+			public void populateDataTable(DataTable dt,Excel.Worksheet ws_,int x,int y )
+			{
+			var data = new object[dt.Rows.Count , dt.Columns.Count ];
+			int drC = -1;
+			int drR = -1;
+
+			foreach (DataRow drr in dt.Rows)
+			{
+			drR = drR + 1;
+			foreach (DataColumn dcc in dt.Columns)
+			{
+			drC = drC + 1;
+			data[drR, drC] = dt.Rows[drR ][drC];
+			}
+			drC = -1;
+			}
+
+
+			var startCell = (Excel.Range)ws_.Cells[x, y];
+			var endCell = (Excel.Range)ws_.Cells[x+dt.Rows.Count-1, y+dt.Columns.Count-1];
+			var writeRange = ws_.Range[startCell, endCell];
+
+			writeRange.Value2 = data;
+
+			}
+
+			}
+
+			//copy as embedded cahrt to powerpoint (editable) with smoexecute
+			public void copytopowerpoiny(){
+			pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
+			}
+
+
+			//copy as ambeded and select object in powerpoint
+			public void powerPoint(){
+			//chartobject
+			ch.Copy();
+
+			pptSlide.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
+			Thread.Sleep(1000);
+			var a = pptSlide.Application.ActiveWindow.Selection;
+
+			a.ShapeRange.Left = 10;
+			a.ShapeRange.Top = 10;
+			a.ShapeRange.Height = 200;
+			a.ShapeRange.Width = 200;
+			}
+
+
+			//JSON serialization
+			//Read write to filestream using memorystream
+			public void JSONserialize(){
+
+			MemoryStream ms = new MemoryStream();
+			DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(rQueries_ih));
+			ser.WriteObject(ms, q);
+
+			ms.Position = 0;
+
+			using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
+			FileMode.Create, System.IO.FileAccess.Write))
+			{
+			ms.WriteTo(fs);
+			ms.Close();
+			}
+
+			using (FileStream fs = new FileStream(@"C:\test\insert\json.txt",
+			FileMode.Open, System.IO.FileAccess.Read))
+			{
+			MemoryStream ms2 = new MemoryStream();
+			byte[] bytes = new byte[fs.Length];
+			fs.Read(bytes, 0, (int)fs.Length);
+			ms2.Write(bytes, 0, (int)fs.Length);
+
+			ms2.Position = 0;
+			q2 = (rQueries_ih)ser.ReadObject(ms2);
+			ms2.Close();
+			}
+
+			}
+
+
+			//inheritance
+			public Inheritance()
+			{
+			A:B:C:D
+			void -> new (virtual)-> virtual -> override
+			void -> virtual-> override -> override
+			A : D(C) => A
+
+			virtual -> new virtual -> override
+			A:C(D) =>A
+
+			A:B:C:D
+			virtual -> override-> virtual -> override
+			A(B):D => B, C(D):D => D
+
+			A,B:A,C:A
+			virtual -> new
+			B:B => A
+			virtual -> override
+			C:C => C
+
+
+			}
+
+			//copy past excel range to powwerpoint
+			public void CopyRangeEmbeded(xlNS.Range rn_, pptNS.Slide ptSld, pptNS.Shape sh)
+			{
+
+			rn_.Application.Visible = true;
+			rn_.Worksheet.Activate();
+			rn_.Select();
+			rn_.Copy();
+			ptSld.Select();
+			sh.Select();
+
+			//needs thread sleep activation - unstable
+			/*
+			Thread.Sleep(500);
+			sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			Application.DoEvents();
+			*/
+
+			//copy but with standart format
+			//ptSld.Application.ActiveWindow.View.PasteSpecial();
+			//ptSld.Application.ActiveWindow.View.Paste();
+
+
+			//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
+			//ptSld.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault,,,,,);
+
+			//ptSld.Application.ActiveWindow.View.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault);
+
+
+			//PasteDestinationTheme
+			//PasteAsEmbedded
+			//PasteSourceFormatting
+			//PasteExcelTableSourceFormatting
+
+
+			//powerpointApplication.ActiveWindow.View.PasteSpecial();
+
+			//only working example with correct shape and format
+			//worked after first type commenting
+			try
+			{
+			sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			}
+			catch (Exception e)
+			{
+			Logger.LogAddDebug(e.Message);
+			}
+
+			//sh.Application.ActiveWindow.Selection.Unselect();
+			//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			}
+
+			//copy pasy excel sheet to powwerpoint
+			public void CopyChartEmbeded(xlNS.Shape ch, pptNS.Slide sl, pptNS.Shape sh)
+			{
+			ch.Copy();
+			sl.Select();
+			sh.Select();
+
+			//paste as link
+			//pptSlide.Shapes.PasteSpecial(pptNS.PpPasteDataType.ppPasteDefault, Microsoft.Office.Core.MsoTriState.msoFalse, "", 0, "", Microsoft.Office.Core.MsoTriState.msoTrue);
+			//sh.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+			//sh.Application.ActiveWindow.Selection.Unselect();
+			//sl.Application.CommandBars.ExecuteMso("PasteSourceFormatting");
+
+			try
+			{
+			sl.Application.CommandBars.ExecuteMso("PasteExcelChartSourceFormatting");
+			}
+			catch (Exception e)
+			{
+			Logger.LogAddDebug(e.Message);
+			}
+			//Thread.Sleep(1000);
+			var a = sl.Application.ActiveWindow.Selection;
+			}
+
+		}
+			
 			}
 			public SystemReflectionEmit()
 			{
@@ -3014,15 +2844,13 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
     public class External_Libraries()
     {
           
-    //reading excel
-    http://epplus.codeplex.com/
-    //Entity Framework extensions
-    http://entityframework-extensions.net/
-    //nUnit
-    https://github.com/nunit/nunit
-    
-    
-    
+		//reading excel
+		http://epplus.codeplex.com/
+		//Entity Framework extensions
+		http://entityframework-extensions.net/
+		//nUnit
+		https://github.com/nunit/nunit
+           
     }
 
     public class IssuesErrors()
@@ -4677,7 +4505,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 		}
 		,DOMevents{
 			
-			ClickVsMouseUp(
+			ClickVsMouseUp[
 			click will trigger MouseEvent and will intercept other KeyDown events.
 			if different actions on mouseclick and keybord click (enter for example ) expected=>
 				use mouseup
@@ -4688,7 +4516,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 						<button (mouseup/click)="selectToday($event)">Select Today</button>
 					</div>
 			
-			)
+			]
 			MouseEnterLeave_MOuseOverOut{
 				https://javascript.info/mousemove-mouseover-mouseout-mouseenter-mouseleave
 				mouseover,mouseout($e)
@@ -9371,6 +9199,8 @@ RAW JSON
 				https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
 				//initial start with custom data path
 				"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath G:\disk\Progs\MongoDB\data
+				//from folder                  
+				mongod --dbpath G:\disk\Progs\MongoDB\data
 				
 				//mongod.conf
 				https://docs.mongodb.com/manual/reference/configuration-options/#storage-options
@@ -9389,6 +9219,7 @@ RAW JSON
 				//drivers
 				https://docs.mongodb.com/manual/applications/drivers/
 			
+				https://docs.mongodb.com/manual/tutorial/manage-the-database-profiler/				
 			]
 			
 			//mongo shell
@@ -9421,37 +9252,40 @@ RAW JSON
 			  db.inventory.find( { status: { $in: [ "A", "D" ] } } )
 			  db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
 			  SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
-				
-				//snapshots chain check
-				[
-				
-					db.snapshots.insertMany( [
-						{"_id" : "001","PrevId" : null,"LayoutId" : "100"}
-						,{"_id" : "002","PrevId" : 001,"LayoutId" : "100"}
-						,{"_id" : "003","PrevId" : 002,"LayoutId" : "100"}
-					]);
-
-
-					db.cards.insert(
-					{
-						"_id" : "100",
-						"Tags" : [ 
-						"mall"
-						],
-						"PartnerId" : "testpartner",
-						"LastId" : "001",
-						"Status" : "ready"
-					})
-
-					db.snapshots().find({_id:"001"})
-
-					db.snapshots.remove( {_id:"001"} )
-					db.cards.remove( {_id:"100"} )
-	
-				]
-				
+			  
 			]
 			
+		queries[
+			
+				db.getCollection("snapshots");
+				
+				db.snapshots.find({PrevId: {$type: 1}})
+				
+				//Add property join from another collection
+				db.cards.find({ Title: { $exists: false } }).forEach(function (doc1) {
+					var doc2 = db.snapshots.findOne({ "LayoutId": doc1._id });
+					if (doc2 != null) {
+						db.cards.update({ "_id": doc1._id }, { $set: { "Title": "" } }, false, true);
+						db.cards.update({ "_id": doc1._id }, { $set: { "Title": doc2.Properties.Title } }, false, true);
+					}
+				});
+
+				//remoove property
+				db.cards.find({ Title: { $exists: true } }).forEach(function (doc1) {
+					db.cards.update({ "_id": doc1._id }, { $unset: { Title: "" } });
+				});
+				
+				
+				//profiling				
+				db.stats();
+				db.getProfilingLevel();
+				db.getProfilingStatus();
+				db.system.profile.find().limit(10).sort( { ts : -1 } ).pretty();
+				db.system.profile.find( { op: { $ne : 'command' } } ).pretty();
+				db.system.profile.find( { ns : 'mydb.test' } ).pretty();
+				show profile
+
+			]			
 			,shell[
 			
 				//show db,use db,show collections
@@ -9467,7 +9301,6 @@ RAW JSON
 				mongoexport --db test --collection users --out G:\disk\Progs\MongoDB\export\users.json
 			
 			]
-		
 		}
 		
 	}
@@ -9534,6 +9367,9 @@ RAW JSON
 					netsat -> ips with ports
 					netsh [http] [add,delete] [iplisten] -> bind http listener
 					net config workstation
+					dxcpl -> start directx command panel
+					wmic csproduct get name -> get laptop model
+					netsh winsock reset -> reset net
 				}
 				
 				public void PS()			
@@ -9777,3 +9613,4 @@ sudo service smbd restart
 		}
 	
 	#endregion
+	
