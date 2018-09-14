@@ -24,7 +24,40 @@ namespace Parts{
 	#endregion
 	
 }
+	
+	wl[
+	
+		DI[
 
+			autofac
+			https://autofac.org/
+			fakeiteasy
+			https://fakeiteasy.readthedocs.io/en/stable/creating-fakes/
+			automapper
+			http://docs.automapper.org/en/stable/Getting-started.html
+			fluentvalidation
+			https://fluentvalidation.net/
+			stylecop
+			https://blog.submain.com/stylecop-detailed-guide/
+			
+		]
+		
+		diTestingInit[
+			
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new CoreModule());
+            builder.RegisterModule(new InstanceModule());
+            builder.RegisterModule(new AutomapperModule());
+			
+		]
+		
+		mysql
+		[		
+			create table UserAddresses (UserId varchar(255),Email  varchar(255))			
+			ALTER TABLE `useraddresses` CHANGE COLUMN `UserId` `UserId` VARCHAR(50) NULL DEFAULT NULL FIRST;
+		]
+		
+	]
 	
 	#region SourceControl
 
@@ -278,6 +311,7 @@ namespace Parts{
 					ADD UNPUSHED LAST CHANGES TO LAST COMMIT
 					git add .
 					git commit --amend
+					
 					//add CAinfo
 					git config http.sslCAinfo G:/disk/Progs/Git/mingw64/ssl/certs/ca-bundle.crt
 					
@@ -4545,6 +4579,16 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 		
 		public void Python{
 			
+			install[
+				//pip 
+				//Python/pythonxx/Scripts
+				//pip upgrade
+				python -m pip install --upgrade pip'
+				
+				//install from github distrib
+				python setup.py install
+				
+			]
 			public void IO()
 			{
 				
@@ -4598,12 +4642,13 @@ with socketserver.TCPServer(("", PORT), testHTTPServer_RequestHandler) as httpd:
 		
 			public void Libs()
 			{
-				pip install numpy
+pip install numpy
 pip install matplotlib
 pip install bokeh
 pip install pandas
 npm install -g phantomjs-prebuilt
 pip install ipython
+pip install gitpython
 			}
 		
 			public void Wheels()
@@ -9284,6 +9329,10 @@ RAW JSON
 				db.system.profile.find( { op: { $ne : 'command' } } ).pretty();
 				db.system.profile.find( { ns : 'mydb.test' } ).pretty();
 				show profile
+				
+				
+				//search nested field in collection
+				db.devices.find({"Sensors._id":{$in:["kLl3I","B1CAK"]}})
 
 			]			
 			,shell[
