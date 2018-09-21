@@ -57,6 +57,11 @@ namespace Parts{
 			ALTER TABLE `useraddresses` CHANGE COLUMN `UserId` `UserId` VARCHAR(50) NULL DEFAULT NULL FIRST;
 		]
 		
+		dotnet[
+			https://docs.microsoft.com/ru-ru/ef/core/managing-schemas/migrations/
+			dotnet ef migrations add initial
+		]
+
 	]
 	
 	#region SourceControl
@@ -365,12 +370,14 @@ namespace Parts{
 
 		public Issuer Trackers
 		{
-   	Jira[
-				
+			Jira
+			[					
 				//find projects i worked on
 				assignee was i.neprintsev
 				//all assigned on last H
 				assignee changed to currentUser() after -84h
+				//
+				assignee was in (i.neprintsev) and  status was in (Closed, "In Review","In Progress","To Do")
 			]						
 			public TFS()
 			{
