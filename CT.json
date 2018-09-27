@@ -25,27 +25,56 @@ namespace Parts{
 	
 }
 	
-	//presents
-	https://www.pichshop.ru/product/21822/podstavka_dlya_melochey_s_melovoy_tablichkoy_blackwhite/
-	http://sweetstore.ru/shokolad
-	https://rus-buket.ru/buket/1231/vals-tsvetov
-	https://www.smilegifts.ru/nabor-myla-ruchnoj-raboty-macarons
+	wl[
 	
-	vacancy_resp[
-	
-Я могу общаться по телефону/скайп 
-с 12:00 - 17:00 без скрин шеринга (не сможем код с экрана поразбирать)
-после 19:00 со скриншерингом
-Время может внезапно измениться, так как сейчас очень интенсивная загрузка.
-Так же хотелось задать ряд вопросов по архитектуре существующих продуктов и по процессу разработки и деплоя.
+		DI[
 
-I am available for mobile/skype calls 
-from 12:00-17:00 without screensharing
-after 19:00 with it
-Time gap can unexpectedly vary due to unsystematic current workload.
-There are also several questions regarding product architecture, 
-codebase styleguide and deploy strategy, which I would like to ask.
-
+			autofac
+			https://autofac.org/
+			fakeiteasy
+			https://fakeiteasy.readthedocs.io/en/stable/creating-fakes/
+			automapper
+			http://docs.automapper.org/en/stable/Getting-started.html
+			fluentvalidation
+			https://fluentvalidation.net/
+			stylecop
+			https://blog.submain.com/stylecop-detailed-guide/
+			
+		]
+		
+		diTestingInit[
+			
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new CoreModule());
+            builder.RegisterModule(new InstanceModule());
+            builder.RegisterModule(new AutomapperModule());
+			
+		]
+		
+		mysql
+		[		
+			create table UserAddresses (UserId varchar(255),Email  varchar(255))			
+			ALTER TABLE `useraddresses` CHANGE COLUMN `UserId` `UserId` VARCHAR(50) NULL DEFAULT NULL FIRST;
+		]
+		
+		dotnet[
+			https://docs.microsoft.com/ru-ru/ef/core/managing-schemas/migrations/
+			dotnet ef migrations add initial
+		]
+		
+		mongoFilter[
+			//Filter and
+			ret = ret.Where(s => metricTypes.Contains(s.MetricType)).Intersect(ret).ToList();
+			//Filter or
+			filter.AddRange(ret.Where(s => metricTypes.Contains(s.MetricType)).ToList());
+		]
+		
+		customBodyAttributes[
+			https://weblog.west-wind.com/posts/2012/Aug/30/Using-JSONNET-for-dynamic-JSON-parsing
+			https://www.dotnetcurry.com/aspnet-mvc/1368/aspnet-core-mvc-custom-model-binding
+			https://blogs.msdn.microsoft.com/jmstall/2012/04/18/mvc-style-parameter-binding-for-webapi
+			https://stackoverflow.com/questions/17645877/webapi-bind-from-both-uri-and-body
+		]
 	]
 	
 	#region SourceControl
@@ -300,6 +329,7 @@ codebase styleguide and deploy strategy, which I would like to ask.
 					ADD UNPUSHED LAST CHANGES TO LAST COMMIT
 					git add .
 					git commit --amend
+					
 					//add CAinfo
 					git config http.sslCAinfo G:/disk/Progs/Git/mingw64/ssl/certs/ca-bundle.crt
 					
@@ -353,13 +383,14 @@ codebase styleguide and deploy strategy, which I would like to ask.
 
 		public Issuer Trackers
 		{
-   	Jira[
-				
+			Jira
+			[					
 				//find projects i worked on
 				assignee was i.neprintsev
 				//all assigned on last H
 				assignee changed to currentUser() after -84h
-				assignee was in (i.neprintsev) and  status was in (Closed, "In Review","In Progress","To Do")			 
+				//
+				assignee was in (i.neprintsev) and  status was in (Closed, "In Review","In Progress","To Do")
 			]						
 			public TFS()
 			{
@@ -518,8 +549,7 @@ codebase styleguide and deploy strategy, which I would like to ask.
 					- :system.value
 					- all class features without inheritance
 					- strored in stack compared by value not reference
-					
-					- boxing unboxing issues
+
 				]
 				
 				public class Equality(){
@@ -610,11 +640,11 @@ StringBuilder.
 					
 				}
 				
-				GetTypeTypeofIsAs[
-GetType searchs assembly
-typeof compiletime type
-is check type by inheritance tree
+				IsAs[
+				
+is check type 
 as safe check ? assign : null with overriding/new functionality
+
 				]
 				
 				collections{
@@ -697,7 +727,6 @@ as safe check ? assign : null with overriding/new functionality
 					]
 						
 				]
-			
 			}
 			
 			public void Patterns()
@@ -1615,19 +1644,6 @@ as safe check ? assign : null with overriding/new functionality
 				}
 			
 			}
-		
-			public SystemReflectionEmit()
-			{
-using System.Reflection.Emit;
-namespace NS
-{
-DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
-}
-			}
-		
-		}
-		
-		editors[
 			
 			public class VisualStudio()
 			{
@@ -2681,23 +2697,20 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 			//Thread.Sleep(1000);
 			var a = sl.Application.ActiveWindow.Selection;
 			}
-			
-			public SystemReflectionEmit()
-			{
-				using System.Reflection.Emit;
-				namespace NS
-				{
-				DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
-				}
-			}
-		
+
 		}
 			
 			}
-			
-			
-			
-		]
+			public SystemReflectionEmit()
+			{
+using System.Reflection.Emit;
+namespace NS
+{
+DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
+}
+			}
+		
+		}
 			
 		public void SB()
 		{
@@ -3123,48 +3136,6 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 	}
 		
 	#endregion 	
-	
-	net_core[
-		
-		docs[
-			//EF Core
-			https://docs.microsoft.com/en-us/ef/#pivot=efcore
-			//dotnet ef migrations add initial
-			https://docs.microsoft.com/ru-ru/ef/core/managing-schemas/migrations/			
-		]
-		net_cli[
-			
-			dotnet new console
-				restore
-				update
-				
-			//EF MYSQL PACKAGES
-			dotnet add package Pomelo.EntityFrameworkCore.MySql --version 2.1.2
-			dotnet add package Microsoft.EntityFrameworkCore.Relational --version 2.1.2
-			dotnet add package MySqlConnector --version 0.45.0
-			dotnet add package Pomelo.JsonObject --version 2.0.0
-			dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.1.2
-			dotnet add package Autofac --version 4.8.1
-			dotnet add package Autofac.Extensions.DependencyInjection --version 4.3.0
-			dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 5.0.1
-			
-			//EF INITIAL MIGRATE
-			dotnet ef migrations add InitialCreate		
-			dotnet ef migrations remove
-			dotnet ef database update
-			
-			dotnet ef migrations script
-			
-			//MONGO
-			dotnet add package System.Reflection.Emit.Lightweight --version 4.3.0
-			dotnet add package MongoDB.Driver.Core --version 2.6.1
-			dotnet add package MongoDB.Bson --version 2.6.1
-			
-			dotnet add package System.Runtime.InteropServices.RuntimeInformation --version 4.3.0
-			dotnet add package DnsClient --version 1.2.0
-			
-		]
-	]
 	
 	#region C++ 
 
@@ -4637,6 +4608,7 @@ let myCol3: IPrimitiveCollection_ = PrimitiveCollection_;
 				//install from github distrib
 				python setup.py install
 				
+			]
 			public void IO()
 			{
 				
@@ -4690,12 +4662,13 @@ with socketserver.TCPServer(("", PORT), testHTTPServer_RequestHandler) as httpd:
 		
 			public void Libs()
 			{
-				pip install numpy
+pip install numpy
 pip install matplotlib
 pip install bokeh
 pip install pandas
 npm install -g phantomjs-prebuilt
 pip install ipython
+pip install gitpython
 			}
 		
 			public void Wheels()
@@ -6291,31 +6264,6 @@ AVG( [Target]) for [UserID] in ([1],[1112])
 			}			
 		
 		}
-		
-		//MYSQL
-		[
-			"Server=localhost;Database=usermails;Uid=root;Pwd=QwErT;"
-			
-			queries[
-				
-				//CREATE table and insert
-				create table UserAddresses (UserId varchar(255),Email  varchar(255))			
-				ALTER TABLE `useraddresses` CHANGE COLUMN `UserId` `UserId` VARCHAR(50) NULL DEFAULT NULL FIRST;
-				
-				//CREATE DB,TABLE insert AND ALTER
-				create database usermails;
-				drop table  `usermails`.UserAddresses ;
-				create table `usermails`.UserAddresses (UserId long,Email  varchar(255));
-				insert into `usermails`.UserAddresses (UserId, Email) values (1,"testmail_1");
-				insert into `usermails`.UserAddresses (UserId, Email) values (2,"testmail_2");
-				select * from `usermails`.UserAddresses;
-				ALTER TABLE `usermails`.UserAddresses CHANGE COLUMN `UserId` `UserId` VARCHAR(50) NULL DEFAULT NULL FIRST;				
-				
-				create table UserAddresses (UserId varchar(255),Email  varchar(255))			
-				ALTER TABLE `useraddresses` CHANGE COLUMN `UserId` `UserId` VARCHAR(50) NULL DEFAULT NULL FIRST;
-			]
-		
-		]
 	
 	}
 		
@@ -9310,14 +9258,12 @@ RAW JSON
     
 		public void MongoDb()
 		{
-			"mongodb://admin:abc123!@localhost"
-			
 			Maintenance:[
-				
+			
 				//install
 				https://docs.mongodb.com/getting-started/shell/tutorial/install-mongodb-on-windows/
 				//initial start with custom data path
-				"G:\disk\Progs\MongoDB\Server\3.6\bin\mongod.exe" --dbpath G:\disk\Progs\MongoDB\data
+				"C:\Program Files\MongoDB\Server\3.6\bin\mongod.exe" --dbpath G:\disk\Progs\MongoDB\data
 				//from folder                  
 				mongod --dbpath G:\disk\Progs\MongoDB\data
 				
@@ -9343,35 +9289,40 @@ RAW JSON
 			
 			//mongo shell
 			,BoilerPlate[
-			  //insert doucment
-			  use test
-			  db.users.insertOne({name:"sue",age:26,_id=1})
-			  //from CMD command shell, cd to server files folder
-			  mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
-			  //select from
-			  db.restaurants.find( {} )
-			  //where
-			  db.restaurants.find({"address.building": "10807"})
-			  db.restaurants.find({"address.zipcode": "11694"})
-			  //and
-			  db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
-			  //or
-			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
-			  //sort
-			  db.restaurants.find().sort( { "address.zipcode": 1 } )
-			  //where sort
-			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
-			  //where in
-			  db.restaurants.find({"address.building": {$in:["10807","23059"]}})
-			   
-			  //greater then
-			  db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
-			  db.inventory.find( { status: "A", qty: { $lt: 30 } } )
-			  //in
-			  db.inventory.find( { status: { $in: [ "A", "D" ] } } )
-			  db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
-			  SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
-			  
+				//insert doucment
+				use test
+				db.users.insertOne({name:"sue",age:26,_id=1})
+				//from CMD command shell, cd to server files folder
+				mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
+				//select from
+				db.restaurants.find( {} )
+				//where
+				db.restaurants.find({"address.building": "10807"})
+				db.restaurants.find({"address.zipcode": "11694"})
+				//and
+				db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
+				//or
+				db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
+				//sort
+				db.restaurants.find().sort( { "address.zipcode": 1 } )
+				//where sort
+				db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
+				//where in
+				db.restaurants.find({"address.building": {$in:["10807","23059"]}})
+
+				//greater then
+				db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
+				db.inventory.find( { status: "A", qty: { $lt: 30 } } )
+				//in
+				db.inventory.find( { status: { $in: [ "A", "D" ] } } )
+				db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
+				SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+				
+				//index unique
+				db.getCollection('UserAddresses').createIndex({"Email":1}, { unique: true } )
+				//create admin user
+				db.createUser({user:"guest",pwd:"guest",roles:[{role:"root",db:"admin"}],mechanisms:["SCRAM-SHA-1"]})
+
 			]
 			
 		queries[
@@ -9403,28 +9354,31 @@ RAW JSON
 				db.system.profile.find( { op: { $ne : 'command' } } ).pretty();
 				db.system.profile.find( { ns : 'mydb.test' } ).pretty();
 				show profile
+				
+				
+				//search nested field in collection
+				db.devices.find({"Sensors._id":{$in:["kLl3I","B1CAK"]}})
+				
+				//in
+				db.getCollection('EmailTemplate').find({ "_id" : {$in:["a","b"]}})
 
 			]			
 			,shell[
 			
 				//show db,use db,show collections
+				db.getMongo().getDBNames();
 				show dbs
 				db
 				use db			
 				show collections
 					
 				//mogoexport //from new cmd
-				//export whole db
+				//export who;e db
 				mongodump -d test -o G:\disk\Progs\MongoDB\export
 				
 				//export collection //from new cmd
 				mongoexport --db test --collection users --out G:\disk\Progs\MongoDB\export\users.json
-				//search nested field in collection
-				db.devices.find({"Sensors._id":{$in:["kLl3I","B1CAK"]}})
-			]
-			DotNetDriver[
-				//builder.filters
-				http://mongodb.github.io/mongo-csharp-driver/2.7/reference/driver/definitions/
+			
 			]
 		}
 		
