@@ -75,6 +75,44 @@ namespace Parts{
 			https://blogs.msdn.microsoft.com/jmstall/2012/04/18/mvc-style-parameter-binding-for-webapi
 			https://stackoverflow.com/questions/17645877/webapi-bind-from-both-uri-and-body
 		]
+		
+		mongodbConcurency[
+			Applications must ensure that only one thread at a time executes these operations in a client session.
+			https://docs.mongodb.com/manual/core/causal-consistency-read-write-concerns/
+			https://docs.mongodb.com/manual/faq/concurrency/
+		]
+		
+		container[
+			//container orchestration framework
+			https://kubernetes.io/
+			//alernate 
+			Kubernetes,Mesos,Docker Swarm,Nomad,Mesosphere DC/OS
+		]
+		serviceBus[
+			https://buoyant.io
+			//sidecar
+			https://linkerd.io/
+		]
+		service_mesh[
+			https://istio.io/
+		]
+		msa[
+			https://www.nginx.com/blog/nginmesh-nginx-as-a-proxy-in-an-istio-service-mesh/
+			https://www.nginx.com/blog/what-is-a-service-mesh/
+			https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture/
+			https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/
+		]
+		patterns[
+			decomposition[
+				sidecar proxy //sideckick
+				https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar
+				//ambassador
+				https://docs.microsoft.com/en-us/azure/architecture/patterns/ambassador
+				//circuit breaker
+				https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker
+				https://www.nginx.com/blog/microservices-reference-architecture-nginx-circuit-breaker-pattern/
+			]
+		]
 	]
 	
 	#region SourceControl
