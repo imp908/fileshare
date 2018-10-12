@@ -1,0 +1,183 @@
+
+	wl[
+	
+		DI[
+
+			autofac
+			https://autofac.org/
+			fakeiteasy
+			https://fakeiteasy.readthedocs.io/en/stable/creating-fakes/
+			automapper
+			http://docs.automapper.org/en/stable/Getting-started.html
+			fluentvalidation
+			https://fluentvalidation.net/
+			stylecop
+			https://blog.submain.com/stylecop-detailed-guide/
+			
+		]
+		
+		diTestingInit[
+			
+            var builder = new ContainerBuilder();
+            builder.RegisterModule(new CoreModule());
+            builder.RegisterModule(new InstanceModule());
+            builder.RegisterModule(new AutomapperModule());
+			
+		]
+		
+		mysql[		
+		
+			create table UserAddresses (UserId varchar(255),Email  varchar(255))			
+			ALTER TABLE `useraddresses` CHANGE COLUMN `UserId` `UserId` VARCHAR(50) NULL DEFAULT NULL FIRST;
+		
+		]
+		
+		dotnet[
+			https://docs.microsoft.com/ru-ru/ef/core/managing-schemas/migrations/
+			dotnet ef migrations add initial
+		]
+		
+		mongoFilter[
+			//Filter and
+			ret = ret.Where(s => metricTypes.Contains(s.MetricType)).Intersect(ret).ToList();
+			//Filter or
+			filter.AddRange(ret.Where(s => metricTypes.Contains(s.MetricType)).ToList());
+		]
+		
+		customBodyAttributes[
+			https://weblog.west-wind.com/posts/2012/Aug/30/Using-JSONNET-for-dynamic-JSON-parsing
+			https://www.dotnetcurry.com/aspnet-mvc/1368/aspnet-core-mvc-custom-model-binding
+			https://blogs.msdn.microsoft.com/jmstall/2012/04/18/mvc-style-parameter-binding-for-webapi
+			https://stackoverflow.com/questions/17645877/webapi-bind-from-both-uri-and-body
+		]
+		
+		mongodbConcurency[
+			Applications must ensure that only one thread at a time executes these operations in a client session.
+			https://docs.mongodb.com/manual/core/causal-consistency-read-write-concerns/
+			https://docs.mongodb.com/manual/faq/concurrency/
+		]
+		
+		container[
+			//container orchestration framework
+			https://kubernetes.io/
+			//alernate 
+			Kubernetes,Mesos,Docker Swarm,Nomad,Mesosphere DC/OS
+		]
+		serviceBus[
+			https://buoyant.io
+			//sidecar
+			https://linkerd.io/
+		]
+		service_mesh[
+			https://istio.io/
+		]
+		msa[
+			https://www.nginx.com/blog/nginmesh-nginx-as-a-proxy-in-an-istio-service-mesh/
+			https://www.nginx.com/blog/what-is-a-service-mesh/
+			https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture/
+			https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/
+		]
+		patterns[
+			decomposition[
+				sidecar proxy //sideckick
+				https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar
+				//ambassador
+				https://docs.microsoft.com/en-us/azure/architecture/patterns/ambassador
+				//circuit breaker
+				https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker
+				https://www.nginx.com/blog/microservices-reference-architecture-nginx-circuit-breaker-pattern/
+			]
+		]
+	
+		software[
+			//mremoteNc manual
+			https://github.com/mRemoteNG/mRemoteNG/wiki/User-Manual
+			//db viewver
+			https://www.heidisql.com/
+			
+		]	
+		vs_issues[
+			
+			https://stackoverflow.com/questions/20358747/transformxml-task-could-not-be-loaded-from-microsoft-web-publishing-tasks-dll
+			//http not found
+			VisualStudioINstaller -> VS install Web net 4.7
+			csproj -> UsingTask TaskName="TransformXml" -> \12\Web\ -> cahnge to -> v$(VisualStudioVersion)\Web\
+			
+		]
+		guides[
+			//postgres Firststeps
+			https://www.postgresql.org/docs/8.3/static/app-postgres.html
+			//mssql kill db
+			https://dba.stackexchange.com/questions/2387/sql-server-cannot-drop-database-dbname-because-it-is-currently-in-use-but-n
+			
+			wireshark[
+				https://www.howtogeek.com/104278/how-to-use-wireshark-to-capture-filter-and-inspect-packets/
+				https://wiki.wireshark.org/
+			]			
+			
+			cmd[
+				https://www.getfilecloud.com/blog/2016/05/how-to-find-what-application-is-listening-on-a-tcpip-port-in-windows-using-netstat/#.W8BOvfZRWUk
+				//serach process PID
+				tasklist | findstr -ir ssms
+				netstat -aon | more
+				netstat -aon | more | findstr -ir 9996
+			]
+		
+			git[
+				https://git-scm.com/book/en/v2
+				git_branching_strategies[
+					//practice guy, new MS tutorials for Azure high grade
+					https://docs.microsoft.com/en-us/azure/devops/repos/git/git-branching-guidance?view=vsts
+					//straight to the point , main veriations
+					https://www.javacodegeeks.com/2015/11/git-branching-strategies.html
+					//multydev consistency rare detailed concept,colorfull chart,  Vincent Driessen
+					https://nvie.com/posts/a-successful-git-branching-model/
+					//reupgrade of Vincent Driessen matreial
+					https://jp-lambert.me/git-gitflow-and-continuous-integration-for-dummies-5e4300148fbf
+					//constructive critics of  Vincent Driessen
+					https://github.com/petervanderdoes/gitflow-avh/issues/287				
+					//atlassian guide for CI
+					https://www.atlassian.com/continuous-delivery/continuous-delivery-workflows-with-feature-branching-and-gitflow
+				]
+				commands[
+					git checkout -b <branch> --track <remote>/<branch>
+				]
+
+			]
+					
+		]
+		jira[
+			https://jira..ru/secure/ConfigureReport.jspa?startDateId=01%2F%D0%BE%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C%2F2018&endDateId=31%2F%D0%BE%D0%BA%D1%82%D1%8F%D0%B1%D1%80%D1%8C%2F2018&jqlQueryId=&showWorklogCommentsId=true&selectedProjectId=11001&reportKey=com.synergyapps.plugins.jira.timepo-timesheet-plugin%3Atimesheet-report&%D0%94%D0%B0%D0%BB%D0%B5%D0%B5=%D0%94%D0%B0%D0%BB%D0%B5%D0%B5
+		]
+		sql[
+			--seach tables by columnnames
+			use MoscowVideoPreRelease;
+			SELECT c.name  AS 'ColumnName'
+			,t.name AS 'TableName'
+			FROM        sys.columns c
+			JOIN        sys.tables  t   ON c.object_id = t.object_id
+			WHERE       c.name LIKE '%amera%' or c.name LIKE '%roup%'
+			ORDER BY    TableName;
+			
+			tablespace[
+		use MoscowVideoPreRelease;
+		select t.name,    
+		CAST(ROUND(((SUM(a.total_pages) * 8) / 1024.00), 2) AS NUMERIC(36, 2)) AS TotalSpaceMB
+		 FROM sys.tables t
+		INNER JOIN sys.indexes i ON t.OBJECT_ID = i.object_id
+		INNER JOIN sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
+		INNER JOIN sys.allocation_units a ON p.partition_id = a.container_id
+		where t.NAME ='tablename'
+		group by t.name
+	]
+		]
+		razor[
+			attribute="@()"
+		]
+		source[
+			//EmitMapper
+			https://github.com/MetSystem/EmitMapper
+		]
+	
+	]
+	
