@@ -103,6 +103,16 @@
 			VisualStudioINstaller -> VS install Web net 4.7
 			csproj -> UsingTask TaskName="TransformXml" -> \12\Web\ -> cahnge to -> v$(VisualStudioVersion)\Web\
 			
+			CannotEvaluateTypes[
+				WHAT:
+					cannot evalueate expression in debug mode
+				WHEN: 
+					debuging unit tests in multi projext solution
+				HOW:
+					check to on
+					Tools->Options->Debugging->General->Use Managed Compatibility Mode
+			]
+			
 		]
 		guides[
 			//postgres Firststeps
@@ -141,6 +151,19 @@
 				]
 				commands[
 					git checkout -b <branch> --track <remote>/<branch>
+					
+					//move head 2 commits back
+					git reset --hard HEAD~2
+					
+					//squash to commit other commits; 
+					git rebase -i HEAD~2
+					change peak to aquash
+					
+					//get hash of commit under head
+					git rev-parse HEAD
+					
+					git rev-head 
+					git checry-pick commitHash
 				]
 
 			]
@@ -160,16 +183,17 @@
 			ORDER BY    TableName;
 			
 			tablespace[
-		use MoscowVideoPreRelease;
-		select t.name,    
-		CAST(ROUND(((SUM(a.total_pages) * 8) / 1024.00), 2) AS NUMERIC(36, 2)) AS TotalSpaceMB
-		 FROM sys.tables t
-		INNER JOIN sys.indexes i ON t.OBJECT_ID = i.object_id
-		INNER JOIN sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
-		INNER JOIN sys.allocation_units a ON p.partition_id = a.container_id
-		where t.NAME ='tablename'
-		group by t.name
-	]
+				use MoscowVideoPreRelease;
+				select t.name,    
+				CAST(ROUND(((SUM(a.total_pages) * 8) / 1024.00), 2) AS NUMERIC(36, 2)) AS TotalSpaceMB
+				 FROM sys.tables t
+				INNER JOIN sys.indexes i ON t.OBJECT_ID = i.object_id
+				INNER JOIN sys.partitions p ON i.object_id = p.OBJECT_ID AND i.index_id = p.index_id
+				INNER JOIN sys.allocation_units a ON p.partition_id = a.container_id
+				where t.NAME ='tablename'
+				group by t.name
+			]
+			
 		]
 		razor[
 			attribute="@()"
@@ -177,7 +201,193 @@
 		source[
 			//EmitMapper
 			https://github.com/MetSystem/EmitMapper
+		]		
+		EF[
+			https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
+			https://coding.abel.nu/2012/03/ef-migrations-command-reference/
 		]
-	
+		powershell[
+			get-executionpolicy
+			get-help set-executionpolicy
+			set-executionpolicy remotesigned
+		]
+		hashs[
+			http://eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx#fnv
+		]
+		vs[
+			//debugging source code
+			https://blogs.msdn.microsoft.com/mcsuksoldev/2010/09/09/debugging-the-net-framework-source-code/
+		]
+		
+		newRepositoryClass[
+		
+			public class RepositoryNew<K,T> : IRepositoryNew<K,T> where T : class
+			{
+			bool disposed = false;
+
+			public DbContext _context;
+
+			public RepositoryNew()
+			{
+
+			}
+			public RepositoryNew(DbContext context_)
+			{
+			this._context = context_;
+			}
+
+			public DbContext GetContext()
+			{
+			DbContext result = null;
+			if (this._context != null)
+			{
+				result = this._context;
+			}
+			return result;
+			}
+
+			public void BindContext(DbContext context)
+			{
+			this._context = context;
+			}
+			public T Add(T item)
+			{           
+			try
+			{
+				this._context.Set<T>().Add(item);
+			}
+			catch (Exception e)
+			{
+				item = null;
+				System.Diagnostics.Trace.WriteLine(e.Message);
+			}
+			return item;
+			}
+			public IQueryable<T> GetALL()
+			{
+			IQueryable<T> result = null;
+			result = from s in this._context.Set<T>() select s;
+			return result;
+			}
+			public IQueryable<T> GetTOP10()
+			{
+			IQueryable<T> result = null;
+			try
+			{
+				result = (from s in this._context.Set<T>() select s).Take(10);
+			}catch(Exception e)
+			{
+				System.Diagnostics.Trace.WriteLine(e.Message);
+			}
+			return result;
+			}
+			public T GetByID(K id_)
+			{
+			T result = null;
+				result = this._context.Set<T>().Find(id_);
+			return result;
+			}
+			public void AddFromList(List<T> items)
+			{
+			this._context.Set<T>().AddRange(items);
+			}
+
+			public void DeleteByID(K id_)
+			{            
+			try
+			{
+				T item = this._context.Set<T>().Find(id_);
+				if (item != null)
+				{
+					this._context.Set<T>().Remove(item);
+				}
+			}
+			catch (Exception e)
+			{
+				System.Diagnostics.Trace.WriteLine(e.Message);
+			}
+			}
+
+			public void RemoveByID(K id_)
+			{
+			try
+			{
+				T item = this._context.Set<T>().Find(id_);
+				if (item != null)
+				{
+					this._context.Set<T>().Remove(item);
+				}
+			}
+			catch (Exception e)
+			{
+				System.Diagnostics.Trace.WriteLine(e.Message);
+			}
+			}
+
+			public IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession)
+			{
+			IQueryable<T> result = null;
+			result = from s in this._context.Set<T>().Where(expession) select s;
+			return result;
+			}
+			public void Save()
+			{
+			try
+			{
+				this._context.SaveChanges();
+			}catch(Exception e)
+			{
+
+			}
+			}
+			public T Update(T item, K id)
+			{
+			T toUpdate = null;
+			try
+			{
+				//this._context.Set<T>().Attach(item);
+				//var entry = this._context.Entry(item);
+
+				toUpdate = this._context.Set<T>().Find(id);
+				this._context.Entry(toUpdate).CurrentValues.SetValues(item);
+				Save();
+
+				//if (toUpdate != null)
+				//{
+				//    toUpdate = item;
+				//    Save();
+				//}
+			}
+			catch (Exception e)
+			{
+				toUpdate = null;
+				System.Diagnostics.Trace.WriteLine(e.Message);
+			}
+
+			return toUpdate;
+			}
+
+			protected virtual void Dispose(bool value)
+			{
+			if (!this.disposed)
+			{
+				if (value)
+				{
+					this._context.Dispose();
+
+				}
+			}
+			this.disposed = true;
+			}
+			public void Dispose()
+			{
+			Dispose(true);
+			GC.SuppressFinalize(this);
+			}
+
+			}
+
+		]
+		
 	]
 	
