@@ -203,8 +203,13 @@
 			https://github.com/MetSystem/EmitMapper
 		]		
 		EF[
+			https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502
+		
 			https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
 			https://coding.abel.nu/2012/03/ef-migrations-command-reference/
+			
+			//expression trees
+			https://blog.marcgravell.com/2008/10/express-yourself.html			
 		]
 		powershell[
 			get-executionpolicy
@@ -217,8 +222,7 @@
 		vs[
 			//debugging source code
 			https://blogs.msdn.microsoft.com/mcsuksoldev/2010/09/09/debugging-the-net-framework-source-code/
-		]
-		
+		]		
 		newRepositoryClass[
 		
 			public class RepositoryNew<K,T> : IRepositoryNew<K,T> where T : class
@@ -387,6 +391,17 @@
 
 			}
 
+		]
+		architecture_patterns[
+			https://towardsdatascience.com/10-common-software-architectural-patterns-in-a-nutshell-a0b47a1e9013
+		]
+		quartz[
+			https://jayvilalta.com/blog/2014/06/04/understanding-the-disallowconcurrentexecution-job-attribute/
+		]		
+		liblist[
+			https://topshelf.readthedocs.io/en/latest/#
+			https://www.google.ru/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=2ahUKEwjfypWdjZreAhWniKYKHTDBDnAQFjABegQICBAB&url=https%3A%2F%2Farchive.codeplex.com%2F%3Fp%3Demitmapper&usg=AOvVaw0_lHfeypLG9ciEL5wA0PCz
+			
 		]
 		
 	]
