@@ -404,5 +404,85 @@
 			
 		]
 		
+		mapping[
+			http://geekswithblogs.net/mrsteve/archive/2016/12/28/object-mapper-performance-comparison-allowpartiallytrustedcallers.aspx
+		]
+		
+		emitmapper[
+			
+			https://blog.zwezdin.com/2013/emitmapper/
+			
+			//fake return with arguments 
+			scroogeFake.GetSubtitlesStatus(Arg.Any<Guid>())
+			.Returns<ScroogeClient.Responsess.ArchiveSubtitlesStatus>(archiveStatusInProgress);
+
+			//emittmapper IGNORE
+			protected override DefaultMapConfig Config
+			{
+			get
+			{
+				return base.Config
+					.IgnoreMembers<DAL.Entities.ArchiveTask, BLL.Models.Subtitles.ArchiveTaskBO>(new[] {
+						"Events"
+					});
+			}
+			}
+
+			//emittmapper CONSTRUCTSUING
+			protected override DefaultMapConfig Config
+			{
+				get
+				{
+					return base.Config
+						.ConstructBy<ArchiveTaskInfo>(
+						() => {
+								return new ArchiveTaskInfo() {
+
+								};
+							}
+						);
+
+						//.IgnoreMembers<ArchiveOrderInfo, ArchiveTaskInfo>(new[] {"Events"});
+				}
+			}
+		]
+		
+		read[
+			
+			//web ppa recurrent
+			https://haacked.com/archive/2011/10/16/the-dangers-of-implementing-recurring-background-tasks-in-asp-net.aspx/
+		]
+		
+		Nuget[
+		
+//NUGET CLI
+nuget list ArchiveBalancingService -Source http://10.178.3.70:99/nuget
+nuget install HP.ArchiveBalancingService.DataContracts -SolutionDirectory C:\111 -version 1.0.175
+
+//pack package 
+nuget pack C:\P\AR\HP.ArchiveService.DataContracts\HP.ArchiveBalancingService.DataContracts.csproj version 1
+nuget push C:\111\HP.ArchiveBalancingService.DataContracts.1.0.175.nupkg -Source http://10.178.3.70:99/nuget
+
+nuget setapikey P@ssw@rd -Source http://10.178.3.70:99/nuget
+
+//CommandShell nuget
+find-Package -Provider "http://10.178.3.70:99/nuget" -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersion "1.0.136" 
+install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersion "1.0.174" -Scope CurrentUser
+		
+		]
+		
+		core [
+		
+			//reference DLL[
+			https://medium.com/@tonerdo/referencing-a-net-dll-directly-using-the-net-core-toolchain-16f0af46a4dc
+			add to core.scproj
+			
+		  <ItemGroup>
+			<Reference Include="MyAssembly">
+			  <HintPath>HP.ArchiveBalancingService.DataContracts.dll</HintPath>
+			</Reference>
+		  </ItemGroup>
+		]
+		
+		]
 	]
-	
