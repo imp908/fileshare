@@ -76,6 +76,7 @@
 			https://www.nginx.com/blog/what-is-a-service-mesh/
 			https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture/
 			https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/
+			https://docs.aws.amazon.com/aws-technical-content/latest/microservices-on-aws/characteristics-of-microservices.html
 		]
 		patterns[
 			decomposition[
@@ -209,7 +210,207 @@
 			https://coding.abel.nu/2012/03/ef-migrations-command-reference/
 			
 			//expression trees
-			https://blog.marcgravell.com/2008/10/express-yourself.html			
+			https://blog.marcgravell.com/2008/10/express-yourself.html
+
+
+			REPO[
+				using System;
+				using System.Collections.Generic;
+				using System.Data.Entity;
+				using System.Linq;
+				using System.Linq.Expressions;
+				using System.Threading;
+				using System.Threading.Tasks;
+				using IF.MoscowVideo.Infrastructure.DAL.Models;
+				using IF.MoscowVideo.Infrastructure.Extensions;
+				using IF.MoscowVideo.Infrastructure.Extensions.ObjectExtensions;
+				using IF.MoscowVideo.Infrastructure.Logs.Models;
+				using IF.MoscowVideo.Infrastructure.Models;
+
+				namespace IF.MoscowVideo.Common.Entity
+				{
+					/// <summary>
+					/// Базовый класс репозитория.
+					/// </summary>
+					/// <typeparam name="T">Тип сущности.</typeparam>
+					/// <typeparam name="TInterface">Интерфейс сущности.</typeparam>
+					public abstract class CrudRepositoryBase<T, TInterface> : RepositoryBase<TInterface> where T : class, TInterface
+					{
+						/// <summary>
+						/// Ctor.
+						/// </summary>
+						protected CrudRepositoryBase(DbContext objectContext)
+							: base(objectContext)
+						{
+						}
+
+						public override IQueryable<TInterface> GetAll()
+						{
+							return ObjectContext.Set<T>();
+						}
+
+						/// <summary>
+						/// Создать новый экземпляр сущности.
+						/// </summary>
+						public virtual TInterface New()
+						{
+							return _objectContext.Set<T>().Create<T>();
+						}
+
+						/// <summary>
+						/// Создать новый экземпляр сущности.
+						/// </summary>
+						public TOut New<TIn, TOut>()
+							where TIn : class, TOut
+						{
+							return _objectContext.Set<TIn>().Create<TIn>();
+						}
+
+						/// <summary>
+						/// Добавить экземпляр в набор.
+						/// </summary>
+						/// <param name="entity">Сущность для добавления.</param>
+						public virtual void Add(IEnumerable<TInterface> entity)
+						{
+							_objectContext.Set<T>().AddRange(entity.Cast<T>());
+						}
+
+						/// <summary>
+						/// Добавить экземпляр в набор.
+						/// </summary>
+						/// <param name="entity">Сущность для добавления.</param>
+						public virtual void Add(TInterface entity)
+						{
+							_objectContext.Set<T>().Add((T)entity);
+						}
+
+						/// <summary>
+						/// Обновить экремпляр в наборе.
+						/// </summary>
+						/// <param name="entity">Сущность для обновления.</param>
+						[Obsolete]
+						public virtual void Update(TInterface entity)
+						{
+							var ent = (T)entity;
+
+							if (!Exists(ent))
+							{
+								_objectContext.Set<T>().Attach(ent);
+							}
+						}
+
+						/// <summary>
+						/// Удалить экземпляр сущности из набора.
+						/// </summary>
+						/// <param name="entity">Сущность для удаления.</param>
+						public virtual void Delete(TInterface entity)
+						{
+							_objectContext.Set<T>().Remove((T)entity);
+						}
+
+						/// <summary>
+						/// Удалить экземпляр сущности из набора.
+						/// </summary>
+						/// <param name="entity">Сущность для удаления.</param>
+						public virtual void Delete(IEnumerable<TInterface> entity)
+						{
+							_objectContext.Set<T>().RemoveRange(entity.Cast<T>());
+						}
+
+						public virtual QueryResult<TInterface> Get(Query<TInterface> query)
+						{
+							var result = Get(query.Filter);
+							return Paginate(result, query);
+						}
+
+						public virtual IQueryable<TInterface> Get(Expression<Func<TInterface, bool>> filter)
+						{
+							var result = _objectContext.Set<T>().AsQueryable();
+							if (filter != null)
+								result = result.Where(filter.ToConcreteType<T, TInterface>());
+							return result;
+						}
+
+						/// <summary>
+						/// Сохранить изменения.
+						/// </summary>
+						public virtual void SaveChanges()
+						{
+							_objectContext.SaveChanges();
+						}
+
+						public virtual async Task SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+						{
+							await _objectContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+						}
+
+						protected virtual bool Exists(T ent)
+						{
+							try
+							{
+								return _objectContext.Set<T>().Local.Any(e => e == ent);
+							}
+							catch (Exception)
+							{
+								return true;
+							}
+						}
+
+						protected static QueryResult<TInterface> Paginate(IQueryable<TInterface> entities, Query<TInterface> query)
+						{
+							var totalCount = entities.Count();
+
+							if (query.Ordering != null)
+								entities = query.Ordering.Apply(entities);
+
+							if (query.Paging != null)
+								entities = entities.Skip(query.Paging.CurrentPage * query.Paging.PageSize).Take(query.Paging.PageSize);
+
+							return new QueryResult<TInterface>
+							{
+								Items = entities,
+								TotalCount = totalCount
+							};
+						}
+
+						public Dictionary<TE, Dictionary<string, string>> GetEntityPreviousValues<TE>(TE entity = null, string[] fieldNames = null)
+						  where TE : class
+						{
+							var entitiesPreviousValues = new Dictionary<TE, Dictionary<string, string>>();
+							var entrieChanges = GetEntrieChanges(entity);
+
+							foreach (var camChanges in entrieChanges)
+							{
+								var entityPreviousValues = new Dictionary<string, string>();
+
+								entitiesPreviousValues.Add(camChanges.Entity, entityPreviousValues);
+
+								if (camChanges.State != EntityState.Modified)
+									continue;
+
+								if (fieldNames == null)
+								{
+									fieldNames = camChanges.Entity.ObjectToDictionary().Keys.ToArray();
+								}
+
+								foreach (string fieldName in fieldNames)
+								{
+									string original = camChanges.OriginalValues.PropertyNames.Contains(fieldName) ? camChanges.OriginalValues[fieldName]?.ToString() : "";
+									string actual = camChanges.CurrentValues.PropertyNames.Contains(fieldName) ? camChanges.CurrentValues[fieldName]?.ToString() : "";
+
+									if (original != actual && original != null && actual != null)
+									{
+										entityPreviousValues.Add(fieldName, original);
+									}
+								}
+							}
+
+							return entitiesPreviousValues.Where(h=>h.Value.Any()).ToDictionary(k=>k.Key, v=>v.Value);
+						}
+					}
+				}
+			]			
+		
 		]
 		powershell[
 			get-executionpolicy
@@ -219,179 +420,483 @@
 		hashs[
 			http://eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx#fnv
 		]
+		
 		vs[
 			//debugging source code
 			https://blogs.msdn.microsoft.com/mcsuksoldev/2010/09/09/debugging-the-net-framework-source-code/
 		]		
-		newRepositoryClass[
-		
-			public class RepositoryNew<K,T> : IRepositoryNew<K,T> where T : class
-			{
-			bool disposed = false;
+		reponew[
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Data.Entity;
+using System.Linq.Expressions;
 
-			public DbContext _context;
+namespace HP.ArchiveBalancingService.DAL.RepositoryNew
+{
+    public interface IRepositoryNew<K, T> where T : class
+    {
+        void BindContext(DbContext context);
+        DbContext GetContext();
 
-			public RepositoryNew()
-			{
+        T Add(T item);
+        IQueryable<T> GetALL();
+        IQueryable<T> GetTOP10();
+        T GetByID(K id_);
+        void AddCollection(List<T> items);
+        void RemoveCollection(List<K> ids);
+        void RemoveByID(K id_);
+        IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession);
 
-			}
-			public RepositoryNew(DbContext context_)
-			{
-			this._context = context_;
-			}
 
-			public DbContext GetContext()
-			{
-			DbContext result = null;
-			if (this._context != null)
-			{
-				result = this._context;
-			}
-			return result;
-			}
+        Expression<Func<T, bool>> WhereOR(Expression<Func<T, bool>> expression);
+        Expression<Func<T, bool>> WhereAndAlso(Expression<Func<T, bool>> expression);
+        IQueryable<T> GetByChainedFilter();
 
-			public void BindContext(DbContext context)
-			{
-			this._context = context;
-			}
-			public T Add(T item)
-			{           
-			try
-			{
-				this._context.Set<T>().Add(item);
-			}
-			catch (Exception e)
-			{
-				item = null;
-				System.Diagnostics.Trace.WriteLine(e.Message);
-			}
-			return item;
-			}
-			public IQueryable<T> GetALL()
-			{
-			IQueryable<T> result = null;
-			result = from s in this._context.Set<T>() select s;
-			return result;
-			}
-			public IQueryable<T> GetTOP10()
-			{
-			IQueryable<T> result = null;
-			try
-			{
-				result = (from s in this._context.Set<T>() select s).Take(10);
-			}catch(Exception e)
-			{
-				System.Diagnostics.Trace.WriteLine(e.Message);
-			}
-			return result;
-			}
-			public T GetByID(K id_)
-			{
-			T result = null;
-				result = this._context.Set<T>().Find(id_);
-			return result;
-			}
-			public void AddFromList(List<T> items)
-			{
-			this._context.Set<T>().AddRange(items);
-			}
 
-			public void DeleteByID(K id_)
-			{            
-			try
-			{
-				T item = this._context.Set<T>().Find(id_);
-				if (item != null)
-				{
-					this._context.Set<T>().Remove(item);
-				}
-			}
-			catch (Exception e)
-			{
-				System.Diagnostics.Trace.WriteLine(e.Message);
-			}
-			}
+        T Update(T item, K id);
+        void DeleteWhere(Expression<Func<T, bool>> exp_);
+        IQueryable<T> SelectWhere(Expression<Func<T, bool>> exp_);
+        IQueryable<T> Include<C>(Expression<Func<T, C>> exp_);
+        void Save();
+        bool IsUpdated(T item);
+        void Dispose();
+    }
 
-			public void RemoveByID(K id_)
-			{
-			try
-			{
-				T item = this._context.Set<T>().Find(id_);
-				if (item != null)
-				{
-					this._context.Set<T>().Remove(item);
-				}
-			}
-			catch (Exception e)
-			{
-				System.Diagnostics.Trace.WriteLine(e.Message);
-			}
-			}
+}
 
-			public IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession)
-			{
-			IQueryable<T> result = null;
-			result = from s in this._context.Set<T>().Where(expession) select s;
-			return result;
-			}
-			public void Save()
-			{
-			try
-			{
-				this._context.SaveChanges();
-			}catch(Exception e)
-			{
 
-			}
-			}
-			public T Update(T item, K id)
-			{
-			T toUpdate = null;
-			try
-			{
-				//this._context.Set<T>().Attach(item);
-				//var entry = this._context.Entry(item);
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Data.Entity;
+using HP.ArchiveBalancing.Common;
 
-				toUpdate = this._context.Set<T>().Find(id);
-				this._context.Entry(toUpdate).CurrentValues.SetValues(item);
-				Save();
+namespace HP.ArchiveBalancingService.DAL.RepositoryNew
+{
+   
+    public class RepositoryNew<K,T> : IRepositoryNew<K,T> where T : class
+    {
+        bool disposed = false;
 
-				//if (toUpdate != null)
-				//{
-				//    toUpdate = item;
-				//    Save();
-				//}
-			}
-			catch (Exception e)
-			{
-				toUpdate = null;
-				System.Diagnostics.Trace.WriteLine(e.Message);
-			}
+        public DbContext _context;
 
-			return toUpdate;
-			}
+        Expression<Func<T, bool>> chainResult = null;
 
-			protected virtual void Dispose(bool value)
-			{
-			if (!this.disposed)
-			{
-				if (value)
-				{
-					this._context.Dispose();
+        public RepositoryNew()
+        {
 
-				}
-			}
-			this.disposed = true;
-			}
-			public void Dispose()
-			{
-			Dispose(true);
-			GC.SuppressFinalize(this);
-			}
+        }
+        public RepositoryNew(DbContext context_)
+        {
+            this._context = context_;
+        }
+       
+        public DbContext GetContext()
+        {
+            DbContext result = null;
+            if (this._context != null)
+            {
+                result = this._context;
+            }
+            return result;
+        }
 
-			}
+        public void BindContext(DbContext context)
+        {
+            this._context = context;
+        }
+        public T Add(T item)
+        {           
+            try
+            {
+                this._context.Set<T>().Add(item);
+            }
+            catch (Exception e)
+            {
+                item = null;
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+            return item;
+        }
+        public IQueryable<T> GetALL()
+        {
+            IQueryable<T> result = null;
+            result = from s in this._context.Set<T>() select s;
+            return result;
+        }
+        public IQueryable<T> GetTOP10()
+        {
+            IQueryable<T> result = null;
+            try
+            {
+                result = (from s in this._context.Set<T>() select s).Take(10);
+            }catch(Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+            return result;
+        }
+        public T GetByID(K id_)
+        {
+            T result = null;
+                result = this._context.Set<T>().Find(id_);
+            return result;
+        }
+        public IQueryable<T> GetByFilter(Expression<Func<T, bool>> expession)
+        {
+            IQueryable<T> result = null;
+            result = from s in this._context.Set<T>().Where(expession) select s;
+            return result;
+        }
+        public IQueryable<T> GetByChainedFilter()
+        {
+            IQueryable<T> result = null;
+            result = from s in this._context.Set<T>().Where(this.chainResult) select s;
+            return result;
+        }
 
+        public Expression<Func<T, bool>> WhereOR(Expression<Func<T, bool>> expression)
+        {
+            if (chainResult == null)
+            {
+                chainResult = expression;
+            }
+            else
+            {
+                chainResult = chainResult.Or(expression);
+            }
+            return chainResult;
+        }
+        public Expression<Func<T, bool>> WhereAndAlso(Expression<Func<T, bool>> expression)
+        {
+            if (chainResult == null)
+            {
+                chainResult = expression;
+            }
+            else
+            {
+                chainResult = chainResult.AndAlso(expression);
+            }
+            return chainResult;
+        }
+
+        public void AddCollection(List<T> items)
+        {
+            this._context.Set<T>().AddRange(items);
+        }
+        
+        public void RemoveCollection(List<K> ids)
+        {
+            try
+            {
+                foreach (K id in ids)
+                {
+                    this.RemoveByID(id);
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+        }
+
+        public void RemoveByID(K id_)
+        {
+            try
+            {
+                T item = this._context.Set<T>().Find(id_);
+                if (item != null)
+                {
+                    this._context.Set<T>().Remove(item);
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+        }
+      
+        public T Update(T item, K id)
+        {
+            T toUpdate = null;
+            try
+            {
+
+                toUpdate = this._context.Set<T>().Find(id);
+                this._context.Entry(toUpdate).CurrentValues.SetValues(item);                
+            }
+            catch (Exception e)
+            {
+                toUpdate = null;
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+
+            return toUpdate;
+        }
+        public bool IsUpdated(T item)
+        {
+            return this._context.Entry(item).State == EntityState.Modified;
+        }  
+  
+
+        public void Save()
+        {
+            try
+            {
+                this._context.SaveChanges();
+            }catch(Exception e)
+            {
+                
+            }
+        }
+
+        public IQueryable<T> SelectWhere(Expression<Func<T,bool>> exp_)
+        {
+            IQueryable<T> result = null;
+                result = from s in this._context.Set<T>().Where(exp_) select s;
+            return result;
+        }
+        public void DeleteWhere(Expression<Func<T, bool>> exp_)
+        {        
+            this._context.Set<T>().RemoveRange(this.SelectWhere(exp_));           
+        }
+
+        public IQueryable<T> Include<C>(Expression<Func<T, C>> exp_)
+        {
+            IQueryable<T> res = null;
+            try
+            {
+                res = this._context.Set<T>().Include(exp_);
+            }catch(Exception e)
+            {
+                System.Diagnostics.Trace.WriteLine(e.Message);
+            }
+            return res;
+        }
+
+        protected virtual void Dispose(bool value)
+        {
+            if (!this.disposed)
+            {
+                if (value)
+                {
+                    this._context.Dispose();
+
+                }
+            }
+            this.disposed = true;
+        }
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+    }
+
+}
+]		
+		crudRepo[
+		using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Threading;
+using System.Threading.Tasks;
+using IF.MoscowVideo.Infrastructure.DAL.Models;
+using IF.MoscowVideo.Infrastructure.Extensions;
+using IF.MoscowVideo.Infrastructure.Extensions.ObjectExtensions;
+using IF.MoscowVideo.Infrastructure.Logs.Models;
+using IF.MoscowVideo.Infrastructure.Models;
+
+namespace IF.MoscowVideo.Common.Entity
+{
+    /// <summary>
+    /// Базовый класс репозитория.
+    /// </summary>
+    /// <typeparam name="T">Тип сущности.</typeparam>
+    /// <typeparam name="TInterface">Интерфейс сущности.</typeparam>
+    public abstract class CrudRepositoryBase<T, TInterface> : RepositoryBase<TInterface> where T : class, TInterface
+    {
+        /// <summary>
+        /// Ctor.
+        /// </summary>
+        protected CrudRepositoryBase(DbContext objectContext)
+            : base(objectContext)
+        {
+        }
+
+        public override IQueryable<TInterface> GetAll()
+        {
+            return ObjectContext.Set<T>();
+        }
+
+        /// <summary>
+        /// Создать новый экземпляр сущности.
+        /// </summary>
+        public virtual TInterface New()
+        {
+            return _objectContext.Set<T>().Create<T>();
+        }
+
+        /// <summary>
+        /// Создать новый экземпляр сущности.
+        /// </summary>
+        public TOut New<TIn, TOut>()
+            where TIn : class, TOut
+        {
+            return _objectContext.Set<TIn>().Create<TIn>();
+        }
+
+        /// <summary>
+        /// Добавить экземпляр в набор.
+        /// </summary>
+        /// <param name="entity">Сущность для добавления.</param>
+        public virtual void Add(IEnumerable<TInterface> entity)
+        {
+            _objectContext.Set<T>().AddRange(entity.Cast<T>());
+        }
+
+        /// <summary>
+        /// Добавить экземпляр в набор.
+        /// </summary>
+        /// <param name="entity">Сущность для добавления.</param>
+        public virtual void Add(TInterface entity)
+        {
+            _objectContext.Set<T>().Add((T)entity);
+        }
+
+        /// <summary>
+        /// Обновить экремпляр в наборе.
+        /// </summary>
+        /// <param name="entity">Сущность для обновления.</param>
+        [Obsolete]
+        public virtual void Update(TInterface entity)
+        {
+            var ent = (T)entity;
+
+            if (!Exists(ent))
+            {
+                _objectContext.Set<T>().Attach(ent);
+            }
+        }
+
+        /// <summary>
+        /// Удалить экземпляр сущности из набора.
+        /// </summary>
+        /// <param name="entity">Сущность для удаления.</param>
+        public virtual void Delete(TInterface entity)
+        {
+            _objectContext.Set<T>().Remove((T)entity);
+        }
+
+        /// <summary>
+        /// Удалить экземпляр сущности из набора.
+        /// </summary>
+        /// <param name="entity">Сущность для удаления.</param>
+        public virtual void Delete(IEnumerable<TInterface> entity)
+        {
+            _objectContext.Set<T>().RemoveRange(entity.Cast<T>());
+        }
+
+        public virtual QueryResult<TInterface> Get(Query<TInterface> query)
+        {
+            var result = Get(query.Filter);
+            return Paginate(result, query);
+        }
+
+        public virtual IQueryable<TInterface> Get(Expression<Func<TInterface, bool>> filter)
+        {
+            var result = _objectContext.Set<T>().AsQueryable();
+            if (filter != null)
+                result = result.Where(filter.ToConcreteType<T, TInterface>());
+            return result;
+        }
+
+        /// <summary>
+        /// Сохранить изменения.
+        /// </summary>
+        public virtual void SaveChanges()
+        {
+            _objectContext.SaveChanges();
+        }
+
+        public virtual async Task SaveChangesAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            await _objectContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        protected virtual bool Exists(T ent)
+        {
+            try
+            {
+                return _objectContext.Set<T>().Local.Any(e => e == ent);
+            }
+            catch (Exception)
+            {
+                return true;
+            }
+        }
+
+        protected static QueryResult<TInterface> Paginate(IQueryable<TInterface> entities, Query<TInterface> query)
+        {
+            var totalCount = entities.Count();
+
+            if (query.Ordering != null)
+                entities = query.Ordering.Apply(entities);
+
+            if (query.Paging != null)
+                entities = entities.Skip(query.Paging.CurrentPage * query.Paging.PageSize).Take(query.Paging.PageSize);
+
+            return new QueryResult<TInterface>
+            {
+                Items = entities,
+                TotalCount = totalCount
+            };
+        }
+
+        public Dictionary<TE, Dictionary<string, string>> GetEntityPreviousValues<TE>(TE entity = null, string[] fieldNames = null)
+          where TE : class
+        {
+            var entitiesPreviousValues = new Dictionary<TE, Dictionary<string, string>>();
+            var entrieChanges = GetEntrieChanges(entity);
+
+            foreach (var camChanges in entrieChanges)
+            {
+                var entityPreviousValues = new Dictionary<string, string>();
+
+                entitiesPreviousValues.Add(camChanges.Entity, entityPreviousValues);
+
+                if (camChanges.State != EntityState.Modified)
+                    continue;
+
+                if (fieldNames == null)
+                {
+                    fieldNames = camChanges.Entity.ObjectToDictionary().Keys.ToArray();
+                }
+
+                foreach (string fieldName in fieldNames)
+                {
+                    string original = camChanges.OriginalValues.PropertyNames.Contains(fieldName) ? camChanges.OriginalValues[fieldName]?.ToString() : "";
+                    string actual = camChanges.CurrentValues.PropertyNames.Contains(fieldName) ? camChanges.CurrentValues[fieldName]?.ToString() : "";
+
+                    if (original != actual && original != null && actual != null)
+                    {
+                        entityPreviousValues.Add(fieldName, original);
+                    }
+                }
+            }
+
+            return entitiesPreviousValues.Where(h=>h.Value.Any()).ToDictionary(k=>k.Key, v=>v.Value);
+        }
+    }
+}
 		]
+		
+		
 		architecture_patterns[
 			https://towardsdatascience.com/10-common-software-architectural-patterns-in-a-nutshell-a0b47a1e9013
 		]
@@ -457,11 +962,11 @@
 		
 //NUGET CLI
 nuget list ArchiveBalancingService -Source http://10.178.3.70:99/nuget
-nuget install HP.ArchiveBalancingService.DataContracts -SolutionDirectory C:\111 -version 1.0.175
+nuget install HP.ArchiveBalancingService.DataContracts -SolutionDirectory C:\111\contracts -version 1.0.175
 
 //pack package 
-nuget pack C:\P\AR\HP.ArchiveService.DataContracts\HP.ArchiveBalancingService.DataContracts.csproj version 1
-nuget push C:\111\HP.ArchiveBalancingService.DataContracts.1.0.175.nupkg -Source http://10.178.3.70:99/nuget
+nuget pack C:\P\AR\HP.ArchiveService.DataContracts\HP.ArchiveBalancingService.DataContracts.csproj -OutputDirectory C:\111\contracts -version 1.0.175 -Properties Description=Release
+C:\Users\i_neprintsev>nuget push C:\111\contracts\packages\HP.ArchiveBalancingService.DataContracts.1.0.175.nupkg -Source http://10.178.3.70:99
 
 nuget setapikey P@ssw@rd -Source http://10.178.3.70:99/nuget
 
