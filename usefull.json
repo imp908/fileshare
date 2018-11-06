@@ -32,10 +32,7 @@
 		
 		]
 		
-		dotnet[
-			https://docs.microsoft.com/ru-ru/ef/core/managing-schemas/migrations/
-			dotnet ef migrations add initial
-		]
+		
 		
 		mongoFilter[
 			//Filter and
@@ -895,8 +892,8 @@ namespace IF.MoscowVideo.Common.Entity
     }
 }
 		]
-		
-		
+
+
 		architecture_patterns[
 			https://towardsdatascience.com/10-common-software-architectural-patterns-in-a-nutshell-a0b47a1e9013
 		]
@@ -977,8 +974,9 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 		]
 		
 		core [
-		
-			//reference DLL[
+					
+			reference DLL
+			[
 			https://medium.com/@tonerdo/referencing-a-net-dll-directly-using-the-net-core-toolchain-16f0af46a4dc
 			add to core.scproj
 			
@@ -987,7 +985,138 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			  <HintPath>HP.ArchiveBalancingService.DataContracts.dll</HintPath>
 			</Reference>
 		  </ItemGroup>
+		  ]
+		  
+			dotnet
+			[
+				//EF
+				dotnet add package Microsoft.EntityFrameworkCore --version 2.1.4 
+				dotnet add package Microsoft.AspNetCore.Mvc.Core --version 2.1.3
+				dotnet add package Microsoft.EntityFrameworkCore.SqlServer --version 2.1.4 
+				
+				//Configuration and json 
+				dotnet add package Microsoft.Extensions.Configuration.FileExtensions --version 2.1.1 
+				dotnet add package Microsoft.Extensions.Configuration.Json --version 2.1.1 
+				
+				dotnet restore
+				
+				https://docs.microsoft.com/ru-ru/ef/core/managing-schemas/migrations/
+				dotnet ef migrations add initial
+			]
+			
 		]
+	
+		nunitInstall[
+		
+			install-package NUnit.Runners -ProjectName HP.ArchiveBalancingService.Integration.MappingTest
+			install-package NUnit.ConsoleRunner -ProjectName HP.ArchiveBalancingService.Integration.MappingTest
+			install-package NUnit.Console -ProjectName HP.ArchiveBalancingService.Integration.MappingTest
+			install-package NUnit.NUnit3TestAdapter -ProjectName HP.ArchiveBalancingService.Integration.MappingTest
+			install-package NUnit.NUnitProjectLoader -ProjectName HP.ArchiveBalancingService.Integration.MappingTest
+			install-package NUnit.NUnitTestAdapter -ProjectName HP.ArchiveBalancingService.Integration.MappingTest
+			install-package NUnit.NUnit.Extension.NUnitV2Driver -ProjectName HP.ArchiveBalancingService.Integration.MappingTest
+			install-package NUnit.Extension.NUnitV2ResultWriter -ProjectName HP.ArchiveBalancingService.Integration.MappingTest
+			install-package NUnit.Runners.Net4 -ProjectName HP.ArchiveBalancingService.Integration.MappingTest
 		
 		]
+						
+		ONElinersCheck[
+		
+			/// <summary>
+			/// Oneliners check. Null is OK but linq to object oneliners are performance kill
+			/// </summary>
+			public class OLNCheck{
+
+				List<OnelinerCheck> ol = new List<OnelinerCheck> ();
+
+				public void IntGO(){
+				List<OnelinerCheck> ol = new List<OnelinerCheck> ();
+				for(int i =0;i<10000;i++){
+				ol.Add(new OnelinerCheck(){ID=i, Name="name_"+i});
+				}
+
+				Stopwatch stopWatch = new Stopwatch();		
+				stopWatch.Start();
+				foreach(OnelinerCheck o in ol){
+					o.ID=Sum(o.ID);
+				}
+				stopWatch.Stop();
+				TimeSpan perf0 = stopWatch.Elapsed;
+
+				stopWatch.Start();
+				ol.Select(s=>Sum(s.ID));
+				stopWatch.Stop();
+				TimeSpan perf1 = stopWatch.Elapsed;
+
+				stopWatch.Start();
+				ol.Select(SumO);
+				stopWatch.Stop();
+				TimeSpan perf2 = stopWatch.Elapsed;
+
+				Console.WriteLine("Perf 0" + perf0);
+				Console.WriteLine("Perf 1" + perf1);
+				Console.WriteLine("Perf 2" + perf2);
+				}
+
+				public void NUllGO(){
+				List<OnelinerCheck> ol = new List<OnelinerCheck> ();
+				for(int i =0;i<100000;i++){
+				ol.Add(new OnelinerCheck(){ID=i, Name="name_"+i});
+				}
+
+				Stopwatch stopWatch = new Stopwatch();		
+				stopWatch.Start();
+				foreach(OnelinerCheck o in ol){
+					IncIf(o);
+				}
+				stopWatch.Stop();
+				TimeSpan perf0 = stopWatch.Elapsed;
+
+				stopWatch.Start();
+				ol.Select(IncFF);
+				stopWatch.Stop();
+				TimeSpan perf1 = stopWatch.Elapsed;
+
+				Console.WriteLine("Perf 0" + perf0);
+				Console.WriteLine("Perf 1" + perf1);
+				}
+
+				private int Sum(int i){
+				return ++i;
+				}
+				private OnelinerCheck SumO(OnelinerCheck i){
+				i.ID++;
+				return i;
+				}
+
+				private OnelinerCheck IncIf(OnelinerCheck o){
+				if(o!=null){
+				return o;
+				}
+				throw new ArgumentNullException(nameof(o));
+				}
+				private OnelinerCheck IncFF(OnelinerCheck o){
+				return o = o ?? throw new ArgumentNullException(nameof(o));
+				}
+
+			}
+
+		]
+		
+		LINQvsForEach[
+			https://codereview.stackexchange.com/questions/14197/is-the-linq-version-faster-than-the-foreach-one
+		]
+		
+		enumPattern[
+		
+			https://www.infoworld.com/article/3198453/c-sharp/how-to-implement-a-type-safe-enum-pattern-in-c.html
+		
+		]
+		
+		DDD[
+			https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
+			https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
+			https://www.infoq.com/articles/ddd-in-practice
+		]
+
 	]
