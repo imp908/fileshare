@@ -16,6 +16,7 @@
 			
 		]
 		
+		
 		diTestingInit[
 			
             var builder = new ContainerBuilder();
@@ -30,9 +31,7 @@
 			create table UserAddresses (UserId varchar(255),Email  varchar(255))			
 			ALTER TABLE `useraddresses` CHANGE COLUMN `UserId` `UserId` VARCHAR(50) NULL DEFAULT NULL FIRST;
 		
-		]
-		
-		
+		]				
 		
 		mongoFilter[
 			//Filter and
@@ -191,7 +190,7 @@
 				where t.NAME ='tablename'
 				group by t.name
 			]
-			
+						
 		]
 		razor[
 			attribute="@()"
@@ -201,6 +200,7 @@
 			https://github.com/MetSystem/EmitMapper
 		]		
 		EF[
+		
 			https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502
 		
 			https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
@@ -208,8 +208,25 @@
 			
 			//expression trees
 			https://blog.marcgravell.com/2008/10/express-yourself.html
+			
+			MIGRATE[
+				enable-migrations				
+				add-migration -ProjectName HP.CityMonitoring.IntegrationalTest -ConfigurationTypeName HP.CityMonitoring.IntegrationalTest IntegrationTestContextConfig
+				Update-Database -ProjectName HP.ArchiveBalancingService.DAL -ConfigurationTypeName HP.ArchiveBalancingService.DAL.Migrations.Configuration -script
+				
+				//Update PSTGRE
+				Update-Database -ConnectionStringName "Migrations_PSQL_2" -ConfigurationTypeName HP.ArchiveBalancingService.DAL.Migrations.Configuration -TargetMigration 201810180953103_SubtitlesAdd
+			]
 
-
+			codefirst[
+				http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx
+			]
+			
+			nav_property[
+				1-* - if exist change id, if not exist set property
+				*-* - add to prop
+			]
+			
 			REPO[
 				using System;
 				using System.Collections.Generic;
@@ -407,7 +424,15 @@
 					}
 				}
 			]			
-		
+			
+			DB_FIRST[
+				edmx error 3007: delete from xml new created references with navigation properties 1 names
+			]
+			
+			postgre[
+				http://www.npgsql.org/ef6/
+			]
+			
 		]
 		powershell[
 			get-executionpolicy
@@ -1118,5 +1143,172 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
 			https://www.infoq.com/articles/ddd-in-practice
 		]
+		
+		sql[
+			https://stackoverflow.com/questions/20542819/how-to-export-all-data-from-table-to-an-insertable-sql-format
+		]
+		
+		rem[
+			
+			//radmin
+			HP-HP000114 26.25.157.50
+			job342234 q2w3
+			
+			//teamviewer
+			HP-HP000114
+			1 110 900 436 q2w3
+			k9vh42
+			
+			ammy
+			82 186 895
+			89349
+			10.225.164.176 ~ 10.200.239.62 
+		]
+		
+		WCF[
+		
+			LargeFilesUpload[
+				 <!--Bindding for large files upload. Valid for MTOM-->
+				<binding maxBufferPoolSize="2147483647" maxBufferSize="2147483647" maxReceivedMessageSize="2147483647" messageEncoding="Text">
+				  <readerQuotas maxDepth="2000000" maxStringContentLength="2147483647" maxArrayLength="2147483647" maxBytesPerRead="2147483647" maxNameTableCharCount="2147483647" />
+				</binding>
+			]
+		]
+				
+		wireShark[
+			//ui
+			ip.addr==10.200.232.87
+		]
+		
+		generateFormatsByteBits[
+			//jpg 
+			FFD8FFD
+		]
+		
+		SOAPUI[
+response xpath
+//*:AddCategoryResponse/*:AddCategoryResult/*:Result
+for 
+[
 
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
+   <s:Body>
+      <AddCategoryResponse xmlns="http://tempuri.org/">
+         <AddCategoryResult xmlns:a="http://schemas.datacontract.org/2004/07/IF.MoscowVideo.WebService.Core.ResultModels" xmlns:i="http://www.w3.org/2001/XMLSchema-instance">
+            <a:ErrorMessage i:nil="true"/>
+            <a:Result>6f4efb43-24a2-4a76-9396-b9b7bbc43b94</a:Result>
+            <a:Success>true</a:Success>
+         </AddCategoryResult>
+      </AddCategoryResponse>
+   </s:Body>
+</s:Envelope>
+]
+
+request xpath
+//*:AddCategory/*:data/*:ParentId
+
+for [
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tem="http://tempuri.org/" xmlns:if="http://schemas.datacontract.org/2004/07/IF.MoscowVideo.WebService.ApiServices.Utilities.DataModels" xmlns:arr="http://schemas.microsoft.com/2003/10/Serialization/Arrays">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <tem:AddCategory>
+         <!--Optional:-->
+         <tem:userId>4702DE72-04F2-454F-8176-2D0380305CFB</tem:userId>
+         <!--Optional:-->
+         <tem:data>
+            <!--Optional:-->
+            <if:Description>Desc</if:Description>
+            <!--Optional:-->
+            <if:Name>Name21</if:Name>
+            <!--Optional:-->
+                  <if:ParentId>6f4efb43-24a2-4a76-9396-b9b7bbc43b94</if:ParentId>
+            <!--Optional:-->
+            <if:ServiceTypeIds>
+               <!--Zero or more repetitions:-->
+               <arr:int>97</arr:int>
+               <arr:int>126</arr:int>
+			<arr:int>123</arr:int>
+
+            </if:ServiceTypeIds>
+         </tem:data>
+      </tem:AddCategory>
+   </soapenv:Body>
+</soapenv:Envelope>
+]
+		
+		]
+		
+		mvc[
+			read picture 
+			https://stackoverflow.com/questions/36135012/how-we-can-get-image-byte-from-other-website-by-uri-in-mvc-and-c
+		]
+		
+		
+		JS[
+			//modules
+			https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
+			
+			js_modules[
+			
+							
+				//with module pattern
+				var GeoPositionJS = (function () {    
+
+					var test = function () {
+						console.log("Tested")
+					};
+
+					var testP = function (p) {
+						console.log(p);
+					};
+
+					return {
+						testGet: test,
+						testGetP : testP
+					}
+
+				})();
+
+				//object interface pattern
+				var GeoPositionInt= (function () {
+					
+					return {
+						testGet : function () {
+							console.log("Tested")
+						},
+
+						testGetP : function (p) {
+							console.log(p);
+						},
+					}
+
+				})();
+
+				
+				//call from Razor view
+				<script>
+					$(function () {
+
+						//check module pattern OK
+						//console.log(GeoPositionJS);
+						GeoPositionJS.testGet();
+					GeoPositionJS.testGetP("test log");
+
+					//check object interface OK
+					//console.log(GeoPositionInt);
+					GeoPositionInt.testGet();
+					GeoPositionInt.testGetP("test log");
+			
+				   
+				});
+				</script>
+
+			]
+			
+			shorthandNotations[
+				https://www.sitepoint.com/shorthand-javascript-techniques/
+			]
+			
+		]
+		
 	]
