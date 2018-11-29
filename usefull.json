@@ -1174,7 +1174,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				</binding>
 			]
 		]
-				
+
 		wireShark[
 			//ui
 			ip.addr==10.200.232.87
@@ -1241,16 +1241,248 @@ for [
 		mvc[
 			read picture 
 			https://stackoverflow.com/questions/36135012/how-we-can-get-image-byte-from-other-website-by-uri-in-mvc-and-c
+			//different partial view model
+			https://stackoverflow.com/questions/22534224/asp-net-using-a-different-model-in-a-partial-view-than-in-its-parent
+			//partial view update
+			https://stackoverflow.com/questions/19392212/how-to-use-jquery-or-ajax-to-update-razor-partial-view-in-c-asp-net-for-a-mvc-p
+			
 		]
 		
+		async[
+			
+			http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
+			http://blog.stephencleary.com/2012/02/async-and-await.html
+			https://msdn.microsoft.com/en-us/magazine/mt238404.aspx
+			https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+			
+			https://stackify.com/csharp-async-await-task-performance/
+			
+			https://docs.microsoft.com/en-us/dotnet/framework/network-programming/asynchronous-server-socket-example
+			
+		]
+
 		
 		JS[
-			//modules
-			https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
+
+			guides
+			[
+
+				//modules
+				https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
+				https://coryrylan.com/blog/javascript-module-pattern-basics
+				//shorthandNotations
+					https://www.sitepoint.com/shorthand-javascript-techniques/
+				//codding best practce
+					https://blog.risingstack.com/javascript-clean-coding-best-practices-node-js-at-scale/
+				
+				//class composition
+					https://alligator.io/js/class-composition/
+				//dragNdrop
+					https://medium.com/quick-code/simple-javascript-drag-drop-d044d8c5bed5
+					http://interactjs.io/			
+				//pagex layerx screenx
+				https://stackoverflow.com/questions/6073505/what-is-the-difference-between-screenx-y-clientx-y-and-pagex-y
+				[
+				
+					pageX/Y gives the coordinates relative to the <html> element in CSS pixels.
+					clientX/Y gives the coordinates relative to the viewport in CSS pixels.
+					screenX/Y gives the coordinates relative to the screen in device pixels.
+						
+					offsetX/Y relative to layer
+				]
+				
+				//good practices 
+				https://www.w3.org/wiki/JavaScript_best_practices
+				//find event listeners 
+				https://stackoverflow.com/questions/446892/how-to-find-event-listeners-on-a-dom-node-when-debugging-or-from-the-javascript
+				
+				//ajaxPartialViewResult //partial view update
+				https://stackoverflow.com/questions/19392212/how-to-use-jquery-or-ajax-to-update-razor-partial-view-in-c-asp-net-for-a-mvc-p
+				
+				//draggable
+				https://www.w3schools.com/howto/howto_js_draggable.asp
+				
+				
+			]
 			
-			js_modules[
+			code
+			[
+
+				dragNdrop[
+					
+					js[
+						// Dragndrop.InitManyToOne("camera-title","dragNdrop");
+						var Dragndrop = (function () {
+
+						var dropped ={}
+
+						var dragged = null;
+
+						function initManyToOne(dragFromClassName, dragToId) {
+						var froms = document.getElementsByClassName(dragFromClassName);
+
+						[].forEach.call(froms,function(s){
+						s.addEventListener("mouseenter",mouseenter);
+
+						s.addEventListener("mouseover",mouseover);
+						s.addEventListener("mousedown",mousedown);
+						s.addEventListener("mousmove",mousmove);
+						s.addEventListener("mouseup",mousedown);
+
+						s.addEventListener("dragstart",dragstart);
+						});
+
+						var item = document.getElementById(dragToId);
+						item.addEventListener("dragover", dragover)
+						item.addEventListener("dragenter", dragenter)
+						item.addEventListener("drop", drop)
+						};
+
+						function mouseenter(e){
+						console.log("mouseenter")
+						console.log(e)
+						};
+						function mouseover(e){
+						console.log("mouseover")
+						console.log(e)
+						};
+						function mousedown(e){
+						console.log("mousedown")
+						console.log(e)
+						};
+						function mousmove(e){
+						console.log("mousmove")
+						console.log(e)
+						};
+						function mouseup(e){
+						console.log("mouseup")
+						console.log(e)
+						};
+
+						function dragover(e) {
+						console.log("dragover")
+						e.preventDefault()
+						};
+
+						function dragenter(e) {
+						console.log("dragenter");
+						console.log(e);
+						e.preventDefault();
+						};
+
+						function dragstart(e) {
+						console.log("dragstart");
+						console.log(e);
+						dragged=e.target;
+						5};
+
+						function drop(v) {
+						console.log("drop");
+						console.log(v);
+
+						dropped.Name = dragged.innerText;
+						dropped.X = v.offsetX;
+						dropped.Y = v.offsetY;
+						console.log(v)
+						console.log(dropped);
+						console.log(dragged);
+						};
+
+						return {
+						DragOver: function (v) {
+						dragover(v);
+						},
+						DragEnter: function (v) {
+						dragenter(v);
+						},
+						Drop: function (v) {
+						drop(v);
+						},
+						InitManyToOne: function (from,to) {
+						initManyToOne(from,to);
+						}
+						}
+						})();
+
+					]
+					
+					html[
+						<!DOCTYPE html>
+						<head>
+
+						<script src="popper.min.js"></script>
+
+						<!-- Latest compiled and minified CSS -->
+						<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+						<!-- jQuery library -->
+						<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+						<!-- Latest compiled JavaScript -->
+						<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+
+						<script src="js_.js"></script>
+
+						<link rel="stylesheet" type="text/css" href="bootstrap.css">
+						<link rel="stylesheet" type="text/css" href="geopos.css">
+						<link rel="stylesheet" type="text/css" href="jstree.css">
+
+						</head>
+						<body>
+						<div id="dragNdrop" class="container">
+						<div>
+						<a class="jstree_href" href="">Внуковское</a>
+						<a class="jstree_href camera-title jstree_href" href="">RecGRZ_ZAO_239_197_1</a>
+						<a class="jstree_href camera-title jstree_href" href="">RecGRZ_ZAO_239_197_2</a>
+						<a class="jstree_href camera-title jstree_href" href="">RecGRZ_ZAO_239_197_3</a>
+						</div>
+						<div class="editblock">
+						<img class="plan" src="http://www.tu-varna.bg/tu-varnalib/images/images/plan-shema.jpg" />
+						</div>
+						</div>
+
+						</body>
+
+					
+					]
+									
+				]
+				
+				DOM[
+				
+					htmlattr[
+						//style
+						object.style.zIndex = "auto|number|initial|inherit" 
+						//classanme GET,SET
+						document.getElementById("myDIV").className = "mystyle";
+						//classlist 
+						document.getElementById("myDIV").classList.add("mystyle");
+						.contains() .remove() .toggle()
+						//get css selectorss
+						var x = document.querySelectorAll(".example");
+						https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll
+						
+					]
+					
+				]
+								
+				//template strings
+				`text${variable}"text in quotes"`
+								
+				add_remove_eventListener[
+					// Attach an event handler to <div>
+					document.getElementById("myDIV").addEventListener("mousemove", myFunction);
+
+					// Remove the event handler from <div>
+					document.getElementById("myDIV").removeEventListener("mousemove", myFunction); 
+				]
+												
+			]
 			
-							
+			js_modules
+			[
+
 				//with module pattern
 				var GeoPositionJS = (function () {    
 
@@ -1305,10 +1537,16 @@ for [
 
 			]
 			
-			shorthandNotations[
-				https://www.sitepoint.com/shorthand-javascript-techniques/
+			libs
+			[
+				//drag ndrop
+				https://shopify.github.io/draggable/docs/
+				https://github.com/Shopify/draggable/tree/master/src/Draggable
+				
+				//json graph edit
+				https://gojs.net/latest/samples/stateChart.html
 			]
-			
+
 		]
 		
 	]
