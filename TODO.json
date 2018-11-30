@@ -33,55 +33,17 @@ sharefolder\Files\Repo\Mercurial\SBbr\MainBr\SB3_new_output
 			-> Multithread socket message ping pong -> to SB
 			-> CollectionsComparison -> to SB
 			-> Pluggin/addon architecture -> to SB
-
-		Focus[
+			-> autofac id generator
+			-> web api null/empty input parse
+			-> Test mongo Repo
+			-> Fake it easy moking
+			-> model to mongo via rabbit	
+			-> stylecop autocorrect
+			-> kibana
+			-> influx db
+			-> netbus
 			
-			Actual[
-				//
-				<- -> git change commit messages
-				-> filter list by parammeter list string[]
-					-> get from mongo to POCO
-				-> sort MSA ref links
-
-			]
 			
-			Commands[
-				
-				mongo[
-					
-					snapshots chain check[
-					
-						db.snapshots.insertMany( [
-							{"_id" : "001","PrevId" : null,"LayoutId" : "100"}
-							,{"_id" : "002","PrevId" : 001,"LayoutId" : "100"}
-							,{"_id" : "003","PrevId" : 002,"LayoutId" : "100"}
-						]);
-
-
-						db.cards.insert(
-						{
-							"_id" : "100",
-							"Tags" : [ 
-							"mall"
-							],
-							"PartnerId" : "testpartner",
-							"LastId" : "001",
-							"Status" : "ready"
-						})
-
-						db.snapshots().find({_id:"001"})
-
-						db.snapshots.remove( {_id:"001"} )
-						db.cards.remove( {_id:"100"} )
-		
-					]
-				
-				]
-			
-			]
-			
-		]
-		
 		NSQLmanager[
 		
 			Info[
@@ -1436,6 +1398,352 @@ checkQuestionState(){
 			
 		]
 		
+	
+		ApiTester
+			-> JSON response objects count and expect			
+			
+			-> POST with NTLM <- done
+			-> Config export/import <- done
+			-> Exeption expected <- done
+			-> Null expected <- done
+			-> Ok not OK to config print <- done
+
+		SQLRepo
+			-> Repo (against SQL base and Northwind base)
+			-> Repo (Chaining IRepo implementation for Date + list filter)
+
+		SQLUOW
+			-> Finilize for Nowthwind, Neo4j,mongo
+			
+		SQLWebAPI
+			-> between repo and MVC site
+			-> Add BLL Business logic layer above UOW
+			
+		SQLPresentationSite
+			-> parsing excel file to objects method decompose to several	
+			-> Export to excel
+			-> Type converter for migration (
+			-> SQL to CLR type conversion ; 
+			-> SQLEntity to DWH entity converter; 
+			-> Converter logic to string name or type name;)
+			-> Add JS multiple model items update at one time
+		
+		
+	WebManager[
+	
+		TODO:[
+			-> NTLM authentication
+			
+			-> Handling http methods POST,GET,DEL,PUT <- done
+			-> Adding headers <- done
+			-> Add request body <- done
+			-> Orient DB cookie authorization <- done
+		]
+			
+	]
+	
+	JsonManager[
+	
+		-> Parsing to/from objects/strings to/from JSON string <- done
+		-> parsing to string <- done
+		-> make generic <- done
+
+	]
+	
+	JS
+			-> Angular2.io chart
+			
+			-> Angular2 ajax <- done			
+			-> Ajax console log function dependency <- done
+			
+		nsql presentation[
+		
+			INFO[
+			
+				prototype sites[
+					http://nu-today.ru/
+				]
+				
+				]
+			
+			TODO[
+			->functional prototype newsApi
+				ember, angular2, react
+			->tree chart d3
+			]
+			
+			]
+			
+		MyNSPK[
+			
+			info[
+			
+				HostedUrlsandSites[
+//staic
+http://static.nspk.ru
+\\msk1-vm-ovisp01\e$
+http://msk1-vm-ovisp01/v9/
+http://my.nspk.ru/chart/
+[my.nspk.ru]
+http://msk1-vm-inapp01:80
+
+				]
+				
+				UsedURLs[
+	
+	structure http://msk1-vm-ovisp01:8089/api/Structure/
+	
+	
+	var SearchPersonUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchPerson/'	
+	var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'	
+	var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last'
+	[
+StructureController
+Get(string p1, string p2)
+run orient function 
+	]
+	
+	var UserSettingsUrl = 'http://msk1-vm-inapp01:8081/api/UserSettings/'
+	var FavoritesUrl = 'http://msk1-vm-inapp01:8081/api/PersonRelation/'
+	var PersonBirthdays = 'http://msk1-vm-inapp01:8081/api/PersonBirthdays'
+	var AccountUrl = 'http://msk1-vm-inapp01.nspk.ru:8081/api/Account/'
+	
+	var VacationsUrl = 'http://msk1-vm-inapp01:8081/api/Person/HoliVationAcc'
+	
+	var QuizListURL = 'http://msk1-vm-inapp01:8185/api/Quiz'	
+	var NewsApiUrl = 'http://msk1-vm-inapp01:8185/api/news2/'
+	var OwnNewsUrl = NewsApiUrl + 'GetParam'
+	
+	var NewsFeedUrl = 'http://nspk.online/api/news.php?list=0&num=25'
+	
+	var MenuUrl = 'static.data/static.menu.json'
+	var GalUrl = 'static.data/gal.json'		
+
+CrossTeamWorkingGroupController
+public string GetTr(string p1)
+http://msk1-vm-indb01:2480/function/Orgchart_prod/GetFullTraverseBysAMAccountName/" + p1
+
+PhotoController
+public HttpResponseMessage Get(string email)
+var url = "https://webmail.nspk.ru/ews/exchange.asmx/s/GetUserPhoto?email=" + email + "&size=HR120x120"
+new MediaTypeHeaderValue("application/octet-stream");
+
+				]
+
+			]
+			
+		]
+		
+		MyNSPK2.0[
+		
+			Examples[
+				https://mobx.js.org
+				http://dsmorse.github.io/gridster.js/			
+				http://extcore.net/ru/
+				Readymag 
+				Reveal.js
+				Redis
+				
+				//tinyMCE
+				//text editor
+				https://www.tinymce.com/
+				
+				http://slides.com/gsklee/functional-programming-in-5-minutes#/
+			]
+			,Info[
+				RoleModel
+				http://confluence.nspk.ru/pages/viewpage.action?pageId=11395984
+			]
+			,vendors[
+				? https://arealidea.ru/
+				? https://www.extyl-pro.ru/portfolio/portaly/
+				
+				! https://gearheart.io/
+				
+				issue[
+				
+http://www.ratingruneta.ru/agency-r52/portfolio/
+
+Украина 
+https://gearheart.io/
+
+Лос-анджелес (просто аример сайта)
+https://distillery.com/
+(внимание на бекграун)
+
+Сан-франциско (внимание на About US)
+https://beunicorn.io/
+И цены, на секундочку:
+https://beunicorn.io/startups/
+
+И смотрим с офисами в Москве:
+http://www.ratingruneta.ru/web/moscow/
+первое место, цены
+http://www.ratingruneta.ru/agency-aic/prices/
+
+				]
+				
+			]
+			,vision[
+			
+				На данный момент, вижу 5 вариантов, и требуется обсудить или 1 или 2 вопроса с вендором. В зависимости от исходов получаются варианты.
+
+				I Требуется обсуждение с вендором
+				И возможно:
+				II По результатам может потребоваться или перевыбор вендоров  или смена стека.
+
+				С вендором, по убыванию крутости ситуации:
+					Из I-го
+					Бэк на вендоре:
+				Могут ли сами обращаться orientDB или nosql базы?
+				1)	Могут, ваще круто, ничего не надо, подписываем, даем денег.Сидим управляем. Получаем код.
+				2)	Не могут под orientDB , но могут под дрова. Чуть менее круто, но по сути все тоже, получаем от них код, они сами пишут под что хотят – приоритет orien driver от  inno8ative.
+				Ваще не могут бэк. Тогда единственный вариант
+				3)	бэк пишем мы.
+
+
+				Требуются переговоры по првилам и форматам обмена информацией и «хотелоками»
+				Они понимают, что такое POCO и как описывать требуемы функциионал (например как я рисовал схемы по Сашиним: «добавь комменты на сайт» )
+				4)	супер, не так круто как бэк на них. Даем еще меньше бюенег, очень менеджерим дописываем нашу сторону.
+				Не понимают, или понимают а повторить не могут, или не могут смоделировать требования по , например календарю, т.е врут нам.
+				5)	А вот тут, нас ждёт интересная процедура выбора нового вендора. 
+
+				Или можем неглядя непарясь влезть в проект слить кучу лавве, получить кучу проблем и эмоций, назвать это опытом. Он нам на новом месте понядобится.
+
+			]
+		
+		]
+		
+		jsHacks
+			-> New API drop box above textbox add. Textbox no ovewrite
+			-> Select2 Js To site <- done
+		
+	]
+	
+	,job[
+	
+	NSPK[
+	
+			testCases{
+				LATOKEN:{
+					
+					bitmex:[
+					TODO:[
+						REST API
+						-	Connect
+						-	Disconnect
+						-	RegisterOrder
+						-	CancelOrder
+						-	SubscribeOrderbook
+						WebSockets
+						-	NewOrderbook
+						-	NewTrade
+						-	OrderChanged
+					]
+					Refs:[
+						https://github.com/BitMEX/api-connectors/tree/master/official-http/csharp
+						https://testnet.bitmex.com/app/apiKeysUsage
+						https://testnet.bitmex.com/app/apiOverview
+						https://testnet.bitmex.com/api/explorer/#!/Quote/Quote_get
+					]
+					fiddler:[
+						https://testnet.bitmex.com/api/v1/apiKey
+						https://testnet.bitmex.com/api/v1/
+						/announcement 
+						/announcement/urgent 
+
+						api-nonce:1000
+						api-key:LAqUlngMIQkIUjXMUreyu3qn
+						api-signature:c7682d435d0cfe87c16098df34ef2eb5a549d4c5a3c2b1f0f77b8af73423bf00
+
+						User-Agent: Fiddler
+						Host: testnet.bitmex.com
+						Content-Length: 0
+						Content-type: application/json
+						api-nonce: 1000
+						api-key: API_KEY
+						api-signature: asds
+
+
+						https://testnet.bitmex.com/api/v1/instrument/active
+						https://testnet.bitmex.com/api/v1/leaderboard
+						https://testnet.bitmex.com/api/v1/quote
+						https://testnet.bitmex.com/api/v1/schema 
+
+						User-Agent: Fiddler
+						Host: testnet.bitmex.com
+						Content-Length: 0
+						Content-type: application/json
+
+						get /order x
+
+						get /schema 
+					]
+
+					]
+						
+				}
+			}
+	quiz
+	domen pass [
+	http://help.nspk.ru/Task/view/62582
+	62582
+	]
+	prod mynspk Olga
+	[
+	deploy testOnProd
+	]
+	
+		
+		Focus[
+			
+			Actual[
+				//
+				<- -> git change commit messages
+				-> filter list by parammeter list string[]
+					-> get from mongo to POCO
+				-> sort MSA ref links
+
+			]
+			
+			Commands[
+				
+				mongo[
+					
+					snapshots chain check[
+					
+						db.snapshots.insertMany( [
+							{"_id" : "001","PrevId" : null,"LayoutId" : "100"}
+							,{"_id" : "002","PrevId" : 001,"LayoutId" : "100"}
+							,{"_id" : "003","PrevId" : 002,"LayoutId" : "100"}
+						]);
+
+
+						db.cards.insert(
+						{
+							"_id" : "100",
+							"Tags" : [ 
+							"mall"
+							],
+							"PartnerId" : "testpartner",
+							"LastId" : "001",
+							"Status" : "ready"
+						})
+
+						db.snapshots().find({_id:"001"})
+
+						db.snapshots.remove( {_id:"001"} )
+						db.cards.remove( {_id:"100"} )
+		
+					]
+				
+				]
+			
+			]
+			
+		]
+		
+		
 		DocsVision[
 			
 			testingItems[
@@ -1752,305 +2060,16 @@ checkQuestionState(){
 
 		]
 		
-		ApiTester
-			-> JSON response objects count and expect			
-			
-			-> POST with NTLM <- done
-			-> Config export/import <- done
-			-> Exeption expected <- done
-			-> Null expected <- done
-			-> Ok not OK to config print <- done
-
-		SQLRepo
-			-> Repo (against SQL base and Northwind base)
-			-> Repo (Chaining IRepo implementation for Date + list filter)
-
-		SQLUOW
-			-> Finilize for Nowthwind, Neo4j,mongo
-			
-		SQLWebAPI
-			-> between repo and MVC site
-			-> Add BLL Business logic layer above UOW
-			
-		SQLPresentationSite
-			-> parsing excel file to objects method decompose to several	
-			-> Export to excel
-			-> Type converter for migration (
-			-> SQL to CLR type conversion ; 
-			-> SQLEntity to DWH entity converter; 
-			-> Converter logic to string name or type name;)
-			-> Add JS multiple model items update at one time
-		
-		
-	WebManager[
-	
-		TODO:[
-			-> NTLM authentication
-			
-			-> Handling http methods POST,GET,DEL,PUT <- done
-			-> Adding headers <- done
-			-> Add request body <- done
-			-> Orient DB cookie authorization <- done
-		]
-			
-	]
-	
-	JsonManager[
-	
-		-> Parsing to/from objects/strings to/from JSON string <- done
-		-> parsing to string <- done
-		-> make generic <- done
-
-	]
-	
-	JS
-			-> Angular2.io chart
-			
-			-> Angular2 ajax <- done			
-			-> Ajax console log function dependency <- done
-			
-		nsql presentation[
-		
-			INFO[
-			
-				prototype sites[
-					http://nu-today.ru/
-				]
-				
-				]
-			
-			TODO[
-			->functional prototype newsApi
-				ember, angular2, react
-			->tree chart d3
-			]
-			
-			]
-			
-		MyNSPK[
-			
-			info[
-			
-				HostedUrlsandSites[
-//staic
-http://static.nspk.ru
-\\msk1-vm-ovisp01\e$
-http://msk1-vm-ovisp01/v9/
-http://my.nspk.ru/chart/
-[my.nspk.ru]
-http://msk1-vm-inapp01:80
-
-				]
-				
-				UsedURLs[
-	
-	structure http://msk1-vm-ovisp01:8089/api/Structure/
-	
-	
-	var SearchPersonUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchPerson/'	
-	var SearchByUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/SearchByFNameLName/'	
-	var NoobsUrl = 'http://msk1-vm-inapp01.nspk.ru:81/api/Structure/GetPersonsLastTwoWeeks/last'
-	[
-StructureController
-Get(string p1, string p2)
-run orient function 
-	]
-	
-	var UserSettingsUrl = 'http://msk1-vm-inapp01:8081/api/UserSettings/'
-	var FavoritesUrl = 'http://msk1-vm-inapp01:8081/api/PersonRelation/'
-	var PersonBirthdays = 'http://msk1-vm-inapp01:8081/api/PersonBirthdays'
-	var AccountUrl = 'http://msk1-vm-inapp01.nspk.ru:8081/api/Account/'
-	
-	var VacationsUrl = 'http://msk1-vm-inapp01:8081/api/Person/HoliVationAcc'
-	
-	var QuizListURL = 'http://msk1-vm-inapp01:8185/api/Quiz'	
-	var NewsApiUrl = 'http://msk1-vm-inapp01:8185/api/news2/'
-	var OwnNewsUrl = NewsApiUrl + 'GetParam'
-	
-	var NewsFeedUrl = 'http://nspk.online/api/news.php?list=0&num=25'
-	
-	var MenuUrl = 'static.data/static.menu.json'
-	var GalUrl = 'static.data/gal.json'		
-
-CrossTeamWorkingGroupController
-public string GetTr(string p1)
-http://msk1-vm-indb01:2480/function/Orgchart_prod/GetFullTraverseBysAMAccountName/" + p1
-
-PhotoController
-public HttpResponseMessage Get(string email)
-var url = "https://webmail.nspk.ru/ews/exchange.asmx/s/GetUserPhoto?email=" + email + "&size=HR120x120"
-new MediaTypeHeaderValue("application/octet-stream");
-
-				]
-
-			]
-			
-		]
-		
-		MyNSPK2.0[
-		
-			Examples[
-				https://mobx.js.org
-				http://dsmorse.github.io/gridster.js/			
-				http://extcore.net/ru/
-				Readymag 
-				Reveal.js
-				Redis
-				
-				//tinyMCE
-				//text editor
-				https://www.tinymce.com/
-				
-				http://slides.com/gsklee/functional-programming-in-5-minutes#/
-			]
-			,Info[
-				RoleModel
-				http://confluence.nspk.ru/pages/viewpage.action?pageId=11395984
-			]
-			,vendors[
-				? https://arealidea.ru/
-				? https://www.extyl-pro.ru/portfolio/portaly/
-				
-				! https://gearheart.io/
-				
-				issue[
-				
-http://www.ratingruneta.ru/agency-r52/portfolio/
-
-Украина 
-https://gearheart.io/
-
-Лос-анджелес (просто аример сайта)
-https://distillery.com/
-(внимание на бекграун)
-
-Сан-франциско (внимание на About US)
-https://beunicorn.io/
-И цены, на секундочку:
-https://beunicorn.io/startups/
-
-И смотрим с офисами в Москве:
-http://www.ratingruneta.ru/web/moscow/
-первое место, цены
-http://www.ratingruneta.ru/agency-aic/prices/
-
-				]
-				
-			]
-			,vision[
-			
-				На данный момент, вижу 5 вариантов, и требуется обсудить или 1 или 2 вопроса с вендором. В зависимости от исходов получаются варианты.
-
-				I Требуется обсуждение с вендором
-				И возможно:
-				II По результатам может потребоваться или перевыбор вендоров  или смена стека.
-
-				С вендором, по убыванию крутости ситуации:
-					Из I-го
-					Бэк на вендоре:
-				Могут ли сами обращаться orientDB или nosql базы?
-				1)	Могут, ваще круто, ничего не надо, подписываем, даем денег.Сидим управляем. Получаем код.
-				2)	Не могут под orientDB , но могут под дрова. Чуть менее круто, но по сути все тоже, получаем от них код, они сами пишут под что хотят – приоритет orien driver от  inno8ative.
-				Ваще не могут бэк. Тогда единственный вариант
-				3)	бэк пишем мы.
-
-
-				Требуются переговоры по првилам и форматам обмена информацией и «хотелоками»
-				Они понимают, что такое POCO и как описывать требуемы функциионал (например как я рисовал схемы по Сашиним: «добавь комменты на сайт» )
-				4)	супер, не так круто как бэк на них. Даем еще меньше бюенег, очень менеджерим дописываем нашу сторону.
-				Не понимают, или понимают а повторить не могут, или не могут смоделировать требования по , например календарю, т.е врут нам.
-				5)	А вот тут, нас ждёт интересная процедура выбора нового вендора. 
-
-				Или можем неглядя непарясь влезть в проект слить кучу лавве, получить кучу проблем и эмоций, назвать это опытом. Он нам на новом месте понядобится.
-
-			]
-		
-		]
-		
-		jsHacks
-			-> New API drop box above textbox add. Textbox no ovewrite
-			-> Select2 Js To site <- done
-		
-	]
-	
-	,job[
-	
-	NSPK[
-	
-			testCases{
-				LATOKEN:{
-					
-					bitmex:[
-					TODO:[
-						REST API
-						-	Connect
-						-	Disconnect
-						-	RegisterOrder
-						-	CancelOrder
-						-	SubscribeOrderbook
-						WebSockets
-						-	NewOrderbook
-						-	NewTrade
-						-	OrderChanged
-					]
-					Refs:[
-						https://github.com/BitMEX/api-connectors/tree/master/official-http/csharp
-						https://testnet.bitmex.com/app/apiKeysUsage
-						https://testnet.bitmex.com/app/apiOverview
-						https://testnet.bitmex.com/api/explorer/#!/Quote/Quote_get
-					]
-					fiddler:[
-						https://testnet.bitmex.com/api/v1/apiKey
-						https://testnet.bitmex.com/api/v1/
-						/announcement 
-						/announcement/urgent 
-
-						api-nonce:1000
-						api-key:LAqUlngMIQkIUjXMUreyu3qn
-						api-signature:c7682d435d0cfe87c16098df34ef2eb5a549d4c5a3c2b1f0f77b8af73423bf00
-
-						User-Agent: Fiddler
-						Host: testnet.bitmex.com
-						Content-Length: 0
-						Content-type: application/json
-						api-nonce: 1000
-						api-key: API_KEY
-						api-signature: asds
-
-
-						https://testnet.bitmex.com/api/v1/instrument/active
-						https://testnet.bitmex.com/api/v1/leaderboard
-						https://testnet.bitmex.com/api/v1/quote
-						https://testnet.bitmex.com/api/v1/schema 
-
-						User-Agent: Fiddler
-						Host: testnet.bitmex.com
-						Content-Length: 0
-						Content-type: application/json
-
-						get /order x
-
-						get /schema 
-					]
-
-					]
-						
-				}
-			}
-	quiz
-	domen pass [
-	http://help.nspk.ru/Task/view/62582
-	62582
-	]
-	prod mynspk Olga
-	[
-	deploy testOnProd
-	]
-
 ]
 	
 	VatCom[
 		Notifications.emailsender.UserMail.Repository -> id gen only for empty item
+	]
+	
+	HeadPoint[
+		-> mapper
+		-> repo
+		-> model scafolder
 	]
 	
 	]
