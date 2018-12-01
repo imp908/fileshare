@@ -2641,6 +2641,48 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			]
 			
 			guides[
+			
+				JS
+				[
+
+					//modules
+					https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
+					https://coryrylan.com/blog/javascript-module-pattern-basics
+					//shorthandNotations
+						https://www.sitepoint.com/shorthand-javascript-techniques/
+					//codding best practce
+						https://blog.risingstack.com/javascript-clean-coding-best-practices-node-js-at-scale/
+					
+					//class composition
+						https://alligator.io/js/class-composition/
+					//dragNdrop
+						https://medium.com/quick-code/simple-javascript-drag-drop-d044d8c5bed5
+						http://interactjs.io/			
+					//pagex layerx screenx
+					https://stackoverflow.com/questions/6073505/what-is-the-difference-between-screenx-y-clientx-y-and-pagex-y
+					[
+					
+						pageX/Y gives the coordinates relative to the <html> element in CSS pixels.
+						clientX/Y gives the coordinates relative to the viewport in CSS pixels.
+						screenX/Y gives the coordinates relative to the screen in device pixels.
+							
+						offsetX/Y relative to layer
+					]
+					
+					//good practices 
+					https://www.w3.org/wiki/JavaScript_best_practices
+					//find event listeners 
+					https://stackoverflow.com/questions/446892/how-to-find-event-listeners-on-a-dom-node-when-debugging-or-from-the-javascript
+					
+					//ajaxPartialViewResult //partial view update
+					https://stackoverflow.com/questions/19392212/how-to-use-jquery-or-ajax-to-update-razor-partial-view-in-c-asp-net-for-a-mvc-p
+					
+					//draggable
+					https://www.w3schools.com/howto/howto_js_draggable.asp
+					
+					
+				]
+			
 				
 				customBodyAttributes[
 					https://weblog.west-wind.com/posts/2012/Aug/30/Using-JSONNET-for-dynamic-JSON-parsing
