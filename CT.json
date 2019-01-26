@@ -279,7 +279,6 @@ namespace Parts{
 					ADD UNPUSHED LAST CHANGES TO LAST COMMIT
 					git add .
 					git commit --amend
-					
 					//add CAinfo
 					git config http.sslCAinfo G:/disk/Progs/Git/mingw64/ssl/certs/ca-bundle.crt
 					
@@ -4591,13 +4590,12 @@ with socketserver.TCPServer(("", PORT), testHTTPServer_RequestHandler) as httpd:
 		
 			public void Libs()
 			{
-pip install numpy
+				pip install numpy
 pip install matplotlib
 pip install bokeh
 pip install pandas
 npm install -g phantomjs-prebuilt
 pip install ipython
-pip install gitpython
 			}
 		
 			public void Wheels()
@@ -9298,40 +9296,35 @@ RAW JSON
 			
 			//mongo shell
 			,BoilerPlate[
-				//insert doucment
-				use test
-				db.users.insertOne({name:"sue",age:26,_id=1})
-				//from CMD command shell, cd to server files folder
-				mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
-				//select from
-				db.restaurants.find( {} )
-				//where
-				db.restaurants.find({"address.building": "10807"})
-				db.restaurants.find({"address.zipcode": "11694"})
-				//and
-				db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
-				//or
-				db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
-				//sort
-				db.restaurants.find().sort( { "address.zipcode": 1 } )
-				//where sort
-				db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
-				//where in
-				db.restaurants.find({"address.building": {$in:["10807","23059"]}})
-
-				//greater then
-				db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
-				db.inventory.find( { status: "A", qty: { $lt: 30 } } )
-				//in
-				db.inventory.find( { status: { $in: [ "A", "D" ] } } )
-				db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
-				SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
-				
-				//index unique
-				db.getCollection('UserAddresses').createIndex({"Email":1}, { unique: true } )
-				//create admin user
-				db.createUser({user:"guest",pwd:"guest",roles:[{role:"root",db:"admin"}],mechanisms:["SCRAM-SHA-1"]})
-
+			  //insert doucment
+			  use test
+			  db.users.insertOne({name:"sue",age:26,_id=1})
+			  //from CMD command shell, cd to server files folder
+			  mongoimport --db test --collection restaurants --drop --file G:\disk\Progs\MongoDB\import/primer-dataset.json
+			  //select from
+			  db.restaurants.find( {} )
+			  //where
+			  db.restaurants.find({"address.building": "10807"})
+			  db.restaurants.find({"address.zipcode": "11694"})
+			  //and
+			  db.restaurants.find({"address.street": "Roosevelt Ave","address.zipcode": "11354"})          
+			  //or
+			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}) 
+			  //sort
+			  db.restaurants.find().sort( { "address.zipcode": 1 } )
+			  //where sort
+			  db.restaurants.find( { $or:[ {"address.street": "Roosevelt Ave"},{"address.zipcode": "11354"}]}).sort( { "address.zipcode": 1 } )
+			  //where in
+			  db.restaurants.find({"address.building": {$in:["10807","23059"]}})
+			   
+			  //greater then
+			  db.restaurants.find( { "address.zipcode": { $gt: 11694 } } )        
+			  db.inventory.find( { status: "A", qty: { $lt: 30 } } )
+			  //in
+			  db.inventory.find( { status: { $in: [ "A", "D" ] } } )
+			  db.inventory.find( {status: "A", $or: [ { qty: { $lt: 30 } }, { item: /^p/ } ]} )
+			  SELECT * FROM inventory WHERE status = "A" AND ( qty < 30 OR item LIKE "p%")
+			  
 			]
 			
 		queries[

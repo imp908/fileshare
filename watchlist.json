@@ -1,6 +1,6 @@
 
-tolearn[
-
+actual[
+	
 	ref in out
 
 	appress
@@ -24,7 +24,93 @@ tolearn[
 	var let 
 	bind call aplly
 	map vs foreach
+
+	//actor
+	https://www.brianstorti.com/the-actor-model/
 	
+	//react + redux
+	https://medium.freecodecamp.org/an-introduction-to-functional-reactive-programming-in-redux-b0c14d097836
+
+
+	CI/CD pipeline[
+		https://www.redhat.com/en/blog/integrating-ansible-jenkins-cicd-process
+		github-SonarSource-Nexus-Ansible-AnsiblePlaybook-Jenkins
+	]
+
+	MSA[
+	
+		//async await
+		https://www.youtube.com/watch?v=2moh18sh5p4
+
+		//msa
+		https://www.youtube.com/watch?v=EdtZnmV_D-g
+		https://www.youtube.com/watch?v=N1BWMW9NEQc
+		
+		https://www.microservices.com/reference-architecture/
+
+		//pragmatic event driven msa
+		https://www.youtube.com/watch?v=vSd_0zGxsIU
+
+		//how to fail msa
+		https://www.youtube.com/watch?v=X0tjziAQfNQ
+		//working stacks
+		elixir->phoenix->postgre
+		angular->hapi->mongo
+		react->spring boot->neo4j
+
+		groundhog maintanance
+		heisenberg monitoring
+
+		polyglot->polyWTF
+
+
+		//hypermedia types
+		https://lostechies.com/jimmybogard/2015/05/22/end-to-end-hypermedia-choosing-a-media-type/
+		https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/
+		HAL
+		JSON API
+		JSON LD
+		collection + JSON
+		SIREN
+		HYDRA
+
+		10.fuckup mix of hypermedia formats, UI frameworks, date formats (chineese calendar) 
+		and logging formats
+		9.data monolith - share database
+		table sharing of business domens (credit read account table and vise versa)
+		when account changes tables varchar length credit goeas boom
+		connection pool-of 100 connections and 1 msa queryng sql for weeks 
+		8.event monolith - 
+		event sourcing - audit trail, distributed data, decoupled msa
+		wet is a new dry - copy past between msa
+		event history as bugfixes
+		7.homegrown monolith - build custom framework 
+		custom event sourcing for every msa
+
+		message structuring - v2 msg if ID must change from int to string
+		new customer send v2 int id message to old services - boom in prod
+		migrate all services to v2 which leads to 
+		monolith release plan
+		cross cutting dependencies - need to comunicate with teams
+		job insurance
+
+		6. meat cloud - 
+		wkpt  - whants,knows,privilege,time to do smth
+
+		//msdn
+		//domain
+		https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
+		//web api 2
+		https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
+
+		//code review
+		https://www.sonarqube.org/
+
+		https://edgecoders.com/the-mistakes-i-made-as-a-beginner-programmer-ac8b3e54c312
+
+	]
+
+
 ]
 
 watchlist[
@@ -326,7 +412,25 @@ usd\rub(62.01)/
 	https://github.com/dotnet/core/blob/master/Documentation/self-contained-linux-apps.md																		 
 		]	
 		
+		
+		languages[
+			eng[
+			
+				//literal country names meaning
+				https://matadornetwork.com/read/map-shows-literal-meaning-every-countrys-name/
 				
+				idioms[
+					//88 idioms
+					https://www.independent.co.uk/life-style/british-phrases-english-language-sayings-britain-england-uk-different-a8138046.html
+					//idioms
+					https://www.ef.com/wwen/english-resources/english-idioms/
+					https://www.businessinsider.com/british-slang-that-will-confuse-anybody-who-didnt-grow-up-in-the-uk-2017-11#take-the-biscuit-79
+					
+				]
+				
+			]
+		]
+		
 		Businesses
 		[
 			//bees
@@ -345,12 +449,16 @@ usd\rub(62.01)/
 		]
 		
 		deliveres[
-			local[
+			
+			local[			
 				//electro
 				http://www.platan.ru/
 			]
+		
 		]
-				
+
+
+		
 		ComputerScience
 		[		
 			https://en.wikipedia.org/wiki/Computer_science
@@ -472,7 +580,14 @@ usd\rub(62.01)/
 					https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/
 					https://docs.aws.amazon.com/aws-technical-content/latest/microservices-on-aws/characteristics-of-microservices.html
 					
-		
+					//why msa fails
+					synch problem -> 
+					Open tracing events to jager
+					chareography against model
+					voice of the machine vs voice of the business
+					https://www.youtube.com/watch?v=QDufAdzZZt0
+
+
 					pros[
 						polyglot,
 						organizational and technical benefits(different concurency models),
@@ -681,10 +796,9 @@ usd\rub(62.01)/
 				https://www.tensorflow.org/
 			]
 		
-		]
-		
-		Engeneering
-		[
+		]			
+			
+		Engeneering[
 		
 			SoftwareEngeneering
 			[
@@ -746,7 +860,7 @@ usd\rub(62.01)/
 						]
 						
 					]
-					
+										
 				]
 						
 				devops[
@@ -805,6 +919,9 @@ usd\rub(62.01)/
 			[
 				https://www.youtube.com/watch?v=qVeERT4nyz8
 				
+				//resitor detector
+				https://www.audiomania.ru/content/art-1464.html
+				
 				companies[
 					//НИИТФА
 					http://niitfa.ru/
@@ -816,10 +933,10 @@ usd\rub(62.01)/
 					http://www.imtp.febras.ru/razrabotki/78.html?task=view
 					http://www.imtp.febras.ru/razrabotki/76.html?task=view
 				]
-			]
-			
-		]
 
+				
+			]
+		]
 		GuidesRoadmaps[
 			
 			//GraphQL
@@ -854,7 +971,9 @@ usd\rub(62.01)/
 						http://www.anarsolutions.com/automated-unit-testing-tools-comparison/
 						//in readonly
 						https://blogs.msdn.microsoft.com/seteplia/2018/03/07/the-in-modifier-and-the-readonly-structs-in-c/
-						
+						//async ui synch context
+						https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f
+		
 						
 						//hashs
 						http://eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx#fnv
@@ -899,7 +1018,6 @@ https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
 https://stackify.com/csharp-async-await-task-performance/
 https://docs.microsoft.com/en-us/dotnet/framework/network-programming/asynchronous-server-socket-example
 https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
-https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
 https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/?view=aspnetcore-2.1
 https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
 https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=netframework-4.7.2
@@ -998,8 +1116,9 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							//EF migrations
 							https://coding.abel.nu/2012/03/ef-migrations-command-reference/
 						]
-						automapper_autofac[
-							https://kevsoft.net/2016/02/24/automapper-and-autofac-revisited.html
+						DIcontainers[
+							https://autofac.org/
+							http://docs.automapper.org/en/stable/Getting-started.html							
 						]
 						msa[
 							CQSR,Event Sourcing
@@ -1026,12 +1145,32 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							//partial view update
 							https://stackoverflow.com/questions/19392212/how-to-use-jquery-or-ajax-to-update-razor-partial-view-in-c-asp-net-for-a-mvc-p
 			
-						]		
-					
+						]									
+						moq_containers[
+							fakeiteasy
+							https://fakeiteasy.readthedocs.io/en/stable/creating-fakes/
+						]						
+						mapping[
+														
+							//automapper
+							http://docs.automapper.org/en/stable/Getting-started.html
+							https://kevsoft.net/2016/02/24/automapper-and-autofac-revisited.html
+							//EmitMapper
+							https://github.com/MetSystem/EmitMapper
+							
+						]						
+						validation[			
+							fluentvalidation
+							https://fluentvalidation.net/
+						]
+			
 					]
 			
 					.CORE[
 						
+						//call module functions from mvc view
+						https://stackoverflow.com/questions/43285725/unable-to-access-function-bundled-by-webpack
+		
 						//webapi
 						https://stackify.com/asp-net-core-web-api-guide/
 						
@@ -1052,6 +1191,7 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							</Reference>
 						  </ItemGroup>
 						]
+					
 					]
 				
 				]
@@ -1079,11 +1219,214 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 					
 				JS[
 					
+					https://developers.google.com/web/
+	
 					IIFE[
 						https://www.sitepoint.com/demystifying-javascript-closures-callbacks-iifes/
 					]
 					
+					
+					moduleSystem[
+						
+						//babel
+						https://babeljs.io/docs/en/usage
+						//bundling minification
+						https://medium.freecodecamp.org/anatomy-of-js-module-systems-and-building-libraries-fadcd8dbd0e
+						//service workers 'fetch' event
+						https://salomvary.com/es6-modules-in-browsers.html
+						//migrate to gulp 4
+						https://www.joezimjs.com/javascript/complete-guide-upgrading-gulp-4/
+	
+
+					]
+					
 					frameworks[
+												
+						npm[
+
+							npm install -D -E clean-webpack-plugin@0.1.19
+							-E - disable semantic versioning
+							@ - use exact version
+
+						]
+						
+						webpack[
+	
+							lit[
+								
+								//webpack via gulp								
+								https://pawelgrzybek.com/using-webpack-with-gulpjs/
+								
+								//multi folder outpit [name]/[name]
+								https://stackoverflow.com/questions/32145164/webpack-variable-output-path		
+								
+								https://www.valentinog.com/blog/webpack-tutorial/
+								https://medium.freecodecamp.org/part-1-react-app-from-scratch-using-webpack-4-562b1d231e75
+								
+								//webpack_playgrouund
+								https://generatewebpackconfig.netlify.com/
+								
+								//webpack vs gulp + config 
+								https://www.toptal.com/front-end/webpack-browserify-gulp-which-is-better
+								
+								//webpack + ract
+								https://stackoverflow.com/questions/33956201/how-to-import-and-export-components-using-react-es6-webpack
+								
+								//new mvc with npm + react
+								https://codeburst.io/how-to-use-webpack-in-asp-net-core-projects-a-basic-react-template-sample-25a3681a5fc2
+								//core webpack react + hotmodules autoupdate
+								https://medium.com/@deanvniekerk/simple-net-core-webpack-and-react-overview-using-vs-code-5522da657b35
+								//webpack + react jsx
+								https://www.twilio.com/blog/2015/08/setting-up-react-for-es6-with-webpack-and-babel-2.html
+										
+								//dotnet new
+								https://docs.microsoft.com/en-us/dotnet/core/tools/dotnet-new?tabs=netcore21
+								
+							]
+							
+							npmAndCore[
+							
+								dotnet mvc new
+								npm init -y
+								//webpack
+								npm install webpack --save-dev
+								npm install -D webpack-cli		
+								//webpack + babel minify
+								npm install @babel/core @babel/preset-es2015 @babel/preset-env babel-loader babel-minify-webpack-plugin aspnet-webpack --save-dev
+								//react
+								npm install react react-dom @babel/preset-react --save-dev
+							
+								//new mvc template
+								dotnet mvc new
+								//package.json init
+								npm init -y
+								//webpack install
+								npm install webpack --save-dev
+								npm install -D webpack-cli
+								//run default from scripts wbp of package.json
+								npm run wbp
+								
+								//babel with webpack
+								npm install @babel/core @babel/preset-es2015 @babel/preset-env --save-dev
+								npm install babel-loader babel-minify-webpack-plugin --save-dev
+								npm install aspnet-webpack --save-dev
+								
+								//react
+								npm install react react-dom --save-dev
+								npm install @babel/preset-react --save-dev
+							
+								//before start 
+								dotnet publish -c Release
+							]
+									
+							configActionNComments[
+								
+								//hotmodule
+								npm install aspnet-webpack webpack-hot-middleware webpack-dev-middleware -D
+								//changes in 
+								webpack.config->
+									entry: {main:'./wwwroot/js/wpCheck/app.js'},
+								startup.cs->
+									using Microsoft.AspNetCore.SpaServices.Webpack;
+									
+									#if DEBUG
+										app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+										{
+											HotModuleReplacement = true
+										});
+									#endif
+									
+
+								react.jsx as .js
+								in app.js
+								import ReactComponent from '../rctcheck/reactcomponent';
+								
+								//in DOM render event
+								ReactDOM.render(
+								<Message />,
+								document.getElementById('basicreactcomponent')
+										
+								//remove node modules		
+								https://stackoverflow.com/questions/48768236/how-to-tell-webpack-to-ignore-node-modules-both-core-and-installed-from-npm
+								npm install webpack-node-externals
+								//in webpack.config
+								const nodeExternals = require('webpack-node-externals');
+								externals: [nodeExternals()],
+								);
+								
+								npx webpack
+								//custom config
+								npx webpack --config webpack.custom.js
+							
+							]
+							
+							issues[
+								//not reads react jsx to js
+								
+								//read nested import from loaded js  from js file folder, 
+								//add to webpack.config
+								'@': path.resolve(__dirname)
+								//load path
+								import '@/scripts/Plugins/jstree/jquery.jstree';
+							]
+							
+						]
+					
+						gulp[
+			
+							lit[
+							
+								//integrate react
+								https://jonsuh.com/blog/integrating-react-with-gulp/
+								
+								//webpack from gulp
+								https://pawelgrzybek.com/using-webpack-with-gulpjs/
+								
+								//move to gulp 4 
+								https://www.joezimjs.com/javascript/complete-guide-upgrading-gulp-4/
+								
+								//plugins
+								https://www.tutorialspoint.com/gulp/gulp_useful_plugins.htm		
+								
+								https://medium.com/devux/minifying-your-css-js-html-files-using-gulp-2113d7fcbd16
+								https://gulpjs.com/docs/en/getting-started/working-with-files
+								
+								https://www.npmjs.com/package/gulp-bundle
+								
+							]
+							
+							npm[
+							
+								npm install del --save-dev
+								npm install gulp --save-dev
+								npm install gulp-cli -g
+								npm install gulp -D
+								npm install gulp-autoprefixer --save-dev
+								npm install gulp-csso --save-dev
+								npm install gulp-htmlmin --save-dev
+								npm install gulp-sass --save-dev
+								npm install gulp-uglify --save-dev
+								npm install run-sequence --save-dev
+								
+							]
+							
+							//custom gulp file
+							gulp --gulpfile gulpNew.js
+							
+							issues[
+							
+								//react files to jsx
+								//npm install gulp gulp-concat babel-core babel-preset-es2015 gulp-babel gulp-uglify gulp-pug gulp-less gulp-csso gulp-clean rimraf --save-dev
+								
+							]
+							
+						]
+						
+						
+						NODEjs[
+							https://nodejs.org/en/docs/guides/
+						]
+						
 					
 						AngularIO[
 							
@@ -1125,10 +1468,55 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							
 						]
 						
-						//zone.js
-						https://www.youtube.com/watch?v=3IqtmUscE_U
-						https://blog.angularindepth.com/i-reverse-engineered-zones-zone-js-and-here-is-what-ive-found-1f48dc87659b
-						https://medium.com/@MertzAlertz/what-the-hell-is-zone-js-and-why-is-it-in-my-angular-2-6ff28bcf943e
+						signalR in asp code + TS[
+							https://docs.microsoft.com/en-us/aspnet/signalr/overview/getting-started/introduction-to-signalr
+							https://docs.microsoft.com/en-us/aspnet/core/tutorials/signalr?view=aspnetcore-2.2&tabs=visual-studio
+						]
+						
+						zone.js[
+							https://www.youtube.com/watch?v=3IqtmUscE_U
+							https://blog.angularindepth.com/i-reverse-engineered-zones-zone-js-and-here-is-what-ive-found-1f48dc87659b
+							https://medium.com/@MertzAlertz/what-the-hell-is-zone-js-and-why-is-it-in-my-angular-2-6ff28bcf943e
+						]
+						
+						mapbox[
+
+							urls[
+								<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js'></script>
+								<script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+								<link href='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.css' rel='stylesheet' />
+
+								//
+								<script src='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/leaflet.markercluster.js'></script>
+								<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.css' rel='stylesheet' />
+								<link href='https://api.mapbox.com/mapbox.js/plugins/leaflet-markercluster/v1.0.0/MarkerCluster.Default.css' rel='stylesheet' />
+							]
+										
+							code[
+								//rotation
+								https://www.mapbox.com/mapbox.js/example/v1.0.0/rotating-controlling-marker/
+								// use the CSS transform rule if available
+								this._icon.style[L.DomUtil.TRANSFORM] += ' rotate(' + this.options.angle + 'deg)';
+								
+							]
+
+							alliases_fromLibSource[
+								1:corslite
+								7:mapbox
+								17:leaflet
+								map.initialize->
+								_initLayout:1063
+
+							]
+
+						]
+						
+						JqueryAlternatives[
+							https://www.catswhocode.com/blog/umbrella-js-a-tiny-yet-powerful-alternative-to-jquery	
+							https://zeptojs.com/
+							https://mootools.net/
+						]
+
 						
 					]
 					
@@ -1138,75 +1526,8 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 						]				
 					]
 					
-					//dynamic external lib load
-					https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
 					
-					//modules
-					https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
-					https://coryrylan.com/blog/javascript-module-pattern-basics
-					//shorthandNotations
-						https://www.sitepoint.com/shorthand-javascript-techniques/
-					//codding best practce
-						https://blog.risingstack.com/javascript-clean-coding-best-practices-node-js-at-scale/
-					
-					//class composition
-						https://alligator.io/js/class-composition/
-					//dragNdrop
-						https://medium.com/quick-code/simple-javascript-drag-drop-d044d8c5bed5
-						http://interactjs.io/			
-					
-					//pagex layerx screenx
-					https://stackoverflow.com/questions/6073505/what-is-the-difference-between-screenx-y-clientx-y-and-pagex-y
-					[
-					
-						pageX/Y gives the coordinates relative to the <html> element in CSS pixels.
-						clientX/Y gives the coordinates relative to the viewport in CSS pixels.
-						screenX/Y gives the coordinates relative to the screen in device pixels.
-							
-						offsetX/Y relative to layer
-					]
-					
-					//good practices 
-					https://www.w3.org/wiki/JavaScript_best_practices
-					//find event listeners 
-					https://stackoverflow.com/questions/446892/how-to-find-event-listeners-on-a-dom-node-when-debugging-or-from-the-javascript
-					
-					//ajaxPartialViewResult //partial view update
-					https://stackoverflow.com/questions/19392212/how-to-use-jquery-or-ajax-to-update-razor-partial-view-in-c-asp-net-for-a-mvc-p
-					
-					//draggable
-					https://www.w3schools.com/howto/howto_js_draggable.asp
-					
-					//decoupling with mediator
-					https://addyosmani.com/largescalejavascript/
-					//multifile require-js
-					https://stackoverflow.com/questions/33887717/javascript-multi-file-modules-and-require-js
-					//augmented module
-					http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html#global_import
-					
-					//js css rotate
-					https://stackoverflow.com/questions/19126432/rotate-a-div-using-javascript
-					
-					///AJAX async returned .on done
-					https://stackoverflow.com/questions/27612372/how-to-await-the-ajax-request
-					//js replace map
-					https://alligator.io/js/string-replace/
-					https://stackoverflow.com/questions/15604140/replace-multiple-strings-with-multiple-other-strings
-					https://stackoverflow.com/questions/15604140/replace-multiple-strings-with-multiple-other-strings
-					
-					//JsTheRightWay
-					http://jstherightway.org
-					
-					//design patterns
-					https://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript
-					http://jstherightway.org/#patterns
-					
-					//Observer pattern
-					https://pawelgrzybek.com/the-observer-pattern-in-javascript-explained/
-					
-					//JS transform rotate 
-					https://stackoverflow.com/questions/6633536/css-rotation-with-respect-to-a-reference-point
-					
+				
 				]
 				
 				CSS[
@@ -1446,22 +1767,6 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 				https://codeburst.io/the-ultimate-guide-to-learning-full-stack-web-development-in-6-months-for-30-72b3854a7458
 			]
 						
-			JS[
-				//Mozilla learn
-				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide
-				//object initializer
-				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
-				//Mozilla spiderMonkey
-				https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
-				//AirBnB styleguide
-				http://airbnb.io/javascript/#functions--mutate-params
-
-				NODEjs[
-					https://nodejs.org/en/docs/guides/
-				]
-			
-			]
-						
 			GIT[
 				https://medium.freecodecamp.org/understanding-git-for-real-by-exploring-the-git-directory-1e079c15b807
 				https://git-scm.com/book/en/v2
@@ -1672,12 +1977,14 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 			//devops tools periodic table
 				https://xebialabs.com/periodic-table-of-devops-tools/
 			]
-			
+
 		]
 
+		
+		
 		learningProgramms[
 		
-			//5mnths
+			//5months
 			cpp[
 
 				 Введение[
@@ -2105,7 +2412,7 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 			http://codekata.com/
 			https://code.google.com/codejam/
 		]
-		
+
 		sources[
 		
 			//IBM Patterns
@@ -2124,7 +2431,7 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 			//MSA template
 			https://github.com/begriffs/microservice-template
 		]
-				
+
 		Examples[
 			
 			//dashbord web sockets
@@ -2141,7 +2448,7 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 			https://www.3ds.com/ru/
 		]				
 				
-		Code_Configs_Commands[		
+		Code_Configs_Commands[
 			
 			MagicStrings[
 				//jpg 
@@ -2290,6 +2597,15 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			vs[
 				//debugging source code
 				https://blogs.msdn.microsoft.com/mcsuksoldev/2010/09/09/debugging-the-net-framework-source-code/
+								
+				repair[
+					//Error: Evaluating the function 'function' timed out and needed to be aborted in an unsafe way
+					https://docs.microsoft.com/en-us/visualstudio/debugger/error-evaluating-the-function-function-timed-out-and-needed-to-be-aborted-in-an-unsafe-way?view=vs-2017
+					https://developercommunity.visualstudio.com/content/problem/15931/evaluating-the-function-systemreflectionassemblylo.html
+					https://forums.autodesk.com/t5/revit-api-forum/use-managed-compatibility-mode-or-enable-native-code-debugging/td-p/6868592
+					https://stackoverflow.com/questions/28551818/visual-studio-2013-debug-options-missing-under-configuration-options
+				]
+			
 			]
 			
 			powershell[
@@ -2341,8 +2657,8 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				builder.RegisterModule(new InstanceModule());
 				builder.RegisterModule(new AutomapperModule());
 			
-			]
-		
+			]	
+			
 		]
 
 		//Decompose to Products,Companies,Tools
@@ -2380,40 +2696,21 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://www.heidisql.com/
 			
 			
-			autofac
-			https://autofac.org/
-			fakeiteasy
-			https://fakeiteasy.readthedocs.io/en/stable/creating-fakes/
-			automapper
-			http://docs.automapper.org/en/stable/Getting-started.html
-			fluentvalidation
-			https://fluentvalidation.net/
+		
 			stylecop
 			https://blog.submain.com/stylecop-detailed-guide/
 		
-			
-			moq_containers[
-				fakeiteasy
-				https://fakeiteasy.readthedocs.io/en/stable/creating-fakes/
-			]
-			
-			mapping[
-				//automapper
-				http://docs.automapper.org/en/stable/Getting-started.html
-				//EmitMapper
-				https://github.com/MetSystem/EmitMapper
-			]
-			
-			validation[			
-				fluentvalidation
-				https://fluentvalidation.net/
-			]
-			
+	
 			static_analysis[
 				stylecop
 				https://blog.submain.com/stylecop-detailed-guide/
 				//codacy
 				https://app.codacy.com
+			]
+			
+			code_quality[
+				//sonarqube
+				https://www.sonarqube.org/
 			]
 			
 			docsoft[
@@ -2444,6 +2741,8 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			
 			CI_CD[
 				https://circleci.com/product/
+				//automation
+				https://www.ansible.com/
 			]
 			
 			clouds[
@@ -2641,48 +2940,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			]
 			
 			guides[
-			
-				JS
-				[
-
-					//modules
-					https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
-					https://coryrylan.com/blog/javascript-module-pattern-basics
-					//shorthandNotations
-						https://www.sitepoint.com/shorthand-javascript-techniques/
-					//codding best practce
-						https://blog.risingstack.com/javascript-clean-coding-best-practices-node-js-at-scale/
-					
-					//class composition
-						https://alligator.io/js/class-composition/
-					//dragNdrop
-						https://medium.com/quick-code/simple-javascript-drag-drop-d044d8c5bed5
-						http://interactjs.io/			
-					//pagex layerx screenx
-					https://stackoverflow.com/questions/6073505/what-is-the-difference-between-screenx-y-clientx-y-and-pagex-y
-					[
-					
-						pageX/Y gives the coordinates relative to the <html> element in CSS pixels.
-						clientX/Y gives the coordinates relative to the viewport in CSS pixels.
-						screenX/Y gives the coordinates relative to the screen in device pixels.
-							
-						offsetX/Y relative to layer
-					]
-					
-					//good practices 
-					https://www.w3.org/wiki/JavaScript_best_practices
-					//find event listeners 
-					https://stackoverflow.com/questions/446892/how-to-find-event-listeners-on-a-dom-node-when-debugging-or-from-the-javascript
-					
-					//ajaxPartialViewResult //partial view update
-					https://stackoverflow.com/questions/19392212/how-to-use-jquery-or-ajax-to-update-razor-partial-view-in-c-asp-net-for-a-mvc-p
-					
-					//draggable
-					https://www.w3schools.com/howto/howto_js_draggable.asp
-					
-					
-				]
-			
 				
 				customBodyAttributes[
 					https://weblog.west-wind.com/posts/2012/Aug/30/Using-JSONNET-for-dynamic-JSON-parsing
@@ -2698,6 +2955,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				]
 		
 				msa[
+
 					https://www.nginx.com/blog/nginmesh-nginx-as-a-proxy-in-an-istio-service-mesh/
 					https://www.nginx.com/blog/what-is-a-service-mesh/
 					https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture/
@@ -2785,239 +3043,16 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			
 			]					
 			
-			toread[
-				//web ppa recurrent
-				https://haacked.com/archive/2011/10/16/the-dangers-of-implementing-recurring-background-tasks-in-asp-net.aspx/
-			
-				DDD[
-					https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
-					https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
-					https://www.infoq.com/articles/ddd-in-practice
-				]
-				
-				//statsd
-				https://www.datadoghq.com/blog/statsd/
-				
-				//Kubernetes vs mesos vs swarm
-				https://www.sumologic.com/devops/kubernetes-vs-mesos-vs-swarm/
-				
-				//Explainable AI
-				https://hackernoon.com/explainable-ai-wont-deliver-here-s-why-6738f54216be
-				
-				//Algorithm Design and Applications
-				http://canvas.projekti.info/ebooks/Algorithm%20Design%20and%20Applications%5BA4%5D.pdf
-				
-				//vue 
-				https://www.youtube.com/watch?v=7YZ5DwlLSt8
-				
-				//database design
-				https://www.youtube.com/watch?v=ztHopE5Wnpc
-				
-				//C++ basic to advance
-				https://www.youtube.com/watch?v=mUQZ1qmKlLY
-				
-				//Data structures 
-				https://en.wikipedia.org/wiki/Data_structure
-				https://en.wikipedia.org/wiki/Hash_table
-				https://en.wikipedia.org/wiki/Linked_list
-				
-				//DDD
-				http://www.methodsandtools.com/archive/archive.php?id=97p2
-				https://en.wikipedia.org/wiki/Domain-driven_design
-				//Aggregate root 
-				https://www.codeproject.com/Articles/1055514/Aggregate-Root-Pattern-in-Csharp
-				https://martinfowler.com/bliki/DDD_Aggregate.html
-				
-				//book
-				//Rabbit mq
-				http://books.tarsoit.com/RabbitMQ%20Cookbook.pdf
-				//best practices 
-				https://www.cloudamqp.com/blog/2017-12-29-part1-rabbitmq-best-practice.html
-				
-				//inter process comunication
-				https://en.wikipedia.org/wiki/Inter-process_communication
-				//data distribution service
-				https://en.wikipedia.org/wiki/Data_Distribution_Service
-				
-				mesasging system 
-				rabbitmq
-				https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html
-				
-				Caching
-				reddis
-				https://redis.io/topics/data-types-intro
-				
-				TPL
-				https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl
-				
-				https://en.wikipedia.org/wiki/Turing_completeness
-				https://en.wikipedia.org/wiki/Hardware_random_number_generator
-				https://en.wikipedia.org/wiki/Pseudorandom_number_generator
-				https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator
-				https://en.wikipedia.org/wiki/One-time_pad
-				https://en.wikipedia.org/wiki/Strong_cryptography
-
-				//FP vs OOP
-				https://medium.com/@sho.miyata.1/the-object-oriented-programming-vs-functional-programming-debate-in-a-beginner-friendly-nutshell-24fb6f8625cc
-				
-				//JS styleguides
-				https://codeburst.io/5-javascript-style-guides-including-airbnb-github-google-88cbc6b2b7aa
-					
-				//ML
-				https://towardsdatascience.com/how-not-to-use-machine-learning-for-time-series-forecasting-avoiding-the-pitfalls-19f9d7adf424
-				http://www.statsoft.com/Textbook/Time-Series-Analysis
-				
-				//Feature toggling
-				https://martinfowler.com/articles/feature-toggles.html
-				//CI 
-				https://en.wikipedia.org/wiki/Continuous_integration
-				https://www.gocd.org/2017/05/16/its-not-CI-its-CI-theatre.html
-				https://paulhammant.com/blog/branch_by_abstraction
-				https://zeroturnaround.com/rebellabs/things-to-consider-when-featuring-branching-with-continuous-integration/
-				
-				//Enterprise service bus
-				https://en.wikipedia.org/wiki/Enterprise_service_bus
-				
-				//ORM Ibaits vs hibernate
-				https://www.javaworld.com/article/2077875/open-source-tools/ibatis--hibernate--and-jpa--which-is-right-for-you-.html?page=5
-				
-				//insects
-				https://en.wikipedia.org/wiki/Fairyfly
-				
-				//service architecture
-				https://en.wikipedia.org/wiki/Microservices
-				https://en.wikipedia.org/wiki/Service-oriented_architecture
-				
-				//sharing code 
-				http://www.ben-morris.com/sharing-libraries-between-net-core-and-net-framework-applications/
-				http://www.ben-morris.com/migrating-net-framework-applications-to-net-core/
-				https://docs.microsoft.com/en-us/dotnet/core/tools/extensibility
-				https://docs.microsoft.com/en-us/dotnet/core/tools/extensibility#per-project-based-extensibility
-				https://docs.microsoft.com/en-us/dotnet/core/deploying/
-				https://docs.microsoft.com/en-us/dotnet/standard/net-standard
-				https://programmingwithmosh.com/csharp/should-you-split-your-asp-net-mvc-project-into-multiple-projects/
-				https://www.infoq.com/news/2017/10/dotnet-core-standard-difference
-				
-				//media
-				https://www.techwalla.com/
-				
-				//economy
-				https://www.bloomberg.com/news/articles/2018-06-29/trump-s-trade-war-challenge-figuring-out-who-s-the-enemy
-				https://www.bloomberg.com/news/articles/2018-06-30/bitcoin-bloodbath-nears-dot-com-levels-as-many-tokens-go-to-zero
-				https://www.bloomberg.com/news/features/2018-06-26/how-to-steal-50-million-bees
-				https://www.bloomberg.com/news/articles/2018-06-29/ivory-coast-to-start-destroying-cocoa-crops-in-protected-forests
-				https://en.wikipedia.org/wiki/Ivory_Coast
-						
-				//literature 
-				https://meduza.io/feature/2018/06/30/dva-romana-o-pchelah-antiutopiya-iz-zhizni-nasekomyh-i-saga-pro-ekologiyu
-				
-				//JS
-				https://lostechies.com/chrismissal/2013/08/06/browser-wars-websockets-vs-ajax/
-				https://blog.safe.com/2014/08/websockets-ajax-webhooks-comparison/
-				https://scotch.io/bar-talk/copying-objects-in-javascript
-				https://scotch.io/bar-talk/4-javascript-design-patterns-you-should-know#toc-module-design-pattern
-				https://medium.com/@tkssharma/objects-in-javascript-object-assign-deep-copy-64106c9aefab
-				https://scotch.io/bar-talk/4-javascript-design-patterns-you-should-know#toc-module-design-pattern		
-				https://medium.com/@tkssharma/objects-in-javascript-object-assign-deep-copy-64106c9aefab
-
-				//Full-stack roadmap 2018
-				https://codeburst.io/the-2018-web-developer-roadmap-826b1b806e8d
-				//Full-stack guide 2018
-				https://codeburst.io/the-ultimate-guide-to-learning-full-stack-web-development-in-6-months-for-30-72b3854a7458
-				
-				//aws deploy
-				https://codeburst.io/deploy-angular-2-node-js-website-using-aws-1ac169d6bbf
-				
-				//js 30 things
-				https://javascript30.com/
-				
-				//IIFe vs closure
-				https://www.sitepoint.com/demystifying-javascript-closures-callbacks-iifes/
-				
-				//rxjs
-				https://netbasal.com/understanding-subjects-in-rxjs-55102a190f3
-				https://netbasal.com/event-emitters-in-angular-13e84ee8d28c
-				https://netbasal.com/understanding-subjects-in-rxjs-55102a190f3
-				
-				//MEAN
-				//Express 4 web api
-				https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
-				//mongo js web api
-				https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
-				//mean web api
-				https://scotch.io/tutorials/mean-app-with-angular-2-and-the-angular-cli
-				
-				
-				//mongo 
-				
-				//refs 
-				//drivers 
-				https://docs.mongodb.com/manual/applications/drivers/
-				
-				//docs 
-				
-				//documents 
-				https://docs.mongodb.com/
-				//manual
-				https://docs.mongodb.com/manual/
-				//shell command 
-				https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/#mongo-shell-new-connections
-				//dirver API
-				http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html?_ga=2.178965415.24837985.1529065256-2048342004.1529065256#insertMany		
-				//node.js driver 
-				http://mongodb.github.io/node-mongodb-native/2.2/
-
-				
-				
-				//Machine learning
-				
-				//overall 
-				https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%88%D0%B8%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5
-				
-				//tutorial
-				http://neuralnetworksanddeeplearning.com/
-				//c++
-				https://github.com/GarethRichards/Machine-Learning-CPP/blob/master/README.md
-				
-				//libs 		
-				http://dlib.net/
-				https://www.mlpack.org/about.html
-				
-				//frameworks
-				http://caffe.berkeleyvision.org/tutorial/
-				https://www.tensorflow.org/
-				
-				//electricity
-				https://www.youtube.com/watch?v=TQUsGnJ51ig
-				https://www.youtube.com/watch?v=AL10qGOEPYI
-				
-				//futures
-				https://ru.investing.com/commodities/aluminum
-				https://ru.investing.com/commodities/us-corn
-				https://ru.investing.com/commodities/us-wheat
-				https://ru.investing.com/commodities/sorghum-future
-				
-				//news
-				https://www.cnbc.com/world/?region=world
-				https://www.investopedia.com/
-				http://www.kitco.com/
-				
-				//oil
-				https://en.wikipedia.org/wiki/List_of_countries_by_proven_oil_reserves
-				https://en.wikipedia.org/wiki/Proven_reserves
-				https://en.wikipedia.org/wiki/Oil_reserves
-				https://en.wikipedia.org/wiki/Petroleum
-				
-				//db
-				https://en.wikipedia.org/wiki/Isolation_(database_systems)#Phantom_reads
-				https://en.wikipedia.org/wiki/Isolation_(database_systems)
-				https://en.wikipedia.org/wiki/Database_transaction		
-				https://docs.oracle.com/cd/B13789_01/server.101/b10743/consist.htm#i5702		
-				
-			]
-
 		]
 		
+		music[
+			//techno renessance
+			https://www.electronicbeats.net/ptu-russian-artist-guide/
+		]		
+		films[
+			https://www.imdb.com/title/tt2268458/videoplayer/vi4034112025?ref_=tt_ov_vi
+			https://www.imdb.com/title/tt2268458/videoplayer/vi2510666009?ref_=vi_nxt_ap
+		]
 		blogs[
 		
 			https://medium.com/reverdev/why-we-moved-from-angular-2-to-vue-js-and-why-we-didnt-choose-react-ef807d9f4163
@@ -3192,6 +3227,21 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				overclock[
 					https://www.makeuseof.com/tag/cpu-overclocking/
 				]
+				
+				
+					powerSupply[
+					//PC 24 pins
+					https://overhard.ru/news/articles/stati/raspinovka_razemov_bloka_pitaniya/
+					]
+					
+					stuff[		
+	
+						LED RGB Ball String
+						//power supply
+						http://diodnik.com/wp-content/uploads/2016/02/lab2_0.gif
+								
+					]
+				
 			]
 			
 		]
@@ -3411,6 +3461,509 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 
 		unsorted
 		{
+		
+			JS_unsorted
+			[
+				
+				//raster tiles vs vector tiles 
+				https://www.mapbox.com/help/glossary/tileset
+
+				//new mvc with npm + react
+				https://codeburst.io/how-to-use-webpack-in-asp-net-core-projects-a-basic-react-template-sample-25a3681a5fc2
+				//core webpack react + hotmodules autoupdate
+				https://medium.com/@deanvniekerk/simple-net-core-webpack-and-react-overview-using-vs-code-5522da657b35
+				
+				//kickass
+				https://levelup.gitconnected.com/9-tricks-for-kickass-javascript-developers-in-2019-eb01dd3def2a
+				
+				t&t[
+					ES6 arrow functions (=>). Arrow functions explicitly prevent binding this
+				]
+				
+				//EXM CJS modules
+				https://medium.com/webpack/the-state-of-javascript-modules-4636d1774358
+				
+				//twitter
+				https://twitter.com/addyosmani
+				
+				//async/await
+				https://medium.freecodecamp.org/how-to-master-async-await-with-this-real-world-example-19107e7558ad
+				
+				//wbpack import resolve folders
+				https://spin.atomicobject.com/2017/10/07/absolute-paths-javascript/
+				
+				//modular js
+				https://medium.com/dev-bits/everything-i-know-about-writing-modular-javascript-applications-37c125d8eddf
+				
+				//modules,bundles,systems
+				https://www.jvandemo.com/a-10-minute-primer-to-javascript-modules-module-formats-module-loaders-and-module-bundlers/
+				
+				//exploring s6
+				http://exploringjs.com/es6/index.html#toc_ch_modules
+				
+				//require js
+				https://volaresystems.com/blog/post/2014/05/27/Adding-RequireJS-to-an-ASPNET-MVC-project
+				
+				//js classes
+				https://www.digitalocean.com/community/tutorials/understanding-classes-in-javascript
+				//js prototipe chain 
+				//type.call(this,...)
+				//use ObjectCreate(type.prototype) in constructor
+				https://www.digitalocean.com/community/tutorials/understanding-prototypes-and-inheritance-in-javascript#constructor-functions
+				
+				//js rendering
+				https://blog.sessionstack.com/how-javascript-works-the-rendering-engine-and-tips-to-optimize-its-performance-7b95553baeda
+				
+				
+				//dynamic external lib load
+				https://stackoverflow.com/questions/950087/how-do-i-include-a-javascript-file-in-another-javascript-file
+				
+				http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html
+				//arch patterns for large-scale 
+				https://addyosmani.com/largescalejavascript/
+				//10 arch patterns 
+				https://towardsdatascience.com/10-common-software-architectural-patterns-in-a-nutshell-a0b47a1e9013
+				//object rest/spread properties Observer,async
+				https://derickbailey.com/2017/06/06/3-features-of-es7-and-beyond-that-you-should-be-using-now/					
+				//factory vs constructor vs classes
+				https://medium.com/javascript-scene/javascript-factory-functions-vs-constructor-functions-vs-classes-2f22ceddf33e
+				//simple service bus with dispatch listen
+				http://krasimirtsonev.com/blog/article/javascript-managing-events-dispatch-listen
+				//inheritance, delegation, object linking
+				https://codeburst.io/javascript-inheritance-25fe61ab9f85
+				
+				//modules
+				https://medium.freecodecamp.org/javascript-modules-a-beginner-s-guide-783f7d7a5fcc
+				https://coryrylan.com/blog/javascript-module-pattern-basics
+				//shorthandNotations
+					https://www.sitepoint.com/shorthand-javascript-techniques/
+				//codding best practce
+					https://blog.risingstack.com/javascript-clean-coding-best-practices-node-js-at-scale/
+				
+				//class composition
+					https://alligator.io/js/class-composition/
+				//dragNdrop
+					https://medium.com/quick-code/simple-javascript-drag-drop-d044d8c5bed5
+					http://interactjs.io/			
+				
+				//pagex layerx screenx
+				https://stackoverflow.com/questions/6073505/what-is-the-difference-between-screenx-y-clientx-y-and-pagex-y
+				[
+				
+					pageX/Y gives the coordinates relative to the <html> element in CSS pixels.
+					clientX/Y gives the coordinates relative to the viewport in CSS pixels.
+					screenX/Y gives the coordinates relative to the screen in device pixels.
+						
+					offsetX/Y relative to layer
+				]
+				
+				//good practices 
+				https://www.w3.org/wiki/JavaScript_best_practices
+				//find event listeners 
+				https://stackoverflow.com/questions/446892/how-to-find-event-listeners-on-a-dom-node-when-debugging-or-from-the-javascript
+				
+				//ajaxPartialViewResult //partial view update
+				https://stackoverflow.com/questions/19392212/how-to-use-jquery-or-ajax-to-update-razor-partial-view-in-c-asp-net-for-a-mvc-p
+				
+				//draggable
+				https://www.w3schools.com/howto/howto_js_draggable.asp
+				
+				//decoupling with mediator
+				https://addyosmani.com/largescalejavascript/
+				//multifile require-js
+				https://stackoverflow.com/questions/33887717/javascript-multi-file-modules-and-require-js
+				//augmented module
+				http://www.adequatelygood.com/JavaScript-Module-Pattern-In-Depth.html#global_import
+				
+				//js css rotate
+				https://stackoverflow.com/questions/19126432/rotate-a-div-using-javascript
+				
+				///AJAX async returned .on done
+				https://stackoverflow.com/questions/27612372/how-to-await-the-ajax-request
+				//js replace map
+				https://alligator.io/js/string-replace/
+				https://stackoverflow.com/questions/15604140/replace-multiple-strings-with-multiple-other-strings
+				https://stackoverflow.com/questions/15604140/replace-multiple-strings-with-multiple-other-strings
+				
+				//JsTheRightWay
+				http://jstherightway.org
+				
+				//design patterns
+				https://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript
+				http://jstherightway.org/#patterns
+				
+				//Observer pattern
+				https://pawelgrzybek.com/the-observer-pattern-in-javascript-explained/
+				
+				//JS transform rotate 
+				https://stackoverflow.com/questions/6633536/css-rotation-with-respect-to-a-reference-point
+				
+					//Mozilla learn
+				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide
+				//object initializer
+				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer
+				//Mozilla spiderMonkey
+				https://developer.mozilla.org/en-US/docs/Mozilla/Projects/SpiderMonkey
+				//AirBnB styleguide
+				http://airbnb.io/javascript/#functions--mutate-params
+
+			]
+			
+			gamedev[
+				
+				//overall + shaders
+				https://catlikecoding.com/unity/tutorials/
+				
+				https://www.habrador.com/tutorials/shaders/
+				https://www.edx.org/course/foundations-computer-graphics-uc-berkeleyx-cs-184-1x
+				https://answers.unity.com/questions/7758/good-resources-for-learning-how-to-write-shaders-c.html
+				
+				shaders[
+					https://www.habrador.com/tutorials/shaders/3-parallax-mapping/
+				]
+				unity[		
+					https://digitalerr0r.wordpress.com/2015/09/02/unity-5-shader-programming-1-an-introduction-to-shaders/
+					https://docs.unity3d.com/Manual/ShadersOverview.html
+					https://www.youtube.com/watch?v=3penhrrKCYg
+					https://www.habrador.com/tutorials/shaders/
+					
+					https://en.wikibooks.org/wiki/GLSL_Programming/Unity
+					https://en.wikibooks.org/wiki/Cg_Programming/Unity
+					https://unity3d.com/learn/resources/downloads
+					https://docs.unity3d.com/Manual/SL-VertexFragmentShaderExamples.html
+					
+				]
+				vulkan[
+				
+				]
+			]
+			
+			craft[
+				eectro[
+					//electro power supply
+					https://www.kirich.blog/stati/informaciya-dlya-nachinayuschih/419-ustroystvo-impulsnyh-blokov-pitaniya-apfc.html
+					https://www.kirich.blog/stati/informaciya-dlya-nachinayuschih/333-iz-chego-sostoit-impulsnyy-blok-pitaniya-chast-3.html
+					http://electrik.info/device/1081-chto-takoe-impulsnyy-blok-pitaniya.html
+					https://www.asutpp.ru/impulsnyj-blok-pitaniya.html
+					https://3dnews.ru/911366
+				]
+			]
+
+
+			
+			science and technology[
+			
+				https://www.youtube.com/watch?v=uE5POhMnN78
+				https://www.youtube.com/watch?v=1EWQYAfuMYw
+				https://www.youtube.com/watch?v=6MU52wc1hIs
+				https://www.youtube.com/watch?v=VexSq8NIqew
+					
+					neuroscience [
+
+
+						//literature 
+						https://www.uio.no/studier/emner/medisin/med/MF9150/h13/pensumliste/literature-list-mf-9150-essentials-of-neurophysiology-%28versjon-2%29.pdf
+
+						//imune
+						https://www.youtube.com/watch?v=tJXk2zDomWk
+
+						https://www.youtube.com/watch?v=UdTJPsohRWk&list=PLh6dVTO7f4FZsTOuD_0v7DLDm70Jv3_99
+						https://www.youtube.com/watch?v=XNMGhUG3YDA
+						https://www.youtube.com/watch?v=wf6Nbbnc6nw
+						https://www.youtube.com/watch?v=Jal8tVU3w9M
+						https://www.youtube.com/watch?v=bzbl8iS6cN0
+						https://www.youtube.com/watch?v=tJXk2zDomWk
+
+					]
+
+					maths[
+
+						https://www.youtube.com/watch?v=EwQV4iHdnOU
+
+					]
+				
+			]
+			
+			//most original movies
+			https://www.youtube.com/watch?v=Ycf1fcom6So
+			
+			
+			
+			//fail at microservices
+			https://www.youtube.com/watch?v=X0tjziAQfNQ
+
+			//c++ materials
+			https://vk.com/@tproger-cpp-digest
+			//c++ tricks
+			https://tproger.ru/translations/cpp-hints/
+			
+			//c++ core guidlines
+			https://github.com/isocpp/CppCoreGuidelines/blob/master/CppCoreGuidelines.md
+			//ultimate question of programming
+			https://alexastva.gitbooks.io/the-ultimate-question-of-programming-refactoring-/content/2.html
+			//software design
+			https://cis.stvincent.edu/html/tutorials/swd/.			
+			//cpp google styleguide
+			https://google.github.io/styleguide/cppguide.html#Header_Files
+			
+			//123 Interview questions
+			https://tproger.ru/articles/problems/
+
+			toread[
+											
+				//actor model
+				https://www.brianstorti.com/the-actor-model/
+				
+				//web ppa recurrent
+				https://haacked.com/archive/2011/10/16/the-dangers-of-implementing-recurring-background-tasks-in-asp-net.aspx/
+			
+				DDD[
+					https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
+					https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
+					https://www.infoq.com/articles/ddd-in-practice
+				]
+				
+				//statsd
+				https://www.datadoghq.com/blog/statsd/
+				
+				//Kubernetes vs mesos vs swarm
+				https://www.sumologic.com/devops/kubernetes-vs-mesos-vs-swarm/
+				
+				//Explainable AI
+				https://hackernoon.com/explainable-ai-wont-deliver-here-s-why-6738f54216be
+				
+				//Algorithm Design and Applications
+				http://canvas.projekti.info/ebooks/Algorithm%20Design%20and%20Applications%5BA4%5D.pdf
+				
+				//vue 
+				https://www.youtube.com/watch?v=7YZ5DwlLSt8
+				
+				//database design
+				https://www.youtube.com/watch?v=ztHopE5Wnpc
+				
+				//C++ basic to advance
+				https://www.youtube.com/watch?v=mUQZ1qmKlLY
+				
+				//Data structures 
+				https://en.wikipedia.org/wiki/Data_structure
+				https://en.wikipedia.org/wiki/Hash_table
+				https://en.wikipedia.org/wiki/Linked_list
+				
+				//DDD
+				http://www.methodsandtools.com/archive/archive.php?id=97p2
+				https://en.wikipedia.org/wiki/Domain-driven_design
+				//Aggregate root 
+				https://www.codeproject.com/Articles/1055514/Aggregate-Root-Pattern-in-Csharp
+				https://martinfowler.com/bliki/DDD_Aggregate.html
+				
+				//book
+				//Rabbit mq
+				http://books.tarsoit.com/RabbitMQ%20Cookbook.pdf
+				//best practices 
+				https://www.cloudamqp.com/blog/2017-12-29-part1-rabbitmq-best-practice.html
+				
+				//inter process comunication
+				https://en.wikipedia.org/wiki/Inter-process_communication
+				//data distribution service
+				https://en.wikipedia.org/wiki/Data_Distribution_Service
+				
+				mesasging system 
+				rabbitmq
+				https://www.rabbitmq.com/tutorials/tutorial-one-dotnet.html
+				
+				Caching
+				reddis
+				https://redis.io/topics/data-types-intro
+				
+				TPL
+				https://docs.microsoft.com/en-us/dotnet/standard/parallel-programming/task-parallel-library-tpl
+				
+				https://en.wikipedia.org/wiki/Turing_completeness
+				https://en.wikipedia.org/wiki/Hardware_random_number_generator
+				https://en.wikipedia.org/wiki/Pseudorandom_number_generator
+				https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator
+				https://en.wikipedia.org/wiki/One-time_pad
+				https://en.wikipedia.org/wiki/Strong_cryptography
+
+				//FP vs OOP
+				https://medium.com/@sho.miyata.1/the-object-oriented-programming-vs-functional-programming-debate-in-a-beginner-friendly-nutshell-24fb6f8625cc
+				
+				//JS styleguides
+				https://codeburst.io/5-javascript-style-guides-including-airbnb-github-google-88cbc6b2b7aa
+					
+				//ML
+				https://towardsdatascience.com/how-not-to-use-machine-learning-for-time-series-forecasting-avoiding-the-pitfalls-19f9d7adf424
+				http://www.statsoft.com/Textbook/Time-Series-Analysis
+				
+				//Feature toggling
+				https://martinfowler.com/articles/feature-toggles.html
+				//CI 
+				https://en.wikipedia.org/wiki/Continuous_integration
+				https://www.gocd.org/2017/05/16/its-not-CI-its-CI-theatre.html
+				https://paulhammant.com/blog/branch_by_abstraction
+				https://zeroturnaround.com/rebellabs/things-to-consider-when-featuring-branching-with-continuous-integration/
+				
+				//Enterprise service bus
+				https://en.wikipedia.org/wiki/Enterprise_service_bus
+				
+				//ORM Ibaits vs hibernate
+				https://www.javaworld.com/article/2077875/open-source-tools/ibatis--hibernate--and-jpa--which-is-right-for-you-.html?page=5
+				
+				//insects
+				https://en.wikipedia.org/wiki/Fairyfly
+				
+				//service architecture
+				https://en.wikipedia.org/wiki/Microservices
+				https://en.wikipedia.org/wiki/Service-oriented_architecture
+				
+				//sharing code
+				http://www.ben-morris.com/sharing-libraries-between-net-core-and-net-framework-applications/
+				http://www.ben-morris.com/migrating-net-framework-applications-to-net-core/
+				https://docs.microsoft.com/en-us/dotnet/core/tools/extensibility
+				https://docs.microsoft.com/en-us/dotnet/core/tools/extensibility#per-project-based-extensibility
+				https://docs.microsoft.com/en-us/dotnet/core/deploying/
+				https://docs.microsoft.com/en-us/dotnet/standard/net-standard
+				https://programmingwithmosh.com/csharp/should-you-split-your-asp-net-mvc-project-into-multiple-projects/
+				https://www.infoq.com/news/2017/10/dotnet-core-standard-difference
+				
+				//media
+				https://www.techwalla.com/
+				
+				//economy
+				https://www.bloomberg.com/news/articles/2018-06-29/trump-s-trade-war-challenge-figuring-out-who-s-the-enemy
+				https://www.bloomberg.com/news/articles/2018-06-30/bitcoin-bloodbath-nears-dot-com-levels-as-many-tokens-go-to-zero
+				https://www.bloomberg.com/news/features/2018-06-26/how-to-steal-50-million-bees
+				https://www.bloomberg.com/news/articles/2018-06-29/ivory-coast-to-start-destroying-cocoa-crops-in-protected-forests
+				https://en.wikipedia.org/wiki/Ivory_Coast
+						
+				//literature 
+				https://meduza.io/feature/2018/06/30/dva-romana-o-pchelah-antiutopiya-iz-zhizni-nasekomyh-i-saga-pro-ekologiyu
+				
+				//JS
+				https://lostechies.com/chrismissal/2013/08/06/browser-wars-websockets-vs-ajax/
+				https://blog.safe.com/2014/08/websockets-ajax-webhooks-comparison/
+				https://scotch.io/bar-talk/copying-objects-in-javascript
+				https://scotch.io/bar-talk/4-javascript-design-patterns-you-should-know#toc-module-design-pattern
+				https://medium.com/@tkssharma/objects-in-javascript-object-assign-deep-copy-64106c9aefab
+				https://scotch.io/bar-talk/4-javascript-design-patterns-you-should-know#toc-module-design-pattern		
+				https://medium.com/@tkssharma/objects-in-javascript-object-assign-deep-copy-64106c9aefab
+
+				//Full-stack roadmap 2018
+				https://codeburst.io/the-2018-web-developer-roadmap-826b1b806e8d
+				//Full-stack guide 2018
+				https://codeburst.io/the-ultimate-guide-to-learning-full-stack-web-development-in-6-months-for-30-72b3854a7458
+				
+				//aws deploy
+				https://codeburst.io/deploy-angular-2-node-js-website-using-aws-1ac169d6bbf
+				
+				//js 30 things
+				https://javascript30.com/
+				
+				//IIFe vs closure
+				https://www.sitepoint.com/demystifying-javascript-closures-callbacks-iifes/
+				
+				//rxjs
+				https://netbasal.com/understanding-subjects-in-rxjs-55102a190f3
+				https://netbasal.com/event-emitters-in-angular-13e84ee8d28c
+				https://netbasal.com/understanding-subjects-in-rxjs-55102a190f3
+				
+				//MEAN
+				//Express 4 web api
+				https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
+				//mongo js web api
+				https://scotch.io/tutorials/build-a-restful-api-using-node-and-express-4
+				//mean web api
+				https://scotch.io/tutorials/mean-app-with-angular-2-and-the-angular-cli
+				
+				
+				//mongo 
+				
+				//refs 
+				//drivers
+				https://docs.mongodb.com/manual/applications/drivers/
+				
+				//docs 
+				
+				//documents 
+				https://docs.mongodb.com/
+				//manual
+				https://docs.mongodb.com/manual/
+				//shell command 
+				https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/#mongo-shell-new-connections
+				//dirver API
+				http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html?_ga=2.178965415.24837985.1529065256-2048342004.1529065256#insertMany		
+				//node.js driver 
+				http://mongodb.github.io/node-mongodb-native/2.2/
+
+				
+				
+				//Machine learning
+				
+				//overall 
+				https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%88%D0%B8%D0%BD%D0%BD%D0%BE%D0%B5_%D0%BE%D0%B1%D1%83%D1%87%D0%B5%D0%BD%D0%B8%D0%B5
+				
+				//tutorial
+				http://neuralnetworksanddeeplearning.com/
+				//c++
+				https://github.com/GarethRichards/Machine-Learning-CPP/blob/master/README.md
+				
+				//libs 		
+				http://dlib.net/
+				https://www.mlpack.org/about.html
+				
+				//frameworks
+				http://caffe.berkeleyvision.org/tutorial/
+				https://www.tensorflow.org/
+				
+				//electricity
+				https://www.youtube.com/watch?v=TQUsGnJ51ig
+				https://www.youtube.com/watch?v=AL10qGOEPYI
+				
+				//futures
+				https://ru.investing.com/commodities/aluminum
+				https://ru.investing.com/commodities/us-corn
+				https://ru.investing.com/commodities/us-wheat
+				https://ru.investing.com/commodities/sorghum-future
+				
+				//news
+				https://www.cnbc.com/world/?region=world
+				https://www.investopedia.com/
+				http://www.kitco.com/
+				
+				//oil
+				https://en.wikipedia.org/wiki/List_of_countries_by_proven_oil_reserves
+				https://en.wikipedia.org/wiki/Proven_reserves
+				https://en.wikipedia.org/wiki/Oil_reserves
+				https://en.wikipedia.org/wiki/Petroleum
+				
+				//db
+				https://en.wikipedia.org/wiki/Isolation_(database_systems)#Phantom_reads
+				https://en.wikipedia.org/wiki/Isolation_(database_systems)
+				https://en.wikipedia.org/wiki/Database_transaction		
+				https://docs.oracle.com/cd/B13789_01/server.101/b10743/consist.htm#i5702		
+				
+			]
+
+			
+			CSS_responsive
+			[			
+				//multidevice layout
+				https://www.lukew.com/ff/entry.asp?1514
+				//Responsive Web Design Patterns 
+				https://developers.google.com/web/fundamentals/design-and-ux/responsive/patterns?hl=en
+				
+				//css is hard
+				//Responsive Design
+				https://internetingishard.com/html-and-css/responsive-design/
+				//css box model
+				https://internetingishard.com/html-and-css/css-box-model/
+				//advanced positioninig
+				https://internetingishard.com/html-and-css/advanced-positioning/
+				
+				//css examples
+				https://freefrontend.com/css-arrows/
+			]
+			
 			//MS repository
 			https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design
 			
@@ -3484,7 +4037,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				//ms sql drop db from cursor
 				https://dba.stackexchange.com/questions/2387/sql-server-cannot-drop-database-dbname-because-it-is-currently-in-use-but-n
 				
-								
 				autofac[
 				
 					//from main register
@@ -4427,15 +4979,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			//rx
 			https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
 
-			//async
-			//async patterns
-			https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/
-			https://stackify.com/csharp-async-await-task-performance/
-			https://docs.microsoft.com/en-us/dotnet/csharp/async
-			https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
-			https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
-			https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/control-flow-in-async-programs
-
 			//Oberver
 			Observer : Iobservable<T> t-> data send  from provider to observers
 			provider,subject,observable -> 
@@ -5368,15 +5911,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
 			//rx
 			https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
-			
-			//async
-			//async paterns
-			https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/
-			https://stackify.com/csharp-async-await-task-performance/
-			https://docs.microsoft.com/en-us/dotnet/csharp/async
-			https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
-			https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
-			https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/control-flow-in-async-programs
 			
 			//Oberver
 			Observer : Iobservable<T> t-> data send  from provider to observers
