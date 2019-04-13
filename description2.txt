@@ -1,0 +1,67 @@
+
+
+
+-------------------------------------------
+
+
+Различия 
+-------------------------------------------
+ActiveDirectoryOrientDbEtl - > Ninject
+AddressBook_News -> AutoFac
+
+
+
+По общей логике
+-------------------------------------------
+/*
+
+ActiveDirectoryOrientDbEtl
+	ActiveDirectoryOrientDBEtl.Contexts
+		OrientDbContext ->
+			1) претендент на отдельный проект можно вкрячить в нескоьлких проектах :
+				[ActiveDirectoryOrientDbEtl,AddressBook_News, Batch_1C_Orientdb]				
+			2) далее , вокруг контекста можно накидать
+За основу можно взять уже реализованую структуру из ActiveDirectoryOrientDbEtl (Person->PersonHelper->Context)
+
+*/
+
+Repository {
+	...
+string OrientDbContext.Get<T>(int ID); where T: IOrientPOCO{...}
+	...
+}
+
+/*
+
+включив в него методы, которые частично пойдут из
+	AddressBook_News.News_API.NewsAPI.Helpers.OrientNewsHelper,
+	AddressBook_News.News_API.NewsAPI.Helpers.OrientDB_HttpManager,
+	AddressBook_News.News_API.NewsAPI.Helpers.OrientDB_HttpManager
+так как не зависимо от бизнес логики мы кидаем в orient,
+или команду sql к API или параметр к процедуре или те же объекты к драйверу.
+И накидываем UnitOfWork с бизнеслогикой 
+	
+*/
+
+UnitOfWork {	
+	...
+Repository<Person>() EmployeeRepo;
+Repository<Unit>() WorkPlaceRepo;
+	...	
+	sring GetAllPersonManagers(string AccountName_)
+	{
+		...
+string EmployeeRepo.GetManagerByAccountName(AccountName_){...}
+		...
+	}
+	...
+}
+
+/*
+Общая линия сменится с 
+DB->(OrientNews)->(OrientDB_HttpManager/OrientNewsHelper/)->Controller + Logic
+на 
+DB->Repository->UnitOfWork->Model->(Cntroller/WebAPI) no logic
+
+*/
+

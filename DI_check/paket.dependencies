@@ -1,0 +1,9 @@
+source https://nuget.org/api/v2
+
+nuget Autofac 4.8.1
+nuget AutoMapper 7.0.1
+nuget FakeItEasy 4.8.1
+nuget NLog 4.5.10
+nuget NUnit 3.10.1
+nuget MongoDB.Driver 2.7.0
+nuget Newtonsoft.Json 11.0.2

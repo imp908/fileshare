@@ -1,0 +1,7 @@
+<div *ngIf="test==true" class="container">
+  {{cName}}
+</div>
+<ng-container *ngIf="test==false" id="menu" class="item">
+  <app-menu-edit></app-menu-edit>
+  <app-menu-list></app-menu-list>
+</ng-container>

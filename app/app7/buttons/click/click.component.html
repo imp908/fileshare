@@ -1,0 +1,8 @@
+<div *ngIf="test==true" class="component">
+  {{cName}}
+</div>
+<ng-container *ngIf="test==false">
+
+  <button (click)="clicked_(obj_)" class={{button_.htmlClass}}>{{button_.value}}</button>
+
+</ng-container>

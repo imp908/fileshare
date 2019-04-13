@@ -1,0 +1,25 @@
+dotnet new console
+restore
+update
+
+//EF MYSQL PACKAGES
+dotnet add package Pomelo.EntityFrameworkCore.MySql --version 2.1.2
+dotnet add package Microsoft.EntityFrameworkCore.Relational --version 2.1.2
+dotnet add package MySqlConnector --version 0.45.0
+dotnet add package Pomelo.JsonObject --version 2.0.0
+dotnet add package Microsoft.EntityFrameworkCore.Design --version 2.1.2
+
+//EF INITIAL MIGRATE
+dotnet ef migrations add InitialCreate		
+dotnet ef migrations remove
+dotnet ef database update
+
+select * from `usermails`.blogs;
+select * from `usermails`.Users;
+select * from `usermails`.Posts;
+
+select * from `usermails`.Blogs
+left join `usermails`.Users 
+on `usermails`.Blogs.UserId =
+`usermails`.Users.UserId
+where `usermails`.Users.UserId ='ID0';

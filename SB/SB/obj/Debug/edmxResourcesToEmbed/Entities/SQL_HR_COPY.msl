@@ -1,0 +1,98 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="HR_copyModelStoreContainer" CdmEntityContainer="SQL_HR_COPY">
+    <EntitySetMapping Name="C__MigrationHistory">
+      <EntityTypeMapping TypeName="HR_copyModel.C__MigrationHistory">
+        <MappingFragment StoreEntitySet="__MigrationHistory">
+          <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+          <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="COUNTRIES">
+      <EntityTypeMapping TypeName="HR_copyModel.COUNTRIES">
+        <MappingFragment StoreEntitySet="COUNTRIES">
+          <ScalarProperty Name="COUNTRY_ID" ColumnName="COUNTRY_ID" />
+          <ScalarProperty Name="COUNTRY_NAME" ColumnName="COUNTRY_NAME" />
+          <ScalarProperty Name="REGION_ID" ColumnName="REGION_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="DEPARTMENTS">
+      <EntityTypeMapping TypeName="HR_copyModel.DEPARTMENTS">
+        <MappingFragment StoreEntitySet="DEPARTMENTS">
+          <ScalarProperty Name="DEPARTMENT_ID" ColumnName="DEPARTMENT_ID" />
+          <ScalarProperty Name="DEPARTMENT_NAME" ColumnName="DEPARTMENT_NAME" />
+          <ScalarProperty Name="MANAGER_ID" ColumnName="MANAGER_ID" />
+          <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
+          <ScalarProperty Name="EMPLOYEES_EMPLOYEE_ID" ColumnName="EMPLOYEES_EMPLOYEE_ID" />
+          <ScalarProperty Name="EMPLOYEES_EMPLOYEE_ID1" ColumnName="EMPLOYEES_EMPLOYEE_ID1" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EMPLOYEES">
+      <EntityTypeMapping TypeName="HR_copyModel.EMPLOYEES">
+        <MappingFragment StoreEntitySet="EMPLOYEES">
+          <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+          <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+          <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+          <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+          <ScalarProperty Name="PHONE_NUMBER" ColumnName="PHONE_NUMBER" />
+          <ScalarProperty Name="HIRE_DATE" ColumnName="HIRE_DATE" />
+          <ScalarProperty Name="JOB_ID" ColumnName="JOB_ID" />
+          <ScalarProperty Name="SALARY" ColumnName="SALARY" />
+          <ScalarProperty Name="COMMISSION_PCT" ColumnName="COMMISSION_PCT" />
+          <ScalarProperty Name="MANAGER_ID" ColumnName="MANAGER_ID" />
+          <ScalarProperty Name="DEPARTMENT_ID" ColumnName="DEPARTMENT_ID" />
+          <ScalarProperty Name="DEPARTMENTS1_DEPARTMENT_ID" ColumnName="DEPARTMENTS1_DEPARTMENT_ID" />
+          <ScalarProperty Name="EMPLOYEES2_EMPLOYEE_ID" ColumnName="EMPLOYEES2_EMPLOYEE_ID" />
+          <ScalarProperty Name="DEPARTMENTS_DEPARTMENT_ID" ColumnName="DEPARTMENTS_DEPARTMENT_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JOB_HISTORY">
+      <EntityTypeMapping TypeName="HR_copyModel.JOB_HISTORY">
+        <MappingFragment StoreEntitySet="JOB_HISTORY">
+          <ScalarProperty Name="EMPLOYEE_ID" ColumnName="EMPLOYEE_ID" />
+          <ScalarProperty Name="START_DATE" ColumnName="START_DATE" />
+          <ScalarProperty Name="END_DATE" ColumnName="END_DATE" />
+          <ScalarProperty Name="JOB_ID" ColumnName="JOB_ID" />
+          <ScalarProperty Name="DEPARTMENT_ID" ColumnName="DEPARTMENT_ID" />
+          <ScalarProperty Name="EMPLOYEES_EMPLOYEE_ID" ColumnName="EMPLOYEES_EMPLOYEE_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JOBS">
+      <EntityTypeMapping TypeName="HR_copyModel.JOBS">
+        <MappingFragment StoreEntitySet="JOBS">
+          <ScalarProperty Name="JOB_ID" ColumnName="JOB_ID" />
+          <ScalarProperty Name="JOB_TITLE" ColumnName="JOB_TITLE" />
+          <ScalarProperty Name="MIN_SALARY" ColumnName="MIN_SALARY" />
+          <ScalarProperty Name="MAX_SALARY" ColumnName="MAX_SALARY" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LOCATIONS">
+      <EntityTypeMapping TypeName="HR_copyModel.LOCATIONS">
+        <MappingFragment StoreEntitySet="LOCATIONS">
+          <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
+          <ScalarProperty Name="STREET_ADDRESS" ColumnName="STREET_ADDRESS" />
+          <ScalarProperty Name="POSTAL_CODE" ColumnName="POSTAL_CODE" />
+          <ScalarProperty Name="CITY" ColumnName="CITY" />
+          <ScalarProperty Name="STATE_PROVINCE" ColumnName="STATE_PROVINCE" />
+          <ScalarProperty Name="COUNTRY_ID" ColumnName="COUNTRY_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="REGIONS">
+      <EntityTypeMapping TypeName="HR_copyModel.REGIONS">
+        <MappingFragment StoreEntitySet="REGIONS">
+          <ScalarProperty Name="REGION_ID" ColumnName="REGION_ID" />
+          <ScalarProperty Name="REGION_NAME" ColumnName="REGION_NAME" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
