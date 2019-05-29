@@ -12160,11 +12160,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "F:\\backup\\workflow\\files\\PROJS\\core\\MVC\\fileshare-crmvcsb\\mvccoresb\\mvccoresb\\mvccoresb.csproj",
+      "projectUniqueName": "F:\\backup\\workflow\\files\\PROJS\\core\\MVC\\mvccoresb\\mvccoresb.csproj",
       "projectName": "mvccoresb",
-      "projectPath": "F:\\backup\\workflow\\files\\PROJS\\core\\MVC\\fileshare-crmvcsb\\mvccoresb\\mvccoresb\\mvccoresb.csproj",
+      "projectPath": "F:\\backup\\workflow\\files\\PROJS\\core\\MVC\\mvccoresb\\mvccoresb.csproj",
       "packagesPath": "C:\\Users\\i_neprintsev\\.nuget\\packages\\",
-      "outputPath": "F:\\backup\\workflow\\files\\PROJS\\core\\MVC\\fileshare-crmvcsb\\mvccoresb\\mvccoresb\\obj\\",
+      "outputPath": "F:\\backup\\workflow\\files\\PROJS\\core\\MVC\\mvccoresb\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"

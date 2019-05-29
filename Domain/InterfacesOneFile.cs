@@ -6,7 +6,9 @@ namespace mvccoresb.Domain.Interfaces
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
-
+    
+    using mvccoresb.Domain.TestModels;
+    
     public interface IEntityIntId
     {
         int Id{get;set;}
@@ -31,13 +33,19 @@ namespace mvccoresb.Domain.Interfaces
 
     public interface IUOW
     {
-        void Add<T>(T item) where T : class;
+        T Add<T>(T item) where T : class;
         void AddRange<T>(IList<T> items) where T : class;
         void Delete<T>(T item) where T : class;
         void DeleteRange<T>(IList<T> items) where T : class;
-        void Update<T>(T item) where T : class;
+        T Update<T>(T item) where T : class;
         void UpdateRange<T>(IList<T> items) where T : class;
         IQueryable<T> QueryByFilter<T>(Expression<Func<T, bool>> expression)
             where T : class;
     }
+
+    public interface IUOWBlogging : IUOW
+    {
+        IBlog GetByIntId(int Id);
+    }
+    
 }

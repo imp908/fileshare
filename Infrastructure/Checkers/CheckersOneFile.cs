@@ -747,8 +747,8 @@ namespace NetPlatformCheckers
             SampleEventCheck();
             CancelationCheck();
             UpdatedCoreEventCheck();
-            AsyncCheck();
-            NamedEventsCheck();
+            //AsyncCheck();
+            //NamedEventsCheck();
         }
 
         static void SampleEventCheck()

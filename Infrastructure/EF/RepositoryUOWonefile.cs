@@ -19,6 +19,7 @@ namespace mvccoresb.Infrastructure.EF
     using Microsoft.EntityFrameworkCore.ChangeTracking;
 
     using mvccoresb.Domain.Interfaces;    
+    using mvccoresb.Domain.TestModels;
 
     using Newtonsoft;
 
@@ -33,7 +34,7 @@ namespace mvccoresb.Infrastructure.EF
         public void Add<T> (T item)
             where T : class
         {
-            this._context.Set<T>().Add(item);
+            this._context.Set<T>().Add(item);            
         }
 
         public Task<EntityEntry<T>> AddAsync<T>(T item)
@@ -102,11 +103,12 @@ namespace mvccoresb.Infrastructure.EF
             this._repository = repository;
         }
 
-        public void Add<T>(T item)
+        public T Add<T>(T item)
             where T: class
         {
             this._repository.Add(item);
             this._repository.Save();
+            return item;
         }
         public void AddRange<T>(IList<T> items)
             where T : class
@@ -128,11 +130,12 @@ namespace mvccoresb.Infrastructure.EF
             this._repository.Save();
         }
 
-        public void Update<T>(T item)
+        public T Update<T>(T item)
             where T : class
         {
             this._repository.Update(item);
             this._repository.Save();
+            return item;
         }
         public void UpdateRange<T>(IList<T> items)
             where T : class
@@ -148,12 +151,13 @@ namespace mvccoresb.Infrastructure.EF
         }
     }
 
-    public class UOWblogs : UOW
+    public class UOWblogs : UOW, IUOWBlogging
     {
         public UOWblogs(IRepository repo) : base(repo){}
 
-        public IList<BlogEF> GetByIntId(int Id){
-            return base._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id).ToList();
+        public IBlog GetByIntId(int Id)
+        {
+            return base._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id).FirstOrDefault();
         }
         
     }

@@ -14,11 +14,11 @@ namespace mvccoresb.Default.Controllers
     [ApiController]
     public class BlogController : ControllerBase
     {
-        IRepository _repo;
+        IUOWBlogging _uow;
 
-        public BlogController(IRepository repo)
+        public BlogController(IUOWBlogging uow)
         {
-            _repo=repo;
+            _uow=uow;
         }
 
         [HttpGet]
@@ -29,21 +29,28 @@ namespace mvccoresb.Default.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<IEnumerable<IBlog>> Get(int Id)
+        public ActionResult<IBlog> Get(int Id)
         {
-            return _repo.QueryByFilter<IBlog>(s => s.BlogId == Id).ToList();
+            var item =_uow.GetByIntId(Id);
+            if(item==null)
+            {
+
+            }
+            return Ok(item);
         }
        
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult<BlogEF> Post([FromBody] BlogEF value)
         {
+            var result = _uow.Add(value);
+            return Ok(result);
         }
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public void Put(int id, [FromBody] IBlog value)
         {
         }
 

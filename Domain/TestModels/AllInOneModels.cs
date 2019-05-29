@@ -13,7 +13,6 @@ namespace mvccoresb.Domain.TestModels
         int BlogId { get; set; }
         string Url { get; set; }
         int Rating { get; set; }
-        IList<IPost> Posts { get; set; }
     }
     public interface IPost
     {
@@ -27,7 +26,7 @@ namespace mvccoresb.Domain.TestModels
 
     /**Specific EF concrete type realizations */
     //one-to-many 0->8
-    public class BlogEF
+    public class BlogEF : IBlog
     {
         [Key]
         public int BlogId { get; set; }

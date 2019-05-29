@@ -69,14 +69,22 @@ namespace mvccoresb
                 .InstancePerLifetimeScope();
             builder.RegisterType<RepositoryEF>()
                 .As<IRepository>().InstancePerLifetimeScope();
+            builder.RegisterType<UOW>()
+                .As<IUOW>().InstancePerLifetimeScope();
+            builder.RegisterType<UOWblogs>()
+                .As<IUOWBlogging>().InstancePerLifetimeScope();
             this.ApplicationContainer = builder.Build();
             return new AutofacServiceProvider(this.ApplicationContainer);
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {            
-            builder.RegisterType<RepositoryEF>()
-                .As<IRepository>().InstancePerLifetimeScope();
+            // builder.RegisterType<RepositoryEF>()
+            //     .As<IRepository>().InstancePerLifetimeScope();
+            // builder.RegisterType<UOW>()
+            //     .As<IUOW>().InstancePerLifetimeScope();
+            // builder.RegisterType<UOWblogs>()
+            //     .As<IUOWBlogging>().InstancePerLifetimeScope();
             var container = builder.Build();
         }
 
