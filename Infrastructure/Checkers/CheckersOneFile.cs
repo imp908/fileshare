@@ -47,13 +47,13 @@ namespace InfrastructureCheckers
             {
                 mvccoresb.Infrastructure.EF.RepositoryEF repo = new mvccoresb.Infrastructure.EF.RepositoryEF(context);
 
-                mvccoresb.Infrastructure.EF.UOW UOW = new UOW(repo);
+                mvccoresb.Infrastructure.EF.UOWBlogging UOW = new UOWBlogging(repo);
 
                 BlogEF b = new BlogEF() { Url = "url", Rating = 2 };
-                UOW.Add(b);
+                UOW.AddBlog(b);
 
                 List<BlogEF> blogs = repo.QueryByFilter<BlogEF>(s => s.BlogId != null).ToList();
-                UOW.DeleteRange(blogs);
+                repo.DeleteRange(blogs);
             }
         }
     }

@@ -47,7 +47,7 @@ namespace mvccoresb.Domain.Interfaces
             where T : class;
     }
 
-    public interface IUOWBlogging : IUOW
+    public interface IUOWBlogging 
     {
         BlogEF AddBlog(BlogEF blog);
         BlogEF GetByIntId(int Id);

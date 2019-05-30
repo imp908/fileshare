@@ -63,7 +63,7 @@ namespace mvccoresb.Default.Controllers
         [HttpPost]
         public ActionResult<BlogEF> Post([FromBody] BlogEF value)
         {
-            var result = _uow.Add(value);
+            var result = _uow.AddBlog(value);
             return Ok(result);
         }
 

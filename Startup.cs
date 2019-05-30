@@ -69,8 +69,6 @@ namespace mvccoresb
                 .InstancePerLifetimeScope();
             builder.RegisterType<RepositoryEF>()
                 .As<IRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<UOW>()
-                .As<IUOW>().InstancePerLifetimeScope();
             builder.RegisterType<UOWBlogging>()
                 .As<IUOWBlogging>().InstancePerLifetimeScope();
             this.ApplicationContainer = builder.Build();

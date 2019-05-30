@@ -106,82 +106,30 @@ namespace mvccoresb.Infrastructure.EF
         {
             return this._context.SaveChangesAsync();
         }
-    }
-    
-    public class UOW : IUOW
+    }     
+
+    public class UOWBlogging : IUOWBlogging
     {
         internal IRepository _repository;
 
-        public UOW(IRepository repository){
-            this._repository = repository;
-        }
-
-        public T Add<T>(T item)
-            where T: class
+        public UOWBlogging(IRepository repository)
         {
-            this._repository.Add(item);
-            this._repository.Save();
-            return item;
+             this._repository = repository;
         }
-        public void AddRange<T>(IList<T> items)
-            where T : class
-        {
-            this._repository.Add(items);
-            this._repository.Save();
-        }
-
-        public void Delete<T>(T item)
-            where T : class
-        {
-            this._repository.Delete(item);
-            this._repository.Save();
-        }
-        public void DeleteRange<T>(IList<T> items)
-            where T : class
-        {
-            this._repository.DeleteRange(items);
-            this._repository.Save();
-        }
-
-        public T Update<T>(T item)
-            where T : class
-        {
-            this._repository.Update(item);
-            this._repository.Save();
-            return item;
-        }
-        public void UpdateRange<T>(IList<T> items)
-            where T : class
-        {
-            this._repository.UpdateRange(items);
-            this._repository.Save();
-        }
-
-        public IQueryable<T> QueryByFilter<T>(Expression<Func<T,bool>> expression)
-            where T : class
-        {
-            return this._repository.QueryByFilter(expression);
-        }
-        
-    }
-
-    public class UOWBlogging : UOW, IUOWBlogging
-    {
-        public UOWBlogging(IRepository repo) : base(repo){}
 
         public BlogEF GetByIntId(int Id)
         {
-            return base._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id).Include(c => c.Posts).FirstOrDefault();
+            return this._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id).Include(c => c.Posts).FirstOrDefault();
         }      
         
         public BlogEF AddBlog(BlogEF blog)
         {
-            base._repository.Add<BlogEF>(blog);
+            this._repository.Add<BlogEF>(blog);
             return blog;
         }
 
         public List<BlogEF> GetBlogs(int skip=0,int take=10){
-            return base._repository.SkipTake<BlogEF>(skip,take).ToList();
+            return this._repository.SkipTake<BlogEF>(skip,take).ToList();
         }
     }
 
