@@ -23,6 +23,8 @@ namespace mvccoresb.Infrastructure.EF
 
     using Newtonsoft;
 
+    using AutoMapper;
+
     public class RepositoryEF : IRepository
     {
         DbContext _context;
@@ -111,15 +113,26 @@ namespace mvccoresb.Infrastructure.EF
     public class UOWBlogging : IUOWBlogging
     {
         internal IRepository _repository;
+        internal IMapper _mapper;
 
         public UOWBlogging(IRepository repository)
         {
              this._repository = repository;
         }
 
+        public UOWBlogging(IRepository repository,IMapper mapper)
+        {
+            this._repository = repository;
+            this._mapper = mapper;
+        }
+
         public BlogEF GetByIntId(int Id)
         {
-            return this._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id).Include(c => c.Posts).FirstOrDefault();
+            BlogEF blogEf = this._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id).Include(c => c.Posts).FirstOrDefault();
+            if(this._mapper!=null && blogEf!=null){
+                var blogBll = this._mapper.Map(blogEf,blogEf.GetType(), typeof(BlogBLL));
+            }
+            return blogEf;
         }      
         
         public BlogEF AddBlog(BlogEF blog)
@@ -128,8 +141,9 @@ namespace mvccoresb.Infrastructure.EF
             return blog;
         }
 
-        public List<BlogEF> GetBlogs(int skip=0,int take=10){
-            return this._repository.SkipTake<BlogEF>(skip,take).ToList();
+        public List<BlogEF> GetBlogs(int skip=0,int take=10)
+        {          
+            return this._repository.SkipTake<BlogEF>(skip,take).ToList();;
         }
     }
 

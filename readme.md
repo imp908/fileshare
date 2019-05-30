@@ -2,6 +2,8 @@
 //////////////pckages
 dotnet add package Newtonsoft.Json --version 12.0.2
 dotnet add package Autofac.Extensions.DependencyInjection --version 4.4.0
+dotnet add package AutoMapper --version 8.1.0
+dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 6.1.0
 
 //////////////
 MVC WebApi Fodlers, routing and URLs:
@@ -35,9 +37,13 @@ Routes:
                 https://localhost:5001/TestArea/NewHome/
             //another folder view
                 https://localhost:5001/TestArea/NewHome/OldHomeIndex
-        blogcontroller ->
-            //blog value controller
+        BlogController ->
+            //hardcoded string blog collection
                 https://localhost:5001/api/blog
+            //blog object
+                http://localhost:5000/api/blog/{id}
+            //get Newtonsoft Jsonized string
+                http://localhost:5000/api/blog/GetString/{id}
 
 //////////////
 attribute vs named area routing
@@ -89,3 +95,30 @@ Added http routing for Fiddler test to:
 //EF initial migration cmds
 dotnet ef migrations add InitialCreate
 dotnet ef database update
+
+//////////////
+//DDD decomposition->
+    API:
+        MVC, WebApi, Controllers
+        Uses View Models
+    Infrastructure:
+        ORMs contexts : [EF];
+        Repo and UOW realizations;
+        Application logic:[Checkers];
+
+        Repo:{
+            contains EF context;
+            EF repo uses DAL concrete classes
+        }
+        UOW:{
+            Contains IRepository<ConcreteRealization>, maps DAL to BLL, returns View models
+        }        
+    Domain:
+        Entity interfaces and Models For layers :[DAL,BLL,View];
+        IRepo,IUOW interfaces;
+
+//////////////
+//DDD layers relation directions
+    API->Infrastructure
+    API->Domain
+    Infrastructure->Domain

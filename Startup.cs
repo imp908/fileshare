@@ -15,9 +15,13 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 
+using AutoMapper;
+
 namespace mvccoresb
 {
     using mvccoresb.Domain.Interfaces;
+    using mvccoresb.Domain.TestModels;
+
     using mvccoresb.Infrastructure.EF;
     using Microsoft.EntityFrameworkCore;
 
@@ -51,6 +55,23 @@ namespace mvccoresb
                 options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
             });
 
+
+            /*Automapper Register */
+            services.AddAutoMapper(typeof(Startup));
+          
+            /*Mapper initialize */
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<BlogEF, BlogBLL>();
+                cfg.CreateMap<PostEF, PostBLL>();
+            });
+            try{
+                Mapper.AssertConfigurationIsValid();
+            }catch(Exception e)
+            {
+
+            }
+
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             /** Renames all defalt Views including Areas/Area/Views folders to custom name */
@@ -62,28 +83,36 @@ namespace mvccoresb
             //var connectionStringSQL = "Server=AAAPC;Database=testdb;User Id=tl;Password=QwErT123;";
             services.AddDbContext<TestContext>(o => o.UseSqlServer(connectionStringSQL));
 
+
+            return ConfigureAutofac(services);
+        }
+
+        public AutofacServiceProvider ConfigureAutofac(IServiceCollection services)
+        {            
             /*Autofac builder */
             var builder = new ContainerBuilder();
             builder.Populate(services);
+
+            /**EF,repo and UOW reg */
             builder.RegisterType<TestContext>().As<DbContext>()
                 .InstancePerLifetimeScope();
+
             builder.RegisterType<RepositoryEF>()
                 .As<IRepository>().InstancePerLifetimeScope();
+
             builder.RegisterType<UOWBlogging>()
                 .As<IUOWBlogging>().InstancePerLifetimeScope();
+
+            //*DAL->BLL reg */
+            builder.RegisterType<BlogEF>()
+                .As<IBlogEF>().InstancePerLifetimeScope();
+            builder.RegisterType<BlogBLL>()
+                .As<IBlogBLL>().InstancePerLifetimeScope();
+            builder.RegisterType<PostBLL>()
+                .As<IPostBLL>().InstancePerLifetimeScope();
+
             this.ApplicationContainer = builder.Build();
             return new AutofacServiceProvider(this.ApplicationContainer);
-        }
-
-        public void ConfigureContainer(ContainerBuilder builder)
-        {            
-            // builder.RegisterType<RepositoryEF>()
-            //     .As<IRepository>().InstancePerLifetimeScope();
-            // builder.RegisterType<UOW>()
-            //     .As<IUOW>().InstancePerLifetimeScope();
-            // builder.RegisterType<UOWblogs>()
-            //     .As<IUOWBlogging>().InstancePerLifetimeScope();
-            var container = builder.Build();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -11,6 +11,8 @@ namespace InfrastructureCheckers
     using mvccoresb.Domain.TestModels;
     using mvccoresb.Domain.GeoModel;
 
+    using AutoMapper;
+
     public static class RepoAndUOWCheck
     {
 

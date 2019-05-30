@@ -23,6 +23,49 @@ namespace mvccoresb.Domain.TestModels
         int BlogId { get; set; }
     }
 
+
+    /**BLL layer models */
+    public interface IBlogBLL
+    {
+        int Id { get; set; }
+        string Url { get; set; }
+        int Rating { get; set; }
+
+        IList<IPostBLL> Posts { get; set; }
+    }
+    public interface IPostBLL
+    {
+        int PostId { get; set; }
+        string Title { get; set; }
+        string Content { get; set; }
+
+        IBlogBLL Blog { get; set; }
+
+    }
+
+    public class BlogBLL : IBlogBLL
+    {
+        public int Id { get; set; }
+        public string Url { get; set; }
+        public int Rating { get; set; }
+
+        public IList<IPostBLL> Posts { get; set; }
+    }
+
+    public class PostBLL : IPostBLL
+    {
+        public int PostId { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+
+        public int BlogId { get; set; }
+        public IBlogBLL Blog { get; set; }
+
+    }
+
+
+
+
     /**Specific EF concrete type realizations */
     //one-to-many 0->8
     public class BlogEF : IBlogEF
