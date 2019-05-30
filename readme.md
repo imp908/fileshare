@@ -16,6 +16,9 @@ Folders:
         Areas/TestArea/Views/Home/Index.cshtml
         Areas/TestArea/Views/NewHome/Index.cshtml
 Routes:
+    Added http routing for Fiddler test to:
+        program.cs -> IWebHostBuilder CreateWebHostBuilder -> UseUrls("http://localhost:5000")
+
     scaffolded controllers:
         HomeControllers ->
             https://localhost:5001/Scaffolded/home/index
@@ -69,9 +72,18 @@ CustomViewLocations.cs
         options => options.ViewLocationExpanders.Add(
     new CustomViewLocation()));
 
+
+//////////////
 //startup.cs
 custom default MVC Area location folder in API/Areas
 in startup.cs rerouted through  RazorViewEngineOptions
+
+
+//////////////
+//Program.cs 
+Added http routing for Fiddler test to:
+    .UseUrls("http://localhost:5000")
+
 
 //////////////
 //EF initial migration cmds

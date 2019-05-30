@@ -25,6 +25,7 @@ namespace mvccoresb
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            //http host for Fidler http test
             .UseUrls("http://localhost:5000")
                 .UseStartup<Startup>();
     }
