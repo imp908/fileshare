@@ -8,28 +8,37 @@ using mvccoresb.Domain.Interfaces;
 
 using mvccoresb.Domain.TestModels;
 
+using Newtonsoft.Json;
+
 namespace mvccoresb.Default.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class BlogController : ControllerBase
     {
+        IRepository _repo;
         IUOWBlogging _uow;
 
-        public BlogController(IUOWBlogging uow)
+        public BlogController(IUOWBlogging uow,IRepository repo)
         {
             _uow=uow;
+            _repo=repo;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public ActionResult<IList<BlogEF>> Get()
         {
-            return new string[] { "blog1", "blog2" };
+            var items =_repo.SkipTake<BlogEF>(0,100);
+            if(items==null)
+            {
+
+            }
+            return Ok(items);
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public ActionResult<IBlog> Get(int Id)
+        public ActionResult<BlogEF> Get(int Id)
         {
             var item =_uow.GetByIntId(Id);
             if(item==null)
@@ -38,7 +47,17 @@ namespace mvccoresb.Default.Controllers
             }
             return Ok(item);
         }
-       
+        [HttpGet("GetString/{id}")]
+        public string GetString(int Id)
+        {
+            var item =_uow.GetByIntId(Id);
+            if(item==null)
+            {
+
+            }
+            return JsonConvert.SerializeObject(item);
+        }
+
 
         // POST api/values
         [HttpPost]
@@ -50,7 +69,7 @@ namespace mvccoresb.Default.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] IBlog value)
+        public void Put(int id, [FromBody] IBlogEF value)
         {
         }
 

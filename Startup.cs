@@ -71,7 +71,7 @@ namespace mvccoresb
                 .As<IRepository>().InstancePerLifetimeScope();
             builder.RegisterType<UOW>()
                 .As<IUOW>().InstancePerLifetimeScope();
-            builder.RegisterType<UOWblogs>()
+            builder.RegisterType<UOWBlogging>()
                 .As<IUOWBlogging>().InstancePerLifetimeScope();
             this.ApplicationContainer = builder.Build();
             return new AutofacServiceProvider(this.ApplicationContainer);

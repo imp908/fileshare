@@ -8,25 +8,24 @@ namespace mvccoresb.Domain.TestModels
     using System.Linq;
     using System;
 
-    public interface IBlog
+    public interface IBlogEF
     {
         int BlogId { get; set; }
         string Url { get; set; }
         int Rating { get; set; }
     }
-    public interface IPost
+    public interface IPostEF
     {
         int PostId { get; set; }
         string Title { get; set; }
         string Content { get; set; }
 
         int BlogId { get; set; }
-        IBlog Blog { get; set; }
     }
 
     /**Specific EF concrete type realizations */
     //one-to-many 0->8
-    public class BlogEF : IBlog
+    public class BlogEF : IBlogEF
     {
         [Key]
         public int BlogId { get; set; }
@@ -50,8 +49,6 @@ namespace mvccoresb.Domain.TestModels
         //foreign key
         public int BlogId { get; set; }
 
-
-
         public BlogEF Blog { get; set; }
     }
 
@@ -61,7 +58,7 @@ namespace mvccoresb.Domain.TestModels
         public string Prop { get; set; }
     }
 
-    public class PostEF
+    public class PostEF : IPostEF
     {
         [Key]
         public int PostId { get; set; }

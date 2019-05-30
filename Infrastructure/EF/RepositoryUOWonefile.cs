@@ -31,6 +31,13 @@ namespace mvccoresb.Infrastructure.EF
             _context=context;
         }
         
+        public IQueryable<T> GeyAll<T>() 
+            where T : class
+        {
+            return this._context.Set<T>();
+        }
+        
+
         public void Add<T> (T item)
             where T : class
         {
@@ -83,6 +90,12 @@ namespace mvccoresb.Infrastructure.EF
             where T : class
         {            
             return this._context.Set<T>().Where(expression);
+        }
+
+        public IQueryable<T> SkipTake<T>(int skip=0,int take=10)
+            where T : class
+        {
+            return this._context.Set<T>().Skip(skip).Take(take);
         }
 
         public void Save(){
@@ -149,17 +162,27 @@ namespace mvccoresb.Infrastructure.EF
         {
             return this._repository.QueryByFilter(expression);
         }
+        
     }
 
-    public class UOWblogs : UOW, IUOWBlogging
+    public class UOWBlogging : UOW, IUOWBlogging
     {
-        public UOWblogs(IRepository repo) : base(repo){}
+        public UOWBlogging(IRepository repo) : base(repo){}
 
-        public IBlog GetByIntId(int Id)
+        public BlogEF GetByIntId(int Id)
         {
-            return base._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id).FirstOrDefault();
-        }
+            return base._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id).Include(c => c.Posts).FirstOrDefault();
+        }      
         
+        public BlogEF AddBlog(BlogEF blog)
+        {
+            base._repository.Add<BlogEF>(blog);
+            return blog;
+        }
+
+        public List<BlogEF> GetBlogs(int skip=0,int take=10){
+            return base._repository.SkipTake<BlogEF>(skip,take).ToList();
+        }
     }
 
 }

@@ -18,14 +18,18 @@ namespace mvccoresb.Domain.Interfaces
         Guid Id { get; set; }
     }
 
-    public interface IRepository 
+    public interface IRepository
     {
+        IQueryable<T> GeyAll<T>() where T : class;              
+
         void Add<T>(T item) where T : class;
         void AddRange<T>(IList<T> items) where T : class;
         void Delete<T>(T item) where T : class;
         void DeleteRange<T>(IList<T> items) where T : class;
         void Update<T>(T item) where T : class;
         void UpdateRange<T>(IList<T> items) where T : class;
+        IQueryable<T> SkipTake<T>(int skip,int take)
+            where T : class;
         IQueryable<T> QueryByFilter<T>(Expression<Func<T, bool>> expression)
             where T : class;
         void Save();        
@@ -45,7 +49,8 @@ namespace mvccoresb.Domain.Interfaces
 
     public interface IUOWBlogging : IUOW
     {
-        IBlog GetByIntId(int Id);
+        BlogEF AddBlog(BlogEF blog);
+        BlogEF GetByIntId(int Id);
     }
     
 }
