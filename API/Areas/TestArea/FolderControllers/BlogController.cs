@@ -53,7 +53,7 @@ namespace mvccoresb.Default.Controllers
             var item =_uow.GetByIntId(Id);
             if(item==null)
             {
-
+                return string.Empty;            
             }
             return JsonConvert.SerializeObject(item);
         }

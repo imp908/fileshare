@@ -84,6 +84,16 @@ CustomViewLocations.cs
 custom default MVC Area location folder in API/Areas
 in startup.cs rerouted through  RazorViewEngineOptions
 
+Autofac container registration added
+
+AutoMapper service added, 
+one coniguration 
+two types of initialization - static and instance API
+
+AutoFact to Automapper registration added
+
+AutofacServiceProvider returned
+
 
 //////////////
 //Program.cs 

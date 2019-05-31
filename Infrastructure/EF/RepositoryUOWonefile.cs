@@ -129,15 +129,23 @@ namespace mvccoresb.Infrastructure.EF
         public BlogEF GetByIntId(int Id)
         {
             BlogEF blogEf = this._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id).Include(c => c.Posts).FirstOrDefault();
-            if(this._mapper!=null && blogEf!=null){
-                var blogBll = this._mapper.Map(blogEf,blogEf.GetType(), typeof(BlogBLL));
+
+            try{
+                if(this._mapper!=null && blogEf!=null){
+                    var blogBll = this._mapper.Map(blogEf,blogEf.GetType(), typeof(BlogBLL));
+                }
+            }catch(Exception e)
+            {
+
             }
+
             return blogEf;
-        }      
+        }
         
         public BlogEF AddBlog(BlogEF blog)
         {
             this._repository.Add<BlogEF>(blog);
+            this._repository.Save();
             return blog;
         }
 
