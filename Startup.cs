@@ -79,8 +79,8 @@ namespace mvccoresb
                 options => options.ViewLocationExpanders.Add(
             new CustomViewLocation()));
 
-            var connectionStringSQL = "Server=HP-HP000114\\SQLEXPRESS02;Database=EFdb;Trusted_Connection=True;";
-            //var connectionStringSQL = "Server=AAAPC;Database=testdb;User Id=tl;Password=QwErT123;";
+            //var connectionStringSQL = "Server=HP-HP000114\\SQLEXPRESS02;Database=EFdb;Trusted_Connection=True;";
+            var connectionStringSQL = "Server=AAAPC;Database=testdb;User Id=tl;Password=QwErT123;";
             services.AddDbContext<TestContext>(o => o.UseSqlServer(connectionStringSQL));
 
 

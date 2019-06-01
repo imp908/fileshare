@@ -1,12 +1,13 @@
 
-//////////////pckages
-dotnet add package Newtonsoft.Json --version 12.0.2
-dotnet add package Autofac.Extensions.DependencyInjection --version 4.4.0
-dotnet add package AutoMapper --version 8.1.0
-dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 6.1.0
+//////////////
+//pckages
+    dotnet add package Newtonsoft.Json --version 12.0.2
+    dotnet add package Autofac.Extensions.DependencyInjection --version 4.4.0
+    dotnet add package AutoMapper --version 8.1.0
+    dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 6.1.0
 
 //////////////
-MVC WebApi Fodlers, routing and URLs:
+//MVC WebApi Fodlers, routing and URLs:
 Folders:
     //scaffolded vews for MVC and WebApi
         Areas/Scaffolded
