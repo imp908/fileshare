@@ -74,8 +74,8 @@ namespace mvccoresb.Default.Controllers
             return Ok(result);
         }
         
-        [HttpPost("AddPostJS")]
-        public JsonResult AddPostJS([FromBody] PersonAdsPostCommand value)
+        [HttpPost("AddPostJSON")]
+        public JsonResult AddPostJSON([FromBody] PersonAdsPostCommand value)
         {
             var result = _cqrs.PersonAdsPostToBlog(value);
             return Json(result);

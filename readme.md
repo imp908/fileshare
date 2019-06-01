@@ -45,6 +45,16 @@ Routes:
                 http://localhost:5000/api/blog/{id}
             //get Newtonsoft Jsonized string
                 http://localhost:5000/api/blog/GetString/{id}
+API:
+    http://localhost:5000/api/blog/AddPost -> returns Ok(result)
+    http://localhost:5000/api/blog/AddPostJSON -> retorns Json(result)
+    
+    Body:
+    {
+	    "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F",
+	    "BlogId":"1",	
+		"Title":"PostTitle","Content":"PostContent"
+    }
 
 //////////////
 attribute vs named area routing
