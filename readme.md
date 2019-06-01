@@ -51,7 +51,6 @@ attribute vs named area routing
 OR -> controller routing attribute
 	[Area("TestArea")]
 	public class NewHomeController : Controller
-...
 
 	with template route 
 	routes.MapRoute(
@@ -93,12 +92,12 @@ two types of initialization - static and instance API
 
 AutoFact to Automapper registration added
 
-AutofacServiceProvider returned
+AutofacServiceProvider returned from ConfigureServices
 
 
 //////////////
 //Program.cs 
-Added http routing for Fiddler test to:
+Added http instead of https routing for Fiddler test to:
     .UseUrls("http://localhost:5000")
 
 

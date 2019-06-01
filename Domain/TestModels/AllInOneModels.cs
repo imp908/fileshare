@@ -43,6 +43,56 @@ namespace mvccoresb.Domain.TestModels
 
     }
 
+    /*Object parameter / command object to pass to CQRRS */
+    /*flattering needed */
+    public interface IAddPostBLL
+    {
+        Guid PersonId { get; set; }
+        int BlogId { get; set; }
+        PostBLL PostPayload { get; set; }
+    }
+
+
+    public class AddPostAPI : IAddPostBLL
+    {
+        public Guid PersonId { get; set; }
+        public int BlogId { get; set; }
+        public PostBLL PostPayload { get; set; }
+    }
+
+    /* Model for post addition without flattering */
+    public class PersonAdsPostCommand
+    {
+        public string Title { get; set; }
+        public string Content { get; set; }
+
+        public int BlogId { get; set; }
+
+        public Guid PersonId { get; set; }
+
+    }
+
+    public class PersonAPI{
+        public string Name { get; set; }
+        public string Surname { get; set; }
+    }
+    public class BlogAPI 
+    {
+        public string Url { get; set; }
+        public int Rating { get; set; }
+
+    }
+    public class PostAPI
+    {
+        public int PostId { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
+
+        public BlogAPI Blog { get; set; }
+
+        public PersonAPI Author { get; set; }
+    }
+
     public class BlogBLL : IBlogBLL
     {
         public int Id { get; set; }
@@ -65,7 +115,6 @@ namespace mvccoresb.Domain.TestModels
 
 
 
-
     /**Specific EF concrete type realizations */
     //one-to-many 0->8
     public class BlogEF : IBlogEF
@@ -75,6 +124,8 @@ namespace mvccoresb.Domain.TestModels
         public string Url { get; set; }
         public int Rating { get; set; }
 
+        public DateTime Created { get; set; }
+        
 
         //Ignore via Fluent API exclude from DB
         public bool LoadedFromDatabase { get; set; }
@@ -111,6 +162,10 @@ namespace mvccoresb.Domain.TestModels
         public int BlogId { get; set; }
         public BlogEF Blog { get; set; }
 
+        public Guid AuthorId { get; set; }     
+        public PersonEF Author { get; set; }
+
+
         public List<PostTagEF> PostTags { get; set; }
     }
 
@@ -138,6 +193,8 @@ namespace mvccoresb.Domain.TestModels
         public string Name { get; set; }
         public string Surname { get; set; }
 
+        public IList<PostEF> Posts { get; set; }
+
     }
 
     //entity for TPH inheritance implementation via discriminator column
@@ -154,6 +211,8 @@ namespace mvccoresb.Domain.TestModels
         public string Surname { get; set; }
         public int QualityGrade { get; set; }
     }
+
+
 }
 
 

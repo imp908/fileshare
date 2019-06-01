@@ -32,10 +32,12 @@ namespace mvccoresb.Domain.Interfaces
             where T : class;
         IQueryable<T> QueryByFilter<T>(Expression<Func<T, bool>> expression)
             where T : class;
-        void Save();        
+        void Save();
+
+        void SaveIdentity(string command);
     }
 
-    public interface IUOW
+    public interface ICQRScrud
     {
         T Add<T>(T item) where T : class;
         void AddRange<T>(IList<T> items) where T : class;
@@ -47,10 +49,12 @@ namespace mvccoresb.Domain.Interfaces
             where T : class;
     }
 
-    public interface IUOWBlogging 
+    public interface ICQRSEFBlogging
     {
         BlogEF AddBlog(BlogEF blog);
         BlogEF GetByIntId(int Id);
+
+        PostAPI PersonAdsPostToBlog(PersonAdsPostCommand command);
     }
     
 }

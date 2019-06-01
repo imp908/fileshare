@@ -58,11 +58,36 @@ namespace mvccoresb.Infrastructure.EF
             modelBuilder.Entity<PostEF>()
             .HasOne(p => p.Blog)
             .WithMany(p => p.Posts).OnDelete(DeleteBehavior.Cascade);
-            
+
+            modelBuilder.Entity<PostEF>()
+            .Property(s => s.BlogId )
+            .IsRequired();
+
+
+            modelBuilder.Entity<PostEF>()
+            .Property(s => s.AuthorId)
+            .IsRequired();
+
+            modelBuilder.Entity<PostEF>()
+            .HasOne(s => s.Author)
+            .WithMany(s => s.Posts)
+            .HasForeignKey(p => p.AuthorId);
+
+
             modelBuilder.Entity<BlogEF>()
             .HasOne(p => p.BlogImage)
             .WithOne(p => p.Blog)
             .HasForeignKey<BlogImage>(p => p.BlogId);
+
+            modelBuilder.Entity<BlogEF>()
+            .Property(s => s.Created)
+            /*
+                set explicit IDENTITY_INSERT to ON
+                https://docs.microsoft.com/en-us/ef/core/saving/explicit-values-generated-properties
+            */
+            .ValueGeneratedOnAdd();
+            //.ValueGeneratedOnAddOrUpdate();
+
 
 
 

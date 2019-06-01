@@ -20,45 +20,44 @@ namespace InfrastructureCheckers
         static string connectionStringSQL = "Server=AAAPC;Database=testdb;User Id=tl;Password=QwErT123;";
 
         public static void GO(){
-            RepoCheck();
-            UOWCheck();
+            DbWithRepoReinitCheck();
         }
         
-        public static void RepoCheck(){
+        public static void DbWithRepoReinitCheck(){
                       
             using(TestContext context = new TestContext(
                 new DbContextOptionsBuilder<TestContext>()
                     .UseSqlServer(connectionStringSQL).Options))
             {
                 mvccoresb.Infrastructure.EF.RepositoryEF repo = new mvccoresb.Infrastructure.EF.RepositoryEF(context);
-                
-                BlogEF b = new BlogEF() { Url = "url", Rating = 2 };
-                repo.Add(b);
-                repo.Save();
-
-                List<BlogEF> blogs = repo.QueryByFilter<BlogEF>(s => s.BlogId!=null).ToList();
-                repo.DeleteRange(blogs);
-                repo.Save();
-
-            }
-        }
-
-        public static void UOWCheck(){
-            using (TestContext context = new TestContext(
-                new DbContextOptionsBuilder<TestContext>()
-                    .UseSqlServer(connectionStringSQL).Options))
-            {
-                mvccoresb.Infrastructure.EF.RepositoryEF repo = new mvccoresb.Infrastructure.EF.RepositoryEF(context);
-
-                mvccoresb.Infrastructure.EF.UOWBlogging UOW = new UOWBlogging(repo);
-
-                BlogEF b = new BlogEF() { Url = "url", Rating = 2 };
-                UOW.AddBlog(b);
 
                 List<BlogEF> blogs = repo.QueryByFilter<BlogEF>(s => s.BlogId != null).ToList();
                 repo.DeleteRange(blogs);
+                repo.Save();
+
+                List<PersonEF> persons = repo.QueryByFilter<PersonEF>(s => s.Id != null).ToList();
+                repo.DeleteRange(persons);
+                repo.Save();
+
+                List<PostEF> posts = repo.QueryByFilter<PostEF>(s => s.PostId != null).ToList();
+                repo.DeleteRange(posts);
+                repo.Save();
+
+                BlogEF b = new BlogEF() { BlogId =1, Url = "url", Rating = 2 , Created = DateTime.Now };
+                PersonEF p = new PersonEF() { Id = Guid.Parse("81a130d2-502f-4cf1-a376-63edeb000e9f"), Name="Name", Surname ="sername" };
+
+                repo.Add(b);
+                repo.Add(p);
+                try{                   
+                    repo.SaveIdentity("Blogs");
+                }catch(Exception e)
+                {
+
+                }
+             
             }
         }
+      
     }
 }
 
@@ -3392,4 +3391,3 @@ namespace Rewrite
 
     
 }
-

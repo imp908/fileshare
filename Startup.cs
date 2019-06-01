@@ -116,8 +116,8 @@ namespace mvccoresb
             autofacContainer.RegisterType<RepositoryEF>()
                 .As<IRepository>().InstancePerLifetimeScope();
 
-            autofacContainer.RegisterType<UOWBlogging>()
-                .As<IUOWBlogging>().InstancePerLifetimeScope();
+            autofacContainer.RegisterType<CQRSEFBlogging>()
+                .As<ICQRSEFBlogging>().InstancePerLifetimeScope();
 
             //*DAL->BLL reg */
             autofacContainer.RegisterType<BlogEF>()
@@ -136,8 +136,19 @@ namespace mvccoresb
                 cfg.CreateMap<BlogEF, BlogBLL>()
                     .ForMember(dest => dest.Id, m => m.MapFrom(src => src.BlogId))
                     .ForMember(dest => dest.Posts, m => m.Ignore());
-                
-                cfg.CreateMap<PostEF, PostBLL>(MemberList.None);
+
+                cfg.CreateMap<PostEF, PostBLL>(MemberList.None).ReverseMap();
+
+                cfg.CreateMap<PersonAdsPostCommand, PostEF>()
+                    .ForMember(dest => dest.AuthorId, m => m.MapFrom(src => src.PersonId));
+
+                cfg.CreateMap<AddPostAPI, PostEF>()
+                    .ForMember(dest => dest.AuthorId, m => m.MapFrom(src => src.PersonId))
+                    .ForMember(dest => dest.BlogId, m => m.MapFrom(src => src.BlogId));
+
+                cfg.CreateMap<PersonEF, PersonAPI>();
+                cfg.CreateMap<BlogEF, BlogAPI>();
+                cfg.CreateMap<PostEF, PostAPI>();
             });
         }
 

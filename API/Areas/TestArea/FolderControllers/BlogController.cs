@@ -14,14 +14,14 @@ namespace mvccoresb.Default.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BlogController : ControllerBase
+    public class BlogController : Controller
     {
         IRepository _repo;
-        IUOWBlogging _uow;
+        ICQRSEFBlogging _cqrs;
 
-        public BlogController(IUOWBlogging uow,IRepository repo)
+        public BlogController(ICQRSEFBlogging cqrs,IRepository repo)
         {
-            _uow=uow;
+            _cqrs=cqrs;
             _repo=repo;
         }
 
@@ -40,31 +40,45 @@ namespace mvccoresb.Default.Controllers
         [HttpGet("{id}")]
         public ActionResult<BlogEF> Get(int Id)
         {
-            var item =_uow.GetByIntId(Id);
+            var item =_cqrs.GetByIntId(Id);
             if(item==null)
             {
 
             }
             return Ok(item);
         }
+
         [HttpGet("GetString/{id}")]
         public string GetString(int Id)
         {
-            var item =_uow.GetByIntId(Id);
+            var item =_cqrs.GetByIntId(Id);
             if(item==null)
             {
-                return string.Empty;            
+                return string.Empty;
             }
             return JsonConvert.SerializeObject(item);
         }
-
 
         // POST api/values
         [HttpPost]
         public ActionResult<BlogEF> Post([FromBody] BlogEF value)
         {
-            var result = _uow.AddBlog(value);
+            var result = _cqrs.AddBlog(value);
             return Ok(result);
+        }
+
+        [HttpPost("AddPost")]
+        public ActionResult<PostEF> AddPost([FromBody] PersonAdsPostCommand value)
+        {
+            var result = _cqrs.PersonAdsPostToBlog(value);
+            return Ok(result);
+        }
+        
+        [HttpPost("AddPostJS")]
+        public JsonResult AddPostJS([FromBody] PersonAdsPostCommand value)
+        {
+            var result = _cqrs.PersonAdsPostToBlog(value);
+            return Json(result);
         }
 
         // PUT api/values/5
