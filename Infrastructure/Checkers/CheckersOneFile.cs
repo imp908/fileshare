@@ -23,6 +23,7 @@ namespace InfrastructureCheckers
             RepoCheck();
             UOWCheck();
         }
+        
         public static void RepoCheck(){
                       
             using(TestContext context = new TestContext(

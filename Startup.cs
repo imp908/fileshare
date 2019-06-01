@@ -53,24 +53,7 @@ namespace mvccoresb
                 options.AreaViewLocationFormats.Add("/API/Areas/{2}/Views/{1}/{0}.cshtml");
                 options.AreaViewLocationFormats.Add("/API/Areas/{2}/Views/Shared/{0}.cshtml");
                 options.AreaViewLocationFormats.Add("/Views/Shared/{0}.cshtml");
-            });
-
-
-            /*Automapper Register */
-            services.AddAutoMapper(typeof(Startup));
-          
-            /*Mapper initialize */
-            Mapper.Initialize(cfg =>
-            {
-                cfg.CreateMap<BlogEF, BlogBLL>();
-                cfg.CreateMap<PostEF, PostBLL>();
-            });
-            try{
-                Mapper.AssertConfigurationIsValid();
-            }catch(Exception e)
-            {
-
-            }
+            });        
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
@@ -84,35 +67,78 @@ namespace mvccoresb
             services.AddDbContext<TestContext>(o => o.UseSqlServer(connectionStringSQL));
 
 
-            return ConfigureAutofac(services);
+
+            /*Autofac autofacContainer */
+            var autofacContainer = new ContainerBuilder();
+           
+         
+
+            /*Automapper Register */
+            services.AddAutoMapper(typeof(Startup));
+                   
+            //AutoMapperStaticConfiguration.Configure();
+            /*Mapper initialize with Static initialization*/
+            // Mapper.Initialize(cfg =>
+            // {
+            //     cfg.CreateMap<BlogEF, BlogBLL>(MemberList.None);
+            //     cfg.CreateMap<PostEF, PostBLL>(MemberList.None);                
+            // });
+            // try{  
+            //     Mapper.AssertConfigurationIsValid();
+            // }catch(Exception e)
+            // {
+
+            // }
+
+            /*Mapper initialize with Instance API initialization */
+            var config = ConfigureAutoMapper();
+            IMapper mapper = new Mapper(config);                      
+  
+
+            /*Autofac registrations */
+            autofacContainer.Populate(services);        
+            ConfigureAutofac(services,autofacContainer);
+
+            /*Registration of automapper with autofac Instance API */
+            autofacContainer.RegisterInstance(mapper).As<IMapper>();    
+
+            this.ApplicationContainer = autofacContainer.Build();
+            return new AutofacServiceProvider(this.ApplicationContainer);
         }
 
-        public AutofacServiceProvider ConfigureAutofac(IServiceCollection services)
+        public ContainerBuilder ConfigureAutofac(IServiceCollection services,ContainerBuilder autofacContainer)
         {            
-            /*Autofac builder */
-            var builder = new ContainerBuilder();
-            builder.Populate(services);
-
+          
             /**EF,repo and UOW reg */
-            builder.RegisterType<TestContext>().As<DbContext>()
+            autofacContainer.RegisterType<TestContext>().As<DbContext>()
                 .InstancePerLifetimeScope();
 
-            builder.RegisterType<RepositoryEF>()
+            autofacContainer.RegisterType<RepositoryEF>()
                 .As<IRepository>().InstancePerLifetimeScope();
 
-            builder.RegisterType<UOWBlogging>()
+            autofacContainer.RegisterType<UOWBlogging>()
                 .As<IUOWBlogging>().InstancePerLifetimeScope();
 
             //*DAL->BLL reg */
-            builder.RegisterType<BlogEF>()
+            autofacContainer.RegisterType<BlogEF>()
                 .As<IBlogEF>().InstancePerLifetimeScope();
-            builder.RegisterType<BlogBLL>()
+            autofacContainer.RegisterType<BlogBLL>()
                 .As<IBlogBLL>().InstancePerLifetimeScope();
-            builder.RegisterType<PostBLL>()
+            autofacContainer.RegisterType<PostBLL>()
                 .As<IPostBLL>().InstancePerLifetimeScope();
 
-            this.ApplicationContainer = builder.Build();
-            return new AutofacServiceProvider(this.ApplicationContainer);
+            return autofacContainer;
+        }
+
+        public MapperConfiguration ConfigureAutoMapper(){
+            return new MapperConfiguration(cfg => {
+                //cfg.AddProfiles(typeof(BlogEF), typeof(BlogBLL));
+                cfg.CreateMap<BlogEF, BlogBLL>()
+                    .ForMember(dest => dest.Id, m => m.MapFrom(src => src.BlogId))
+                    .ForMember(dest => dest.Posts, m => m.Ignore());
+                
+                cfg.CreateMap<PostEF, PostBLL>(MemberList.None);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -152,6 +178,18 @@ namespace mvccoresb
                     template: "TestArea/{controller=Home}/{action=Index}"
                 );
 
+            });
+        }
+    }
+
+    public static class AutoMapperStaticConfiguration
+    {
+        public static void Configure(){
+            /*Mapper initialize with Static initialization*/
+            Mapper.Initialize(cfg =>
+            {
+                cfg.CreateMap<BlogEF, BlogBLL>();
+                cfg.CreateMap<PostEF, PostBLL>();                
             });
         }
     }
