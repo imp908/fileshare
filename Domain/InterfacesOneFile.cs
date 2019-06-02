@@ -20,8 +20,9 @@ namespace mvccoresb.Domain.Interfaces
 
     public interface IRepository
     {
-        IQueryable<T> GeyAll<T>() where T : class;              
-
+        IQueryable<T> GetAll<T>(Expression<Func<T, bool>> expression = null)
+            where T : class;
+   
         void Add<T>(T item) where T : class;
         void AddRange<T>(IList<T> items) where T : class;
         void Delete<T>(T item) where T : class;
@@ -49,12 +50,18 @@ namespace mvccoresb.Domain.Interfaces
             where T : class;
     }
 
-    public interface ICQRSEFBlogging
+    public interface ICQRSBloggingWrite
     {
         BlogEF AddBlog(BlogEF blog);
         BlogEF GetByIntId(int Id);
 
         PostAPI PersonAdsPostToBlog(PersonAdsPostCommand command);
+    }
+    public interface ICQRSBloggingRead
+    {
+        IList<PostAPI> Get(GetPostsByPerson command);
+        IList<PostAPI> Get(GetPostsByBlog command);
+        IList<BlogAPI> Get(GetBlogsByPerson command);
     }
     
 }

@@ -17,13 +17,18 @@ namespace mvccoresb.Default.Controllers
     public class BlogController : Controller
     {
         IRepository _repo;
-        ICQRSEFBlogging _cqrs;
+        ICQRSBloggingWrite _cqrs;
+        
+        ICQRSBloggingRead _cqrsRead;
 
-        public BlogController(ICQRSEFBlogging cqrs,IRepository repo)
+        public BlogController(ICQRSBloggingWrite cqrs,ICQRSBloggingRead cqrsRead, IRepository repo)
         {
-            _cqrs=cqrs;
-            _repo=repo;
+            _cqrs = cqrs;
+            _cqrsRead = cqrsRead;
+            _repo = repo;
         }
+
+
 
         [HttpGet]
         public ActionResult<IList<BlogEF>> Get()
@@ -67,20 +72,6 @@ namespace mvccoresb.Default.Controllers
             return Ok(result);
         }
 
-        [HttpPost("AddPost")]
-        public ActionResult<PostEF> AddPost([FromBody] PersonAdsPostCommand value)
-        {
-            var result = _cqrs.PersonAdsPostToBlog(value);
-            return Ok(result);
-        }
-        
-        [HttpPost("AddPostJSON")]
-        public JsonResult AddPostJSON([FromBody] PersonAdsPostCommand value)
-        {
-            var result = _cqrs.PersonAdsPostToBlog(value);
-            return Json(result);
-        }
-
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] IBlogEF value)
@@ -92,5 +83,40 @@ namespace mvccoresb.Default.Controllers
         public void Delete(int id)
         {
         }
+
+
+
+
+
+        [HttpPost("GetPostsByBlog")]
+        public JsonResult GetByQuery([FromBody] GetPostsByBlog query)
+        {
+            var result = _cqrsRead.Get(query);
+            return Json(result);
+        }
+        [HttpPost("GetBlogsByPerson")]
+        public JsonResult GetByQuery([FromBody] GetBlogsByPerson query)
+        {
+            var result = _cqrsRead.Get(query);
+            return Json(result);
+        }        
+
+
+
+        /*Adding post returning Ok(result) and Json(result)*/
+        [HttpPost("AddPost")]
+        public ActionResult<PostEF> AddPost([FromBody] PersonAdsPostCommand value)
+        {
+            var result = _cqrs.PersonAdsPostToBlog(value);
+            return Ok(result);
+        }
+
+        [HttpPost("AddPostJSON")]
+        public JsonResult AddPostJSON([FromBody] PersonAdsPostCommand value)
+        {
+            var result = _cqrs.PersonAdsPostToBlog(value);
+            return Json(result);
+        }
+        
     }
 }

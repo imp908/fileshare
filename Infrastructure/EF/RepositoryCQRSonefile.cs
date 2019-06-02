@@ -33,12 +33,14 @@ namespace mvccoresb.Infrastructure.EF
             _context=context;
         }
         
-        public IQueryable<T> GeyAll<T>() 
+        public IQueryable<T> GetAll<T>(Expression<Func<T,bool>> expression=null) 
             where T : class
         {
-            return this._context.Set<T>();
-        }
-        
+            return (expression == null)
+                ? this._context.Set<T>()
+                : this._context.Set<T>().Where(expression);
+
+        }     
 
         public void Add<T> (T item)
             where T : class
@@ -120,9 +122,9 @@ namespace mvccoresb.Infrastructure.EF
             this._context.Database.ExecuteSqlCommand(cmd);
             this._context.Database.CloseConnection();
         }
-    }     
+    }
 
-    public class CQRSEFBlogging : ICQRSEFBlogging
+    public class CQRSEFBlogging 
     {
         internal IRepository _repository;
         internal IMapper _mapper;
@@ -167,12 +169,21 @@ namespace mvccoresb.Infrastructure.EF
             return blog;
         }
         
-
         public List<BlogEF> GetBlogs(int skip=0,int take=10)
         {          
             return this._repository.SkipTake<BlogEF>(skip,take).ToList();;
         }
 
+     
+    }
+
+    public class CQRSBloggingWrite : CQRSEFBlogging, ICQRSBloggingWrite
+    {
+
+        public CQRSBloggingWrite(IRepository repository, IMapper mapper) 
+            : base(repository,mapper){}
+
+        /*Adding object drom command, mapping and command->EF returning EF -> API*/
         public PostAPI PersonAdsPostToBlog(PersonAdsPostCommand command)
         {
             PostAPI postReturn = new PostAPI();
@@ -180,7 +191,7 @@ namespace mvccoresb.Infrastructure.EF
             if (this._mapper == null || command == null)
             {
                 return null;
-            }           
+            }
 
             try
             {
@@ -203,6 +214,72 @@ namespace mvccoresb.Infrastructure.EF
             return postReturn;
         }
 
+
+    }
+
+    public class CQRSBloggingRead : CQRSEFBlogging, ICQRSBloggingRead
+    {
+
+        public CQRSBloggingRead(IRepository repository, IMapper mapper)
+            : base(repository, mapper) { }
+
+
+        public IList<PostAPI> Get(GetPostsByPerson command)
+        {
+            if (this._mapper == null || command == null)
+            {
+                return null;
+            }
+            return null;
+
+        }
+        
+        public IList<PostAPI> Get(GetPostsByBlog command)
+        {
+            IList<PostAPI> postsReturn = new List<PostAPI>();
+            try
+            {
+                var postsExist = this._repository.GetAll<PostEF>()
+                .Include(s => s.Blog)
+                .Where(s => s.BlogId == command.BlogId)
+                .ToList();
+
+                if(postsExist.Any())
+                {
+                    postsReturn = this._mapper.Map<IList<PostEF>,IList<PostAPI>>(postsExist);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return postsReturn;
+        }
+        public IList<BlogAPI> Get(GetBlogsByPerson command)
+        {
+            IList<BlogAPI> itemsReturn = new List<BlogAPI>();
+            try
+            {
+                var itemsExist = this._repository.GetAll<PostEF>()
+                .Include(s => s.Author)
+                .Include(s => s.Blog)
+                .Where(s => s.Author.Id == command.PersonId)
+                .Select(s => s.Blog)
+                .ToList();
+
+                if (itemsExist.Any())
+                {
+                    itemsReturn = this._mapper.Map<IList<BlogEF>, IList<BlogAPI>>(itemsExist);
+                }
+            }
+            catch (Exception e)
+            {
+
+            }
+
+            return itemsReturn;
+        }
     
     }
 

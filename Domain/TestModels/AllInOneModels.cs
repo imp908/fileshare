@@ -6,6 +6,7 @@ namespace mvccoresb.Domain.TestModels
     using System.ComponentModel.DataAnnotations;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Linq.Expressions;
     using System;
 
     public interface IBlogEF
@@ -43,6 +44,9 @@ namespace mvccoresb.Domain.TestModels
 
     }
 
+
+
+    /*Commands layer */
     /*Object parameter / command object to pass to CQRRS */
     /*flattering needed */
     public interface IAddPostBLL
@@ -52,13 +56,14 @@ namespace mvccoresb.Domain.TestModels
         PostBLL PostPayload { get; set; }
     }
 
-
     public class AddPostAPI : IAddPostBLL
     {
         public Guid PersonId { get; set; }
         public int BlogId { get; set; }
         public PostBLL PostPayload { get; set; }
     }
+
+
 
     /* Model for post addition without flattering */
     public class PersonAdsPostCommand
@@ -71,12 +76,35 @@ namespace mvccoresb.Domain.TestModels
         public Guid PersonId { get; set; }
 
     }
+    
+    public class GetBloggingCommand
+    {
+        public GetPostsByPerson GetPostsByPerson { get; set; }
+        public GetPostsByBlog GetPostsByBlog { get; set; }
+        public GetBlogsByPerson GetBlogsByPerson { get; set; }
+    }
+    public class GetPostsByPerson
+    {
+        public Guid PersonId {get;set;}
+    }
+    public class GetPostsByBlog
+    {
+        public int BlogId { get; set; }
+    }
+    public class GetBlogsByPerson
+    {
+        public Guid PersonId { get; set; }
+    }
 
-    public class PersonAPI{
+
+
+    /*API level models */
+    public class PersonAPI
+    {
         public string Name { get; set; }
         public string Surname { get; set; }
     }
-    public class BlogAPI 
+    public class BlogAPI
     {
         public string Url { get; set; }
         public int Rating { get; set; }
@@ -92,6 +120,8 @@ namespace mvccoresb.Domain.TestModels
 
         public PersonAPI Author { get; set; }
     }
+
+
 
     public class BlogBLL : IBlogBLL
     {
@@ -125,7 +155,7 @@ namespace mvccoresb.Domain.TestModels
         public int Rating { get; set; }
 
         public DateTime Created { get; set; }
-        
+
 
         //Ignore via Fluent API exclude from DB
         public bool LoadedFromDatabase { get; set; }

@@ -45,7 +45,7 @@ namespace InfrastructureCheckers
 
                 BlogEF b = new BlogEF() { BlogId =1, Url = "url", Rating = 2 , Created = DateTime.Now };
                 PersonEF p = new PersonEF() { Id = Guid.Parse("81a130d2-502f-4cf1-a376-63edeb000e9f"), Name="Name", Surname ="sername" };
-
+              
                 repo.Add(b);
                 repo.Add(p);
                 try{                   
@@ -54,7 +54,23 @@ namespace InfrastructureCheckers
                 {
 
                 }
-             
+
+                List<PostEF> post = new List<PostEF>()
+                {
+                    new PostEF(){PostId = 1, Title = "PostTestTitle", Content = "TestContent0",BlogId = b.BlogId, AuthorId = p.Id }
+                    ,new PostEF(){PostId = 2, Title = "PostTestTitle", Content = "TestContent1",BlogId = b.BlogId, AuthorId = p.Id }
+                };
+                repo.AddRange(post);
+                try
+                {
+                    repo.SaveIdentity("Posts");
+                }
+                catch (Exception e)
+                {
+
+                }
+
+
             }
         }
       

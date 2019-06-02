@@ -116,8 +116,10 @@ namespace mvccoresb
             autofacContainer.RegisterType<RepositoryEF>()
                 .As<IRepository>().InstancePerLifetimeScope();
 
-            autofacContainer.RegisterType<CQRSEFBlogging>()
-                .As<ICQRSEFBlogging>().InstancePerLifetimeScope();
+            autofacContainer.RegisterType<CQRSBloggingWrite>()
+                .As<ICQRSBloggingWrite>().InstancePerLifetimeScope();
+            autofacContainer.RegisterType<CQRSBloggingRead>()
+                .As<ICQRSBloggingRead>().InstancePerLifetimeScope();
 
             //*DAL->BLL reg */
             autofacContainer.RegisterType<BlogEF>()
