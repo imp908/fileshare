@@ -30,62 +30,6 @@ namespace mvccoresb.Default.Controllers
 
 
 
-        [HttpGet]
-        public ActionResult<IList<BlogEF>> Get()
-        {
-            var items =_repo.SkipTake<BlogEF>(0,100);
-            if(items==null)
-            {
-
-            }
-            return Ok(items);
-        }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<BlogEF> Get(int Id)
-        {
-            var item =_cqrs.GetByIntId(Id);
-            if(item==null)
-            {
-
-            }
-            return Ok(item);
-        }
-
-        [HttpGet("GetString/{id}")]
-        public string GetString(int Id)
-        {
-            var item =_cqrs.GetByIntId(Id);
-            if(item==null)
-            {
-                return string.Empty;
-            }
-            return JsonConvert.SerializeObject(item);
-        }
-
-        // POST api/values
-        [HttpPost]
-        public ActionResult<BlogEF> Post([FromBody] BlogEF value)
-        {
-            var result = _cqrs.AddBlog(value);
-            return Ok(result);
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] IBlogEF value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
-
-
-
 
 
         [HttpPost("GetPostsByPerson")]
@@ -123,6 +67,21 @@ namespace mvccoresb.Default.Controllers
             var result = _cqrs.PersonAdsPostToBlog(value);
             return Json(result);
         }
-        
+
+        [HttpPut("UpdatePost")]
+        public JsonResult Put([FromBody] PersonUpdatesBlog command)
+        {
+            var result = _cqrs.PersonUpdatesPost(command);
+            return Json(result);
+        }
+        [HttpPost("DeletePost")]
+        public JsonResult Post([FromBody] PersonDeletesPost command)
+        {
+            var result = _cqrs.PersonDeletesPostFromBlog(command);
+            if(result){
+                return Json(new {Removed = true});
+            }
+            return Json(new {Removed = false});
+        }
     }
 }

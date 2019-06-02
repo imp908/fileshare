@@ -60,6 +60,12 @@ Routes:
             http://localhost:5000/api/blog/GetBlogsByPerson
                 {"PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"}
 
+            http://localhost:5000/api/blog/UpdatePost
+                {
+                "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"
+                ,"Post":{"PostId":"1","Title":"UpdatedTitle","Content":"UpdatedContent"}
+                }
+
 API:
     http://localhost:5000/api/blog/AddPost -> returns Ok(result)
     http://localhost:5000/api/blog/AddPostJSON -> retorns Json(result)

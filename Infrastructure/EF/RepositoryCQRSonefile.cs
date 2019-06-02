@@ -128,12 +128,7 @@ namespace mvccoresb.Infrastructure.EF
     {
         internal IRepository _repository;
         internal IMapper _mapper;
-
-        public CQRSEFBlogging(IRepository repository)
-        {
-             this._repository = repository;
-        }
-
+        
         public CQRSEFBlogging(IRepository repository,IMapper mapper)
         {
             this._repository = repository;
@@ -141,40 +136,6 @@ namespace mvccoresb.Infrastructure.EF
         }
 
 
-
-        public BlogEF GetByIntId(int Id)
-        {
-            BlogEF blogEf = this._repository.QueryByFilter<BlogEF>( s => s.BlogId == Id)
-                .Include(c => c.Posts).FirstOrDefault();
-
-            try
-            {                
-                if(this._mapper!=null && blogEf!=null)
-                {
-                    var blogBll = this._mapper.Map(blogEf,blogEf.GetType(), typeof(BlogBLL));
-                }
-            }
-            catch(Exception e)
-            {
-
-            }
-
-            return blogEf;
-        }
-        
-        public BlogEF AddBlog(BlogEF blog)
-        {
-            this._repository.Add<BlogEF>(blog);
-            this._repository.Save();
-            return blog;
-        }
-        
-        public List<BlogEF> GetBlogs(int skip=0,int take=10)
-        {          
-            return this._repository.SkipTake<BlogEF>(skip,take).ToList();;
-        }
-
-     
     }
 
     public class CQRSBloggingWrite : CQRSEFBlogging, ICQRSBloggingWrite
@@ -214,6 +175,68 @@ namespace mvccoresb.Infrastructure.EF
             return postReturn;
         }
 
+        public PostAPI PersonUpdatesPost(PersonUpdatesBlog command)
+        {
+          
+            PostAPI updatedItem = new PostAPI();
+            if (command == null || command?.Post == null || this._mapper == null) { return updatedItem; }
+            try
+            {
+                PostEF itemToUpdate = this._repository.GetAll<PostEF>(s => s.PostId == command.Post.PostId).FirstOrDefault();
+                //itemToUpdate = this._mapper.Map<PostAPI,PostEF>(command.Post);
+                
+                itemToUpdate.Title = command.Post.Title;
+                itemToUpdate.Content = command.Post.Content;
+
+                this._repository.Update<PostEF>(itemToUpdate);
+                this._repository.Save();
+
+                var itemExists = this._repository.GetAll<PostEF>(s => s.PostId == command.Post.PostId)
+                .Include(s => s.Blog)
+                .Include(s => s.Author)
+                .FirstOrDefault();
+
+                if (itemExists !=null)
+                {
+                    updatedItem = this._mapper.Map<PostEF,PostAPI>(itemExists);
+                }
+
+                return updatedItem;
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
+
+            return updatedItem;
+        }
+
+        public bool PersonDeletesPostFromBlog(PersonDeletesPost command)
+        {
+            if (command == null)
+            {
+                return false;
+            }
+            try
+            {
+                var itemToDelete = this._repository.GetAll<PostEF>(s => s.PostId == command.PostId).FirstOrDefault();
+
+                if (itemToDelete != null)
+                {
+                    this._repository.Delete<PostEF>(itemToDelete);
+                    this._repository.Save();
+                }
+
+                return true;
+            }
+            catch (Exception e)
+            {
+
+                return false;
+            }
+            return true;
+        }
 
     }
 

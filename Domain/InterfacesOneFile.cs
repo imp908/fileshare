@@ -52,10 +52,9 @@ namespace mvccoresb.Domain.Interfaces
 
     public interface ICQRSBloggingWrite
     {
-        BlogEF AddBlog(BlogEF blog);
-        BlogEF GetByIntId(int Id);
-
         PostAPI PersonAdsPostToBlog(PersonAdsPostCommand command);
+        bool PersonDeletesPostFromBlog(PersonDeletesPost command);
+        PostAPI PersonUpdatesPost(PersonUpdatesBlog command);
     }
     public interface ICQRSBloggingRead
     {

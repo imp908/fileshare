@@ -150,7 +150,7 @@ namespace mvccoresb
 
                 cfg.CreateMap<PersonEF, PersonAPI>();
                 cfg.CreateMap<BlogEF, BlogAPI>();
-                cfg.CreateMap<PostEF, PostAPI>();
+                cfg.CreateMap<PostEF, PostAPI>().ReverseMap();
             });
         }
 

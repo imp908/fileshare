@@ -46,6 +46,7 @@ namespace mvccoresb.Domain.TestModels
 
 
 
+
     /*Commands layer */
     /*Object parameter / command object to pass to CQRRS */
     /*flattering needed */
@@ -77,12 +78,7 @@ namespace mvccoresb.Domain.TestModels
 
     }
     
-    public class GetBloggingCommand
-    {
-        public GetPostsByPerson GetPostsByPerson { get; set; }
-        public GetPostsByBlog GetPostsByBlog { get; set; }
-        public GetBlogsByPerson GetBlogsByPerson { get; set; }
-    }
+  
     public class GetPostsByPerson
     {
         public Guid PersonId {get;set;}
@@ -96,6 +92,16 @@ namespace mvccoresb.Domain.TestModels
         public Guid PersonId { get; set; }
     }
 
+    public class PersonDeletesPost
+    {
+        public Guid PersonId { get; set; }
+        public int PostId { get; set; }
+    }
+    public class PersonUpdatesBlog
+    {
+        public Guid PersonId { get; set; }
+        public PostAPI Post { get; set; }
+    }
 
 
     /*API level models */
