@@ -88,6 +88,12 @@ namespace mvccoresb.Default.Controllers
 
 
 
+        [HttpPost("GetPostsByPerson")]
+        public JsonResult GetByQuery([FromBody] GetPostsByPerson query)
+        {
+            var result = _cqrsRead.Get(query);
+            return Json(result);
+        }
         [HttpPost("GetPostsByBlog")]
         public JsonResult GetByQuery([FromBody] GetPostsByBlog query)
         {

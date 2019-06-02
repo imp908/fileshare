@@ -226,11 +226,24 @@ namespace mvccoresb.Infrastructure.EF
 
         public IList<PostAPI> Get(GetPostsByPerson command)
         {
-            if (this._mapper == null || command == null)
+            IList<PostAPI> itemsReturn = new List<PostAPI>();
+            try
             {
-                return null;
+                var itemsExist = this._repository.GetAll<PostEF>()
+                .Where(s => s.AuthorId == command.PersonId)
+                .ToList();
+
+                if (itemsExist.Any())
+                {
+                    itemsReturn = this._mapper.Map<IList<PostEF>, IList<PostAPI>>(itemsExist);
+                }
             }
-            return null;
+            catch (Exception e)
+            {
+
+            }
+
+            return itemsReturn;
 
         }
         
