@@ -65,6 +65,12 @@ Routes:
                 "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"
                 ,"Post":{"PostId":"1","Title":"UpdatedTitle","Content":"UpdatedContent"}
                 }
+            
+            http://localhost:5000/api/blog/DeletePost
+                {
+                "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"
+                ,"PostId":"1"
+                }
 
 API:
     http://localhost:5000/api/blog/AddPost -> returns Ok(result)
