@@ -17,4 +17,6 @@ bld/
 obj
 bin
 bin*
-.vscode
+obj/
+bin/
+.vscode/
