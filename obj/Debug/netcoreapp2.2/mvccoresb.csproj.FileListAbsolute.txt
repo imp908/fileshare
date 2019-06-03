@@ -127,3 +127,6 @@ g:\disk\Files\git\fileshare\obj\Debug\netcoreapp2.2\mvccoresb.dll
 g:\disk\Files\git\fileshare\obj\Debug\netcoreapp2.2\mvccoresb.pdb
 G:\disk\Files\git\fileshare\obj\Debug\netcoreapp2.2\mvccoresb.csproj.CopyComplete
 f:\backup\workflow\files\PROJS\core\MVC\mvccoresb\obj\Debug\netcoreapp2.2\Razor\API\Areas\TestArea\Views\JScheck\CheckAppOne.g.cshtml.cs
+g:\disk\Files\git\fileshare\obj\Debug\netcoreapp2.2\Razor\API\Areas\TestArea\Views\JScheck\CheckAppOne.g.cshtml.cs
+g:\disk\Files\git\fileshare\obj\Debug\netcoreapp2.2\Razor\API\Areas\TestArea\Views\JScheck\CheckAppTwo.g.cshtml.cs
+g:\disk\Files\git\fileshare\obj\Debug\netcoreapp2.2\Razor\API\Areas\TestArea\Views\ReactCheck\ReactCheck.g.cshtml.cs

@@ -92,7 +92,17 @@ Routes:
         
         JScheckController ->
             //check Events in AppOne
+            //uses function Bus,listener and amiter
             http://localhost:5000/TestArea/JScheck/CheckAppOne
+
+            //check Events in AppTwo
+            //uses class realization Bus,listener and amiter
+            http://localhost:5000/TestArea/JScheck/CheckAppTwo
+
+        ReactController
+            //react check            
+            http://localhost:5000/TestArea/React/CheckShoppingList
+            
 
 API:
     http://localhost:5000/api/blog/AddPost -> returns Ok(result)

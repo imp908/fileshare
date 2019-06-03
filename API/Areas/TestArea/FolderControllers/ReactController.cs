@@ -14,15 +14,12 @@ namespace mvccoresb.TestArea.Controllers
 {
     /** while mapping in startup.completionlist exists no custom attribute needed */
     //[Area("TestArea")]
-    public class JScheckController : Controller
+    public class ReactController : Controller
     {
-        public IActionResult CheckAppOne()
+        public IActionResult CheckShoppingList()
         {
-            return View("../JScheck/CheckAppOne");
+            return View("../ReactCheck/ReactCheck");
         }
 
-        public IActionResult CheckAppTwo(){
-            return View("../JScheck/CheckAppTwo");
-        }
     }
 }

@@ -21,6 +21,8 @@ module.exports = {
       , appTwo:'./js/Libs/AppTwo/appTwo.js'
       , lib: './js/Libs/lib/EventBus.js'
       , libCL: './js/Libs/libCl/EventBusCL.js'
+
+      , reactApp: './js/Libs/React/index.js'
     },
 
     //output js
