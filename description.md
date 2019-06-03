@@ -1,4 +1,5 @@
 
+
 //////////////
 //pckages
     dotnet add package Newtonsoft.Json --version 12.0.2
@@ -169,3 +170,81 @@ dotnet ef database update
     API->Infrastructure
     API->Domain
     Infrastructure->Domain
+
+
+//////////////
+//Workflow  StackShema,TODO,BACKLOG,DONE
+StackShema:[
+    DDD 
+    sql(ms,postgre),nosql(mongo,neo4j),amqp(rabbit+netservicebus,masstransit),
+    cashing(reddis)
+    
+    front
+    PWA progressive web app
+    (angular,react,vue)
+    (graphql vs REST,?mongoose)
+    (?rendering,?testing)
+]
+
+TODO:[
+    
+    -> Smaple react front 
+    -> SignalR integrate
+    -> Login and authenticate
+    -> docker
+    
+]
+
+BACKLOG:[
+    -> add flattering to automapper, 
+        mapping API command property payload to whole EF object
+            API{"P":{class}} -> EF{class}
+        
+    -> partial update of null web api content properties
+    -> logging
+    -> put,delete commands with url aprameters
+    -> controller status response and human readable responses
+    -> use interface as controller parameter
+        ?is it worth 
+    
+]
+
+DONE:[
+    API:[
+        <- done 02.06.2019 01:53 -> PersonAddsPost								
+            http://localhost:5000/api/blog/AddPostJSON
+            {"PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F",
+                "BlogId":"1",	
+                    "Title":"PostTitle","Content":"PostContent"	}								
+
+        <- done 02.06.2019 14:40-14:50 10m -> get posts by person
+            personId -> List<Posts>
+            http://localhost:5000/api/blog/GetPostsByPerson
+            {"PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"}
+            
+        <- done 02.06.2019 12:14-14:40 2h30m-> get posts by blog
+            personId -> List<blogs>		
+            http://localhost:5000/api/blog/GetPostsByBlog
+            {"BlogId":"1"}
+            
+        <- done 02.06.2019 12:14-14:50 2h30m-> get blogs by person
+            blogId -> List<Posts>
+            http://localhost:5000/api/blog/GetBlogsByPerson
+            {"PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"}
+        
+        <- done 02.06.201 15:13-15:53 40m -> person removes post
+            http://localhost:5000/api/blog/UpdatePost
+            {
+            "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"
+            ,"Post":{"PostId":"1","Title":"UpdatedTitle","Content":"UpdatedContent"}
+            }
+        
+        <- done 02.06.201 15:53-16:03 10m -> person updates post
+            http://localhost:5000/api/blog/DeletePost
+            {
+            "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"
+            ,"PostId":"1"
+            }
+    ]
+                                
+]
