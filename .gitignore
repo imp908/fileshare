@@ -16,3 +16,5 @@ bld/
 [Oo]bj/
 obj
 bin
+bin*
+.vscode
