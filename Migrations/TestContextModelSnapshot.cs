@@ -107,7 +107,7 @@ namespace mvccoresb.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAddOrUpdate();
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Rating");
 

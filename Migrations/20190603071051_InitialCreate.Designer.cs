@@ -10,8 +10,8 @@ using mvccoresb.Infrastructure.EF;
 namespace mvccoresb.Migrations
 {
     [DbContext(typeof(TestContext))]
-    [Migration("20190601220852_initial")]
-    partial class initial
+    [Migration("20190603071051_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -109,7 +109,7 @@ namespace mvccoresb.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("Created")
-                        .ValueGeneratedOnAddOrUpdate();
+                        .ValueGeneratedOnAdd();
 
                     b.Property<int>("Rating");
 

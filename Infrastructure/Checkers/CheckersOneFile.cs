@@ -16,8 +16,8 @@ namespace InfrastructureCheckers
     public static class RepoAndUOWCheck
     {
 
-        //static string connectionStringSQL = "Server=HP-HP000114\\SQLEXPRESS02;Database=EFdb;Trusted_Connection=True;";
-        static string connectionStringSQL = "Server=AAAPC;Database=testdb;User Id=tl;Password=QwErT123;";
+        static string connectionStringSQL = "Server=HP-HP000114\\SQLEXPRESS02;Database=EFdb;Trusted_Connection=True;";
+        //static string connectionStringSQL = "Server=AAAPC;Database=testdb;User Id=tl;Password=QwErT123;";
 
         public static void GO(){
             DbWithRepoReinitCheck();
