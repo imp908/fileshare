@@ -2,3 +2,15 @@ node_modules
 *compiled.js
 *.js.map
 *bundle.js
+*.csproj.nuget.*
+project.asset
+project.lock.json
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+bld/
+[Bb]in/
+[Oo]bj/
