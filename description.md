@@ -6,9 +6,11 @@
     dotnet add package Autofac.Extensions.DependencyInjection --version 4.4.0
     dotnet add package AutoMapper --version 8.1.0
     dotnet add package AutoMapper.Extensions.Microsoft.DependencyInjection --version 6.1.0
+    dotnet add package Microsoft.AspNetCore.SignalR
+
 //js packages
     npm install --save-dev react react-dom
-    npm install --save-dev gulp gulp-babel
+    npm install --save-dev gulp gulp-babela
     npm install --save-dev webpack webpack-dev-server webpack-cli webpack-stream html-webpack-plugin clean-webpack-plugin
     npm install --save-dev @babel/core @babel/cli @babel/plugin-proposal-class-properties @babel/preset-env @babel/preset-react @babel/plugin-transform-arrow-functions @babel/plugin-transform-classes @babel/plugin-proposal-function-bind
 
@@ -30,6 +32,9 @@ Folders:
     //conventional views
         Areas/TestArea/Views/Home/Index.cshtml
         Areas/TestArea/Views/NewHome/Index.cshtml
+
+    //React view check
+        Areas/TestArea/Views/ReactCheck/ReactCheck.cshtml
 
 Routes:
     Added http routing for Fiddler test to:
@@ -100,9 +105,11 @@ Routes:
             http://localhost:5000/TestArea/JScheck/CheckAppTwo
 
         ReactController
-            //react check            
+            //react check
             http://localhost:5000/TestArea/React/CheckShoppingList
-            
+        
+        SignalRcontroller
+            http://localhost:5000/TestArea/SignalR/hub
 
 API:
     http://localhost:5000/api/blog/AddPost -> returns Ok(result)
@@ -146,7 +153,6 @@ CustomViewLocations.cs
     services.Configure<RazorViewEngineOptions>(
         options => options.ViewLocationExpanders.Add(
     new CustomViewLocation()));
-
 
 
 
@@ -242,8 +248,8 @@ StackShema:[
 
 TODO:[
     
-    -> Smaple react front 
-    -> SignalR integrate
+    04.09.2019 23:53 -> SignalR integrate
+    -> Smaple react front     
     -> Login and authenticate
     -> docker
     
@@ -268,8 +274,8 @@ DONE:[
         <- done 02.06.2019 01:53 -> PersonAddsPost								
             http://localhost:5000/api/blog/AddPostJSON
             {"PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F",
-                "BlogId":"1",	
-                    "Title":"PostTitle","Content":"PostContent"	}								
+            "BlogId":"1",	
+            "Title":"PostTitle","Content":"PostContent"}
 
         <- done 02.06.2019 14:40-14:50 10m -> get posts by person
             personId -> List<Posts>
@@ -289,16 +295,18 @@ DONE:[
         <- done 02.06.201 15:13-15:53 40m -> person removes post
             http://localhost:5000/api/blog/UpdatePost
             {
-            "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"
-            ,"Post":{"PostId":"1","Title":"UpdatedTitle","Content":"UpdatedContent"}
+                "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"
+                ,"Post":{"PostId":"1","Title":"UpdatedTitle","Content":"UpdatedContent"}
             }
         
         <- done 02.06.201 15:53-16:03 10m -> person updates post
             http://localhost:5000/api/blog/DeletePost
             {
-            "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"
-            ,"PostId":"1"
+                "PersonId":"81A130D2-502F-4CF1-A376-63EDEB000E9F"
+                ,"PostId":"1"
             }
     ]
-                                
+
+    <- done 04.06.2019 5h -> react board checker
+
 ]

@@ -4,8 +4,7 @@ class Square extends React.Component{
 
     constructor(props){
         super(props);
-        this.state = { value: props.value, player: props.player};
-        console.log('Square')
+        this.state = { value: props.value, player: props.player};        
     }
 
     render(){
@@ -36,15 +35,11 @@ class Board extends React.Component
 {
     constructor(props){
         super(props);
-        this.state = {
-            //squares: Array(9).fill(null),
-            //squares:['x','o',null,'o','x',null,'o','x','o'], 
-            //squares: ['x', 'o'],
-            squares: props.history[0],
+        console.log('Board');
+        this.state = {        
+            squares: props.history[0].squares,
             player:'x',
-        };  
-
-        this.history = props.history;
+        };
     }
 
     renderSquare(i){
@@ -106,12 +101,13 @@ export class Game extends React.Component
                 { squares: ['x', 'o', null, 'o', 'x', null, 'o', 'x', 'o'] }
             ]};
     }
-
+    
+    
     render(){
         return(
             <div className="game">
                 <div className="board">
-                    <Board history={this.props.history}/>
+                    <Board history={this.state.history}/>
                 </div>
                 <div className="game-info">
                     <div>{/**status */}</div>

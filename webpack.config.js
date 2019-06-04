@@ -23,6 +23,8 @@ module.exports = {
       , libCL: './js/Libs/libCl/EventBusCL.js'
 
       , reactApp: './js/Libs/React/index.js'
+
+      ,signalRapp:'./js/Libs/signalR/signalr.js'
     },
 
     //output js

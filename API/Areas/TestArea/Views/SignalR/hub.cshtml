@@ -1,0 +1,22 @@
+﻿<script src="~/dist/sb/signalRapp.bundle.js"></script>
+
+<h1>Hub</h1>
+
+<div id="root"></div>
+
+<div>
+    <label>UserInput</label>
+    <input type="text" id="userInput">
+    <label>Message</label>
+    <input type="text" id="messageInput">
+    <button id="sendButton">Send</button>
+</div>
+<div>
+    <ul id="messageList"></ul>
+</div>
+
+<script>
+    console.log(signalRapp)
+    var r = new signalRapp.SignalRhub();
+    r.Init();
+</script>

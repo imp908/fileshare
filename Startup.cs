@@ -17,6 +17,8 @@ using Autofac.Extensions.DependencyInjection;
 
 using AutoMapper;
 
+using fileshare.Infrastructure.SignalR;
+
 namespace mvccoresb
 {
     using mvccoresb.Domain.Interfaces;
@@ -62,11 +64,12 @@ namespace mvccoresb
                 options => options.ViewLocationExpanders.Add(
             new CustomViewLocation()));
 
-            var connectionStringSQL = "Server=HP-HP000114\\SQLEXPRESS02;Database=EFdb;Trusted_Connection=True;";
-            //var connectionStringSQL = "Server=AAAPC;Database=testdb;User Id=tl;Password=QwErT123;";
+            //var connectionStringSQL = "Server=HP-HP000114\\SQLEXPRESS02;Database=EFdb;Trusted_Connection=True;";
+            var connectionStringSQL = "Server=AAAPC;Database=testdb;User Id=tl;Password=QwErT123;";
             services.AddDbContext<TestContext>(o => o.UseSqlServer(connectionStringSQL));
 
-
+            /*SignalR registration*/
+            services.AddSignalR();
 
             /*Autofac autofacContainer */
             var autofacContainer = new ContainerBuilder();
@@ -171,6 +174,10 @@ namespace mvccoresb
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
+
+            app.UseSignalR(routes =>{
+                routes.MapHub<SignalRhub>("/rHub");
+            });
 
             app.UseMvc(routes =>
             {
