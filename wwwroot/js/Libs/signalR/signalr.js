@@ -7,7 +7,7 @@ class SignalRhub
 {
     constructor(){
         //var connection = new signalR.HubConnectionBuilder().withUrl("/chatHub").build();
-        this.connection = new HubConnectionBuilder().withUrl("/chatHub").build();
+        this.connection = new HubConnectionBuilder().withUrl("/rHub").build();
     }
 
     Init = () =>
@@ -15,7 +15,7 @@ class SignalRhub
         //Disable send button until connection is established
         document.getElementById("sendButton").style.disabled = true;
 
-        this.connection.on("ReceiveMessage", function (user, message) {
+        this.connection.on("ReceiveMessage",  (user, message) => {
             var msg = message.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
             var encodedMsg = user + " says " + msg;
             var li = document.createElement("li");
@@ -23,16 +23,16 @@ class SignalRhub
             document.getElementById("messagesList").appendChild(li);
         });
 
-        this.connection.start().then(function () {
-            document.getElementById("sendButton").disabled = false;
-        }).catch(function (err) {
+        this.connection.start().then( () => {
+            document.getElementById("sendButton").style.disabled = false;
+        }).catch( (err) => {
             return console.error(err.toString());
         });
 
-        document.getElementById("sendButton").addEventListener("click", function (event) {
+        document.getElementById("sendButton").addEventListener("click",  (event) => {
             var user = document.getElementById("userInput").value;
             var message = document.getElementById("messageInput").value;
-            this.connection.invoke("SendMessage", user, message).catch(function (err) {
+            this.connection.invoke("SendMessage", user, message).catch( (err) => {
                 return console.error(err.toString());
             });
             event.preventDefault();
