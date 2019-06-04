@@ -4,7 +4,7 @@ import Game from './BoardGameClasses';
 
 class BoardGameContainer{
     constructor(){
-
+        
     }
     
     Init(containerDomID){
@@ -36,10 +36,8 @@ class BoardGameContainer{
         {
             var text = error 
             ? error.stack || error 
-                : `${message}(at ${source} : ${line} : ${col} )` ;
-            
+            : `${message}(at ${source} : ${line} : ${col} )`;
         };
-
     }
 }
 export { BoardGameContainer}

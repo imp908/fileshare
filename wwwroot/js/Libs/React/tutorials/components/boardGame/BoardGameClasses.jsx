@@ -36,18 +36,22 @@ class Board extends React.Component
 {
     constructor(props){
         super(props);
-        this.state ={
+        this.state = {
             //squares: Array(9).fill(null),
-            squares:['x','o',null,'o','x',null,'o','x','o'],
+            //squares:['x','o',null,'o','x',null,'o','x','o'], 
             //squares: ['x', 'o'],
+            squares: props.history[0],
             player:'x',
-        };
+        };  
+
+        this.history = props.history;
     }
+
     renderSquare(i){
         if (typeof this.state.squares[i] !== 'undefined'){           
             return <Square value={this.state.squares[i]} 
                 player = {this.state.player} 
-                clicked={this.state.clicked} 
+                clicked = {this.state.clicked} 
                 onClick = {(event, item) => this.handleClick(event, item, i)}
             />; 
         }
@@ -74,7 +78,8 @@ class Board extends React.Component
    }
 
     handleClick(event, item, num){
-        if (item && item.props) {
+        if (item && item.props) 
+        {
             this.swichClicker(num);
         }
     }
@@ -93,11 +98,20 @@ class Board extends React.Component
 
 export class Game extends React.Component
 {
+
+    constructor(props){
+        super(props);
+        this.state = {
+            history: [
+                { squares: ['x', 'o', null, 'o', 'x', null, 'o', 'x', 'o'] }
+            ]};
+    }
+
     render(){
         return(
             <div className="game">
                 <div className="board">
-                    <Board/>
+                    <Board history={this.props.history}/>
                 </div>
                 <div className="game-info">
                     <div>{/**status */}</div>

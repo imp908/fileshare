@@ -16,7 +16,6 @@ class ReactContainer{
     BoardGameInit(){
         var a = new BoardGameContainer();
         a.Init('root');
-    }
+    }    
 }
 export { ReactContainer}
-
