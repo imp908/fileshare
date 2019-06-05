@@ -109,6 +109,7 @@ Routes:
             http://localhost:5000/TestArea/React/CheckShoppingList
         
         SignalRcontroller
+        (copypast to several browser windows to test)
             http://localhost:5000/TestArea/SignalR/hub
 
 API:
@@ -176,6 +177,7 @@ AutoFact to Automapper registration added
 
 AutofacServiceProvider returned from ConfigureServices
 
+SignalR use and hub routing added
 
 //////////////
 //Program.cs 
@@ -248,10 +250,9 @@ StackShema:[
 
 TODO:[
     
-    04.09.2019 23:53 -> SignalR integrate
-    -> Smaple react front     
-    -> Login and authenticate
     -> docker
+    -> Smaple chat react front
+    -> Login and authenticate    
     
 ]
 
@@ -307,6 +308,7 @@ DONE:[
             }
     ]
 
-    <- done 04.06.2019 5h -> react board checker
+    <- done 04.06.2019 5h -> react boardGame checker
+    <- done 04.09.2019 23:53 05.09.2019 2:40 2h50m -> SignalR chat checker
 
 ]
