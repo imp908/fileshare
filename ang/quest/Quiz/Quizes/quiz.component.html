@@ -1,0 +1,31 @@
+<div>{{className}}</div>
+
+  <div class="container">
+    <div *ngIf="quiz_">
+
+        <input [(ngModel)]="quiz_.name" required minlength="1" #rq="ngModel">
+        <div *ngIf="rq.invalid" class="qlert alert-danger">Quiz name required</div>
+
+        <div row>
+          <button class="btn btn-success" (click)="saveQuiz(quiz_)">Save quiz</button>
+          <button class="btn btn-danger" (click)="deleteQuiz(quiz_)">Delete quiz</button>
+        </div>
+
+      <hr>
+      <div row>
+        <button class="btn" (click)="createQuestion()">Add new question</button>
+      </div>
+
+      <div *ngFor="let qt_ of quiz_.questions_">
+        {{qt_.value}}
+        <button class="btn" (click)="editQuestion(qt_)">Edit</button>
+        <button class="btn btn-danger" (click)="deleteQuestion(qt_)">Delete</button>
+      </div>
+
+
+      <div *ngIf="this.quiz_.selectedQuestion != null">
+        <hr>
+        <question-component [question_]="this.quiz_.selectedQuestion" (saveQuestion_)="saveQuestion($event)"></question-component>
+      </div>
+    </div>
+  </div>

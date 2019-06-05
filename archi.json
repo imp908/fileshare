@@ -1,0 +1,220 @@
+archi[
+	
+	overall[
+		Web.reporter->
+		Measures.RawDataCollector{
+			{
+			"_id" : "",
+			"SourceId" : "",
+			"Time" : ISODate("2010-01-01T05:30:00.000Z"),
+			"IngestionTime" : ISODate("2018-08-23T16:01:30.365Z"),
+			"Type" : "cnt",
+			"Status" : "ps",
+			"Values" : {
+			"In" : "11",
+			"Out" : "11"
+			},
+			"Value" : null
+			}
+		}->
+		Measures.Metric.binder->
+		Measures.MetricClassifier{
+			{
+    "_id" : "LGTw7",
+    "Version" : "lPPWb",
+    "Index" : {
+        "people-count" : {
+            "devNorthernSensor1" : {
+                "47Y64" : [ 
+                    {
+                        "Since" : ISODate("2009-12-31T21:00:00.000Z"),
+                        "Schemes" : [ 
+                            {
+                                "SchemeId" : "tz4QO",
+                                "SnapshotId" : "or36U"
+                            }
+                        ]
+                    }
+                ],
+                "zk8tT" : [ 
+                    {
+                        "Since" : ISODate("2009-12-31T21:00:00.000Z"),
+                        "Schemes" : [ 
+                            {
+                                "SchemeId" : "30fTD",
+                                "SnapshotId" : "fGjvT"
+                            }
+                        ]
+                    }
+                ]
+            }}}}
+		}->
+		Measures.MetricCollector
+	]
+	
+	services[
+					
+		{"19","Watcom.Web.Reporter"}
+		{"20","Measures.Facade"}
+		{"21","Measures.RawDataCollector"}			
+		{"22","Measures.RawDataPumpInitiator"}			
+		
+		{"0","Layouts.RegistryMaintainer",{"Layout snapshots registry managment"}},
+		{"1","Measures.QueryExecutionEngine",{"Searchs metrics"}},
+		{"2","Measures.QueryTaskSupplier",{"Handle tasks of searchs metrics"}},
+		{"3","Measures.MetricCollector",{"Stores and access to metrics"}},
+		{"4","Measures.MetricClassifier",{"Classifies metrics"}},
+		{"5","Measures.MetricTaxonomyRebuilder"}
+		
+		{"6","Layouts.Facade"}
+		
+		{"7","Clients.FrontOffice"}			
+		
+	]
+	
+	events[
+	
+		{"100","event.measures.query_task.created"}
+		{"101","event.measures.query_task.completed"}
+		{"102","event.measures.metric_query.created"}
+		{"103","event.measures.metric_query.handled"}
+		{"104","command.layouts.layout_entity_list.get"}
+		{"105","command.measures.query_result.get"}
+		
+		//metric reclassification
+		{"106","event.layouts.layout_snapshot.added"}				
+		{"107","event.measures.classification_scheme_index.added"}
+		{"108","document.measures.tagged_metrics"}			
+		{"109","event.measures.metric_taxonomy.rebuilt"}
+		
+		//load from countmax
+		{"110","command.measures.raw_data.ingest"}
+		{"111","event.measures.raw_data.pumped"}
+		{"112","command.measures.raw_data.pump"}
+		{"113","command.measures.raw_data_pump.reset"}
+		
+		//get tagged mettrics
+		{"114","command.measures.tagged_metrics.get"}
+		
+		{"115","command.layouts.layout_changes.commit"}
+		
+		{"116","command.measures.query_task.create"}
+		{"116","command.measures.query_task.create"}
+		
+	]
+	
+	relations[
+
+		[{20,1},105]
+		
+		//metric reclassification
+		[{0,4},106]
+		[{4,5},107],[{4,3},108]
+		[{5,0},109]
+		
+		//load from countmax
+		[{20,21},110]
+		[{3,21},111]
+		[{22,21},112]
+		[{22,21},113]
+		
+		//get tagged mettrics
+		[{20,3},114]
+		
+		//Overall sheme
+		[{7,20},POST]
+		[{20,2},116]
+		[{2,1},100]
+		[{1,2},101]
+		[{2,1},100],[{1,2},101]
+		[{1,3},102],[{3,1},103],[{1,0},104]
+
+	]
+	
+	unsorted
+		[		
+			//input	
+			metrics Name, time, vector
+			metrics haracteristics {[key,val]} + measurementId
+			influx db orientation first
+			
+			classificaion index -> to group metrics by categories, change history, rebuild index
+			find metric, change, add with new tags
+			
+			shema placement logic -> layout?
+			snapshot -> from sshema
+			card -> dexription, ref last snap -> chainlink
+			snapshot change -> find snap, create new with cahnges -> recount new ref
+			layoutId + snapshot identifies unique shema to search tags in influx
+			metrices to recount, only affecting recount, entities not affecting recount 
+			snapshots to rules
+			measurement from device in 20 add tag
+			
+			no all floor attendance passes reference
+			
+			1000 metrics 200 ms
+			
+			no entity story
+			every entity gets worktime 
+			metrics available only in time, if not in time save unclassified
+			
+			
+			//select from people.count where time group by passage, 5 days
+			
+			Measures.RawDataCollector<->Measures.MetricClassifier
+			
+			https://git.watcom.ru/corns/corns.metrics/blob/master/Sources/Corns.Metrics/FileTracing/FileMetricCollector.cs
+			IMetricCollector<-FileMetricCollector
+			https://git.watcom.ru/corns/corns.metrics.datadog/blob/master/Sources/Corns.Metrics.DataDog/DataDogMetricCollector.cs
+			IMetricCollector<-MetricCollector
+			
+			Counter-[Http API]->Measurments.Metrics-[AMMQP]->
+			layout->schemes
+			partner->sheme
+			
+			sensor(countmax)->rowdatacollector->mongoDB->classification->influxDB->to client
+				
+			measurement in вошли out вышли
+
+			saleFlow data from cashRegister
+
+			shopster WiFi moving 
+
+			ingest -> mongoDB
+			pump -> metric classifier
+			card -> last snapshot,lacement sheme name,lang, references 
+
+			
+			(facade)-[layout]->(bus)
+			var commandReply = await bus.RequestAsync<EntityGetCommand, EntityGetReply>(":layout_entity_list.get",command);
+			var reply=await bus.RequestAsync<LayoutBuildCommand, LayoutBuildReply>(":layout.build", command);
+			
+			//
+			layout -> card, snapshot. Snapshot since, unless(untill)
+			
+			//Rabbitmq config.json
+			//Incoming
+			Label->excahnge name
+			
+			//Time in UTC
+			
+			//Line not device 
+			//Lines drawn for one device
+			Bind/unbind line on device
+			
+			Counter-device
+			
+			//Athoruzator service
+			signed on rabbit events 
+			gather in pile
+			when new user auth -> event fired-> layoutId attribute add
+			
+			//snapshot chain
+			relations -> id always unique, all fields except ID must equals to be duplicate
+			
+			//
+			metric-collector->query-engine->to mongo
+			taxometer -classificate-> metric collector -> classified, not classified -> drop unclassified
+			edit snapshot layoutregistrymainteiner change snapshot -card (not ready) ->	
+		]
+]

@@ -1,0 +1,9 @@
+<div *ngIf="test==true" class="component">
+  {{cName}}
+</div>
+<ng-container *ngIf="test==false"  class="container editarea" id="menu_edit" >
+  <ng-container *ngIf="nodeToEdit_!=null">
+       <input type="text" [(ngModel)]="nodeToEdit_.value" size="80" >
+       <button class="btn btn-outline-primary" (click)="nodeSave(nodeToEdit_)">Save</button>
+  </ng-container>
+</ng-container>

@@ -1,0 +1,2 @@
+{QR_1::select TOPIC,SEQ,INFO from help;}
+{QR_2::select sysdate from dual;}

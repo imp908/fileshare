@@ -1,0 +1,7 @@
+Autofac
+AutoMapper
+FakeItEasy
+NLog
+NUnit
+MongoDB.Driver
+Newtonsoft.Json

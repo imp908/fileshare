@@ -1,0 +1,730 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DWHModel.Store" Provider="Oracle.ManagedDataAccess.Client" ProviderManifestToken="11.2" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.T_ACQ_D' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="T_ACQ_D">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE_D" Type="date" />
+          <Property Name="PAY_SYS" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="ISS_TYPE" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="ACQ_BANK" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="TRAN_TYPE" Type="varchar2" MaxLength="27" />
+          <Property Name="RC" Type="varchar2" MaxLength="19" />
+          <Property Name="MERCHANT" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="MAIN_INDUSTRY" Type="varchar2" MaxLength="50" />
+          <Property Name="COR_FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="number" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.T_ACQ_M' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="T_ACQ_M">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE_M" Type="date" />
+          <Property Name="PAY_SYS" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="ISS_TYPE" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="ACQ_BANK" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="TRAN_TYPE" Type="varchar2" MaxLength="27" />
+          <Property Name="RC" Type="varchar2" MaxLength="19" />
+          <Property Name="MERCHANT" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="MAIN_INDUSTRY" Type="varchar2" MaxLength="50" />
+          <Property Name="FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="number" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.T_CTL_D' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="T_CTL_D">
+          <Key>
+            <PropertyRef Name="PROC_CODE" />
+            <PropertyRef Name="TR_TYPE" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE_D" Type="date" />
+          <Property Name="PAY_SYS" Type="varchar2" MaxLength="6" />
+          <Property Name="PROC_CODE" Type="varchar2" MaxLength="2" Nullable="false" />
+          <Property Name="TR_TYPE" Type="varchar2" MaxLength="2" Nullable="false" />
+          <Property Name="MERCHANT" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="TERM_ID" Type="varchar2" MaxLength="8" />
+          <Property Name="RSB_TERMINAL" Type="number" Precision="38" Scale="0" />
+          <Property Name="LOCAL" Type="number" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="number" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.T_ECOMM_D' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="T_ECOMM_D">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+          </Key>
+          <Property Name="DATE" Type="date" />
+          <Property Name="PAY_SYS" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="ISS_TYPE" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="ACQ_BANK" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="TRAN_TYPE" Type="varchar2" MaxLength="27" />
+          <Property Name="RC" Type="varchar2" MaxLength="19" />
+          <Property Name="MAIN_INDUSTRY" Type="varchar2" MaxLength="50" />
+          <Property Name="COR_FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="number" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.T_ECOMM_M' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="T_ECOMM_M">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+          </Key>
+          <Property Name="DATE" Type="date" />
+          <Property Name="PAY_SYS" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="ISS_TYPE" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="ACQ_BANK" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="TRAN_TYPE" Type="varchar2" MaxLength="27" />
+          <Property Name="RC" Type="varchar2" MaxLength="19" />
+          <Property Name="GROUP_NAME" Type="varchar2" MaxLength="100" />
+          <Property Name="MAIN_INDUSTRY" Type="varchar2" MaxLength="50" />
+          <Property Name="COR_FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="number" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.TEMP_ACQ' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TEMP_ACQ">
+          <Key>
+            <PropertyRef Name="PROC_CODE" />
+            <PropertyRef Name="TR_TYPE" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE_D" Type="date" />
+          <Property Name="PAY_SYS" Type="varchar2" MaxLength="6" />
+          <Property Name="PROC_CODE" Type="varchar2" MaxLength="2" Nullable="false" />
+          <Property Name="TR_TYPE" Type="varchar2" MaxLength="2" Nullable="false" />
+          <Property Name="MERCHANT" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="TERM_ID" Type="varchar2" MaxLength="8" />
+          <Property Name="RSB_TERMINAL" Type="number" Precision="38" Scale="0" />
+          <Property Name="LOCAL" Type="number" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="number" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.TEMP_ACQ_D' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TEMP_ACQ_D">
+          <Key>
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE_M" Type="date" />
+          <Property Name="MERCHANT" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+          <Property Name="RN" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.TEMP_ACQ_M' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TEMP_ACQ_M">
+          <Key>
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE_M" Type="date" />
+          <Property Name="MERCHANT" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+          <Property Name="RN" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.TEMP_CTL_D' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TEMP_CTL_D">
+          <Key>
+            <PropertyRef Name="PROC_CODE" />
+            <PropertyRef Name="TR_TYPE" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE_D" Type="date" />
+          <Property Name="PAY_SYS" Type="varchar2" MaxLength="6" />
+          <Property Name="PROC_CODE" Type="varchar2" MaxLength="2" Nullable="false" />
+          <Property Name="TR_TYPE" Type="varchar2" MaxLength="2" Nullable="false" />
+          <Property Name="MERCHANT" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="TERM_ID" Type="varchar2" MaxLength="8" />
+          <Property Name="RSB_TERMINAL" Type="number" Precision="38" Scale="0" />
+          <Property Name="LOCAL" Type="number" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="number" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'NEPRINTSEV_IA.TEMP_ECOMM_D' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="TEMP_ECOMM_D">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE_M" Type="date" />
+          <Property Name="PAY_SYS" Type="varchar2" MaxLength="10" Nullable="false" />
+          <Property Name="ISS_TYPE" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="ACQ_BANK" Type="varchar2" MaxLength="6" Nullable="false" />
+          <Property Name="TRAN_TYPE" Type="varchar2" MaxLength="27" />
+          <Property Name="RC" Type="varchar2" MaxLength="19" />
+          <Property Name="MERCHANT" Type="varchar2" MaxLength="15" Nullable="false" />
+          <Property Name="FULL_NAME" Type="varchar2" MaxLength="289" />
+          <Property Name="ABRV_NAME" Type="varchar2" MaxLength="256" />
+          <Property Name="GROUP_NAME" Type="varchar2" MaxLength="250" />
+          <Property Name="MAIN_INDUSTRY" Type="varchar2" MaxLength="50" />
+          <Property Name="FEE" Type="number" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="number" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'NEPRINTSEV_IA.TEMP_MT_M' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="TEMP_MT_M">
+          <Property Name="ID" Type="number" Precision="38" Scale="0" />
+          <Property Name="DATE" Type="date" />
+          <Property Name="FROM_CARD" Type="varchar2" MaxLength="8" />
+          <Property Name="TO_CARD" Type="varchar2" MaxLength="6" />
+          <Property Name="FROM_CARD_PS" Type="varchar2" MaxLength="10" />
+          <Property Name="TO_CARD_PS" Type="varchar2" MaxLength="10" />
+          <Property Name="CHANNEL" Type="varchar2" MaxLength="20" />
+          <Property Name="AMT" Type="number" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="number" Precision="38" Scale="0" />
+        </EntityType>-->
+        <EntityContainer Name="DWHModelStoreContainer">
+          <EntitySet Name="T_ACQ_D" EntityType="Self.T_ACQ_D" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"T_ACQ_D"."DATE_D" AS "DATE_D", 
+"T_ACQ_D"."PAY_SYS" AS "PAY_SYS", 
+"T_ACQ_D"."ISS_TYPE" AS "ISS_TYPE", 
+"T_ACQ_D"."ACQ_BANK" AS "ACQ_BANK", 
+"T_ACQ_D"."TRAN_TYPE" AS "TRAN_TYPE", 
+"T_ACQ_D"."RC" AS "RC", 
+"T_ACQ_D"."MERCHANT" AS "MERCHANT", 
+"T_ACQ_D"."MAIN_INDUSTRY" AS "MAIN_INDUSTRY", 
+"T_ACQ_D"."COR_FEE" AS "COR_FEE", 
+"T_ACQ_D"."AMT" AS "AMT", 
+"T_ACQ_D"."FEE" AS "FEE", 
+"T_ACQ_D"."CNT" AS "CNT"
+FROM "NEPRINTSEV_IA"."T_ACQ_D" "T_ACQ_D"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="T_ACQ_M" EntityType="Self.T_ACQ_M" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"T_ACQ_M"."DATE_M" AS "DATE_M", 
+"T_ACQ_M"."PAY_SYS" AS "PAY_SYS", 
+"T_ACQ_M"."ISS_TYPE" AS "ISS_TYPE", 
+"T_ACQ_M"."ACQ_BANK" AS "ACQ_BANK", 
+"T_ACQ_M"."TRAN_TYPE" AS "TRAN_TYPE", 
+"T_ACQ_M"."RC" AS "RC", 
+"T_ACQ_M"."MERCHANT" AS "MERCHANT", 
+"T_ACQ_M"."MAIN_INDUSTRY" AS "MAIN_INDUSTRY", 
+"T_ACQ_M"."FEE" AS "FEE", 
+"T_ACQ_M"."AMT" AS "AMT", 
+"T_ACQ_M"."CNT" AS "CNT"
+FROM "NEPRINTSEV_IA"."T_ACQ_M" "T_ACQ_M"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="T_CTL_D" EntityType="Self.T_CTL_D" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"T_CTL_D"."DATE_D" AS "DATE_D", 
+"T_CTL_D"."PAY_SYS" AS "PAY_SYS", 
+"T_CTL_D"."PROC_CODE" AS "PROC_CODE", 
+"T_CTL_D"."TR_TYPE" AS "TR_TYPE", 
+"T_CTL_D"."MERCHANT" AS "MERCHANT", 
+"T_CTL_D"."TERM_ID" AS "TERM_ID", 
+"T_CTL_D"."RSB_TERMINAL" AS "RSB_TERMINAL", 
+"T_CTL_D"."LOCAL" AS "LOCAL", 
+"T_CTL_D"."AMT" AS "AMT", 
+"T_CTL_D"."FEE" AS "FEE", 
+"T_CTL_D"."CNT" AS "CNT"
+FROM "NEPRINTSEV_IA"."T_CTL_D" "T_CTL_D"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="T_ECOMM_D" EntityType="Self.T_ECOMM_D" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"T_ECOMM_D"."DATE" AS "DATE", 
+"T_ECOMM_D"."PAY_SYS" AS "PAY_SYS", 
+"T_ECOMM_D"."ISS_TYPE" AS "ISS_TYPE", 
+"T_ECOMM_D"."ACQ_BANK" AS "ACQ_BANK", 
+"T_ECOMM_D"."TRAN_TYPE" AS "TRAN_TYPE", 
+"T_ECOMM_D"."RC" AS "RC", 
+"T_ECOMM_D"."MAIN_INDUSTRY" AS "MAIN_INDUSTRY", 
+"T_ECOMM_D"."COR_FEE" AS "COR_FEE", 
+"T_ECOMM_D"."AMT" AS "AMT", 
+"T_ECOMM_D"."FEE" AS "FEE", 
+"T_ECOMM_D"."CNT" AS "CNT"
+FROM "NEPRINTSEV_IA"."T_ECOMM_D" "T_ECOMM_D"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="T_ECOMM_M" EntityType="Self.T_ECOMM_M" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"T_ECOMM_M"."DATE" AS "DATE", 
+"T_ECOMM_M"."PAY_SYS" AS "PAY_SYS", 
+"T_ECOMM_M"."ISS_TYPE" AS "ISS_TYPE", 
+"T_ECOMM_M"."ACQ_BANK" AS "ACQ_BANK", 
+"T_ECOMM_M"."TRAN_TYPE" AS "TRAN_TYPE", 
+"T_ECOMM_M"."RC" AS "RC", 
+"T_ECOMM_M"."GROUP_NAME" AS "GROUP_NAME", 
+"T_ECOMM_M"."MAIN_INDUSTRY" AS "MAIN_INDUSTRY", 
+"T_ECOMM_M"."COR_FEE" AS "COR_FEE", 
+"T_ECOMM_M"."AMT" AS "AMT", 
+"T_ECOMM_M"."FEE" AS "FEE", 
+"T_ECOMM_M"."CNT" AS "CNT"
+FROM "NEPRINTSEV_IA"."T_ECOMM_M" "T_ECOMM_M"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TEMP_ACQ" EntityType="Self.TEMP_ACQ" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"TEMP_ACQ"."DATE_D" AS "DATE_D", 
+"TEMP_ACQ"."PAY_SYS" AS "PAY_SYS", 
+"TEMP_ACQ"."PROC_CODE" AS "PROC_CODE", 
+"TEMP_ACQ"."TR_TYPE" AS "TR_TYPE", 
+"TEMP_ACQ"."MERCHANT" AS "MERCHANT", 
+"TEMP_ACQ"."TERM_ID" AS "TERM_ID", 
+"TEMP_ACQ"."RSB_TERMINAL" AS "RSB_TERMINAL", 
+"TEMP_ACQ"."LOCAL" AS "LOCAL", 
+"TEMP_ACQ"."AMT" AS "AMT", 
+"TEMP_ACQ"."FEE" AS "FEE", 
+"TEMP_ACQ"."CNT" AS "CNT"
+FROM "NEPRINTSEV_IA"."TEMP_ACQ" "TEMP_ACQ"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TEMP_ACQ_D" EntityType="Self.TEMP_ACQ_D" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"TEMP_ACQ_D"."DATE_M" AS "DATE_M", 
+"TEMP_ACQ_D"."MERCHANT" AS "MERCHANT", 
+"TEMP_ACQ_D"."CNT" AS "CNT", 
+"TEMP_ACQ_D"."RN" AS "RN"
+FROM "NEPRINTSEV_IA"."TEMP_ACQ_D" "TEMP_ACQ_D"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TEMP_ACQ_M" EntityType="Self.TEMP_ACQ_M" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"TEMP_ACQ_M"."DATE_M" AS "DATE_M", 
+"TEMP_ACQ_M"."MERCHANT" AS "MERCHANT", 
+"TEMP_ACQ_M"."CNT" AS "CNT", 
+"TEMP_ACQ_M"."RN" AS "RN"
+FROM "NEPRINTSEV_IA"."TEMP_ACQ_M" "TEMP_ACQ_M"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TEMP_CTL_D" EntityType="Self.TEMP_CTL_D" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"TEMP_CTL_D"."DATE_D" AS "DATE_D", 
+"TEMP_CTL_D"."PAY_SYS" AS "PAY_SYS", 
+"TEMP_CTL_D"."PROC_CODE" AS "PROC_CODE", 
+"TEMP_CTL_D"."TR_TYPE" AS "TR_TYPE", 
+"TEMP_CTL_D"."MERCHANT" AS "MERCHANT", 
+"TEMP_CTL_D"."TERM_ID" AS "TERM_ID", 
+"TEMP_CTL_D"."RSB_TERMINAL" AS "RSB_TERMINAL", 
+"TEMP_CTL_D"."LOCAL" AS "LOCAL", 
+"TEMP_CTL_D"."AMT" AS "AMT", 
+"TEMP_CTL_D"."FEE" AS "FEE", 
+"TEMP_CTL_D"."CNT" AS "CNT"
+FROM "NEPRINTSEV_IA"."TEMP_CTL_D" "TEMP_CTL_D"</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="TEMP_ECOMM_D" EntityType="Self.TEMP_ECOMM_D" store:Type="Tables" store:Schema="NEPRINTSEV_IA">
+            <DefiningQuery>SELECT 
+"TEMP_ECOMM_D"."DATE_M" AS "DATE_M", 
+"TEMP_ECOMM_D"."PAY_SYS" AS "PAY_SYS", 
+"TEMP_ECOMM_D"."ISS_TYPE" AS "ISS_TYPE", 
+"TEMP_ECOMM_D"."ACQ_BANK" AS "ACQ_BANK", 
+"TEMP_ECOMM_D"."TRAN_TYPE" AS "TRAN_TYPE", 
+"TEMP_ECOMM_D"."RC" AS "RC", 
+"TEMP_ECOMM_D"."MERCHANT" AS "MERCHANT", 
+"TEMP_ECOMM_D"."FULL_NAME" AS "FULL_NAME", 
+"TEMP_ECOMM_D"."ABRV_NAME" AS "ABRV_NAME", 
+"TEMP_ECOMM_D"."GROUP_NAME" AS "GROUP_NAME", 
+"TEMP_ECOMM_D"."MAIN_INDUSTRY" AS "MAIN_INDUSTRY", 
+"TEMP_ECOMM_D"."FEE" AS "FEE", 
+"TEMP_ECOMM_D"."AMT" AS "AMT", 
+"TEMP_ECOMM_D"."CNT" AS "CNT"
+FROM "NEPRINTSEV_IA"."TEMP_ECOMM_D" "TEMP_ECOMM_D"</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DWHModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="T_ACQ_D">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE" Type="DateTime" />
+          <Property Name="PAY_SYS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ISS_TYPE" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ACQ_BANK" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TRAN_TYPE" Type="String" MaxLength="27" FixedLength="false" Unicode="false" />
+          <Property Name="RC" Type="String" MaxLength="19" FixedLength="false" Unicode="false" />
+          <Property Name="MERCHANT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MAIN_INDUSTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COR_FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_ACQ_M">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE" Type="DateTime" />
+          <Property Name="PAY_SYS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ISS_TYPE" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ACQ_BANK" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TRAN_TYPE" Type="String" MaxLength="27" FixedLength="false" Unicode="false" />
+          <Property Name="RC" Type="String" MaxLength="19" FixedLength="false" Unicode="false" />
+          <Property Name="MERCHANT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MAIN_INDUSTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_CTL_D">
+          <Key>
+            <PropertyRef Name="PROC_CODE" />
+            <PropertyRef Name="TR_TYPE" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE" Type="DateTime" />
+          <Property Name="PAY_SYS" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="PROC_CODE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TR_TYPE" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="MERCHANT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TERM_ID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="RSB_TERMINAL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="LOCAL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_ECOMM_D">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+          </Key>
+          <Property Name="DATE" Type="DateTime" />
+          <Property Name="PAY_SYS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ISS_TYPE" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ACQ_BANK" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TRAN_TYPE" Type="String" MaxLength="27" FixedLength="false" Unicode="false" />
+          <Property Name="RC" Type="String" MaxLength="19" FixedLength="false" Unicode="false" />
+          <Property Name="MAIN_INDUSTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COR_FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="T_ECOMM_M">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+          </Key>
+          <Property Name="DATE" Type="DateTime" />
+          <Property Name="PAY_SYS" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ISS_TYPE" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ACQ_BANK" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TRAN_TYPE" Type="String" MaxLength="27" FixedLength="false" Unicode="false" />
+          <Property Name="RC" Type="String" MaxLength="19" FixedLength="false" Unicode="false" />
+          <Property Name="GROUP_NAME" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="MAIN_INDUSTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="COR_FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityContainer Name="DWH_entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="T_ACQ_D" EntityType="Self.T_ACQ_D" />
+          <EntitySet Name="T_ACQ_M" EntityType="Self.T_ACQ_M" />
+          <EntitySet Name="T_CTL_D" EntityType="Self.T_CTL_D" />
+          <EntitySet Name="T_ECOMM_D" EntityType="Self.T_ECOMM_D" />
+          <EntitySet Name="T_ECOMM_M" EntityType="Self.T_ECOMM_M" />
+          <EntitySet Name="TEMP_ACQ_D" EntityType="DWHModel.TEMP_ACQ_D" />
+          <EntitySet Name="TEMP_CTL_D" EntityType="DWHModel.TEMP_CTL_D" />
+          <EntitySet Name="TEMP_ECOMM_D" EntityType="DWHModel.TEMP_ECOMM_D" />
+          <EntitySet Name="TEMP_ACQ" EntityType="DWHModel.TEMP_ACQ" />
+          <EntitySet Name="TEMP_ACQ_M" EntityType="DWHModel.TEMP_ACQ_M" />
+          </EntityContainer>
+        <EntityType Name="TEMP_ACQ_D">
+          <Key>
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE" Type="DateTime" />
+          <Property Name="MERCHANT" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="RN" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="TEMP_CTL_D">
+          <Key>
+            <PropertyRef Name="PROC_CODE" />
+            <PropertyRef Name="TR_TYPE" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE" Type="DateTime" />
+          <Property Name="PAY_SYS" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="PROC_CODE" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="TR_TYPE" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="MERCHANT" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TERM_ID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="RSB_TERMINAL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="LOCAL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="TEMP_ECOMM_D">
+          <Key>
+            <PropertyRef Name="PAY_SYS" />
+            <PropertyRef Name="ISS_TYPE" />
+            <PropertyRef Name="ACQ_BANK" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE" Type="DateTime" />
+          <Property Name="PAY_SYS" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ISS_TYPE" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="ACQ_BANK" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="TRAN_TYPE" Type="String" MaxLength="27" FixedLength="false" Unicode="false" />
+          <Property Name="RC" Type="String" MaxLength="19" FixedLength="false" Unicode="false" />
+          <Property Name="MERCHANT" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FULL_NAME" Type="String" MaxLength="289" FixedLength="false" Unicode="false" />
+          <Property Name="ABRV_NAME" Type="String" MaxLength="256" FixedLength="false" Unicode="false" />
+          <Property Name="GROUP_NAME" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="MAIN_INDUSTRY" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="TEMP_ACQ">
+          <Key>
+            <PropertyRef Name="PROC_CODE" />
+            <PropertyRef Name="TR_TYPE" />
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE" Type="DateTime" />
+          <Property Name="PAY_SYS" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="PROC_CODE" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="TR_TYPE" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="MERCHANT" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TERM_ID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="RSB_TERMINAL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="LOCAL" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="AMT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="FEE" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        <EntityType Name="TEMP_ACQ_M">
+          <Key>
+            <PropertyRef Name="MERCHANT" />
+          </Key>
+          <Property Name="DATE_M" Type="DateTime" />
+          <Property Name="MERCHANT" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="CNT" Type="Decimal" Precision="38" Scale="0" />
+          <Property Name="RN" Type="Decimal" Precision="38" Scale="0" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DWHModelStoreContainer" CdmEntityContainer="DWH_entities">
+          <EntitySetMapping Name="T_ACQ_D">
+            <EntityTypeMapping TypeName="DWHModel.T_ACQ_D">
+              <MappingFragment StoreEntitySet="T_ACQ_D">
+                <ScalarProperty Name="DATE" ColumnName="DATE_D" />
+                <ScalarProperty Name="PAY_SYS" ColumnName="PAY_SYS" />
+                <ScalarProperty Name="ISS_TYPE" ColumnName="ISS_TYPE" />
+                <ScalarProperty Name="ACQ_BANK" ColumnName="ACQ_BANK" />
+                <ScalarProperty Name="TRAN_TYPE" ColumnName="TRAN_TYPE" />
+                <ScalarProperty Name="RC" ColumnName="RC" />
+                <ScalarProperty Name="MERCHANT" ColumnName="MERCHANT" />
+                <ScalarProperty Name="MAIN_INDUSTRY" ColumnName="MAIN_INDUSTRY" />
+                <ScalarProperty Name="COR_FEE" ColumnName="COR_FEE" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="FEE" ColumnName="FEE" />
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_ACQ_M">
+            <EntityTypeMapping TypeName="DWHModel.T_ACQ_M">
+              <MappingFragment StoreEntitySet="T_ACQ_M">
+                <ScalarProperty Name="DATE" ColumnName="DATE_M" />
+                <ScalarProperty Name="PAY_SYS" ColumnName="PAY_SYS" />
+                <ScalarProperty Name="ISS_TYPE" ColumnName="ISS_TYPE" />
+                <ScalarProperty Name="ACQ_BANK" ColumnName="ACQ_BANK" />
+                <ScalarProperty Name="TRAN_TYPE" ColumnName="TRAN_TYPE" />
+                <ScalarProperty Name="RC" ColumnName="RC" />
+                <ScalarProperty Name="MERCHANT" ColumnName="MERCHANT" />
+                <ScalarProperty Name="MAIN_INDUSTRY" ColumnName="MAIN_INDUSTRY" />
+                <ScalarProperty Name="FEE" ColumnName="FEE" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_CTL_D">
+            <EntityTypeMapping TypeName="DWHModel.T_CTL_D">
+              <MappingFragment StoreEntitySet="T_CTL_D">
+                <ScalarProperty Name="DATE" ColumnName="DATE_D" />
+                <ScalarProperty Name="PAY_SYS" ColumnName="PAY_SYS" />
+                <ScalarProperty Name="PROC_CODE" ColumnName="PROC_CODE" />
+                <ScalarProperty Name="TR_TYPE" ColumnName="TR_TYPE" />
+                <ScalarProperty Name="MERCHANT" ColumnName="MERCHANT" />
+                <ScalarProperty Name="TERM_ID" ColumnName="TERM_ID" />
+                <ScalarProperty Name="RSB_TERMINAL" ColumnName="RSB_TERMINAL" />
+                <ScalarProperty Name="LOCAL" ColumnName="LOCAL" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="FEE" ColumnName="FEE" />
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_ECOMM_D">
+            <EntityTypeMapping TypeName="DWHModel.T_ECOMM_D">
+              <MappingFragment StoreEntitySet="T_ECOMM_D">
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="PAY_SYS" ColumnName="PAY_SYS" />
+                <ScalarProperty Name="ISS_TYPE" ColumnName="ISS_TYPE" />
+                <ScalarProperty Name="ACQ_BANK" ColumnName="ACQ_BANK" />
+                <ScalarProperty Name="TRAN_TYPE" ColumnName="TRAN_TYPE" />
+                <ScalarProperty Name="RC" ColumnName="RC" />
+                <ScalarProperty Name="MAIN_INDUSTRY" ColumnName="MAIN_INDUSTRY" />
+                <ScalarProperty Name="COR_FEE" ColumnName="COR_FEE" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="FEE" ColumnName="FEE" />
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_ECOMM_M">
+            <EntityTypeMapping TypeName="DWHModel.T_ECOMM_M">
+              <MappingFragment StoreEntitySet="T_ECOMM_M">
+                <ScalarProperty Name="DATE" ColumnName="DATE" />
+                <ScalarProperty Name="PAY_SYS" ColumnName="PAY_SYS" />
+                <ScalarProperty Name="ISS_TYPE" ColumnName="ISS_TYPE" />
+                <ScalarProperty Name="ACQ_BANK" ColumnName="ACQ_BANK" />
+                <ScalarProperty Name="TRAN_TYPE" ColumnName="TRAN_TYPE" />
+                <ScalarProperty Name="RC" ColumnName="RC" />
+                <ScalarProperty Name="GROUP_NAME" ColumnName="GROUP_NAME" />
+                <ScalarProperty Name="MAIN_INDUSTRY" ColumnName="MAIN_INDUSTRY" />
+                <ScalarProperty Name="COR_FEE" ColumnName="COR_FEE" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="FEE" ColumnName="FEE" />
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEMP_ACQ_D">
+            <EntityTypeMapping TypeName="DWHModel.TEMP_ACQ_D">
+              <MappingFragment StoreEntitySet="TEMP_ACQ_D">
+                <ScalarProperty Name="RN" ColumnName="RN" />
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+                <ScalarProperty Name="MERCHANT" ColumnName="MERCHANT" />
+                <ScalarProperty Name="DATE" ColumnName="DATE_M" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEMP_CTL_D">
+            <EntityTypeMapping TypeName="DWHModel.TEMP_CTL_D">
+              <MappingFragment StoreEntitySet="TEMP_CTL_D">
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+                <ScalarProperty Name="FEE" ColumnName="FEE" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="LOCAL" ColumnName="LOCAL" />
+                <ScalarProperty Name="RSB_TERMINAL" ColumnName="RSB_TERMINAL" />
+                <ScalarProperty Name="TERM_ID" ColumnName="TERM_ID" />
+                <ScalarProperty Name="MERCHANT" ColumnName="MERCHANT" />
+                <ScalarProperty Name="TR_TYPE" ColumnName="TR_TYPE" />
+                <ScalarProperty Name="PROC_CODE" ColumnName="PROC_CODE" />
+                <ScalarProperty Name="PAY_SYS" ColumnName="PAY_SYS" />
+                <ScalarProperty Name="DATE" ColumnName="DATE_D" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEMP_ECOMM_D">
+            <EntityTypeMapping TypeName="DWHModel.TEMP_ECOMM_D">
+              <MappingFragment StoreEntitySet="TEMP_ECOMM_D">
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="FEE" ColumnName="FEE" />
+                <ScalarProperty Name="MAIN_INDUSTRY" ColumnName="MAIN_INDUSTRY" />
+                <ScalarProperty Name="GROUP_NAME" ColumnName="GROUP_NAME" />
+                <ScalarProperty Name="ABRV_NAME" ColumnName="ABRV_NAME" />
+                <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
+                <ScalarProperty Name="MERCHANT" ColumnName="MERCHANT" />
+                <ScalarProperty Name="RC" ColumnName="RC" />
+                <ScalarProperty Name="TRAN_TYPE" ColumnName="TRAN_TYPE" />
+                <ScalarProperty Name="ACQ_BANK" ColumnName="ACQ_BANK" />
+                <ScalarProperty Name="ISS_TYPE" ColumnName="ISS_TYPE" />
+                <ScalarProperty Name="PAY_SYS" ColumnName="PAY_SYS" />
+                <ScalarProperty Name="DATE" ColumnName="DATE_M" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEMP_ACQ">
+            <EntityTypeMapping TypeName="DWHModel.TEMP_ACQ">
+              <MappingFragment StoreEntitySet="TEMP_ACQ">
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+                <ScalarProperty Name="FEE" ColumnName="FEE" />
+                <ScalarProperty Name="AMT" ColumnName="AMT" />
+                <ScalarProperty Name="LOCAL" ColumnName="LOCAL" />
+                <ScalarProperty Name="RSB_TERMINAL" ColumnName="RSB_TERMINAL" />
+                <ScalarProperty Name="TERM_ID" ColumnName="TERM_ID" />
+                <ScalarProperty Name="MERCHANT" ColumnName="MERCHANT" />
+                <ScalarProperty Name="TR_TYPE" ColumnName="TR_TYPE" />
+                <ScalarProperty Name="PROC_CODE" ColumnName="PROC_CODE" />
+                <ScalarProperty Name="PAY_SYS" ColumnName="PAY_SYS" />
+                <ScalarProperty Name="DATE" ColumnName="DATE_D" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TEMP_ACQ_M">
+            <EntityTypeMapping TypeName="DWHModel.TEMP_ACQ_M">
+              <MappingFragment StoreEntitySet="TEMP_ACQ_M">
+                <ScalarProperty Name="RN" ColumnName="RN" />
+                <ScalarProperty Name="CNT" ColumnName="CNT" />
+                <ScalarProperty Name="MERCHANT" ColumnName="MERCHANT" />
+                <ScalarProperty Name="DATE_M" ColumnName="DATE_M" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

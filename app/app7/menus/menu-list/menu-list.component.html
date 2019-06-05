@@ -1,0 +1,35 @@
+<div *ngIf="test==true" >
+  {{cName}}
+</div>
+
+  <div class="container">
+  <div *ngIf="test==false" class="selectarea pre-scrollable">
+  <ng-container class="item list row">
+
+      <ng-container *ngIf="nodesPassed_!=null">
+        <div class="item list row">
+        <div class="col-sm-12">
+          <app-list [nodes_]=nodesPassed_></app-list>
+        </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="QuizToEdit!=null">
+        <div class="item list row">
+        <div class="col-sm-12">
+        <app-list [nodes_]=QuizToEdit></app-list>
+        </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="QuestionToEdit!=null">
+        <div class="item list row">
+        <div class="col-sm-12">
+        <app-list [nodes_]=QuestionToEdit></app-list>
+        </div>
+        </div>
+      </ng-container>
+
+  </ng-container>
+  </div>
+  </div>

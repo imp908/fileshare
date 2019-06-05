@@ -1,0 +1,82 @@
+archi[
+		
+	services[
+					
+		{"19","Watcom.Web.Reporter"}
+		{"20","Measures.Facade"}
+		{"21","Measures.RawDataCollector"}			
+		{"22","Measures.RawDataPumpInitiator"}			
+		
+		{"0","Layouts.RegistryMaintainer",{"Layout snapshots registry managment"}},
+		{"1","Measures.QueryExecutionEngine",{"Searchs metrics"}},
+		{"2","Measures.QueryTaskSupplier",{"Handle tasks of searchs metrics"}},
+		{"3","Measures.MetricCollector",{"Stores and access to metrics"}},
+		{"4","Measures.MetricClassifier",{"Classifies metrics"}},
+		{"5","Measures.MetricTaxonomyRebuilder"}
+		
+		{"6","Layouts.Facade"}
+		
+		{"7","Clients.FrontOffice"}			
+		
+	]
+	
+	events[
+	
+		{"100","event.measures.query_task.created"}
+		{"101","event.measures.query_task.completed"}
+		{"102","event.measures.metric_query.created"}
+		{"103","event.measures.metric_query.handled"}
+		{"104","command.layouts.layout_entity_list.get"}
+		{"105","command.measures.query_result.get"}
+		
+		//metric reclassification
+		{"106","event.layouts.layout_snapshot.added"}				
+		{"107","event.measures.classification_scheme_index.added"}
+		{"108","document.measures.tagged_metrics"}			
+		{"109","event.measures.metric_taxonomy.rebuilt"}
+		
+		//load from countmax
+		{"110","command.measures.raw_data.ingest"}
+		{"111","event.measures.raw_data.pumped"}
+		{"112","command.measures.raw_data.pump"}
+		{"113","command.measures.raw_data_pump.reset"}
+		
+		//get tagged mettrics
+		{"114","command.measures.tagged_metrics.get"}
+		
+		{"115","command.layouts.layout_changes.commit"}
+		
+		{"116","command.measures.query_task.create"}
+		{"116","command.measures.query_task.create"}
+		
+	]
+	
+	relations[
+
+		[{20,1},105]
+		
+		//metric reclassification
+		[{0,4},106]
+		[{4,5},107],[{4,3},108]
+		[{5,0},109]
+		
+		//load from countmax
+		[{20,21},110]
+		[{3,21},111]
+		[{22,21},112]
+		[{22,21},113]
+		
+		//get tagged mettrics
+		[{20,3},114]
+		
+		//Overall sheme
+		[{7,20},POST]
+		[{20,2},116]
+		[{2,1},100]
+		[{1,2},101]
+		[{2,1},100],[{1,2},101]
+		[{1,3},102],[{3,1},103],[{1,0},104]
+
+	]
+	
+]

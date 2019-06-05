@@ -1,0 +1,33 @@
+<div>
+  <a>Import</a>
+  <div class="row">
+    <table class="table">
+      <tr>
+        <th>Button</th>
+        <th>Component Import</th>
+        <th>Service Inject</th>
+        <th>Class Import</th>
+        <th>Class Inject</th>
+        <th>Class Import Injected</th>
+      </tr>
+      <td>
+    <button (click)="increase()">increase</button>
+  </td>
+  <td>
+  {{cp.counter}}
+    </td>
+    <td>
+  {{cpInj.counter}}
+    </td>
+    <td>
+  {{cl.counter}}
+    </td>
+    <td>
+  {{clInj.counter}}
+    </td>
+    <td>
+  {{clImpInj.counter}}
+    </td>
+  </table>
+  </div>
+</div>

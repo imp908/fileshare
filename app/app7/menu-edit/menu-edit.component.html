@@ -1,0 +1,9 @@
+<div *ngIf="test==true" class="component">
+  {{cName}}
+</div>
+<div *ngIf="test==false">
+  <div *ngIf="nodeToEdit_!=null">
+     <input type="text" [(ngModel)]="nodeToEdit_.value" size="90">
+     <button class="btn btn-outline-primary" (click)="nodeSave(nodeToEdit_)">Save</button>
+  </div>
+</div>

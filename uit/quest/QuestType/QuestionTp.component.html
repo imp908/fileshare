@@ -1,0 +1,16 @@
+<div>
+  Inserted
+</div>
+
+<form  (ngSubmit)="onSubmit()" [formGroup]="form">
+  <select #selectedCategory (change)="onChange(selectedCategory.value)">
+    <option *ngFor="let questType of questTypes" [value]="questType.name">{{questType.name}}</option>
+  </select>
+  <button type="submit" [disabled]="!form.valid">Save</button>
+</form>
+
+<question-model [selectedType]="selectedType"></question-model>
+
+<div>
+  {{jsString}}
+</div>

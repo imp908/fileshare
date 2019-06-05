@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7f27ef31d7d140768b861007f54430a9" Name="Diagram1">
+        <EntityTypeShape EntityType="Model.COUNTRIES" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.DEPARTMENTS" Width="1.5" PointX="5.25" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.EMPLOYEES" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.JOB_HISTORY" Width="1.5" PointX="7.5" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.JOBS" Width="1.5" PointX="0.75" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.LOCATIONS" Width="1.5" PointX="3" PointY="6.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="Model.REGIONS" Width="1.5" PointX="1.5" PointY="10.375" IsExpanded="true" />
+        <AssociationConnector Association="Model.COUNTR_REG_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.LOC_C_ID_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.DEPT_LOC_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.DEPT_MGR_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.EMP_DEPT_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.JHIST_DEPT_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.EMP_JOB_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.EMP_MANAGER_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.JHIST_EMP_FK" ManuallyRouted="false" />
+        <AssociationConnector Association="Model.JHIST_JOB_FK" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
