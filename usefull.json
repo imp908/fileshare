@@ -1,24 +1,14 @@
-
-uf[
-
-	js[
+uf[	
 	
-		document_load_event[
-			document.addEventListener("DOMContentLoaded",check,false);
-		]
-		
-	]
-	
-	web_dev[
-		https://developers.google.com/web/
-	]
 
 	jira[
 		//dateformat
 		01/декабря/2018
 	]
+				
+	tv[
+		1110900436
+	]
+		
 
 ]
-
-
-http://www.oldapps.com/Internet_explorer.php?old_Internet_explorer=11

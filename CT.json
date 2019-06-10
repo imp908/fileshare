@@ -274,6 +274,15 @@ namespace Parts{
 				undoUncommitChangesToFile[
 					git checkout -- <filename>
 				]
+				
+				logSearchByCommit[
+					git log --after="2019-3-19" --pretty=format:'"%h","%an","%ae","%aD","%s",' --shortstat --no-merges  > log.txt
+					git log --grep="webpack" --after="2019-3-19" --pretty=format:'"%h","%an","%ae","%aD","%s",' --shortstat --no-merges  > log.txt
+					//log to file search all branches
+					git log --all --grep="webpack" --before="2019-3-19" --pretty=format:'"%h","%an","%ae","%aD","%s",' --shortstat --no-merges  > log.txt
+
+					-p show diffs
+				]
 				overall 
 				[
 					ADD UNPUSHED LAST CHANGES TO LAST COMMIT
@@ -319,6 +328,26 @@ namespace Parts{
 					git rev-head 
 					git checry-pick commitHash
 					
+					//get branch list
+					git fetch origin
+					
+					//git log and export + search by commit string
+					git log --after="2019-3-19" --pretty=format:'"%h","%an","%ae","%aD","%s",' --shortstat --no-merges  > log.txt
+					git log --grep="webpack" --after="2019-3-19" --pretty=format:'"%h","%an","%ae","%aD","%s",' --shortstat --no-merges  > log.txt
+					
+					//log to file search all branches
+					git log --all --grep="webpack" --before="2019-3-19" --pretty=format:'"%h","%an","%ae","%aD","%s",' --shortstat --no-merges  > log.txt
+
+					-p show diffs
+										
+					git rev-list --objects --all | git cat-file --batch-check='%(objecttype) %(objectname) %(objectsize) %(rest)' 
+					git rev-list --objects --all
+					git cat-file --batch-check 			
+					git cat-file --batch-check="%(objectname) %(objecttype) %(rest)" | grep "^[^ ]* blob" | cut -d" " -f1,3-
+					git reflog expire --expire=now --all
+					git gc --prune=now
+					git gc --aggressive --prune=now
+
 				]
 			
 			}
@@ -1951,6 +1980,11 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 			
 			}
 			
+				repair[
+					//if resharper not shown
+					"C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\devenv.exe" /ResetSettings
+				]
+		
 			}
 			
 			
@@ -3306,7 +3340,12 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 	#region WEB
 	
 	ECMAscript[
-	
+		
+		theory[
+			//slice immutable
+			//splice mutates 
+		]
+		
 		public souces[
 			//Air bnb styleguide
 			http://airbnb.io/javascript/#functions--mutate-params
@@ -3315,6 +3354,7 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 		//js templates
 		public void JS_templates()
 		{
+			
 			public void JSLibs(){
 				
 				//awasomplete
@@ -3981,6 +4021,164 @@ Install-Package NUnit3TestAdapter  -ProjectName NSQLManagerIntegrationTests
 			}
 
 			}
+		
+			//console templates
+			map,foreach,filter[
+				let arr1 = [{v:"v0",n:"n0"},{v:"v1",n:"n1"},{v:"v2",n:"n2"},{v:"v2"}];		
+				function f3(arr,pred){
+					let ret=[];
+					arr.forEach(s => {						
+						if(pred(s)){
+							ret.push(s);
+						}
+					});
+					console.log(ret)
+					
+					let ret2=[];
+					ret2=arr.map(s => {						
+						if(pred(s)){
+							return s;
+						}else{return null;}
+					});
+					console.log(ret2)
+					
+					let ret3;
+					ret3=arr.filter(pred);
+					console.log(ret3);
+				}		
+				f3(arr1,s=>s.v==="v0" || typeof s.n==='undefined')
+			]	
+			
+			rest syntax
+			https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+			[
+				let o1 = {k:"key1",k2:"key2"}
+				let o2 = {k:"key3",k2:"key4"}
+				let o3 = Object.assign(o1,o2,{val:"v1"})
+				let o4 = {...o1,...o2}
+				
+				console.log(o1)
+				console.log(o2)
+				console.log(o3)	
+				console.log(o4)	
+			]
+			
+			merge[
+				let o5 = ({...o1},{...o2})
+				console.log(o5)	
+				
+				const merge = (...args) => ({...args})
+				let o6 = merge (o1,o2)
+				console.log(o6)
+				
+				f3 = (p0,p1=1,p2="a") => ((p0*p1)+p2)
+				
+				let p = {v0:"v0",v2:"v02",v4:"v4"}		
+				let {v0,v2,v4} = p
+				console.log(v4)
+				
+				
+				
+				let arr1 = [{v:"v0",n:"n0"},{v:"v1",n:"n1"},{v:"v2",n:"n2"},{v:"v2"}];		
+				function f3(arr,pred){
+					let ret=[];
+					arr.forEach(s => {						
+						if(pred(s)){
+							ret.push(s);
+						}
+					});
+					console.log(ret)
+					
+					let ret2=[];
+					ret2=arr.map(s => {						
+						if(pred(s)){
+							return s;
+						}else{return null;}
+					});
+					console.log(ret2)
+					
+					let ret3;
+					ret3=arr.filter(pred);
+					console.log(ret3);
+				}		
+				f3(arr1,s=>s.v==="v0" || typeof s.n==='undefined')
+				
+			]
+							
+			assign[
+			https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+			let o1 = {k:"key1",k2:"key2"}
+			let o2 = {k:"key3",k2:"key4"}
+			let o3 = Object.assign(o1,o2,{val:"v1"})
+			
+			console.log(o1)
+			console.log(o2)
+			console.log(o3)	
+			]
+			
+			spread rest syntax
+			https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+			[
+				let o1 = {k:"key1",k2:"key2"}
+				let o2 = {k:"key3",k2:"key4"}
+				let o3 = Object.assign(o1,o2,{val:"v1"})
+				let o4 = {...o1,...o2}
+				
+				console.log(o1)
+				console.log(o2)
+				console.log(o3)	
+				console.log(o4)	
+				
+				//merge
+				let o5 = ({...o1},{...o2})
+				console.log(o5)	
+				
+				const merge = (...args) => ({...args})
+				let o6 = merge (o1,o2)
+				console.log(o6)			
+			]
+			
+			Destructuring Assignment Shorthand
+			[
+			
+				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+				https://www.sitepoint.com/shorthand-javascript-techniques/
+				
+				var o = {p: 42, q: true};
+				var {p, q} = o;
+
+				console.log(p); // 42
+				console.log(q); // true
+
+			]
+						
+			recursiveArraySearch[
+					  recursiveArraySearch(arr, constraint){
+					var ret;
+					if(arr && arr.length>0){
+						arr.forEach(function nested(a){
+							if (constraint(a)){
+								ret=a; 
+							}
+							if(Array.isArray(a.children)){
+								a.children.forEach(nested);
+							}
+						});
+					}
+					return  ret;
+				}
+			]
+			
+			importFromModulesExport[
+			
+				export default
+				export {} - object
+				
+				import t
+				import {t} - object
+			
+			]
+			
 		}
 		//----------------------------------------------	
 		
@@ -5949,6 +6147,7 @@ pip install ipython
 					
 			public internal classs Theory()
 			{
+			
 				public class Procedures_Functions_difference()
 				{
 					+---------------------------------+----------------------------------------+
@@ -6040,6 +6239,10 @@ pip install ipython
 			public internal class MAINTANANCE()
 			{
 				
+				//sql remote access
+https://knowledgebase.apexsql.com/configure-remote-access-connect-remote-sql-server-instance-apexsql-tools/
+
+
 				public tableCreate()
 				{
 									
@@ -9409,7 +9612,20 @@ RAW JSON
 		Refactor <- ctrl + d;
 		
 	}
+	
+	vs_code[
+		gitlens - git diff
+		githistory - filehistory
 		
+		themes - ctrl k t	
+		
+	]
+	
+	atom_vs_code[	
+		settings - ctrl ,
+		command palette - ctrl p 
+	]
+	
 	#endregion	
 			
 	#region OS		
@@ -9450,7 +9666,7 @@ RAW JSON
 					powercfg -devicequery wake_armed
 					powercfg -devicedisablewake
 					
-					powercfg -devicedisablewake "HID Keyboard Device (001)"
+					powercfg -devicedisablewake "HID Keyboard Device (002)"
 					powercfg -devicedisablewake "Контроллер семейства Realtek PCIe GBE"
 					powercfg -devicedisablewake "Realtek RTL8139/810x Family Fast Ethernet сетевой адаптер"
 				}
@@ -9501,7 +9717,7 @@ RAW JSON
 				cmd -> ???????
 			}
 			
-			public void PS()			
+			public void powershell()			
 			{
 				
 				//powershell tools
@@ -9511,6 +9727,11 @@ RAW JSON
 				//ps64
 				C:\Windows\System32\WindowsPowerShell\v1.0\powershell
 				//ps 32
+				
+				
+				get-executionpolicy
+				get-help set-executionpolicy
+				set-executionpolicy remotesigned
 				
 			}
 		}

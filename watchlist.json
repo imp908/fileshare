@@ -1,118 +1,5 @@
 
-actual[
-	
-	ref in out
-
-	appress
-	614- type ref, late binding
-	708-751 CIL
-	752-807 multythreading
-
-	MCA arhitecture
-	lock resolve
-	transport protocols
-
-	rabbitmq
-	reddis
-
-	service broker 
-	arbitter
-
-	js
-	lambda
-	closure 
-	var let 
-	bind call aplly
-	map vs foreach
-
-	//actor
-	https://www.brianstorti.com/the-actor-model/
-	
-	//react + redux
-	https://medium.freecodecamp.org/an-introduction-to-functional-reactive-programming-in-redux-b0c14d097836
-
-
-	CI/CD pipeline[
-		https://www.redhat.com/en/blog/integrating-ansible-jenkins-cicd-process
-		github-SonarSource-Nexus-Ansible-AnsiblePlaybook-Jenkins
-	]
-
-	MSA[
-	
-		//async await
-		https://www.youtube.com/watch?v=2moh18sh5p4
-
-		//msa
-		https://www.youtube.com/watch?v=EdtZnmV_D-g
-		https://www.youtube.com/watch?v=N1BWMW9NEQc
-		
-		https://www.microservices.com/reference-architecture/
-
-		//pragmatic event driven msa
-		https://www.youtube.com/watch?v=vSd_0zGxsIU
-
-		//how to fail msa
-		https://www.youtube.com/watch?v=X0tjziAQfNQ
-		//working stacks
-		elixir->phoenix->postgre
-		angular->hapi->mongo
-		react->spring boot->neo4j
-
-		groundhog maintanance
-		heisenberg monitoring
-
-		polyglot->polyWTF
-
-
-		//hypermedia types
-		https://lostechies.com/jimmybogard/2015/05/22/end-to-end-hypermedia-choosing-a-media-type/
-		https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/
-		HAL
-		JSON API
-		JSON LD
-		collection + JSON
-		SIREN
-		HYDRA
-
-		10.fuckup mix of hypermedia formats, UI frameworks, date formats (chineese calendar) 
-		and logging formats
-		9.data monolith - share database
-		table sharing of business domens (credit read account table and vise versa)
-		when account changes tables varchar length credit goeas boom
-		connection pool-of 100 connections and 1 msa queryng sql for weeks 
-		8.event monolith - 
-		event sourcing - audit trail, distributed data, decoupled msa
-		wet is a new dry - copy past between msa
-		event history as bugfixes
-		7.homegrown monolith - build custom framework 
-		custom event sourcing for every msa
-
-		message structuring - v2 msg if ID must change from int to string
-		new customer send v2 int id message to old services - boom in prod
-		migrate all services to v2 which leads to 
-		monolith release plan
-		cross cutting dependencies - need to comunicate with teams
-		job insurance
-
-		6. meat cloud - 
-		wkpt  - whants,knows,privilege,time to do smth
-
-		//msdn
-		//domain
-		https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
-		//web api 2
-		https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
-
-		//code review
-		https://www.sonarqube.org/
-
-		https://edgecoders.com/the-mistakes-i-made-as-a-beginner-programmer-ac8b3e54c312
-
-	]
-
-
-]
-
+//toSortNew.unsorted 4200-6400 trash
 watchlist[
 
 	//Most usefull links
@@ -125,7 +12,7 @@ watchlist[
 																							 
 		//electronics manufacturing association
 		http://www.semi.org
-		RAND Corporation 
+		RAND Corporation
 		Atlantic Council
 		http://veloline.ru/ispravlenie-vosmerok								 
 		
@@ -190,11 +77,7 @@ usd\rub(62.01)/
 		 
 		offshore[
 			Британские Виргинские острова, США, Великобритания, Кипр, Панама, Новая Зеландия
-		]
-		
-		azb[nesterov igor
-			13.01.1985
-		]			 
+		]					
 		
 		//investing
 		[
@@ -332,10 +215,26 @@ usd\rub(62.01)/
 		
 		//startups
 		[
+		
+			//venture cmps
+			https://www.crunchbase.com/organization/gagarin-capital-partners#section-overview
+			
+			//accelerators
+			https://www.ycombinator.com/about/
 			
 			http://www.selpo.me/
 			http://go.philtech.ru/?utm_source=meduza&utm_medium=article&utm_campaign=accelerator.
-		
+			
+			//pet feeding
+			https://petcube.com/
+			//AI companion
+			https://replika.ai/
+			
+			//farming
+			http://ifarmproject.ru/home-eng
+			
+			//travel routes
+			https://app.eightydays.me/
 		]
 		
 		//OWIN
@@ -433,18 +332,48 @@ usd\rub(62.01)/
 		
 		Businesses
 		[
-			//bees
+		
 			
-			California  80 % world’s almonds
-			15 years push out row crops
-			Almond 1 acre two hives
-			2.5 mln colonies (= hives ?) 2/3 commercial US honeybees
-			448 boxes 50 mln bees
-			700 boxex $ 1 mln
-			Montana Dakota planes, more honey per hive in America
-			500 hives $ 100 thsd
-			maintain earlier 1 $ hive  now 4 $ hive
-			Carniolan queens $31 ($28 for bulk)
+			bees[			
+				California  80 % world’s almonds
+				15 years push out row crops
+				Almond 1 acre two hives
+				2.5 mln colonies (= hives ?) 2/3 commercial US honeybees
+				448 boxes 50 mln bees
+				700 boxex $ 1 mln
+				Montana Dakota planes, more honey per hive in America
+				500 hives $ 100 thsd
+				maintain earlier 1 $ hive  now 4 $ hive
+				Carniolan queens $31 ($28 for bulk)
+			]
+		]
+		
+		companies[
+		
+			RussianIT[
+
+				https://ntechlab.ru/
+				https://www.roadarlabs.com/
+				https://rite.ru/
+				
+				IoT
+				[
+					//IoTplatform 2019 nominees
+					https://www.rightech.io/ru
+					https://clover.global/
+				]
+				
+			]
+						
+			WorldIT[
+				https://www.thoughtworks.com/
+				
+				//clojure creator project
+				https://cognitect.com/
+				
+				//software ag
+				https://www.softwareag.com/corporate/default.html
+			]
 			
 		]
 		
@@ -458,6 +387,21 @@ usd\rub(62.01)/
 		]
 
 
+		science[
+			math[
+				https://ru.wikipedia.org/wiki/%D0%A3%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F_%D0%9D%D0%B0%D0%B2%D1%8C%D0%B5_%E2%80%94_%D0%A1%D1%82%D0%BE%D0%BA%D1%81%D0%B0
+			]
+			bio[				
+				med[
+					hormones[
+						//hunger hormones
+						ghrelin
+						leptin
+					]
+				]
+				
+			]
+		]
 		
 		ComputerScience
 		[		
@@ -471,7 +415,8 @@ usd\rub(62.01)/
 			https://en.wikipedia.org/wiki/Concurrent_computing
 			https://en.wikipedia.org/wiki/Metastability_(electronics)
 			https://en.wikipedia.org/wiki/Concurrency_control
-						
+			
+			
 			
 			HardwareArchitecture[						
 				
@@ -521,6 +466,29 @@ usd\rub(62.01)/
 			SoftwareArhitecture[
 				
 				https://hackernoon.com/38-actions-and-insights-to-become-a-better-software-architect-f135e2de9a1b
+				
+				RESTvsSOAP[
+				
+					SOAP:
+						Protocol,function-driven "getUser"
+						can decome stateful		
+						SSL support reglaments ACID build id compliance
+						XML
+						any protocol: HTTP,SMTP,TCP,UDP
+						strinct format :envelope,header
+						
+					REST:
+						architecture style, data-driven "user"
+						while REST more flexible structure		
+						Stateless: each request contains all information server needs to know
+						no server side sessions
+						HTTPS
+						HTML,JSON,XML
+						HTTP
+						Any number of layers after server not affect client
+						Response can contain executable code
+						
+				]
 				
 				//SOA, MSA, microservises
 				SaS[
@@ -668,7 +636,7 @@ usd\rub(62.01)/
 						//avoid lazy loading 
 						https://ardalis.com/avoid-lazy-loading-entities-in-asp-net-applications
 					]
-				
+					
 				]
 				
 				Access[			
@@ -681,18 +649,62 @@ usd\rub(62.01)/
 					https://en.wikipedia.org/wiki/CAP_theorem
 					//distributed transaction
 					https://en.wikipedia.org/wiki/Distributed_transaction
+					
+					Concurency[
+					https://en.wikipedia.org/wiki/Concurrent_computing
+					
+						algebraic structure[
+							History monoid
+							https://en.wikipedia.org/wiki/History_monoid
+						]
+						
+						Iteraction of concurrent systems
+							
+							Actor model
+								https://en.wikipedia.org/wiki/Actor_model
+							
+							Process calculi
+								https://en.wikipedia.org/wiki/Process_calculus
+							[
+								Communicating_sequential_processes(CSP)
+								https://en.wikipedia.org/wiki/Communicating_sequential_processes
+							
+							]
+														
+							CSPvsActor[
+								
+								CSP primitives:annonimous			
+								CSP messaging:channels;Actor:destination actor
+									(channels can have identity, actors can acs as channels)
+									rendezvous - channels cannot send msg until receiver can accept
+									Actor:async msg sending
+									(rendezvous can vofrm buffers acting sync; 
+									async systems can implement acknoledgment protocol to synch sender-receiver)
+									
+							]
+							
+					]
+					
+				]
+				
+				compilers[
+					//llvm
+					https://llvm.org/docs/GarbageCollection.html
 				]
 				
 			]
 			
 			DataStructures[
-						
+
 				//DAG directed acyclic graph
 				https://en.wikipedia.org/wiki/Directed_acyclic_graph
-				
-				HashSet vs. TreeSet vs. LinkedHashSet 
+
+				HashSet vs. TreeSet vs. LinkedHashSet
 				https://dzone.com/articles/hashset-vs-treeset-vs
-				
+
+				//algebraic data type
+				https://en.wikipedia.org/wiki/Algebraic_data_type
+
 				Graph[
 					
 					GraphInSQL [
@@ -763,6 +775,7 @@ usd\rub(62.01)/
 					]
 					
 				]
+			
 			]
 				
 			webCommunication[
@@ -780,7 +793,7 @@ usd\rub(62.01)/
 								
 				//FBP flow base programming
 				https://en.wikipedia.org/wiki/Flow-based_programming
-
+	
 			]
 			
 			Algorithms[
@@ -788,6 +801,8 @@ usd\rub(62.01)/
 				http://rsdn.org/article/Crypto/UuidCrypto.xml
 				//Hascode recommendations
 				https://ericlippert.com/2011/02/28/guidelines-and-rules-for-gethashcode/
+				//visualization
+				https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
 			]
 			
 			MachineLearning[
@@ -795,7 +810,7 @@ usd\rub(62.01)/
 				https://pytorch.org/
 				https://www.tensorflow.org/
 			]
-		
+			
 		]			
 			
 		Engeneering[
@@ -803,24 +818,97 @@ usd\rub(62.01)/
 			SoftwareEngeneering
 			[
 			
-				blockchain[
-			cryptocurrency[
-				bitcoin[
+				architecturePatterns[
+				
+					DDD[
+												
+						//https://docs.microsoft.com/en-us/dotnet/standard/modern-web-apps-azure-architecture/common-web-application-architectures
+						//https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html
+						Hexagonal_Clean_Onion_architecture[
+						
+							layers_decomposition[
+
+								UserInterface
+								(controllers,filters,views,viewmodels,startup)->
+									controllers,viewmodels
+								Infrastructure 
+								(EF,data access impl (repository),infr specific service impl (logger,notifier))->
+									repositories, implimentation services
+								ApplicationCore
+								(Entities,Interfaces,Services,DTOs)->
+									entity interfaces, domain services and iterfaces
+
+							]
+							
+							dependency_flow[
+
+								applicationCore<-infrastructure
+									infrastructure<-UI
+								applicationCore<-UI
+								applicationCore<-tests
+
+							]
+
+						]
 					
-					links[
-						https://medium.com/@jimmysong/why-blockchain-is-hard-60416ea4c5c
-						https://support.bitfinex.com/hc/ru
-						https://]www.bitfinex.com/legal/terms
-						https://en.wikipedia.org/wiki/Bitcoin
-						https://en.wikipedia.org/wiki/Cryptocurrency
+						//https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
+						MSA_DDD (application,domain,infrastructure layer)[
+						
+layers_decomposition {
+
+//upper depends on lower 
+
+	Application Layer (
+		from domain: use enity obj, repository int/contr
+		deom infrastructure: repository impl throught DI
+	)-> 
+		web api, network access, API contracts, commands and handlers, queries, micro ORM (dapper)	
+		
+	Infrastructure layer 
+	(use entity objects to update DB and other DB, cash or infr) ->
+		Data persistance 
+			Repository Implementation
+		ORMS and data acces 
+			EF, NoSql
+		Other infrastructure impl
+			Logging, crypto, search engine etc.
+			
+	Domain layer ->
+		domain entity model, POCO classes, domain entities data + behaviour,
+		DDD patterns[domain aggregate,aggregate  root,  Value obj,repositories contracts/interfaces for DI]
+}
+
+layers_dependencies{
+Domain layer 	<- Infrastructure layer  
+Domain layer , Infrastructure layer  <- Application Layer
+			
+	
+}
+
+						]
+						
 					]
 					
-					BTC 1
-					mBTC 0.001
-					sat 0.00000001
 				]
-			]
-		]
+				
+				blockchain[
+					cryptocurrency[
+						bitcoin[
+							
+							links[
+								https://medium.com/@jimmysong/why-blockchain-is-hard-60416ea4c5c
+								https://support.bitfinex.com/hc/ru
+								https://]www.bitfinex.com/legal/terms
+								https://en.wikipedia.org/wiki/Bitcoin
+								https://en.wikipedia.org/wiki/Cryptocurrency
+							]
+							
+							BTC 1
+							mBTC 0.001
+							sat 0.00000001
+						]
+					]
+				]
 				
 				reverseEngenering[
 				
@@ -913,6 +1001,8 @@ usd\rub(62.01)/
 			[
 				//solidworks CAD atm
 				https://www.youtube.com/watch?v=osW5RnYIVoc
+				//FEM FDM FVM differencies
+				https://www.machinedesign.com/fea-and-simulation/what-s-difference-between-fem-fdm-and-fvm
 			]
 
 			electro
@@ -936,14 +1026,52 @@ usd\rub(62.01)/
 
 				
 			]
+		
 		]
 		GuidesRoadmaps[
 			
-			//GraphQL
-			https://graphql.github.io/learn/queries/
-			https://github.com/alumbra/alumbra
-			https://github.com/graphql/graphiql
 			
+			rabbitmqTutor[
+							
+				t1[
+					dotnet new console --name Send
+					dotnet restore
+					cd Send
+					dotnet run
+
+					dotnet new console --name Receive
+					dotnet restore
+					cd Receive
+					dotnet run
+
+					dotnet add package RabbitMQ.Client
+					dotnet restore
+
+
+					cd C:\worflow\progs\rabbitmqHW\Receive
+					dotnet run
+					command.layouts.partner_layout_list.get
+					command.layouts.partner_layout_list.get
+
+					cd C:\worflow\progs\rabbitmqHW\Send
+					dotnet run
+				]
+
+				t2[
+					dotnet new console --name NewTask
+					dotnet new console --name Worker
+
+					cd NewTask
+					dotnet add package RabbitMQ.Client
+					dotnet restore
+
+					cd ../Worker
+					dotnet add package RabbitMQ.Client
+					dotnet restore
+				]
+				
+			]
+						
 			Clojure[
 				http://www.clojurebook.com/
 				https://hackr.io/tutorials/learn-clojure
@@ -960,7 +1088,19 @@ usd\rub(62.01)/
 				]	
 
 				.NET[
-								
+					
+					//differencies between standarts
+					.NET_CORE_STANDART
+					[
+
+						https://msdn.microsoft.com/en-us/magazine/mt842506.aspx
+						
+						.net framework - windows
+						.net core - win,linux,macOs console + ASP.NET core
+						.net standart - libs for .net framework, core & xamarin
+
+					]
+					
 					C#[
 					
 						//async await profiling
@@ -978,6 +1118,265 @@ usd\rub(62.01)/
 						//hashs
 						http://eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx#fnv
 						
+						overall[
+							
+							typeof -> compile time
+							
+							.GetType() -> runtime
+							is -> runtime
+							
+						]
+						
+						.NET_tools_locations[
+
+							C:\Windows\Microsoft.NET\Framework64\v4.0.30319
+							ilasm -> C# source code to IL
+							nGen.exe -> IL to CPU source generator
+							csc.exe -> compiler 
+							scs.rsp - default command keys for csc.exe compiler
+							
+							"C:\Program Files (x86)\MSBuild\14.0\Bin\csc.exe"
+							csc.exe -> rosylyn compiler
+								sample usage
+								[
+									public sealed class Programm{
+										public static void Main(){
+											System.Console.WriteLine("programm started");
+										}
+									}
+									"C:\Program Files (x86)\MSBuild\14.0\Bin\csc.exe" -out:C:\111\move\src.exe C:\111\move\src.cs
+								]
+
+							C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.2 Tools
+							ildasm.exe -> IL to C# source code
+							PEVerify -> verifies assembly on unsafe codes
+							
+						]						
+						tipsNtricks[
+							{} //<------ Adding a Nop allows a breakpoint here.
+						]			
+						UtilsAndSites[
+						
+							//decompiler
+							https://sharplab.io/
+							
+							//IlSpy
+							https://github.com/icsharpcode/ILSpy/releases
+							
+							//web copilers
+							//decompiler
+							https://sharplab.io/
+							https://try.dot.net/
+							
+							sharplab[
+								
+								basicMemgraphProg
+								{
+								
+									using System;
+									using System;
+									using System.Collections.Generic;
+									using System.Linq;
+									using System.Text;
+									using System.Threading.Tasks;
+
+									public static class Program
+									{
+										public static void Main(){
+											Console.WriteLine("runned");
+											MemGraph.GO();
+										}
+										
+									}
+
+									public static class MemGraph {
+										
+										public static void GO(){
+											var a = new Object[]{1,2,3} ;
+											var b = new int[]{1,2,3} ;
+											
+											Inspect.MemoryGraph(a,b);
+										}
+									}
+								
+								}
+
+							]
+						
+						]
+						frameworks[
+						
+							quartz[
+										
+								//Quartz Template
+
+								---
+								await scheduler.Start();
+								*<
+								await scheduler.Shutdown();
+
+
+								---
+								HelloJob : IJob
+								public Task Execute(IJobExecutionContext context)
+
+
+								---
+								IJobDetail job = JobBuilder.Create<HelloJob>()
+									.WithIdentity("job1", "group1")
+									.Build();
+
+								// Trigger the job to run now, and then repeat every 10 seconds
+								ITrigger trigger = TriggerBuilder.Create()
+									.WithIdentity("trigger1", "group1")
+									.StartNow()
+									.WithSimpleSchedule(x => x
+										.WithIntervalInSeconds(10)
+										.RepeatForever())
+									.Build();
+
+								// Tell quartz to schedule the job using our trigger
+								*<
+								await scheduler.ScheduleJob(job, trigger);
+							]
+						
+						]
+
+						Collections[
+						
+							CollectionInterfaces[
+							
+								//iqueriable vs ienumerable
+								https://developerhandbook.com/entity-framework/in-the-spotlight-demystifying-iqueryable-entity-framework-6/		
+								//ienumerable
+								https://danielwertheim.se/c-someenum-tostring-measured-to-be-400x-slower/
+								
+								https://medium.com/@kunaltandon.kt/ienumerable-vs-icollection-vs-ilist-vs-iqueryable-in-c-2101351453db
+
+								IList<T>:ICollection<T>:IEnumerable<T>
+								IQueriable<T>;IEnumerable<T>
+
+								IEnumerable<T>
+								Filtering
+								Fucnt<T,bool>
+
+								ICollection<T>
+								Add,remove,update
+								Count - O(1)
+
+								IList<T>
+								insert,remove
+
+
+								IQueriable<T>
+								Expression<Funct<T,bool>>
+								
+							]
+							list[
+								.sort[
+									https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.sort?redirectedfrom=MSDN&view=netframework-4.7.2#System_Collections_Generic_List_1_Sort
+									
+									O (n log n) on avarage
+									O (n2) in worst case
+									
+									< 16 elem -> insertion sort
+									> 2 log n (n inpt arr length) -> heapsort alg
+									-> quicksort
+									unstable -> not preserve equal item order
+									
+								]
+								
+								.addRange[
+									
+									if count+ > count cur -> rellocating to new arr
+									
+									if cann add without capacity increase O(n)
+									
+									else O(n + m) m- added, n - count
+									
+								]
+								
+								.contains-> linear search O(n)
+								.convertAll -> linear search O(n)			
+								.find -> linear search O(n)
+							]
+							IEnumerableICollectionILst[
+								https://medium.com/@kunaltandon.kt/ienumerable-vs-icollection-vs-ilist-vs-iqueryable-in-c-2101351453db
+									IEnumerable{- no crud,no count + Filter,enumerate}
+									ICollection
+									{
+									count O(1), + enumerate,count,filter,crud
+										generates Func<T,bool>
+									}
+									IList{:Ienumerable + :ICollection + insert in the middle ?O(n)}
+									IQueryable{
+										:ICollection
+										generates Expression<Func<T,bool>>
+									}
+									
+								IenumerablevsIlist[
+									https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
+									https://stackoverflow.com/questions/1072614/should-i-always-return-ienumerablet-instead-of-ilistt
+								]
+							]
+							Dictionary[
+								HashTable.Contains 
+								Dictionary.ContainsKey 
+								IComparer<T> -> using Item[Key] hash indexer
+							]
+							
+						]
+						Stringbuilder[
+						
+							.Length - current saved object
+							.Capacity - buffer, doubled on exseed up to maxCap, can be set
+							.MaxCapacity - adjust buffer until this, can be set on creation
+							16 2 bln characters
+								contains buffer, can be set at create time, 
+								when it owerflows new larger buffer is allocated, and old copied to new
+								mutates existing string
+							
+							indexing by Chars[int32] cant hit performance on large 
+							 call 
+								ToString()
+								or 
+								new StringBuilder(old,length);
+							
+							Searching:
+								search before adding to StringBuilder
+									- cannot find index
+								
+								ToString() before search
+									- cumberstone ifcalled often
+								
+								use indexer Chars[Int32]
+									- O(n^2) cumberstone for large number of chars 
+										poor performanse
+
+						]
+						
+						is[
+						//runtime 
+						
+(true for compile and runtime types upper by hierarhy)
+cl1 : cl0
+cl2 : cl1
+
+true
+new cl1 is cl0, cl1 -> true
+new cl1 is cl2, cl1 -> false
+
+new cl2 is cl0,cl1,cl2 -> true
+
+new cl1 = cl2 is cl0,cl1,cl2 -> true
+
+
+//Init in type check
+(o is Person p ){
+	p.Prop
+}
+						]
+
 						performance[
 							//nameof 
 							http://www.erikschierboom.com/2015/12/31/csharp6-under-the-hood-nameof/
@@ -991,39 +1390,6 @@ usd\rub(62.01)/
 						]
 						async[
 						
-							links[
-
-//asynchronous programming patterns							
-https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/
-//system threading
-https://docs.microsoft.com/en-us/dotnet/api/system.threading?view=netframework-4.7.2
-//taks
-https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks?view=netframework-4.7.2
-//async in depth
-https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
-//asynchronous programming
-https://docs.microsoft.com/en-us/dotnet/csharp/async
-//introduction to sync
-https://msdn.microsoft.com/en-us/magazine/dn802603.aspx
-//should my db calls be async
-https://blogs.msdn.microsoft.com/rickandy/2009/11/14/should-my-database-calls-be-asynchronous/
-//Understanding Async, Avoiding Deadlocks
-https://medium.com/rubrikkgroup/understanding-async-avoiding-deadlocks-e41f8f2c6f5d
-
-
-http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
-http://blog.stephencleary.com/2012/02/async-and-await.html
-https://msdn.microsoft.com/en-us/magazine/mt238404.aspx
-https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
-https://stackify.com/csharp-async-await-task-performance/
-https://docs.microsoft.com/en-us/dotnet/framework/network-programming/asynchronous-server-socket-example
-https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
-https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/?view=aspnetcore-2.1
-https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
-https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=netframework-4.7.2
-
-							]
-						
 						//guidelines
 						-> no global static objects , cause lead to eadlocks
 						-> multiple invocated method must have userSate object with locked collection						
@@ -1036,7 +1402,16 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 						
 						https://medium.com/rubrikkgroup/understanding-async-avoiding-deadlocks-e41f8f2c6f5d
 						-> no .Result & no sync<->async calls						
+															
+						//https://stackoverflow.com/questions/13489065/best-practice-to-call-configureawait-for-all-server-side-code
+						ConfigureAwait(false) in classic asp.net in UI context
+						not saves thread jumps, saves context request
 						
+						//useable only in parallel request, TPL better
+						//cannot be tested in .net console
+						//test from .net web api UI
+						never user ...Async.Result() -> synch way, deadlock in asp.net WEB API
+
 						//asynhronous programming module
 							APM[
 							
@@ -1071,6 +1446,9 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 								
 								
 							]
+							
+							TAP,TPL
+									
 						]
 						multithread[
 
@@ -1115,6 +1493,17 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 						EF[
 							//EF migrations
 							https://coding.abel.nu/2012/03/ef-migrations-command-reference/
+							
+							vsCode_EF_update[
+								dotnet ef migrations add LocalExpress --context sbDbEntities
+								dotnet ef database update --context sbDbEntities
+							]
+							
+							litr[
+								//EFquering
+								https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+								
+							]
 						]
 						DIcontainers[
 							https://autofac.org/
@@ -1144,7 +1533,19 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							https://stackoverflow.com/questions/22534224/asp-net-using-a-different-model-in-a-partial-view-than-in-its-parent
 							//partial view update
 							https://stackoverflow.com/questions/19392212/how-to-use-jquery-or-ajax-to-update-razor-partial-view-in-c-asp-net-for-a-mvc-p
-			
+							
+							//turn lazy loading off 
+							context.ContextOptions.LazyLoadingEnabled = false;
+								
+							mvc_razor_picture[
+								var base64 = Convert.ToBase64String(Model.Picture);
+								var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+								<div id="planeditblock2">
+									<!--<img class="plan" id="dragNdrop" src="@Url.Content(Model.PictureUrl)"/>-->
+								</div>
+							]
+						
 						]									
 						moq_containers[
 							fakeiteasy
@@ -1163,10 +1564,374 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							fluentvalidation
 							https://fluentvalidation.net/
 						]
+						
+						wcf[
+						
+							//service level fault attribute to wsdl publish
+							http://dkturner.blogspot.com/2007/11/wcf-contract-level-faultcontract.html
+							
+							code[
+								[AttributeUsage(AttributeTargets.Interface, AllowMultiple = false, Inherited = true)]
+					public class StandardFaultsAttribute : Attribute, IContractBehavior
+					{
+						// this is a list of our standard fault detail classes.
+						static Type[] Faults = new Type[]
+						{
+							typeof(AuthFailure),
+							typeof(UnexpectedException),
+							typeof(UserFriendlyError)
+						};
+
+						public void AddBindingParameters(
+							ContractDescription contractDescription,
+							ServiceEndpoint endpoint,
+							BindingParameterCollection bindingParameters)
+						{
+						}
+
+						public void ApplyClientBehavior(
+							ContractDescription contractDescription,
+							ServiceEndpoint endpoint,
+							ClientRuntime clientRuntime)
+						{
+						}
+
+						public void ApplyDispatchBehavior(
+							ContractDescription contractDescription,
+							ServiceEndpoint endpoint,
+							DispatchRuntime dispatchRuntime)
+						{
+						}
+
+						public void Validate(
+							ContractDescription contractDescription,
+							ServiceEndpoint endpoint)
+						{
+							foreach (OperationDescription op in contractDescription.Operations)
+							{
+								foreach (Type fault in Faults)
+								{
+									op.Faults.Add(MakeFault(fault));
+								}
+							}
+						}
+
+						private FaultDescription MakeFault(Type detailType)
+						{
+							string action = detailType.Name;
+							DescriptionAttribute description = (DescriptionAttribute)
+								Attribute.GetCustomAttribute(detailType, typeof(DescriptionAttribute));
+							if (description != null)
+								action = description.Description;
+							FaultDescription fd = new FaultDescription(action);
+							fd.DetailType = detailType;
+							fd.Name = detailType.Name;
+							return fd;
+						}
+					}
+							]
+						
+						]
+						structsVsClasses[
+
+-> with grain of salt points
+	It logically represents a single value, similar to primitive types (int, double, etc.).
+	It has an instance size under 16 bytes.
+	It is immutable.
+	It will not have to be boxed frequently.
+
+	https://samrueby.com/2016/09/05/when-should-you-use-a-struct-instead-of-a-class/
+	https://blogs.msdn.microsoft.com/ericlippert/2009/04/27/the-stack-is-an-implementation-detail-part-one/
+	https://stackoverflow.com/questions/1082311/why-should-a-net-struct-be-less-than-16-bytes
+							
+						]
+						
+						POI[
+							//caller member name attribute
+							https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.callermembernameattribute?view=netframework-4.7.2
 			
+						]
+						
+						litr[
+												
+							clrViaCshrp
+							[
+							
+								Chapter_1
+								{CLR,IL, JIT, Source code and compiler workflows, tools, standards}
+								[
+									CLR -> manged module for 32x or 64x PE32, PE32+
+									C# -> compiler -> managed module
+									Basic -> basic compiler -> -=-
+									IL source -> IL assembler -> -=-
+									
+									IL - JIT compiler-> CPU instr
+									
+									Managed module IL + metadata(GC collected datatypes) 
+										(Data execution prevention DEP, Address space layput randomization ASLR)
+									[
+										PE32, PE32+ header -> windows header simmilar to COFF format , indicates file type 
+										GUI, CUI, DLL
+										
+										CLR header -> header, flags, methodDef, entry point (Main )
+										
+										metadata -> tables of types and methods deined, table with types and members refrenced
+										(
+											o- always embeded in exe
+											o- removes need in c/c++ header files
+											o- intelisense, typechecking, GC
+										)
+										
+										
+										IL code -> code compiled from source. CLR at runtime copmiles IL to CPU instr
+									]
+									
+									clr works with assembly [
+										manifest - assembly metadata table containing files representing the assembly
+										public export types implemented by asm files
+										resource or data files associated with the asm
+									]
+									
+									IL - heigher level language then most CPU machine
+									all CLR facilivies available
+										o- access and manipulate obj type
+										o- create and init objs
+										o- call virt methods on objects
+										o- manipulate arr directly
+										o- err handling
+										
+									p. 16
+									EXECUTION - 
+										before main executes CLR allocates internal datastructure to managed ref types access
+										internal structure for each method with its implementation address
+										on initialization sets each entry to undocummented function incide CLR => JITcompiler
+										
+										Main - first call to first method-> JITcompiler function call
+										
+										JITcompiler -> compiles native IL code to native CPU instr
+											(knows method and type on call)
+										-> searchs asm metadata for clled method IL
+										-> native CPU instr saved to dynamic mem block
+										-> goes back to CLR internal datastruc and replaces reference to method with addr of compile mem block
+										-> jumps to mem block of compiled
+									
+									p. 18
+									DEBUG MODE		
+										-> generates nop IL instr, for breakpoints placement
+											//optimize[+/-] /debug[+/-] 
+									compiler switch:
+										default -> /optimize- /debug- -> ILcode(unopt) JIT native( opt)
+										-> /optimize- /debug(+/full/pdbonly) -> ILcode(unopt) JIT native( unopt)
+										-> /optimize+ /debug(-/+/full/pdbonly) -> ILcode(opt) JIT native( opt)
+									
+									p. 19-20
+									.PDB (Programm database) - helps debug find local vars and map IL instr to source.
+									
+									System.Runtime.ProfileOptimization -> causes CLR to record methods optimized by JIT
+										on multiple CPU would compiles concurrently
+									
+									IL -> 
+										o- stackbased, no registers, easy to target CLR
+										o- typeless
+										o- verification while CLR compiles IL to CPU source 
+											varification(
+												o- parameter number & type check
+												o- return val usage				
+											)
+									
+									p. 21
+									Virtual address space VAS ->
+									
+									CLR -> offers ability to execute several AppDomains in single OS process
+									
+									unsafe code -> 
+										/unsafe -> can work on memory directly
+										o- JIT compiler checks assembly befor compile unsafe on 
+											System.Security.Permissions.SecurityPermission 
+											and 
+											System.Security.Permissions.SecurityPermissionFlag’s SkipVerification 
+										
+										throws -> 
+											System.InvalidProgramException or a System.Security.VerificationException
+									p. 23-24
+										NGen.exe -> 
+											o- usefull for start optimizing 
+											o- asm loaded into multiple processes
+											o- %SystemRoot%\Assembly genned asembly with native code location
+									
+										CLR searchs for precompiled native file and uses it, JIT compiles code only on absence
+										
+											x- no intellectual prop prot 
+											x- rassinhronization of (CLR ver, CPU type, Win ver, asm ID)
+											x- not creates optimiations and can perform slower/
+										
+										MPGO.exe - startup time optimization
+									
+									p. 25-26
+										Framework class library FCL -> DLL asm with type def and some funcionality
+											empl. System type with Object
+										
+										most_usefull_libs[
+											System - basic types
+											System.Data - comunicating with database and processing
+											System.IO 
+											System.Net - low-level networ communication, protocols
+											System.RuntimeInteropServices - unmanaged code, COM, win32 functions or DLLs
+											System.Security - protecting data and resources
+											System.Text - 
+											System.Threading - asynchronous operations
+										]
+									
+									p. 27-29
+										Common Type System CTS -> 
+											Types:
+												Field, Method, Property (validation, readonly), Event
+											
+											Visibility rules:
+												Private
+												Famility/protected (derived types)
+												Family and assembly(derived if def in asm, not in C# but in IL)
+												Assembly(Internal)
+												Family or assembly(protected internal) derieved exist in asm
+												Public				
+											CTS defines inheritance rules, virtual methods, obj lifetime.
+											Type can dereive from once base class
+											
+											Sustem.Object 
+												o- compare intances for equality
+												o- get hash
+												o- shalow (bitwise) copy
+												o- get string representation
+												
+										ECMA-334,335
+
+									p.30
+										Common Language Specification CLS ->
+											o- defines rules for languages
+											o- language types accessible from other languages, to be CLS compliant
+											
+											check for cpmliance with CLS ->
+												[assembly:CLSCompliant(true)]
+										
+											Cross-Language Interoperability ->
+												https://docs.microsoft.com/en-us/previous-versions/730f1wy3(v=vs.100)
+											
+											o- defines everything as field(data) or method(behaviour)
+												all language concepts compiler translates into fields and methods
+												(enum, oper overload, conversion oper, index, 
+												delegates, events, construct, finilizers) from source code
+											
+									p.34
+										Interoperability with unmanaged code ->
+											o- call unmanaged code in DLL 
+												CreateSemaphore kernel32.dll
+											
+											o- access COM components
+												TlbImp.exe  converts COM lib types to CLR asm
+											
+											o- unmanaged code can use managed type (server)
+											
+											(WinRT) from win8 seamles comunication with NET due to ECMA spec
+								]
+								
+								chapter_2
+								{assembly build, deploy}
+								[
+									p. 38
+									DLL hell - new versions of programms ovewrite older versions
+									complicated installation/uninstallation - files copied, registry updated
+												
+									System.Console. System.Console, IL in MSCorLib.dll
+									
+									Compiling console app with writeline with source.cs csc.exe ->
+										passing reference to MSCorLib.dll			
+										@MyProject.rsp - response file with command keys list
+											o- multiple support
+											o- local overrides global
+									
+									p. 42 - 43
+										.exe ->
+										contains metadata, CLR header, IL. 					
+										
+										CLR header :
+											o- maj min ver numbers, flags
+											o- mehodDef token informs if CUI,GUI or win store exe
+											o- size and offsets of metadata tables
+											o- IMAGE_COR20_HEADER on CorHdr.h format of CLR header
+											
+										METADATA: 
+											several defenition tables, reference, manifest tables
+												
+											defenitionTables:[
+												
+											ModuleDef:
+												entry defining module,
+												includes module's file, extension, module ver GUID,
+												helps CLR locate file at runtime
+											TypeDef:
+												entry for each type in module.
+												Typename, base tpye, access modifiers
+												indexes to MethodDef, FieldDef, PropertyDef, EventDef
+											MethodDef:
+												entry for every method in modeule. 
+												method name, access modif, 
+												signature offset within module to it's IL code
+												referents to ParamDef
+											FieldDef:
+												entry for fields, acces modif, names
+											ParamDef: 
+												entry for each parameter. flags (in,out, retval), type, name
+											PropertyDef:
+												properties, flags, type, name
+											EventDef:
+												event, flags,name
+												
+											]
+											
+											referenceTables[
+												AssemblyRef:
+													entry for each asm , name, version, culture, publick key token, hash.
+													CLR ignores hash
+												ModuleRef:
+													entry for PE module, name, extension, binds to types impl in modules in calling asm
+												TypeDef:
+													type name and ref.
+														ANOTHER TYPE -> TypeDef; 
+														ANOTHER MODULE -> ModuleRef; 
+														SAME MODULE -> ModuleDef
+													If type impl within ANOTHER TYPE, reference indicates 
+														TypeDef entryid 
+													If impl in ANOTHER MODULE ref indicates 
+														ModuleRef entry
+													If impl in the SAME MODULE ref indicate 
+														ModuleDef entry
+												MemberRef:
+													one entry for each field, prop, method, event referenced by module
+													name, signature, points to TypeRef
+											]
+								
+									p. 44 - 48
+										ILDASM:
+										ctrl-m on exe -> metainfo 
+											metadata, statistics
+									
+									p. 48
+										Combine modules to form asm 
+										
+								]
+								
+							]
+
+							http://sd.blackball.lv/library/CLR_via_CSharp_(Jeffrey_Richter_4th_Edition).pdf
+														
+						]
+						
 					]
 			
 					.CORE[
+						
+						//CORE 2.2 vscode omnisharp issue
+						use net sdk 2.2.105 to scaffold launch.json on build
 						
 						//call module functions from mvc view
 						https://stackoverflow.com/questions/43285725/unable-to-access-function-bundled-by-webpack
@@ -1185,15 +1950,212 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							https://medium.com/@tonerdo/referencing-a-net-dll-directly-using-the-net-core-toolchain-16f0af46a4dc
 							add to core.scproj
 						
-						  <ItemGroup>
-							<Reference Include="MyAssembly">
-							  <HintPath>HP.ArchiveBalancingService.DataContracts.dll</HintPath>
-							</Reference>
-						  </ItemGroup>
+							  <ItemGroup>
+								<Reference Include="MyAssembly">
+								  <HintPath>HP.ArchiveBalancingService.DataContracts.dll</HintPath>
+								</Reference>
+							  </ItemGroup>
 						]
-					
+						
+						mvc[
+		
+							https://elanderson.net/2018/04/run-multiple-projects-in-visual-studio-code/
+							start several localhost endpoints [
+								add to launch.json
+								"env": {
+									"ASPNETCORE_ENVIRONMENT": "Development",
+									"ASPNETCORE_URLS": "http://localhost:5001"
+								}
+								
+								-------OR---------
+								
+								Program.cs{
+									WebHost.CreateDefaultBuilder(args)
+									//http host for Fidler http test
+									.UseUrls("http://localhost:5000")
+								}
+								
+							]
+							
+							//partial views
+							parent_child_enumerable[
+								
+								//index.chtml
+								@model IEnumerable<ModelItem>
+								@Html.Partial("parent",Model)
+								
+								//parent.cshtml
+								@model IEnumerable<ModelItem>
+								@foreach (var item in Model)
+								{
+									@Html.DisplayNameFor(m=> item.Name);
+									@Html.Partial("child",item);
+								}
+								
+								//child.cshtml
+								@model ModelItem
+								@Html.DisplayNameFor(m=> Model.Name) :
+								@Html.DisplayFor(m=> Model.Name);
+								
+							]
+							DifferentParentChildModelCollection[
+							
+								@model ParentModel				
+
+								@foreach(var i in Model.ChildrenList){
+									@if(i.GetType().Equals(typeof(ChildModel))){
+										<div>  
+											@Html.Partial("ChildOne",i)
+										</div>           
+									}
+								}
+								
+							]
+							
+							GenerationAndScafolding[
+							
+dotnet new mvc -o G:\disk\Files\git\Core\chat --auth Individual
+
+dotnet tool install -g dotnet-aspnet-codegenerator
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design
+dotnet restore
+
+
+//help gen view
+dotnet aspnet-codegenerator [area|controller|view|identity] -h
+dotnet aspnet-codegenerator identity -h
+//gen area dotnet aspnet-codegenerator area exampleArea
+//gen controller
+dotnet aspnet-codegenerator controller -name ExampleController -actions -api -outDir Scafolded\Controllers -namespace scafolded
+//gen view empty 
+dotnet aspnet-codegenerator view exampleview empty -l defaultlayout -outDir scafolded\views -namespace scafolded
+
+
+dotnet aspnet-codegenerator identity -h
+//list files
+dotnet aspnet-codegenerator identity -lf -f
+
+Account.Login
+Account.Logout
+Account.Manage._Layout
+Account.Manage.Index
+
+dotnet aspnet-codegenerator identity -fi [Account.Logout;Account.Logout] -f
+
+dotnet aspnet-codegenerator identity -f -fi "Account.Manage.Index;Account.Manage._Layout;Account.Register;Account.Login;Account.Logout"
+
+
+dotnet aspnet-codegenerator controller -name AccountController -actions -api -outDir API\Areas\Identity\Controllers -namespace chat.Infrastructure.Controllers
+dotnet aspnet-codegenerator view Register Create -m RegisterUserAPI -l defaultlayout -outDir API\Areas\Identity\views -namespace chat.API
+dotnet aspnet-codegenerator view Room empty -l defaultlayout -outDir API\Areas\Identity\views -namespace chat.API
+
+							]
+						
+						]
+						
+						EF[
+							vsCode_EF_update[
+								dotnet ef migrations add LocalExpress --context sbDbEntities
+								dotnet ef database update --context sbDbEntities
+							]
+			
+							Boilerplate[
+								dotnet add package/Install-Package
+								
+								Microsoft.EntityFrameworkCore.SqlServer
+								
+								//CLI tools 
+								//for [dotnet ef ...] command style from VScode
+								Microsoft.EntityFrameworkCore.Design
+								
+								//PMC tools
+								//for [Add-Migration, Update-Database ..] command style from cmd
+								Microsoft.EntityFrameworkCore.Tools
+								
+								vsCodeTool[
+dotnet add package Microsoft.AspNetCore.Mvc.Core
+dotnet add package Microsoft.EntityFrameworkCore
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+dotnet add package Microsoft.EntityFrameworkCore.SqlServer
+dotnet add package Microsoft.EntityFrameworkCore.Design
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+
+dotnet add package Microsoft.Extensions.Configuration
+dotnet add package Microsoft.Extensions.Configuration.FileExtensions
+dotnet add package Microsoft.Extensions.Configuration.Json
+dotnet add package Microsoft.Extensions.DependencyInjection.Abstractions
+dotnet add package Quartz
+
+dotnet restore 
+dotnet build
+dotnet --info
+								]
+								
+							]
+												
+							//ef CORE LOGGING
+							http://rion.io/2016/10/19/accessing-entity-framework-core-queries-behind-the-scenes-in-asp-net-core/
+								
+						]
+										
+						core_JS_module_load[
+							!!!
+							if app exports default
+							then on index new via default
+							references
+							
+							//react aggregate root
+							//renders final comp
+							GameBoard.jsx
+							{		
+								import * as React from 'react'
+
+								export default class GameTutorial {
+									 ReactDOM.render(
+								}
+							}
+							
+							//aggregate root for webpack
+							//imports all modules
+							app.js
+							{
+								import { GameTutorial } from '../ReactTutorial/Containers/GameBoard'			
+								
+								export class App 
+							}
+							
+							//endpoint for builded packs
+							index.cshtml[
+								<script src="~/dist/wp/reactGame.bundle.js" type="text/javascript"></script>
+								
+								 let rg = new reactGame.App();
+								<script>
+								  let rg = new reactGame.App();
+								  rg.Init();
+								</script>
+							]
+							
+							//init via webpack module name
+							.js
+								export {AppTwo}
+							.webpack.js name:
+								appTwo
+							.cshtml
+								var app = new appTwo.AppTwo();
+							
+						]
+						
+						rep[
+							//the omnisharp server is still initializing or has exited unexpectedly
+							//install omnisharp from vsix
+							https://github.com/OmniSharp/omnisharp-roslyn/issues/1258
+							https://github.com/OmniSharp/omnisharp-vscode/releases/download/v1.16.1-beta1/csharp-1.16.1-beta1.vsix
+						]
+						
 					]
-				
+					
 				]
 					
 				CIL[
@@ -1220,12 +2182,451 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 				JS[
 					
 					https://developers.google.com/web/
-	
+											
+					//slice immutable
+					//splice mutates 
+					//delete prop
+					delete Employee.firstname;
+					
+					code[
+						
+						shorthands[
+						//ternary
+						if..else
+						let v = c ? x :
+						//shortcircuit
+						//!(if c null,undefined,'',0)
+						let v = c || x;
+						//decl shrt 
+						let x,y,z =3;
+						//if(truthy)
+						//if(!truthy)
+						//arrays 
+						for(let i of arr)
+						//fucnt shrothands
+						f = p => console.log("val",p);
+						setTimeout(() => console.log("val"),1000);
+						arr.forEach(s=>console.log(s));
+						//implicit return
+						f2 = p => ( p); 
+						//default param
+						f3 = (p0,p1=1,p2="a") => ((p0*p1)+p2); //f3(2) =>"2a"
+						//template str
+						let p0 ="Var";
+						let c0=`a${p0}`; //console.log(c0); => aVar
+						//destructuring
+						let p = {v0:"v0",v2:"v02",v4:"v4"}		
+						let {v0,v2,v4} = p
+						//rest syntax
+						let a0 = [1,2,3];
+						let b0 = [...a0];
+						a0[2]=10;
+						let c0 = [a0,b0]
+						console.log(a0) => [1, 2, 10]
+						console.log(b0) => [1, 2, 3]
+						console.log(c0) => {[],[]}
+						//map,foreach,filter
+						let arr1 = [{v:"v0",n:"n0"},{v:"v1",n:"n1"},{v:"v2",n:"n2"},{v:"v2"}];		
+						function f3(arr,pred){
+							let ret=[];
+							arr.forEach(s => {						
+								if(pred(s)){
+									ret.push(s);
+								}
+							});
+							console.log(ret)
+							
+							let ret2=[];
+							ret2=arr.map(s => {						
+								if(pred(s)){
+									return s;
+								}else{return null;}
+							});
+							console.log(ret2)
+							
+							let ret3;
+							ret3=arr.filter(pred);
+							console.log(ret3);
+						}		
+						f3(arr1,s=>s.v==="v0" || typeof s.n==='undefined')
+						//Math.floor(4.9)
+						~~4.9
+						
+					]
+					
+						//map,foreach,filter
+						[
+							let arr1 = [{v:"v0",n:"n0"},{v:"v1",n:"n1"},{v:"v2",n:"n2"},{v:"v2"}];		
+							function f3(arr,pred){
+								let ret=[];
+								arr.forEach(s => {						
+									if(pred(s)){
+										ret.push(s);
+									}
+								});
+								console.log(ret)
+								
+								let ret2=[];
+								ret2=arr.map(s => {						
+									if(pred(s)){
+										return s;
+									}else{return null;}
+								});
+								console.log(ret2)
+								
+								let ret3;
+								ret3=arr.filter(pred);
+								console.log(ret3);
+							}		
+							f3(arr1,s=>s.v==="v0" || typeof s.n==='undefined')
+							
+						]
+						
+						//merge
+						[
+							let o5 = ({...o1},{...o2})
+							console.log(o5)	
+							
+							const merge = (...args) => ({...args})
+							let o6 = merge (o1,o2)
+							console.log(o6)
+							
+							f3 = (p0,p1=1,p2="a") => ((p0*p1)+p2)
+							
+							let p = {v0:"v0",v2:"v02",v4:"v4"}		
+							let {v0,v2,v4} = p
+							console.log(v4)
+						
+						]
+						
+						//map_forEach
+						[
+						
+							let arr1 = [{v:"v0",n:"n0"},{v:"v1",n:"n1"},{v:"v2",n:"n2"},{v:"v2"}];		
+							function f3(arr,pred){
+								let ret=[];
+								arr.forEach(s => {						
+									if(pred(s)){
+										ret.push(s);
+									}
+								});
+								console.log(ret)
+								
+								let ret2=[];
+								ret2=arr.map(s => {						
+									if(pred(s)){
+										return s;
+									}else{return null;}
+								});
+								console.log(ret2)
+								
+								let ret3;
+								ret3=arr.filter(pred);
+								console.log(ret3);
+							}
+							f3(arr1,s=>s.v==="v0" || typeof s.n==='undefined')
+						]
+						
+						//https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/assign
+						assign[			
+							let o1 = {k:"key1",k2:"key2"}
+							let o2 = {k:"key3",k2:"key4"}
+							let o3 = Object.assign(o1,o2,{val:"v1"})
+							
+							console.log(o1)
+							console.log(o2)
+							console.log(o3)
+						]
+						
+						//spread syntax
+						//rest parameter
+						https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Spread_syntax
+						[
+							let o1 = {k:"key1",k2:"key2"}
+							let o2 = {k:"key3",k2:"key4"}
+							let o3 = Object.assign(o1,o2,{val:"v1"})
+							let o4 = {...o1,...o2}
+							
+							console.log(o1)
+							console.log(o2)
+							console.log(o3)	
+							console.log(o4)	
+							
+							//merge
+							let o5 = ({...o1},{...o2})
+							console.log(o5)	
+							
+							const merge = (...args) => ({...args})
+							let o6 = merge (o1,o2)
+							console.log(o6)			
+						]
+						
+						Destructuring Assignment Shorthand
+						[
+						
+							https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+							https://www.sitepoint.com/shorthand-javascript-techniques/
+							
+							var o = {p: 42, q: true};
+							var {p, q} = o;
+
+							console.log(p); // 42
+							console.log(q); // true
+
+							// destructuring with defaults
+							const {prop1="val1",prop2="val2"} = params;
+							
+						]
+						
+						recursiveArraySearch[
+							recursiveArraySearch(arr, constraint){
+								var ret;
+								if(arr && arr.length>0){
+									arr.forEach(function nested(a){
+										if (constraint(a)){
+											ret=a; 
+										}
+										if(Array.isArray(a.children)){
+											a.children.forEach(nested);
+										}
+									});
+								}
+								return  ret;
+							}
+						]
+						
+						importExport[
+						
+							export default
+							export {} - object
+							
+							import t
+							import {t} - object
+							
+						]
+					
+						...args rest arguments
+						map(array)		
+						assign(target,source)
+						
+						let obj = {
+							...objToCopy,
+							prop
+						}
+									
+						document_load_event[
+							document.addEventListener("DOMContentLoaded",check,false);
+						]					
+								
+						fetchAPIExml
+						[
+
+							function fu()
+							{
+
+								//let request = new Request('https://www.mozilla.org/favicon.ico');
+
+								let header = new Headers({
+									'Access-Control-Allow-Origin': '*',
+									'Content-Type': 'multipart/form-data',
+									//'Cookie': '.AspNetCore.Antiforgery.YEUXIw3HZOc = CfDJ8Ou_8W44IelJgfoicChT_VId8E1F7M2W0LjUD9 - Cynd0dDOY5IFA56_rareAJL3Zy8gCbOlQ2A_XtpRcJ4_2nK6V2 - x - H3co_PZEHwq83uUCPeLFeJyV97wWZTIYLxu0ZX0P8EYbE2bzTLrUuBHElt8; .ASPXANONYMOUS = s8aMXdv61AEkAAAAZDVhNzg0YTUtZmE0MC00NTYzLTg1OTAtNDUyMmNlMTMwYjFjhVOdCG1RAuh4BDI8J_HOhTXe6xtXJHUiI6jWbMsB53k1; .ASPXAUTH = 9B9DC2BEDC90BC80218C5119D81A61C1111B413E17239627A9609F735CEE0178169FD783A39E1E5F25F1A999AD1A21FAA6C4108FEB2D93590D15B1E02330A6DBB6360B18FDCDBFCF2827B5D38ED35D31B8B457E1979EAE3E8D05179E85E31426804620C1DF24FBCB0753716BCE16F7AA8329E1FCE8E8AEEBEA4C9515276530379D69AD43FD3476551665E2F281AD1B31D0DD7FC4991569A532F0CDC286C031E28F34CEBE4EC0AF57030131AB4AB283E95DFC6B730CAE866A0D98613EAED704B77586CE499415C91F45538792CB485699F13E46520B703BA3CA26CEA83EF5D459'
+								});
+								let sentData = {
+									method: 'GET',
+									mode: 'cors',
+									headers: {'c':'c'}
+								};
+								
+								var myHeaders = new Headers();
+								myHeaders.append('Content-Type', 'text/html; charset=utf-8');
+								myHeaders.append(
+									//'Cookie', '.AspNetCore.Antiforgery.YEUXIw3HZOc=CfDJ8Ou_8W44IelJgfoicChT_VId8E1F7M2W0LjUD9-Cynd0dDOY5IFA56_rareAJL3Zy8gCbOlQ2A_XtpRcJ4_2nK6V2-x-H3co_PZEHwq83uUCPeLFeJyV97wWZTIYLxu0ZX0P8EYbE2bzTLrUuBHElt8; .ASPXANONYMOUS=s8aMXdv61AEkAAAAZDVhNzg0YTUtZmE0MC00NTYzLTg1OTAtNDUyMmNlMTMwYjFjhVOdCG1RAuh4BDI8J_HOhTXe6xtXJHUiI6jWbMsB53k1; .ASPXAUTH=9B9DC2BEDC90BC80218C5119D81A61C1111B413E17239627A9609F735CEE0178169FD783A39E1E5F25F1A999AD1A21FAA6C4108FEB2D93590D15B1E02330A6DBB6360B18FDCDBFCF2827B5D38ED35D31B8B457E1979EAE3E8D05179E85E31426804620C1DF24FBCB0753716BCE16F7AA8329E1FCE8E8AEEBEA4C9515276530379D69AD43FD3476551665E2F281AD1B31D0DD7FC4991569A532F0CDC286C031E28F34CEBE4EC0AF57030131AB4AB283E95DFC6B730CAE866A0D98613EAED704B77586CE499415C91F45538792CB485699F13E46520B703BA3CA26CEA83EF5D459'
+							'.AspNetCore.Antiforgery.YEUXIw3HZOc','CfDJ8Ou_8W44IelJgfoicChT_VId8E1F7M2W0LjUD9-Cynd0dDOY5IFA56_rareAJL3Zy8gCbOlQ2A_XtpRcJ4_2nK6V2-x-H3co_PZEHwq83uUCPeLFeJyV97wWZTIYLxu0ZX0P8EYbE2bzTLrUuBHElt8'
+								)
+								
+								myHeaders.append(
+							'.ASPXANONYMOUS','s8aMXdv61AEkAAAAZDVhNzg0YTUtZmE0MC00NTYzLTg1OTAtNDUyMmNlMTMwYjFjhVOdCG1RAuh4BDI8J_HOhTXe6xtXJHUiI6jWbMsB53k1'
+								)
+								
+								myHeaders.append(
+							'.ASPXAUTH','9B9DC2BEDC90BC80218C5119D81A61C1111B413E17239627A9609F735CEE0178169FD783A39E1E5F25F1A999AD1A21FAA6C4108FEB2D93590D15B1E02330A6DBB6360B18FDCDBFCF2827B5D38ED35D31B8B457E1979EAE3E8D05179E85E31426804620C1DF24FBCB0753716BCE16F7AA8329E1FCE8E8AEEBEA4C9515276530379D69AD43FD3476551665E2F281AD1B31D0DD7FC4991569A532F0CDC286C031E28F34CEBE4EC0AF57030131AB4AB283E95DFC6B730CAE866A0D98613EAED704B77586CE499415C91F45538792CB485699F13E46520B703BA3CA26CEA83EF5D459'
+								)
+								
+								
+								let _request = new Request(`http://localhost:49897/GeoPosition/GetCategoryServiceTypes?categoryId=039e061b-b3a6-4e31-ab9a-d20352f87230`, 
+								{ method: 'GET', credentials: 'include' });
+
+								document.cookie='.AspNetCore.Antiforgery.YEUXIw3HZOc=CfDJ8Ou_8W44IelJgfoicChT_VId8E1F7M2W0LjUD9-Cynd0dDOY5IFA56_rareAJL3Zy8gCbOlQ2A_XtpRcJ4_2nK6V2-x-H3co_PZEHwq83uUCPeLFeJyV97wWZTIYLxu0ZX0P8EYbE2bzTLrUuBHElt8;'
+								document.cookie='.ASPXANONYMOUS=s8aMXdv61AEkAAAAZDVhNzg0YTUtZmE0MC00NTYzLTg1OTAtNDUyMmNlMTMwYjFjhVOdCG1RAuh4BDI8J_HOhTXe6xtXJHUiI6jWbMsB53k1;'
+								document.cookie='.ASPXAUTH=9B9DC2BEDC90BC80218C5119D81A61C1111B413E17239627A9609F735CEE0178169FD783A39E1E5F25F1A999AD1A21FAA6C4108FEB2D93590D15B1E02330A6DBB6360B18FDCDBFCF2827B5D38ED35D31B8B457E1979EAE3E8D05179E85E31426804620C1DF24FBCB0753716BCE16F7AA8329E1FCE8E8AEEBEA4C9515276530379D69AD43FD3476551665E2F281AD1B31D0DD7FC4991569A532F0CDC286C031E28F34CEBE4EC0AF57030131AB4AB283E95DFC6B730CAE866A0D98613EAED704B77586CE499415C91F45538792CB485699F13E46520B703BA3CA26CEA83EF5D459'
+
+								_request.headers = myHeaders;
+								console.log('request')
+								console.log(_request.url)
+								console.log(_request.method)
+								console.log(_request.headers.get('.ASPXANONYMOUS'))
+								console.log('cookie')
+								console.log(document.cookie)	
+								console.log(_request)
+
+								fetch(_request)
+								.then(
+									//response => response.json(),		
+									response=>console.log(response),
+									err => console.log('Redux dispatch error:', err)
+								)
+								.then(			
+									json => {
+										console.log(json);
+										json
+									}
+									//dispatch(ChieldrenReceived(id,json))
+								);
+								
+							}
+
+						]
+					
+						workingFetchAjax
+						[
+							
+							function fu()
+							{
+
+								//let request = new Request('https://www.mozilla.org/favicon.ico');
+								
+								var myHeaders = new Headers();
+								myHeaders.append('Content-Type', 'text/html; charset=utf-8');		
+								
+								let _request = new Request(`http://localhost:49897/GeoPosition/GetCategoryServiceTypes?categoryId=039e061b-b3a6-4e31-ab9a-d20352f87230`, 
+								{ method: 'GET', credentials: 'include' , mode:'no-cors'});
+
+								document.cookie='.AspNetCore.Antiforgery.YEUXIw3HZOc=CfDJ8Ou_8W44IelJgfoicChT_VId8E1F7M2W0LjUD9-Cynd0dDOY5IFA56_rareAJL3Zy8gCbOlQ2A_XtpRcJ4_2nK6V2-x-H3co_PZEHwq83uUCPeLFeJyV97wWZTIYLxu0ZX0P8EYbE2bzTLrUuBHElt8;'
+								document.cookie='.ASPXANONYMOUS=s8aMXdv61AEkAAAAZDVhNzg0YTUtZmE0MC00NTYzLTg1OTAtNDUyMmNlMTMwYjFjhVOdCG1RAuh4BDI8J_HOhTXe6xtXJHUiI6jWbMsB53k1;'
+								document.cookie='.ASPXAUTH=9B9DC2BEDC90BC80218C5119D81A61C1111B413E17239627A9609F735CEE0178169FD783A39E1E5F25F1A999AD1A21FAA6C4108FEB2D93590D15B1E02330A6DBB6360B18FDCDBFCF2827B5D38ED35D31B8B457E1979EAE3E8D05179E85E31426804620C1DF24FBCB0753716BCE16F7AA8329E1FCE8E8AEEBEA4C9515276530379D69AD43FD3476551665E2F281AD1B31D0DD7FC4991569A532F0CDC286C031E28F34CEBE4EC0AF57030131AB4AB283E95DFC6B730CAE866A0D98613EAED704B77586CE499415C91F45538792CB485699F13E46520B703BA3CA26CEA83EF5D459'
+
+								fetch(_request)
+								.then(response => response.json())		
+								.then(
+									j => {
+										console.log(j);
+										console.log(JSON.stringify(j));
+									}
+									//dispatch(ChieldrenReceived(id,json))
+								);
+								
+							}
+
+							ajax[
+							
+								$.ajax({
+								method: "GET",
+								url: "http://localhost:49897/GeoPosition/SearchCategories?parentId=039e061b-b3a6-4e31-ab9a-d20352f87230"
+								})
+								.done(function( ret ) {
+								console.log( "done: ");
+								console.log(ret)
+								})
+								.fail(function(c){
+								console.log("fail")
+								console.log(c)
+								});
+								
+							]
+							
+						]
+						
+						overall[
+							
+							//slice immutable
+							//splice mutates 
+										
+									
+							//delete prop
+							delete Employee.firstname;
+
+							importFromModulesExport[
+
+							export default
+							export {} - object
+
+							import t
+							import {t} - object
+
+							]
+
+							...args rest arguments
+							map(array)		
+							assign(target,source)
+
+							let obj = {
+							...objToCopy,
+							prop
+							}
+
+							document_load_event[
+							document.addEventListener("DOMContentLoaded",check,false);
+							]
+							
+							loadFiles[
+let dt = e.dataTransfer
+let files = dt.files
+							]
+							
+							setTimeoutInsideFor[
+							
+for(var i=0;i<2;i++){
+console.log("for:" + i)
+	setTimeout(function cb( ){
+		console.log("timed out 2:" +i)
+		
+		setTimeout(function cb3( ){console.log("timed out 3:" +i)},3000)
+		
+	},2000)
+}
+
+							]
+							
+						]
+					
+					]						
+					
+					TnT[
+						
+						MVCintegrate[
+							//js modules in view init
+							var app = new HP.MoscowVideo.Modules.GeopositionTreeConfig.default();
+							app.Init();
+						]						
+						
+					]
+					
+					C/C++ to JS
+					[
+						
+						asm.js ?perspective
+						pnacl,nacl become obsolette
+
+						c++ to wasm
+						https://developer.mozilla.org/en-US/docs/WebAssembly/C_to_wasm
+						web gamedev intro
+						https://developer.mozilla.org/en-US/docs/Games/Introduction
+
+						LLVM
+						emscripten->webassembly
+						emscripten
+						https://emscripten.org/index.html
+						webassembly
+						https://webassembly.org/docs/semantics/#linear-memory
+						asm.js
+						http://asmjs.org/
+						https://github.com/emscripten-core/emscripten
+					]
+					
 					IIFE[
 						https://www.sitepoint.com/demystifying-javascript-closures-callbacks-iifes/
 					]
-					
-					
+										
 					moduleSystem[
 						
 						//babel
@@ -1320,43 +2721,95 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							]
 									
 							configActionNComments[
+																
+								url_loader for gif,png
+								[
 								
-								//hotmodule
-								npm install aspnet-webpack webpack-hot-middleware webpack-dev-middleware -D
-								//changes in 
-								webpack.config->
-									entry: {main:'./wwwroot/js/wpCheck/app.js'},
-								startup.cs->
-									using Microsoft.AspNetCore.SpaServices.Webpack;
-									
-									#if DEBUG
-										app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
-										{
-											HotModuleReplacement = true
-										});
-									#endif
-									
+									//new preset for bundling gif and png nested inside css as URLs
+									https://stackoverflow.com/questions/45848055/image-you-may-need-an-appropriate-loader-to-handle-this-file-type
+									npm install --save url-loader
+									{
+										test: /\.(png|jpg|gif)$/i,
+										use: [
+										  {
+											loader: 'url-loader',
+											options: {
+											  limit: 8192
+											}
+										  }
+										]
+									}
 
-								react.jsx as .js
-								in app.js
-								import ReactComponent from '../rctcheck/reactcomponent';
+								]
 								
-								//in DOM render event
-								ReactDOM.render(
-								<Message />,
-								document.getElementById('basicreactcomponent')
+								jquery_from_jstree_local_jquery
+								[
+								
+									https://stackoverflow.com/questions/45330231/webpack-cant-resolve-jquery
+									//for require("jquery") references in jstree
+									
+									//in webpack.config.js
+									  plugins: [
+										  // This makes it possible for us to safely use env vars on our code
+										  new webpack.DefinePlugin({
+											$ : "jquery",
+											jQuery : "jquery",
+											"window.jQuery" : "jquery"
+										  })
+										],    
+										externals: {
+										  // require("jquery") is external and available
+										  //  on the global var jQuery
+										  "jquery": "jQuery"
+										},
+									
+									//in app.js
+									import $ from '../../lib/jquery/dist/jquery.min.js';
+									window.jquery = $;
+									window.$ = $;
+
+								]
+								
+								start
+								[
+									
+									//hotmodule
+									npm install aspnet-webpack webpack-hot-middleware webpack-dev-middleware -D
+									//changes in 
+									webpack.config->
+										entry: {main:'./wwwroot/js/wpCheck/app.js'},
+									startup.cs->
+										using Microsoft.AspNetCore.SpaServices.Webpack;
 										
-								//remove node modules		
-								https://stackoverflow.com/questions/48768236/how-to-tell-webpack-to-ignore-node-modules-both-core-and-installed-from-npm
-								npm install webpack-node-externals
-								//in webpack.config
-								const nodeExternals = require('webpack-node-externals');
-								externals: [nodeExternals()],
-								);
-								
-								npx webpack
-								//custom config
-								npx webpack --config webpack.custom.js
+										#if DEBUG
+											app.UseWebpackDevMiddleware(new WebpackDevMiddlewareOptions
+											{
+												HotModuleReplacement = true
+											});
+										#endif
+										
+
+									react.jsx as .js
+									in app.js
+									import ReactComponent from '../rctcheck/reactcomponent';
+									
+									//in DOM render event
+									ReactDOM.render(
+									<Message />,
+									document.getElementById('basicreactcomponent')
+											
+									//remove node modules		
+									https://stackoverflow.com/questions/48768236/how-to-tell-webpack-to-ignore-node-modules-both-core-and-installed-from-npm
+									npm install webpack-node-externals
+									//in webpack.config
+									const nodeExternals = require('webpack-node-externals');
+									externals: [nodeExternals()],
+									);
+									
+									npx webpack
+									//custom config
+									npx webpack --config webpack.custom.js
+								]
 							
 							]
 							
@@ -1461,6 +2914,512 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							
 						]
 						
+						ReactJS[
+							
+							TnT[
+								!!!action input signature must correspond to default reducer initialization
+							]
+							
+							overall
+							[
+
+								//pass props
+								<Template propName={propParent}>
+
+								tpl connect(mapStateToPropsmmapEventsToProps)(Template)
+								<div>
+									<tpl/>
+								<div/>
+								
+								react -> local state (forms, UI)
+								redux -> global state (cach users, post draft )
+									Container Component
+									<- Presentation Component[
+										const t = (props) => (<tag>{}<tag/>);
+									]
+								Container Component <- Redux store
+								
+								this.props.name -> receive name variable passed to component
+
+								this.state -> {object for internal state}
+								
+								componentDidMount() -> runs after constructor
+								componentWillUnmount <- runs when comp removed from DOM
+								//https://reactjs.org/docs/state-and-lifecycle.html
+								setState -> Indirect, async, merge
+									-> //indirect
+									setState({objProp:value}) instead this.state.objProp = value
+									->//async
+									// Wrong
+										this.setState({
+										  counter: this.state.counter + this.props.increment,
+										});
+										// Correct
+										this.setState((state, props) => ({
+										  counter: state.counter + props.increment
+										}));
+										// Correct
+										this.setState(function(state, props) {
+										  return {
+											counter: state.counter + props.increment
+										  };
+										});
+									-> //merged
+										componentDidMount() {
+											fetchPosts().then(response => {
+											  this.setState({
+												posts: response.posts
+											  });
+											});
+
+											fetchComments().then(response => {
+											  this.setState({
+												comments: response.comments
+											  });
+											});
+										}
+								
+								-> pass state as props to child component
+								
+								setTimeout -> postpone activation
+								
+								//conditional component nestion
+								{this.state.isToggleOn ? 'ON' : 'OFF'}
+									
+								//https://reactjs.org/docs/events.html
+								onClickCapture -> register event in capture phase
+								
+								//https://reactjs.org/docs/handling-events.html
+								-> () lambda functions instead of bind do extra re-render when passed to child
+								
+								//https://reactjs.org/docs/forms.html
+								-> form
+								this.setState({value: event.target.value});
+								//partial form update
+								this.setState({
+									[name]: value
+								});
+								
+								//https://reactjs.org/docs/lifting-state-up.html
+								-> lifting state up
+									pass method from parent to child prop childPropName={parentHandlerFunc}
+									call child prop this.props.childPropName
+								
+								//Overal component logic
+								container -> no html; contains wrapping <div>; data and behaviour to presentation; render;
+								presentation -> only render and very simple logic;
+							]
+		
+							react_boilerplate_guideline
+							[
+							
+								- new webpack app entry
+								- new js for entry
+								- new view,controller
+								- on appJs 
+									//import from JSX
+									import HelloMessage from './Templates/hellomessage';
+									init method above react render
+								- import bundle in view
+									init [webpackAppName].[appClass].[init function wrapper for reactdom]
+								
+							]
+							
+							//react,webpack,babel
+							cmd[	
+
+								npm install --save react
+								npm install --save redux
+								npm install --save react-redux
+								npm install --save react-dom
+
+								npm install --save-dev webpack
+
+								npm install --save-dev @babel/preset-react
+								npm install --save-dev @babel/preset-env 
+
+								npm install --save-dev @babel/plugin-proposal-class-properties		
+								npm install --save @babel/polyfill
+								npm install --save-dev @babel/core @babel/cli @babel/preset-env
+								//>>> babel 7 is crusial
+								npm i babel-loader@7 -D
+								
+								npm install -D babel-loader @babel/core @babel/preset-env webpack
+								npm install -D @babel/core @babel/preset-env webpack
+								
+								npm audit fix
+								
+								//hot load
+								npm install --save-dev html-webpack-plugin
+								npm install webpack-dev-server --save-dev			
+								npm install --save-dev clean-webpack-plugin
+								npm install --save-dev react-hot-loader
+								npx webpack-dev-server --hotOnly
+								
+								//hot rebuild
+								npx webpack --watch
+								
+								//show references
+								npx npm-why babel/core 
+							]
+
+							reactComps[
+							
+								Container Component
+									<- Presentation Component[
+										const t = (props) => (<tag>{}<tag/>);
+									]
+								Container Component <- Redux store
+							]
+							
+							Syntax
+							[
+
+								//pass props
+								<Template propName={propParent}>
+
+								tpl connect(mapStateToPropsmmapEventsToProps)(Template)
+								<div>
+									<tpl/>
+								<div/>
+
+								
+								//https://reactjs.org/docs/events.html
+								onClickCapture -> register event in capture phase
+								
+							]
+
+							funcs[
+									
+								this.props.name -> receive name variable passed to component
+								this.state -> {object for internal state}
+								
+								componentDidMount() -> runs after constructor
+								componentWillUnmount <- runs when comp removed from DOM
+								
+										//https://reactjs.org/docs/events.html
+								onClickCapture -> register event in capture phase
+								
+								//https://reactjs.org/docs/handling-events.html
+								-> () lambda functions instead of bind do extra re-render when passed to child
+								
+								//https://reactjs.org/docs/forms.html
+								-> form
+								this.setState({value: event.target.value});
+								//partial form update
+								this.setState({
+									[name]: value
+								});
+								
+								//https://reactjs.org/docs/lifting-state-up.html
+								-> lifting state up
+									pass method from parent to child prop childPropName={parentHandlerFunc}
+									call child prop this.props.childPropName
+								
+								//Overal component logic
+								container -> no html; contains wrapping <div>; data and behaviour to presentation; render;
+								presentation -> only render and very simple logic;
+							]			
+							
+							stateFlow[
+								componentDidMount() -> runs after constructor
+									componentWillUnmount <- runs when comp removed from DOM
+									//https://reactjs.org/docs/state-and-lifecycle.html
+									setState -> Indirect, async, merge
+										-> //indirect
+										setState({objProp:value}) instead this.state.objProp = value
+										->//async
+										// Wrong
+											this.setState({
+											  counter: this.state.counter + this.props.increment,
+											});
+											// Correct
+											this.setState((state, props) => ({
+											  counter: state.counter + props.increment
+											}));
+											// Correct
+											this.setState(function(state, props) {
+											  return {
+												counter: state.counter + props.increment
+											  };
+											});
+										-> //merged
+											componentDidMount() {
+												fetchPosts().then(response => {
+												  this.setState({
+													posts: response.posts
+												  });
+												});
+
+												fetchComments().then(response => {
+												  this.setState({
+													comments: response.comments
+												  });
+												});
+											}
+									
+									-> pass state as props to child component
+							]
+							
+							templates[
+							
+								Conditional component nesting
+								ContainerBoilerplate
+								PresentationBoilerplate
+								...get from reactreduxcore
+								
+								ConditionalNestedComponent
+								[
+
+									methodA()
+									{
+										<div>Element</div>
+										{methodB(condition)}
+									}
+									methodB(cond)
+									{
+										if(cond){
+											return(
+												<div>Conditional element</div>
+											)
+										}
+									}			
+
+								]
+								
+								
+							
+							]
+			
+							code_examples[
+							
+								//nested tree with 4 folder arch
+								https://codesandbox.io/s/github/reduxjs/redux/tree/master/examples/tree-view
+							
+							]
+		
+							CSS_component_libs[
+							
+								tree_css_eamples[
+									https://react.rocks/tag/TreeView
+								]
+		
+								//acordion example
+								https://v2.grommet.io/accordion?c=DwQQxmD2BOAmCWkB2A+AUAAg6CMHIAUBDJAUwBsNyiAjCgXgCJizKBGR9LLYAIUgAeGAA5FYTALakEAVwmMMNImADWAc2iQZScY3Lw1ACwAuAWgBMnTNx4AVUgOMoA8mWAB6e4643s4KHCISCwUVLQMzCShHD48-EKiulKy8orK6prauvpGZpax3MBeTq6kHsUFHvE+Hv54QSHkle7V1rW4gYRRTW11ncHdYXTkTI0Y+dZxgiJiktLwcgpKqhpaOkw5JhZWvtgVtgDukOUOTpPYLYI17n34A6zo7QF3KEA
+							
+								//gourmet
+								https://v2.grommet.io/accordion
+							]
+							
+						]
+					
+						Redux[
+
+							import { Provider } from 'react-redux'
+							import store from './redux/store'
+							
+							subscribe to store
+								true: subscribe to the values that mapStateToProps extracts from the store, 
+									and re-render only when those values have changed
+								false: not re-render when the store changes
+								
+							inject action creators 
+								true: receive all of the action creators you inject with mapDispatchToProps 
+									as props and automatically dispatch the actions upon being called
+								false: receive props.dispatch that you may use to manually dispatch action
+							
+							funcs[
+								(state, action) => state
+
+								function ctr(state,action){
+									switch(action.props){
+
+									}
+								}
+								
+								//subscribe,dispatch,getState
+								const red = combineReducers({ctr,ctr2})
+								store = createStore(ctr);
+									optional->createStore(combineReducers,initialState,applyMiddleware)
+								str.subscribe()			
+								str.dispatch({action.Prop:val})
+								
+								//connect(mapToProps,mapToState)(Component)
+							]
+							
+							https://blog.isquaredsoftware.com/presentations/workshops/redux-fundamentals/ui-layer.html#/4
+							BasicUIintegration
+							[
+							
+								// 1) Create a store
+								const store = Redux.createStore(counter)
+
+								// 2) Subscribe to store updates
+								store.subscribe(render);
+
+								const valueEl = document.getElementById('value');
+
+								// 3. When the subscription callback runs:
+								function render() {
+									// 3.1) Get the current store state
+									const state = store.getState();
+
+									// 3.2) Extract the data you want
+									const newValue = state.toString();
+
+									// 3.3) Update the UI with the new value
+									valueEl.innerHTML = newValue;
+								}
+
+								// 4) Display the UI with the initial store state
+								render();
+
+								// 5) Dispatch actions based on UI inputs
+								document.getElementById("increment")
+									.addEventListener('click', () => {
+										store.dispatch({type : "INCREMENT"});
+									})
+							]
+							
+						]
+						
+							
+						react+redux_impl [
+			
+							npm install --save react
+							npm install --save redux
+							npm install --save react-redux
+							
+							flow[
+								-> map props in action to object, map props from object to state in reducer
+								
+								view -[action]-> dispatcher -> store -> view
+
+								view-[action]->store
+								state = reducer(state,action);
+
+								store -> createStore(),dispatch(), getState()
+								this.state -> store.getState();
+							]
+							
+							binding[
+							
+								//binding from container -> presentation
+								<TextBox oninputfunc={this.textchangedaction} text={this.state.initialText}/>
+								//binding from createStore
+								oninputfunc: (e) => {
+									dispatch(TextChangedWithValue(e.target.value));
+								}
+								//in presentation component props value
+								onChange={props.oninputfunc} value={props.text}
+								
+							]
+							
+							folder_shema[
+
+								presentation -> container -> redux [
+									action, action creators, connect
+								]
+								reducer(state,acton) => state from switch 
+								store (action) => actrion from reducer
+								
+								//
+								index.js -> entry point with create store , render, provider tag
+								//redux
+								/actions -> action classes
+								/reducers -> const (state,action) => switch
+								/reducers/index.js -> combineReducers
+								//react + redux
+								/presentation -> presentations const t =() => {}, validation
+								/continers -> mapStateToProps , mapDispatchToProps,
+									connect(mapStateToProps , mapDispatchToProps)(PresentationComp)
+
+							]
+							
+							patterns_shema[
+
+								presentation -> 
+
+								cnontainer -> 
+									mapState{map state to props}
+									mapDispatch{map events to actions}
+									const ComponentNew = connect(mapState,mapDispatch)(Component);
+									export default connect({Component})(ComponentNew)
+										
+									const App = () => (
+									  <div>
+										<ComponentNew />
+										<OtherComponents />
+									  </div>
+									);
+
+								actionType ->
+									actionBuilder
+									reducer(state,action){switch}
+
+								const reducerForStore = combineReducers({
+								  propNameOne: reducerOne,
+								  propNameTwo: reducerTwo,
+								});
+
+								const store = createStore(reducerForStore);
+
+								import{ Provider } from'react-redux';
+								const WrappedApp = () => (
+								  <Provider store={store}>
+									<App />
+								  </Provider>
+								);
+
+							]
+							
+							sample[
+												
+								import React from 'react';
+								import uuid from 'uuid';
+								import { createStore, combineReducers } from 'redux';
+								import { Provider, connect } from 'react-redux';
+
+								presentation.action
+
+								mapStateToProps -> binds state props to presentation props
+								mapDispatchTorops -> binds presentation action to action type
+
+								const ThreadTabs = connect(
+								  mapStateToProps,
+							
+								mapDispatchTorops
+								)(presentation);
+
+								container
+
+								//connect results to app with tags
+								const App = () => (
+								  <div className='ui segment'>
+									<ThreadTabs />  
+								  </div>
+								);
+
+								//app to redux wrapper
+								const WrappedApp = () => (
+								  <Provider store={store}>
+									<App />
+								  </Provider>
+								);
+
+								//export wrapperapp
+								export default WrappedApp;
+
+							]
+						
+						]
+						
+						
+						//small redux
+						Formik[
+							https://jaredpalmer.com/formik/
+						]
+						
 						socketIO[
 							
 							//chat app
@@ -1516,7 +3475,48 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							https://zeptojs.com/
 							https://mootools.net/
 						]
-
+						
+						nodeJSwebFrameworks[
+							
+							//https://nodesource.com/blog/next-nuxt-nest/
+							//next js
+							https://nextjs.org/
+							//nuxt
+							https://nuxtjs.org/
+							//nest js (above Express)
+							https://docs.nestjs.com/							
+							
+							//https://nodesource.com/blog/Express-Koa-Hapi
+							https://expressjs.com/
+							https://koajs.com/
+							https://hapijs.com/
+							
+						]
+						
+						GraphQL[
+							//GraphQL
+							https://graphql.github.io/learn/queries/
+							https://github.com/alumbra/alumbra
+							https://github.com/graphql/graphiql
+							https://fullstackmark.com/post/17/building-a-graphql-api-with-aspnet-core-2-and-entity-framework-core
+						]
+						
+						ORMs[
+						
+							//JS ORMs
+							//mongoose
+							https://mongoosejs.com/
+							//sequelize
+							http://docs.sequelizejs.com/
+							//typeORM
+							https://github.com/typeorm/typeorm
+							//prisma
+							https://www.prisma.io
+							https://github.com/prisma
+							//hasura
+							https://hasura.io/
+							
+						]
 						
 					]
 					
@@ -1526,11 +3526,59 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 						]				
 					]
 					
+					JS_libs
+					[
+						//drag ndrop
+						https://shopify.github.io/draggable/docs/
+						https://github.com/Shopify/draggable/tree/master/src/Draggable
+						
+						//json graph edit
+						https://gojs.net/latest/samples/stateChart.html
+						
+						//trash
+						https://davidwalsh.name/drag-drop-elements-trash-mootools
+						
+						//feathers player
+						https://docs.feathersjs.com/
+					]	
 					
-				
+					Lit[
+		
+						//miminizing reflows on DOM
+						[
+							.createDocumentFragment(), classList.add({}) ,display: none;
+							Timeline
+						]
+						https://www.sitepoint.com/10-ways-minimize-reflows-improve-performance/
+						
+						//CSS flexbox
+						https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Basic_Concepts_of_Flexbox
+							
+							flex container -> display : felx/inline-flex
+								makes children FLEX_ITEMS
+							
+							Main-axis -> flex-direction:column
+							Cross axis -> flex-direction:row;
+						
+							initial display:flex  RULES ->
+								flex-direction:row;
+								from start
+								not stretch to main axisshrink along cross axis
+								flex-basis:auto;
+								flex-wrap:nowrap;
+						
+						//CSS GRID
+						https://medium.com/the-andela-way/using-css-grid-and-box-alignment-properties-to-build-form-layouts-b5f7ade6e73d
+												
+					]
+					
 				]
 				
 				CSS[
+					
+					code[
+						> - child combinator, applied to children
+					]
 					
 					//css compatible colors
 					http://paletton.com/#uid=75C0W0klllljw6Jkre1mfsEnaGR
@@ -1977,13 +4025,63 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 			//devops tools periodic table
 				https://xebialabs.com/periodic-table-of-devops-tools/
 			]
+			
+			ML[
+				http://course18.fast.ai/ml
+			]
+			
+			sql[
+				UPDATEvsINSERTDELETE[
+					https://stackoverflow.com/questions/1271641/in-sql-is-update-always-faster-than-deleteinsert
+				]
+			]
+			
+			//progressive web Apps
+			PWA[
+				https://medium.com/@amberleyjohanna/seriously-though-what-is-a-progressive-web-app-56130600a093
+			]
+			
+			Docker[
+			
+				overall[
+//->
+echo -e "FROM busybox\nCOPY /hello /\nRUN cat /hello" > Dockerfile 
+//<-
 
+mkdir myproject && cd myproject
+echo "hello" > hello
+(echo FROM busybox && echo COPY /hello / && echo RUN cat /hello) > Dockerfile
+docker build -t helloapp:v1 .
+
+mkdir dockerfiles context
+move Dockerfile dockerfiles && move hello context
+docker build --no-cache -t helloapp:v2 -f dockerfiles/Dockerfile context
+
+
+mkdir di 
+cd di
+
+(echo FROM mcr.microsoft.com/windows/servercore:ltsc2019 && echo LABEL maintainer="jshelton@contoso.com" && echo RUN dism.exe /online /enable-feature /all /featurename:iis-webserver /NoRestart && echo RUN echo "Hello World - Dockerfile" > c:\inetpub\wwwroot\index.html ) > Dockerfile"
+
+docker build -t mvccoresb .
+docker run -d -p 8080:80 --name myapp mvccoresb
+
+//inspect 
+docker logs -f <container ID>
+docker images
+
+				]
+				
+			]
+			
 		]
 
 		
 		
 		learningProgramms[
-		
+			
+			cis 2750 computer science
+			
 			//5months
 			cpp[
 
@@ -2266,46 +4364,45 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 							
 			MachineLearning[
 			 
-				 Введение в нейронные сети и глубокое обучение[
-				В первом модуле участники познакомятся с нейронными сетями и задачами которые можно решить с их помощью, а так же воспользуются фреймворком pyTorch для создания первой нейронной модели.
-				Искусственный интеллект и другие задачи которые можно решать с помощью нейронных сетей
-				Участники узнают что такое искусственные нейроны для того, чтобы понимать из чего состоят искусственные нейронные сети
-				Смогут определять какие задачи можно решить с помощью нейронных сетей для того, чтобы формализовать абстрактные задачи от заказчика
-				Научатся пользоваться и искать необходимые функции в библиотеке pyTorch для того чтобы иметь возможность реализовывать нейронные сети.
-				Домашние задания: 1
-				ДЗ
-				Введение в PyTorch. 1. Используя скрипт salt.py посчитать хэш от своего имени. Суть задания подтвердить запуск докера.
-				2. Сделать свой transform, переводящий данные в распределение N(0, 1) и выложить код в Slack. Проверить код 3х коллег и отписаться в ветку к выложенному коду.
-				Теоретические основы обучения нейронных сетей
-				Участники вспомнят(узнают) необходимую теорию для того чтобы успешно пройти данный курс
-				Узнают как реализовать свою первую модель машинного обучения для того чтобы уметь решать задачу классификации
-				Домашние задания: 1
-				ДЗ
-				Логистическая регрессия на pyTorch. В файле log_reg.ipynb изменить код таким образом, чтобы решить ту же самую задачу, а именно обучить логистическую регрессию, на двумерных данных
-				Погружение в pyTorch
-				Участники узнают о том как происходит обучение нейронных сетей в pyTorch для того чтобы реализовывать глубокие нейронные сети
-				Познакомятся с фреймворком pyTorch для того чтобы искать необходимые классы и методы
-				4 июля, 20:00 — 21:30
-				Домашние задания: 1
-				ДЗ
-				Классификация рукописных цифр 1. 1. Дополнить код однослойной полносвязной сети для классификации рукописных цифр
-				2. Изменить архитектуру классификатора добавив дополнительные слои
-				Переобучение и регуляризация нейронных сетей
-				Участники узнают что такое переобучение и как с ним бороться для повышения эффективности своих моделей
-				7 июля, 10:00 — 11:30
-				Домашние задания: 1
-				ДЗ
-				Переобучение 1. Добиться от классифкатора рукописных цифр переобучения за счет изменения архитектуры и гиперпараметров.
-				Взрыв и затухание градиентов
-				Участники научатся бороться с проблемой взрыва/затухания градиентов для того чтобы обучать глубокие нейронные сети
-				11 июля, 20:00 — 21:30
-				Домашние задания: 1
-				ДЗ
-				Нормировка 1. Реализовать инициализацию весов сети классификатора методами Хе/Ксавьера и сравнить эффективность с инициализацией по-умолчанию
-
+				Введение в нейронные сети и глубокое обучение[
+					В первом модуле участники познакомятся с нейронными сетями и задачами которые можно решить с их помощью, а так же воспользуются фреймворком pyTorch для создания первой нейронной модели.
+					Искусственный интеллект и другие задачи которые можно решать с помощью нейронных сетей
+					Участники узнают что такое искусственные нейроны для того, чтобы понимать из чего состоят искусственные нейронные сети
+					Смогут определять какие задачи можно решить с помощью нейронных сетей для того, чтобы формализовать абстрактные задачи от заказчика
+					Научатся пользоваться и искать необходимые функции в библиотеке pyTorch для того чтобы иметь возможность реализовывать нейронные сети.
+					Домашние задания: 1
+					ДЗ
+					Введение в PyTorch. 1. Используя скрипт salt.py посчитать хэш от своего имени. Суть задания подтвердить запуск докера.
+					2. Сделать свой transform, переводящий данные в распределение N(0, 1) и выложить код в Slack. Проверить код 3х коллег и отписаться в ветку к выложенному коду.
+					Теоретические основы обучения нейронных сетей
+					Участники вспомнят(узнают) необходимую теорию для того чтобы успешно пройти данный курс
+					Узнают как реализовать свою первую модель машинного обучения для того чтобы уметь решать задачу классификации
+					Домашние задания: 1
+					ДЗ
+					Логистическая регрессия на pyTorch. В файле log_reg.ipynb изменить код таким образом, чтобы решить ту же самую задачу, а именно обучить логистическую регрессию, на двумерных данных
+					Погружение в pyTorch
+					Участники узнают о том как происходит обучение нейронных сетей в pyTorch для того чтобы реализовывать глубокие нейронные сети
+					Познакомятся с фреймворком pyTorch для того чтобы искать необходимые классы и методы
+					4 июля, 20:00 — 21:30
+					Домашние задания: 1
+					ДЗ
+					Классификация рукописных цифр 1. 1. Дополнить код однослойной полносвязной сети для классификации рукописных цифр
+					2. Изменить архитектуру классификатора добавив дополнительные слои
+					Переобучение и регуляризация нейронных сетей
+					Участники узнают что такое переобучение и как с ним бороться для повышения эффективности своих моделей
+					7 июля, 10:00 — 11:30
+					Домашние задания: 1
+					ДЗ
+					Переобучение 1. Добиться от классифкатора рукописных цифр переобучения за счет изменения архитектуры и гиперпараметров.
+					Взрыв и затухание градиентов
+					Участники научатся бороться с проблемой взрыва/затухания градиентов для того чтобы обучать глубокие нейронные сети
+					11 июля, 20:00 — 21:30
+					Домашние задания: 1
+					ДЗ
+					Нормировка 1. Реализовать инициализацию весов сети классификатора методами Хе/Ксавьера и сравнить эффективность с инициализацией по-умолчанию
 				]
 
-				 Основные архитектуры и методы обучения нейронных сетей.[
+				Основные архитектуры и методы обучения нейронных сетей.[
 				Участники поработают с базовыми архитектурами нейронных сетей, и научатся решать типичные задачи анализа данных.
 				Основные архитектуры нейронных сетей: Автокодировщики
 				Участники узнают какие задачи можно решать с помощью автокодировщиков и смогут их создавать для решения этих задач
@@ -2399,6 +4496,31 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 
 			]
 			
+			//artificial intelligence, machine learning, deep learning, neural networks
+			AI ML DL NN
+			[
+
+				artificial intelligence vs machibe learning vs deep learning
+				https://skymind.ai/wiki/neural-network
+
+				edx
+				//harvard machine learning
+				https://www.edx.org/course/data-science-and-machine-learning-capstone-project
+				//Python Data Science
+				https://www.edx.org/professional-certificate/python-data-science
+				//data science
+				https://www.edx.org/professional-certificate/harvardx-data-science
+
+				corsera
+				https://courses.edx.org/courses/course-v1:HarvardX+PH125.8x+2T2018/courseware/b8c4fdd4e2324e65a7c9660caa5c8193/4b71b896b7dc48ab8a8a60e4f732b7c0/?child=first
+				//neural networks
+				https://www.coursera.org/learn/neural-networks-deep-learning?action=enroll
+
+				//brilliant neural networks
+				https://brilliant.org/practice/learning-problems-for-neural-networks/?p=2
+
+			]
+
 		]
 
 		katas[
@@ -2411,10 +4533,194 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 			https://www.codewars.com/
 			http://codekata.com/
 			https://code.google.com/codejam/
+			
+			https://www.hackerrank.com/interview/interview-preparation-kit/warmup/challenges
+			https://leetcode.com/problemset/all/
+			
 		]
 
-		sources[
+		jobHiringAndQualities[
+			
+			https://www.dailycodingproblem.com/
+			
+			https://habr.com/ru/post/411671/
+			
+			//cost of living
+			https://www.numbeo.com/cost-of-living/
+			//target hiring
+			https://www.glassdoor.com/employers/our-products/employer-branding/
+			//company insight
+			https://www.teamblind.com/articles/Topics
+			
+			https://geekbrains.ru/posts/relocation_work_resources
+			
+			https://www.toptal.com/dot-net
+			https://rubrain.com/
+			https://angel.co/jobs
+			http://mu.theitjob.com/search/search-jobs.asp
+			
+			https://www.hackerrank.com/
+			https://leetcode.com/
+			
+			HackerRank, TopCoders, CodeChef
+			https://www.honeypot.io/
+			
+			//freelance
+			https://www.upwork.com/
+			
+			cs[
+				message_btokers[
+					EMS, MSMQ, RabbitMQ, ActiveMQ
+				]
+				
+				requirements[
+
+c# 7+ syntax, .net 4.6+
+SQL 
+DI -> Autofac,Catle Windsor, Unity
+ORM -> ADO.NET, EF, NHIBERNATE, DAPPER
+Testing -> NUnit, xUnit, RhinoMock, NSubstitute, Moq
+Design -> SOLID, DDD, GOF
+Technics -> Async Multithreading
+MSA -> MSMQ, Rabbit, kafka
+
+x Способность дебажить в голове рекурсию и многопоточный код
+o Крепкая дружба с ООП и полиморфизмом
+x Уверенный SQL
+x Дружить со стеком и кучей. CLR, BCL и прочий Рихтер
+x LINQ: EF, L2SQL или другие ORM
+o Юнит и интеграционное тестирование, рефакторинг, TDD
+
+
+o Архитектура: шаблоны ООП, DDD (Фаулер, Эванс, GoF)
+x Планы запросов, O(n), хэштаблицы и прочие структуры данных
+o Front-end: react / redux / typescript
+o Гуглить и читать на английском
+x Статьи, выступления, opensource
+o Положительный опыт работы в крупных компаниях и нежелание туда возвращаться
+x Сопроводительное письмо
+
+				]
+								
+				
+			]
+			
+			cpp[
+				
+				machinelearning[
+					Machine Learning, Deep Learning, Data Mining, Deep Reinforcement Learning
+				]
+				
+				utilits[
+					WinDBG, Sysinternals, WPP, xperf, API Monitor, IDA Pro
+				]
+			
+				security[
+					Win32/NT API, x64, IPC, службы, инжект, перехват функций, недокументированные возможности
+				]
+			]
+			
+				
+			employ[
+			
+				
+				codingskills[
+					Leetcode,Geeksforgeeks
+				]
+				
+				systemdesign[
+					http://blog.gainlo.co
+					http://horicky.blogspot.com
+					https://www.hiredintech.com/classrooms/system-design/lesson/52
+					http://www.lecloud.net/tagged/scalability
+					http://tutorials.jenkov.com/software-architecture/index.html
+					http://highscalability.com/
+				]
+				
+				machinelearning[
+					Elements of Statistical Learning and Pattern Recognition and Machine Learning 
+				]
+				
+				.net[
+					Знание таких продуктов и технологий как Redis, ElasticSearch, Kafka, RabbitMQ
+					Опыт имплементации сбора и визуализация метрик (Carbon/Graphite/Grafana, collectd, Prometheus и .тд)
+					Опыт разработки интеграционных веб-сервисов (REST, gRPC)
+					Опыт использования нереляционных БД (ClickHouse, Tarantool, MongoDB, Cassandra, и т.д.)
+					Опыт разработки под OpenGL или WebGL
+				]
+			
+			]
+			
+			skills[
+				offline, poor connection, optimistic updates, live updates, stateless server
+				
+				datascience[
+				
+					ML[
+Required Technical and Professional Expertise
+
+A Master’s Degree holder in computer science or related field with at least three years professional experience in Machine Learning/AI and statistics.
+Track record of publications in machine learning / artificial intelligence domain.
+Significant experience of incorporating ML & AI concepts into product/service solutions with a focus on deep learning.
+Solid experience in using Python numerical and scientific libraries.
+Experience in sharing data science/machine learning experiment results with both technical and business oriented people.
+Proven track record leading industrial projects with strict deadlines.
+
+
+Preferred Tech and Prof Experience
+
+5+ years of demonstrated Machine Learning, Artificial Intelligence experience.
+Familiarity with open source big data solutions, such as Apache Hadoop, Spark, and Kafka.
+Experience working on spatiotemporal datasets.
+Experience in big data processing.
+Experience with deep learning frameworks such as Theano, Torch or Tensorflow will be a big plus.
+Proven track record of innovation in creating novel algorithms and advancing the state of the art through a strong publication record, e.g. TKDE, TIST, KDD, SIGSPATIAL etc.
+Experience in collaborating and working in a team with development, cloud and other such expertise is a plus.
+Experience with EU projects such as FP6, FP7, or H2020 is a big plus.
+					]
+					
+					IBM[
+Programming skills with Python or/and R and libraries like Scikit, NumPy or Pandas
+Knowledge in Machine and Deep learning frameworks like Tensorflow, CAFFE or Torch
+Knowledge in SPPS or/and SAS will be also valued.
+Experience in natural language processing techniques
+Exposure to Big data technologies as Hadoop, MapReduce, Hive, Spark, Impala
+
+• Degree in Statistics, Mathematics, Physics, Quantitative Economics or Engineering
+• Postgraduate studies in the area of Big Data, Machine Learning, Deep Learning, Business Analytics or Business Intelligence will be strongly valued.
+					]
+				
+					deutchebank[
+						Languages & tools: 
+							- Python  умение писать красивый код, работа с классами, разработка pipelines, unit-тесты; 
+							- SQL; 
+							- опыт работы с Git; 
+							- основы работы в UNIX/Linux shell; 
+							- Spark, Hive  большой плюс; 
+							- опыт работы с Jira, Confluence  средний плюс; 
+							- опыт подготовки и процессинга данных (текст, табличные данные, временные ряды); 
+							- глубокое понимание и опыт применения основных линейных/нелинейных моделей, методов кластеризации, умение работать с временными рядами; 
+							- mae, rmse, log loss, roc auc, precision@k etc.  понимание что в каких задачах применять; 
+							- neural networks, computer vision, reinforecement learning etc.  плюс в карму; 
+							- понимание workflow DS проектов (CRISP-DM, аналоги); 
+							- умение поставить эксперимент, провести A/B тест, оценить значимость результатов; 
+							- уровень владения английским языком не ниже intermediate.
+					]
+				]
+			
+			]
 		
+		]
+
+		
+		
+		sources[
+			
+			/stack compare
+			https://stackshare.io/
+			//vanture cmps list
+			https://www.crunchbase.com
+			
 			//IBM Patterns
 			https://developer.ibm.com/code/patterns/
 			
@@ -2518,7 +4824,14 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 					//ui
 					ip.addr==10.200.232.87
 				]
-		
+				
+				fiddler[
+					
+					//url collection
+					http://localhost:53772/SocialMeetup/CreateForCamerasList?cameraIds=d6710957-b287-4aea-9230-e872f73d29ca&cameraIds=d6710957-b287-4aea-9230-e872f73d29ca&cameraIds=d6710957-b287-4aea-9230-e872f73d29ca
+					?name=val&name=val
+	
+				]
 			]
 			
 			WCF[
@@ -2659,11 +4972,48 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			
 			]	
 			
+			//react,webpack,babel
+			cmd[	
+				npm install --save react
+				npm install --save redux
+				npm install --save react-redux
+				npm install --save react-dom
+
+				npm install --save-dev webpack
+
+				npm install --save-dev @babel/preset-react
+				npm install --save-dev @babel/preset-env 
+
+				npm install --save-dev @babel/plugin-proposal-class-properties		
+				npm install --save @babel/polyfill
+				npm install --save-dev @babel/core @babel/cli @babel/preset-env
+				//>>> babel 7 is crusial
+				npm i babel-loader@7 -D
+				
+				npm install -D babel-loader @babel/core @babel/preset-env webpack
+				npm install -D @babel/core @babel/preset-env webpack
+				
+				npm audit fix
+				
+				//hot load
+				npm install --save-dev html-webpack-plugin
+				npm install webpack-dev-server --save-dev			
+				npm install --save-dev clean-webpack-plugin
+				npm install --save-dev react-hot-loader
+				npx webpack-dev-server --hotOnly
+				
+				//hot rebuild
+				npx webpack --watch
+				
+				//show references
+				npx npm-why babel/core 
+			]
+			
 		]
 
 		//Decompose to Products,Companies,Tools
 		CompaniesOrgsProductsAndTools[
-			
+
 			//mremoteNc manual
 			https://github.com/mRemoteNG/mRemoteNG/wiki/User-Manual
 			//db viewver
@@ -2696,11 +5046,9 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://www.heidisql.com/
 			
 			
-		
 			stylecop
 			https://blog.submain.com/stylecop-detailed-guide/
 		
-	
 			static_analysis[
 				stylecop
 				https://blog.submain.com/stylecop-detailed-guide/
@@ -2778,23 +5126,10 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				//quartz				
 				https://jayvilalta.com/blog/2014/06/04/understanding-the-disallowconcurrentexecution-job-attribute/
 			]
-			
-			JS_libs[
-			
-				libs
-				[
-					//drag ndrop
-					https://shopify.github.io/draggable/docs/
-					https://github.com/Shopify/draggable/tree/master/src/Draggable
-					
-					//json graph edit
-					https://gojs.net/latest/samples/stateChart.html
-					
-					//trash
-					https://davidwalsh.name/drag-drop-elements-trash-mootools
-				]
-			
-			]
+			.NETdecompilers[
+				IlSpy
+				https://github.com/icsharpcode/ILSpy/releases
+			]	
 			
 			Prototyping[
 			
@@ -2812,7 +5147,42 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				]
 				
 			]
+			
+			Code_transpillers[
 
+				//universal transpiler
+				https://github.com/jarble/transpiler
+
+				//code worker
+				http://codeworker.free.fr/
+
+				//jtransc
+				https://github.com/jtransc/jtransc
+
+			]
+
+			parserGeberators[
+				//ANTLR
+				https://en.wikipedia.org/wiki/ANTLR
+			]
+			
+			code_generators[
+				https://tomassetti.me/code-generation/
+				https://github.com/jaxio
+			]
+			
+			site_generators[
+				//website gen
+				https://www.sitepoint.com/static-site-generators/
+			]
+			
+			APIgenerators[
+				//Generates GraphQL client for database
+				https://www.prisma.io
+			]
+			
+			
+			
 		]
 		
 		comunities[
@@ -2831,15 +5201,271 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 		
 		Literature[
 			
-			//books share
-			https://www.twirpx.com/search/
-			bikesell_2@mail.ru
-			q2w3e4
-
 
 			Books[
 				
+				CLRviaCShrp
+				[
 				
+					CLR -> manged module for 32x or 64x PE32, PE32+
+					C# -> compiler -> managed module
+					Basic -> basic compiler -> -=-
+					IL source -> IL assembler -> -=-
+					
+					IL - JIT compiler-> CPU instr
+					
+					Managed module IL + metadata(GC collected datatypes) 
+						(Data execution prevention DEP, Address space layput randomization ASLR)
+					[
+						PE32, PE32+ header -> windows header simmilar to COFF format , indicates file type 
+						GUI, CUI, DLL
+						
+						CLR header -> header, flags, methodDef, entry point (Main )
+						
+						metadata -> tables of types and methods deined, table with types and members refrenced
+						(
+							o- always embeded in exe
+							o- removes need in c/c++ header files
+							o- intelisense, typechecking, GC
+						)
+						
+						
+						IL code -> code compiled from source. CLR at runtime copmiles IL to CPU instr
+					]
+					
+					clr works with assembly [
+						manifest - assembly metadata table containing files representing the assembly
+						public export types implemented by asm files
+						resource or data files associated with the asm
+					]
+					
+					IL - heigher level language then most CPU machine
+					all CLR facilivies available
+						o- access and manipulate obj type
+						o- create and init objs
+						o- call virt methods on objects
+						o- manipulate arr directly
+						o- err handling
+						
+					p. 16
+					EXECUTION - 
+						before main executes CLR allocates internal datastructure to managed ref types access
+						internal structure for each method with its implementation address
+						on initialization sets each entry to undocummented function incide CLR => JITcompiler
+						
+						Main - first call to first method-> JITcompiler function call
+						
+						JITcompiler -> compiles native IL code to native CPU instr
+							(knows method and type on call)
+						-> searchs asm metadata for clled method IL
+						-> native CPU instr saved to dynamic mem block
+						-> goes back to CLR internal datastruc and replaces reference to method with addr of compile mem block
+						-> jumps to mem block of compiled
+					
+					p. 18
+					DEBUG MODE		
+						-> generates nop IL instr, for breakpoints placement
+							//optimize[+/-] /debug[+/-] 
+					compiler switch:
+						default -> /optimize- /debug- -> ILcode(unopt) JIT native( opt)
+						-> /optimize- /debug(+/full/pdbonly) -> ILcode(unopt) JIT native( unopt)
+						-> /optimize+ /debug(-/+/full/pdbonly) -> ILcode(opt) JIT native( opt)
+					
+					p. 19-20
+					.PDB (Programm database) - helps debug find local vars and map IL instr to source.
+					
+					System.Runtime.ProfileOptimization -> causes CLR to record methods optimized by JIT
+						on multiple CPU would compiles concurrently
+					
+					IL -> 
+						o- stackbased, no registers, easy to target CLR
+						o- typeless
+						o- verification while CLR compiles IL to CPU source 
+							varification(
+								o- parameter number & type check
+								o- return val usage				
+							)
+					
+					p. 21
+					Virtual address space VAS ->
+					
+					CLR -> offers ability to execute several AppDomains in single OS process
+					
+					unsafe code -> 
+						/unsafe -> can work on memory directly
+						o- JIT compiler checks assembly befor compile unsafe on 
+							System.Security.Permissions.SecurityPermission 
+							and 
+							System.Security.Permissions.SecurityPermissionFlag’s SkipVerification 
+						
+						throws -> 
+							System.InvalidProgramException or a System.Security.VerificationException
+					p. 23-24
+						NGen.exe -> 
+							o- usefull for start optimizing 
+							o- asm loaded into multiple processes
+							o- %SystemRoot%\Assembly genned asembly with native code location
+					
+						CLR searchs for precompiled native file and uses it, JIT compiles code only on absence
+						
+							x- no intellectual prop prot 
+							x- rassinhronization of (CLR ver, CPU type, Win ver, asm ID)
+							x- not creates optimiations and can perform slower/
+						
+						MPGO.exe - startup time optimization
+					
+					p. 25-26
+						Framework class library FCL -> DLL asm with type def and some funcionality
+							empl. System type with Object
+						
+						most_usefull[
+							System - basic types
+							System.Data - comunicating with database and processing
+							System.IO 
+							System.Net - low-level networ communication, protocols
+							System.RuntimeInteropServices - unmanaged code, COM, win32 functions or DLLs
+							System.Security - protecting data and resources
+							System.Text - 
+							System.Threading - asynchronous operations
+						]
+					
+					p. 27-29
+						Common Type System CTS -> 
+							Types:
+								Field, Method, Property (validation, readonly), Event
+							
+							Visibility rules:
+								Private
+								Famility/protected (derived types)
+								Family and assembly(derived if def in asm, not in C# but in IL)
+								Assembly(Internal)
+								Family or assembly(protected internal) derieved exist in asm
+								Public				
+							CTS defines inheritance rules, virtual methods, obj lifetime.
+							Type can dereive from once base class
+							
+							Sustem.Object 
+								o- compare intances for equality
+								o- get hash
+								o- shalow (bitwise) copy
+								o- get string representation
+								
+						ECMA-334,335
+							Common Language Specification CLS ->
+								o- defines rules for languages
+								o- language types accessible from other languages, to be CLS compliant
+								
+								check for cpmliance with CLS ->
+									[assembly:CLSCompliant(true)]
+							
+								Cross-Language Interoperability ->
+									https://docs.microsoft.com/en-us/previous-versions/730f1wy3(v=vs.100)
+								
+								o- defines everything as field(data) or method(behaviour)
+									all language concepts compiler translates into fields and methods
+									(enum, oper overload, conversion oper, index, 
+									delegates, events, construct, finilizers) from source code
+								
+						p.34
+							Interoperability with unmanaged code ->
+								o- call unmanaged code in DLL 
+									CreateSemaphore kernel32.dll
+								
+								o- access COM components
+									TlbImp.exe  converts COM lib types to CLR asm
+								
+								o- unmanaged code can use managed type (server)
+								
+								(WinRT) from win8 seamles comunication with NET due to ECMA spec
+					
+					
+					chapter_2
+					{assembly build, deploy}
+					[
+						p. 38
+						DLL hell - new versions of programms ovewrite older versions
+						complicated installation/uninstallation - files copied, registry updated
+									
+						System.Console. System.Console, IL in MSCorLib.dll
+						
+						Compiling console app with writeline with source.cs csc.exe ->
+							passing reference to MSCorLib.dll			
+							@MyProject.rsp - response file with command keys list
+								o- multiple support
+								o- local overrides global
+						
+						p. 42 - 43
+							.exe ->
+							contains metadata, CLR header, IL. 					
+							
+							CLR header :
+								o- maj min ver numbers, flags
+								o- mehodDef token informs if CUI,GUI or win store exe
+								o- size and offsets of metadata tables
+								o- IMAGE_COR20_HEADER on CorHdr.h format of CLR header
+								
+							METADATA: 
+								several defenition tables, reference, manifest tables
+									
+								defenitionTables:[
+									
+								ModuleDef:
+									entry defining module,
+									includes module's file, extension, module ver GUID,
+									helps CLR locate file at runtime
+								TypeDef:
+									entry for each type in module.
+									Typename, base tpye, access modifiers
+									indexes to MethodDef, FieldDef, PropertyDef, EventDef
+								MethodDef:
+									entry for every method in modeule. 
+									method name, access modif, 
+									signature offset within module to it's IL code
+									referents to ParamDef
+								FieldDef:
+									entry for fields, acces modif, names
+								ParamDef: 
+									entry for each parameter. flags (in,out, retval), type, name
+								PropertyDef:
+									properties, flags, type, name
+								EventDef:
+									event, flags,name
+									
+								]
+								
+								referenceTables[
+									AssemblyRef:
+										entry for each asm , name, version, culture, publick key token, hash.
+										CLR ignores hash
+									ModuleRef:
+										entry for PE module, name, extension, binds to types impl in modules in calling asm
+									TypeDef:
+										type name and ref.
+											ANOTHER TYPE -> TypeDef; 
+											ANOTHER MODULE -> ModuleRef; 
+											SAME MODULE -> ModuleDef
+										If type impl within ANOTHER TYPE, reference indicates 
+											TypeDef entryid 
+										If impl in ANOTHER MODULE ref indicates 
+											ModuleRef entry
+										If impl in the SAME MODULE ref indicate 
+											ModuleDef entry
+									MemberRef:
+										one entry for each field, prop, method, event referenced by module
+										name, signature, points to TypeRef
+								]
+					
+						p. 44 - 48
+							ILDASM:
+							ctrl-m on exe -> metainfo 
+								metadata, statistics
+						
+						p. 48
+							Combine modules to form asm 
+					]
+					
+				]
+	
 				//https://ungrid.unal.edu.co:8888/img/Microservices_Designing_Deploying.pdf
 				
 				//c++
@@ -2911,7 +5537,17 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				//the art of testing
 				http://barbie.uta.edu/~mehra/Book1_The%20Art%20of%20Software%20Testing.pdf
 				
+							
+				//angular book
+				http://www.nglesson.com/Livres/ng-book2-angular-5-r67.pdf
+
+				//react book
+				file:///F:/backup/workflow/files/lit/fullstack-react/fullstack-react.pdf
+
 				find[
+											
+					//C# 
+					the absolutely awesome book on c# and .net
 					
 					//the art of scalability 
 					http://theartofscalability.com/
@@ -2934,7 +5570,12 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 					
 					//Microelectronics Circuit Analysis and Design 4th Edition by Donald A Neamen (Author)
 					https://www.amazon.com/Microelectronics-Circuit-Analysis-Design-Donald/dp/0073380644
-					
+					//Reactive Applications with Akka.NET
+					https://www.manning.com/books/reactive-applications-with-akka-net
+					//Entity Framework Core in Action
+					https://www.manning.com/books/entity-framework-core-in-action?gclid=EAIaIQobChMIhpSe4f3X4QIVQ4eyCh3U1g_AEAEYASABEgKibPD_BwE
+					//Math for Programmers
+					https://www.manning.com/books/math-for-programmers?gclid=EAIaIQobChMIhpSe4f3X4QIVQ4eyCh3U1g_AEAEYASACEgKK0PD_BwE
 				]
 			
 			]
@@ -3040,19 +5681,16 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			
 				//Nahalem arhitecture
 				https://www.researchgate.net/publication/235960679_The_Architecture_of_the_Nehalem_Processor_and_Nehalem-EP_SMP_Platforms
-			
+				
+				//architecture of opensource applications
+				http://www.aosabook.org/en/index.html
+				
+				https://medium.com/@rhamedy/key-habits-and-things-i-wish-i-knew-earlier-as-a-developer-43c9466a0407
 			]					
 			
 		]
 		
-		music[
-			//techno renessance
-			https://www.electronicbeats.net/ptu-russian-artist-guide/
-		]		
-		films[
-			https://www.imdb.com/title/tt2268458/videoplayer/vi4034112025?ref_=tt_ov_vi
-			https://www.imdb.com/title/tt2268458/videoplayer/vi2510666009?ref_=vi_nxt_ap
-		]
+	
 		blogs[
 		
 			https://medium.com/reverdev/why-we-moved-from-angular-2-to-vue-js-and-why-we-didnt-choose-react-ef807d9f4163
@@ -3070,6 +5708,22 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://8thlight.com/blog/colin-jones/2017/10/24/advice-for-early-career-developers.html
 			//martin fowler
 			https://martinfowler.com/
+			
+			//twitter
+			//Rich Hickey
+			https://twitter.com/richhickey
+			//Eric Normand
+			https://twitter.com/ericnormand
+			
+			//cognitect labs
+			https://twitter.com/gigasquid
+			
+			//robotics
+			https://twitter.com/hashtag/robotics?src=hash
+			
+			//mxnet
+			https://twitter.com/hashtag/MXNet?src=hash
+			
 		]						   
 		
 		journals[
@@ -3079,41 +5733,13 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://www.nextplatform.com/
 			https://www.anandtech.com/
 			https://dzone.com/
+			http://www.aosabook.org/en/index.html
 			
 			//FIN
 			https://www.marketwatch.com/
 			
-		]
-		
-		jobHiring[
-		
-			HackerRank, TopCoders, CodeChef
-			https://www.honeypot.io/
-			
-			//freelance
-			https://www.upwork.com/
-			
-			cs[
-				message_btokers[
-					EMS, MSMQ, RabbitMQ, ActiveMQ
-				]
-			]
-			
-			cpp[
-				
-				machinelearning[
-					Machine Learning, Deep Learning, Data Mining, Deep Reinforcement Learning
-				]
-				
-				utilits[
-					WinDBG, Sysinternals, WPP, xperf, API Monitor, IDA Pro
-				]
-			
-				security[
-					Win32/NT API, x64, IPC, службы, инжект, перехват функций, недокументированные возможности
-				]
-			]
-			
+			//manga
+			https://mangalib.me/shingeki-no-kyojin
 		]
 		
 		craft[
@@ -3282,6 +5908,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 					https://ht-comp.ru/?filter_page_count=90&filter_show_image=1&action=show_price&catalog_mode=tree&class=2540
 				
 				]
+			
 			]
 			
 			rent[
@@ -3440,28 +6067,28 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				]
 				
 			]
-
-		]
-
-		realestate[
 			
-			flat[
+			keyboard[
+				ANSI vs ISO
+				https://geekboards.ru/page/keyboard_formats
 				
-				electro[
-					https://www.youtube.com/watch?v=YK6f4Imfh0E&t=638s
-				]
+				A4Tech KV-300H
+				https://www.mvideo.ru/products/klaviatura-provodnaya-a4tech-kv-300h-grey-black-50056748?cityId=CityCZ_975&reff=ggl_tov&gclid=EAIaIQobChMIidjggKWz4AIVDI6yCh2MCgUqEAEYASABEgIeyvD_BwE
+				DELL KB216
+				https://www.citilink.ru/catalog/computers_and_notebooks/periferiya/keyboards/335850/?mrkt=msk_cl&gclid=EAIaIQobChMIt6TN7aWz4AIVAsAYCh2uWwBsEAQYASABEgK57PD_BwE
 				
-				repairprices[
-					балкон 20-50
-					щиток 9-25
-				]
 			]
-
+	
 		]
-
-		unsorted
-		{
 		
+		unsorted
+		{		
+		
+			//whiteboard interviews
+			https://hackernoon.com/how-to-lose-an-it-job-in-10-minutes-3d63213c8370
+			//machine lerning algoritm
+			https://hackernoon.com/choosing-the-right-machine-learning-algorithm-68126944ce1f
+			
 			JS_unsorted
 			[
 				
@@ -3639,7 +6266,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			]
 			
 			craft[
-				eectro[
+				electro[
 					//electro power supply
 					https://www.kirich.blog/stati/informaciya-dlya-nachinayuschih/419-ustroystvo-impulsnyh-blokov-pitaniya-apfc.html
 					https://www.kirich.blog/stati/informaciya-dlya-nachinayuschih/333-iz-chego-sostoit-impulsnyy-blok-pitaniya-chast-3.html
@@ -3648,8 +6275,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 					https://3dnews.ru/911366
 				]
 			]
-
-
 			
 			science and technology[
 			
@@ -3659,7 +6284,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				https://www.youtube.com/watch?v=VexSq8NIqew
 					
 					neuroscience [
-
 
 						//literature 
 						https://www.uio.no/studier/emner/medisin/med/MF9150/h13/pensumliste/literature-list-mf-9150-essentials-of-neurophysiology-%28versjon-2%29.pdf
@@ -3683,15 +6307,10 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 					]
 				
 			]
-			
+
 			//most original movies
 			https://www.youtube.com/watch?v=Ycf1fcom6So
-			
-			
-			
-			//fail at microservices
-			https://www.youtube.com/watch?v=X0tjziAQfNQ
-
+			 
 			//c++ materials
 			https://vk.com/@tproger-cpp-digest
 			//c++ tricks
@@ -3710,17 +6329,657 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://tproger.ru/articles/problems/
 
 			toread[
-											
+				
+				
+				architecture[
+						
+//EF repository wrong
+https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502
+	
+//clean architecture explained
+https://habr.com/ru/company/mobileup/blog/335382/
+https://medium.com/gdplabs/clean-architecture-a8b5d93d0944
+				]
+				
+				core[
+					//react in core
+					https://developer.okta.com/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react
+					https://docs.microsoft.com/en-us/aspnet/core/client-side/spa/react?view=aspnetcore-2.2&tabs=visual-studio
+				]
+				
+				c#
+				[
+					
+					//ef wrong
+					https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502
+					
+					threading[
+						http://www.albahari.com/threading/
+					]
+					
+					async [
+
+//asynchronous programming
+https://docs.microsoft.com/en-us/dotnet/csharp/async
+//await
+https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/await
+//thread pool
+https://docs.microsoft.com/en-us/dotnet/api/system.threading.threadpool?view=netframework-4.7.2
+//APM
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/using-an-asynccallback-delegate-and-state-object
+		
+https://cpratt.co/async-tips-tricks/
+//async exceptions
+https://blogs.msdn.microsoft.com/ptorr/2014/12/10/async-exceptions-in-c/
+//async await best practices
+https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+//query to linq expression tree
+https://weblogs.asp.net/dixin/entity-framework-core-and-linq-to-entities-5-query-translation-implementation
+//yield return epl
+https://devblogs.microsoft.com/oldnewthing/20080812-00/?p=21273
+https://stackoverflow.com/questions/39476/what-is-the-yield-keyword-used-for-in-c 
+
+//c#  async awai tutorial
+https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/introduction
+
+//c# shoot in the leg with Tasks
+https://blog.maximerouiller.com/post/shooting-yourself-in-the-foot-with-c-tasks-continuewith/
+
+https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+
+//asynchronous programming patterns							
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/
+//system threading
+https://docs.microsoft.com/en-us/dotnet/api/system.threading?view=netframework-4.7.2
+//taks
+https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks?view=netframework-4.7.2
+//async in depth
+https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+//asynchronous programming
+https://docs.microsoft.com/en-us/dotnet/csharp/async
+//introduction to sync
+https://msdn.microsoft.com/en-us/magazine/dn802603.aspx
+//should my db calls be async
+https://blogs.msdn.microsoft.com/rickandy/2009/11/14/should-my-database-calls-be-asynchronous/
+//Understanding Async, Avoiding Deadlocks
+https://medium.com/rubrikkgroup/understanding-async-avoiding-deadlocks-e41f8f2c6f5d
+
+
+http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
+http://blog.stephencleary.com/2012/02/async-and-await.html
+https://msdn.microsoft.com/en-us/magazine/mt238404.aspx
+https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+https://stackify.com/csharp-async-await-task-performance/
+https://docs.microsoft.com/en-us/dotnet/framework/network-programming/asynchronous-server-socket-example
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
+https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/?view=aspnetcore-2.1
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
+https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=netframework-4.7.2
+
+//async 
+https://cpratt.co/async-tips-tricks/
+https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/structure-of-async-await
+https://medium.com/quick-code/react-quick-tip-use-class-properties-and-arrow-functions-to-avoid-binding-this-to-methods-29628aca2e25
+https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f
+https://msdn.microsoft.com/en-us/magazine/gg598924.aspx
+
+https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
+https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm
+https://devblogs.microsoft.com/dotnet/async-in-4-5-worth-the-await/
+https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+
+						//async 
+						https://cpratt.co/async-tips-tricks/
+						
+						https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+						https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+						
+						//async 
+						https://cpratt.co/async-tips-tricks/
+						https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/structure-of-async-await
+						https://medium.com/quick-code/react-quick-tip-use-class-properties-and-arrow-functions-to-avoid-binding-this-to-methods-29628aca2e25
+						https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f
+						https://msdn.microsoft.com/en-us/magazine/gg598924.aspx
+						
+						https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+						https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+						https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
+						https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/
+						https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
+						https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm
+						https://devblogs.microsoft.com/dotnet/async-in-4-5-worth-the-await/
+						https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+						
+						//https://stackoverflow.com/questions/13489065/best-practice-to-call-configureawait-for-all-server-side-code
+						ConfigureAwait(false) in classic asp.net in UI context
+						not saves thread jumps, saves context request
+						
+						
+						//useable only in parallel request, TPL better
+						
+						//cannot be tested in .net console
+						//test from .net web api UI
+						never user ...Async.Result() -> synch way, deadlock in asp.net WEB API
+						
+						APM
+						EAP
+						TAP,TPL
+						
+//async 
+https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
+					]
+									
+					enums_code_smell[
+						https://softwareengineering.stackexchange.com/questions/300080/when-are-enums-not-a-code-smell						
+						https://stackoverflow.com/questions/10809543/why-are-these-enums-bad
+					]
+
+https://csharpindepth.com/Articles/PropertiesMatter
+//async 
+https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
+
+
+
+
+					//c#  async awai tutorial
+					https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/introduction
+					
+					//c# shoot in the leg with Tasks
+					https://blog.maximerouiller.com/post/shooting-yourself-in-the-foot-with-c-tasks-continuewith/
+				
+					//query to linq expression tree
+					https://weblogs.asp.net/dixin/entity-framework-core-and-linq-to-entities-5-query-translation-implementation
+					//yield return epl
+					https://devblogs.microsoft.com/oldnewthing/20080812-00/?p=21273
+					https://stackoverflow.com/questions/39476/what-is-the-yield-keyword-used-for-in-c 
+					
+				
+					//readonly
+					https://codeblog.jonskeet.uk/2014/07/16/micro-optimization-the-surprising-inefficiency-of-readonly-fields/
+					https://softwareengineering.stackexchange.com/questions/132747/is-having-public-constants-bad
+					public readonly goes to backed into referenced assemblies
+					
+					https://csharpindepth.com/Articles/PropertiesMatter
+					//async 
+					https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
+					
+						
+					msdn[
+						
+						https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+							
+						//query exec
+						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/query-execution#immediate-query-execution
+						//standart query ops
+						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/standard-query-operators-in-linq-to-entities-queries
+						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/standard-query-operators-in-linq-to-entities-queries
+						https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2013/bb397896(v=vs.120)
+						//supported and unsuported linq
+						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/supported-and-unsupported-linq-methods-linq-to-entities
+						//query methods
+						https://docs.microsoft.com/en-us/dotnet/api/system.linq.queryable.any?view=netframework-4.7.2
+						
+						//CPU usage analize
+						https://docs.microsoft.com/en-us/visualstudio/profiling/beginners-guide-to-performance-profiling?view=vs-2017
+						//code profiling
+						https://docs.microsoft.com/en-us/visualstudio/profiling/beginners-guide-to-performance-profiling?view=vs-2015
+						//async
+						https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+						//native sql
+						https://docs.microsoft.com/en-us/dotnet/api/system.data.linq.sqlclient.sqlmethods?view=netframework-4.7.2
+						//ef core
+						https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-3.0/features
+						//c# ref
+						https://opdhsblobprod02.blob.core.windows.net/contents/c6aea4f5457448ee818b7292ba695982/68a07d048ee6f26b1aa8d66304d31f2a?sv=2015-04-05&sr=b&sig=u9Hpl0y6yB5fZi41T9CnaQOQgOLgqOt8TEEr5MwjVrg%3D&st=2019-04-01T07%3A50%3A48Z&se=2019-04-02T08%3A00%3A48Z&sp=r
+						//.NET tools
+						https://docs.microsoft.com/en-us/dotnet/framework/tools/ngen-exe-native-image-generator
+						//query data
+						https://docs.microsoft.com/en-us/ef/ef6/querying/related-data
+					]
+					
+					core[
+					
+						https://the-eye.eu/public/Books/IT%20Various/LINQ%20Quickly.pdf
+						https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
+						https://the-eye.eu/public/Books/IT%20Various/C%23%20in%20Depth%2C%202nd%20Edition.pdf
+						http://sd.blackball.lv/library/CLR_via_CSharp_(Jeffrey_Richter_4th_Edition).pdf
+						//readonly
+						https://codeblog.jonskeet.uk/2014/07/16/micro-optimization-the-surprising-inefficiency-of-readonly-fields/
+						https://softwareengineering.stackexchange.com/questions/132747/is-having-public-constants-bad
+						public readonly goes to backed into referenced assemblies
+						
+						https://csharpindepth.com/Articles/PropertiesMatter
+						//async 
+						https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
+					
+					]
+					
+					
+					//readonly
+					https://codeblog.jonskeet.uk/2014/07/16/micro-optimization-the-surprising-inefficiency-of-readonly-fields/
+					https://softwareengineering.stackexchange.com/questions/132747/is-having-public-constants-bad
+					public readonly goes to backed into referenced assemblies.
+					https://csharpindepth.com/Articles/PropertiesMatter
+				]
+				
+				vs[
+	
+			repair[
+				//Error: Evaluating the function 'function' timed out and needed to be aborted in an unsafe way
+				https://docs.microsoft.com/en-us/visualstudio/debugger/error-evaluating-the-function-function-timed-out-and-needed-to-be-aborted-in-an-unsafe-way?view=vs-2017
+				https://developercommunity.visualstudio.com/content/problem/15931/evaluating-the-function-systemreflectionassemblylo.html
+				https://forums.autodesk.com/t5/revit-api-forum/use-managed-compatibility-mode-or-enable-native-code-debugging/td-p/6868592
+				https://stackoverflow.com/questions/28551818/visual-studio-2013-debug-options-missing-under-configuration-options
+			]
+		
+		]
+		
+				SQL[
+					//sql protocols
+					https://techcommunity.microsoft.com/t5/SQL-Server/bg-p/SQLServer/label-name/SQLServerProtocols
+				]
+		
+				//web assembly
+				https://hacks.mozilla.org/2018/10/webassemblys-post-mvp-future/
+				
+				https://medium.com/basecs/a-most-perfect-union-just-in-time-compilers-2938712a9f6a
+			
+				https://opdhsblobprod02.blob.core.windows.net/contents/c6aea4f5457448ee818b7292ba695982/68a07d048ee6f26b1aa8d66304d31f2a?sv=2015-04-05&sr=b&sig=u9Hpl0y6yB5fZi41T9CnaQOQgOLgqOt8TEEr5MwjVrg%3D&st=2019-04-01T07%3A50%3A48Z&se=2019-04-02T08%3A00%3A48Z&sp=r
+				http://sd.blackball.lv/library/CLR_via_CSharp_(Jeffrey_Richter_4th_Edition).pdf
+				https://the-eye.eu/public/Books/IT%20Various/C%23%20in%20Depth%2C%202nd%20Edition.pdf
+				https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
+				https://the-eye.eu/public/Books/IT%20Various/LINQ%20Quickly.pdfublic/Books/IT%20Various/LINQ%20Quickly.pdf
+
+				//point in polygon
+				http://geomalgorithms.com/a03-_inclusion.html
+			
+				//5 int in 5 days
+				https://medium.com/@XiaohanZeng/i-interviewed-at-five-top-companies-in-silicon-valley-in-five-days-and-luckily-got-five-job-offers-25178cf74e0f
+				//6 int in 6 days
+				https://blog.usejournal.com/i-interviewed-at-six-top-companies-in-silicon-valley-in-six-days-and-stumbled-into-six-job-offers-fe9cc7bbc996
+
+				https://blog.usejournal.com/what-i-learned-in-my-first-two-years-as-a-software-engineer-4e374fdcf0fd
+				//300к job offer
+				https://blog.usejournal.com/how-i-negotiated-a-software-engineer-offer-in-silicon-valley-f11590f5c656
+						
+						
+				js[
+					
+					reactRedux[
+					
+						//5 Things I Didn't Know about Create React App
+						https://www.telerik.com/blogs/5-things-i-didnt-know-about-create-react-app?utm_medium=product&utm_source=fiddlerapp&utm_campaign=kendo-ui-react-blog-fiddler-dt-blog-pick-things-didnt-know-create-react-app
+						
+						//formik - small redux
+						https://jaredpalmer.com/formik/docs/overview
+						
+						//react bootstrap
+						https://medium.com/luteceo-software-chemistry/lightweight-starter-kit-for-asp-net-core-react-typescript-and-webpack-with-hmr-7bc977b7712
+						//react in core
+						https://developer.okta.com/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react
+						https://docs.microsoft.com/en-us/aspnet/core/client-side/spa/react?view=aspnetcore-2.2&tabs=visual-studio
+					
+	
+						//validation 
+						https://reactjs.org/docs/typechecking-with-proptypes.html
+						
+						//usage with react
+						https://redux.js.org/basics/usage-with-react
+						
+						react components
+						[
+							https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4
+							http://react-toolbox.io/#/components/time_picker
+							https://react-bootstrap.github.io/layout/grid/
+							https://material-ui.com/demos/lists/
+							https://v2.grommet.io/accordion
+						]
+						
+						//redux
+						//three priniples
+						https://redux.js.org/introduction/three-principles
+						//getting started
+						https://redux.js.org/introduction/getting-started
+						//todo example
+						https://redux.js.org/basics/example
+						//react
+						//validation typecheck
+						https://reactjs.org/docs/typechecking-with-proptypes.html
+						//events
+						https://reactjs.org/docs/events.html
+						//render props
+						https://reactjs.org/docs/render-props.html
+						//create context
+						https://reactjs.org/docs/context.html
+					]
+				
+				
+				//react bootstrap
+				https://medium.com/luteceo-software-chemistry/lightweight-starter-kit-for-asp-net-core-react-typescript-and-webpack-with-hmr-7bc977b7712
+		
+				https://hacks.mozilla.org/2018/10/webassemblys-post-mvp-future/
+				
+				//async await
+				https://alligator.io/js/async-functions/
+				
+				//check datatypes in js
+				https://webbjocke.com/javascript-check-data-types/
+				
+				//destructuring
+				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+				
+				//this
+				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+				
+				//angular book
+				http://www.nglesson.com/Livres/ng-book2-angular-5-r67.pdf
+
+				//react book
+				file:///F:/backup/workflow/files/lit/fullstack-react/fullstack-react.pdf
+
+				redux basic st 500
+				redux combine and split to threads fn 560
+				redux components st 560
+				575 -> map state to props
+
+				redux tree template 
+				https://redux.js.org/introduction/examples#real-world
+
+				//you not need graphql
+				https://blog.logrocket.com/5-reasons-you-shouldnt-be-using-graphql-61c7846e7ed3
+				//techs to learn
+				//techs, front, back, cash, render, test
+				https://medium.com/zerotomastery/top-libraries-tech-to-learn-in-2019-for-full-stack-developers-f8c0331b8a00
+				//JS 5 mnths
+				https://medium.com/zerotomastery/learn-to-code-in-2019-get-hired-and-have-fun-along-the-way-d4197f96be27
+
+				//webassembly roudmap
+				https://2r4s9p1yi1fa2jd7j43zph8r-wpengine.netdna-ssl.com/files/2018/10/01-07-runtime-09-final-e1539904436477.png
+				https://hacks.mozilla.org/2018/10/webassemblys-post-mvp-future/
+
+				https://medium.com/@me_37286/19-ways-to-become-a-better-node-js-developer-in-2019-ffd3a8fbfe38
+
+
+				//react UI component libs
+				https://blog.bitsrc.io/11-react-component-libraries-you-should-know-178eb1dd6aa4
+				http://react-toolbox.io/#/
+				https://material-ui.com/getting-started/learn/
+				https://material.io/tools/icons/?style=baseline
+
+					//recursive react tree
+					https://medium.com/the-guild/recursive-react-tree-component-implementation-made-easy-466dfce1a008
+					
+					//iterate object props
+					https://hackernoon.com/5-techniques-to-iterate-over-javascript-object-entries-and-their-performance-6602dcb708a8
+					
+					//destructuring
+					https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+					
+					//this
+					https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+					
+					//
+					https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+					
+					//iterate over object props
+					https://hackernoon.com/5-techniques-to-iterate-over-javascript-object-entries-and-their-performance-6602dcb708a8
+					
+					//redux normalizer
+					//treeshaped structures
+					https://stackoverflow.com/questions/32798193/how-to-handle-tree-shaped-entities-in-redux-reducers
+				
+					//backendefication of frontend
+					https://hackernoon.com/the-backendification-of-frontend-development-62f218a773d4
+					
+					//redux in one line
+					https://gist.github.com/gaearon/ffd88b0e4f00b22c3159
+					
+						//es6
+					http://exploringjs.com/es6/index.html#toc_ch_coding-style
+					https://hacks.mozilla.org/2015/08/es6-in-depth-modules/
+					
+					//js render
+					https://blog.sessionstack.com/how-javascript-works-the-rendering-engine-and-tips-to-optimize-its-performance-7b95553baeda
+					
+					//self=this
+					https://medium.com/@vijay.j.shekhawat/javascript-why-var-self-this-bbbaf98ab9d9
+					
+					//es6 styleguides
+					https://codeburst.io/5-javascript-style-guides-including-airbnb-github-google-88cbc6b2b7aa
+					//airbnb styleguide
+					https://github.com/airbnb/javascript
+					
+					
+					//inside this class scope binds function to this class scope
+					bind.FunctionName.bind(this)
+					https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind
+					
+					//need in frameworks
+					https://medium.freecodecamp.org/do-we-still-need-javascript-frameworks-42576735949b
+					//sync state of UI
+					https://medium.com/dailyjs/the-deepest-reason-why-modern-javascript-frameworks-exist-933b86ebc445
+					//bind 
+					https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/
+					//self == this 
+					https://medium.com/@vijay.j.shekhawat/javascript-why-var-self-this-bbbaf98ab9d9
+					
+					//react
+					//wrapper
+					https://til.hashrocket.com/posts/c5725d4d01-react-wrapper-components-with-nested-children
+					//react to ES6
+					https://www.newmediacampaigns.com/blog/refactoring-react-components-to-es6-classes
+						
+					//facebook templates
+					https://github.com/facebook/create-react-app
+					//kriasoft
+					https://github.com/kriasoft/react-app
+					
+							
+					//guidelines for collections
+					https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
+					//infr persistance
+					https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/infrastructure-persistence-layer-design
+
+					//redux
+					//three priniples
+					https://redux.js.org/introduction/three-principles
+					//getting started
+					https://redux.js.org/introduction/getting-started
+					//todo example
+					https://redux.js.org/basics/example
+
+					//react
+					//validation typecheck
+					https://reactjs.org/docs/typechecking-with-proptypes.html
+					//events
+					https://reactjs.org/docs/events.html
+					//render props
+					https://reactjs.org/docs/render-props.html
+					//create context
+					https://reactjs.org/docs/context.html
+
+					//react redux 5 ways to bind
+					https://blog.benestudio.co/5-ways-to-connect-redux-actions-3f56af4009c8
+					//react 
+					http://allenfang.github.io/react-bootstrap-table/index.html
+					https://www.fullstackreact.com/p/using-presentational-and-container-components-with-redux/
+					https://medium.com/dailyjs/techniques-for-decomposing-react-components-e8a1081ef5da
+
+					//react todp
+					https://codesandbox.io/s/9on71rvnyo
+					
+					//react Business logic
+					https://medium.com/netscape/component-state-vs-redux-store-1eb0c929277
+					
+					//immutability in with redux
+					https://blog.hellojs.org/immutability-in-javascript-using-redux-33405706d31d
+					//arrow func diff
+					https://cmichel.io/es6-class-methods-differences/
+				]
+					
+				css[
+			
+					//multidevice layout
+					https://www.lukew.com/ff/entry.asp?1514
+					//Responsive Web Design Patterns 
+					https://developers.google.com/web/fundamentals/design-and-ux/responsive/patterns?hl=en
+					
+					//css is hard
+					//Responsive Design
+					https://internetingishard.com/html-and-css/responsive-design/
+					//css box model
+					https://internetingishard.com/html-and-css/css-box-model/
+					//advanced positioninig
+					https://internetingishard.com/html-and-css/advanced-positioning/
+					
+					//css examples
+					https://freefrontend.com/css-arrows/
+					
+				]
+				
+				//package-lock
+				https://medium.com/coinmonks/everything-you-wanted-to-know-about-package-lock-json-b81911aa8ab8		
+				
+				//angular ng-book
+				http://www.nglesson.com/Livres/ng-book2-angular-5-r67.pdf
+				
+				//react
+				fullstack react the complete guide to reactjs and friends
+				abstr[
+					server.js
+					modash
+					enzyme
+					react-router
+					Flux & redux
+				]
+				
+				//clojure
+				https://medium.com/@daniel.oliver.king/getting-work-done-in-clojure-the-building-blocks-39ad82796926
+				//js mass psychose
+				https://hackernoon.com/the-javascript-phenomenon-is-a-mass-psychosis-57adebb09359	
+				//programm scaffolding
+				https://medium.com/@eddyystop/create-your-own-super-scaffolding-automatically-add-custom-code-89418e888dac
+				
+				//css tricks
+				https://css-tricks.com/full-width-containers-limited-width-parents/		
+				
+				//react styles 
+				https://codeburst.io/4-four-ways-to-style-react-components-ac6f323da822
+				
+				//composing software eric elliott epub
+				
+				//webpack bundle size
+				https://hackernoon.com/optimising-your-application-bundle-size-with-webpack-e85b00bab579
+				
+				//ml
+				https://hackernoon.com/thinking-of-self-studying-machine-learning-remind-yourself-of-these-6-things-b55a5f2b6c7d
+				
+				//web assembly
+				https://hacks.mozilla.org/2018/10/webassemblys-post-mvp-future/
+				
+				C#
+				//find 
+				the absolutely awesome book on c# and .net
+				
+				//core_D	
+				https://asp.net-hacker.rocks/2016/02/17/dependency-injection-in-aspnetcore.html		
+						
+				https://medium.com/basecs/a-most-perfect-union-just-in-time-compilers-2938712a9f6a
+
+
+				http://sd.blackball.lv/library/CLR_via_CSharp_(Jeffrey_Richter_4th_Edition).pdf
+				https://the-eye.eu/public/Books/IT%20Various/C%23%20in%20Depth%2C%202nd%20Edition.pdf
+				https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
+				https://the-eye.eu/public/Books/IT%20Various/LINQ%20Quickly.pdf
+			
+				http://www.oldapps.com/Internet_explorer.php?old_Internet_explorer=11		
+				https://medium.com/@rhamedy/key-habits-and-things-i-wish-i-knew-earlier-as-a-developer-43c9466a0407
+				https://dev.to/
+				
+				//sitebuilders
+				https://www.sitepoint.com/the-best-7-tools-for-building-websites-and-pages/
+			
+			
+				EFquering[
+					https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+				]
+
+				IEnumerableICollectionIList[
+					https://medium.com/@kunaltandon.kt/ienumerable-vs-icollection-vs-ilist-vs-iqueryable-in-c-2101351453db
+						IEnumerable{- no crud,no count + Filter,enumerate}
+						ICollection
+						{
+						count O(1), + enumerate,count,filter,crud
+							generates Func<T,bool>
+						}
+						IList{:Ienumerable + :ICollection + insert in the middle ?O(n)}
+						IQueryable{
+							:ICollection
+							generates Expression<Func<T,bool>>
+						}
+						
+					IenumerablevsIlist[
+						https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
+						https://stackoverflow.com/questions/1072614/should-i-always-return-ienumerablet-instead-of-ilistt
+					]
+				]
+				
+				async[
+					
+					https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/structure-of-async-await
+					https://medium.com/quick-code/react-quick-tip-use-class-properties-and-arrow-functions-to-avoid-binding-this-to-methods-29628aca2e25
+					https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f
+					https://msdn.microsoft.com/en-us/magazine/gg598924.aspx
+					
+					https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+					https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+					https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
+					https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/
+					https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
+					https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm
+					https://devblogs.microsoft.com/dotnet/async-in-4-5-worth-the-await/
+					https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+					
+					//https://stackoverflow.com/questions/13489065/best-practice-to-call-configureawait-for-all-server-side-code
+					ConfigureAwait(false) in classic asp.net in UI context
+					not saves thread jumps, saves context request
+					
+					
+					//useable only in parallel request, TPL better
+					
+					//cannot be tested in .net console
+					//test from .net web api UI
+					never user ...Async.Result() -> synch way, deadlock in asp.net WEB API
+					
+					APM
+					EAP
+					TAP,TPL
+				]
+				
+				//package-lock
+				https://medium.com/coinmonks/everything-you-wanted-to-know-about-package-lock-json-b81911aa8ab8
+		
 				//actor model
 				https://www.brianstorti.com/the-actor-model/
 				
 				//web ppa recurrent
 				https://haacked.com/archive/2011/10/16/the-dangers-of-implementing-recurring-background-tasks-in-asp-net.aspx/
 			
-				DDD[
-					https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
-					https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
-					https://www.infoq.com/articles/ddd-in-practice
+				//hexagonal onion architexture
+				https://docs.microsoft.com/en-us/dotnet/standard/modern-web-apps-azure-architecture/common-web-application-architectures
+							
+				DDD
+				[
+https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/ddd-oriented-microservice				
+https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
+https://www.infoq.com/articles/ddd-in-practice								
+http://www.methodsandtools.com/archive/archive.php?id=97p2
+https://en.wikipedia.org/wiki/Domain-driven_design
 				]
 				
 				//statsd
@@ -3749,9 +7008,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				https://en.wikipedia.org/wiki/Hash_table
 				https://en.wikipedia.org/wiki/Linked_list
 				
-				//DDD
-				http://www.methodsandtools.com/archive/archive.php?id=97p2
-				https://en.wikipedia.org/wiki/Domain-driven_design
 				//Aggregate root 
 				https://www.codeproject.com/Articles/1055514/Aggregate-Root-Pattern-in-Csharp
 				https://martinfowler.com/bliki/DDD_Aggregate.html
@@ -3788,9 +7044,8 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				//FP vs OOP
 				https://medium.com/@sho.miyata.1/the-object-oriented-programming-vs-functional-programming-debate-in-a-beginner-friendly-nutshell-24fb6f8625cc
 				
-				//JS styleguides
-				https://codeburst.io/5-javascript-style-guides-including-airbnb-github-google-88cbc6b2b7aa
-					
+				
+				
 				//ML
 				https://towardsdatascience.com/how-not-to-use-machine-learning-for-time-series-forecasting-avoiding-the-pitfalls-19f9d7adf424
 				http://www.statsoft.com/Textbook/Time-Series-Analysis
@@ -3847,7 +7102,29 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				https://medium.com/@tkssharma/objects-in-javascript-object-assign-deep-copy-64106c9aefab
 				https://scotch.io/bar-talk/4-javascript-design-patterns-you-should-know#toc-module-design-pattern		
 				https://medium.com/@tkssharma/objects-in-javascript-object-assign-deep-copy-64106c9aefab
-
+				
+				//JS styleguides
+				https://codeburst.io/5-javascript-style-guides-including-airbnb-github-google-88cbc6b2b7aa
+											
+				//recursive react tree
+				https://medium.com/the-guild/recursive-react-tree-component-implementation-made-easy-466dfce1a008
+				
+				//iterate object props
+				https://hackernoon.com/5-techniques-to-iterate-over-javascript-object-entries-and-their-performance-6602dcb708a8
+				
+				//destructuring
+				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment
+				
+				//this
+				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions
+				
+				//GO
+				https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
+				
+				//js 30 things
+				https://javascript30.com/
+				
+				
 				//Full-stack roadmap 2018
 				https://codeburst.io/the-2018-web-developer-roadmap-826b1b806e8d
 				//Full-stack guide 2018
@@ -3856,9 +7133,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				//aws deploy
 				https://codeburst.io/deploy-angular-2-node-js-website-using-aws-1ac169d6bbf
 				
-				//js 30 things
-				https://javascript30.com/
-				
+			
 				//IIFe vs closure
 				https://www.sitepoint.com/demystifying-javascript-closures-callbacks-iifes/
 				
@@ -3943,7 +7218,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				https://docs.oracle.com/cd/B13789_01/server.101/b10743/consist.htm#i5702		
 				
 			]
-
 			
 			CSS_responsive
 			[			
@@ -3998,6 +7272,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			
 			//EF data annotations
 			https://www.learnentityframeworkcore.com/configuration/data-annotation-attributes
+		
 			
 			https://martinfowler.com/articles/injection.html			
 			
@@ -4062,9 +7337,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 					//AutoActivate
 					//call action method from base constructor
 					builder.RegisterType<MongoCheck>().As<IGo>().AutoActivate();		
-					
-								
-					
+
 				]
 				
 			]
@@ -4279,11 +7552,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				]			
 			
 			]
-			powershell[
-				get-executionpolicy
-				get-help set-executionpolicy
-				set-executionpolicy remotesigned
-			]
+			
 			hashs[
 				http://eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx#fnv
 			]
@@ -4772,8 +8041,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			]		
 			liblist[
 				https://topshelf.readthedocs.io/en/latest/#
-				https://www.google.ru/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=2ahUKEwjfypWdjZreAhWniKYKHTDBDnAQFjABegQICBAB&url=https%3A%2F%2Farchive.codeplex.com%2F%3Fp%3Demitmapper&usg=AOvVaw0_lHfeypLG9ciEL5wA0PCz
-				
+				https://www.google.ru/url?sa=t&rct=j&q=&esrc=s&source=web&cd=2&ved=2ahUKEwjfypWdjZreAhWniKYKHTDBDnAQFjABegQICBAB&url=https%3A%2F%2Farchive.codeplex.com%2F%3Fp%3Demitmapper&usg=AOvVaw0_lHfeypLG9ciEL5wA0PCz				
 			]
 			
 			mapping[
@@ -4825,37 +8093,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				https://haacked.com/archive/2011/10/16/the-dangers-of-implementing-recurring-background-tasks-in-asp-net.aspx/
 			]
 			
-			Nuget[
-			
-	//NUGET CLI
-	nuget list ArchiveBalancingService -Source http://10.178.3.70:99/nuget
-	nuget install HP.ArchiveBalancingService.DataContracts -SolutionDirectory C:\111\contracts -version 1.0.175
-
-	//pack package 
-	nuget pack C:\P\AR\HP.ArchiveService.DataContracts\HP.ArchiveBalancingService.DataContracts.csproj -OutputDirectory C:\111\contracts -version 1.0.175 -Properties Description=Release
-	C:\Users\i_neprintsev>nuget push C:\111\contracts\packages\HP.ArchiveBalancingService.DataContracts.1.0.175.nupkg -Source http://10.178.3.70:99
-
-	nuget setapikey P@ssw@rd -Source http://10.178.3.70:99/nuget
-
-	//CommandShell nuget
-	find-Package -Provider "http://10.178.3.70:99/nuget" -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersion "1.0.136" 
-	install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersion "1.0.174" -Scope CurrentUser
-			
-			]
-			
-			core [
-			
-				//reference DLL[
-				https://medium.com/@tonerdo/referencing-a-net-dll-directly-using-the-net-core-toolchain-16f0af46a4dc
-				add to core.scproj
-				
-			  <ItemGroup>
-				<Reference Include="MyAssembly">
-				  <HintPath>HP.ArchiveBalancingService.DataContracts.dll</HintPath>
-				</Reference>
-			  </ItemGroup>
-			]
-			
+		
 			//plastic types
 			bakelit,pvc,acrylic,nylon,bpa,dehp
 
@@ -4893,6 +8131,26 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				https://www.nginx.com/blog/what-is-a-service-mesh/
 				https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture/
 				https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/
+				
+				
+				//msa principles 
+				https://www.youtube.com/watch?v=PFQnNFe27kU
+				//GOT Microservices 
+				https://www.youtube.com/watch?v=wgdBVIX9ifA
+				//mastering chaos
+				https://www.youtube.com/watch?v=CZ3wIuvmHeM
+				//msa
+				https://en.wikipedia.org/wiki/Actor_model
+				//API GATEWAY
+				https://microservices.io/patterns/apigateway.html
+				//AWS service discovery
+				https://docs.aws.amazon.com/aws-technical-content/latest/microservices-on-aws/service-discovery.html
+				
+				//msa overall
+				https://microservices.io/index.html
+				https://docs.microsoft.com/en-us/azure/architecture/antipatterns/chatty-io/
+				//Introduction into Microservices
+				https://specify.io/concepts/microservices
 			]
 			patterns[
 				decomposition[
@@ -4906,24 +8164,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				]
 			]
 		
-			//msa principles 
-			https://www.youtube.com/watch?v=PFQnNFe27kU
-			//GOT Microservices 
-			https://www.youtube.com/watch?v=wgdBVIX9ifA
-			//mastering chaos
-			https://www.youtube.com/watch?v=CZ3wIuvmHeM
-			//msa
-			https://en.wikipedia.org/wiki/Actor_model
-			//API GATEWAY
-			https://microservices.io/patterns/apigateway.html
-			//AWS service discovery
-			https://docs.aws.amazon.com/aws-technical-content/latest/microservices-on-aws/service-discovery.html
-			
-			//msa overall
-			https://microservices.io/index.html
-			https://docs.microsoft.com/en-us/azure/architecture/antipatterns/chatty-io/
-			//Introduction into Microservices
-			https://specify.io/concepts/microservices
 			//akka
 			https://doc.akka.io/docs/akka/current/guide/actors-motivation.html
 			
@@ -5285,10 +8525,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://weblogs.asp.net/dixin					  
 			//BitCoin
 			https://hackernoon.com/meet-spoofy-how-a-single-entity-dominates-the-price-of-bitcoin-39c711d28eb4
-			//whiteboard interviews
-			https://hackernoon.com/how-to-lose-an-it-job-in-10-minutes-3d63213c8370
-			//machine lerning algoritm
-			https://hackernoon.com/choosing-the-right-machine-learning-algorithm-68126944ce1f
 			
 			//D3.js
 			//essentials v4
@@ -5695,80 +8931,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://www.shodan.io/
 					
 		
-			quartz[
-						
-				//Quartz Template
-
-				---
-				await scheduler.Start();
-				*<
-				await scheduler.Shutdown();
-
-
-				---
-				HelloJob : IJob
-				public Task Execute(IJobExecutionContext context)
-
-
-				---
-				IJobDetail job = JobBuilder.Create<HelloJob>()
-					.WithIdentity("job1", "group1")
-					.Build();
-
-				// Trigger the job to run now, and then repeat every 10 seconds
-				ITrigger trigger = TriggerBuilder.Create()
-					.WithIdentity("trigger1", "group1")
-					.StartNow()
-					.WithSimpleSchedule(x => x
-						.WithIntervalInSeconds(10)
-						.RepeatForever())
-					.Build();
-
-				// Tell quartz to schedule the job using our trigger
-				*<
-				await scheduler.ScheduleJob(job, trigger);
-			]
-			
-			rabbitmqTutor[
-							
-				t1[
-				dotnet new console --name Send
-				dotnet restore
-				cd Send
-				dotnet run
-
-				dotnet new console --name Receive
-				dotnet restore
-				cd Receive
-				dotnet run
-
-				dotnet add package RabbitMQ.Client
-				dotnet restore
-
-
-				cd C:\worflow\progs\rabbitmqHW\Receive
-				dotnet run
-				command.layouts.partner_layout_list.get
-				command.layouts.partner_layout_list.get
-
-				cd C:\worflow\progs\rabbitmqHW\Send
-				dotnet run
-				]
-
-				t2[
-				dotnet new console --name NewTask
-				dotnet new console --name Worker
-
-				cd NewTask
-				dotnet add package RabbitMQ.Client
-				dotnet restore
-
-				cd ../Worker
-				dotnet add package RabbitMQ.Client
-				dotnet restore
-				]
-			]
-			
+		
 			pipelines and actors
 			AkkaA streams for actors 
 			raft algorithm, consul
@@ -5911,16 +9074,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
 			//rx
 			https://docs.microsoft.com/en-us/dotnet/standard/events/observer-design-pattern
-			
-			//Oberver
-			Observer : Iobservable<T> t-> data send  from provider to observers
-			provider,subject,observable -> 
-				List with references to observer implements subscribed
-				
-			observer
-			.OnNext
-			.OnError
-			.OnComplete
+					
 
 			//freelance
 			https://www.upwork.com/
@@ -5933,44 +9087,82 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 
 	actual_Financial[
 	
+		bloombegrHiddenPageShow()[
 	
+function sh(elem){
+	elem.setAttribute("aria-hidden",false);
+	elem.style.display="block";
+}
+
+function iter(elem){
+	
+	sh(elem);
+		
+	if(elem.children){
+		for(var ch of elem.children){
+			iter(ch);
+		}
+	}
+	
+	
+	
+}
+
+var elems = document.getElementsByClassName('body-copy-v2 fence-body'); 
+
+for(var nd of elems){
+	iter(nd);				
+}
+
+		]
+		
 		UStradewarOnChina[
 
-		30.06.2018 wait for next week Trump decision tariff growth
-		Summer end CHN MXC new tariffs on US goods
+			30.06.2018 wait for next week Trump decision tariff growth
+			Summer end CHN MXC new tariffs on US goods
 
-			2016 Iowa export CHN $ 2 bln 4% state economy. Second soybean prod after Illinois. 
-			CHN 1 US soybean buyer 2017 $ 4 bln 62% US soybean export 
-			US Trade partners tariffs on goods case futures drop?
-			
-			USA[
-				PRO:
-					can afford trading war
-					very strong macro
-					president approval, looks tougher
-				CON:
-					republicans -> agrcltr export
-					North Dakota soy bean growers very sad
-					GM cut jobs
-			]
+				2016 Iowa export CHN $ 2 bln 4% state economy. Second soybean prod after Illinois. 
+				CHN 1 US soybean buyer 2017 $ 4 bln 62% US soybean export 
+				US Trade partners tariffs on goods case futures drop?
+				
+				USA[
+					PRO:
+						can afford trading war
+						very strong macro
+						president approval, looks tougher
+					CON:
+						republicans -> agrcltr export
+						North Dakota soy bean growers very sad
+						GM cut jobs
+				]
 
-			CHN[
-				PRO:
-					strong juan control
-					yuan drop down faster then extm 2015
-			]
+				CHN[
+					PRO:
+						strong juan control
+						yuan drop down faster then extm 2015										
+				]
+				
+				GM General Motors
+				SIE Siemens AG [50 000 US workers; $ 23 bln rev; ]
+				DAI Diamler AG
+				7203 Toyota JPN [10 plants in US; 136 000 empl; ]
+				
+				apr 2018 CHN tariffs on 50$ US goods 
+				[US soybean ftr CFD Grows]
+				may 2018 MXC tariffs on US goods:[apl,burbon,pork - agricultural states voted fo Trump]
+				cause:[US soybean ftr CFD drop]
+				jun 2018 EUN tariffs on US goods:[rice,maize corn,orange guice]
+				cause:[US soybean ftr CFD drop,maize drop]							
 			
-			GM General Motors
-			SIE Siemens AG [50 000 US workers; $ 23 bln rev; ]
-			DAI Diamler AG
-			7203 Toyota JPN [10 plants in US; 136 000 empl; ]
-			
-			apr 2018 CHN tariffs on 50$ US goods 
-			[US soybean ftr CFD Grows]
-			may 2018 MXC tariffs on US goods:[apl,burbon,pork - agricultural states voted fo Trump]
-			cause:[US soybean ftr CFD drop]
-			jun 2018 EUN tariffs on US goods:[rice,maize corn,orange guice]
-			cause:[US soybean ftr CFD drop,maize drop]
+			14.05.19 - 
+				25% tarrif on $300 bln CHN goods			
+				CHN retaliated 5% - 20% on 2.43 US prod 
+				S&P 500 
+				
+			=> 
+				Higher tariffs drive up Def prefered measure of underlying inflation, 
+					raising consumer prices
+				can affect copper,iron orem steel prices
 			
 		]
 		
@@ -6000,22 +9192,36 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 		]				
 		
 	]
+				
+	global_facts[
 	
-	presents[
-		//presents
-		https://www.pichshop.ru/product/21822/podstavka_dlya_melochey_s_melovoy_tablichkoy_blackwhite/
-		http://sweetstore.ru/shokolad
-		https://rus-buket.ru/buket/1231/vals-tsvetov
-		https://www.smilegifts.ru/nabor-myla-ruchnoj-raboty-macarons
-	]
-	
-	,sambo[
-		https://findsport.ru/section/sambo/sambo_i_dzyudo_dlya_vzroslyh_v_klube_edinoborstv_i_525
-		http://hookschool.ru/catalog/boevoe-sambo/
-		http://www.sportclub-boec.ru/sambo/
-		http://bsambist.ru/nash-klub/video/
-		http://www.bsambo.ru/articles/article4234.shtml
-		https://profi.ru/profile/SizenenkoNN/#reviews-tab
+		farming[
+			Y2012
+			chicken 32 bln
+			cows 1.5 bln
+			pig 1 bln
+			sheep 1 bln
+			
+			83% farmland to feed, pasture, far, crops
+			26% total earth area
+			27% glob water consumption
+			
+			protein in feed to meat
+			4% fo cows
+			3% fed callories into beef
+			
+			CALLORIES LOST 97%
+			
+			1 kg steack 
+			25 kg fraid
+			15 ths litters water
+			
+			MEAT PROD END UP IN 18% people eat
+			
+			CROPS FED to ANIMALS estimate feed 3.5 bln people
+			
+		]
+		
 	]
 	
 	,[
@@ -6037,5 +9243,5 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 , орёл: сволочи, делают, что хотят
 
 	]
-	
+		
 ]
