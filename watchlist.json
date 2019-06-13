@@ -926,12 +926,6 @@ Domain layer , Infrastructure layer  <- Application Layer
 		
 		GuidesRoadmaps[
 			
-			//GraphQL
-			https://graphql.github.io/learn/queries/
-			https://github.com/alumbra/alumbra
-			https://github.com/graphql/graphiql
-			
-			
 			rabbitmqTutor[
 							
 				t1[
@@ -5338,6 +5332,9 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			
 			]
 			
+			
+			
+			
 		guides[
 			
 			customBodyAttributes[
@@ -5445,7 +5442,10 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			
 			https://medium.com/@rhamedy/key-habits-and-things-i-wish-i-knew-earlier-as-a-developer-43c9466a0407
 		]					
-						
+		
+
+
+		
 		blogs[
 		
 			https://medium.com/reverdev/why-we-moved-from-angular-2-to-vue-js-and-why-we-didnt-choose-react-ef807d9f4163
@@ -5629,7 +5629,20 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 		
 		unsorted
 		{
+			API_design[
+				https://graphql.github.io/learn/queries/
+				https://github.com/alumbra/alumbra
+				https://github.com/graphql/graphiql
+				
+				graphql, grpc POC
+				https://medium.com/@svengau_17540/when-graphql-meets-grpc-3e9729d32e05
+				
+				//REST graphql grpc webhoocks
+				https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
+				
+			]
 			
+
 			http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0006481																  
 			https://sharpc.livejournal.com/67583.html
 			http://www.securitynewspaper.com/2015/10/15/how-to-scan-whole-internet-3-7-billion-ip-addresses-in-few-minutes/
