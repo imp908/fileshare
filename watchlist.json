@@ -1,230 +1,123 @@
 
-actual[
+actual
+[
 
-	TODO[
-					
-			arrange[
-				-> sort actual
-				-> sort unsorted of watchlist
-				-> core projs arrange
-					-> checkers - make base for sandbox code tamplates
-					-> mvcWebPackGulpReact - gulp webpack configs and view/model decomposition
-						-> mvcBulkOverall2 extendes mvcWebPackGulpReact
-					-> mvcCoreCheck - core vies, partial views
-					-> leafletBulkSandbox - leaflet SB
-					-> mvcReactReduxCheck - event bus
-					
-				-> js projs rearrange 
-					-> move all to folders in js SandBoxCodeTemplates
-						-> leaflet_boat.js,leaflet_boatmarker.js - rotatable leaflet marker
-						-> leaflet_pretty.js - leaflet pretty
-						-> mapbox_pretty.js - mapbox pretty
-						-> requireJsCheck - require js 
-						-> modulesCheck - js modules for node 
-						-> mapboxCheck, leafletCheck - map frameworks native checkers
-						-> leaflet - leaflet ?working with cameras
-						-> jstree - js utilities
-						-> hw - js utility code
-						-> BOXbundle,geoposPlanPictureOld - drag n drop partly logic
-						-> boatMarkerCheck - leaflet boat plugin 
-					
-				no particular intrest core folder - 
-					mvcWebpckGulpCheck, mvcWebPackCheck, mvcReactCheck, mvcGulpCheck
-					
-				no particular intrest js folder - 
-					webpackCheck
-			]
+multithreaded:
+	lock syntactic sugar above 
+		monitor.enter try/catch
+	lock on value type
 
-			code[
-				job[
-					mv[
-						-> react to mv integrate
-					]
-				]
-				
-				projs[
-					-> MSA template
-					{
-						DDD 
-						sql(ms,postgre),nosql(mongo,neo4j),amqp(rabbit+netservicebus,masstransit),
-						cashing(reddis)
-						
-						front
-						PWA progressive web app
-						(angular,react,vue)
-						(graphql vs REST,?mongoose)
-						(?rendering,?testing)
-						
-					}
-				]
-			]
-			
-		]
+async:
+	await inside lock lead to deadlocks:
+		lock(){
+			await 
+		}
+
+	?object lock types
+
 	
-	mealPlan[
+db locking types;
+	optimistic, pessimistic
 	
-		основа 
-			единица | порция | вес(реальный)
-			авокадо 1 | 4 | 50
-			стейк лосося 1 | 2 | 200
-			хлеб 2 | 1 | 40
-			кревет 1 | 2 | 1000(240)
-			творог 1 | 1 | 80
-			яйцо 1 | 1 | 80
-		
-		дополнения
-			25
-			спаржа, брюссель, брокколи, грибы
-			
-		топпинги
-			5-20
-			сыры, орехи, сметаны, соусы, специи
-			
-	]
+//KATAS
+https://www.hackerrank.com/interview/interview-preparation-kit/warmup/challenges
+https://leetcode.com/problemset/all/
+
+
+//how to fail msa
+[
 	
-	shoplist[
-		маскарпоне, креветки, сметана
-		
-	]
+	https://www.youtube.com/watch?v=X0tjziAQfNQ
+	//working stacks
+	elixir->phoenix->postgre
+	angular->hapi->mongo
+	react->spring boot->neo4j
+
+	groundhog maintanance
+	heisenberg monitoring
+
+	polyglot->polyWTF
+
+
+	//hypermedia types
+	https://lostechies.com/jimmybogard/2015/05/22/end-to-end-hypermedia-choosing-a-media-type/
+	https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/
+	HAL
+	JSON API
+	JSON LD
+	collection + JSON
+	SIREN
+	HYDRA
+
+	10.fuckup mix of hypermedia formats, UI frameworks, date formats (chineese calendar) 
+	and logging formats
+	9.data monolith - share database
+	table sharing of business domens (credit read account table and vise versa)
+	when account changes tables varchar length credit goeas boom
+	connection pool-of 100 connections and 1 msa queryng sql for weeks 
+	8.event monolith - 
+	event sourcing - audit trail, distributed data, decoupled msa
+	wet is a new dry - copy past between msa
+	event history as bugfixes
+	7.homegrown monolith - build custom framework 
+	custom event sourcing for every msa
+
+	message structuring - v2 msg if ID must change from int to string
+	new customer send v2 int id message to old services - boom in prod
+	migrate all services to v2 which leads to 
+	monolith release plan
+	cross cutting dependencies - need to comunicate with teams
+	job insurance
+
+	6. meat cloud - 
+	wkpt  - whants,knows,privilege,time to do smth
 	
-https://llvm.org/docs/GarbageCollection.html
-https://llvm.org/Features.html
-http://www.aosabook.org/en/llvm.html
-https://en.wikipedia.org/wiki/NP-hardness
-https://en.wikipedia.org/wiki/Time_complexity
-https://en.wikipedia.org/wiki/Dynamic_programming
-https://developer.chrome.com/native-client/migration
-https://www.valentinog.com/blog/webpack-tutorial/
-https://www.cl.cam.ac.uk/~caw77/papers/mechanising-and-verifying-the-webassembly-specification.pdf
-http://youmightnotneedjquery.com/
-
-	ref in out
-
-	appress
-	614- type ref, late binding
-	708-751 CIL
-	752-807 multythreading
-
-	MCA arhitecture
-	lock resolve
-	transport protocols
-
-	rabbitmq
-	reddis
-
-	service broker 
-	arbitter
-
-	js
-	lambda
-	closure 
-	var let 
-	bind call aplly
-	map vs foreach
-
-	//actor
-	https://www.brianstorti.com/the-actor-model/
-	
-	//react + redux
-	https://medium.freecodecamp.org/an-introduction-to-functional-reactive-programming-in-redux-b0c14d097836
-
-
-	CI/CD pipeline[
-		https://www.redhat.com/en/blog/integrating-ansible-jenkins-cicd-process
-		github-SonarSource-Nexus-Ansible-AnsiblePlaybook-Jenkins
-	]
-
-	MSA[
-	
-		//async await
-		https://www.youtube.com/watch?v=2moh18sh5p4
-
-		//msa
-		https://www.youtube.com/watch?v=EdtZnmV_D-g
-		https://www.youtube.com/watch?v=N1BWMW9NEQc
-		
-		https://www.microservices.com/reference-architecture/
-
-		//pragmatic event driven msa
-		https://www.youtube.com/watch?v=vSd_0zGxsIU
-
-		//how to fail msa
-		https://www.youtube.com/watch?v=X0tjziAQfNQ
-		//working stacks
-		elixir->phoenix->postgre
-		angular->hapi->mongo
-		react->spring boot->neo4j
-
-		groundhog maintanance
-		heisenberg monitoring
-
-		polyglot->polyWTF
-
-
-		//hypermedia types
-		https://lostechies.com/jimmybogard/2015/05/22/end-to-end-hypermedia-choosing-a-media-type/
-		https://sookocheff.com/post/api/on-choosing-a-hypermedia-format/
-		HAL
-		JSON API
-		JSON LD
-		collection + JSON
-		SIREN
-		HYDRA
-
-		10.fuckup mix of hypermedia formats, UI frameworks, date formats (chineese calendar) 
-		and logging formats
-		9.data monolith - share database
-		table sharing of business domens (credit read account table and vise versa)
-		when account changes tables varchar length credit goeas boom
-		connection pool-of 100 connections and 1 msa queryng sql for weeks 
-		8.event monolith - 
-		event sourcing - audit trail, distributed data, decoupled msa
-		wet is a new dry - copy past between msa
-		event history as bugfixes
-		7.homegrown monolith - build custom framework 
-		custom event sourcing for every msa
-
-		message structuring - v2 msg if ID must change from int to string
-		new customer send v2 int id message to old services - boom in prod
-		migrate all services to v2 which leads to 
-		monolith release plan
-		cross cutting dependencies - need to comunicate with teams
-		job insurance
-
-		6. meat cloud - 
-		wkpt  - whants,knows,privilege,time to do smth
-
-		//msdn
-		//domain
-		https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
-		//web api 2
-		https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api
-
-		//code review
-		https://www.sonarqube.org/
-
-		https://edgecoders.com/the-mistakes-i-made-as-a-beginner-programmer-ac8b3e54c312
-
-	]
-	
-	Startup prog qualities
-	-> short and midterm productivity
-	-> quick iteration 
-	-> comfort with hacky code
-	-> pragmatisv in tch vs stable or hupe
-	-> not only build but maintain
-
-	Engine errors in startup
-	-> premeture scalling
-	-> bleed edge tech
-	-> overengeneering
-
-	-> Build a prog that people need
-	-> no silver bullets but productive tools
-
-
 ]
 
+https://edgecoders.com/the-mistakes-i-made-as-a-beginner-programmer-ac8b3e54c312
+MSA[
+
+	//msa
+	https://www.youtube.com/watch?v=EdtZnmV_D-g
+	https://www.youtube.com/watch?v=N1BWMW9NEQc
+	
+	https://www.microservices.com/reference-architecture/
+
+	//pragmatic event driven msa
+	https://www.youtube.com/watch?v=vSd_0zGxsIU
+
+	//msdn		
+	//web api 2
+	https://docs.microsoft.com/en-us/aspnet/web-api/overview/getting-started-with-aspnet-web-api/tutorial-your-first-web-api	
+	
+]
+
+StateMachines[
+	https://blog.markshead.com/869/state-machines-computer-science/
+	
+	Finite-state machine
+	non-deterministic 
+		a->q,b->c
+	deterministic
+		a->q [b,c,d]->r,t,v
+		
+		-> NFA-[subset (powerset) construction]->DFA
+		every non-deterministig finita automata (NFA)
+		cant be translated into deterministig (DFA)
+		
+		-> regular expression - [Thompson's construction
+		] -> NFA
+		
+]
+	
+//oreilly software arch
+https://www.youtube.com/watch?v=vyWlRWkIEyk
+//software arch jet.com
+https://www.youtube.com/watch?v=vyWlRWkIEyk
+//async await
+https://www.youtube.com/watch?v=2moh18sh5p4
+
+]
 
 //toSortNew.unsorted 3300 lines
 watchlist[
@@ -3998,7 +3891,8 @@ docker images
 		
 		learningProgramms[
 		
-	   cis 2750 computer science
+			cis 2750 computer science
+			
 			//5months
 			cpp[
 
@@ -4438,6 +4332,7 @@ docker images
 				https://brilliant.org/practice/learning-problems-for-neural-networks/?p=2
 
 			]
+			
 			http://rubyquiz.com/
 			http://www.4clojure.com/
 			https://www.topcoder.com/ 
@@ -4933,570 +4828,571 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				https://openhatch.org/
 			]
 			
+			//blind
+			companies insides
+			https://www.teamblind.com/articles/Topics/?utm_source=adroll&utm_medium=display&utm_campaign=retargeting#signup
+
 		]
 
-		RevisionControl[
-			//Mercurial 
-			https://www.mercurial-scm.org/wiki/QuickStart
-		]
-		
-		Literature[
+		read[
 			
-			//books share
-			https://www.twirpx.com/search/
-			bikesell_2@mail.ru
-			q2w3e4
-
-
-			Books[
-
-				CLRviaCShrp
-				[
+			Literature[
 				
-					chapter_1
+				//books share
+				https://www.twirpx.com/search/
+				bikesell_2@mail.ru
+				q2w3e4
+
+
+				Books[
+
+					CLRviaCShrp
 					[
-						
-						CLR -> manged module for 32x or 64x PE32, PE32+
-						C# -> compiler -> managed module
-						Basic -> basic compiler -> -=-
-						IL source -> IL assembler -> -=-
-						
-						IL - JIT compiler -> CPU instr
-						
-						Managed module IL + metadata(GC collected datatypes) 
-							(Data execution prevention DEP, Address space layput randomization ASLR)
+					
+						chapter_1
 						[
-							PE32, PE32+ header -> windows header simmilar to COFF format , indicates file type 
-							GUI, CUI, DLL
 							
-							CLR header -> header, flags, methodDef, entry point (Main )
+							CLR -> manged module for 32x or 64x PE32, PE32+
+							C# -> compiler -> managed module
+							Basic -> basic compiler -> -=-
+							IL source -> IL assembler -> -=-
 							
-							metadata -> tables of types and methods deined, table with types and members refrenced
-							(
-								o- always embeded in exe
-								o- removes need in c/c++ header files
-								o- intelisense, typechecking, GC
-							)
+							IL - JIT compiler -> CPU instr
 							
-							
-							IL code -> code compiled from source. CLR at runtime copmiles IL to CPU instr
-						]
-						
-						clr works with assembly [
-							manifest - assembly metadata table containing files representing the assembly
-							public export types implemented by asm files
-							resource or data files associated with the asm
-						]
-						
-						IL - heigher level language then most CPU machine
-						all CLR facilivies available
-							o- access and manipulate obj type
-							o- create and init objs
-							o- call virt methods on objects
-							o- manipulate arr directly
-							o- err handling
-							
-						p. 16
-						EXECUTION - 
-							before main executes CLR allocates internal datastructure to managed ref types access
-							internal structure for each method with its implementation address
-							on initialization sets each entry to undocummented function incide CLR => JITcompiler
-							
-							Main - first call to first method-> JITcompiler function call
-							
-							JITcompiler -> compiles native IL code to native CPU instr
-								(knows method and type on call)
-							-> searchs asm metadata for clled method IL
-							-> native CPU instr saved to dynamic mem block
-							-> goes back to CLR internal datastruc and replaces reference to method with addr of compile mem block
-							-> jumps to mem block of compiled
-						
-						p. 18
-						DEBUG MODE		
-							-> generates nop IL instr, for breakpoints placement
-								//optimize[+/-] /debug[+/-] 
-						compiler switch:
-							default -> /optimize- /debug- -> ILcode(unopt) JIT native( opt)
-							-> /optimize- /debug(+/full/pdbonly) -> ILcode(unopt) JIT native( unopt)
-							-> /optimize+ /debug(-/+/full/pdbonly) -> ILcode(opt) JIT native( opt)
-						
-						p. 19-20
-						.PDB (Programm database) - helps debug find local vars and map IL instr to source.
-						
-						System.Runtime.ProfileOptimization -> causes CLR to record methods optimized by JIT
-							on multiple CPU would compiles concurrently
-						
-						IL -> 
-							o- stackbased, no registers, easy to target CLR
-							o- typeless
-							o- verification while CLR compiles IL to CPU source 
-								varification(
-									o- parameter number & type check
-									o- return val usage				
+							Managed module IL + metadata(GC collected datatypes) 
+								(Data execution prevention DEP, Address space layput randomization ASLR)
+							[
+								PE32, PE32+ header -> windows header simmilar to COFF format , indicates file type 
+								GUI, CUI, DLL
+								
+								CLR header -> header, flags, methodDef, entry point (Main )
+								
+								metadata -> tables of types and methods deined, table with types and members refrenced
+								(
+									o- always embeded in exe
+									o- removes need in c/c++ header files
+									o- intelisense, typechecking, GC
 								)
-						
-						p. 21
-						Virtual address space VAS ->
-						
-						CLR -> offers ability to execute several AppDomains in single OS process
-						
-						unsafe code -> 
-							/unsafe -> can work on memory directly
-							o- JIT compiler checks assembly befor compile unsafe on 
-								System.Security.Permissions.SecurityPermission 
-								and 
-								System.Security.Permissions.SecurityPermissionFlag’s SkipVerification 
-							
-							throws -> 
-								System.InvalidProgramException or a System.Security.VerificationException
-						p. 23-24
-							NGen.exe -> 
-								o- usefull for start optimizing 
-								o- asm loaded into multiple processes
-								o- %SystemRoot%\Assembly genned asembly with native code location
-						
-							CLR searchs for precompiled native file and uses it, JIT compiles code only on absence
-							
-								x- no intellectual prop prot 
-								x- rassinhronization of (CLR ver, CPU type, Win ver, asm ID)
-								x- not creates optimiations and can perform slower/
-							
-							MPGO.exe - startup time optimization
-						
-						p. 25-26
-							Framework class library FCL -> DLL asm with type def and some funcionality
-								empl. System type with Object
-							
-							most_usefull[
-								System - basic types
-								System.Data - comunicating with database and processing
-								System.IO 
-								System.Net - low-level networ communication, protocols
-								System.RuntimeInteropServices - unmanaged code, COM, win32 functions or DLLs
-								System.Security - protecting data and resources
-								System.Text - 
-								System.Threading - asynchronous operations
+								
+								
+								IL code -> code compiled from source. CLR at runtime copmiles IL to CPU instr
 							]
-						
-						p. 27-29
-							Common Type System CTS -> 
-								Types:
-									Field, Method, Property (validation, readonly), Event
-								
-								Visibility rules:
-									Private
-									Famility/protected (derived types)
-									Family and assembly(derived if def in asm, not in C# but in IL)
-									Assembly(Internal)
-									Family or assembly(protected internal) derieved exist in asm
-									Public				
-								CTS defines inheritance rules, virtual methods, obj lifetime.
-								Type can dereive from once base class
-								
-								Sustem.Object 
-									o- compare intances for equality
-									o- get hash
-									o- shalow (bitwise) copy
-									o- get string representation
-									
-							ECMA-334,335
-								Common Language Specification CLS ->
-									o- defines rules for languages
-									o- language types accessible from other languages, to be CLS compliant
-									
-									check for cpmliance with CLS ->
-										[assembly:CLSCompliant(true)]
-								
-									Cross-Language Interoperability ->
-										https://docs.microsoft.com/en-us/previous-versions/730f1wy3(v=vs.100)
-									
-									o- defines everything as field(data) or method(behaviour)
-										all language concepts compiler translates into fields and methods
-										(enum, oper overload, conversion oper, index, 
-										delegates, events, construct, finilizers) from source code
-									
-							p.34
-								Interoperability with unmanaged code ->
-									o- call unmanaged code in DLL 
-										CreateSemaphore kernel32.dll
-									
-									o- access COM components
-										TlbImp.exe  converts COM lib types to CLR asm
-									
-									o- unmanaged code can use managed type (server)
-									
-									(WinRT) from win8 seamles comunication with NET due to ECMA spec
-						
-					]
-					
-					chapter_2
-					{assembly build, deploy}
-					[
-						p. 38
-						DLL hell - new versions of programms ovewrite older versions
-						complicated installation/uninstallation - files copied, registry updated
-									
-						System.Console. System.Console, IL in MSCorLib.dll
-						
-						Compiling console app with writeline with source.cs csc.exe ->
-							passing reference to MSCorLib.dll			
-							@MyProject.rsp - response file with command keys list
-								o- multiple support
-								o- local overrides global
-						
-						p. 42 - 43
-							.exe ->
-							contains metadata, CLR header, IL. 					
 							
-							CLR header :
-								o- maj min ver numbers, flags
-								o- mehodDef token informs if CUI,GUI or win store exe
-								o- size and offsets of metadata tables
-								o- IMAGE_COR20_HEADER on CorHdr.h format of CLR header
+							clr works with assembly [
+								manifest - assembly metadata table containing files representing the assembly
+								public export types implemented by asm files
+								resource or data files associated with the asm
+							]
+							
+							IL - heigher level language then most CPU machine
+							all CLR facilivies available
+								o- access and manipulate obj type
+								o- create and init objs
+								o- call virt methods on objects
+								o- manipulate arr directly
+								o- err handling
 								
-							METADATA: 
-								several defenition tables, reference, manifest tables
-									
-								defenitionTables:[
-									
-								ModuleDef:
-									entry defining module,
-									includes module's file, extension, module ver GUID,
-									helps CLR locate file at runtime
-								TypeDef:
-									entry for each type in module.
-									Typename, base tpye, access modifiers
-									indexes to MethodDef, FieldDef, PropertyDef, EventDef
-								MethodDef:
-									entry for every method in modeule. 
-									method name, access modif, 
-									signature offset within module to it's IL code
-									referents to ParamDef
-								FieldDef:
-									entry for fields, acces modif, names
-								ParamDef: 
-									entry for each parameter. flags (in,out, retval), type, name
-								PropertyDef:
-									properties, flags, type, name
-								EventDef:
-									event, flags,name
-									
+							p. 16
+							EXECUTION - 
+								before main executes CLR allocates internal datastructure to managed ref types access
+								internal structure for each method with its implementation address
+								on initialization sets each entry to undocummented function incide CLR => JITcompiler
+								
+								Main - first call to first method-> JITcompiler function call
+								
+								JITcompiler -> compiles native IL code to native CPU instr
+									(knows method and type on call)
+								-> searchs asm metadata for clled method IL
+								-> native CPU instr saved to dynamic mem block
+								-> goes back to CLR internal datastruc and replaces reference to method with addr of compile mem block
+								-> jumps to mem block of compiled
+							
+							p. 18
+							DEBUG MODE		
+								-> generates nop IL instr, for breakpoints placement
+									//optimize[+/-] /debug[+/-] 
+							compiler switch:
+								default -> /optimize- /debug- -> ILcode(unopt) JIT native( opt)
+								-> /optimize- /debug(+/full/pdbonly) -> ILcode(unopt) JIT native( unopt)
+								-> /optimize+ /debug(-/+/full/pdbonly) -> ILcode(opt) JIT native( opt)
+							
+							p. 19-20
+							.PDB (Programm database) - helps debug find local vars and map IL instr to source.
+							
+							System.Runtime.ProfileOptimization -> causes CLR to record methods optimized by JIT
+								on multiple CPU would compiles concurrently
+							
+							IL -> 
+								o- stackbased, no registers, easy to target CLR
+								o- typeless
+								o- verification while CLR compiles IL to CPU source 
+									varification(
+										o- parameter number & type check
+										o- return val usage				
+									)
+							
+							p. 21
+							Virtual address space VAS ->
+							
+							CLR -> offers ability to execute several AppDomains in single OS process
+							
+							unsafe code -> 
+								/unsafe -> can work on memory directly
+								o- JIT compiler checks assembly befor compile unsafe on 
+									System.Security.Permissions.SecurityPermission 
+									and 
+									System.Security.Permissions.SecurityPermissionFlag’s SkipVerification 
+								
+								throws -> 
+									System.InvalidProgramException or a System.Security.VerificationException
+							p. 23-24
+								NGen.exe -> 
+									o- usefull for start optimizing 
+									o- asm loaded into multiple processes
+									o- %SystemRoot%\Assembly genned asembly with native code location
+							
+								CLR searchs for precompiled native file and uses it, JIT compiles code only on absence
+								
+									x- no intellectual prop prot 
+									x- rassinhronization of (CLR ver, CPU type, Win ver, asm ID)
+									x- not creates optimiations and can perform slower/
+								
+								MPGO.exe - startup time optimization
+							
+							p. 25-26
+								Framework class library FCL -> DLL asm with type def and some funcionality
+									empl. System type with Object
+								
+								most_usefull[
+									System - basic types
+									System.Data - comunicating with database and processing
+									System.IO 
+									System.Net - low-level networ communication, protocols
+									System.RuntimeInteropServices - unmanaged code, COM, win32 functions or DLLs
+									System.Security - protecting data and resources
+									System.Text - 
+									System.Threading - asynchronous operations
 								]
+							
+							p. 27-29
+								Common Type System CTS -> 
+									Types:
+										Field, Method, Property (validation, readonly), Event
+									
+									Visibility rules:
+										Private
+										Famility/protected (derived types)
+										Family and assembly(derived if def in asm, not in C# but in IL)
+										Assembly(Internal)
+										Family or assembly(protected internal) derieved exist in asm
+										Public				
+									CTS defines inheritance rules, virtual methods, obj lifetime.
+									Type can dereive from once base class
+									
+									Sustem.Object 
+										o- compare intances for equality
+										o- get hash
+										o- shalow (bitwise) copy
+										o- get string representation
+										
+								ECMA-334,335
+									Common Language Specification CLS ->
+										o- defines rules for languages
+										o- language types accessible from other languages, to be CLS compliant
+										
+										check for cpmliance with CLS ->
+											[assembly:CLSCompliant(true)]
+									
+										Cross-Language Interoperability ->
+											https://docs.microsoft.com/en-us/previous-versions/730f1wy3(v=vs.100)
+										
+										o- defines everything as field(data) or method(behaviour)
+											all language concepts compiler translates into fields and methods
+											(enum, oper overload, conversion oper, index, 
+											delegates, events, construct, finilizers) from source code
+										
+								p.34
+									Interoperability with unmanaged code ->
+										o- call unmanaged code in DLL 
+											CreateSemaphore kernel32.dll
+										
+										o- access COM components
+											TlbImp.exe  converts COM lib types to CLR asm
+										
+										o- unmanaged code can use managed type (server)
+										
+										(WinRT) from win8 seamles comunication with NET due to ECMA spec
+							
+						]
+						
+						chapter_2
+						{assembly build, deploy}
+						[
+							p. 38
+							DLL hell - new versions of programms ovewrite older versions
+							complicated installation/uninstallation - files copied, registry updated
+										
+							System.Console. System.Console, IL in MSCorLib.dll
+							
+							Compiling console app with writeline with source.cs csc.exe ->
+								passing reference to MSCorLib.dll			
+								@MyProject.rsp - response file with command keys list
+									o- multiple support
+									o- local overrides global
+							
+							p. 42 - 43
+								.exe ->
+								contains metadata, CLR header, IL. 					
 								
-								referenceTables[
-									AssemblyRef:
-										entry for each asm , name, version, culture, publick key token, hash.
-										CLR ignores hash
-									ModuleRef:
-										entry for PE module, name, extension, binds to types impl in modules in calling asm
+								CLR header :
+									o- maj min ver numbers, flags
+									o- mehodDef token informs if CUI,GUI or win store exe
+									o- size and offsets of metadata tables
+									o- IMAGE_COR20_HEADER on CorHdr.h format of CLR header
+									
+								METADATA: 
+									several defenition tables, reference, manifest tables
+										
+									defenitionTables:[
+										
+									ModuleDef:
+										entry defining module,
+										includes module's file, extension, module ver GUID,
+										helps CLR locate file at runtime
 									TypeDef:
-										type name and ref.
-											ANOTHER TYPE -> TypeDef; 
-											ANOTHER MODULE -> ModuleRef; 
-											SAME MODULE -> ModuleDef
-										If type impl within ANOTHER TYPE, reference indicates 
-											TypeDef entryid 
-										If impl in ANOTHER MODULE ref indicates 
-											ModuleRef entry
-										If impl in the SAME MODULE ref indicate 
-											ModuleDef entry
-									MemberRef:
-										one entry for each field, prop, method, event referenced by module
-										name, signature, points to TypeRef
-								]
-					
-						p. 44 - 48
-							ILDASM:
-							ctrl-m on exe -> metainfo 
-								metadata, statistics
+										entry for each type in module.
+										Typename, base tpye, access modifiers
+										indexes to MethodDef, FieldDef, PropertyDef, EventDef
+									MethodDef:
+										entry for every method in modeule. 
+										method name, access modif, 
+										signature offset within module to it's IL code
+										referents to ParamDef
+									FieldDef:
+										entry for fields, acces modif, names
+									ParamDef: 
+										entry for each parameter. flags (in,out, retval), type, name
+									PropertyDef:
+										properties, flags, type, name
+									EventDef:
+										event, flags,name
+										
+									]
+									
+									referenceTables[
+										AssemblyRef:
+											entry for each asm , name, version, culture, publick key token, hash.
+											CLR ignores hash
+										ModuleRef:
+											entry for PE module, name, extension, binds to types impl in modules in calling asm
+										TypeDef:
+											type name and ref.
+												ANOTHER TYPE -> TypeDef; 
+												ANOTHER MODULE -> ModuleRef; 
+												SAME MODULE -> ModuleDef
+											If type impl within ANOTHER TYPE, reference indicates 
+												TypeDef entryid 
+											If impl in ANOTHER MODULE ref indicates 
+												ModuleRef entry
+											If impl in the SAME MODULE ref indicate 
+												ModuleDef entry
+										MemberRef:
+											one entry for each field, prop, method, event referenced by module
+											name, signature, points to TypeRef
+									]
 						
-						p. 48
-							Combine modules to form asm 
-					]
-					
-				]
-
-			]
-				
-				//https://ungrid.unal.edu.co:8888/img/Microservices_Designing_Deploying.pdf
-				
-				//c++
-				https://www.micc.unifi.it/bertini/download/programmazione/TICPP-2nd-ed-Vol-two-printed.pdf
-				https://www.micc.unifi.it/bertini/download/programmazione/TICPP-2nd-ed-Vol-one-printed.pdf
-				
-				//penetration testing
-				https://repo.zenk-security.com/Others/The%20Hackers%20Handbook.pdf
-				https://doc.lagout.org/security/The-Hacker-Playbook-Practical-Guide-To-Penetration-Testing-2014.pdf
-				
-				//Building Microservices				
-				https://www.quora.com/What-are-the-best-sources-to-learn-on-microservices
-				//sam newmann building microservices designing fine-grained systems pdf
-				http://index-of.es/Varios/Sam%20Newman-Building%20Microservices-O%27Reilly%20Media%20(2015).pdf
-				
-				//enterprise architecture
-				https://sparxsystems.com.au/resources/user-guides/guidebooks/enterprise-architecture.pdf
-				
-				//CLR via sharp
-				http://sd.blackball.lv/library/CLR_via_CSharp_(Jeffrey_Richter_4th_Edition).pdf
-				//algorithms
-				https://mcdtu.files.wordpress.com/2017/03/introduction-to-algorithms-3rd-edition-sep-2010.pdf
-				//code complette
-				https://khmerbamboo.files.wordpress.com/2014/09/code-complete-2nd-edition-v413hav.pdf
-				//reverse engeneering .net apps
-				http://epublications.uef.fi/pub/urn_nbn_fi_uef-20131001/urn_nbn_fi_uef-20131001.pdf
-				
-				//The Art of Unit Testing: with Examples in .NET
-				https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
-				//pragmatic programmer
-				https://pragprog.com/book/tpp/the-pragmatic-programmer
-				//appreticeship patterns
-				http://shop.oreilly.com/product/9780596518387.do
-				//passionate programmer
-				https://pragprog.com/book/cfcar2/the-passionate-programmer
-				//reverse engeneering
-				https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf
-				
-				//But How Do It Know
-				http://www.buthowdoitknow.com/
-				//microarhitecture overall
-				http://www.iro.umontreal.ca/~aboulham/F1214/Unit_2modif.pdf
-				//A Minimal TTL Processor for Architecture Exploration
-				http://www.bradrodriguez.com/papers/piscedu2.htm
-				
-				//Computer Structures:Readings and  Examples 
-				http://gordonbell.azurewebsites.net/cgb%20files/computer%20structures%20readings%20and%20examples%201971.pdf
-				//Bell-ComputerEngineering
-				http://www.bitsavers.org/pdf/dec/_Books/Bell-ComputerEngineering.pdf
-				//Digital Logic and Microprocessor Design With VHDL
-				https://theswissbay.ch/pdf/Gentoomen%20Library/Digital%20Design/Digital%20Logic%20%26%20Microprocessor%20Design%20With%20VHDL%20-%20Hwang.pdf
-				
-				//processor design
-				http://www.gamezero.com/team-0/articles/math_magic/micro/index.html
-				//microarchitecture overall
-				https://web.njit.edu/~rlopes/Mod4.3.pdf
-				
-				//Computer Architecture: A Quantitative Approach by John L. Hennessy (Author), David A. Patterson (Author) 
-				https://doc.lagout.org/Computer%20Architechture.pdf
-				//the architecture of computer hardware,systems software and networking irv englander
-				http://disi.unal.edu.co/dacursci/sistemasycomputacion/docs/SWEBOK/The%20Architecture%20Of%20Computer%20Hardware,%20Systems%20Software,%20&%20Networking%20An%20Information%20Technology%20Approach%204Th%20Ed%20-%20I%20Englander%20(Wiley,%202009)%20Bbs.pdf
-				//DRAFT 1997 Parallel Computer Architecture: A Hardware/Software Approach by David Culler (Author), Jaswinder Pal Singh (Author), Anoop Gupta Ph.D. (Author) 
-				http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.101.4418&rep=rep1&type=pdf
-				//microelectornic circuits 
-				http://prof.usb.ve/mirodriguez/electronico/0495667722MicroelecCircuits.pdf
-				//Computer Organization and Architecture (8th Edition) 8th Edition by William Stallings (Author)
-				https://inspirit.net.in/books/academic/Computer%20Organisation%20and%20Architecture%208e%20by%20William%20Stallings.pdf							
-				
-				//the art of testing
-				http://barbie.uta.edu/~mehra/Book1_The%20Art%20of%20Software%20Testing.pdf
-				
+							p. 44 - 48
+								ILDASM:
+								ctrl-m on exe -> metainfo 
+									metadata, statistics
 							
-				//angular book
-				http://www.nglesson.com/Livres/ng-book2-angular-5-r67.pdf
+							p. 48
+								Combine modules to form asm 
+						]
+						
+					]
 
-				//react book
-				file:///F:/backup/workflow/files/lit/fullstack-react/fullstack-react.pdf
-
-				find[
-											
-					//C# 
-					the absolutely awesome book on c# and .net
-					
-					//the art of scalability 
-					http://theartofscalability.com/
-					
-					//Computer Organization and Design ARM Edition: The Hardware Software Interface (The Morgan Kaufmann Series in Computer Architecture and Design) 1st Edition by David A. Patterson (Author), John L. Hennessy (Author)
-					https://www.amazon.com/Computer-Organization-Design-ARM-Architecture/dp/0128017333/ref=pd_bxgy_14_img_2?_encoding=UTF8&pd_rd_i=0128017333&pd_rd_r=5J0QAGC16AG0PRGTYQFA&pd_rd_w=5uEsO&pd_rd_wg=4inIc&psc=1&refRID=5J0QAGC16AG0PRGTYQFA
-
-					//Modern Processor Design: Fundamentals of Superscalar Processors Paperback – July 30, 2013
-					https://www.amazon.com/Modern-Processor-Design-Fundamentals-Superscalar/dp/1478607831/ref=pd_sim_14_2?_encoding=UTF8&pd_rd_i=1478607831&pd_rd_r=YA8D8S3J61RB7JZM3KPK&pd_rd_w=9I2xq&pd_rd_wg=nr7JU&psc=1&refRID=YA8D8S3J61RB7JZM3KPK
-					
-					//CPU architecture
-					https://www.amazon.com/gp/product/0615303765									
-					
-					//VHDL
-					https://www.amazon.com/Effective-Coding-VHDL-Principles-Practice/dp/0262034220
-					
-					//signal and systems
-					https://www.amazon.com/Signals-Systems-2nd-Alan-Oppenheim/dp/0138147574/ref=pd_bxgy_14_img_2?_encoding=UTF8&pd_rd_i=0138147574&pd_rd_r=2F70B0ANAGS4PNHPJA2H&pd_rd_w=yYttJ&pd_rd_wg=hmW8t&psc=1&refRID=2F70B0ANAGS4PNHPJA2H
-					
-					
-					//Microelectronics Circuit Analysis and Design 4th Edition by Donald A Neamen (Author)
-					https://www.amazon.com/Microelectronics-Circuit-Analysis-Design-Donald/dp/0073380644
-					//Reactive Applications with Akka.NET
-					https://www.manning.com/books/reactive-applications-with-akka-net
-					//Entity Framework Core in Action
-					https://www.manning.com/books/entity-framework-core-in-action?gclid=EAIaIQobChMIhpSe4f3X4QIVQ4eyCh3U1g_AEAEYASABEgKibPD_BwE
-					//Math for Programmers
-					https://www.manning.com/books/math-for-programmers?gclid=EAIaIQobChMIhpSe4f3X4QIVQ4eyCh3U1g_AEAEYASACEgKK0PD_BwE
 				]
-			
-			]
-			
-			
-			
-			
-		guides[
-			
-			customBodyAttributes[
-				https://weblog.west-wind.com/posts/2012/Aug/30/Using-JSONNET-for-dynamic-JSON-parsing
-				https://www.dotnetcurry.com/aspnet-mvc/1368/aspnet-core-mvc-custom-model-binding
-				https://blogs.msdn.microsoft.com/jmstall/2012/04/18/mvc-style-parameter-binding-for-webapi
-				https://stackoverflow.com/questions/17645877/webapi-bind-from-both-uri-and-body
-			]
-	
-			mongodbConcurency[
-				Applications must ensure that only one thread at a time executes these operations in a client session.
-				https://docs.mongodb.com/manual/core/causal-consistency-read-write-concerns/
-				https://docs.mongodb.com/manual/faq/concurrency/
-			]
-	
-			msa[
+					
+					
 
-				https://www.nginx.com/blog/nginmesh-nginx-as-a-proxy-in-an-istio-service-mesh/
-				https://www.nginx.com/blog/what-is-a-service-mesh/
-				https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture/
-				https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/
-				https://docs.aws.amazon.com/aws-technical-content/latest/microservices-on-aws/characteristics-of-microservices.html
-			]
-			msa_patterns[
-				decomposition[
-					sidecar proxy //sideckick
-					https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar
-					//ambassador
-					https://docs.microsoft.com/en-us/azure/architecture/patterns/ambassador
-					//circuit breaker
-					https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker
-					https://www.nginx.com/blog/microservices-reference-architecture-nginx-circuit-breaker-pattern/
+					//https://ungrid.unal.edu.co:8888/img/Microservices_Designing_Deploying.pdf
+					
+					//c++
+					https://www.micc.unifi.it/bertini/download/programmazione/TICPP-2nd-ed-Vol-two-printed.pdf
+					https://www.micc.unifi.it/bertini/download/programmazione/TICPP-2nd-ed-Vol-one-printed.pdf
+					
+					//penetration testing
+					https://repo.zenk-security.com/Others/The%20Hackers%20Handbook.pdf
+					https://doc.lagout.org/security/The-Hacker-Playbook-Practical-Guide-To-Penetration-Testing-2014.pdf
+					
+					//Building Microservices				
+					https://www.quora.com/What-are-the-best-sources-to-learn-on-microservices
+					//sam newmann building microservices designing fine-grained systems pdf
+					http://index-of.es/Varios/Sam%20Newman-Building%20Microservices-O%27Reilly%20Media%20(2015).pdf
+					
+					//enterprise architecture
+					https://sparxsystems.com.au/resources/user-guides/guidebooks/enterprise-architecture.pdf
+					
+					//CLR via sharp
+					http://sd.blackball.lv/library/CLR_via_CSharp_(Jeffrey_Richter_4th_Edition).pdf
+					//algorithms
+					https://mcdtu.files.wordpress.com/2017/03/introduction-to-algorithms-3rd-edition-sep-2010.pdf
+					//code complette
+					https://khmerbamboo.files.wordpress.com/2014/09/code-complete-2nd-edition-v413hav.pdf
+					//reverse engeneering .net apps
+					http://epublications.uef.fi/pub/urn_nbn_fi_uef-20131001/urn_nbn_fi_uef-20131001.pdf
+					
+					//The Art of Unit Testing: with Examples in .NET
+					https://www.amazon.com/dp/1933988274/?tag=stackoverfl08-20
+					//pragmatic programmer
+					https://pragprog.com/book/tpp/the-pragmatic-programmer
+					//appreticeship patterns
+					http://shop.oreilly.com/product/9780596518387.do
+					//passionate programmer
+					https://pragprog.com/book/cfcar2/the-passionate-programmer
+					//reverse engeneering
+					https://www.foo.be/cours/dess-20122013/b/Eldad_Eilam-Reversing__Secrets_of_Reverse_Engineering-Wiley(2005).pdf
+					
+					//But How Do It Know
+					http://www.buthowdoitknow.com/
+					//microarhitecture overall
+					http://www.iro.umontreal.ca/~aboulham/F1214/Unit_2modif.pdf
+					//A Minimal TTL Processor for Architecture Exploration
+					http://www.bradrodriguez.com/papers/piscedu2.htm
+					
+					//Computer Structures:Readings and  Examples 
+					http://gordonbell.azurewebsites.net/cgb%20files/computer%20structures%20readings%20and%20examples%201971.pdf
+					//Bell-ComputerEngineering
+					http://www.bitsavers.org/pdf/dec/_Books/Bell-ComputerEngineering.pdf
+					//Digital Logic and Microprocessor Design With VHDL
+					https://theswissbay.ch/pdf/Gentoomen%20Library/Digital%20Design/Digital%20Logic%20%26%20Microprocessor%20Design%20With%20VHDL%20-%20Hwang.pdf
+					
+					//processor design
+					http://www.gamezero.com/team-0/articles/math_magic/micro/index.html
+					//microarchitecture overall
+					https://web.njit.edu/~rlopes/Mod4.3.pdf
+					
+					//Computer Architecture: A Quantitative Approach by John L. Hennessy (Author), David A. Patterson (Author) 
+					https://doc.lagout.org/Computer%20Architechture.pdf
+					//the architecture of computer hardware,systems software and networking irv englander
+					http://disi.unal.edu.co/dacursci/sistemasycomputacion/docs/SWEBOK/The%20Architecture%20Of%20Computer%20Hardware,%20Systems%20Software,%20&%20Networking%20An%20Information%20Technology%20Approach%204Th%20Ed%20-%20I%20Englander%20(Wiley,%202009)%20Bbs.pdf
+					//DRAFT 1997 Parallel Computer Architecture: A Hardware/Software Approach by David Culler (Author), Jaswinder Pal Singh (Author), Anoop Gupta Ph.D. (Author) 
+					http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.101.4418&rep=rep1&type=pdf
+					//microelectornic circuits 
+					http://prof.usb.ve/mirodriguez/electronico/0495667722MicroelecCircuits.pdf
+					//Computer Organization and Architecture (8th Edition) 8th Edition by William Stallings (Author)
+					https://inspirit.net.in/books/academic/Computer%20Organisation%20and%20Architecture%208e%20by%20William%20Stallings.pdf							
+					
+					//the art of testing
+					http://barbie.uta.edu/~mehra/Book1_The%20Art%20of%20Software%20Testing.pdf
+					
+								
+					//angular book
+					http://www.nglesson.com/Livres/ng-book2-angular-5-r67.pdf
+
+					//react book
+					file:///F:/backup/workflow/files/lit/fullstack-react/fullstack-react.pdf
+
+					find[
+												
+						//C# 
+						the absolutely awesome book on c# and .net
+						
+						//the art of scalability 
+						http://theartofscalability.com/
+						
+						//Computer Organization and Design ARM Edition: The Hardware Software Interface (The Morgan Kaufmann Series in Computer Architecture and Design) 1st Edition by David A. Patterson (Author), John L. Hennessy (Author)
+						https://www.amazon.com/Computer-Organization-Design-ARM-Architecture/dp/0128017333/ref=pd_bxgy_14_img_2?_encoding=UTF8&pd_rd_i=0128017333&pd_rd_r=5J0QAGC16AG0PRGTYQFA&pd_rd_w=5uEsO&pd_rd_wg=4inIc&psc=1&refRID=5J0QAGC16AG0PRGTYQFA
+
+						//Modern Processor Design: Fundamentals of Superscalar Processors Paperback – July 30, 2013
+						https://www.amazon.com/Modern-Processor-Design-Fundamentals-Superscalar/dp/1478607831/ref=pd_sim_14_2?_encoding=UTF8&pd_rd_i=1478607831&pd_rd_r=YA8D8S3J61RB7JZM3KPK&pd_rd_w=9I2xq&pd_rd_wg=nr7JU&psc=1&refRID=YA8D8S3J61RB7JZM3KPK
+						
+						//CPU architecture
+						https://www.amazon.com/gp/product/0615303765									
+						
+						//VHDL
+						https://www.amazon.com/Effective-Coding-VHDL-Principles-Practice/dp/0262034220
+						
+						//signal and systems
+						https://www.amazon.com/Signals-Systems-2nd-Alan-Oppenheim/dp/0138147574/ref=pd_bxgy_14_img_2?_encoding=UTF8&pd_rd_i=0138147574&pd_rd_r=2F70B0ANAGS4PNHPJA2H&pd_rd_w=yYttJ&pd_rd_wg=hmW8t&psc=1&refRID=2F70B0ANAGS4PNHPJA2H
+						
+						
+						//Microelectronics Circuit Analysis and Design 4th Edition by Donald A Neamen (Author)
+						https://www.amazon.com/Microelectronics-Circuit-Analysis-Design-Donald/dp/0073380644
+						//Reactive Applications with Akka.NET
+						https://www.manning.com/books/reactive-applications-with-akka-net
+						//Entity Framework Core in Action
+						https://www.manning.com/books/entity-framework-core-in-action?gclid=EAIaIQobChMIhpSe4f3X4QIVQ4eyCh3U1g_AEAEYASABEgKibPD_BwE
+						//Math for Programmers
+						https://www.manning.com/books/math-for-programmers?gclid=EAIaIQobChMIhpSe4f3X4QIVQ4eyCh3U1g_AEAEYASACEgKK0PD_BwE
+					]
+				
 				]
-			]
-	
-			//EF
-			//codefirst
-			http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx			
-			https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502		
-			https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
-			https://coding.abel.nu/2012/03/ef-migrations-command-reference/			
-			//postgre
-			http://www.npgsql.org/ef6/
-			
-			//expression trees
-			https://blog.marcgravell.com/2008/10/express-yourself.html
+				
+			guides[
+				
+				customBodyAttributes[
+					https://weblog.west-wind.com/posts/2012/Aug/30/Using-JSONNET-for-dynamic-JSON-parsing
+					https://www.dotnetcurry.com/aspnet-mvc/1368/aspnet-core-mvc-custom-model-binding
+					https://blogs.msdn.microsoft.com/jmstall/2012/04/18/mvc-style-parameter-binding-for-webapi
+					https://stackoverflow.com/questions/17645877/webapi-bind-from-both-uri-and-body
+				]
 		
+				mongodbConcurency[
+					Applications must ensure that only one thread at a time executes these operations in a client session.
+					https://docs.mongodb.com/manual/core/causal-consistency-read-write-concerns/
+					https://docs.mongodb.com/manual/faq/concurrency/
+				]
 		
-			//overall low level recommendation
-			ftp://ftp.wayne.edu/ldp/en/IO-Port-Programming/IO-Port-Programming.html#toc3
-			//Linux kernel hacker guide
-			http://www.oldlinux.org/Linux.old/docs/khg/khg-0.6.pdf
-			//c++ hack guide
-			https://tfetimes.com/wp-content/uploads/2015/04/hack.pdf
-			//linux kernel
-			https://www.tldp.org/LDP/tlk/tlk.html
-			
-			ddd[					
-				https://www.infoq.com/articles/ddd-in-practice
-			]
-			
-			MSDN_articles[
-			
-				MSA[
-					event sourcing 
-					{
-						https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing
-						event timestamp, iteration number, version format, event stream length
-					}
-					
-					//materialized view
-					https://docs.microsoft.com/en-us/azure/architecture/patterns/materialized-view
-					//Introduction to Microservices
-					https://www.nginx.com/blog/introduction-to-microservices/
-				]
-				ddd[
-					https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
-					https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
-				]
-			]
-			
-			NGINX_articles[
-				MSA[
-					//FourTierArchitecture 4tier
-					https://www.nginx.com/blog/time-to-move-to-a-four-tier-application-architecture/
-					//adopt msa at netflix
+				msa[
+
+					https://www.nginx.com/blog/nginmesh-nginx-as-a-proxy-in-an-istio-service-mesh/
+					https://www.nginx.com/blog/what-is-a-service-mesh/
+					https://www.nginx.com/blog/introducing-the-nginx-microservices-reference-architecture/
 					https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/
+					https://docs.aws.amazon.com/aws-technical-content/latest/microservices-on-aws/characteristics-of-microservices.html
 				]
+				msa_patterns[
+					decomposition[
+						sidecar proxy //sideckick
+						https://docs.microsoft.com/en-us/azure/architecture/patterns/sidecar
+						//ambassador
+						https://docs.microsoft.com/en-us/azure/architecture/patterns/ambassador
+						//circuit breaker
+						https://docs.microsoft.com/en-us/azure/architecture/patterns/circuit-breaker
+						https://www.nginx.com/blog/microservices-reference-architecture-nginx-circuit-breaker-pattern/
+					]
+				]
+		
+				//EF
+				//codefirst
+				http://www.entityframeworktutorial.net/code-first/code-based-migration-in-code-first.aspx			
+				https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502		
+				https://docs.microsoft.com/en-us/nuget/tools/package-manager-console
+				https://coding.abel.nu/2012/03/ef-migrations-command-reference/			
+				//postgre
+				http://www.npgsql.org/ef6/
+				
+				//expression trees
+				https://blog.marcgravell.com/2008/10/express-yourself.html
+			
+			
+				//overall low level recommendation
+				ftp://ftp.wayne.edu/ldp/en/IO-Port-Programming/IO-Port-Programming.html#toc3
+				//Linux kernel hacker guide
+				http://www.oldlinux.org/Linux.old/docs/khg/khg-0.6.pdf
+				//c++ hack guide
+				https://tfetimes.com/wp-content/uploads/2015/04/hack.pdf
+				//linux kernel
+				https://www.tldp.org/LDP/tlk/tlk.html
+				
+				ddd[					
+					https://www.infoq.com/articles/ddd-in-practice
+				]
+				
+				MSDN_articles[
+				
+					MSA[
+						event sourcing 
+						{
+							https://docs.microsoft.com/en-us/azure/architecture/patterns/event-sourcing
+							event timestamp, iteration number, version format, event stream length
+						}
+						
+						//materialized view
+						https://docs.microsoft.com/en-us/azure/architecture/patterns/materialized-view
+						//Introduction to Microservices
+						https://www.nginx.com/blog/introduction-to-microservices/
+					]
+					ddd[
+						https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/ddd-oriented-microservice
+						https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/microservice-domain-model
+					]
+				]
+				
+				NGINX_articles[
+					MSA[
+						//FourTierArchitecture 4tier
+						https://www.nginx.com/blog/time-to-move-to-a-four-tier-application-architecture/
+						//adopt msa at netflix
+						https://www.nginx.com/blog/microservices-at-netflix-architectural-best-practices/
+					]
+				]
+			
 			]
-		
-		]
-		
-		IBM_articles[
-			//msa infr
-			https://www.ibm.com/blogs/bluemix/2018/05/architecting-applications-microservices-general-principles/
-		]
-		
-		articles[
-		
-			//Nahalem arhitecture
-			https://www.researchgate.net/publication/235960679_The_Architecture_of_the_Nehalem_Processor_and_Nehalem-EP_SMP_Platforms
-		
-			//architecture of opensource applications
-			http://www.aosabook.org/en/index.html
 			
-			https://medium.com/@rhamedy/key-habits-and-things-i-wish-i-knew-earlier-as-a-developer-43c9466a0407
-		]					
-		
+			IBM_articles[
+				//msa infr
+				https://www.ibm.com/blogs/bluemix/2018/05/architecting-applications-microservices-general-principles/
+			]
+			
+			articles[
+			
+				//Nahalem arhitecture
+				https://www.researchgate.net/publication/235960679_The_Architecture_of_the_Nehalem_Processor_and_Nehalem-EP_SMP_Platforms
+			
+				//architecture of opensource applications
+				http://www.aosabook.org/en/index.html
+				
+				https://medium.com/@rhamedy/key-habits-and-things-i-wish-i-knew-earlier-as-a-developer-43c9466a0407
+			]
+			
+					
+			blogs[
+			
+				https://medium.com/reverdev/why-we-moved-from-angular-2-to-vue-js-and-why-we-didnt-choose-react-ef807d9f4163
+				https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3
+				https://blog.angularindepth.com/the-new-angular-httpclient-api-9e5c85fe3361
+				https://toddmotto.com/classes-vs-interfaces-in-typescript
+				https://codecraft.tv/courses/angular/http/http-with-observables/
+				https://medium.com/meduza-how-it-works/%D1%85%D0%BE%D1%87%D1%83-%D1%81%D0%B2%D0%BE%D0%B9-vpn-%D0%B7%D0%B0-5-%D0%BC%D0%B8%D0%BD%D1%83%D1%82-%D1%87%D1%82%D0%BE-%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-5581e536650a
+				https://medium.com/meduza-how-it-works/ddos-ab63424e595e
+				https://hackernoon.com/
+				https://www.ryanatkinson.io/
+				https://rob.conery.io/
+				https://lostechies.com/		
+				//earlyCareer
+				https://8thlight.com/blog/colin-jones/2017/10/24/advice-for-early-career-developers.html
+				//martin fowler
+				https://martinfowler.com/
+				
+				//twitter
+				//Rich Hickey
+				https://twitter.com/richhickey
+				//Eric Normand
+				https://twitter.com/ericnormand
+				
+				//cognitect labs
+				https://twitter.com/gigasquid
+				
+				//robotics
+				https://twitter.com/hashtag/robotics?src=hash
+				
+				//mxnet
+				https://twitter.com/hashtag/MXNet?src=hash
+				
+			]						   
+			
+			journals[
+				
+				//IT
+				https://www.theregister.co.uk/
+				https://www.nextplatform.com/
+				https://www.anandtech.com/
+				https://dzone.com/
+				http://www.aosabook.org/en/index.html
+				
+				//FIN
+				https://www.marketwatch.com/
+				
+				//manga
+				https://mangalib.me/shingeki-no-kyojin
+			]
+						
+		]
 
 
-		
-		blogs[
-		
-			https://medium.com/reverdev/why-we-moved-from-angular-2-to-vue-js-and-why-we-didnt-choose-react-ef807d9f4163
-			https://medium.com/javascript-scene/the-shocking-secret-about-static-types-514d39bf30a3
-			https://blog.angularindepth.com/the-new-angular-httpclient-api-9e5c85fe3361
-			https://toddmotto.com/classes-vs-interfaces-in-typescript
-			https://codecraft.tv/courses/angular/http/http-with-observables/
-			https://medium.com/meduza-how-it-works/%D1%85%D0%BE%D1%87%D1%83-%D1%81%D0%B2%D0%BE%D0%B9-vpn-%D0%B7%D0%B0-5-%D0%BC%D0%B8%D0%BD%D1%83%D1%82-%D1%87%D1%82%D0%BE-%D0%B4%D0%B5%D0%BB%D0%B0%D1%82%D1%8C-5581e536650a
-			https://medium.com/meduza-how-it-works/ddos-ab63424e595e
-			https://hackernoon.com/
-			https://www.ryanatkinson.io/
-			https://rob.conery.io/
-			https://lostechies.com/		
-			//earlyCareer
-			https://8thlight.com/blog/colin-jones/2017/10/24/advice-for-early-career-developers.html
-			//martin fowler
-			https://martinfowler.com/
-			
-			//twitter
-			//Rich Hickey
-			https://twitter.com/richhickey
-			//Eric Normand
-			https://twitter.com/ericnormand
-			
-			//cognitect labs
-			https://twitter.com/gigasquid
-			
-			//robotics
-			https://twitter.com/hashtag/robotics?src=hash
-			
-			//mxnet
-			https://twitter.com/hashtag/MXNet?src=hash
-			
-		]						   
-		
-		journals[
-			
-			//IT
-			https://www.theregister.co.uk/
-			https://www.nextplatform.com/
-			https://www.anandtech.com/
-			https://dzone.com/
-			http://www.aosabook.org/en/index.html
-			
-			//FIN
-			https://www.marketwatch.com/
-			
-			//manga
-			https://mangalib.me/shingeki-no-kyojin
-		]
-		
 		craft[
 			
 			woodworks[
@@ -5629,19 +5525,304 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 		
 		unsorted
 		{
-			API_design[
-				https://graphql.github.io/learn/queries/
-				https://github.com/alumbra/alumbra
-				https://github.com/graphql/graphiql
+		
+			toread[
 				
-				graphql, grpc POC
-				https://medium.com/@svengau_17540/when-graphql-meets-grpc-3e9729d32e05
+				authentication[
+					https://developer.okta.com/authentication-guide/implementing-authentication/
+					https://docs.microsoft.com/en-us/dotnet/standard/threading/overview-of-synchronization-primitives?view=netframework-4.8
+					https://www.orioninc.com/blog/c-async-and-await-programming-model-from-scratch-introduction/
+
+					https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises
+					https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+					https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API/Using_Service_Workers
+					https://developer.mozilla.org/en-US/docs/Web/API/File/Using_files_from_web_applications
+					https://developer.mozilla.org/en-US/docs/Web/API/IndexedDB_API
+				]
 				
-				//REST graphql grpc webhoocks
-				https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
+				API_design[
+					https://graphql.github.io/learn/queries/
+					https://github.com/alumbra/alumbra
+					https://github.com/graphql/graphiql
+					
+					graphql, grpc POC
+					https://medium.com/@svengau_17540/when-graphql-meets-grpc-3e9729d32e05
+					
+					//REST graphql grpc webhoocks
+					https://nordicapis.com/when-to-use-what-rest-graphql-webhooks-grpc/
+					
+				]
+
+				architecture[
+						
+//EF repository wrong
+https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502
+	
+//clean architecture explained
+https://habr.com/ru/company/mobileup/blog/335382/
+https://medium.com/gdplabs/clean-architecture-a8b5d93d0944
+				]
 				
+				core[
+					//react in core
+					https://developer.okta.com/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react
+					https://docs.microsoft.com/en-us/aspnet/core/client-side/spa/react?view=aspnetcore-2.2&tabs=visual-studio
+						https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+						https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+					https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502
+					
+					threading[
+						http://www.albahari.com/threading/
+					]
+					
+					async [
+
+//asynchronous programming
+https://docs.microsoft.com/en-us/dotnet/csharp/async
+//await
+https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/await
+//thread pool
+https://docs.microsoft.com/en-us/dotnet/api/system.threading.threadpool?view=netframework-4.7.2
+//APM
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/using-an-asynccallback-delegate-and-state-object
+		
+https://cpratt.co/async-tips-tricks/
+//async exceptions
+https://blogs.msdn.microsoft.com/ptorr/2014/12/10/async-exceptions-in-c/
+//async await best practices
+https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+//query to linq expression tree
+https://weblogs.asp.net/dixin/entity-framework-core-and-linq-to-entities-5-query-translation-implementation
+//yield return epl
+https://devblogs.microsoft.com/oldnewthing/20080812-00/?p=21273
+https://stackoverflow.com/questions/39476/what-is-the-yield-keyword-used-for-in-c 
+
+//c#  async awai tutorial
+https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/introduction
+
+//c# shoot in the leg with Tasks
+https://blog.maximerouiller.com/post/shooting-yourself-in-the-foot-with-c-tasks-continuewith/
+
+https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+
+//asynchronous programming patterns							
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/
+//system threading
+https://docs.microsoft.com/en-us/dotnet/api/system.threading?view=netframework-4.7.2
+//taks
+https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks?view=netframework-4.7.2
+//async in depth
+https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+//asynchronous programming
+https://docs.microsoft.com/en-us/dotnet/csharp/async
+//introduction to sync
+https://msdn.microsoft.com/en-us/magazine/dn802603.aspx
+//should my db calls be async
+https://blogs.msdn.microsoft.com/rickandy/2009/11/14/should-my-database-calls-be-asynchronous/
+//Understanding Async, Avoiding Deadlocks
+https://medium.com/rubrikkgroup/understanding-async-avoiding-deadlocks-e41f8f2c6f5d
+
+
+http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
+http://blog.stephencleary.com/2012/02/async-and-await.html
+https://msdn.microsoft.com/en-us/magazine/mt238404.aspx
+https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
+https://stackify.com/csharp-async-await-task-performance/
+https://docs.microsoft.com/en-us/dotnet/framework/network-programming/asynchronous-server-socket-example
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
+https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/?view=aspnetcore-2.1
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
+https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=netframework-4.7.2
+
+//async 
+https://cpratt.co/async-tips-tricks/
+https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/structure-of-async-await
+https://medium.com/quick-code/react-quick-tip-use-class-properties-and-arrow-functions-to-avoid-binding-this-to-methods-29628aca2e25
+https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f
+https://msdn.microsoft.com/en-us/magazine/gg598924.aspx
+
+https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
+https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
+https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm
+https://devblogs.microsoft.com/dotnet/async-in-4-5-worth-the-await/
+https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+
+						//async 
+						https://cpratt.co/async-tips-tricks/
+						
+						https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+						https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+						
+						//async 
+						https://cpratt.co/async-tips-tricks/
+						https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/structure-of-async-await
+						https://medium.com/quick-code/react-quick-tip-use-class-properties-and-arrow-functions-to-avoid-binding-this-to-methods-29628aca2e25
+						https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f
+						https://msdn.microsoft.com/en-us/magazine/gg598924.aspx
+						
+						https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+						https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
+						https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
+						https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/
+						https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
+						https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm
+						https://devblogs.microsoft.com/dotnet/async-in-4-5-worth-the-await/
+						https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+						
+						//https://stackoverflow.com/questions/13489065/best-practice-to-call-configureawait-for-all-server-side-code
+						ConfigureAwait(false) in classic asp.net in UI context
+						not saves thread jumps, saves context request
+						
+						
+						//useable only in parallel request, TPL better
+						
+						//cannot be tested in .net console
+						//test from .net web api UI
+						never user ...Async.Result() -> synch way, deadlock in asp.net WEB API
+						
+						APM
+						EAP
+						TAP,TPL
+						
+//async 
+https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
+					]
+					
+					enums_code_smell[
+						https://softwareengineering.stackexchange.com/questions/300080/when-are-enums-not-a-code-smell
+						https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/enumeration-classes-over-enum-types
+						https://stackoverflow.com/questions/10809543/why-are-these-enums-bad
+					]
+
+https://csharpindepth.com/Articles/PropertiesMatter
+//async 
+https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
+					//c#  async awai tutorial
+					https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/introduction
+					
+					//c# shoot in the leg with Tasks
+					https://blog.maximerouiller.com/post/shooting-yourself-in-the-foot-with-c-tasks-continuewith/
+				
+					//query to linq expression tree
+					https://weblogs.asp.net/dixin/entity-framework-core-and-linq-to-entities-5-query-translation-implementation
+					//yield return epl
+					https://devblogs.microsoft.com/oldnewthing/20080812-00/?p=21273
+					https://stackoverflow.com/questions/39476/what-is-the-yield-keyword-used-for-in-c 
+					
+					
+					IenumerableIcollectionIlst[
+						https://medium.com/@kunaltandon.kt/ienumerable-vs-icollection-vs-ilist-vs-iqueryable-in-c-2101351453db
+							IEnumerable{- no crud,no count + Filter,enumerate}
+							ICollection
+							{
+							count O(1), + enumerate,count,filter,crud
+								generates Func<T,bool>
+							}
+							IList{:Ienumerable + :ICollection + insert in the middle ?O(n)}
+							IQueryable{
+								:ICollection
+								generates Expression<Func<T,bool>>
+							}
+							
+						IenumerablevsIlist[
+							https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
+							https://stackoverflow.com/questions/1072614/should-i-always-return-ienumerablet-instead-of-ilistt
+						]
+					]
+				
+						//readonly
+					https://codeblog.jonskeet.uk/2014/07/16/micro-optimization-the-surprising-inefficiency-of-readonly-fields/
+					https://softwareengineering.stackexchange.com/questions/132747/is-having-public-constants-bad
+					public readonly goes to backed into referenced assemblies
+					
+					https://csharpindepth.com/Articles/PropertiesMatter
+					//async 
+					https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
+					
+						
+					msdn[
+						
+						https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+							
+						//query exec
+						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/query-execution#immediate-query-execution
+						//standart query ops
+						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/standard-query-operators-in-linq-to-entities-queries
+						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/standard-query-operators-in-linq-to-entities-queries
+						https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2013/bb397896(v=vs.120)
+						//supported and unsuported linq
+						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/supported-and-unsupported-linq-methods-linq-to-entities
+						//query methods
+						https://docs.microsoft.com/en-us/dotnet/api/system.linq.queryable.any?view=netframework-4.7.2
+						
+						//CPU usage analize
+						https://docs.microsoft.com/en-us/visualstudio/profiling/beginners-guide-to-performance-profiling?view=vs-2017
+						//code profiling
+						https://docs.microsoft.com/en-us/visualstudio/profiling/beginners-guide-to-performance-profiling?view=vs-2015
+						//async
+						https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+						//native sql
+						https://docs.microsoft.com/en-us/dotnet/api/system.data.linq.sqlclient.sqlmethods?view=netframework-4.7.2
+						//ef core
+						https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-3.0/features
+						//c# ref
+						https://opdhsblobprod02.blob.core.windows.net/contents/c6aea4f5457448ee818b7292ba695982/68a07d048ee6f26b1aa8d66304d31f2a?sv=2015-04-05&sr=b&sig=u9Hpl0y6yB5fZi41T9CnaQOQgOLgqOt8TEEr5MwjVrg%3D&st=2019-04-01T07%3A50%3A48Z&se=2019-04-02T08%3A00%3A48Z&sp=r
+						//.NET tools
+						https://docs.microsoft.com/en-us/dotnet/framework/tools/ngen-exe-native-image-generator
+						//query data
+						https://docs.microsoft.com/en-us/ef/ef6/querying/related-data
+					]
+					
+					core[
+					
+						https://the-eye.eu/public/Books/IT%20Various/LINQ%20Quickly.pdf
+						https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
+						https://the-eye.eu/public/Books/IT%20Various/C%23%20in%20Depth%2C%202nd%20Edition.pdf
+						http://sd.blackball.lv/library/CLR_via_CSharp_(Jeffrey_Richter_4th_Edition).pdf
+						//readonly
+						https://codeblog.jonskeet.uk/2014/07/16/micro-optimization-the-surprising-inefficiency-of-readonly-fields/
+						https://softwareengineering.stackexchange.com/questions/132747/is-having-public-constants-bad
+						public readonly goes to backed into referenced assemblies
+						
+						https://csharpindepth.com/Articles/PropertiesMatter
+						//async 
+						https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
+					
+					]
+					
+					https://codeblog.jonskeet.uk/2014/07/16/micro-optimization-the-surprising-inefficiency-of-readonly-fields/
+					https://softwareengineering.stackexchange.com/questions/132747/is-having-public-constants-bad
+					public readonly goes to backed into referenced assemblies.
+					https://csharpindepth.com/Articles/PropertiesMatter							
+				]
+				
+				//Error: Evaluating the function 'function' timed out and needed to be aborted in an unsafe way
+				https://docs.microsoft.com/en-us/visualstudio/debugger/error-evaluating-the-function-function-timed-out-and-needed-to-be-aborted-in-an-unsafe-way?view=vs-2017
+				https://developercommunity.visualstudio.com/content/problem/15931/evaluating-the-function-systemreflectionassemblylo.html
+				https://forums.autodesk.com/t5/revit-api-forum/use-managed-compatibility-mode-or-enable-native-code-debugging/td-p/6868592
+				https://stackoverflow.com/questions/28551818/visual-studio-2013-debug-options-missing-under-configuration-options
 			]
 			
+			CI/CD pipeline[
+				https://www.redhat.com/en/blog/integrating-ansible-jenkins-cicd-process
+				github-SonarSource-Nexus-Ansible-AnsiblePlaybook-Jenkins
+			]
+			
+						
+			https://en.wikipedia.org/wiki/NP-hardness
+			https://en.wikipedia.org/wiki/Time_complexity
+			https://en.wikipedia.org/wiki/Dynamic_programming
+
+			https://www.cl.cam.ac.uk/~caw77/papers/mechanising-and-verifying-the-webassembly-specification.pdf
+
+
+			//react + redux
+			https://medium.freecodecamp.org/an-introduction-to-functional-reactive-programming-in-redux-b0c14d097836
+
 
 			http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0006481																  
 			https://sharpc.livejournal.com/67583.html
@@ -5653,7 +5834,14 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			Atlantic Council
 			http://veloline.ru/ispravlenie-vosmerok								 
 			
-			
+			https://en.wikipedia.org/wiki/NP-hardness
+			https://en.wikipedia.org/wiki/Time_complexity
+			https://en.wikipedia.org/wiki/Dynamic_programming
+			https://developer.chrome.com/native-client/migration
+			https://www.valentinog.com/blog/webpack-tutorial/
+			https://www.cl.cam.ac.uk/~caw77/papers/mechanising-and-verifying-the-webassembly-specification.pdf
+
+
 			RPN[
 				http://77.rospotrebnadzor.ru/index.php/upravlenie/priemnaya
 				http://rospotrebnadzor.ru/region/structure/str_uprav.php
@@ -6165,262 +6353,6 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 			//123 Interview questions
 			https://tproger.ru/articles/problems/
 
-			toread[
-			
-				architecture[
-						
-//EF repository wrong
-https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502
-	
-//clean architecture explained
-https://habr.com/ru/company/mobileup/blog/335382/
-https://medium.com/gdplabs/clean-architecture-a8b5d93d0944
-				]
-				
-				core[
-					//react in core
-					https://developer.okta.com/blog/2018/07/02/build-a-secure-crud-app-with-aspnetcore-and-react
-					https://docs.microsoft.com/en-us/aspnet/core/client-side/spa/react?view=aspnetcore-2.2&tabs=visual-studio
-						https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
-						https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
-					https://medium.com/@hoagsie/youre-all-doing-entity-framework-wrong-ea0c40e20502
-					
-					threading[
-						http://www.albahari.com/threading/
-					]
-					
-					async [
-
-//asynchronous programming
-https://docs.microsoft.com/en-us/dotnet/csharp/async
-//await
-https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/await
-//thread pool
-https://docs.microsoft.com/en-us/dotnet/api/system.threading.threadpool?view=netframework-4.7.2
-//APM
-https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/using-an-asynccallback-delegate-and-state-object
-		
-https://cpratt.co/async-tips-tricks/
-//async exceptions
-https://blogs.msdn.microsoft.com/ptorr/2014/12/10/async-exceptions-in-c/
-//async await best practices
-https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
-//query to linq expression tree
-https://weblogs.asp.net/dixin/entity-framework-core-and-linq-to-entities-5-query-translation-implementation
-//yield return epl
-https://devblogs.microsoft.com/oldnewthing/20080812-00/?p=21273
-https://stackoverflow.com/questions/39476/what-is-the-yield-keyword-used-for-in-c 
-
-//c#  async awai tutorial
-https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/introduction
-
-//c# shoot in the leg with Tasks
-https://blog.maximerouiller.com/post/shooting-yourself-in-the-foot-with-c-tasks-continuewith/
-
-https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
-https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
-
-//asynchronous programming patterns							
-https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/
-//system threading
-https://docs.microsoft.com/en-us/dotnet/api/system.threading?view=netframework-4.7.2
-//taks
-https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks?view=netframework-4.7.2
-//async in depth
-https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
-//asynchronous programming
-https://docs.microsoft.com/en-us/dotnet/csharp/async
-//introduction to sync
-https://msdn.microsoft.com/en-us/magazine/dn802603.aspx
-//should my db calls be async
-https://blogs.msdn.microsoft.com/rickandy/2009/11/14/should-my-database-calls-be-asynchronous/
-//Understanding Async, Avoiding Deadlocks
-https://medium.com/rubrikkgroup/understanding-async-avoiding-deadlocks-e41f8f2c6f5d
-
-
-http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
-http://blog.stephencleary.com/2012/02/async-and-await.html
-https://msdn.microsoft.com/en-us/magazine/mt238404.aspx
-https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
-https://stackify.com/csharp-async-await-task-performance/
-https://docs.microsoft.com/en-us/dotnet/framework/network-programming/asynchronous-server-socket-example
-https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/async/
-https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/docker/?view=aspnetcore-2.1
-https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
-https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=netframework-4.7.2
-
-//async 
-https://cpratt.co/async-tips-tricks/
-https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/structure-of-async-await
-https://medium.com/quick-code/react-quick-tip-use-class-properties-and-arrow-functions-to-avoid-binding-this-to-methods-29628aca2e25
-https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f
-https://msdn.microsoft.com/en-us/magazine/gg598924.aspx
-
-https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
-https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
-https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
-https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/
-https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
-https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm
-https://devblogs.microsoft.com/dotnet/async-in-4-5-worth-the-await/
-https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
-
-						//async 
-						https://cpratt.co/async-tips-tricks/
-						
-						https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
-						https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
-						
-						//async 
-						https://cpratt.co/async-tips-tricks/
-						https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/structure-of-async-await
-						https://medium.com/quick-code/react-quick-tip-use-class-properties-and-arrow-functions-to-avoid-binding-this-to-methods-29628aca2e25
-						https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f
-						https://msdn.microsoft.com/en-us/magazine/gg598924.aspx
-						
-						https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
-						https://docs.microsoft.com/en-us/dotnet/standard/async-in-depth
-						https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
-						https://devblogs.microsoft.com/dotnet/new-features-in-c-7-0/
-						https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/task-based-asynchronous-pattern-tap
-						https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patterns/asynchronous-programming-model-apm
-						https://devblogs.microsoft.com/dotnet/async-in-4-5-worth-the-await/
-						https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
-						
-						//https://stackoverflow.com/questions/13489065/best-practice-to-call-configureawait-for-all-server-side-code
-						ConfigureAwait(false) in classic asp.net in UI context
-						not saves thread jumps, saves context request
-						
-						
-						//useable only in parallel request, TPL better
-						
-						//cannot be tested in .net console
-						//test from .net web api UI
-						never user ...Async.Result() -> synch way, deadlock in asp.net WEB API
-						
-						APM
-						EAP
-						TAP,TPL
-						
-//async 
-https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
-					]
-					
-					enums_code_smell[
-						https://softwareengineering.stackexchange.com/questions/300080/when-are-enums-not-a-code-smell
-						https://docs.microsoft.com/en-us/dotnet/standard/microservices-architecture/microservice-ddd-cqrs-patterns/enumeration-classes-over-enum-types
-						https://stackoverflow.com/questions/10809543/why-are-these-enums-bad
-					]
-
-https://csharpindepth.com/Articles/PropertiesMatter
-//async 
-https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
-					//c#  async awai tutorial
-					https://www.codingame.com/playgrounds/4240/your-ultimate-async-await-tutorial-in-c/introduction
-					
-					//c# shoot in the leg with Tasks
-					https://blog.maximerouiller.com/post/shooting-yourself-in-the-foot-with-c-tasks-continuewith/
-				
-					//query to linq expression tree
-					https://weblogs.asp.net/dixin/entity-framework-core-and-linq-to-entities-5-query-translation-implementation
-					//yield return epl
-					https://devblogs.microsoft.com/oldnewthing/20080812-00/?p=21273
-					https://stackoverflow.com/questions/39476/what-is-the-yield-keyword-used-for-in-c 
-					
-					
-					IenumerableIcollectionIlst[
-						https://medium.com/@kunaltandon.kt/ienumerable-vs-icollection-vs-ilist-vs-iqueryable-in-c-2101351453db
-							IEnumerable{- no crud,no count + Filter,enumerate}
-							ICollection
-							{
-							count O(1), + enumerate,count,filter,crud
-								generates Func<T,bool>
-							}
-							IList{:Ienumerable + :ICollection + insert in the middle ?O(n)}
-							IQueryable{
-								:ICollection
-								generates Expression<Func<T,bool>>
-							}
-							
-						IenumerablevsIlist[
-							https://docs.microsoft.com/en-us/dotnet/standard/design-guidelines/guidelines-for-collections
-							https://stackoverflow.com/questions/1072614/should-i-always-return-ienumerablet-instead-of-ilistt
-						]
-					]
-				
-						//readonly
-					https://codeblog.jonskeet.uk/2014/07/16/micro-optimization-the-surprising-inefficiency-of-readonly-fields/
-					https://softwareengineering.stackexchange.com/questions/132747/is-having-public-constants-bad
-					public readonly goes to backed into referenced assemblies
-					
-					https://csharpindepth.com/Articles/PropertiesMatter
-					//async 
-					https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
-					
-						
-					msdn[
-						
-						https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
-							
-						//query exec
-						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/query-execution#immediate-query-execution
-						//standart query ops
-						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/standard-query-operators-in-linq-to-entities-queries
-						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/standard-query-operators-in-linq-to-entities-queries
-						https://docs.microsoft.com/en-us/previous-versions/visualstudio/visual-studio-2013/bb397896(v=vs.120)
-						//supported and unsuported linq
-						https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/ef/language-reference/supported-and-unsupported-linq-methods-linq-to-entities
-						//query methods
-						https://docs.microsoft.com/en-us/dotnet/api/system.linq.queryable.any?view=netframework-4.7.2
-						
-						//CPU usage analize
-						https://docs.microsoft.com/en-us/visualstudio/profiling/beginners-guide-to-performance-profiling?view=vs-2017
-						//code profiling
-						https://docs.microsoft.com/en-us/visualstudio/profiling/beginners-guide-to-performance-profiling?view=vs-2015
-						//async
-						https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
-						//native sql
-						https://docs.microsoft.com/en-us/dotnet/api/system.data.linq.sqlclient.sqlmethods?view=netframework-4.7.2
-						//ef core
-						https://docs.microsoft.com/en-us/ef/core/what-is-new/ef-core-3.0/features
-						//c# ref
-						https://opdhsblobprod02.blob.core.windows.net/contents/c6aea4f5457448ee818b7292ba695982/68a07d048ee6f26b1aa8d66304d31f2a?sv=2015-04-05&sr=b&sig=u9Hpl0y6yB5fZi41T9CnaQOQgOLgqOt8TEEr5MwjVrg%3D&st=2019-04-01T07%3A50%3A48Z&se=2019-04-02T08%3A00%3A48Z&sp=r
-						//.NET tools
-						https://docs.microsoft.com/en-us/dotnet/framework/tools/ngen-exe-native-image-generator
-						//query data
-						https://docs.microsoft.com/en-us/ef/ef6/querying/related-data
-					]
-					
-					core[
-					
-						https://the-eye.eu/public/Books/IT%20Various/LINQ%20Quickly.pdf
-						https://elacademico.files.wordpress.com/2009/11/manning-linq-in-action-jan-2008-19339881691.pdf
-						https://the-eye.eu/public/Books/IT%20Various/C%23%20in%20Depth%2C%202nd%20Edition.pdf
-						http://sd.blackball.lv/library/CLR_via_CSharp_(Jeffrey_Richter_4th_Edition).pdf
-						//readonly
-						https://codeblog.jonskeet.uk/2014/07/16/micro-optimization-the-surprising-inefficiency-of-readonly-fields/
-						https://softwareengineering.stackexchange.com/questions/132747/is-having-public-constants-bad
-						public readonly goes to backed into referenced assemblies
-						
-						https://csharpindepth.com/Articles/PropertiesMatter
-						//async 
-						https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling.html
-					
-					]
-					
-					https://codeblog.jonskeet.uk/2014/07/16/micro-optimization-the-surprising-inefficiency-of-readonly-fields/
-					https://softwareengineering.stackexchange.com/questions/132747/is-having-public-constants-bad
-					public readonly goes to backed into referenced assemblies.
-					https://csharpindepth.com/Articles/PropertiesMatter							
-				]
-				
-				//Error: Evaluating the function 'function' timed out and needed to be aborted in an unsafe way
-				https://docs.microsoft.com/en-us/visualstudio/debugger/error-evaluating-the-function-function-timed-out-and-needed-to-be-aborted-in-an-unsafe-way?view=vs-2017
-				https://developercommunity.visualstudio.com/content/problem/15931/evaluating-the-function-systemreflectionassemblylo.html
-				https://forums.autodesk.com/t5/revit-api-forum/use-managed-compatibility-mode-or-enable-native-code-debugging/td-p/6868592
-				https://stackoverflow.com/questions/28551818/visual-studio-2013-debug-options-missing-under-configuration-options
-			]
-		
 		
 	
 			SQL[

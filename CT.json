@@ -347,7 +347,11 @@ namespace Parts{
 					git reflog expire --expire=now --all
 					git gc --prune=now
 					git gc --aggressive --prune=now
-
+					
+					//show files
+					git ls-tree -r --name-only 
+					//checkout file
+					git checkout -m branch file
 				]
 			
 			}
