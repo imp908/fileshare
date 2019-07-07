@@ -1,20 +1,17 @@
+gc 19:00 25.06.19
 
 actual
 [
 
-
 	TODO[
 					
-			arrange[
-				-> sort actual
+			arrange[				
 				-> sort unsorted of watchlist
 				-> core projs arrange
 					-> checkers - make base for sandbox code tamplates
 					-> mvcWebPackGulpReact - gulp webpack configs and view/model decomposition
 						-> mvcBulkOverall2 extendes mvcWebPackGulpReact
-					-> mvcCoreCheck - core vies, partial views
-					-> leafletBulkSandbox - leaflet SB
-					-> mvcReactReduxCheck - event bus
+					-> mvcCoreCheck - core vies, partial views					
 					
 				-> js projs rearrange 
 					-> move all to folders in js SandBoxCodeTemplates
@@ -29,6 +26,8 @@ actual
 						-> hw - js utility code
 						-> BOXbundle,geoposPlanPictureOld - drag n drop partly logic
 						-> boatMarkerCheck - leaflet boat plugin 
+						-> leafletBulkSandbox - leaflet SB
+						-> mvcReactReduxCheck - event bus
 					
 				no particular intrest core folder - 
 					mvcWebpckGulpCheck, mvcWebPackCheck, mvcReactCheck, mvcGulpCheck
@@ -41,39 +40,10 @@ actual
 							
 				projs[
 					
-					checkers[
-					
-	inheritance[
-	
-public interface IAclass
-{
-	void A();
-	void B();
-	void C();
-	void D();
-}
+					-> checkers
+					[
 
-public class Aclass
-{
-	public void A (){
-		
-	}
-	public void virtual B{}
-	public void method virtual C(){}
-	public void D(){}
-}
-
-public class Bclass : Aclass
-{
-	public void A (){
-		
-	}
-	public void  override B{}
-	public void new C (){}
-	public void new D(){}
-}
-
-	]
+	-> async and multithreading
 	
 					]
 					
@@ -105,8 +75,31 @@ public class Bclass : Aclass
 		https://docs.docker.com/v17.09/get-started/part2/#log-in-with-your-docker-id
 		
 	]
+		
+		
+		-> timsort (insertion + merge)
+		-> cubesort
+		-> check or repai heapsort before intosort
+		-> introsort (quick + heap)
+		-> linked list merge sort
 
-	-> order add items count
+		-> weighted delimeter
+		-> baloons arrow
+
+		-> order fluent API model and migration
+
+		-> new 1-8 1-1 and 8-8 fluentAPI model
+		-> basic create related API
+		
+		-> move checkers to crmvcsb
+		-> branch from crmvcsb
+		-> order related objects post add 
+		-> mixer of colours object nodel
+		-> hierarchy category,facility,item + cameras model
+		-> auto integrationsl/tests 
+		-> validation, exception logging
+		
+		-> checkers async and multithreading
 	
 	]
 	
@@ -210,9 +203,25 @@ public class Bclass : Aclass
 		<- done 15.06.2019 1h5m -> order deliverer, clenup
 		
 		<- done 15.06.2019 12:35-16:02 3h30m -> git merge crmvcsb -> master, order -> master, cleanup master,crmvcsb,order
+		
+		<- done 01.07.2019 4h -> KATAs heapsort 
+        <- done 01.07.2019 1h -> test server project multiple build tasks, and integrate run
+        <- done 1h -> integration tests        
+        
+        <- done 02.07.2019 1h -> integration tests
+        <- done 02.07.2019 2h -> quicksort        
+        <- done 02.07.2019 1h10m -> heapsort
+        <- done 02.07.2019 1h45m -> linked nodes reverce, polindrome check
 
-	]
-	~64h:40m in 12d
+        <- done 04.06.2019 2h30m -> merge sort
+        
+        <- done 05.06.2019 1h -> insertion sort 
+        <- done 05.06.2019 1h -> sorting tests
+
+        <- done 07.06.2019 2h insert sort rep ->
+        <- done 07.06.2019 2h heapsort above heapify ->
+	]	
+	 ~87h: 10m in 15d
 
 					}
 					
@@ -229,37 +238,158 @@ public class Bclass : Aclass
 			]
 			
 			read[
+
+				intrinsic ienumerable ienumerator
+				finilizer 
+				disposable
+				using null
+				values in stack
+				async state machine
+				left join link
+				partially sorted list search
 				
 				Intrinsic dictionary
+https://en.wikipedia.org/wiki/Memoization
+https://en.wikipedia.org/wiki/Perfect_hash_function
+https://en.wikipedia.org/wiki/B-tree
+https://en.wikipedia.org/wiki/Hash_table
+https://blog.markvincze.com/back-to-basics-dictionary-part-1/#separatechaining
+https://blog.markvincze.com/back-to-basics-dictionary-part-2-net-implementation/
 				LINQ deferred
 				TPL async/multithread
-				TPL
-				GC
-				SQL			
-				algorithms
-				architecture
-				lock resolve
-			]
+				[
+				
+threading[
+
+	interlocked:[
+		atomic actions on variables 
+		(increment,decrement,add,
+		exchange(retunrs original value, atomicaly sets new), 
+		memorybarier(cur thred proc cannot reorder mem instr before membar call))
+	]
+	manualreseteevent[
+		mre
+		WaitOne() block, Set() release, Reset() reset to blocking;
 		
-		]
-	
-	
-multithreaded:
-	lock syntactic sugar above 
-		monitor.enter try/catch
-	lock on value type
+		thread which use mre.WaitOne() blocked until mew.Set() is called.
+		then all threads unblocked until mre.Reset() is called
+		
+		thread calling .Reset() - controlling mre
+	]
+	menualeventresetslim[
+		used when event not leaves process boundaries and wait time is relatively small
+			.Dispose() -> when all threads using mres completed
+			.Reset() -> when no threads using mres		
+	]
+	monitor[
+		locking critical sections of code
+		Monitor.Enter(var);
+		Monitor.Exit(var);
+		
+		private object objLock = new Object();
+		lock(objLock){
+		
+		}
+		
+		> lock any object on demand
+		> unbound can be called directly from any context		
+		
+	]
+	mutex[
+		private xtatic Mutext mtx = new Mutex();
+		
+		mtx.WaitOne();
+		
+		mtx.ReleaseMutex();
+		
+		mtx.Dispose();
+		
+		> must be disposed
+		> WaitOne(seconds) false if no other thread aquired ownership
+			, then must not call ReleaseMutex but return to calling thread
+		> enforces thread identity can be release only by thread acquired it
+		> WaitOne calls count ==  ReleaseMutex calls count in method
+		
+	]
+
+]
 
 async:
+https://devblogs.microsoft.com/pfxteam/executioncontext-vs-synchronizationcontext/
+https://devblogs.microsoft.com/premier-developer/dissecting-the-async-methods-in-c/
+https://weblogs.asp.net/dixin/understanding-c-sharp-async-await-1-compilation
+https://blog.stephencleary.com/2013/11/there-is-no-thread.html
+https://msdn.microsoft.com/en-us/magazine/jj991977.aspx
 	await inside lock lead to deadlocks:
 		lock(){
 			await 
 		}
 
 	?object lock types
-
 	
-db locking types;
-	optimistic, pessimistic
+				]
+				GC
+				SQL[
+//Joins Hash, merge
+https://blogs.msdn.microsoft.com/craigfr/tag/joins/
+https://www.sqlshack.com/hash-join-execution-internals/
+https://sqlity.net/en/1490/a-join-a-day-the-hash-join/
+
+CTE, 
+Database design indexes
+Manage Monitore and Tune Execution Plans
+Internals and Architecture
+https://docs.microsoft.com/en-us/sql/relational-databases/performance/execution-plans?view=sql-server-2017
+
+analysing a query
+https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms191227(v=sql.105)
+
+https://blogs.oracle.com/oraclemagazine/on-transaction-isolation-levels
+
+https://docs.microsoft.com/en-us/dotnet/framework/data/adonet/sql/snapshot-isolation-in-sql-server
+
+https://en.wikipedia.org/wiki/Object-relational_impedance_mismatch
+https://en.wikipedia.org/wiki/B-tree
+https://en.wikipedia.org/wiki/Hash_table
+https://docs.microsoft.com/en-us/sql/relational-databases/indexes/indexes?view=sql-server-2017
+https://docs.microsoft.com/en-us/previous-versions/sql/sql-server-2008-r2/ms177443%28v%3dsql.105%29
+https://www.red-gate.com/simple-talk/sql/t-sql-programming/questions-about-t-sql-transaction-isolation-levels-you-were-too-shy-to-ask/
+https://docs.microsoft.com/en-us/sql/relational-databases/ghost-record-cleanup-process-guide?view=sql-server-2017
+]
+				algorithms
+				architecture
+				lock resolve
+HTTP
+https://en.wikipedia.org/wiki/Hypertext_Transfer_Protocol
+REST
+https://en.wikipedia.org/wiki/Representational_state_transfer
+
+				db locking types;
+				optimistic, pessimistic;
+MVC5 lifecycle
+https://www.dotnettricks.com/learn/mvc/aspnet-mvc-request-life-cycle
+https://docs.microsoft.com/en-us/previous-versions/aspnet/bb470252(v=vs.100)
+IPC_and_synchronization
+[
+semaphore,mutex,monitor,barier
+	https://en.wikipedia.org/wiki/Inter-process_communication
+	https://en.wikipedia.org/wiki/Mutual_exclusion
+	https://en.wikipedia.org/wiki/Semaphore_(programming)
+	https://en.wikipedia.org/wiki/Monitor_(synchronization)
+	https://en.wikipedia.org/wiki/Lock_(computer_science)
+	https://en.wikipedia.org/wiki/Concurrent_computing
+]
+LINQ 
+https://linqsamples.com/tutorials/deferred-and-immediate-execution-in-linq
+http://linq101.nilzorblog.com/linq101-lambda.php
+https://codeblog.jonskeet.uk/2011/01/01/reimplementing-linq-to-objects-part-21-groupby/
+//string of bytes -> int -> chars conversion
+https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/how-to-convert-between-hexadecimal-strings-and-numeric-types
+			
+			]
+		
+		]
+
 	
 //KATAS
 https://www.hackerrank.com/interview/interview-preparation-kit/warmup/challenges
@@ -334,24 +464,6 @@ MSA[
 	
 ]
 
-StateMachines[
-	https://blog.markshead.com/869/state-machines-computer-science/
-	
-	Finite-state machine
-	non-deterministic 
-		a->q,b->c
-	deterministic
-		a->q [b,c,d]->r,t,v
-		
-		-> NFA-[subset (powerset) construction]->DFA
-		every non-deterministig finita automata (NFA)
-		cant be translated into deterministig (DFA)
-		
-		-> regular expression - [Thompson's construction
-		] -> NFA
-		
-]
-	
 //oreilly software arch
 https://www.youtube.com/watch?v=vyWlRWkIEyk
 //software arch jet.com
@@ -368,7 +480,7 @@ watchlist[
 	//Most usefull links
 	toSortNew()
 	{
-				
+
 		languages[
 			eng[
 			
@@ -386,7 +498,7 @@ watchlist[
 				
 			]
 		]
-		
+			
 		Businesses
 		[
 			bees[
@@ -441,6 +553,12 @@ watchlist[
 		]
 
 		science[
+			constants[
+				light speed - 299792458 m/s
+			]
+			astronomy[
+				distant galaxies expansion - +70 km/s per megaparsec (3.26 mln light yeats)
+			]
 			math[
 				https://ru.wikipedia.org/wiki/%D0%A3%D1%80%D0%B0%D0%B2%D0%BD%D0%B5%D0%BD%D0%B8%D1%8F_%D0%9D%D0%B0%D0%B2%D1%8C%D0%B5_%E2%80%94_%D0%A1%D1%82%D0%BE%D0%BA%D1%81%D0%B0
 			]
@@ -454,10 +572,14 @@ watchlist[
 				]
 				
 			]
+			unitconvertions[
+				parsec - 3,26 ligth year
+				m/s - km/s *3.6
+			]
 		]
 		
 		ComputerScience
-		[		
+		[
 			https://en.wikipedia.org/wiki/Computer_science
 		
 			//thread
@@ -822,7 +944,78 @@ watchlist[
 					]
 					
 				]
-			
+				
+				BigO[
+				
+				
+					access search insert delete
+					avarage
+					worst 
+
+					array 
+					01 0n 0n 0n 
+
+					stack,queue,SLL,DLL
+					0n 0n 01 01 
+
+					binary search,cartesian b-tree, red black, splay, avl, kd trees
+					avarage 
+					0logn
+
+					binary serach,cartesian,kd 
+					worst
+					0n
+
+					cartesian, splay 
+					access 
+					n\a
+
+					Space,Search,Insert,Delete
+					(Avarage/WorstCase)
+					HashTable[
+						Space On On
+						Search O1 On
+						Insert O1 On
+						Delete O1 On
+					]				
+					
+					binarySearchTree[
+						Space On On
+						Search Ologn On
+						Insert Ologn On
+						Delete Ologn On
+						
+					]
+					k-dTree[
+						Space On On
+						Search Ologn On
+						Insert Ologn On 
+						Delete Ologn On
+					]					
+					
+					ternarySearch[
+						Search Ologn On
+						Insert Ologn On
+						Delete Ologn On
+					]
+					
+					b-tree[
+						Space On On
+						Search Ologn Ologn
+						Insert Ologn Ologn
+						Delete Ologn Ologn
+					]
+					
+				]
+				
+				HashTable[
+					load factor = n/k
+					n - items count 
+					k - bukets count
+					
+					JAVA 10 HashMap  0.75
+				]
+				
 			]
 				
 			webCommunication[
@@ -844,12 +1037,57 @@ watchlist[
 			]
 			
 			Algorithms[
+				
+				//bigO cheatsheet
+				http://bigocheatsheet.com/
+				
 				//uuid in Windows
 				http://rsdn.org/article/Crypto/UuidCrypto.xml
 				//Hascode recommendations
 				https://ericlippert.com/2011/02/28/guidelines-and-rules-for-gethashcode/
 				//visualization
 				https://www.cs.usfca.edu/~galles/visualization/Algorithms.html
+				
+				geeksWiki[
+//insertion sort
+https://www.geeksforgeeks.org/insertion-sort/
+//quicksort
+https://www.geeksforgeeks.org/quick-sort/
+//heaspsort (heapify + siftdown)
+https://www.geeksforgeeks.org/building-heap-from-array/
+https://en.wikipedia.org/wiki/Heap_(data_structure)
+//mergesort
+https://www.geeksforgeeks.org/merge-sort/
+				]
+				
+				bigO[
+					
+					best avg worst
+					memory
+					stable 
+
+					insertsort 
+					0n n^2 n^2
+					1
+					yes
+
+					quicksort
+					nlogn nlogn n^2
+					logn worst n | sedgewick log n worst
+					no | exist
+
+					mergesort
+					nlogn nlogn nlogn 
+					n | block merge hybrid 01 
+					yes
+
+					heapsort
+					n if distinct keys | nlogn nlogn nlogn
+					01
+					no
+					
+				]
+				
 			]
 			
 			MachineLearning[
@@ -858,6 +1096,10 @@ watchlist[
 				https://www.tensorflow.org/
 			]
 			
+			Memorization[
+				storing results of expencive functions
+			]
+		
 		]
 			
 		Engeneering[
@@ -1120,7 +1362,7 @@ Domain layer , Infrastructure layer  <- Application Layer
 
 				.NET
 				[
-					
+
 					//differencies between standarts
 					.NET_CORE_STANDART
 					[
@@ -1133,8 +1375,11 @@ Domain layer , Infrastructure layer  <- Application Layer
 
 					]
 					
-					C#[
-					
+					C#
+					[
+						//code sourcebase 
+						https://referencesource.microsoft.com/#mscorlib/system/collections/generic/dictionary.cs,523713dd12290314
+						
 						//async await profiling
 						https://stackify.com/csharp-async-await-task-performance/
 						//type vs gettype performance comparison
@@ -1145,7 +1390,9 @@ Domain layer , Infrastructure layer  <- Application Layer
 						https://blogs.msdn.microsoft.com/seteplia/2018/03/07/the-in-modifier-and-the-readonly-structs-in-c/
 						//async ui synch context
 						https://medium.com/bynder-tech/c-why-you-should-use-configureawait-false-in-your-library-code-d7837dce3d7f
-		
+						//Windows Drivers
+						https://docs.microsoft.com/en-us/windows-hardware/drivers/kernel/
+						
 						
 						//hashs
 						http://eternallyconfuzzled.com/tuts/algorithms/jsw_tut_hashing.aspx#fnv
@@ -1200,7 +1447,13 @@ Domain layer , Infrastructure layer  <- Application Layer
 											System.Console.WriteLine("programm started");
 										}
 									}
-									"C:\Program Files (x86)\MSBuild\14.0\Bin\csc.exe" -out:C:\111\move\src.exe C:\111\move\src.cs
+									
+"C:\Program Files (x86)\MSBuild\14.0\Bin\csc.exe" -out:C:\111\move\src.exe C:\111\move\src.cs
+"C:\Windows\Microsoft.NET\Framework64\v4.0.30319\csc.exe" -out:G:\disk\Files\git\CIL\src.exe G:\disk\Files\git\CIL\src.cs
+//roslyn
+"G:\disk\Progs\rosylin\Microsoft.Net.Compilers.3.1.1\tools\csc.exe" -out:G:\disk\Files\git\CIL\src.exe G:\disk\Files\git\CIL\src.cs
+"C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.8 Tools\ildasm.exe" G:\disk\Files\git\CIL\src.exe
+
 								]
 
 							C:\Program Files (x86)\Microsoft SDKs\Windows\v10.0A\bin\NETFX 4.7.2 Tools
@@ -1210,7 +1463,28 @@ Domain layer , Infrastructure layer  <- Application Layer
 						]						
 						tipsNtricks[
 							{} //<------ Adding a Nop allows a breakpoint here.
-						]			
+							
+							exceptionThrowing[
+								try
+								{
+									MethodB();
+								}
+								catch (Exception ex)
+								{
+									//Option 1 - Overrides original stack trace
+									throw ex;
+
+									//Option 2 - Keeps original stack trace
+									throw;
+
+									//Option 3 - Keeps original stack trace and adds aditional information
+									throw new Exception("Additional information...", ex);
+
+										
+								}
+							]
+						
+						]						
 						UtilsAndSites[
 						
 							//decompiler
@@ -1299,43 +1573,115 @@ Domain layer , Infrastructure layer  <- Application Layer
 						
 						]
 						
+						shorthands[
+						
+							//if_else_ifnull 
+							var a = b ?? c;
+							var a = b ? c : d;
+							var a = b?.c : d;
+							
+						]
+
+						fieldVsProperty[
+							o- changing public fields need calling code recompilation
+								while public properties look the same
+							o- easier to work with reflections
+							
+							//autoimplemented read-only prop
+							{get; } = Guid.NewGuid();
+							public P(string input) => _input= input;
+						]						
+						valuetypes[
+							
+							bite 8bit -128 127
+							ubite 8bit 255
+							short 16bit -32768 32767	
+							ushort 16bit 65535
+							int 32bit -2 147 483 648 +2 147 483 647
+							uint 32bit 4 294 967 295
+							long 64bit -9 223 372 036 854 775 808  +9 223 372 036 854 775 807
+							ulong 64bit 18 446 744 073 709 551 615		
+							
+							float 32bit ~6-9 digits
+								+- 1.5x10^-45 - 3.4X10^38
+							double 64bit ~15-17 digits
+								+- 5.0x10^-324 - 1.7x10^-308
+							decimal 128bit ~128 bit ~25-29 digits
+								+- 1.0x10^-28 - +-7.9x10^28
+							
+							char 16bit
+							
+							byte[
+								AND 1 & 1 -> 1
+								OR  1|0 & 0|1 -> 1
+								NOT 1 -> 0 , 0 -> 1
+							]
+						]	
+						methods[
+							o- (int a, int b = 42) option values also need recompilation of client code
+						]
+						inheritance[
+						
+							o- overrides is considered as new implementation of base class
+								so equal names first call is base
+									method(int a)
+									override method(doub b)
+								first call is base method(int a)
+									((base)inst).method() -> call overriden
+							calls overriden version on:
+								o- base <- child calls override only 
+									on override of virtual 
+								o- Iinterface <- child 
+									if child explicit interface implements
+									
+						]
 						collections[
-								//iqueriable vs ienumerable
-								https://developerhandbook.com/entity-framework/in-the-spotlight-demystifying-iqueryable-entity-framework-6/		
-								//ienumerable
-								https://danielwertheim.se/c-someenum-tostring-measured-to-be-400x-slower/
-								
-								https://medium.com/@kunaltandon.kt/ienumerable-vs-icollection-vs-ilist-vs-iqueryable-in-c-2101351453db
+					
+							//iqueriable vs ienumerable
+							https://developerhandbook.com/entity-framework/in-the-spotlight-demystifying-iqueryable-entity-framework-6/		
+							//ienumerable
+							https://danielwertheim.se/c-someenum-tostring-measured-to-be-400x-slower/
+							
+							https://medium.com/@kunaltandon.kt/ienumerable-vs-icollection-vs-ilist-vs-iqueryable-in-c-2101351453db
 
-								IList<T>:ICollection<T>:IEnumerable<T>
-								IQueriable<T>;IEnumerable<T>
+							IList<T>:ICollection<T>:IEnumerable<T>
+							
+							IQueriable<T>;IEnumerable<T>
+							[
+								> contains expression tree
+								> with EF executes filtered SQL
+							]
+							IEnumerable<T>[
+								> inmemory collection
+								> executes where agains DB but hen filters in memory
+							]
+							
+							Filtering
+							Fucnt<T,bool>
 
-								IEnumerable<T>
-								Filtering
-								Fucnt<T,bool>
+							ICollection<T>
+							Add,remove,update
+							Count - O(1)
 
-								ICollection<T>
-								Add,remove,update
-								Count - O(1)
+							IList<T>
+							insert,remove
+													
 
-								IList<T>
-								insert,remove
-
-
-								IQueriable<T>
-								Expression<Funct<T,bool>>
+							IQueriable<T>
+							Expression<Funct<T,bool>>
 								
 							
 							list[
+							
 								.sort[
 									https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.list-1.sort?redirectedfrom=MSDN&view=netframework-4.7.2#System_Collections_Generic_List_1_Sort
 									
 									O (n log n) on avarage
 									O (n2) in worst case
 									
-									< 16 elem -> insertion sort
-									> 2 log n (n inpt arr length) -> heapsort alg
-									-> quicksort
+									n < 16 elem -> insertion sort
+									n > 2 log n (n inpt arr length) -> heapsort alg
+									else -> quicksort
 									unstable -> not preserve equal item order
 									
 								]
@@ -1353,6 +1699,7 @@ Domain layer , Infrastructure layer  <- Application Layer
 								.contains-> linear search O(n)
 								.convertAll -> linear search O(n)			
 								.find -> linear search O(n)
+								
 							]
 							IEnumerableICollectionILst[
 								https://medium.com/@kunaltandon.kt/ienumerable-vs-icollection-vs-ilist-vs-iqueryable-in-c-2101351453db
@@ -1374,16 +1721,36 @@ Domain layer , Infrastructure layer  <- Application Layer
 								]
 							]
 							Dictionary[
-								HashTable.Contains 
-								Dictionary.ContainsKey 
-								IComparer<T> -> using Item[Key] hash indexer
+							
+HashTable.Contains 
+Dictionary.ContainsKey 
+IComparer<T> -> using Item[Key] hash indexer
+dictionary Source code 
+
+https://github.com/dotnet/coreclr/blob/master/src/System.Private.CoreLib/shared/System/Collections/Generic/Dictionary.cs
+
+Add
+FindEntry 369
+Initialize 467
+TryInsert 478
+
+private struct Entry{
+	public int next;
+	public uint hashCode;
+	private TKey key;
+	private TValue value;
+}
+
+private int[]? _bukets;
+private Entry[]? _entries;
 							]
 							
 						]
-						Stringbuilder[
+						StringBuilder[
 						
 							.Length - current saved object
 							.Capacity - buffer, doubled on exseed up to maxCap, can be set
+								then ArgumentOutOfRangeException
 							.MaxCapacity - adjust buffer until this, can be set on creation
 							16 2 bln characters
 								contains buffer, can be set at create time, 
@@ -1409,39 +1776,48 @@ Domain layer , Infrastructure layer  <- Application Layer
 
 						]
 						
-						is[
-						//runtime 
-						
-(true for compile and runtime types upper by hierarhy)
-cl1 : cl0
-cl2 : cl1
+						types[
+							
+							typeof() - instance type
+							GetType() - runtime 
+							is - runtime in inheritance tree
+							
+							is to bool
+							if( a is type)
+							as to null
+							if((b as type) != null)
+								
+							is[
+							//runtime 
+							
+	(true for compile and runtime types upper by hierarhy)
+	cl1 : cl0
+	cl2 : cl1
 
-true
-new cl1 is cl0, cl1 -> true
-new cl1 is cl2, cl1 -> false
+	true
+	new cl1 is cl0, cl1 -> true
+	new cl1 is cl2, cl1 -> false
 
-new cl2 is cl0,cl1,cl2 -> true
+	new cl2 is cl0,cl1,cl2 -> true
 
-new cl1 = cl2 is cl0,cl1,cl2 -> true
+	new cl1 = cl2 is cl0,cl1,cl2 -> true
 
 
-//Init in type check
-(o is Person p ){
-	p.Prop
-}
+	//Init in type check
+	(o is Person p ){
+		p.Prop
+	}
+							]
+							
 						]
-
+						
 						performance[
 							//nameof 
 							http://www.erikschierboom.com/2015/12/31/csharp6-under-the-hood-nameof/
 							//linqVsForLoop
 							http://www.schnieds.com/2009/03/linq-vs-foreach-vs-for-loop-performance.html
 						]
-						
-						patterns[
-							//enumPattern		
-							https://www.infoworld.com/article/3198453/c-sharp/how-to-implement-a-type-safe-enum-pattern-in-c.html									
-						]
+			
 						async[
 						
 							links[
@@ -1476,7 +1852,7 @@ https://docs.microsoft.com/en-us/dotnet/standard/asynchronous-programming-patter
 https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=netframework-4.7.2
 
 							]
-						
+																					
 						//guidelines
 						-> no global static objects , cause lead to eadlocks
 						-> multiple invocated method must have userSate object with locked collection						
@@ -1486,9 +1862,11 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 						BCL, overlap IOPC,APC, IRP ,DPC,Interrupt Service Routine (ISR)
 						IPC interprocess comunication
 						http://blog.stephencleary.com/2013/11/there-is-no-thread.html
+						-> cannot be tested in .net console test from .net web api UI
 						
 						https://medium.com/rubrikkgroup/understanding-async-avoiding-deadlocks-e41f8f2c6f5d
 						-> no .Result & no sync<->async calls						
+						never user ...Async.Result() -> synch way, deadlock in asp.net WEB API
 						
 						//asynhronous programming module
 							APM[
@@ -1524,6 +1902,7 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 								
 								
 							]
+						
 						]
 						multithread[
 
@@ -1572,12 +1951,32 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 								dotnet ef database update --context sbDbEntities
 							]
 							
-						litr[
-							//EFquering
-							https://docs.microsoft.com/en-us/ef/ef6/fundamentals/async
+						LINQ[
+Immediate execution:
+    Aggregate, All, Any, Average, Contains, Count, ElementAt, ElementAtOrDefault, Empty, First, FirstOrDefault, Last, LastOrDefault, Max, LongCount, Min, SelectMany, SequenceEqual, Single, SingleOrDefault, Sum, ToArray, ToDictionary, ToList, ToLookup. 
+Deferred execution
+    AsEnumerable, Cast, Concat, DefaultIfEmpty, Distinct, Except, GroupBy, GroupJoin, Intersect, Join, OfType, OrderBy, OrderByDescending, Range, Repeat, Reverse, Select, SelectMany, Skip, SkipWhile, Take, TakeWhile, ThenBy, ThenByDescending, Union, Where. 
+
+//Left join
+LINQ
+	var leftJoin = 
+	from s in t
+	join c in t2 on t.A equals t.B into z
+	from c in z.DefaultIfEmpty()
+	select new {
+		A = s?.A, 
+		b = c?.B
+	}
+						]
+	
+						GC[
+							o- three phases mark, sweep, compact
+							o- three heaps, increase live time decrease cleanuo time
+								shortleaved -> long leaved
+							o- LOH more then 85 mb, different policy
 							
 						]
-						
+
 						DIcontainers[
 							https://autofac.org/
 							http://docs.automapper.org/en/stable/Getting-started.html							
@@ -1721,6 +2120,10 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 						caller member name attribute[
 							https://docs.microsoft.com/en-us/dotnet/api/system.runtime.compilerservices.callermembernameattribute?view=netframework-4.7.2
 			
+						]
+						
+						extensionMethods[
+							extension interfaces methods resolved only when implementing class lacks signature
 						]
 						litr[
 								{CLR,IL, JIT, Source code and compiler workflows, tools, standards}
@@ -2215,6 +2618,30 @@ dotnet --info
 					]
 					
 					CIL[
+					
+					
+						ecma335
+						[
+
+							II.10.3.4
+							149
+
+							I i = new B(); b.foo1();
+
+							I i = new C(); c.foo1();
+							A a = new C(); c.foo2();
+							B b = new C(); c.foo1();
+
+							I id = new D(); d.foo1();
+							A ad = new D(); d.foo2();
+
+							III.4.2
+							422
+							callvirt -> call method associated at runtime with object
+								method chosen on the exact type of token rather then compile-time metadata
+								
+						]
+
 						//CLR via C#
 						http://sd.blackball.lv/library/CLR_via_CSharp_(Jeffrey_Richter_4th_Edition).pdf
 						//specification
@@ -2234,7 +2661,10 @@ dotnet --info
 						ilasm.exe G:\disk\Files\git\CIL\hello.il
 						
 					]
-				
+						
+					//roslyn compiler
+					https://github.com/dotnet/roslyn/wiki/Roslyn%20Overview
+
 				]
 
 				JS
@@ -2249,68 +2679,68 @@ dotnet --info
 					code[
 						
 						shorthands[
-						//ternary
-						if..else
-						let v = c ? x :
-						//shortcircuit
-						//!(if c null,undefined,'',0)
-						let v = c || x;
-						//decl shrt 
-						let x,y,z =3;
-						//if(truthy)
-						//if(!truthy)
-						//arrays 
-						for(let i of arr)
-						//fucnt shrothands
-						f = p => console.log("val",p);
-						setTimeout(() => console.log("val"),1000);
-						arr.forEach(s=>console.log(s));
-						//implicit return
-						f2 = p => ( p); 
-						//default param
-						f3 = (p0,p1=1,p2="a") => ((p0*p1)+p2); //f3(2) =>"2a"
-						//template str
-						let p0 ="Var";
-						let c0=`a${p0}`; //console.log(c0); => aVar
-						//destructuring
-						let p = {v0:"v0",v2:"v02",v4:"v4"}		
-						let {v0,v2,v4} = p
-						//rest syntax
-						let a0 = [1,2,3];
-						let b0 = [...a0];
-						a0[2]=10;
-						let c0 = [a0,b0]
-						console.log(a0) => [1, 2, 10]
-						console.log(b0) => [1, 2, 3]
-						console.log(c0) => {[],[]}
-						//map,foreach,filter
-						let arr1 = [{v:"v0",n:"n0"},{v:"v1",n:"n1"},{v:"v2",n:"n2"},{v:"v2"}];		
-						function f3(arr,pred){
-							let ret=[];
-							arr.forEach(s => {						
-								if(pred(s)){
-									ret.push(s);
-								}
-							});
-							console.log(ret)
+							//ternary
+							if..else
+							let v = c ? x :
+							//shortcircuit
+							//!(if c null,undefined,'',0)
+							let v = c || x;
+							//decl shrt 
+							let x,y,z =3;
+							//if(truthy)
+							//if(!truthy)
+							//arrays 
+							for(let i of arr)
+							//fucnt shrothands
+							f = p => console.log("val",p);
+							setTimeout(() => console.log("val"),1000);
+							arr.forEach(s=>console.log(s));
+							//implicit return
+							f2 = p => ( p); 
+							//default param
+							f3 = (p0,p1=1,p2="a") => ((p0*p1)+p2); //f3(2) =>"2a"
+							//template str
+							let p0 ="Var";
+							let c0=`a${p0}`; //console.log(c0); => aVar
+							//destructuring
+							let p = {v0:"v0",v2:"v02",v4:"v4"}		
+							let {v0,v2,v4} = p
+							//rest syntax
+							let a0 = [1,2,3];
+							let b0 = [...a0];
+							a0[2]=10;
+							let c0 = [a0,b0]
+							console.log(a0) => [1, 2, 10]
+							console.log(b0) => [1, 2, 3]
+							console.log(c0) => {[],[]}
+							//map,foreach,filter
+							let arr1 = [{v:"v0",n:"n0"},{v:"v1",n:"n1"},{v:"v2",n:"n2"},{v:"v2"}];		
+							function f3(arr,pred){
+								let ret=[];
+								arr.forEach(s => {						
+									if(pred(s)){
+										ret.push(s);
+									}
+								});
+								console.log(ret)
+								
+								let ret2=[];
+								ret2=arr.map(s => {						
+									if(pred(s)){
+										return s;
+									}else{return null;}
+								});
+								console.log(ret2)
+								
+								let ret3;
+								ret3=arr.filter(pred);
+								console.log(ret3);
+							}		
+							f3(arr1,s=>s.v==="v0" || typeof s.n==='undefined')
+							//Math.floor(4.9)
+							~~4.9
 							
-							let ret2=[];
-							ret2=arr.map(s => {						
-								if(pred(s)){
-									return s;
-								}else{return null;}
-							});
-							console.log(ret2)
-							
-							let ret3;
-							ret3=arr.filter(pred);
-							console.log(ret3);
-						}		
-						f3(arr1,s=>s.v==="v0" || typeof s.n==='undefined')
-						//Math.floor(4.9)
-						~~4.9
-						
-					]
+						]
 					
 						//map,foreach,filter
 						[
@@ -3274,7 +3704,7 @@ dotnet --info
 							]
 							
 						]
-	   Redux[
+					Redux[
 
 							import { Provider } from 'react-redux'
 							import store from './redux/store'
@@ -3895,77 +4325,445 @@ dotnet --info
 			DB[
 			
 				SQL[
+				
 					//postgres Firststeps
 					https://www.postgresql.org/docs/8.3/static/app-postgres.html
 					//mssql kill db
 					https://dba.stackexchange.com/questions/2387/sql-server-cannot-drop-database-dbname-because-it-is-currently-in-use-but-n
 					
-					adjacentTables[
-						use [testdb]
-						drop table GeographicalCategoryAdjancy
-						drop table GeographicalCategory
-
-
-						create table GeographicalCategory 
-						(
-						ID uniqueidentifier, 
-						Name varchar(50),
-						PRIMARY KEY (ID)
-
-						)
-
-						create table GeographicalCategoryAdjancy
-						(
-						ID uniqueidentifier,
-						Depth int,
-						ParentID uniqueidentifier,
-						ChildID uniqueidentifier
-
-						PRIMARY KEY (ID),
-						FOREIGN KEY (ParentID) REFERENCES GeographicalCategory(ID),
-						FOREIGN KEY (ChildID) REFERENCES GeographicalCategory(ID)
-						)
-
-						declare @idA uniqueidentifier;
-						declare @idB uniqueidentifier;
-
-
-						set @idA = newid();
-						insert into GeographicalCategory values (@idA,'Nm1');
-						set @idB = newid();
-						insert into GeographicalCategory values (@idB,'Nm2');
-						insert into GeographicalCategoryAdjancy values (newid(),0,null,@idA);
-						insert into GeographicalCategoryAdjancy values (newid(),1,@idA,@idB);
-
-						set @idB = newid();
-						insert into GeographicalCategory values (@idB,'Nm3');
-						insert into GeographicalCategoryAdjancy values (newid(),1,@idA,@idB);
-
-						set @idA = newid();
-						insert into GeographicalCategory values (@idA,'Nm4');
-						insert into GeographicalCategoryAdjancy values (newid(),2,@idB,@idA);
-
-
-						select @idA=ChildID  from GeographicalCategoryAdjancy where ParentID is null;
-						set @idB = newid();
-						insert into GeographicalCategory values (@idB,'Nm0');
-						update GeographicalCategoryAdjancy set ParentID = @idB where ParentID is null;
-						update GeographicalCategoryAdjancy set Depth = Depth+1 where Depth>=0;
-						insert into GeographicalCategoryAdjancy values (newid(),0,null,@idB);
-
-
-						--select top(1) @idA=ChildID from GeographicalCategoryAdjancy where Depth=2;
-						--set @idB = newid();
-						--insert into GeographicalCategory values (@idB,'Nm5');
-
-
-						select * from GeographicalCategoryAdjancy order by Depth asc;
-						select * from GeographicalCategory order by Name asc;
-
-
+						
+					UPDATEvsINSERTDELETE[
+						https://stackoverflow.com/questions/1271641/in-sql-is-update-always-faster-than-deleteinsert
 					]
 					
-					
+					MS_TSQL[
+						
+						joinTypes_sql[
+
+							/*
+							[] []
+							[ ([]) ] inner join 
+							([ []) ] left outer join 
+							([ )[] ] left outer join with exclusion
+							[ ([] ]) right outer join
+							[ []( ] ) right outer join woith exclusion
+							{[ )[] ] semi join where exists
+							*/
+							
+							use testDb
+
+							
+							drop table TableOne;
+							drop table TableTwo;
+
+
+							create table TableTwo (
+								ID int,
+								Name varchar(250),
+
+								primary key (ID)
+							)
+
+							create table TableOne (
+								ID int,
+								TableTwoID int,
+								Name varchar(250),
+								
+								primary key (ID),
+								foreign key (TableTwoID) references TableTwo(ID)
+
+							)
+
+							insert into TableTwo(Id,Name) values (0,'Name1');
+							insert into TableTwo(Id,Name) values (1,'Name2');
+							insert into TableTwo(Id,Name) values (2,'Name3');
+							insert into TableTwo(Id,Name) values (3,'Name4');
+							insert into TableTwo(Id,Name) values (4,'Name5');
+
+							insert into TableOne(ID,Name, TableTwoID) values (1,'Value2',1);
+							insert into TableOne(ID,Name, TableTwoID) values (2,'Value3',1);
+
+							insert into TableOne(ID,Name, TableTwoID) values (3,'Value4',2);
+
+							insert into TableOne(ID,Name, TableTwoID) values (4,'Value5',null);
+							insert into TableOne(ID,Name, TableTwoID) values (5,'Value6',null);
+
+
+							select * from TableOne
+							select * from TableTwo 
+
+
+
+							/*
+							[ ([]) ] inner join
+							*/
+							select * from TableOne t
+							inner join TableTwo t2 on t.TableTwoID = t2.ID 
+
+							/*
+							([ []) ] left outer join 
+							([ )[] ] left outer join with exclusion
+							*/
+							select * from TableOne t
+							left outer join TableTwo t2 on t.TableTwoID = t2.ID 
+							where 1=1 and t.TableTwoID is not null
+
+							/*
+							[ ([] ]) right outer join
+							[ []( ] ) right outer join woith exclusion
+							*/
+							select * from TableOne t
+							right outer join TableTwo t2 on t.TableTwoID = t2.ID 
+							where 1=1 and t.TableTwoID is not null
+
+
+
+							/*
+							semi join 
+							[ [(]) ]
+							*/
+							select * from TableOne t
+							where exists (
+								select 1 from TableTwo t2 where t.TableTwoID = t2.ID 
+							)
+
+							select * from TableTwo t
+							where exists (
+								select 1 from TableOne t2 where t2.TableTwoID = t.ID 
+							)
+
+
+
+							/*
+							([ [] ])
+							with Id,Fk null/not null immitating inner and left
+							*/
+							select * from TableOne t
+							full outer join TableTwo t2 on t.TableTwoID = t2.ID
+							where 1=1
+							--and t.Id is null 
+							--and t.TableTwoID is null 
+
+
+							/*
+							cartesian 
+							[]*[]
+							*/
+							select * from TableOne ,TableTwo
+
+							select * from TableOne cross join TableTwo
+
+
+						
+						]
+						
+						scripts[
+							
+							analytical[
+															
+								adjacentTables[
+									use [testdb]
+									drop table GeographicalCategoryAdjancy
+									drop table GeographicalCategory
+
+
+									create table GeographicalCategory 
+									(
+									ID uniqueidentifier, 
+									Name varchar(50),
+									PRIMARY KEY (ID)
+
+									)
+
+									create table GeographicalCategoryAdjancy
+									(
+									ID uniqueidentifier,
+									Depth int,
+									ParentID uniqueidentifier,
+									ChildID uniqueidentifier
+
+									PRIMARY KEY (ID),
+									FOREIGN KEY (ParentID) REFERENCES GeographicalCategory(ID),
+									FOREIGN KEY (ChildID) REFERENCES GeographicalCategory(ID)
+									)
+
+									declare @idA uniqueidentifier;
+									declare @idB uniqueidentifier;
+
+
+									set @idA = newid();
+									insert into GeographicalCategory values (@idA,'Nm1');
+									set @idB = newid();
+									insert into GeographicalCategory values (@idB,'Nm2');
+									insert into GeographicalCategoryAdjancy values (newid(),0,null,@idA);
+									insert into GeographicalCategoryAdjancy values (newid(),1,@idA,@idB);
+
+									set @idB = newid();
+									insert into GeographicalCategory values (@idB,'Nm3');
+									insert into GeographicalCategoryAdjancy values (newid(),1,@idA,@idB);
+
+									set @idA = newid();
+									insert into GeographicalCategory values (@idA,'Nm4');
+									insert into GeographicalCategoryAdjancy values (newid(),2,@idB,@idA);
+
+
+									select @idA=ChildID  from GeographicalCategoryAdjancy where ParentID is null;
+									set @idB = newid();
+									insert into GeographicalCategory values (@idB,'Nm0');
+									update GeographicalCategoryAdjancy set ParentID = @idB where ParentID is null;
+									update GeographicalCategoryAdjancy set Depth = Depth+1 where Depth>=0;
+									insert into GeographicalCategoryAdjancy values (newid(),0,null,@idB);
+
+
+									--select top(1) @idA=ChildID from GeographicalCategoryAdjancy where Depth=2;
+									--set @idB = newid();
+									--insert into GeographicalCategory values (@idB,'Nm5');
+
+
+									select * from GeographicalCategoryAdjancy order by Depth asc;
+									select * from GeographicalCategory order by Name asc;
+
+
+								]
+								
+								selectMaxPopulationInCityByCountry
+								[
+								
+									use testDb
+
+									drop table Cities;
+									drop table Countries;
+									drop view MaxCountriesPopulation;
+
+									create table Countries(
+										ID int,
+										Name varchar(50)
+
+										primary key (ID)
+									)
+
+									create table Cities(
+										ID int,
+										CityName varchar(50),
+										PeopleCount int,
+										CountryID int
+
+										foreign key (CountryID) references Countries(ID)
+									)
+
+
+									insert into Countries (ID,Name) values (0,'CountryOne');
+									insert into Countries (ID,Name) values (1,'CountryTwo');
+									insert into Countries (ID,Name) values (2,'CountryThree');
+									insert into Countries (ID,Name) values (4,'CountryThree');
+
+									insert into Cities (ID,CityName,PeopleCount, CountryID) values (0,'CityOne',100,0);
+									insert into Cities (ID,CityName,PeopleCount, CountryID) values (1,'CityTwo',200,0);
+									insert into Cities (ID,CityName,PeopleCount, CountryID) values (3,'CityThree',300,0);
+
+									insert into Cities (ID,CityName,PeopleCount, CountryID) values (4,'CityFour',400,1);
+									insert into Cities (ID,CityName,PeopleCount, CountryID) values (7,'CitySeven',700,1);
+
+									insert into Cities (ID,CityName,PeopleCount, CountryID) values (5,'CityFive',500,2);
+									insert into Cities (ID,CityName,PeopleCount, CountryID) values (6,'CitySix',200,2);
+
+
+
+										
+										create view MaxCountriesPopulation as 
+
+										with cte as (
+
+											select
+												cr.Name,ct.CityName,ct.PeopleCount
+												/*
+												,RANK() over(partition by cr.Name order by ct.PeopleCount) as R
+												,DENSE_RANK() over(partition by cr.Name order by ct.PeopleCount) as DR
+												,ROW_NUMBER() over(order by cr.Name) as RN
+												*/
+											from Countries cr
+											join Cities ct on cr.ID = ct.CountryID
+
+										) 
+
+										select 
+										c2.Name,c2.CityName,c2.PeopleCount as PC
+										from cte as c2 
+										join (
+
+											select 
+											c1.Name,max(c1.PeopleCount) as PC
+											from cte as c1 
+											group by c1.Name
+
+										) t on t.Name = c2.Name and t.PC = c2.PeopleCount
+										;
+
+										
+
+
+										create view LargestCityInCountryByPopulation as
+
+										with cte as (
+											select
+											cr.Name,ct.CityName,ct.PeopleCount	
+											from Countries cr
+											join Cities ct on cr.ID = ct.CountryID
+										) 
+
+										select 
+											c1.Name,c1.CityName, t.PeopleCount
+										from cte as c1
+										inner join (
+											select 
+												CityName,Max(PeopleCount) as PeopleCount
+											from cte
+											group by CityName
+												having Max(PeopleCount)  = (
+													select 
+														Max(PeopleCount) as PeopleCount
+													from cte	
+												)
+										) t on t.CityName = c1.CityName ;
+
+
+
+										select * from MaxCountriesPopulation;
+										select * from LargestCityInCountryByPopulation;
+
+								]
+								
+							]
+							
+							maintenance[
+							
+								hashIndexStat[
+									//https://docs.microsoft.com/en-us/sql/database-engine/determining-the-correct-bucket-count-for-hash-indexes?view=sql-server-2014
+									SELECT   
+									object_name(hs.object_id) AS 'object name',   
+									i.name as 'index name',   
+									hs.total_bucket_count,  
+									hs.empty_bucket_count,  
+									floor((cast(empty_bucket_count as float)/total_bucket_count) * 100) AS 'empty_bucket_percent',  
+									hs.avg_chain_length,   
+									hs.max_chain_length  
+									FROM sys.dm_db_xtp_hash_index_stats AS hs   
+									JOIN sys.indexes AS i   
+									ON hs.object_id=i.object_id AND hs.index_id=i.index_id
+								]
+								
+							]
+							
+						]
+												
+						theory [
+							
+							ACID
+								atomicity - transactions
+								consistency - constraints,cascades,trigers, Referential integrity - Primary-foreignKey refs
+								isolation - transaction isolation levels
+								durability - commites guarantee
+
+							serializable	
+								most strict
+							repeatable read
+								+ phantom read (rows can appear from T1 to T2)
+							read commited
+								+ non repeatable read (rows can disappear or updates from T1 to T2)
+							read uncommited 
+								+ dirty read (read uncommitted data)
+
+							snapshot
+
+							optimistic concurency
+								begin
+								read/write
+								check 
+									? if other commit or read/write rollback
+									: commit;
+								
+								o - compared by rownumber 
+									rowversion type in table createion
+								
+									CREATE TABLE MyTest (myKey int PRIMARY KEY  
+									,myValue int, RV rowversion)
+							
+							plans[
+								o- table scan can be effective when large percent of rows result
+								
+							]
+							
+							Indexes[
+								
+								inMemoryTables
+								[
+
+									Hash:
+										o- 	SQL has one hash F() for all hash keys, 
+												bell curve sitribution
+												realistic ration 30% of all buckets contain 2 keys
+												
+										small bucketcount:
+											o- increase collisions and chainlength result in lookup time increase
+										large bucketcount:
+											o- increase memory utilization , impact full index scan performance
+											
+										performance is :
+											OK- when where has concrete value for index column					
+											NOT_OK- when wher ehas range or one column value of two_cloumn index
+											
+												
+										MemoryOptimisedTables 
+										
+											o- balance between empty buckets - non optimal b-tree	
+												and chain_length - a lot NONUNIQUE items in one bucket 
+											
+											o- bucket_count x2 x4 rowcount if no grow x10 if growth expected
+											o- bucket count lower then unique keys leads to large chain length
+											o- large chain_length affects lookup operations, SELECT, UPDATE
+											o- large number of nonunique keys lead to collisions 
+												USE NONCLUSTERED INDEX
+												hight bucket count x20-x100 to unique index
+											
+										SmallTables
+											o- if lookup and insert are predominnant performance opertaion 
+												use bucket count x2-x3
+											o- if index scans
+												use bucketcount close to ~~ index count
+										
+										BigTables
+											
+											
+										
+											table 250 mln rows 4 hash indexes
+											250mln rows * 4 indexes * 8 bytes ~~ 32GB
+											
+											full table scan are not performance critical
+											
+											o- for memory utilization optimize 
+												bucket count close to number of index keys
+											o- for point lookup optiomize 
+												bucketcount x2-x3		
+								]
+								
+								onDiskTables
+								[
+									clustered
+										o- sorts columns in one order per table in b-tree
+										
+										
+									nonclustered
+										o- strores key and pointer RowLocator
+											for HeapTable row locator pointer to row
+											for clustered table rowlocator clustered index key
+										
+								]
+										
+							]
+							
+						]
+						
+					]
 					
 				]
 				
@@ -4082,15 +4880,16 @@ dotnet --info
 			
 			ML[
 				http://course18.fast.ai/ml
-			]
-			
-			sql[
-				UPDATEvsINSERTDELETE[
-					https://stackoverflow.com/questions/1271641/in-sql-is-update-always-faster-than-deleteinsert
-				]
-			]
+				
+				//ML overview
+				https://skymind.ai/wiki/neural-network
+				//tensorflow c++ API
+				https://www.tensorflow.org/guide/extend/cc
+				//SciSharp ports of ML libs to sharp
+				https://github.com/SciSharp
+			]			
 		
-		//progressive web Apps
+			//progressive web Apps
 			PWA[
 				https://medium.com/@amberleyjohanna/seriously-though-what-is-a-progressive-web-app-56130600a093
 			]
@@ -4128,6 +4927,11 @@ docker images
 				
 			]
 			
+			interop[
+				//interop and call c++ from c#
+				https://docs.microsoft.com/en-us/dotnet/framework/interop/
+			]
+			
 		]
 
 		
@@ -4135,6 +4939,10 @@ docker images
 		learningProgramms[
 		
 			cis 2750 computer science
+			[
+				//project example
+				https://www.andrewjudd.ca/professional/academics/cis2750#milestone2
+			]
 			
 			//5months
 			cpp[
@@ -4588,9 +5396,36 @@ docker images
 			
 			https://www.hackerrank.com/interview/interview-preparation-kit/warmup/challenges
 			https://leetcode.com/problemset/all/
+			
+			KATAs[
+				http://osherove.com/tdd-kata-1/
+				https://github.com/garora/TDD-Katas/blob/develop/Src/cs/FizzBuzzKata/TestFizzBuzz.cs
+				https://www.codeproject.com/Articles/886492/Learning-Test-Driven-Development-with-TDD-Katas
+				https://www.kaggle.com/
+				https://www.codewars.com/
+				http://codingdojo.org/kata/
+				http://codekata.com/
+				https://www.hackerrank.com/interview/interview-preparation-kit/warmup/challenges
+				https://leetcode.com/problemset/all/
+
+				//from novice-to intermediate
+				https://www.coderbyte.com/
+				https://www.codewars.com/
+				https://codesignal.com/
+				https://www.codingame.com/start
+				https://www.topcoder.com/challenges/
+				https://www.hackerrank.com/
+				https://leetcode.com
+				https://www.codechef.com/
+				https://www.geeksforgeeks.org/
+				http://codeforces.com/
+				
+			]
+		
 		]
 
 		sources[
+		
 			/stack compare
 			https://stackshare.io/
 			//vanture cmps list
@@ -5079,6 +5914,9 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 
 		read[
 			
+			//illinois institute of technilogy desertations
+			https://www.ideals.illinois.edu/handle/2142/10755
+
 			Literature[
 				
 				//books share
@@ -5357,7 +6195,39 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 
 				]
 					
-					
+				
+				dodopizzaLit[
+
+					Основы программирования:
+					SOLID:
+					Роберт С. Мартин, Мика Мартин "Принципы, паттерны и методики гибкой разработки на языке C#"
+					Паттерны:
+					Сергей Тепляков "Паттерны проектирования на платформе .NET"
+					Основные структуры данных, их плюсы и минусы + Алгоритмическая сложность:
+					Тюкачев, Хлебостроев: "C#. Алгоритмы и структуры данных"
+					Адитья Бхаргава "Грокаем алгоритмы"
+
+					Базы данных:
+					Мартин Грубер "Понимание SQL"
+					Мартин Клеппман "Высоконагруженные приложения"
+					http://www.sql-ex.ru/?Lang=0
+
+
+					Бэкенд:
+					CQRS and Event Sourcing: Dominic Betts, Julián Domínguez, Grigori Melnik, 
+					Fernando Simonazzi, Mani Subramanian "Exploring CQRS and Event Sourcing" (http://download.microsoft.com/download/e/a/8/ea8c6e1f-01d8-43ba-992b-35cfcaa4fae3/cqrs_journey_guide.pdf)
+					Уязвимости и защита: Майкл Ховард, Дэвид Лебланк "Защищенный код"
+
+					Тестирование:
+						The art of unit testing
+						Working effectively with unit tests
+						xUnit test patterns
+					Фронтенд:
+						Современный учебник Javascript
+						Getting Started – React
+
+				]
+
 
 					//https://ungrid.unal.edu.co:8888/img/Microservices_Designing_Deploying.pdf
 					
@@ -5438,9 +6308,16 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 					file:///F:/backup/workflow/files/lit/fullstack-react/fullstack-react.pdf
 
 					find[
-												
+											
+						//physics
+						https://www.amazon.com/Modern-Classical-Physics-Elasticity-Statistical/dp/0691159025
+						
 						//C# 
 						the absolutely awesome book on c# and .net
+						
+						//net core 
+						exploring .net core with microservices
+						https://www.manning.com/books/exploring-dot-net-core
 						
 						//the art of scalability 
 						http://theartofscalability.com/
@@ -6053,8 +6930,26 @@ https://jeremybytes.blogspot.com/2015/01/task-and-await-basic-exception-handling
 			CI/CD pipeline[
 				https://www.redhat.com/en/blog/integrating-ansible-jenkins-cicd-process
 				github-SonarSource-Nexus-Ansible-AnsiblePlaybook-Jenkins
-			]
+			]			
 			
+			StateMachines[
+				https://blog.markshead.com/869/state-machines-computer-science/
+				
+				Finite-state machine
+				non-deterministic 
+					a->q,b->c
+				deterministic
+					a->q [b,c,d]->r,t,v
+					
+					-> NFA-[subset (powerset) construction]->DFA
+					every non-deterministig finita automata (NFA)
+					cant be translated into deterministig (DFA)
+					
+					-> regular expression - [Thompson's construction
+					] -> NFA
+					
+			]
+				
 					
 		https://en.wikipedia.org/wiki/NP-hardness
 		https://en.wikipedia.org/wiki/Time_complexity
@@ -8736,10 +9631,6 @@ https://en.wikipedia.org/wiki/Domain-driven_design
 			//Type comparison
 			https://stackoverflow.com/questions/983030/type-checking-typeof-gettype-or-is
 			
-			//KATAs
-			http://osherove.com/tdd-kata-1/
-			https://github.com/garora/TDD-Katas/blob/develop/Src/cs/FizzBuzzKata/TestFizzBuzz.cs
-			https://www.codeproject.com/Articles/886492/Learning-Test-Driven-Development-with-TDD-Katas
 			
 			
 			
@@ -9247,7 +10138,6 @@ https://en.wikipedia.org/wiki/Domain-driven_design
 	]
 	
 	global_facts[
-			
 
 		farming[
 			Y2012

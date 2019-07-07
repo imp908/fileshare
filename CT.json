@@ -349,9 +349,14 @@ namespace Parts{
 					git gc --aggressive --prune=now
 					
 					//show files
-					git ls-tree -r --name-only 
+					git ls-tree -r master --name-only 
 					//checkout file
 					git checkout -m branch file
+					
+					//rename branch
+					git branch -m future-brunch feature-branch
+					//
+					git reflog
 				]
 			
 			}
@@ -6305,6 +6310,7 @@ https://knowledgebase.apexsql.com/configure-remote-access-connect-remote-sql-ser
 				{
 			
 			killAllConnections[
+			
 USE [master];
 
 DECLARE @kill varchar(8000) = '';  
@@ -6313,6 +6319,7 @@ FROM sys.dm_exec_sessions
 WHERE database_id  = db_id('orderDB')
 
 EXEC(@kill);
+
 			]
 			
 			seach_tables_by_columnnames[
@@ -6488,6 +6495,7 @@ drop table #Account;
 			create table UserAddresses (UserId varchar(255),Email  varchar(255))			
 			ALTER TABLE `useraddresses` CHANGE COLUMN `UserId` `UserId` VARCHAR(50) NULL DEFAULT NULL FIRST;
 		]
+	
 	}
 	
 	public void NoSQL()
