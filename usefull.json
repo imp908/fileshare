@@ -1,0 +1,22 @@
+js
+[
+	rxjs
+	[
+		debounceTime(delayTime) 
+			-> handle only one action in burst
+		
+		takeUntil (observable)
+			-> emits until observable action emits
+		
+		subject.subscribe(receiver)		
+		sibject.next(val) -> receiver(val){val...}
+		
+		observable
+				single|miltiple
+		pull function iterator
+		push promise observable
+		
+		Subjects o- multicast observable
+		
+	]
+]

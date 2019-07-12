@@ -72,6 +72,9 @@
 		
 	]
 		
+		-> angular front
+		
+		-> heapsort check/rep
 		
 		-> timsort (insertion + merge)
 		-> cubesort
@@ -82,17 +85,16 @@
 		-> weighted delimeter
 		-> baloons arrow
 
-		-> order fluent API model and migration
+		
 
 		-> new 1-8 1-1 and 8-8 fluentAPI model
 		-> basic create related API
 		
 		-> move checkers to crmvcsb
-		-> branch from crmvcsb
-		-> order related objects post add 
+				
 		-> mixer of colours object nodel
 		-> hierarchy category,facility,item + cameras model
-		-> auto integrationsl/tests 
+		-> auto/integrational tests
 		-> validation, exception logging
 		
 		-> checkers async and multithreading
@@ -197,9 +199,9 @@
 		<- done 15.06.2019 40m -> order accounter interfaces
 		<- done 15.06.2019 1h10m -> order new API, BLL interfaces
 		<- done 15.06.2019 1h5m -> order deliverer, clenup
-		
+		<- done 15.06.2019 -> order fluent API model and migration
 		<- done 15.06.2019 12:35-16:02 3h30m -> git merge crmvcsb -> master, order -> master, cleanup master,crmvcsb,order
-		
+
 		<- done 01.07.2019 4h -> KATAs heapsort 
         <- done 01.07.2019 1h -> test server project multiple build tasks, and integrate run
         <- done 1h -> integration tests        
@@ -209,13 +211,15 @@
         <- done 02.07.2019 1h10m -> heapsort
         <- done 02.07.2019 1h45m -> linked nodes reverce, polindrome check
 
-        <- done 04.06.2019 2h30m -> merge sort
-        
-        <- done 05.06.2019 1h -> insertion sort 
-        <- done 05.06.2019 1h -> sorting tests
 
-        <- done 07.06.2019 2h insert sort rep ->
-        <- done 07.06.2019 2h heapsort above heapify ->
+        <- done 04.0.2019 2h30m -> merge sort
+        
+        <- done 05.07.2019 1h -> insertion sort 
+        <- done 05.07.2019 1h -> sorting tests
+
+        <- done 07.07.2019 2h insert sort rep ->
+        <- done 07.07.2019 2h heapsort above heapify ->				      
+
 	]	
 	 ~87h: 10m in 15d
 

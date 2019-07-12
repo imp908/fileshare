@@ -597,9 +597,9 @@ https://www.geeksforgeeks.org/merge-sort/
 					yes
 
 					quicksort
-					nlogn nlogn n^2
-					logn worst n | sedgewick log n worst
-					no | exist
+					nlogn | n exist nlogn n^2
+					logn worst n | sedgewick logn worst
+					no | yes exist
 
 					mergesort
 					nlogn nlogn nlogn 
@@ -608,8 +608,19 @@ https://www.geeksforgeeks.org/merge-sort/
 
 					heapsort
 					n if distinct keys | nlogn nlogn nlogn
-					01
+					o1
 					no
+
+					introsort 
+					nlogn 
+					logn
+					no
+
+					timsort
+					cubesort
+					n nlogn nlogn
+					n
+					yes
 					
 				]
 				
@@ -2192,7 +2203,16 @@ dotnet --info
 						
 					//roslyn compiler
 					https://github.com/dotnet/roslyn/wiki/Roslyn%20Overview
+					
+					tools[
+					
+//perfview
+https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
+//ILSpy
+https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 
+					]
+					
 				]
 
 				JS
@@ -4278,7 +4298,13 @@ dotnet --info
 								[
 									clustered
 										o- sorts columns in one order per table in b-tree
+										o- better performance on columns which rare or not updated 
+										o- column with hight value unique increase performance
 										
+										o- separate from data rows
+										o- contains nonclustered key values with ref to data row with value
+										o- for heap row locator is pointer to row
+										o- for clustered row locator is clustered index key
 										
 									nonclustered
 										o- strores key and pointer RowLocator
