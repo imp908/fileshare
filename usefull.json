@@ -1,23 +1,54 @@
 
 js
 [
+
 	rxjs
 	[
-		debounceTime(delayTime) 
+
+		debounceTime(delayTime)
 			-> handle only one action in burst
-		
+
 		takeUntil (observable)
 			-> emits until observable action emits
-		
-		subject.subscribe(receiver)		
+
+		subject.subscribe(receiver)
 		sibject.next(val) -> receiver(val){val...}
-		
+
 		observable
 				single|miltiple
 		pull function iterator
 		push promise observable
-		
+
 		Subjects o- multicast observable
-		
+
+	]
+
+]
+
+sql
+[
+
+	search_object[
+
+		SELECT DISTINCT
+			OBJECT_SCHEMA_NAME(sc.[object_id]) [name], 
+			so.[type] [type],
+			OBJECT_NAME(sc.[object_id]) [object_name]
+		FROM
+			sys.sql_modules sc
+		INNER JOIN
+			sys.objects so on so.object_id = sc.object_id
+		WHERE
+			sc.definition LIKE '%ObjectName%'
+	]
+
+]
+
+sysadmining[
+	nuget[
+	 <config>
+		<add key="http_proxy" value="proxyUrl" />
+		<add key="https_proxy" value="proxyUrl" />
+	  </config>
 	]
 ]
