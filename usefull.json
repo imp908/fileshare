@@ -52,3 +52,24 @@ sysadmining[
 	  </config>
 	]
 ]
+
+c#[
+	
+	core[
+		ef[
+		fluentAPI[
+			/*Mark key */
+            builder.Entity<AddressDAL>().HasKey(s=>s.Id);
+            
+            /*rename property */
+            //builder.Entity<AddressDAL>().Property(s => s.Id).HasColumnName("AddressId");
+
+            /*Rename table */
+            builder.Entity<RouteVertexDAL>().ToTable("RouteVertex");
+
+            /* Generate value in db*/
+            builder.Entity<AddressDAL>().Property(s => s.Id).ValueGeneratedOnAdd();
+		]
+		]
+	]
+]
