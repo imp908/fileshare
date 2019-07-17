@@ -4187,7 +4187,17 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 							]
 							
 							maintenance[
-							
+								
+								killAllConnections[
+									DECLARE @kill varchar(8000) = '';  
+									SELECT @kill = @kill + 'kill ' + CONVERT(varchar(5), session_id) + ';'  
+									FROM sys.dm_exec_sessions
+									WHERE database_id  = db_id('newOrderDB')
+
+									EXEC(@kill);
+
+								]
+								
 								hashIndexStat[
 									//https://docs.microsoft.com/en-us/sql/database-engine/determining-the-correct-bucket-count-for-hash-indexes?view=sql-server-2014
 									SELECT   

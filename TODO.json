@@ -70,7 +70,10 @@
 		https://docs.docker.com/docker-for-windows/troubleshoot/#limitations-of-windows-containers-for-localhost-and-published-ports
 		https://docs.docker.com/v17.09/get-started/part2/#log-in-with-your-docker-id
 		
-	]
+	]			
+		
+		-> int ids
+		-> neworder generate data
 		
 		-> angular front
 		
@@ -217,9 +220,12 @@
         <- done 05.07.2019 1h -> insertion sort 
         <- done 05.07.2019 1h -> sorting tests
 
-        <- done 07.07.2019 2h insert sort rep ->
-        <- done 07.07.2019 2h heapsort above heapify ->				      
-
+        <- done 07.07.2019 2h ->  insert sort rep
+        <- done 07.07.2019 2h  -> heapsort above heapify
+		
+		<- 15.07.2019 1h -> new order model
+		<- 16.07.2019 1h -> new order migration
+		
 	]	
 	 ~87h: 10m in 15d
 
