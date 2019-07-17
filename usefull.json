@@ -1,16 +1,11 @@
 
-c#[
-	EF[
-		FluentAPI[
-
-
-		]
-	]
-]
-
 js
 [
-
+	//date string by format
+	date.toLocaleDateString(options?);
+	//date to UTC date
+	date.UTC	
+	
 	rxjs
 	[
 
@@ -31,7 +26,16 @@ js
 		Subjects o- multicast observable
 
 	]
-
+	
+	angular
+	[
+		
+		//piped parameter
+		<div>{{'Var.VarName' | PipeName }}</div>
+		[attr]="'Var.VarName' | PipeName"
+		
+	]
+	
 ]
 
 sql
@@ -70,10 +74,16 @@ sysadmining
 
 ]
 
-c#[	
+c#[
+	
 	core[
+	
 		EF[
+		
+			https://docs.microsoft.com/en-us/ef/core/modeling/relationships
+			https://www.entityframeworktutorial.net/efcore/fluent-api-in-entity-framework-core.aspx			
 			FluentAPI[
+			
 				/*Mark key */
 				builder.Entity<AddressDAL>().HasKey(s=>s.Id);
 				
@@ -153,8 +163,12 @@ c#[
 					]
 				
 				]
+			
 			]
+		
 		]
+	
 	]
+
 ]
 
