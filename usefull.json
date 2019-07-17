@@ -79,7 +79,21 @@ c#[
 	core[
 	
 		EF[
-		
+			
+			migrationCommands[
+				dotnet ef migrations add MigrName --context CtxName
+				dotnet ef database update --context CtxName
+			]
+			
+			contextFromScratchInitialization[
+			
+				using( NewOrderContext context 
+					= new NewOrderContext(new DbContextOptionsBuilder<NewOrderContext>()
+					.UseSqlServer(connectionString).Options))
+				{}
+				
+			]
+			
 			https://docs.microsoft.com/en-us/ef/core/modeling/relationships
 			https://www.entityframeworktutorial.net/efcore/fluent-api-in-entity-framework-core.aspx			
 			FluentAPI[
