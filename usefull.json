@@ -1,4 +1,79 @@
 
+c#[
+
+	EF[
+		FluentAPI[
+			
+			customForeignKey[
+			
+				model[
+					[Table("TestDicTwo", Schema = "dic")]
+					public class TestDicTwo
+					{
+						[Key]
+						[Column("Id")]
+						public int Id { get; set; }
+
+						[Column("Comment")]
+						public string Comment { get; set; }
+
+						[Column("NumValue")]
+						public int? NumValue { get; set; }
+
+						[Column("DateValue")]
+						public DateTime? DateValue { get; set; }
+
+
+
+						/*Collection navigation property*/
+						public List<TestDicOne> DicsOne { get; set; }
+					}
+
+					[Table("TestDicOne", Schema = "dic")]
+					public class TestDicOne
+					{
+						[Key]
+						[Column("Id")]
+						public int Id { get; set; }
+
+						[Column("Comment")]
+						public string Comment { get; set; }
+
+						[Column("NumValue")]
+						public int? NumValue { get; set; }
+
+						[Column("DateValue")]
+						public DateTime? DateValue { get; set; }
+
+
+
+						/*Foreign key*/
+						//[Column("IdTwo")]
+						public int IdTwo { get; set; }        
+						/*Reference navigation property*/
+						public TestDicTwo DicTwo { get; set; }
+
+					}
+				]
+				
+				OnModelCreating[
+				
+					/*Custom foreign key name violating convention*/
+					modelBuilder.Entity<TestDicOne>()
+						.HasOne(p => p.DicTwo)
+						.WithMany(p => p.DicsOne)
+						.HasForeignKey(k => k.IdTwo);
+					
+					/*Custom foreign key naming*/
+					modelBuilder.Entity<TestDicOne>().Property(p => p.IdTwo).HasColumnName("IdDicTwo");
+					
+				]
+			
+			]
+		]
+	]
+]
+
 js
 [
 
@@ -41,16 +116,24 @@ sql
 		WHERE
 			sc.definition LIKE '%ObjectName%'
 	]
-
+	
+	maintanance[
+		//column rename
+		EXEC sp_rename 'Sales.SalesTerritory.TerritoryID', 'TerrID', 'COLUMN';
+	]
+	
 ]
 
-sysadmining[
+sysadmining
+[
+
 	nuget[
 	 <config>
 		<add key="http_proxy" value="proxyUrl" />
 		<add key="https_proxy" value="proxyUrl" />
 	  </config>
 	]
+
 ]
 
 c#[
@@ -72,4 +155,6 @@ c#[
 		]
 		]
 	]
+
 ]
+
