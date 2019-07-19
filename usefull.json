@@ -29,7 +29,6 @@ js
 	
 	angular
 	[
-		
 		//piped parameter
 		<div>{{'Var.VarName' | PipeName }}</div>
 		[attr]="'Var.VarName' | PipeName"
@@ -80,17 +79,10 @@ c#[
 	
 		EF[
 			
-			migrationCommands[
-				dotnet ef migrations add MigrName --context CtxName
-				dotnet ef database update --context CtxName
-			]
+			DataAnnotations[
 			
-			contextFromScratchInitialization[
-			
-				using( NewOrderContext context 
-					= new NewOrderContext(new DbContextOptionsBuilder<NewOrderContext>()
-					.UseSqlServer(connectionString).Options))
-				{}
+				System.COmponentModel.DataAnnotations
+				System.COmponentModel.DataAnnotations.Schema
 				
 			]
 			
@@ -183,6 +175,9 @@ c#[
 		]
 	
 	]
-
+	
+	async[
+		https://stackoverflow.com/questions/7322943/c-sharp-asynchronous-options-for-processing-a-list
+	]
 ]
 
