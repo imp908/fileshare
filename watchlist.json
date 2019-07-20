@@ -1953,7 +1953,50 @@ LINQ
 						
 						//ef CORE LOGGING
 						http://rion.io/2016/10/19/accessing-entity-framework-core-queries-behind-the-scenes-in-asp-net-core/
-				
+						
+						EF[
+			
+							DataAnnotations[
+							
+								System.COmponentModel.DataAnnotations
+								System.COmponentModel.DataAnnotations.Schema
+								
+								[Table("TestDicTwo", Schema = "dic")]
+								[Key]
+								[Column("Id")]
+
+							]
+							
+							https://docs.microsoft.com/en-us/ef/core/modeling/relationships
+							https://www.entityframeworktutorial.net/efcore/fluent-api-in-entity-framework-core.aspx			
+							FluentAPI[
+
+								/*Mark key */
+								builder.Entity<AddressDAL>().HasKey(s=>s.Id);
+								
+								/*rename property */
+								builder.Entity<AddressDAL>().Property(s => s.Id).HasColumnName("AddressId");
+
+								/*Rename table */
+								builder.Entity<RouteVertexDAL>().ToTable("RouteVertex");
+
+								/* Generate value in db*/
+								builder.Entity<AddressDAL>().Property(s => s.Id).ValueGeneratedOnAdd();
+								
+								/*Custom foreign key name violating convention*/
+								modelBuilder.Entity<TestDicOne>()
+								.HasOne(p => p.DicTwo)
+								.WithMany(p => p.DicsOne)
+								.HasForeignKey(k => k.IdTwo);
+										
+								/*Custom foreign key naming*/
+								modelBuilder.Entity<TestDicOne>()
+								.Property(p => p.IdTwo).HasColumnName("IdDicTwo");
+
+							]
+						
+						]
+						
 						reference DLL
 						[
 							https://medium.com/@tonerdo/referencing-a-net-dll-directly-using-the-net-core-toolchain-16f0af46a4dc
@@ -2222,11 +2265,16 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 				[
 					
 					https://developers.google.com/web/
-//slice immutable
+					//slice immutable
 					//splice mutates 
 					//delete prop
 					delete Employee.firstname;
 					
+					//date string by format
+					date.toLocaleDateString(options?);
+					//date to UTC date
+					date.UTC	
+	
 					code[
 						
 						shorthands[
@@ -2917,41 +2965,74 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 					
 						AngularIO[
 							
-							//angular routing and injection	
-							https://angular-2-training-book.rangle.io/handout/modules/lazy-load-di.html
-							https://plnkr.co/edit/C1QKHk9Uijtxtb13UU9t?p=preview
-							https://medium.com/@cyrilletuzi/understanding-angular-modules-ngmodule-and-their-scopes-81e4ed6f7407	
-			
-							//angular observables
-							https://scotch.io/tutorials/angular-2-http-requests-with-observables
-			
-							//styles
-							https://alligator.io/angular/style-binding-ngstyle-angular/
-							//angular 2 custom themes
-							https://medium.com/atom-platform/angular-6-dynamic-themes-without-a-library-c21dfb2cb580	
-			
-							//events
-							//events list
-							https://lishman.io/angular-2-event-binding
-							https://medium.com/claritydesignsystem/four-ways-of-listening-to-dom-events-in-angular-part-1-event-binding-3ec7e9f51a1d					
-							https://houssein.me/event-and-style-binding-in-angular2
-							https://www.radzen.com/blog/angular-event-bubbling/
-							//css					
-							https://blog.angular-university.io/angular-ngclass-ngstyle/
+							code[
+								//piped parameter
+								<div>{{'Var.VarName' | PipeName }}</div>
+								[attr]="'Var.VarName' | PipeName"
+							]
 							
-							//materialDesign
-							https://benjii.me/2018/05/material-design-stack-angular/
-							https://medium.com/codingthesmartway-com-blog/angular-material-and-angular-6-material-design-for-angular-6b1a3ee476f0
-							
-							//custom dome event
-							https://www.bennadel.com/blog/3025-creating-custom-dom-and-host-event-bindings-in-angular-2-beta-6.htm
+							lit[
+								
+								//angular routing and injection	
+								https://angular-2-training-book.rangle.io/handout/modules/lazy-load-di.html
+								https://plnkr.co/edit/C1QKHk9Uijtxtb13UU9t?p=preview
+								https://medium.com/@cyrilletuzi/understanding-angular-modules-ngmodule-and-their-scopes-81e4ed6f7407	
+				
+								//angular observables
+								https://scotch.io/tutorials/angular-2-http-requests-with-observables
+				
+								//styles
+								https://alligator.io/angular/style-binding-ngstyle-angular/
+								//angular 2 custom themes
+								https://medium.com/atom-platform/angular-6-dynamic-themes-without-a-library-c21dfb2cb580	
+				
+								//events
+								//events list
+								https://lishman.io/angular-2-event-binding
+								https://medium.com/claritydesignsystem/four-ways-of-listening-to-dom-events-in-angular-part-1-event-binding-3ec7e9f51a1d					
+								https://houssein.me/event-and-style-binding-in-angular2
+								https://www.radzen.com/blog/angular-event-bubbling/
+								//css					
+								https://blog.angular-university.io/angular-ngclass-ngstyle/
+								
+								//materialDesign
+								https://benjii.me/2018/05/material-design-stack-angular/
+								https://medium.com/codingthesmartway-com-blog/angular-material-and-angular-6-material-design-for-angular-6b1a3ee476f0
+								
+								//custom dome event
+								https://www.bennadel.com/blog/3025-creating-custom-dom-and-host-event-bindings-in-angular-2-beta-6.htm
+								
+							]
 							
 						]
 						
+						rxjs
+						[
+
+								debounceTime(delayTime)
+									-> handle only one action in burst
+
+								takeUntil (observable)
+									-> emits until observable action emits
+
+								subject.subscribe(receiver)
+								sibject.next(val) -> receiver(val){val...}
+
+								observable
+										single|miltiple
+								pull function iterator
+								push promise observable
+
+								Subjects o- multicast observable
+
+							]
+							
+							
 						ReactJS[
 	
 								!!!action input signature must correspond to default reducer initialization
-							]
+							
+						
 							
 							overall
 							[
@@ -3255,76 +3336,77 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 							]
 							
 						]
-					Redux[
-
-							import { Provider } from 'react-redux'
-							import store from './redux/store'
 							
-							subscribe to store
-								true: subscribe to the values that mapStateToProps extracts from the store, 
-									and re-render only when those values have changed
-								false: not re-render when the store changes
+						Redux[
+
+								import { Provider } from 'react-redux'
+								import store from './redux/store'
 								
-							inject action creators 
-								true: receive all of the action creators you inject with mapDispatchToProps 
-									as props and automatically dispatch the actions upon being called
-								false: receive props.dispatch that you may use to manually dispatch action
-							
-							funcs[
-								(state, action) => state
+								subscribe to store
+									true: subscribe to the values that mapStateToProps extracts from the store, 
+										and re-render only when those values have changed
+									false: not re-render when the store changes
+									
+								inject action creators 
+									true: receive all of the action creators you inject with mapDispatchToProps 
+										as props and automatically dispatch the actions upon being called
+									false: receive props.dispatch that you may use to manually dispatch action
+								
+								funcs[
+									(state, action) => state
 
-								function ctr(state,action){
-									switch(action.props){
+									function ctr(state,action){
+										switch(action.props){
 
+										}
 									}
-								}
+									
+									//subscribe,dispatch,getState
+									const red = combineReducers({ctr,ctr2})
+									store = createStore(ctr);
+										optional->createStore(combineReducers,initialState,applyMiddleware)
+									str.subscribe()			
+									str.dispatch({action.Prop:val})
+									
+									//connect(mapToProps,mapToState)(Component)
+								]
 								
-								//subscribe,dispatch,getState
-								const red = combineReducers({ctr,ctr2})
-								store = createStore(ctr);
-									optional->createStore(combineReducers,initialState,applyMiddleware)
-								str.subscribe()			
-								str.dispatch({action.Prop:val})
+								https://blog.isquaredsoftware.com/presentations/workshops/redux-fundamentals/ui-layer.html#/4
+								BasicUIintegration
+								[
 								
-								//connect(mapToProps,mapToState)(Component)
+									// 1) Create a store
+									const store = Redux.createStore(counter)
+
+									// 2) Subscribe to store updates
+									store.subscribe(render);
+
+									const valueEl = document.getElementById('value');
+
+									// 3. When the subscription callback runs:
+									function render() {
+										// 3.1) Get the current store state
+										const state = store.getState();
+
+										// 3.2) Extract the data you want
+										const newValue = state.toString();
+
+										// 3.3) Update the UI with the new value
+										valueEl.innerHTML = newValue;
+									}
+
+									// 4) Display the UI with the initial store state
+									render();
+
+									// 5) Dispatch actions based on UI inputs
+									document.getElementById("increment")
+										.addEventListener('click', () => {
+											store.dispatch({type : "INCREMENT"});
+										})
+								]
+								
 							]
 							
-							https://blog.isquaredsoftware.com/presentations/workshops/redux-fundamentals/ui-layer.html#/4
-							BasicUIintegration
-							[
-							
-								// 1) Create a store
-								const store = Redux.createStore(counter)
-
-								// 2) Subscribe to store updates
-								store.subscribe(render);
-
-								const valueEl = document.getElementById('value');
-
-								// 3. When the subscription callback runs:
-								function render() {
-									// 3.1) Get the current store state
-									const state = store.getState();
-
-									// 3.2) Extract the data you want
-									const newValue = state.toString();
-
-									// 3.3) Update the UI with the new value
-									valueEl.innerHTML = newValue;
-								}
-
-								// 4) Display the UI with the initial store state
-								render();
-
-								// 5) Dispatch actions based on UI inputs
-								document.getElementById("increment")
-									.addEventListener('click', () => {
-										store.dispatch({type : "INCREMENT"});
-									})
-							]
-							
-						]
-						
 							
 						react+redux_impl [
 			
@@ -3455,7 +3537,7 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 							]
 						
 						]
-						//small deux
+						//small redux
 						Formik[
 							https://jaredpalmer.com/formik/
 						]
@@ -3517,7 +3599,7 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 						]
 
 						
-			nodeJSwebFrameworks[
+						nodeJSwebFrameworks[
 							
 							//https://nodesource.com/blog/next-nuxt-nest/
 							//next js
@@ -3559,6 +3641,7 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 							
 						]
 					
+					]
 					
 					testing[				
 						JasmineKarma[
@@ -3611,23 +3694,26 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 						//CSS GRID
 						https://medium.com/the-andela-way/using-css-grid-and-box-alignment-properties-to-build-form-layouts-b5f7ade6e73d
 												
-					]
+					
 						> - child combinator, applied to children
 					
 					
-					//css compatible colors
-					http://paletton.com/#uid=75C0W0klllljw6Jkre1mfsEnaGR
-					//CSS animated 
-					http://www.transformicons.com/
-					//css tranlate
-					https://codepen.io/kattixie/pen/ezzGKY
-					https://codepen.io/adamaoc/pen/PwevMj
-					//svg
-					https://www.sitepoint.com/add-svg-to-web-page/
-					https://www.w3.org/wiki/SVG_Links
-					https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
-					https://developer.mozilla.org/kab/docs/Web/SVG
-					https://teropa.info/blog/2016/12/12/graphics-in-angular-2.html
+						//css compatible colors
+						http://paletton.com/#uid=75C0W0klllljw6Jkre1mfsEnaGR
+						//CSS animated 
+						http://www.transformicons.com/
+						//css tranlate
+						https://codepen.io/kattixie/pen/ezzGKY
+						https://codepen.io/adamaoc/pen/PwevMj
+						//svg
+						https://www.sitepoint.com/add-svg-to-web-page/
+						https://www.w3.org/wiki/SVG_Links
+						https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/transform
+						https://developer.mozilla.org/kab/docs/Web/SVG
+						https://teropa.info/blog/2016/12/12/graphics-in-angular-2.html
+						
+					]
+				
 				]
 				
 				C[
@@ -4183,7 +4269,25 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 										select * from LargestCityInCountryByPopulation;
 
 								]
+																
+								rowversion[
 								
+									CREATE TABLE MyTest (myKey int PRIMARY KEY  
+										,myValue int, RV rowversion);  
+									GO   
+									INSERT INTO MyTest (myKey, myValue) VALUES (1, 0);  
+									GO   
+									INSERT INTO MyTest (myKey, myValue) VALUES (2, 0);  
+									GO  
+
+									select * from MyTest
+
+									update MyTest
+									set myValue = 0
+									where myKey = 2
+
+								]
+	
 							]
 							
 							maintenance[
@@ -4212,6 +4316,46 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 									JOIN sys.indexes AS i   
 									ON hs.object_id=i.object_id AND hs.index_id=i.index_id
 								]
+								
+								//locked objects
+								EXEC sp_lock; 
+								//column rename
+								EXEC sp_rename 'Sales.SalesTerritory.TerritoryID', 'TerrID', 'COLUMN';
+								
+								
+								search_object_by_name[
+
+									SELECT DISTINCT
+										OBJECT_SCHEMA_NAME(sc.[object_id]) [name], 
+										so.[type] [type],
+										OBJECT_NAME(sc.[object_id]) [object_name]
+									FROM
+										sys.sql_modules sc
+									INNER JOIN
+										sys.objects so on so.object_id = sc.object_id
+									WHERE
+										sc.definition LIKE '%ObjectName%'
+								]
+								
+							
+								selectIndexStat[
+								
+									select 
+										top(10)
+										*
+									FROM sys.indexes as h
+									INNER JOIN sys.tables t on h.object_id=t.object_id
+
+								]
+								
+								selectSnapshotStat[
+									select	
+									t.is_read_committed_snapshot_on ,
+									t.snapshot_isolation_state,
+									t.* 
+									from sys.databases t
+								]
+								
 								
 							]
 							

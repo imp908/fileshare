@@ -9642,6 +9642,13 @@ RAW JSON
 		
 		themes - ctrl k t	
 		
+		nuget_proxy[
+			<config>
+				<add key="http_proxy" value="proxyUrl" />
+				<add key="https_proxy" value="proxyUrl" />
+			</config>
+		]
+		
 	]
 	
 	atom_vs_code[	

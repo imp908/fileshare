@@ -56,7 +56,7 @@
 							(graphql vs REST,?mongoose)
 							(?rendering,?testing)
 						]
-						
+
 	TODO:[
 
 	09.06.2019 4h20m -> chat dockerize 
@@ -72,8 +72,10 @@
 		
 	]			
 		
-		-> int ids
+		
 		-> neworder generate data
+		
+		-> column to range sql 
 		
 		-> angular front
 		
@@ -223,10 +225,11 @@
         <- done 07.07.2019 2h ->  insert sort rep
         <- done 07.07.2019 2h  -> heapsort above heapify
 		
-		<- 15.07.2019 1h -> new order model
-		<- 16.07.2019 1h -> new order migration
+		<- done 15.07.2019 1h -> new order model
+		<- done 16.07.2019 1h -> new order migration		
+		<- done 16.07.2019 -> int ids
 		
-	]	
+	]
 	 ~87h: 10m in 15d
 
 					}
