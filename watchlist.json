@@ -66,6 +66,10 @@ watchlist[
 				https://www.softwareag.com/corporate/default.html
 			]
 			
+			startUps[
+				http://ironox.com/
+			]
+			
 		]
 		
 		deliveres[
@@ -4095,7 +4099,7 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 						]
 						
 						scripts[
-							
+
 							analytical[
 															
 								adjacentTables[
@@ -4287,9 +4291,38 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 									where myKey = 2
 
 								]
-	
+								
+								generateDateTime[
+
+									declare @i int = 0;
+									declare @dt datetime = '20190101';
+									while @i < 10
+									begin
+										set @i = @i + 1;
+										select 
+											dateadd(DAY,@i,SYSDATETIME())
+											,dateadd(day,@i,@dt)
+										;
+									end;
+
+								]
+								
+								datesAndTruncate[
+								
+select
+dateadd(DAY,1,SYSDATETIME())
+,DATEDIFF(dd,SYSDATETIME(),SYSDATETIME())
+,DATEPART(dd,SYSDATETIME())
+
+/*year,month,day start*/
+,DATEADD(yy,datediff(yy,0,getdate()),0)
+/*year,month,day add*/
+,dateadd(yy,1,DATEADD(yy,datediff(yy,0,getdate()),0))
+
+								]
+
 							]
-							
+
 							maintenance[
 								
 								killAllConnections[
@@ -4358,7 +4391,7 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 								
 								
 							]
-							
+
 						]
 												
 						theory [
@@ -4472,6 +4505,14 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 										
 							]
 							
+							APPLY[
+
+								cross apply outer apply equals inner/outer join with more 
+								efficiency and can query functions ->
+								select * from t outer apply func(t.param)
+
+							]
+
 						]
 						
 					]
@@ -5635,6 +5676,7 @@ install-Package -name "HP.ArchiveBalancingService.DataContracts" -RequiredVersio
 				//Generates GraphQL client for database
 				https://www.prisma.io
 			]
+		
 		]
 		
 		comunities[
