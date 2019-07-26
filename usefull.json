@@ -68,10 +68,10 @@ sql[
 sysadmining[
 
 	nuget[
-	 <config>
-		<add key="http_proxy" value="proxyUrl" />
-		<add key="https_proxy" value="proxyUrl" />
-	  </config>
+		<config>
+			<add key="http_proxy" value="proxyUrl" />
+			<add key="https_proxy" value="proxyUrl" />
+		</config>
 	]
 
 ]
@@ -82,7 +82,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 	core[
-	
+
 		EF[
 			
 			DataAnnotations[
@@ -107,6 +107,7 @@ using Microsoft.EntityFrameworkCore;
 
 				/* Generate value in db*/
 				builder.Entity<AddressDAL>().Property(s => s.Id).ValueGeneratedOnAdd();
+				
 				
 				
 				customForeignKey[
@@ -171,7 +172,19 @@ using Microsoft.EntityFrameworkCore;
 						
 						/*Custom foreign key naming*/
 						modelBuilder.Entity<TestDicOne>().Property(p => p.IdTwo).HasColumnName("IdDicTwo");
-					
+						
+						
+						/*Many-to-many*/
+						Entity<joinTable>()
+						.HasOne(s=>s.EntityOne)
+						.WithMany(s=>s.JoinTableEntity)
+						.HasKey(k=>k.JointableKeyForEntityOne);
+
+						Entity<joinTable>()
+						.HasOne(s=>s.EntityTwo)
+						.WithMany(s=>s.JoinTableEntity)
+						.HasKey(k=>k.JointableKeyForEntityTwo);
+						
 					]
 				
 				]
@@ -179,7 +192,7 @@ using Microsoft.EntityFrameworkCore;
 			]
 		
 		]
-		
+
 		MVC_AUTOMAPPER[
 		
             services.AddAutoMapper();
@@ -189,11 +202,11 @@ using Microsoft.EntityFrameworkCore;
             services.AddSingleton<IMapper>(mapper);
 			
 		]
-	
+
 	]
 	
 	async[
 		https://stackoverflow.com/questions/7322943/c-sharp-asynchronous-options-for-processing-a-list
 	]
-]
 
+]
