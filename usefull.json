@@ -3,8 +3,8 @@ js[
 	//date string by format
 	date.toLocaleDateString(options?);
 	//date to UTC date
-	date.UTC	
-	
+	date.UTC
+
 	rxjs[
 
 		debounceTime(delayTime)
@@ -38,8 +38,43 @@ js[
 			
 		]
 		
+		https://coryrylan.com/blog/angular-component-inheritance-and-template-swapping
+		templateSwitch[
+
+			BaseComponent{}
+			RoutingComponent:BaseComponent {condString,templateUrl:routingTemplate}
+				[
+					<div *ngIf="condString=templateTypeOne">
+						<ChildOne>
+					</div>
+					<div *ngIf="condString=templateTypeTwo">
+						<ChildTwo>
+					</div>
+				]
+			ChildOne:BaseComponent {templateUrl:templateOne}
+			ChildTwo:BaseComponent {templateUrl:templateTwo}
+
+			HostingComponent{} [ <routingTemplate [condString]="'templateTypeOne'"></routingTemplate> ]
+		]
+		
+		EventService[
+		
+			export class EventService {
+			  
+			  private eventSource = new Subject<Event>();
+			  
+			  eventSubscription$ = this.eventSource.asObservable();
+			  
+			  Emit(event: Event ) {
+				this.eventSource.next(event);
+			  }
+
+			}
+		
+		]
+
 	]
-	
+
 ]
 
 sql[
@@ -47,7 +82,7 @@ sql[
 	search_object[
 
 		SELECT DISTINCT
-			OBJECT_SCHEMA_NAME(sc.[object_id]) [name], 
+			OBJECT_SCHEMA_NAME(sc.[object_id]) [name],
 			so.[type] [type],
 			OBJECT_NAME(sc.[object_id]) [object_name]
 		FROM
@@ -56,11 +91,30 @@ sql[
 			sys.objects so on so.object_id = sc.object_id
 		WHERE
 			sc.definition LIKE '%ObjectName%'
+
 	]
-	
+
 	maintanance[
 		//column rename
 		EXEC sp_rename 'Sales.SalesTerritory.TerritoryID', 'TerrID', 'COLUMN';
+	]
+	
+	TableparameterSQL[
+
+use ASP
+declare @Filter_Cfo [dbo].[type_Int_Values];
+declare @Filter_Budget_Item [dbo].[type_Int_Values];
+declare @Filter_Legacy [dbo].[type_Int_Values];
+
+insert into @Filter_Cfo values (1)
+insert into @Filter_Cfo values (2)
+insert into @Filter_Budget_Item values (1)
+insert into @Filter_Budget_Item values (2)
+insert into @Filter_Legacy values (1)
+insert into @Filter_Legacy values (2)
+
+execute dds.sp_Get_Plan_Rows @Id_Individual_Person=10525,@Id_Language=1,@Year_Plan=2020, @Filter_Cfo = @Filter_Cfo, @Filter_Budget_Items = @Filter_Budget_Item, @Filter_Legacy = @Filter_Legacy
+
 	]
 	
 ]
@@ -208,5 +262,30 @@ using Microsoft.EntityFrameworkCore;
 	async[
 		https://stackoverflow.com/questions/7322943/c-sharp-asynchronous-options-for-processing-a-list
 	]
+	
+	tablePrarameterSQL[
 
+		//single value param
+		var param = new SqlParameter("@ProcParamName", SqlDbType.Int) { Value = inputparamName };
+
+		//table parameter
+		var idsFilterValues = new List<SqlDataRecord>();
+		foreach (var v in values)
+		{
+			var idFilerValue = new SqlDataRecord(
+				new SqlMetaData("Value", SqlDbType.Int)
+			);
+
+			idFilerValue.SetValues(v);
+			idsFilterValues.Add(idFilerValue);
+		}
+		var idsFilterParam = new SqlParameter("@ParamName", SqlDbType.Structured)
+		{
+			Direction = ParameterDirection.Input,
+			TypeName = "dbo.type_Int_Values",
+			Value = idsFilterValues.Count > 0 ? idsFilterValues : null
+		};
+		
+	]
 ]
+
