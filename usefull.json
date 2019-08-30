@@ -30,27 +30,28 @@ js[
 		//piped parameter
 		<div>{{'Var.VarName' | PipeName }}</div>
 		[attr]="'Var.VarName' | PipeName"
-		
+
 		terminal[
-		
-			ng g m 'shared\components\file-attachment'
-			ng g c 'shared\components\file-attachment'
-			
+
+			ng g m 'path'
+			ng g c 'path'
+			ng g c path --skip-import
+
 		]
-		
+
 		https://coryrylan.com/blog/angular-component-inheritance-and-template-swapping
 		templateSwitch[
 
 			BaseComponent{}
 			RoutingComponent:BaseComponent {condString,templateUrl:routingTemplate}
-				[
-					<div *ngIf="condString=templateTypeOne">
-						<ChildOne>
-					</div>
-					<div *ngIf="condString=templateTypeTwo">
-						<ChildTwo>
-					</div>
-				]
+			[
+				<div *ngIf="condString=templateTypeOne">
+					<ChildOne>
+				</div>
+				<div *ngIf="condString=templateTypeTwo">
+					<ChildTwo>
+				</div>
+			]
 			ChildOne:BaseComponent {templateUrl:templateOne}
 			ChildTwo:BaseComponent {templateUrl:templateTwo}
 
@@ -74,7 +75,43 @@ js[
 		]
 
 	]
+	
+	ts [
+		
+		genericInterfacClassMethod[
 
+			interface IinterfaceUnderTest {
+			  id: number;
+			}
+			class ClassUnderTest implements IinterfaceUnderTest {
+			  id: number;
+			  name: string;
+			}
+			class ExtendedClass extends ClassUnderTest {
+			  secondName: string;
+			}
+
+			// T extends IinterfaceUnderTest
+			//also OK but requires interface fields usage
+			class FlatContainerToTest<T extends ClassUnderTest> {
+			  localArr: T[];
+			  constructor(arr: T[]) {
+				this.localArr = [...arr];
+			  }
+
+			  log() {
+				this.localArr.forEach((s) => {
+				  console.log(s.name);
+				});
+				console.log(this.localArr);
+			  }
+
+			}
+
+		]
+
+	]
+	
 ]
 
 sql[
@@ -132,8 +169,8 @@ sysadmining[
 
 c#[
 
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+	using Microsoft.AspNetCore.Mvc;
+	using Microsoft.EntityFrameworkCore;
 
 	core[
 
@@ -285,7 +322,23 @@ using Microsoft.EntityFrameworkCore;
 			TypeName = "dbo.type_Int_Values",
 			Value = idsFilterValues.Count > 0 ? idsFilterValues : null
 		};
-		
+
 	]
+
 ]
 
+git[
+	
+	old_commit_change[
+		Use git stash to store the changes you want to add.
+		Use git rebase -i HEAD~10 (or however many commits back you want to see).
+		Mark the commit in question (a0865...) for edit by changing the word pick at the start of the line into edit. Don't delete the other lines as that would delete the commits.[^vimnote]
+		Save the rebase file, and git will drop back to the shell and wait for you to fix that commit.
+		Pop the stash by using git stash pop
+		Add your file with git add <file>.
+		Amend the commit with git commit --amend --no-edit.
+		Do a git rebase --continue which will rewrite the rest of your commits against the new one.
+		Repeat from step 2 onwards if you have marked more than one commit for edit.
+	]
+	
+]
