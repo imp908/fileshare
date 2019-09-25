@@ -76,7 +76,7 @@ js[
 
 	]
 	
-	ts [
+	ts[
 		
 		genericInterfacClassMethod[
 
@@ -112,6 +112,83 @@ js[
 
 	]
 	
+	handsontable [
+		
+		lib[
+			// validation
+			// 2891
+			core.js	
+
+//draws dropdown
+autocompleteeditor.open
+
+//draws handsontableInput
+texteditor.createElements
+
+		]
+		
+		-> dropdown [
+
+//keyvalue hide
+core.js
+1225
+pluginHooks
+run
+
+texteditor
+hideEditableElement
+this.textareaParentStyle.opacity = '0';
+hides editable element
+textContent -> old
+
+			//entry point
+			node_modules\handsontable\es\core.js
+				//3939
+				_refreshBorders
+					//editors line
+				//1255
+				setDataAtCell
+				//1011
+				validateChanges
+				//1176
+				this.validateCell
+			node_modules\handsontable\es\tableView.js
+				//line 493
+				
+			node_modules\handsontable-key-value\es\renderers\keyValueRenderer.js
+			
+			flow[
+
+onMouseDown.js
+onCellMouseDown
+195
+
+tableView.js
+507
+onCellMouseDown
+
+core.js
+this.validateCell
+1212
+validator.call
+
+tableView.js
+491
+_this2.instance.getCellRenderer(cellProperties)(_this2.instance, TD, row, col, prop, value, cellProperties);
+
+keyvalue
+21
+	Handsontable.renderers.getRenderer('dropdown').apply(_this, [instance, td, row, col, prop, displayValue !== null ? displayValue : value, cellProperties]);
+renderer
+element.js
+466
+fastInnerText
+
+			]
+		
+		]
+	
+	]
 ]
 
 sql[
@@ -134,6 +211,9 @@ sql[
 	maintanance[
 		//column rename
 		EXEC sp_rename 'Sales.SalesTerritory.TerritoryID', 'TerrID', 'COLUMN';
+		
+		ALTER TABLE [table] DROP COLUMN [column];
+		ALTER TABLE [table] add [column] bit default 0 not null;
 	]
 	
 	TableparameterSQL[
@@ -151,6 +231,19 @@ insert into @Filter_Legacy values (1)
 insert into @Filter_Legacy values (2)
 
 execute dds.sp_Get_Plan_Rows @Id_Individual_Person=10525,@Id_Language=1,@Year_Plan=2020, @Filter_Cfo = @Filter_Cfo, @Filter_Budget_Items = @Filter_Budget_Item, @Filter_Legacy = @Filter_Legacy
+
+	]
+	
+	execute_SQL_for_every_row[
+	
+		DECLARE @SQL VARCHAR(MAX)=''
+
+		SELECT @SQL = @SQL +
+				'ALTER TABLE [dds].[Budget_Param_FOT] DROP CONSTRAINT ' + CONSTRAINT_NAME + ';'
+			 from  INFORMATION_SCHEMA.TABLE_CONSTRAINTS 
+			where  CONSTRAINT_TYPE ='FOREIGN KEY' and TABLE_NAME ='Budget_Param_FOT' 
+
+		print @sql
 
 	]
 	
@@ -342,3 +435,4 @@ git[
 	]
 	
 ]
+
