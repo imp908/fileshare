@@ -1,438 +1,78 @@
+Checklist[
 
-js[
-	//date string by format
-	date.toLocaleDateString(options?);
-	//date to UTC date
-	date.UTC
-
-	rxjs[
-
-		debounceTime(delayTime)
-			-> handle only one action in burst
-
-		takeUntil (observable)
-			-> emits until observable action emits
-
-		subject.subscribe(receiver)
-		sibject.next(val) -> receiver(val){val...}
-
-		observable
-				single|miltiple
-		pull function iterator
-		push promise observable
-
-		Subjects o- multicast observable
-
-	]
-	
-	angular[
-	
-		//piped parameter
-		<div>{{'Var.VarName' | PipeName }}</div>
-		[attr]="'Var.VarName' | PipeName"
-
-		terminal[
-
-			ng g m 'path'
-			ng g c 'path'
-			ng g c path --skip-import
-
-		]
-
-		https://coryrylan.com/blog/angular-component-inheritance-and-template-swapping
-		templateSwitch[
-
-			BaseComponent{}
-			RoutingComponent:BaseComponent {condString,templateUrl:routingTemplate}
-			[
-				<div *ngIf="condString=templateTypeOne">
-					<ChildOne>
-				</div>
-				<div *ngIf="condString=templateTypeTwo">
-					<ChildTwo>
-				</div>
-			]
-			ChildOne:BaseComponent {templateUrl:templateOne}
-			ChildTwo:BaseComponent {templateUrl:templateTwo}
-
-			HostingComponent{} [ <routingTemplate [condString]="'templateTypeOne'"></routingTemplate> ]
-		]
-		
-		EventService[
-		
-			export class EventService {
-			  
-			  private eventSource = new Subject<Event>();
-			  
-			  eventSubscription$ = this.eventSource.asObservable();
-			  
-			  Emit(event: Event ) {
-				this.eventSource.next(event);
-			  }
-
-			}
-		
-		]
-
-	]
-	
-	ts[
-		
-		genericInterfacClassMethod[
-
-			interface IinterfaceUnderTest {
-			  id: number;
-			}
-			class ClassUnderTest implements IinterfaceUnderTest {
-			  id: number;
-			  name: string;
-			}
-			class ExtendedClass extends ClassUnderTest {
-			  secondName: string;
-			}
-
-			// T extends IinterfaceUnderTest
-			//also OK but requires interface fields usage
-			class FlatContainerToTest<T extends ClassUnderTest> {
-			  localArr: T[];
-			  constructor(arr: T[]) {
-				this.localArr = [...arr];
-			  }
-
-			  log() {
-				this.localArr.forEach((s) => {
-				  console.log(s.name);
-				});
-				console.log(this.localArr);
-			  }
-
-			}
-
-		]
-
-	]
-	
-	handsontable [
-		
-		lib[
-			// validation
-			// 2891
-			core.js	
-
-//draws dropdown
-autocompleteeditor.open
-
-//draws handsontableInput
-texteditor.createElements
-
-		]
-		
-		-> dropdown [
-
-//keyvalue hide
-core.js
-1225
-pluginHooks
-run
-
-texteditor
-hideEditableElement
-this.textareaParentStyle.opacity = '0';
-hides editable element
-textContent -> old
-
-			//entry point
-			node_modules\handsontable\es\core.js
-				//3939
-				_refreshBorders
-					//editors line
-				//1255
-				setDataAtCell
-				//1011
-				validateChanges
-				//1176
-				this.validateCell
-			node_modules\handsontable\es\tableView.js
-				//line 493
-				
-			node_modules\handsontable-key-value\es\renderers\keyValueRenderer.js
-			
-			flow[
-
-onMouseDown.js
-onCellMouseDown
-195
-
-tableView.js
-507
-onCellMouseDown
-
-core.js
-this.validateCell
-1212
-validator.call
-
-tableView.js
-491
-_this2.instance.getCellRenderer(cellProperties)(_this2.instance, TD, row, col, prop, value, cellProperties);
-
-keyvalue
-21
-	Handsontable.renderers.getRenderer('dropdown').apply(_this, [instance, td, row, col, prop, displayValue !== null ? displayValue : value, cellProperties]);
-renderer
-element.js
-466
-fastInnerText
-
-			]
-		
-		]
-	
-	]
-]
-
-sql[
-
-	search_object[
-
-		SELECT DISTINCT
-			OBJECT_SCHEMA_NAME(sc.[object_id]) [name],
-			so.[type] [type],
-			OBJECT_NAME(sc.[object_id]) [object_name]
-		FROM
-			sys.sql_modules sc
-		INNER JOIN
-			sys.objects so on so.object_id = sc.object_id
-		WHERE
-			sc.definition LIKE '%ObjectName%'
-
-	]
-
-	maintanance[
-		//column rename
-		EXEC sp_rename 'Sales.SalesTerritory.TerritoryID', 'TerrID', 'COLUMN';
-		
-		ALTER TABLE [table] DROP COLUMN [column];
-		ALTER TABLE [table] add [column] bit default 0 not null;
-	]
-	
-	TableparameterSQL[
-
-use ASP
-declare @Filter_Cfo [dbo].[type_Int_Values];
-declare @Filter_Budget_Item [dbo].[type_Int_Values];
-declare @Filter_Legacy [dbo].[type_Int_Values];
-
-insert into @Filter_Cfo values (1)
-insert into @Filter_Cfo values (2)
-insert into @Filter_Budget_Item values (1)
-insert into @Filter_Budget_Item values (2)
-insert into @Filter_Legacy values (1)
-insert into @Filter_Legacy values (2)
-
-execute dds.sp_Get_Plan_Rows @Id_Individual_Person=10525,@Id_Language=1,@Year_Plan=2020, @Filter_Cfo = @Filter_Cfo, @Filter_Budget_Items = @Filter_Budget_Item, @Filter_Legacy = @Filter_Legacy
-
-	]
-	
-	execute_SQL_for_every_row[
-	
-		DECLARE @SQL VARCHAR(MAX)=''
-
-		SELECT @SQL = @SQL +
-				'ALTER TABLE [dds].[Budget_Param_FOT] DROP CONSTRAINT ' + CONSTRAINT_NAME + ';'
-			 from  INFORMATION_SCHEMA.TABLE_CONSTRAINTS 
-			where  CONSTRAINT_TYPE ='FOREIGN KEY' and TABLE_NAME ='Budget_Param_FOT' 
-
-		print @sql
-
-	]
-	
-]
-
-sysadmining[
-
-	nuget[
-		<config>
-			<add key="http_proxy" value="proxyUrl" />
-			<add key="https_proxy" value="proxyUrl" />
-		</config>
-	]
+	-> etalon tamplate
+	-> task actual
+	-> used functional duplication check
+	-> promise resolve
+	-> used imports
+	-> unused imports
+	-> function to block order
+	-> CSS order
+	-> functional
+	-> IE CSS
+	-> indents and gaps
+	-> naming
 
 ]
 
-c#[
-
-	using Microsoft.AspNetCore.Mvc;
-	using Microsoft.EntityFrameworkCore;
-
-	core[
-
-		EF[
-			
-			DataAnnotations[
-			
-				System.COmponentModel.DataAnnotations
-				System.COmponentModel.DataAnnotations.Schema
-				
-			]
-			
-			https://docs.microsoft.com/en-us/ef/core/modeling/relationships
-			https://www.entityframeworktutorial.net/efcore/fluent-api-in-entity-framework-core.aspx			
-			FluentAPI[
-			
-				/*Mark key */
-				builder.Entity<AddressDAL>().HasKey(s=>s.Id);
-				
-				/*rename property */
-				//builder.Entity<AddressDAL>().Property(s => s.Id).HasColumnName("AddressId");
-
-				/*Rename table */
-				builder.Entity<RouteVertexDAL>().ToTable("RouteVertex");
-
-				/* Generate value in db*/
-				builder.Entity<AddressDAL>().Property(s => s.Id).ValueGeneratedOnAdd();
-				
-				
-				
-				customForeignKey[
-				
-					model[
-						[Table("TestDicTwo", Schema = "dic")]
-						public class TestDicTwo
-						{
-							[Key]
-							[Column("Id")]
-							public int Id { get; set; }
-
-							[Column("Comment")]
-							public string Comment { get; set; }
-
-							[Column("NumValue")]
-							public int? NumValue { get; set; }
-
-							[Column("DateValue")]
-							public DateTime? DateValue { get; set; }
-
-
-
-							/*Collection navigation property*/
-							public List<TestDicOne> DicsOne { get; set; }
-						}
-
-						[Table("TestDicOne", Schema = "dic")]
-						public class TestDicOne
-						{
-							[Key]
-							[Column("Id")]
-							public int Id { get; set; }
-
-							[Column("Comment")]
-							public string Comment { get; set; }
-
-							[Column("NumValue")]
-							public int? NumValue { get; set; }
-
-							[Column("DateValue")]
-							public DateTime? DateValue { get; set; }
-
-
-
-							/*Foreign key*/
-							//[Column("IdTwo")]
-							public int IdTwo { get; set; }        
-							/*Reference navigation property*/
-							public TestDicTwo DicTwo { get; set; }
-
-						}
-					]
-				
-					OnModelCreating[
-					
-						/*Custom foreign key name violating convention*/
-						modelBuilder.Entity<TestDicOne>()
-							.HasOne(p => p.DicTwo)
-							.WithMany(p => p.DicsOne)
-							.HasForeignKey(k => k.IdTwo);
-						
-						/*Custom foreign key naming*/
-						modelBuilder.Entity<TestDicOne>().Property(p => p.IdTwo).HasColumnName("IdDicTwo");
-						
-						
-						/*Many-to-many*/
-						Entity<joinTable>()
-						.HasOne(s=>s.EntityOne)
-						.WithMany(s=>s.JoinTableEntity)
-						.HasKey(k=>k.JointableKeyForEntityOne);
-
-						Entity<joinTable>()
-						.HasOne(s=>s.EntityTwo)
-						.WithMany(s=>s.JoinTableEntity)
-						.HasKey(k=>k.JointableKeyForEntityTwo);
-						
-					]
-				
-				]
-			
-			]
-		
-		]
-
-		MVC_AUTOMAPPER[
-		
-            services.AddAutoMapper();
-            //*Mapper initialize with Instance API initialization */
-            IMapper mapper = new Mapper(ConfigureAutoMapper());
-            ///*ConfigureAutoMapper  startup.cs*/
-            services.AddSingleton<IMapper>(mapper);
-			
-		]
-
+cSharp[
+	
+	accessModifers[
+		httpGet
+			fromroute,fromquery, fromheader (maybe)
+		httpPost, httpPut
+			frombody, fromform
+		httpDelete
+			fromroute, fromquery (maybe)
+	
 	]
 	
-	async[
-		https://stackoverflow.com/questions/7322943/c-sharp-asynchronous-options-for-processing-a-list
-	]
+	WebApi[
 	
-	tablePrarameterSQL[
+		routeAttributes[
+				httpGet
+				fromroute,fromquery, fromheader (maybe)
+			httpPost, httpPut
+				frombody, fromform
+			httpDelete
+				fromroute, fromquery (maybe)
+		]
+		
+		multipleGet[
+		
+			//GET signature
+			[HttpGet("GetDefault/{IsoCode}")]
+			public async Task<IActionResult> Get([FromRoute]string IsoCode)
+			//URL
+			http://localhost:49585/api/NewOrder/GetDefault/usd
 
-		//single value param
-		var param = new SqlParameter("@ProcParamName", SqlDbType.Int) { Value = inputparamName };
+			//GET named
+			[HttpGet("GetCurrency")]
+			public async Task<IActionResult> GetCurrencyParam(string IsoCode)
+			//URL
+			http://localhost:49585/api/NewOrder/GetCurrency?IsoCode=usd
 
-		//table parameter
-		var idsFilterValues = new List<SqlDataRecord>();
-		foreach (var v in values)
-		{
-			var idFilerValue = new SqlDataRecord(
-				new SqlMetaData("Value", SqlDbType.Int)
-			);
+			//GET named
+			[HttpGet("GetCurrencyParam")]
+			public async Task<IActionResult> GetNoParam([FromQuery]string IsoCode)
+			//URL
+			http://localhost:49585/api/NewOrder/GetCurrencyParam?IsoCode=asd
 
-			idFilerValue.SetValues(v);
-			idsFilterValues.Add(idFilerValue);
-		}
-		var idsFilterParam = new SqlParameter("@ParamName", SqlDbType.Structured)
-		{
-			Direction = ParameterDirection.Input,
-			TypeName = "dbo.type_Int_Values",
-			Value = idsFilterValues.Count > 0 ? idsFilterValues : null
-		};
+		]
 
 	]
 
 ]
 
-git[
+testing[
+
+	dummy - real object passed around
+	fake - has working implementation (in memory database)
+	stubs - provides narrow answers to calls
+	spies - stubs recording some info
+	mocks - objects pre-programmed for expectations
 	
-	old_commit_change[
-		Use git stash to store the changes you want to add.
-		Use git rebase -i HEAD~10 (or however many commits back you want to see).
-		Mark the commit in question (a0865...) for edit by changing the word pick at the start of the line into edit. Don't delete the other lines as that would delete the commits.[^vimnote]
-		Save the rebase file, and git will drop back to the shell and wait for you to fix that commit.
-		Pop the stash by using git stash pop
-		Add your file with git add <file>.
-		Amend the commit with git commit --amend --no-edit.
-		Do a git rebase --continue which will rewrite the rest of your commits against the new one.
-		Repeat from step 2 onwards if you have marked more than one commit for edit.
-	]
-	
+	classical and mockist TDD - real objects vs mocks 
+
 ]
 
