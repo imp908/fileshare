@@ -99,7 +99,8 @@ namespace Parts{
 					
 				}
 				
-				public EXISTING_LOCAL_PROJECT_TO_NEW_GIT_REPO_FIRST_PUSH[
+				public EXISTING_LOCAL_PROJECT_TO_NEW_GIT_REPO_FIRST_PUSH
+				[
 					create new in git web
 					cd -> moove to directory		
 					git remote add origin \\url_to_project
@@ -112,13 +113,15 @@ namespace Parts{
 					git push -u origin master
 				]
 				
-				public MERGE_PROJECTS_ON_FIRST_COMMIT_AFTER_REMOTE_BRANCH_CREATEION[
+				public MERGE_PROJECTS_ON_FIRST_COMMIT_AFTER_REMOTE_BRANCH_CREATEION
+				[
 					git pull origin branchname --allow-unrelated-histories			
 					//recommended
 					git clone
 				]
 					
-				public NEW_BRANCH[
+				public NEW_BRANCH
+				[
 
 					create new branch in web
 					git checkout -b \\url to branch		
@@ -126,7 +129,8 @@ namespace Parts{
 					
 				]
 				
-				CHANGE_COMMIT_MESSAGES_UNPUSHED[
+				CHANGE_COMMIT_MESSAGES_UNPUSHED
+				[
 				
 					https://help.github.com/articles/changing-a-commit-message/
 					git n for commit number-> git rebase -i HEAD~n
@@ -139,7 +143,8 @@ namespace Parts{
 				]
 				
 				public BranchMerge()
-				{// Master->br1. stage 1 master+ stage 2 master+ br1--
+				{
+				// Master->br1. stage 1 master+ stage 2 master+ br1--
 
 	Short:
 	https://help.github.com/articles/merging-an-upstream-repository-into-your-fork/
@@ -228,7 +233,8 @@ namespace Parts{
 				
 				
 				public DeleteMaster()
-				{ //not working
+				{ 
+				//not working
 					https://git-scm.com/book/en/v2/Git-Branching-Remote-Branches					
 					git symbolic-ref HEAD refs/heads/another-branch
 					http://matthew-brett.github.io/pydagogue/gh_delete_master.html
@@ -384,21 +390,21 @@ namespace Parts{
 
 	///////////////////////////////////////////////////////////////////
 
-	1) zip download parent progect
-	2) open in VS
-	3) unbind from TFS in VS
+	1 zip download parent progect
+	2 open in VS
+	3 unbind from TFS in VS
 	обозрватель решений-выделить заголовок проекта
 	файл-система управления версиями-сменить систему-удалить привязку
-	4) deploy project to new folder parent3
+	4 deploy project to new folder parent3
 		файл-добавить проект в систему управления версиями
-		create new folder for solution branch 9better one level folder down, whole sln becomes a branch)
+		create new folder for solution branch 9better one level folder down, whole sln becomes a branch
 		check in
-	5) convert parent3 to branch
-	6) select child branch and select 
+	5 convert parent3 to branch
+	6 select child branch and select 
 		создание ветви и объединение-объединить
 		select final branch 
 		parent3
-	7) merge
+	7 merge
 	Result:
 	Parent and child progects merged in child branch
 
@@ -524,7 +530,7 @@ namespace Parts{
 		{
 			
 			public void Theory()
-			{			
+			{
 				
 				weak reference[
 					- allows to GC.Collect 
@@ -721,7 +727,8 @@ as safe check ? assign : null with overriding/new functionality
 			{
 				
 				public void Singletones()
-				{http://csharpindepth.com/Articles/General/Singleton.aspx
+				{
+				http://csharpindepth.com/Articles/General/Singleton.aspx
 					
 	/// <summary>
     /// Singletones
@@ -1614,10 +1621,10 @@ as safe check ? assign : null with overriding/new functionality
 					public void Mnual()
 					{
 						https://msdn.microsoft.com/en-us/library/1y1404zt.aspx
-						1) Build Web API
-						2) Create folder in IIS visible area
-						3) CopyPast project
-						4) Add site in iis -> set folder -> configure bindings (no name possible)
+						1 Build Web API
+						2 Create folder in IIS visible area
+						3 CopyPast project
+						4 Add site in iis -> set folder -> configure bindings (no name possible)
 					}
 					
 					public void AngularISSOprions(){
@@ -1639,7 +1646,7 @@ as safe check ? assign : null with overriding/new functionality
 using System.Reflection.Emit;
 namespace NS
 {
-DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
+	DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 }
 			}
 		
@@ -1727,8 +1734,9 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
         {
           
           WHAT:
-  Протоколу HTTP не удалось зарегистрировать URL-адрес http://+:8000/Service1/. Текущий процесс не имеет прав доступа к этому 
-  пространству имен (подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353)
+  Протоколу HTTP не удалось зарегистрировать URL-адрес http://+:8000/Service1/. 
+  Текущий процесс не имеет прав доступа к этому 
+  пространству имен подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353
           
           WHEN:
   WCF service under console host
@@ -1743,7 +1751,8 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
         public WCFCannot_btain_etadata_rom()
         {
           WHAT:
-          Error: Cannot obtain Metadata from http://localhost:57495/WCF2.svc If this is a Windows (R) Communication Foundation service to which you have 
+          Error: Cannot obtain Metadata from http://localhost:57495/WCF2.svc 
+		  If this is a Windows (R) Communication Foundation service to which you have 
   access, please check that you have enabled metadata publishing at the specified address.
           WHEN:
             testing wcf.svc from VS
@@ -1779,7 +1788,8 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 		  
 		  WHAT:
 	Протоколу HTTP не удалось зарегистрировать URL-адрес http://+:8000/Service1/. Текущий процесс не имеет прав доступа к этому 
-	пространству имен (подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353)
+	пространству имен подробнее см. на веб-странице http://go.microsoft.com/fwlink/?LinkId=70353
+	
 		  
 		  WHEN:
 	WCF service under console host
@@ -1890,7 +1900,7 @@ DynamicMethod dm = new DynamicMethod("A", typeof(int),new Type[]{typeof(int)});
 			csproj -> UsingTask TaskName="TransformXml" -> \12\Web\ -> cahnge to -> v$(VisualStudioVersion)\Web\		
 		]
 			
-      }	
+      }
     
       
     }
@@ -4911,10 +4921,10 @@ pip install ipython
 						else
 						var_1 := var_1+1;
 						end if;
-						:new.ID :=var_1;
+						:new.ID := var_1;
 						select sysdate into :new.INS_DATE from dual;
 						end;
-						/
+										
 
 
 
@@ -4925,7 +4935,7 @@ pip install ipython
 						begin
 						select sysdate into :new.INS_DATE from dual;
 						end;
-						/
+						
 
 
 
@@ -4946,7 +4956,7 @@ pip install ipython
 						:new.ID :=var_1;
 						select sysdate into :new.INS_DATE from dual;
 						end;
-						/
+						
 
 						/*Product table date trigger on update*/
 						create or replace trigger test_prod_type_upd
@@ -4955,7 +4965,7 @@ pip install ipython
 						begin
 						select sysdate into :new.INS_DATE from dual;
 						end;
-						/
+						
 
 
 
@@ -5126,7 +5136,7 @@ pip install ipython
 		--Q/A
 		-------------------
 
-		--1) All employes with the same Profession,dept_no as employee with id 1006
+		--1 All employes with the same Profession,dept_no as employee with id 1006
 		with t as (
 		select Profession,dept_no from employees
 		where emp_no = '1006')
@@ -5136,7 +5146,7 @@ pip install ipython
 		select * from t2 
 		join t on t2.Profession = t.Profession and t2.dept_no=t.dept_no;
 
-		--2) progect number and progect manager name
+		--2 progect number and progect manager name
 		/*
 		assuming, that manager of project is employee and we need not his name but
 		to populate name of employee who is manager of an employee who is, in his turn,
@@ -5147,18 +5157,18 @@ pip install ipython
 		left join employees em2 on em2.emp_no=em.manager_no
 		;
 
-		--3) select amployees with salary > then their manager
+		--3 select amployees with salary > then their manager
 		select em.emp_no,em.Name from employees em
 		join employees em2 on em.manager_no=em2.emp_no
 		where (em.salary > em2.salary)
 		;
 
-		--4) all amployees working on > 3 projects
+		--4 all amployees working on > 3 projects
 		select * from employees em where em.emp_no in (
 		select emp_no from emp_pro group by emp_no having (count (emp_no) >3)
 		);
 
-		--5) professions and salary of employees from same address as employee with max salary
+		--5 professions and salary of employees from same address as employee with max salary
 		with t as(
 		select em.profession,em.salary,em.address from employees em
 		where em.salary =( select max(salary) from employees)
@@ -5570,27 +5580,26 @@ pip install ipython
 						}
 						
 						public DB_LINK()
-						{
-							
-							
-						drop  DATABASE LINK "DB_LINK.US.ORACLE.COM";
+						{						
+							drop  DATABASE LINK "DB_LINK.US.ORACLE.COM";
 
-						CREATE DATABASE LINK "DB_LINK.US.ORACLE.COM"
-						CONNECT TO DACQ_NEPRINTSEV
-						IDENTIFIED BY  x2y4uecbbo
-						USING '  (DESCRIPTION=
-							(ADDRESS=
-							  (PROTOCOL=TCP)
-							  (HOST=exdt01-scan.rs.ru)
-							  (PORT=1521)
-							)
-							(CONNECT_DATA=
-							  (SERVER=dedicated)
-							  (SERVICE_NAME=BUS)
-							)
-						  )
-						'
-						;
+							CREATE DATABASE LINK "DB_LINK.US.ORACLE.COM"
+							CONNECT TO DACQ_NEPRINTSEV
+							IDENTIFIED BY  x2y4uecbbo
+							USING ' 
+							(DESCRIPTION=
+								(ADDRESS=
+								  (PROTOCOL=TCP)
+								  (HOST=exdt01-scan.rs.ru)
+								  (PORT=1521)
+								)
+								(CONNECT_DATA=
+								  (SERVER=dedicated)
+								  (SERVICE_NAME=BUS)
+								)
+							  )
+							'
+							;
 						}
 								
 						public JOBS()
@@ -7361,7 +7370,8 @@ drop class vscn;
 
 }
 	
-	public void ExportImport(){//Moove db with export
+	public void ExportImport(){
+		//Moove db with export
 	
 		public void InitSequence(){
 			

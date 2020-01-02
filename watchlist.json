@@ -195,8 +195,10 @@ watchlist[
 				//SOA, MSA, microservises
 				SaS[
 				
-					SaS (system as a service) -consists of -> EIA (integration mechanism) -> BUS via  MOM (message oriented niddleware) -realized with-> MQS (messaging queing service) 
-					-with building blocks of-> Message broker (kafka,RabbitMQ,redis,ActiveMQ,Enduro/x))
+					SaS (system as a service) -consists of -> EIA (integration mechanism) 
+					-> BUS via  MOM (message oriented niddleware) -realized with-> MQS (messaging queing service) 
+					-with building blocks of-> Message broker (kafka,RabbitMQ,redis,ActiveMQ,Enduro/x)
+					
 					Blocking Middleware RPC (Remote procedure call), ORB (Object request Broker)
 					or SpokeHub
 					
@@ -305,7 +307,7 @@ watchlist[
 						]
 					]
 					
-				]							
+				]
 				
 				simulation[
 					//High level architecture 
@@ -1400,7 +1402,7 @@ https://docs.microsoft.com/en-us/dotnet/api/system.threading.tasks.task?view=net
 						-> no global static objects , cause lead to eadlocks
 						-> multiple invocated method must have userSate object with locked collection						
 						-> there may be no thread
-						only OS<->kernel comunication BaseClassLib BCL, I/O Completion Port) IOCP,
+						only OS<->kernel comunication BaseClassLib BCL, I/O Completion Port//) IOCP,
 						(Input output request Packet) IRP , Defered Procedure Call (DPC), Asynchronous PC APC
 						BCL, overlap IOPC,APC, IRP ,DPC,Interrupt Service Routine (ISR)
 						IPC interprocess comunication
@@ -1731,9 +1733,9 @@ LINQ
 										-> generates nop IL instr, for breakpoints placement
 											//optimize[+/-] /debug[+/-] 
 									compiler switch:
-										default -> /optimize- /debug- -> ILcode(unopt) JIT native( opt)
-										-> /optimize- /debug(+/full/pdbonly) -> ILcode(unopt) JIT native( unopt)
-										-> /optimize+ /debug(-/+/full/pdbonly) -> ILcode(opt) JIT native( opt)
+										//default -> /optimize- /debug- -> ILcode(unopt) JIT native( opt)
+										//-> /optimize- /debug(+/full/pdbonly) -> ILcode(unopt) JIT native( unopt)
+										//-> /optimize+ /debug(-/+/full/pdbonly) -> ILcode(opt) JIT native( opt)
 									
 									p. 19-20
 									.PDB (Programm database) - helps debug find local vars and map IL instr to source.
@@ -2163,7 +2165,7 @@ dotnet --info
 								import * as React from 'react'
 
 								export default class GameTutorial {
-									 ReactDOM.render(
+									 ReactDOM.render()
 								}
 							}
 							
@@ -4745,7 +4747,8 @@ docker images
 				Выложить исходные тексты в репозиторий на github.
 				Залогиниться на https://travis-ci.org/ и включить для своего репозитория
 				автоматическую сборку.
-				Залогиниться на https://bintray.com/ (For an Open Source Account и аккаунт
+				Залогиниться на https://bintray.com/ 
+				(For an Open Source Account и аккаунт
 				github). Создать новый репозиторий - имя произвольное, тип Debian, Default
 				Licenses любая. После создания отредактировать включив GPG sign.
 				Создать в созданном репозитории новый пакет - имя произвольное,
@@ -4761,7 +4764,7 @@ docker images
 				https://github.com/vvz-otus/hw02.cpp01_2
 				Только ваш проект называться будет helloworld (а не cpp01_2:)
 				Широкоиспользуемые фичи C++11 стандарта. auto. Замыкание - Лямбда-функции. Кортежи.
-				Некоторые небольшие, на первый взгляд, нововведения настолько меняют язык, что диву даешься :)
+				Некоторые небольшие, на первый взгляд, нововведения настолько меняют язык, что диву даешься :
 				Широкоиспользуемые фичи C++11 стандарта. rvalue и lvalue ссылки. Move semantic. Variadic Templates. POD.
 				5 июля, 20:00 — 21:30
 				Домашние задания: 1
@@ -4808,7 +4811,7 @@ docker images
 				Обзор C++17 - а чего же там эдакого? Часть 2.
 				На дворе 21-й век... Но это Вы уже знаете и так.
 
-				На этом занятии продолжим рассмотрение нововведений стандарта C++17. Впереди ещё много много интересного - не переключайтесь :).
+				На этом занятии продолжим рассмотрение нововведений стандарта C++17. Впереди ещё много много интересного - не переключайтесь :.
 
 				Над стандартной библиотекой трудятся лучшие умы сообщества. Поэтому и изменений довольно много.
 				1. Посмотрим на std::filesystem. Что-то напоминает? Или нет? Для тех, кто раньше использовал boost - самое то.
