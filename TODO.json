@@ -1,7 +1,8 @@
 
 	TODO[
 					
-			arrange[				
+			arrange[
+
 				-> sort unsorted of watchlist
 				-> core projs arrange
 					-> checkers - make base for sandbox code tamplates
@@ -1453,12 +1454,11 @@ https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/types/how-to-co
 			-> PersonManager <- done
 			-> WebApiConfig <- done
 			
-			HTTP,JSON,Orient Managers <- done
+			HTTP, JSON, Orient Managers <- done
 			
 			NewsAPI
 			->add controller with methods from manager <-done
 
-			
 			PresentationSite	
 		-> POCO to DataContract converter <- done
 		-> Add WCF between Repo and Site <- done

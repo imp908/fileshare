@@ -2964,6 +2964,20 @@ https://github.com/microsoft/perfview/blob/master/documentation/Downloading.md
 						
 						NODEjs[
 							https://nodejs.org/en/docs/guides/
+							
+							debugging
+							[
+
+								https://medium.com/@paul_irish/debugging-node-js-nightlies-with-chrome-devtools-7c4a1b95ae27
+								chrome_dev_tools
+								[
+									node --inspect app.js
+									chrome://inspect
+									> open dedicated devtools for node
+								]
+
+							]
+								
 						]
 						
 					
@@ -4709,6 +4723,10 @@ docker images
 			interop[
 				//interop and call c++ from c#
 				https://docs.microsoft.com/en-us/dotnet/framework/interop/
+			]
+			
+			hk[
+				https://null-byte.wonderhowto.com/how-to/essential-skills-becoming-master-hacker-0154509/
 			]
 			
 		]
